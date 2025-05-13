@@ -11,5 +11,6 @@ dependencies {
     // which get remapped to the correct annotations on each platform.
     // Do NOT use other classes from Fabric Loader.
     modImplementation "net.fabricmc:fabric-loader:$rootProject.fabric_loader_version"
-    modApi "flatDir:Platform-common-1.20.1-1.2.8"
+//    modApi "flatDir:Platform-common-1.20.1-$rootProject.platform_indev_version"
+    modApi "curse.maven:platform-997634:$rootProject.platform_fabric_version"
 }
