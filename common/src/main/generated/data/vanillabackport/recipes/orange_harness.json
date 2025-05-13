@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "harness",
+  "key": {
+    "#": {
+      "item": "minecraft:orange_wool"
+    },
+    "G": {
+      "item": "minecraft:glass"
+    },
+    "L": {
+      "item": "minecraft:leather"
+    }
+  },
+  "pattern": [
+    "LLL",
+    "G#G"
+  ],
+  "result": {
+    "item": "vanillabackport:orange_harness"
+  },
+  "show_notification": true
+}

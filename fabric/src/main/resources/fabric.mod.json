@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "id": "vanillabackport",
+  "version": "${version}",
+  "name": "VanillaBackport",
+  "description": "Backporting Minecraft Features to previous versions!",
+  "authors": [
+    "BlackGear"
+  ],
+  "contact": {
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/vanillabackport",
+    "sources": "https://github.com/ItsBlackGear/VanillaBackport",
+    "issues": "https://github.com/ItsBlackGear/VanillaBackport/issues"
+  },
+  "license": "MIT",
+  "icon": "icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.blackgear.vanillabackport.core.fabric.VanillaBackportFabric"
+    ],
+    "fabric-datagen": [
+      "com.blackgear.vanillabackport.data.DataGenerator"
+    ]
+  },
+  "mixins": [
+    "vanillabackport.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.16.11",
+    "platform": ">=1.2.7",
+    "minecraft": "~1.20.1",
+    "java": ">=17",
+    "fabric-api": "*"
+  }
+}

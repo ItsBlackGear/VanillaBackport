@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "vanillabackport:resin_bricks",
+    "vanillabackport:resin_brick_slab",
+    "vanillabackport:resin_brick_wall",
+    "vanillabackport:resin_brick_stairs",
+    "vanillabackport:chiseled_resin_bricks"
+  ]
+}

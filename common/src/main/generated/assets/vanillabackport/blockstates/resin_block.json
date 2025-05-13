@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "vanillabackport:block/resin_block"
+    }
+  }
+}

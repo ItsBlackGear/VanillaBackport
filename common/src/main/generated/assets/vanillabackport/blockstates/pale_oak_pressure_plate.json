@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=false": {
+      "model": "vanillabackport:block/pale_oak_pressure_plate"
+    },
+    "powered=true": {
+      "model": "vanillabackport:block/pale_oak_pressure_plate_down"
+    }
+  }
+}

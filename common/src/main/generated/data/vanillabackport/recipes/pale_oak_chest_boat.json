@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "group": "chest_boat",
+  "ingredients": [
+    {
+      "item": "minecraft:chest"
+    },
+    {
+      "item": "vanillabackport:pale_oak_planks"
+    }
+  ],
+  "result": {
+    "item": "vanillabackport:pale_oak_chest_boat"
+  }
+}

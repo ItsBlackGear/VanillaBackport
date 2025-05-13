@@ -1,0 +1,72 @@
+plugins {
+    id 'com.github.johnrengelman.shadow'
+}
+
+loom {
+    accessWidenerPath = project(":common").loom.accessWidenerPath
+
+    runs {
+        datagen {
+            inherit client
+
+            name "Data Generation"
+
+            vmArg "-Dfabric-api.datagen"
+            vmArg "-Dfabric-api.datagen.output-dir=${project(":common").file("src/main/generated")}"
+            vmArg "-Dfabric-api.datagen.modid=vanillabackport"
+
+            runDir "build/datagen"
+        }
+    }
+}
+
+sourceSets.main.resources.srcDirs += project(":common").file("src/main/generated")
+
+architectury {
+    platformSetupLoomIde()
+    fabric()
+}
+
+configurations {
+    common {
+        canBeResolved = true
+        canBeConsumed = false
+    }
+    compileClasspath.extendsFrom common
+    runtimeClasspath.extendsFrom common
+    developmentFabric.extendsFrom common
+
+    // Files in this configuration will be bundled into your mod using the Shadow plugin.
+    // Don't use the `shadow` configuration from the plugin itself as it's meant for excluding files.
+    shadowBundle {
+        canBeResolved = true
+        canBeConsumed = false
+    }
+}
+
+dependencies {
+    modImplementation "net.fabricmc:fabric-loader:$rootProject.fabric_loader_version"
+
+    modImplementation "net.fabricmc.fabric-api:fabric-api:$rootProject.fabric_api_version"
+    modApi "flatDir:Platform-fabric-1.20.1-1.2.8"
+0
+    common(project(path: ':common', configuration: 'namedElements')) { transitive false }
+    shadowBundle project(path: ':common', configuration: 'transformProductionFabric')
+}
+
+processResources {
+    inputs.property 'version', project.version
+
+    filesMatching('fabric.mod.json') {
+        expand version: project.version
+    }
+}
+
+shadowJar {
+    configurations = [project.configurations.shadowBundle]
+    archiveClassifier = 'dev-shadow'
+}
+
+remapJar {
+    inputFile.set shadowJar.archiveFile
+}

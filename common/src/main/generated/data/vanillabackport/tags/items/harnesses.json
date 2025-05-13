@@ -1,0 +1,21 @@
+{
+  "replace": false,
+  "values": [
+    "vanillabackport:white_harness",
+    "vanillabackport:orange_harness",
+    "vanillabackport:magenta_harness",
+    "vanillabackport:light_blue_harness",
+    "vanillabackport:yellow_harness",
+    "vanillabackport:lime_harness",
+    "vanillabackport:pink_harness",
+    "vanillabackport:gray_harness",
+    "vanillabackport:light_gray_harness",
+    "vanillabackport:cyan_harness",
+    "vanillabackport:purple_harness",
+    "vanillabackport:blue_harness",
+    "vanillabackport:brown_harness",
+    "vanillabackport:green_harness",
+    "vanillabackport:red_harness",
+    "vanillabackport:black_harness"
+  ]
+}

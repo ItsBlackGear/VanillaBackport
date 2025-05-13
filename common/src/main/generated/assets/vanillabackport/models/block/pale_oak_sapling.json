@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "vanillabackport:block/pale_oak_sapling"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "vanillabackport:block/resin_brick_slab"
+    },
+    "type=double": {
+      "model": "vanillabackport:block/resin_bricks"
+    },
+    "type=top": {
+      "model": "vanillabackport:block/resin_brick_slab_top"
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "required": true,
+  "package": "com.blackgear.vanillabackport.core.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "minVersion": "0.8",
+  "client": [
+    "access.SoundEngineAccessor",
+    "access.SoundManagerAccessor",
+    "client.CameraMixin",
+    "client.LocalPlayerMixin",
+    "client.MusicManagerMixin"
+  ],
+  "mixins": [
+    "access.LivingEntityAccessor",
+    "access.NoiseGeneratorSettingsAccessor",
+    "access.OverworldBiomesAccessor",
+    "access.TextureSlotAccessor",
+    "access.TreeDecoratorTypeAccessor",
+    "common.entities.ParrotMixin",
+    "common.entities.ServerEntityMixin",
+    "common.worldgen.feature.SimpleBlockFeatureMixin",
+    "common.worldgen.structure.NetherFossilPieceMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

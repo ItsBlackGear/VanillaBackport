@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 1,
+  "ingredient": {
+    "item": "vanillabackport:resin_bricks"
+  },
+  "result": "vanillabackport:chiseled_resin_bricks"
+}
