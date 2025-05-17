@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "vanillabackport:firefly_bush",
     "vanillabackport:pale_moss_carpet"
   ]
 }

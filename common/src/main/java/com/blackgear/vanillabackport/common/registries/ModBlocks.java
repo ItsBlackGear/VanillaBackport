@@ -334,6 +334,19 @@ public class ModBlocks {
         new Item.Properties().rarity(Rarity.UNCOMMON)
     );
 
+    public static final Supplier<Block> FIREFLY_BUSH = BLOCKS.register(
+        "firefly_bush",
+        FireflyBushBlock::new,
+        BlockBehaviour.Properties.of()
+            .mapColor(MapColor.PLANT)
+            .ignitedByLava()
+            .lightLevel(state -> 2)
+            .noCollission()
+            .instabreak()
+            .sound(SoundType.SWEET_BERRY_BUSH)
+            .pushReaction(PushReaction.DESTROY)
+    );
+
     private static BlockBehaviour.Properties logProperties(MapColor topColor, MapColor sideColor, SoundType sound) {
         return BlockBehaviour.Properties.of()
             .mapColor(state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? topColor : sideColor)

@@ -149,7 +149,7 @@ public record BlockModels(BlockModelGenerators gen) {
         Variant variant = Variant.variant().with(VariantProperties.MODEL, model);
 
         if (xRot != Rotation.R0) variant = variant.with(VariantProperties.X_ROT, xRot);
-        if (xRot != Rotation.R0) variant = variant.with(VariantProperties.Y_ROT, yRot);
+        if (yRot != Rotation.R0) variant = variant.with(VariantProperties.Y_ROT, yRot);
 
         return variant;
     }
