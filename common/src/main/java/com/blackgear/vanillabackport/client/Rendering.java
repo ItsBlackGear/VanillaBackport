@@ -1,17 +1,17 @@
 package com.blackgear.vanillabackport.client;
 
 import com.blackgear.platform.client.GameRendering;
-import com.blackgear.vanillabackport.client.level.entities.model.CreakingModel;
-import com.blackgear.vanillabackport.client.level.entities.model.HappyGhastHarnessModel;
-import com.blackgear.vanillabackport.client.level.entities.model.HappyGhastModel;
-import com.blackgear.vanillabackport.client.level.entities.renderer.CreakingRenderer;
-import com.blackgear.vanillabackport.client.level.entities.renderer.HappyGhastRenderer;
+import com.blackgear.vanillabackport.client.level.entities.model.*;
+import com.blackgear.vanillabackport.client.level.entities.model.chicken.ColdChickenModel;
+import com.blackgear.vanillabackport.client.level.entities.model.cow.ColdCowModel;
+import com.blackgear.vanillabackport.client.level.entities.model.cow.WarmCowModel;
+import com.blackgear.vanillabackport.client.level.entities.model.pig.ColdPigModel;
+import com.blackgear.vanillabackport.client.level.entities.renderer.*;
 import com.blackgear.vanillabackport.client.level.particles.FallingLeavesParticle;
 import com.blackgear.vanillabackport.client.level.particles.FireflyParticle;
 import com.blackgear.vanillabackport.client.level.particles.TrailParticle;
 import com.blackgear.vanillabackport.client.registries.ModModelLayers;
 import com.blackgear.vanillabackport.client.registries.ModParticles;
-import com.blackgear.vanillabackport.client.level.entities.renderer.PaleOakBoatRenderer;
 import com.blackgear.vanillabackport.common.registries.ModBlocks;
 import com.blackgear.vanillabackport.common.registries.ModEntities;
 import net.fabricmc.api.EnvType;
@@ -43,6 +43,11 @@ public class Rendering {
         event.register(ModModelLayers.HAPPY_GHAST_HARNESS, HappyGhastHarnessModel::createHarnessLayer);
         event.register(ModModelLayers.PALE_OAK_BOAT, BoatModel::createBodyModel);
         event.register(ModModelLayers.PALE_OAK_CHEST_BOAT, ChestBoatModel::createBodyModel);
+
+        event.register(ModModelLayers.COLD_PIG, ColdPigModel::createBodyLayer);
+        event.register(ModModelLayers.COLD_CHICKEN, ColdChickenModel::createBodyLayer);
+        event.register(ModModelLayers.COLD_COW, ColdCowModel::createBodyLayer);
+        event.register(ModModelLayers.WARM_COW, WarmCowModel::createBodyLayer);
     }
 
     public static void blockRendering(GameRendering.BlockRendererEvent event) {

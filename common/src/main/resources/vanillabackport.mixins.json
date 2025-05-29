@@ -8,7 +8,11 @@
     "access.SoundManagerAccessor",
     "client.CameraMixin",
     "client.LocalPlayerMixin",
-    "client.MusicManagerMixin"
+    "client.MusicManagerMixin",
+    "client.entities.ChickenRendererMixin",
+    "client.entities.CowRendererMixin",
+    "client.entities.MobRendererMixin",
+    "client.entities.PigRendererMixin"
   ],
   "mixins": [
     "access.LivingEntityAccessor",
@@ -16,7 +20,11 @@
     "access.OverworldBiomesAccessor",
     "access.TextureSlotAccessor",
     "access.TreeDecoratorTypeAccessor",
+    "common.entities.ChickenMixin",
+    "common.entities.CowMixin",
+    "common.entities.MobMixin",
     "common.entities.ParrotMixin",
+    "common.entities.PigMixin",
     "common.entities.ServerEntityMixin",
     "common.worldgen.feature.SimpleBlockFeatureMixin",
     "common.worldgen.structure.NetherFossilPieceMixin"
