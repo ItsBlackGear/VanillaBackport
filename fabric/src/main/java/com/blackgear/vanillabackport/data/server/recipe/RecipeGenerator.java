@@ -33,7 +33,7 @@ public class RecipeGenerator extends FabricRecipeProvider {
         woodFromLogs(exporter, ModBlocks.PALE_OAK_WOOD.get(), ModBlocks.PALE_OAK_LOG.get());
         woodFromLogs(exporter, ModBlocks.STRIPPED_PALE_OAK_WOOD.get(), ModBlocks.STRIPPED_PALE_OAK_LOG.get());
         woodenBoat(exporter, ModItems.PALE_OAK_BOAT.get(), ModBlocks.PALE_OAK_PLANKS.get());
-        chestBoat(exporter, ModItems.PALE_OAK_CHEST_BOAT.get(), ModBlocks.PALE_OAK_PLANKS.get());
+        chestBoat(exporter, ModItems.PALE_OAK_CHEST_BOAT.get(), ModItems.PALE_OAK_BOAT.get());
         hangingSign(exporter, ModBlocks.PALE_OAK_HANGING_SIGN.getFirst().get(), ModBlocks.STRIPPED_PALE_OAK_LOG.get());
         carpet(exporter, ModBlocks.PALE_MOSS_CARPET.get(), ModBlocks.PALE_MOSS_BLOCK.get());
 
