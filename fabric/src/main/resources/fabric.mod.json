@@ -21,6 +21,9 @@
     ],
     "fabric-datagen": [
       "com.blackgear.vanillabackport.data.DataGenerator"
+    ],
+    "terrablender": [
+      "com.blackgear.vanillabackport.core.fabric.VanillaBackportTerrablender"
     ]
   },
   "mixins": [
