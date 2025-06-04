@@ -18,6 +18,7 @@
     "access.OverworldBiomesAccessor",
     "access.TextureSlotAccessor",
     "access.TreeDecoratorTypeAccessor",
+    "common.entities.EntityMixin",
     "common.entities.ParrotMixin",
     "common.entities.ServerEntityMixin",
     "common.worldgen.feature.SimpleBlockFeatureMixin",

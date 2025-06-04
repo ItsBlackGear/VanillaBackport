@@ -2,16 +2,22 @@ package com.blackgear.vanillabackport.common.level.entities.happyghast;
 
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
 import com.blackgear.vanillabackport.common.registries.ModEntities;
-import com.blackgear.vanillabackport.core.VanillaBackport;
+import com.blackgear.vanillabackport.core.data.tags.ModBlockTags;
 import com.blackgear.vanillabackport.core.data.tags.ModItemTags;
 import com.blackgear.vanillabackport.core.mixin.access.LivingEntityAccessor;
+import com.blackgear.vanillabackport.core.util.BlockPosUtils;
 import com.blackgear.vanillabackport.core.util.CollisionUtils;
 import com.mojang.serialization.Dynamic;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionHand;
@@ -34,26 +40,36 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.EnumSet;
+import java.util.function.BooleanSupplier;
 
 public class HappyGhast extends Animal implements Saddleable, PlayerRideable {
     public static final Ingredient IS_FOOD = Ingredient.of(ModItemTags.HAPPY_GHAST_FOOD);
+    private static final EntityDataAccessor<Boolean> STAYS_STILL = SynchedEntityData.defineId(HappyGhast.class, EntityDataSerializers.BOOLEAN);
+    private int serverStillTimeout;
     private boolean requiresPrecisePosition;
 
     public HappyGhast(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
-        this.moveControl = new GhastMoveControl(this);
+        this.moveControl = new GhastMoveControl(this, true, this::isPlayerAboveGhast);
         this.lookControl = new HappyGhastLookControl();
+    }
+
+    private void setServerStillTimeout(int timeout) {
+        this.serverStillTimeout = timeout;
+        this.syncStayStillFlag();
     }
 
     @Override
@@ -63,6 +79,32 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable {
 
     private PathNavigation createBabyNavigation(Level level) {
         return new BabyFlyingPathNavigation(this, level);
+    }
+
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(STAYS_STILL, false);
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+        compound.putInt("still_timeout", this.serverStillTimeout);
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
+        this.setServerStillTimeout(compound.getInt("still_timeout"));
+    }
+
+    private void syncStayStillFlag() {
+        this.entityData.set(STAYS_STILL, this.serverStillTimeout > 0);
+    }
+
+    public boolean staysStill() {
+        return this.entityData.get(STAYS_STILL);
     }
 
     @Override
@@ -83,9 +125,10 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable {
     }
 
     private void adultGhastSetup() {
-        this.moveControl = new GhastMoveControl(this);
+        this.moveControl = new GhastMoveControl(this, true, this::isPlayerAboveGhast);
         this.lookControl = new HappyGhastLookControl();
         this.navigation = this.createNavigation(this.level());
+
         if (this.level() instanceof ServerLevel server) {
             this.removeAllGoals(goal -> true);
             this.registerGoals();
@@ -98,6 +141,7 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable {
         this.moveControl = new FlyingMoveControl(this, 180, true);
         this.lookControl = new LookControl(this);
         this.navigation = this.createBabyNavigation(this.level());
+        this.setServerStillTimeout(0);
         this.removeAllGoals(goal -> true);
     }
 
@@ -108,7 +152,6 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable {
         } else {
             this.adultGhastSetup();
         }
-
         super.ageBoundaryReached();
     }
 
@@ -317,7 +360,7 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable {
                 offsetX = 1.8;
             }
 
-            float yaw = this.getYRot() * ((float)Math.PI / 180F);
+            float yaw = this.getYRot() * ((float) Math.PI / 180F);
             double rotatedX = offsetX * Mth.cos(yaw) - offsetZ * Mth.sin(yaw);
             double rotatedZ = offsetX * Mth.sin(yaw) + offsetZ * Mth.cos(yaw);
 
@@ -330,13 +373,26 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable {
         if (!this.isVehicle()) {
             this.level().playSound(null, this.getX(), this.getY(), this.getZ(), ModSoundEvents.HARNESS_GOGGLES_DOWN.get(), this.getSoundSource(), 1.0F, 1.0F);
         }
+
         super.addPassenger(passenger);
+        if (!this.level().isClientSide) {
+            if (!this.scanPlayerAboveGhast()) {
+                this.setServerStillTimeout(0);
+            } else if (this.serverStillTimeout > 10) {
+                this.setServerStillTimeout(10);
+            }
+        }
     }
 
     @Override
     protected void removePassenger(Entity passenger) {
         super.removePassenger(passenger);
+        if (!this.level().isClientSide) {
+            this.setServerStillTimeout(this.getPassengers().isEmpty() ? 40 : 10);
+        }
+
         if (!this.isVehicle()) {
+            this.clearRestriction();
             this.level().playSound(null, this.getX(), this.getY(), this.getZ(), ModSoundEvents.HARNESS_GOGGLES_UP.get(), this.getSoundSource(), 1.0F, 1.0F);
         }
     }
@@ -348,7 +404,7 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable {
 
     @Override @Nullable
     public LivingEntity getControllingPassenger() {
-        return !this.isNoAi() && !this.isPlayerAboveGhast() && this.getFirstPassenger() instanceof Player player
+        return this.isSaddled() && !this.isPlayerAboveGhast() && this.getFirstPassenger() instanceof Player player
             ? player
             : super.getControllingPassenger();
     }
@@ -374,7 +430,7 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable {
             upward += 0.5F;
         }
 
-        return new Vec3(forward, upward, strafe).scale(0.18F * VanillaBackport.CONFIG.happyGhastSpeedModifier.get());
+        return new Vec3(forward, upward, strafe).scale((double) 3.9F * this.getAttributeValue(Attributes.FLYING_SPEED));
     }
 
     protected Vec2 getRiddenRotation(LivingEntity livingEntity) {
@@ -417,8 +473,23 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable {
             this.level().getProfiler().pop();
         }
 
+        this.setRequiresPrecisePosition(this.isPlayerAboveGhast());
         this.checkRestriction();
         super.customServerAiStep();
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        if (this.level().isClientSide) return;
+
+        if (this.serverStillTimeout > 0) {
+            this.setServerStillTimeout(this.serverStillTimeout - 1);
+        }
+
+        if (this.scanPlayerAboveGhast()) {
+            this.setServerStillTimeout(this.getPassengers().isEmpty() ? 40 : 10);
+        }
     }
 
     @Override
@@ -432,12 +503,14 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable {
     }
 
     private void checkRestriction() {
-        if (!this.isLeashed() && !this.isVehicle()) {
-            int restrictionRadius = this.getHappyGhastRestrictionRadius();
-            if (!this.hasRestriction() || !this.getRestrictCenter().closerThan(this.blockPosition(), restrictionRadius + 16)) {
-                this.restrictTo(this.blockPosition(), restrictionRadius);
-            }
+        if (this.isLeashed() || this.isVehicle()) return;
+
+        int restrictionRadius = this.getHappyGhastRestrictionRadius();
+        if (this.hasRestriction() && this.getRestrictCenter().closerThan(this.blockPosition(), restrictionRadius + 16) && restrictionRadius == this.getRestrictRadius()) {
+            return;
         }
+
+        this.restrictTo(this.blockPosition(), restrictionRadius);
     }
 
     private void continuousHeal() {
@@ -477,15 +550,17 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable {
     }
 
     public boolean isPlayerAboveGhast() {
+        return this.staysStill() || this.serverStillTimeout > 0;
+    }
+
+    private boolean scanPlayerAboveGhast() {
         AABB box = this.getBoundingBox();
         AABB topSurface = new AABB(box.minX - 1.0, box.maxY, box.minZ - 1.0, box.maxX + 1.0, box.maxY + box.getYsize() / 2.0, box.maxZ + 1.0);
 
         for (Player player : this.level().players()) {
-            if (player.isSpectator()) continue;
-
-            if (topSurface.contains(player.getX(), player.getY(), player.getZ())) {
-                return true;
-            }
+            Entity vehicle = player.getRootVehicle();
+            if (player.isSpectator() || vehicle instanceof HappyGhast || !topSurface.contains(vehicle.position())) continue;
+            return true;
         }
 
         return false;
@@ -496,9 +571,20 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable {
         return new GhastBodyRotationControl(this);
     }
 
-    @Override
-    public boolean canBeCollidedWith() {
-        return !this.isBaby() && this.isPlayerAboveGhast();
+    public boolean canBeCollidedWith(Entity entity) {
+        if (this.isBaby() || !this.isAlive()) {
+            return false;
+        }
+
+        if (this.level().isClientSide() && entity instanceof Player && entity.position().y >= this.getBoundingBox().maxY) {
+            return true;
+        }
+
+        if (this.isVehicle() && entity instanceof HappyGhast) {
+            return true;
+        }
+
+        return this.isPlayerAboveGhast();
     }
 
     static class BabyFlyingPathNavigation extends FlyingPathNavigation {
@@ -525,8 +611,7 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable {
         @Override
         public void clientTick() {
             if (this.ghast.isVehicle()) {
-                this.ghast.yHeadRot = this.ghast.getYRot();
-                this.ghast.yBodyRot = this.ghast.yHeadRot;
+                this.ghast.yBodyRot = this.ghast.yHeadRot = this.ghast.getYRot();
             }
 
             super.clientTick();
@@ -588,57 +673,87 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable {
     static class GhastMoveControl extends MoveControl {
         private final HappyGhast ghast;
         private int floatDuration;
+        private final boolean careful;
+        private final BooleanSupplier shouldBeStopped;
 
-        public GhastMoveControl(HappyGhast ghast) {
+        public GhastMoveControl(HappyGhast ghast, boolean careful, BooleanSupplier shouldBeStopped) {
             super(ghast);
             this.ghast = ghast;
+            this.careful = careful;
+            this.shouldBeStopped = shouldBeStopped;
         }
 
         @Override
         public void tick() {
-            if (this.ghast.canBeCollidedWith()) {
+            if (this.shouldBeStopped.getAsBoolean()) {
                 this.operation = Operation.WAIT;
                 this.ghast.stopInPlace();
-                this.ghast.setRequiresPrecisePosition(true);
             }
 
-            if (this.operation == Operation.MOVE_TO) {
-                if (this.floatDuration-- <= 0) {
-                    this.floatDuration += this.ghast.getRandom().nextInt(5) + 2;
+            if (this.operation != Operation.MOVE_TO) return;
 
-                    Vec3 target = new Vec3(this.wantedX - this.ghast.getX(), this.wantedY - this.ghast.getY(), this.wantedZ - this.ghast.getZ());
-                    double distance = target.length();
-                    target = target.normalize();
+            if (this.floatDuration-- <= 0) {
+                this.floatDuration += this.ghast.getRandom().nextInt(5) + 2;
 
-                    if (this.canReach(target, Mth.ceil(distance))) {
-                        this.ghast.setDeltaMovement(this.ghast.getDeltaMovement().add(target.scale(0.1)));
-                    } else {
-                        this.operation = Operation.WAIT;
-                    }
+                Vec3 target = new Vec3(this.wantedX - this.ghast.getX(), this.wantedY - this.ghast.getY(), this.wantedZ - this.ghast.getZ());
+
+                if (this.canReach(target)) {
+                    this.ghast.setDeltaMovement(this.ghast.getDeltaMovement().add(target.normalize().scale(this.ghast.getAttributeValue(Attributes.FLYING_SPEED) * 5.0 / 3.0)));
+                } else {
+                    this.operation = Operation.WAIT;
                 }
             }
         }
 
-        private boolean canReach(Vec3 direction, int steps) {
-            boolean hasBlockCollision = !CollisionUtils.noBlockCollision(this.ghast.level(), this.ghast, this.ghast.getBoundingBox());
-            AABB box = this.ghast.getBoundingBox();
+        private boolean canReach(Vec3 target) {
+            AABB entityBox = this.ghast.getBoundingBox();
+            AABB targetBox = entityBox.move(target);
 
-            for (int step = 1; step < steps; ++step) {
-                box = box.move(direction);
+            if (this.careful) {
+                for (BlockPos position : BlockPosUtils.betweenClosed(targetBox.inflate(1.0))) {
+                    if (this.blockTraversalPossible(this.ghast.level(), null, null, position, false, false)) {
+                        continue;
+                    }
 
-                if (step == steps - 1) {
-                    box = box.inflate(1.0);
-                } else if (hasBlockCollision && step < steps - 1) {
-                    continue;
-                }
-
-                boolean inLiquid = this.ghast.isInWater() || this.ghast.isInLava();
-                if (!CollisionUtils.noCollision(this.ghast.level(), this.ghast, box, !inLiquid)) {
                     return false;
                 }
             }
 
-            return true;
+            boolean inWater = this.ghast.isInWater();
+            boolean inLava = this.ghast.isInLava();
+            Vec3 currentPos = this.ghast.position();
+            Vec3 targetPos = currentPos.add(target);
+
+            return BlockPosUtils.forEachIntersectedBetween(currentPos, targetPos, targetBox, (pos, steps) -> {
+                if (entityBox.intersects(pos.getX(), pos.getY(), pos.getZ(), pos.getX() + 1, pos.getY() + 1, pos.getZ() + 1)) {
+                    return true;
+                }
+
+                return this.blockTraversalPossible(this.ghast.level(), currentPos, targetPos, pos, inWater, inLava);
+            });
+        }
+
+        private boolean blockTraversalPossible(BlockGetter level, @Nullable Vec3 origin, @Nullable Vec3 target, BlockPos pos, boolean inWater, boolean inLava) {
+            BlockState state = level.getBlockState(pos);
+            if (state.isAir()) return true;
+
+            boolean hasValidPath = origin != null && target != null;
+            boolean hasNoBlockCollision = state.getCollisionShape(level, pos).isEmpty();
+            boolean noCollisionDetected = hasValidPath
+                ? !CollisionUtils.collidedWithShapeMovingFrom(this.ghast, origin, target, state.getCollisionShape(level, pos).move(pos.getX(), pos.getY(), pos.getZ()).toAabbs())
+                : hasNoBlockCollision;
+
+            if (!this.careful) return noCollisionDetected;
+
+            if (state.is(ModBlockTags.HAPPY_GHAST_AVOIDS)) return false;
+
+            FluidState fluidState = level.getFluidState(pos);
+            if (!(fluidState.isEmpty() || hasValidPath && !CollisionUtils.collidedWithFluid(this.ghast, fluidState, pos, origin, target))) {
+                if (fluidState.is(FluidTags.WATER)) return inWater;
+                if (fluidState.is(FluidTags.LAVA)) return inLava;
+            }
+
+            return hasNoBlockCollision;
         }
 
         public void setWait() {
