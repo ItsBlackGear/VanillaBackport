@@ -12,7 +12,8 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
@@ -25,7 +26,7 @@ import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
-import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.pathfinder.PathComputationType;
@@ -93,6 +94,7 @@ public class DriedGhastBlock extends HorizontalDirectionalBlock implements Simpl
             int hydrationLevel = this.getHydrationLevel(state);
             if (hydrationLevel > 0) {
                 level.setBlock(pos, state.setValue(HYDRATION_LEVEL, hydrationLevel - 1), 2);
+                level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(state));
             }
         }
     }
@@ -101,6 +103,7 @@ public class DriedGhastBlock extends HorizontalDirectionalBlock implements Simpl
         if (!this.isReadyToSpawn(state)) {
             level.playSound(null, pos, ModSoundEvents.DRIED_GHAST_TRANSITION.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
             level.setBlock(pos, state.setValue(HYDRATION_LEVEL, this.getHydrationLevel(state) + 1), 2);
+            level.gameEvent(GameEvent.BLOCK_CHANGE, pos, GameEvent.Context.of(state));
         } else {
             this.spawnGhastling(level, pos, state);
         }
@@ -155,12 +158,8 @@ public class DriedGhastBlock extends HorizontalDirectionalBlock implements Simpl
             if (random.nextInt(6) == 0) {
                 level.addParticle(
                     ParticleTypes.HAPPY_VILLAGER,
-                    x + (random.nextFloat() * 2.0F - 1.0F) / 3.0F,
-                    y + 0.4,
-                    z + (random.nextFloat() * 2.0F - 1.0F) / 3.0F,
-                    0.0,
-                    random.nextFloat(),
-                    0.0
+                    x + (random.nextFloat() * 2.0F - 1.0F) / 3.0F, y + 0.4, z + (random.nextFloat() * 2.0F - 1.0F) / 3.0F,
+                    0.0, random.nextFloat(), 0.0
                 );
             }
         }
@@ -188,29 +187,24 @@ public class DriedGhastBlock extends HorizontalDirectionalBlock implements Simpl
     }
 
     @Override
-    public boolean canPlaceLiquid(@Nullable Player player, BlockGetter level, BlockPos pos, BlockState state, Fluid fluid) {
-        return fluid == Fluids.WATER || fluid == Fluids.FLOWING_WATER;
-    }
-
-    @Override
     public boolean placeLiquid(LevelAccessor level, BlockPos pos, BlockState state, FluidState fluidState) {
-        if (!state.getValue(BlockStateProperties.WATERLOGGED) && fluidState.getType() == Fluids.FLOWING_WATER) {
-            if (!level.isClientSide()) {
-                Block.dropResources(state, level, pos, null);
-                level.setBlock(pos, fluidState.createLegacyBlock(), 3);
-            }
-
-            return true;
-        } else {
-            return SimpleWaterloggedBlock.super.placeLiquid(level, pos, state, fluidState);
+        if (state.getValue(BlockStateProperties.WATERLOGGED) || fluidState.getType() != Fluids.WATER) {
+            return false;
         }
+
+        if (!level.isClientSide()) {
+            level.setBlock(pos, state.setValue(BlockStateProperties.WATERLOGGED, true), 3);
+            level.scheduleTick(pos, fluidState.getType(), fluidState.getType().getTickDelay(level));
+            level.playSound(null, pos, ModSoundEvents.DRIED_GHAST_PLACE_IN_WATER.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
+        }
+
+        return true;
     }
 
     @Override
-    public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldState, boolean movedByPiston) {
-        if (state.getValue(HYDRATION_LEVEL) == 0) {
-            level.playSound(null, pos, state.getValue(WATERLOGGED) ? ModSoundEvents.DRIED_GHAST_PLACE_IN_WATER.get() : ModSoundEvents.DRIED_GHAST_PLACE.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
-        }
+    public void setPlacedBy(Level level, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
+        super.setPlacedBy(level, pos, state, placer, stack);
+        level.playSound(null, pos, state.getValue(WATERLOGGED) ? ModSoundEvents.DRIED_GHAST_PLACE_IN_WATER.get() : ModSoundEvents.DRIED_GHAST_PLACE.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
     }
 
     @Override

@@ -331,9 +331,7 @@ public class ModBlocks {
             .instabreak()
             .sound(ModSoundTypes.DRIED_GHAST)
             .noOcclusion()
-            .randomTicks(),
-        BlockItem::new,
-        new Item.Properties().rarity(Rarity.UNCOMMON)
+            .randomTicks()
     );
 
     private static BlockBehaviour.Properties logProperties(MapColor topColor, MapColor sideColor, SoundType sound) {

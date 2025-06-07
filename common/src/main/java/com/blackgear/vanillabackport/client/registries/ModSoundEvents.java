@@ -41,7 +41,6 @@ public class ModSoundEvents {
     public static final Supplier<SoundEvent> DRIED_GHAST_BREAK = SOUNDS.soundEvent("block.dried_ghast.break");
     public static final Supplier<SoundEvent> DRIED_GHAST_STEP = SOUNDS.soundEvent("block.dried_ghast.step");
     public static final Supplier<SoundEvent> DRIED_GHAST_FALL = SOUNDS.soundEvent("block.dried_ghast.fall");
-    public static final Supplier<SoundEvent> DRIED_GHAST_HIT = SOUNDS.soundEvent("block.dried_ghast.hit");
     public static final Supplier<SoundEvent> DRIED_GHAST_AMBIENT = SOUNDS.soundEvent("block.dried_ghast.ambient");
     public static final Supplier<SoundEvent> DRIED_GHAST_AMBIENT_WATER = SOUNDS.soundEvent("block.dried_ghast.ambient_water");
     public static final Supplier<SoundEvent> DRIED_GHAST_PLACE = SOUNDS.soundEvent("block.dried_ghast.place");
