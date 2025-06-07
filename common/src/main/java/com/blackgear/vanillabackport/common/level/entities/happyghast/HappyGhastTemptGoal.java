@@ -1,6 +1,7 @@
 package com.blackgear.vanillabackport.common.level.entities.happyghast;
 
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.control.MoveControl;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.player.Player;
@@ -102,7 +103,7 @@ public class HappyGhastTemptGoal extends Goal {
 
         this.ghast.getLookControl().setLookAt(this.player, (float)(this.ghast.getMaxHeadYRot() + 20), (float) this.ghast.getMaxHeadXRot());
         if (this.ghast.distanceToSqr(this.player) < this.stopDistance * this.stopDistance) {
-            ((HappyGhast.GhastMoveControl) this.ghast.getMoveControl()).setWait();
+            this.ghast.getMoveControl().operation = MoveControl.Operation.WAIT;
         } else {
             Vec3 vec3 = player.getEyePosition().subtract(this.ghast.position()).scale(this.ghast.getRandom().nextDouble()).add(this.ghast.position());
             this.ghast.getMoveControl().setWantedPosition(vec3.x, vec3.y, vec3.z, this.speedModifier);

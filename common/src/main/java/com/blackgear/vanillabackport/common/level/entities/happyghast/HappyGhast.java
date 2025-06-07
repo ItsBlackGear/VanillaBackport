@@ -262,7 +262,7 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable {
                 double z = (leashHolder.getZ() - this.getZ()) / (double) distanceFromHolder;
                 this.setDeltaMovement(this.getDeltaMovement().add(Math.copySign(x * x * 0.4, x), Math.copySign(y * y * 0.4, y), Math.copySign(z * z * 0.4, z)));
                 this.checkSlowFallDistance();
-                ((GhastMoveControl) this.getMoveControl()).setWait();
+                this.getMoveControl().operation = MoveControl.Operation.WAIT;
             } else if (this.shouldStayCloseToLeashHolder()) {
                 this.goalSelector.enableControlFlag(Goal.Flag.MOVE);
                 Vec3 offset = new Vec3(leashHolder.getX() - this.getX(), leashHolder.getY() - this.getY(), leashHolder.getZ() - this.getZ()).normalize().scale(Math.max(distanceFromHolder - 2.0F, 0.0F));
@@ -795,10 +795,6 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable {
             }
 
             return hasNoBlockCollision;
-        }
-
-        public void setWait() {
-            this.operation = Operation.WAIT;
         }
     }
 

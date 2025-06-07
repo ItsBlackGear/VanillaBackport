@@ -87,6 +87,7 @@
   "subtitles.entity.ghastling.spawn": "Ghastling appears",
   "subtitles.entity.happy_ghast.ambient": "Happy Ghast croons",
   "subtitles.entity.happy_ghast.death": "Happy Ghast dies",
+  "subtitles.entity.happy_ghast.equip": "Harness equips",
   "subtitles.entity.happy_ghast.harness_goggles_down": "Happy Ghast is ready",
   "subtitles.entity.happy_ghast.harness_goggles_up": "Happy Ghast stops",
   "subtitles.entity.happy_ghast.hurt": "Happy Ghast hurts",
