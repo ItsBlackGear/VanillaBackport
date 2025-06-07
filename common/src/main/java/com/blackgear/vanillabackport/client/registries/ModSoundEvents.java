@@ -76,4 +76,7 @@ public class ModSoundEvents {
     public static final Supplier<SoundEvent> HARNESS_GOGGLES_DOWN = SOUNDS.soundEvent("entity.happy_ghast.harness_goggles_down");
 
     public static final Supplier<SoundEvent> PARROT_IMITATE_CREAKING = SOUNDS.soundEvent("entity.parrot.imitate.creaking");
+
+    // RECORDS
+    public static final Supplier<SoundEvent> MUSIC_DISC_TEARS = SOUNDS.soundEvent("music_disc.tears");
 }

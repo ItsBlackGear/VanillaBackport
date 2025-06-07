@@ -1,15 +1,13 @@
 package com.blackgear.vanillabackport.data;
 
 import com.blackgear.vanillabackport.common.registries.ModBiomes;
+import com.blackgear.vanillabackport.common.registries.ModJukeboxSongs;
 import com.blackgear.vanillabackport.common.registries.ModTrimMaterials;
 import com.blackgear.vanillabackport.common.worldgen.features.TheGardenAwakensFeatures;
 import com.blackgear.vanillabackport.common.worldgen.placements.TheGardenAwakensPlacements;
 import com.blackgear.vanillabackport.data.client.LangGenerator;
 import com.blackgear.vanillabackport.data.client.ModelGenerator;
-import com.blackgear.vanillabackport.data.server.builder.BiomeGenerator;
-import com.blackgear.vanillabackport.data.server.builder.ConfiguredFeatureGenerator;
-import com.blackgear.vanillabackport.data.server.builder.PlacedFeatureGenerator;
-import com.blackgear.vanillabackport.data.server.builder.TrimMaterialGenerator;
+import com.blackgear.vanillabackport.data.server.builder.*;
 import com.blackgear.vanillabackport.data.server.loot.BlockLootGenerator;
 import com.blackgear.vanillabackport.data.server.recipe.RecipeGenerator;
 import com.blackgear.vanillabackport.data.server.tags.BiomeTagGenerator;
@@ -44,6 +42,7 @@ public class DataGenerator implements DataGeneratorEntrypoint {
         pack.addProvider(BiomeGenerator::new);
         pack.addProvider(ConfiguredFeatureGenerator::new);
         pack.addProvider(PlacedFeatureGenerator::new);
+        pack.addProvider(JukeboxSongGenerator::new);
     }
 
     @Override
@@ -52,5 +51,6 @@ public class DataGenerator implements DataGeneratorEntrypoint {
         builder.add(Registries.BIOME, ModBiomes::bootstrap);
         builder.add(Registries.CONFIGURED_FEATURE, TheGardenAwakensFeatures::bootstrap);
         builder.add(Registries.PLACED_FEATURE, TheGardenAwakensPlacements::bootstrap);
+        builder.add(Registries.JUKEBOX_SONG, ModJukeboxSongs::bootstrap);
     }
 }

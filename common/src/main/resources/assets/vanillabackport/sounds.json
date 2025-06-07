@@ -492,5 +492,14 @@
       "vanillabackport:mob/happy_ghast/harness_unequip"
     ],
     "subtitle": "subtitles.entity.happy_ghast.unequip"
+  },
+
+  "music_disc.tears": {
+    "sounds": [
+      {
+        "name": "vanillabackport:records/tears",
+        "stream": true
+      }
+    ]
   }
 }

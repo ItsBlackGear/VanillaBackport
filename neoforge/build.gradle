@@ -39,8 +39,8 @@ repositories {
 
 dependencies {
     neoForge "net.neoforged:neoforge:$rootProject.neoforge_version"
-//    modApi "flatDir:Platform-forge-1.21.1-$rootProject.platform_indev_version"
-    modApi "curse.maven:platform-997634:$rootProject.platform_neoforge_version"
+    modApi "flatDir:Platform-neoforge-1.21.1-$rootProject.platform_indev_version"
+//    modApi "curse.maven:platform-997634:$rootProject.platform_neoforge_version"
 
     modApi("com.github.glitchfiend:TerraBlender-neoforge:$rootProject.terrablender_version")
 

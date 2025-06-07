@@ -5,6 +5,8 @@ import com.blackgear.vanillabackport.common.level.items.HarnessItem;
 import com.blackgear.vanillabackport.common.level.items.PaleOakBoatItem;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.JukeboxSongs;
+import net.minecraft.world.item.Rarity;
 
 import java.util.function.Supplier;
 
@@ -96,5 +98,13 @@ public class ModItems {
         "black_harness",
         HarnessItem::new,
         new Item.Properties().stacksTo(1)
+    );
+
+    public static final Supplier<Item> MUSIC_DISC_TEARS = ITEMS.register(
+        "music_disc_tears",
+        new Item.Properties()
+            .stacksTo(1)
+            .rarity(Rarity.UNCOMMON)
+            .jukeboxPlayable(ModJukeboxSongs.TEARS)
     );
 }
