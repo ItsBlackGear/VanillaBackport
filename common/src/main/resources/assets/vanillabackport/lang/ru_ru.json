@@ -93,5 +93,6 @@
   "subtitles.entity.happy_ghast.hurt": "Счастливый гаст ранен",
   "subtitles.entity.happy_ghast.unequip": "Упряжь снята",
   "subtitles.entity.parrot.imitate.creaking": "Попугай подражает скрипуну",
-  "trim_material.vanillabackport.resin": "Смоляная"
+  "trim_material.vanillabackport.resin": "Смоляная",
+  "subtitles.entity.happy_ghast.equip": "Harness equips"
 }
