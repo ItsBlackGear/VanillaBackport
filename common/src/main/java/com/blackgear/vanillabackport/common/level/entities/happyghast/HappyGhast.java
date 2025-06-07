@@ -231,6 +231,47 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable {
     }
 
     @Override
+    protected Vec3 getLeashOffset() {
+        return Vec3.ZERO;
+    }
+
+    @Override
+    protected void tickLeash() {
+        if (this.leashInfoTag != null) {
+            this.restoreLeashFromSave();
+        }
+
+        if (this.getLeashHolder() != null) {
+            if (!this.isAlive() || !this.getLeashHolder().isAlive()) {
+                this.dropLeash(true, true);
+            }
+        }
+
+        Entity leashHolder = this.getLeashHolder();
+        if (leashHolder != null && leashHolder.level() == this.level()) {
+            this.restrictTo(leashHolder.blockPosition(), 5);
+            float distanceFromHolder = this.distanceTo(leashHolder);
+
+            this.onLeashDistance(distanceFromHolder);
+            if (distanceFromHolder > 16.0F) {
+                this.dropLeash(true, true);
+                this.goalSelector.disableControlFlag(Goal.Flag.MOVE);
+            } else if (distanceFromHolder > 10.0F) {
+                double x = (leashHolder.getX() - this.getX()) / (double) distanceFromHolder;
+                double y = (leashHolder.getY() - this.getY()) / (double) distanceFromHolder;
+                double z = (leashHolder.getZ() - this.getZ()) / (double) distanceFromHolder;
+                this.setDeltaMovement(this.getDeltaMovement().add(Math.copySign(x * x * 0.4, x), Math.copySign(y * y * 0.4, y), Math.copySign(z * z * 0.4, z)));
+                this.checkSlowFallDistance();
+                ((GhastMoveControl) this.getMoveControl()).setWait();
+            } else if (this.shouldStayCloseToLeashHolder()) {
+                this.goalSelector.enableControlFlag(Goal.Flag.MOVE);
+                Vec3 offset = new Vec3(leashHolder.getX() - this.getX(), leashHolder.getY() - this.getY(), leashHolder.getZ() - this.getZ()).normalize().scale(Math.max(distanceFromHolder - 2.0F, 0.0F));
+                this.getNavigation().moveTo(this.getX() + offset.x, this.getY() + offset.y, this.getZ() + offset.z, this.followLeashSpeed());
+            }
+        }
+    }
+
+    @Override
     protected void playStepSound(BlockPos pos, BlockState state) {
     }
 
