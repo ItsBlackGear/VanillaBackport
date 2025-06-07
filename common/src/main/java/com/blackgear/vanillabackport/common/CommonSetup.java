@@ -32,6 +32,22 @@ import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 public class CommonSetup {
     public static void setup() {
         MobIntegration.registerIntegrations(CommonSetup::mobIntegrations);
+        LootModifier.modify((key, context, builtin) -> {
+            if (key == EntityType.GHAST.getDefaultLootTable()) {
+                context.addPool(
+                    LootPool.lootPool()
+                        .setRolls(ConstantValue.exactly(1.0F))
+                        .add(LootItem.lootTableItem(ModItems.MUSIC_DISC_TEARS.get()))
+                        .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F)))
+                        .when(DamageSourceCondition.hasDamageSource(
+                            DamageSourcePredicate.Builder.damageType()
+                                .tag(TagPredicate.is(DamageTypeTags.IS_PROJECTILE))
+                                .direct(EntityPredicate.Builder.entity().of(EntityType.FIREBALL)))
+                        )
+                        .when(LootItemKilledByPlayerCondition.killedByPlayer())
+                );
+            }
+        });
     }
 
     public static void asyncSetup(ParallelDispatch dispatch) {
@@ -39,22 +55,6 @@ public class CommonSetup {
             BiomePlacement.registerBiomePlacements(BiomeGeneration::bootstrap);
             BlockIntegration.registerIntegrations(CommonSetup::blockIntegrations);
             TradeIntegration.registerVillagerTrades(CommonSetup::tradeIntegrations);
-            LootModifier.modify((path, context, builtin) -> {
-                if (path == EntityType.GHAST.getDefaultLootTable().location()) {
-                    context.addPool(
-                        LootPool.lootPool()
-                            .setRolls(ConstantValue.exactly(1.0F))
-                            .add(LootItem.lootTableItem(ModItems.MUSIC_DISC_TEARS.get()))
-                            .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F)))
-                            .when(DamageSourceCondition.hasDamageSource(
-                                DamageSourcePredicate.Builder.damageType()
-                                .tag(TagPredicate.is(DamageTypeTags.IS_PROJECTILE))
-                                .direct(EntityPredicate.Builder.entity().of(EntityType.FIREBALL)))
-                            )
-                            .when(LootItemKilledByPlayerCondition.killedByPlayer())
-                    );
-                }
-            });
         });
     }
 
