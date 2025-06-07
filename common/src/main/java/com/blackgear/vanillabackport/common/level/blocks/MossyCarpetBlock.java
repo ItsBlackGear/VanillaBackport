@@ -3,6 +3,7 @@ package com.blackgear.vanillabackport.common.level.blocks;
 import com.blackgear.vanillabackport.common.registries.ModBlocks;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -33,6 +34,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class MossyCarpetBlock extends Block implements BonemealableBlock {
+    public static final MapCodec<MossyCarpetBlock> CODEC = simpleCodec(MossyCarpetBlock::new);
     public static final BooleanProperty BASE = BlockStateProperties.BOTTOM;
     private static final EnumProperty<WallSide> NORTH = BlockStateProperties.NORTH_WALL;
     private static final EnumProperty<WallSide> EAST = BlockStateProperties.EAST_WALL;
@@ -56,6 +58,11 @@ public class MossyCarpetBlock extends Block implements BonemealableBlock {
     private static final VoxelShape NORTH_SHORT_AABB = Block.box(0.0, 0.0, 0.0, 16.0, 10.0, 1.0);
     private static final VoxelShape SOUTH_SHORT_AABB = Block.box(0.0, 0.0, 15.0, 16.0, 10.0, 16.0);
     private final Map<BlockState, VoxelShape> shapesCache;
+
+    @Override
+    public MapCodec<MossyCarpetBlock> codec() {
+        return CODEC;
+    }
 
     public MossyCarpetBlock(Properties properties) {
         super(properties);
@@ -295,7 +302,7 @@ public class MossyCarpetBlock extends Block implements BonemealableBlock {
     }
 
     @Override
-    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state, boolean isClient) {
+    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state) {
         return state.getValue(BASE) && !createTopperWithSideChance(level, pos, () -> true).isAir();
     }
 

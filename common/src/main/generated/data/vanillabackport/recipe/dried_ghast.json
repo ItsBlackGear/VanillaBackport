@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "dry_ghast",
+  "key": {
+    "#": {
+      "item": "minecraft:ghast_tear"
+    },
+    "X": {
+      "item": "minecraft:bone_block"
+    }
+  },
+  "pattern": [
+    "###",
+    "#X#",
+    "###"
+  ],
+  "result": {
+    "count": 1,
+    "id": "vanillabackport:dried_ghast"
+  }
+}

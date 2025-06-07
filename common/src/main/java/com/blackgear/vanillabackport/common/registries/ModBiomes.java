@@ -5,7 +5,7 @@ import com.blackgear.vanillabackport.common.worldgen.biomes.TheGardenAwakensBiom
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.levelgen.carver.ConfiguredWorldCarver;
@@ -16,7 +16,7 @@ public class ModBiomes {
 
     public static final ResourceKey<Biome> PALE_GARDEN = BIOMES.create("pale_garden");
 
-    public static void bootstrap(BootstapContext<Biome> context) {
+    public static void bootstrap(BootstrapContext<Biome> context) {
         HolderGetter<PlacedFeature> features = context.lookup(Registries.PLACED_FEATURE);
         HolderGetter<ConfiguredWorldCarver<?>> carvers = context.lookup(Registries.CONFIGURED_CARVER);
 

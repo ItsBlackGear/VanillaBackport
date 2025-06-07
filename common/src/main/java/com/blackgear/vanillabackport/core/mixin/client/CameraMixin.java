@@ -12,20 +12,20 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Camera.class)
 public abstract class CameraMixin {
-    @Shadow protected abstract double getMaxZoom(double startingDistance);
-    @Shadow protected abstract void move(double distanceOffset, double verticalOffset, double horizontalOffset);
+    @Shadow protected abstract void move(float zoom, float dy, float dx);
+    @Shadow protected abstract float getMaxZoom(float maxZoom);
 
     @Inject(
         method = "setup",
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/client/Camera;getMaxZoom(D)D"
+            target = "Lnet/minecraft/client/Camera;getMaxZoom(F)F"
         ),
         cancellable = true
     )
     private void onCameraSetup(BlockGetter level, Entity entity, boolean detached, boolean thirdPersonReverse, float partialTick, CallbackInfo ci) {
         if (entity.isPassenger() && entity.getVehicle() instanceof HappyGhast) {
-            this.move(-this.getMaxZoom(8.0), 0.0F, 0.0F);
+            this.move(-this.getMaxZoom(8.0F), 0.0F, 0.0F);
             ci.cancel();
         }
     }

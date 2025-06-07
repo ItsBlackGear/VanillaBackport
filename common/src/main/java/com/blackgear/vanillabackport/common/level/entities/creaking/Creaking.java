@@ -35,14 +35,14 @@ import net.minecraft.world.entity.animal.Wolf;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.Projectile;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.level.pathfinder.PathFinder;
+import net.minecraft.world.level.pathfinder.PathType;
+import net.minecraft.world.level.pathfinder.PathfindingContext;
 import net.minecraft.world.level.pathfinder.WalkNodeEvaluator;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.HitResult;
@@ -78,17 +78,16 @@ public class Creaking extends Monster {
         this.jumpControl = new CreakingJumpControl(this);
         GroundPathNavigation navigation = (GroundPathNavigation) this.getNavigation();
         navigation.setCanFloat(true);
-        this.setMaxUpStep(1.0625F);
         this.xpReward = 0;
     }
 
     public void setTransient(BlockPos pos) {
         this.setHomePos(pos);
-        this.setPathfindingMalus(BlockPathTypes.DAMAGE_OTHER, 8.0F);
-        this.setPathfindingMalus(BlockPathTypes.POWDER_SNOW, 8.0F);
-        this.setPathfindingMalus(BlockPathTypes.LAVA, 8.0F);
-        this.setPathfindingMalus(BlockPathTypes.DAMAGE_FIRE, 8.0F);
-        this.setPathfindingMalus(BlockPathTypes.DANGER_FIRE, 8.0F);
+        this.setPathfindingMalus(PathType.DAMAGE_OTHER, 8.0F);
+        this.setPathfindingMalus(PathType.POWDER_SNOW, 8.0F);
+        this.setPathfindingMalus(PathType.LAVA, 8.0F);
+        this.setPathfindingMalus(PathType.DAMAGE_FIRE, 8.0F);
+        this.setPathfindingMalus(PathType.DANGER_FIRE, 8.0F);
     }
 
     public boolean isHeartBound() {
@@ -111,12 +110,12 @@ public class Creaking extends Monster {
     }
 
     @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(CAN_MOVE, true);
-        this.entityData.define(IS_ACTIVE, false);
-        this.entityData.define(IS_TEARING_DOWN, false);
-        this.entityData.define(HOME_POS, Optional.empty());
+    protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        super.defineSynchedData(builder);
+        builder.define(CAN_MOVE, true);
+        builder.define(IS_ACTIVE, false);
+        builder.define(IS_TEARING_DOWN, false);
+        builder.define(HOME_POS, Optional.empty());
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -124,7 +123,8 @@ public class Creaking extends Monster {
             .add(Attributes.MAX_HEALTH, 1.0)
             .add(Attributes.MOVEMENT_SPEED, 0.4)
             .add(Attributes.ATTACK_DAMAGE, 3.0)
-            .add(Attributes.FOLLOW_RANGE, 32.0);
+            .add(Attributes.FOLLOW_RANGE, 32.0)
+            .add(Attributes.STEP_HEIGHT, 1.0625);
     }
 
     public boolean canMove() {
@@ -169,11 +169,6 @@ public class Creaking extends Monster {
         }
 
         return false;
-    }
-
-    @Override
-    public float getEyeHeight(Pose pose) {
-        return 2.3F;
     }
 
     @Nullable
@@ -380,10 +375,8 @@ public class Creaking extends Monster {
     }
 
     @Override
-    public void handleInsidePortal(BlockPos pos) {
-        if (!this.isHeartBound()) {
-            super.handleInsidePortal(pos);
-        }
+    public boolean canUsePortal(boolean allowPassengers) {
+        return !this.isHeartBound() && super.canUsePortal(allowPassengers);
     }
 
     @Override
@@ -412,7 +405,7 @@ public class Creaking extends Monster {
     public void readAdditionalSaveData(CompoundTag tag) {
         super.readAdditionalSaveData(tag);
         if (tag.contains("home_pos")) {
-            this.setTransient(NbtUtils.readBlockPos(tag.getCompound("home_pos")));
+            this.setTransient(NbtUtils.readBlockPos(tag, "home_pos").get());
         }
     }
 
@@ -661,16 +654,15 @@ public class Creaking extends Monster {
 
     class HomeNodeEvaluator extends WalkNodeEvaluator {
         @Override
-        public BlockPathTypes getBlockPathType(BlockGetter level, int x, int y, int z) {
+        public PathType getPathType(PathfindingContext context, int x, int y, int z) {
             BlockPos pos = getHomePos();
             if (pos == null) {
-                return super.getBlockPathType(level, x, y, z);
+                return super.getPathType(context, x, y, z);
             } else {
                 double distance = pos.distSqr(new Vec3i(x, y, z));
-                return distance > 1024.0
-                    && distance >= pos.distSqr(blockPosition())
-                        ? BlockPathTypes.BLOCKED
-                        : super.getBlockPathType(level, x, y, z);
+                return distance > 1024.0 && distance >= pos.distSqr(context.mobPosition())
+                    ? PathType.BLOCKED
+                    : super.getPathType(context, x, y, z);
             }
         }
     }

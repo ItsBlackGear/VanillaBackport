@@ -1,6 +1,7 @@
 package com.blackgear.vanillabackport.core.mixin.client;
 
 import com.blackgear.vanillabackport.common.registries.ModBiomes;
+import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.blackgear.vanillabackport.core.mixin.access.SoundEngineAccessor;
 import com.blackgear.vanillabackport.core.mixin.access.SoundManagerAccessor;
 import net.minecraft.client.Minecraft;
@@ -41,7 +42,7 @@ public abstract class MusicManagerMixin {
         cancellable = true
     )
     private void onTick(CallbackInfo ci) {
-        if (this.currentMusic == null) {
+        if (!VanillaBackport.CLIENT_CONFIG.fadeMusicOnPaleGarden.get() || this.currentMusic == null) {
             return;
         }
 
@@ -57,7 +58,7 @@ public abstract class MusicManagerMixin {
         cancellable = true
     )
     private void preventPlayingInPaleGarden(Music selector, CallbackInfo ci) {
-        if (this.minecraft.player == null) {
+        if (!VanillaBackport.CLIENT_CONFIG.fadeMusicOnPaleGarden.get() || this.minecraft.player == null) {
             return;
         }
 
@@ -75,7 +76,7 @@ public abstract class MusicManagerMixin {
         )
     )
     private void updateVolume(Music selector, CallbackInfo ci) {
-        if (this.currentMusic != null) {
+        if (VanillaBackport.CLIENT_CONFIG.fadeMusicOnPaleGarden.get() && this.currentMusic != null) {
             SoundEngine engine = ((SoundManagerAccessor) this.minecraft.getSoundManager()).getSoundEngine();
             this.setVolume(engine, this.currentMusic, this.getBackgroundMusicVolume());
         }
@@ -86,7 +87,9 @@ public abstract class MusicManagerMixin {
         at = @At("TAIL")
     )
     private void onStartPlaying(Music selector, CallbackInfo ci) {
-        this.currentGain = this.getBackgroundMusicVolume();
+        if (VanillaBackport.CLIENT_CONFIG.fadeMusicOnPaleGarden.get()) {
+            this.currentGain = this.getBackgroundMusicVolume();
+        }
     }
 
     @Unique
@@ -95,10 +98,13 @@ public abstract class MusicManagerMixin {
             return true;
         }
 
-        if (this.currentGain < targetVolume) { // Fade in (increasing volume)
+        // Fade in (increasing volume)
+        if (this.currentGain < targetVolume) {
             float step = Mth.clamp(this.currentGain, FADE_IN_MIN_STEP, FADE_IN_MAX_STEP);
             this.currentGain = Math.min(this.currentGain + step, targetVolume);
-        } else { // Fade out (decreasing volume)
+        }
+        // Fade out (decreasing volume)
+        else {
             this.currentGain = FADE_OUT_FACTOR * this.currentGain + (1 - FADE_OUT_FACTOR) * targetVolume;
             if (Math.abs(this.currentGain - targetVolume) < VOLUME_THRESHOLD) {
                 this.currentGain = targetVolume;
@@ -107,7 +113,8 @@ public abstract class MusicManagerMixin {
 
         this.currentGain = Mth.clamp(this.currentGain, 0.0F, 1.0F);
 
-        if (this.currentGain <= VOLUME_THRESHOLD) { // Stop playing completely if volume is near zero
+        // Stop playing completely if volume is near zero
+        if (this.currentGain <= VOLUME_THRESHOLD) {
             this.stopPlaying();
             return false;
         }

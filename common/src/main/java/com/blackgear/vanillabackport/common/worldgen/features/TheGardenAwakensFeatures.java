@@ -9,7 +9,7 @@ import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
@@ -51,7 +51,7 @@ public class TheGardenAwakensFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> PALE_MOSS_PATCH = FEATURES.create("pale_moss_patch");
     public static final ResourceKey<ConfiguredFeature<?, ?>> PALE_MOSS_PATCH_BONEMEAL = FEATURES.create("pale_moss_patch_bonemeal");
 
-    public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> context) {
+    public static void bootstrap(BootstrapContext<ConfiguredFeature<?, ?>> context) {
         HolderGetter<ConfiguredFeature<?, ?>> features = context.lookup(Registries.CONFIGURED_FEATURE);
         HolderGetter<PlacedFeature> placements = context.lookup(Registries.PLACED_FEATURE);
 
@@ -165,7 +165,7 @@ public class TheGardenAwakensFeatures {
                 new WeightedStateProvider(
                     SimpleWeightedRandomList.<BlockState>builder()
                         .add(ModBlocks.PALE_MOSS_CARPET.get().defaultBlockState(), 25)
-                        .add(Blocks.GRASS.defaultBlockState(), 25)
+                        .add(Blocks.SHORT_GRASS.defaultBlockState(), 25)
                         .add(Blocks.TALL_GRASS.defaultBlockState(), 10)
                 )
             )

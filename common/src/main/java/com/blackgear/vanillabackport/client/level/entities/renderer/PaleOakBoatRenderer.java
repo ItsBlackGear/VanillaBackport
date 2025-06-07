@@ -19,6 +19,8 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.Leashable;
 import net.minecraft.world.entity.vehicle.Boat;
 import org.joml.Quaternionf;
 
@@ -34,12 +36,12 @@ public class PaleOakBoatRenderer extends BoatRenderer {
     }
 
     @Override
-    public void render(Boat entity, float entityYaw, float partialTicks, PoseStack matrices, MultiBufferSource buffer, int packedLight) {
+    public void render(Boat entity, float entityYaw, float partialTick, PoseStack matrices, MultiBufferSource buffer, int packedLight) {
         matrices.pushPose();
         matrices.translate(0.0F, 0.375F, 0.0F);
         matrices.mulPose(Axis.YP.rotationDegrees(180.0F - entityYaw));
-        float hurtTime = (float)entity.getHurtTime() - partialTicks;
-        float tilt = entity.getDamage() - partialTicks;
+        float hurtTime = (float)entity.getHurtTime() - partialTick;
+        float tilt = entity.getDamage() - partialTick;
         if (tilt < 0.0F) {
             tilt = 0.0F;
         }
@@ -48,9 +50,9 @@ public class PaleOakBoatRenderer extends BoatRenderer {
             matrices.mulPose(Axis.XP.rotationDegrees(Mth.sin(hurtTime) * hurtTime * tilt / 10.0F * (float)entity.getHurtDir()));
         }
 
-        float bubbleAngle = entity.getBubbleAngle(partialTicks);
+        float bubbleAngle = entity.getBubbleAngle(partialTick);
         if (!Mth.equal(bubbleAngle, 0.0F)) {
-            matrices.mulPose(new Quaternionf().setAngleAxis(entity.getBubbleAngle(partialTicks) * ((float) Math.PI / 180F), 1.0F, 0.0F, 1.0F));
+            matrices.mulPose((new Quaternionf()).setAngleAxis(entity.getBubbleAngle(partialTick) * ((float)Math.PI / 180F), 1.0F, 0.0F, 1.0F));
         }
 
         Pair<ResourceLocation, ListModel<Boat>> pair = this.getModelWithLocation(entity);
@@ -58,9 +60,9 @@ public class PaleOakBoatRenderer extends BoatRenderer {
         ListModel<Boat> model = pair.getSecond();
         matrices.scale(-1.0F, -1.0F, 1.0F);
         matrices.mulPose(Axis.YP.rotationDegrees(90.0F));
-        model.setupAnim(entity, partialTicks, 0.0F, -0.1F, 0.0F, 0.0F);
+        model.setupAnim(entity, partialTick, 0.0F, -0.1F, 0.0F, 0.0F);
         VertexConsumer vertices = buffer.getBuffer(model.renderType(texture));
-        model.renderToBuffer(matrices, vertices, packedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+        model.renderToBuffer(matrices, vertices, packedLight, OverlayTexture.NO_OVERLAY);
 
         if (!entity.isUnderWater()) {
             VertexConsumer patch = buffer.getBuffer(RenderType.waterMask());
@@ -71,8 +73,13 @@ public class PaleOakBoatRenderer extends BoatRenderer {
 
         matrices.popPose();
 
+        Entity leashHolder = entity.getLeashHolder();
+        if (leashHolder != null) {
+            this.renderLeash(entity, partialTick, matrices, buffer, leashHolder);
+        }
+
         if (this.shouldShowName(entity)) {
-            this.renderNameTag(entity, entity.getDisplayName(), matrices, buffer, packedLight);
+            this.renderNameTag(entity, entity.getDisplayName(), matrices, buffer, packedLight, partialTick);
         }
     }
 

@@ -2,7 +2,6 @@ package com.blackgear.vanillabackport.client.level.entities.model;
 
 import com.blackgear.vanillabackport.client.level.entities.animation.CreakingAnimation;
 import com.blackgear.vanillabackport.common.level.entities.creaking.Creaking;
-import com.blackgear.vanillabackport.core.util.MthUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.HierarchicalModel;
@@ -123,8 +122,8 @@ public class CreakingModel<T extends Creaking> extends HierarchicalModel<T> {
     @Override
     public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
-        this.head.xRot = headPitch * MthUtils.TO_DEGREES;
-        this.head.yRot = netHeadYaw * MthUtils.TO_DEGREES;
+        this.head.xRot = headPitch * ((float) Math.PI / 180F);
+        this.head.yRot = netHeadYaw * ((float) Math.PI / 180F);
 
         if (entity.canMove()) {
             this.animateWalk(CreakingAnimation.CREAKING_WALK, limbSwing, limbSwingAmount, 1.0F, 1.0F);

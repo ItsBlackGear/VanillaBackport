@@ -6,11 +6,11 @@ import com.blackgear.vanillabackport.client.level.entities.model.HappyGhastHarne
 import com.blackgear.vanillabackport.client.level.entities.model.HappyGhastModel;
 import com.blackgear.vanillabackport.client.level.entities.renderer.CreakingRenderer;
 import com.blackgear.vanillabackport.client.level.entities.renderer.HappyGhastRenderer;
+import com.blackgear.vanillabackport.client.level.entities.renderer.PaleOakBoatRenderer;
 import com.blackgear.vanillabackport.client.level.particles.FallingLeavesParticle;
 import com.blackgear.vanillabackport.client.level.particles.TrailParticle;
 import com.blackgear.vanillabackport.client.registries.ModModelLayers;
 import com.blackgear.vanillabackport.client.registries.ModParticles;
-import com.blackgear.vanillabackport.client.level.entities.renderer.PaleOakBoatRenderer;
 import com.blackgear.vanillabackport.common.registries.ModBlocks;
 import com.blackgear.vanillabackport.common.registries.ModEntities;
 import net.fabricmc.api.EnvType;

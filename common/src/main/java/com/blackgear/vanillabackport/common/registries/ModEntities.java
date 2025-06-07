@@ -8,6 +8,7 @@ import com.blackgear.vanillabackport.common.level.entities.happyghast.HappyGhast
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.phys.Vec3;
 
 import java.util.function.Supplier;
 
@@ -18,12 +19,16 @@ public class ModEntities {
         "creaking",
         EntityType.Builder.of(Creaking::new, MobCategory.MONSTER)
             .sized(0.9F, 2.7F)
+            .eyeHeight(2.3F)
             .clientTrackingRange(8)
     );
     public static final Supplier<EntityType<HappyGhast>> HAPPY_GHAST = ENTITIES.entity(
         "happy_ghast",
         EntityType.Builder.of(HappyGhast::new, MobCategory.CREATURE)
             .sized(4.0F, 4.0F)
+            .eyeHeight(2.6F)
+            .passengerAttachments(new Vec3(0.0, 4.0, 1.8), new Vec3(-1.8, 4.0, 0.0), new Vec3(0.0, 4.0, -1.8), new Vec3(1.8, 4.0, 0.0))
+            .ridingOffset(0.5F)
             .clientTrackingRange(10)
     );
 

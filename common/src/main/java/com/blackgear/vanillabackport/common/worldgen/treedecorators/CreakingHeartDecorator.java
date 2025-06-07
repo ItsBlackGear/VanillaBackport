@@ -5,6 +5,7 @@ import com.blackgear.vanillabackport.common.level.blocks.blockstates.CreakingHea
 import com.blackgear.vanillabackport.common.registries.ModBlocks;
 import com.blackgear.vanillabackport.common.registries.ModTreeDecorators;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -19,7 +20,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class CreakingHeartDecorator extends TreeDecorator {
-    public static final Codec<CreakingHeartDecorator> CODEC = RecordCodecBuilder.create(instance ->
+    public static final MapCodec<CreakingHeartDecorator> CODEC = RecordCodecBuilder.mapCodec(instance ->
         instance.group(Codec.floatRange(0.0F, 1.0F).fieldOf("probability").forGetter(decorator -> decorator.probability))
             .apply(instance, CreakingHeartDecorator::new));
 

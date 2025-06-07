@@ -14,7 +14,6 @@ import net.minecraft.Util;
 import net.minecraft.core.Direction;
 import net.minecraft.data.models.BlockModelGenerators;
 import net.minecraft.data.models.blockstates.*;
-import net.minecraft.data.models.blockstates.VariantProperties.Rotation;
 import net.minecraft.data.models.model.ModelLocationUtils;
 import net.minecraft.data.models.model.TextureMapping;
 import net.minecraft.data.models.model.TextureSlot;
@@ -37,35 +36,35 @@ public record BlockModels(BlockModelGenerators gen) {
             Direction.EAST,
             path -> Variant.variant()
                 .with(VariantProperties.MODEL, path)
-                .with(VariantProperties.Y_ROT, Rotation.R90)
+                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)
                 .with(VariantProperties.UV_LOCK, true)
         ),
         Pair.of(
             Direction.SOUTH,
             path -> Variant.variant()
                 .with(VariantProperties.MODEL, path)
-                .with(VariantProperties.Y_ROT, Rotation.R180)
+                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180)
                 .with(VariantProperties.UV_LOCK, true)
         ),
         Pair.of(
             Direction.WEST,
             path -> Variant.variant()
                 .with(VariantProperties.MODEL, path)
-                .with(VariantProperties.Y_ROT, Rotation.R270)
+                .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270)
                 .with(VariantProperties.UV_LOCK, true)
         ),
         Pair.of(
             Direction.UP,
             path -> Variant.variant()
                 .with(VariantProperties.MODEL, path)
-                .with(VariantProperties.X_ROT, Rotation.R270)
+                .with(VariantProperties.X_ROT, VariantProperties.Rotation.R270)
                 .with(VariantProperties.UV_LOCK, true)
         ),
         Pair.of(
             Direction.DOWN,
             path -> Variant.variant()
                 .with(VariantProperties.MODEL, path)
-                .with(VariantProperties.X_ROT, Rotation.R90)
+                .with(VariantProperties.X_ROT, VariantProperties.Rotation.R90)
                 .with(VariantProperties.UV_LOCK, true)
         )
     );
@@ -73,17 +72,15 @@ public record BlockModels(BlockModelGenerators gen) {
     public void createMossyCarpet(Block block) {
         ResourceLocation baseModel = TexturedModel.CARPET.create(block, gen.modelOutput);
         ResourceLocation tallSideModel = TexturedModels.MOSSY_CARPET_SIDE
-            .get(block)
-            .updateTextures(mapping -> mapping.put(TextureSlot.SIDE, TextureMapping.getBlockTexture(block, "_side_tall")))
-            .createWithSuffix(block, "_side_tall", gen.modelOutput);
+                .get(block)
+                .updateTextures(mapping -> mapping.put(TextureSlot.SIDE, TextureMapping.getBlockTexture(block, "_side_tall")))
+                .createWithSuffix(block, "_side_tall", gen.modelOutput);
         ResourceLocation shortSideModel = TexturedModels.MOSSY_CARPET_SIDE
-            .get(block)
-            .updateTextures(mapping -> mapping.put(TextureSlot.SIDE, TextureMapping.getBlockTexture(block, "_side_small")))
-            .createWithSuffix(block, "_side_small", gen.modelOutput);
-
+                .get(block)
+                .updateTextures(mapping -> mapping.put(TextureSlot.SIDE, TextureMapping.getBlockTexture(block, "_side_small")))
+                .createWithSuffix(block, "_side_small", gen.modelOutput);
         MultiPartGenerator generator = MultiPartGenerator.multiPart(block);
         Condition.TerminalCondition terminal = Condition.condition().term(MossyCarpetBlock.BASE, false);
-
         generator.with(Condition.condition().term(MossyCarpetBlock.BASE, true), Variant.variant().with(VariantProperties.MODEL, baseModel));
         generator.with(terminal, Variant.variant().with(VariantProperties.MODEL, baseModel));
 
@@ -99,10 +96,10 @@ public record BlockModels(BlockModelGenerators gen) {
             EnumProperty<WallSide> property = MossyCarpetBlock.getPropertyForFace(direction);
 
             if (property != null) {
-                Function<ResourceLocation, Variant> variant = pair.getSecond();
-                generator.with(Condition.condition().term(property, WallSide.TALL), variant.apply(tallSideModel));
-                generator.with(Condition.condition().term(property, WallSide.LOW), variant.apply(shortSideModel));
-                generator.with(terminal, variant.apply(tallSideModel));
+                Function<ResourceLocation, Variant> function = pair.getSecond();
+                generator.with(Condition.condition().term(property, WallSide.TALL), function.apply(tallSideModel));
+                generator.with(Condition.condition().term(property, WallSide.LOW), function.apply(shortSideModel));
+                generator.with(terminal, function.apply(tallSideModel));
             }
         }
 
@@ -110,13 +107,12 @@ public record BlockModels(BlockModelGenerators gen) {
     }
 
     public void createHangingMoss(Block block) {
-        PropertyDispatch dispatch = PropertyDispatch.property(HangingMossBlock.TIP)
-            .generate(value -> {
-                String suffix = value ? "_tip" : "";
-                TextureMapping textureMapping = TextureMapping.cross(TextureMapping.getBlockTexture(block, suffix));
-                ResourceLocation path = BlockModelGenerators.TintState.NOT_TINTED.getCross().createWithSuffix(block, suffix, textureMapping, gen.modelOutput);
-                return Variant.variant().with(VariantProperties.MODEL, path);
-            });
+        PropertyDispatch dispatch = PropertyDispatch.property(HangingMossBlock.TIP).generate(value -> {
+            String suffix = value ? "_tip" : "";
+            TextureMapping textureMapping = TextureMapping.cross(TextureMapping.getBlockTexture(block, suffix));
+            ResourceLocation path = BlockModelGenerators.TintState.NOT_TINTED.getCross().createWithSuffix(block, suffix, textureMapping, gen.modelOutput);
+            return Variant.variant().with(VariantProperties.MODEL, path);
+        });
 
         gen.createSimpleFlatItemModel(block);
         gen.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block).with(dispatch));
@@ -125,31 +121,30 @@ public record BlockModels(BlockModelGenerators gen) {
     public void createCreakingHeart(Block block) {
         ResourceLocation base = TexturedModel.COLUMN_ALT.create(block, gen.modelOutput);
         ResourceLocation baseSide = TexturedModel.COLUMN_HORIZONTAL_ALT.create(block, gen.modelOutput);
-
-        ResourceLocation awake = createCreakingHeartModel(TexturedModel.COLUMN_ALT, block, "_awake");
-        ResourceLocation awakeSide = createCreakingHeartModel(TexturedModel.COLUMN_HORIZONTAL_ALT, block, "_awake");
-        ResourceLocation dormant = createCreakingHeartModel(TexturedModel.COLUMN_ALT, block, "_dormant");
-        ResourceLocation dormantSide = createCreakingHeartModel(TexturedModel.COLUMN_HORIZONTAL_ALT, block, "_dormant");
+        ResourceLocation awake = this.createCreakingHeartModel(TexturedModel.COLUMN_ALT, block, "_awake");
+        ResourceLocation awakeSide = this.createCreakingHeartModel(TexturedModel.COLUMN_HORIZONTAL_ALT, block, "_awake");
+        ResourceLocation dormant = this.createCreakingHeartModel(TexturedModel.COLUMN_ALT, block, "_dormant");
+        ResourceLocation dormantSide = this.createCreakingHeartModel(TexturedModel.COLUMN_HORIZONTAL_ALT, block, "_dormant");
 
         PropertyDispatch state = PropertyDispatch.properties(BlockStateProperties.AXIS, CreakingHeartBlock.STATE)
-            .select(Direction.Axis.Y, CreakingHeartState.UPROOTED, createVariant(base, Rotation.R0, Rotation.R0))
-            .select(Direction.Axis.Z, CreakingHeartState.UPROOTED, createVariant(baseSide, Rotation.R90, Rotation.R0))
-            .select(Direction.Axis.X, CreakingHeartState.UPROOTED, createVariant(baseSide, Rotation.R90, Rotation.R90))
-            .select(Direction.Axis.Y, CreakingHeartState.DORMANT, createVariant(dormant, Rotation.R0, Rotation.R0))
-            .select(Direction.Axis.Z, CreakingHeartState.DORMANT, createVariant(dormantSide, Rotation.R90, Rotation.R0))
-            .select(Direction.Axis.X, CreakingHeartState.DORMANT, createVariant(dormantSide, Rotation.R90, Rotation.R90))
-            .select(Direction.Axis.Y, CreakingHeartState.AWAKE, createVariant(awake, Rotation.R0, Rotation.R0))
-            .select(Direction.Axis.Z, CreakingHeartState.AWAKE, createVariant(awakeSide, Rotation.R90, Rotation.R0))
-            .select(Direction.Axis.X, CreakingHeartState.AWAKE, createVariant(awakeSide, Rotation.R90, Rotation.R90));
+            .select(Direction.Axis.Y, CreakingHeartState.UPROOTED, createVariant(base, VariantProperties.Rotation.R0, VariantProperties.Rotation.R0))
+            .select(Direction.Axis.Z, CreakingHeartState.UPROOTED, createVariant(baseSide, VariantProperties.Rotation.R90, VariantProperties.Rotation.R0))
+            .select(Direction.Axis.X, CreakingHeartState.UPROOTED, createVariant(baseSide, VariantProperties.Rotation.R90, VariantProperties.Rotation.R90))
+            .select(Direction.Axis.Y, CreakingHeartState.DORMANT, createVariant(dormant, VariantProperties.Rotation.R0, VariantProperties.Rotation.R0))
+            .select(Direction.Axis.Z, CreakingHeartState.DORMANT, createVariant(dormantSide, VariantProperties.Rotation.R90, VariantProperties.Rotation.R0))
+            .select(Direction.Axis.X, CreakingHeartState.DORMANT, createVariant(dormantSide, VariantProperties.Rotation.R90, VariantProperties.Rotation.R90))
+            .select(Direction.Axis.Y, CreakingHeartState.AWAKE, createVariant(awake, VariantProperties.Rotation.R0, VariantProperties.Rotation.R0))
+            .select(Direction.Axis.Z, CreakingHeartState.AWAKE, createVariant(awakeSide, VariantProperties.Rotation.R90, VariantProperties.Rotation.R0))
+            .select(Direction.Axis.X, CreakingHeartState.AWAKE, createVariant(awakeSide, VariantProperties.Rotation.R90, VariantProperties.Rotation.R90));
 
         gen.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block).with(state));
     }
 
-    private Variant createVariant(ResourceLocation model, Rotation xRot, Rotation yRot) {
+    private Variant createVariant(ResourceLocation model, VariantProperties.Rotation xRot, VariantProperties.Rotation yRot) {
         Variant variant = Variant.variant().with(VariantProperties.MODEL, model);
 
-        if (xRot != Rotation.R0) variant = variant.with(VariantProperties.X_ROT, xRot);
-        if (yRot != Rotation.R0) variant = variant.with(VariantProperties.Y_ROT, yRot);
+        if (xRot != VariantProperties.Rotation.R0) variant = variant.with(VariantProperties.X_ROT, xRot);
+        if (yRot != VariantProperties.Rotation.R0) variant = variant.with(VariantProperties.Y_ROT, yRot);
 
         return variant;
     }
@@ -163,36 +158,30 @@ public record BlockModels(BlockModelGenerators gen) {
 
     public void createMultiface(Block block, Item item) {
         gen.createSimpleFlatItemModel(item);
-        ResourceLocation model = ModelLocationUtils.getModelLocation(block);
-        MultiPartGenerator generator = MultiPartGenerator.multiPart(block);
-        Condition.TerminalCondition terminalCondition = Util.make(
-            Condition.condition(),
-            condition -> BlockModelGenerators.MULTIFACE_GENERATOR.stream()
-                .map(Pair::getFirst)
-                .forEach(property -> {
-                    if (block.defaultBlockState().hasProperty(property)) {
-                        condition.term(property, false);
-                    }
-                })
-        );
+        ResourceLocation resourceLocation = ModelLocationUtils.getModelLocation(block);
+        MultiPartGenerator multiPartGenerator = MultiPartGenerator.multiPart(block);
+        Condition.TerminalCondition terminalCondition = Util.make(Condition.condition(), (terminalConditionx) -> BlockModelGenerators.MULTIFACE_GENERATOR.stream().map(Pair::getFirst).forEach((booleanProperty) -> {
+            if (block.defaultBlockState().hasProperty(booleanProperty)) {
+                terminalConditionx.term(booleanProperty, false);
+            }
+        }));
 
-        for (Pair<BooleanProperty, Function<ResourceLocation, Variant>> pair : BlockModelGenerators.MULTIFACE_GENERATOR) {
-            BooleanProperty property = pair.getFirst();
-            Function<ResourceLocation, Variant> variant = pair.getSecond();
-
-            if (block.defaultBlockState().hasProperty(property)) {
-                generator.with(Condition.condition().term(property, true), variant.apply(model));
-                generator.with(terminalCondition, variant.apply(model));
+        for(Pair<BooleanProperty, Function<ResourceLocation, Variant>> pair : BlockModelGenerators.MULTIFACE_GENERATOR) {
+            BooleanProperty booleanProperty = pair.getFirst();
+            Function<ResourceLocation, Variant> function = pair.getSecond();
+            if (block.defaultBlockState().hasProperty(booleanProperty)) {
+                multiPartGenerator.with(Condition.condition().term(booleanProperty, true), function.apply(resourceLocation));
+                multiPartGenerator.with(terminalCondition, function.apply(resourceLocation));
             }
         }
 
-        gen.blockStateOutput.accept(generator);
+        gen.blockStateOutput.accept(multiPartGenerator);
     }
 
     public void createDriedGhastBlock() {
-        ResourceLocation model = ModelLocationUtils.getModelLocation(ModBlocks.DRIED_GHAST.get(), "_hydration_0");
-        gen.delegateItemModel(ModBlocks.DRIED_GHAST.get(), model);
-        Function<Integer, ResourceLocation> variant = integer -> {
+        ResourceLocation location = ModelLocationUtils.getModelLocation(ModBlocks.DRIED_GHAST.get(), "_hydration_0");
+        gen.delegateItemModel(ModBlocks.DRIED_GHAST.get(), location);
+        Function<Integer, ResourceLocation> function = integer -> {
             String string = switch (integer) {
                 case 1 -> "_hydration_1";
                 case 2 -> "_hydration_2";
@@ -202,11 +191,10 @@ public record BlockModels(BlockModelGenerators gen) {
             TextureMapping mapping = TextureMappings.driedGhast(string);
             return ModelTemplates.DRIED_GHAST.createWithSuffix(ModBlocks.DRIED_GHAST.get(), string, mapping, gen.modelOutput);
         };
-
         gen.blockStateOutput
             .accept(
                 MultiVariantGenerator.multiVariant(ModBlocks.DRIED_GHAST.get())
-                    .with(PropertyDispatch.property(DriedGhastBlock.HYDRATION_LEVEL).generate(level -> Variant.variant().with(VariantProperties.MODEL, variant.apply(level))))
+                    .with(PropertyDispatch.property(DriedGhastBlock.HYDRATION_LEVEL).generate(integer -> Variant.variant().with(VariantProperties.MODEL, function.apply(integer))))
                     .with(BlockModelGenerators.createHorizontalFacingDispatch())
             );
     }

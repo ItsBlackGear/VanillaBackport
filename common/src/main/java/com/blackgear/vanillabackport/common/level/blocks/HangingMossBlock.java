@@ -4,6 +4,7 @@ import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
 import com.blackgear.vanillabackport.common.registries.ModBlockStateProperties;
 import com.blackgear.vanillabackport.common.registries.ModBlocks;
 import com.blackgear.vanillabackport.core.data.tags.ModBlockTags;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -23,9 +24,15 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class HangingMossBlock extends Block implements BonemealableBlock {
+    public static final MapCodec<HangingMossBlock> CODEC = simpleCodec(HangingMossBlock::new);
     private static final VoxelShape TIP_SHAPE = Block.box(1.0, 2.0, 1.0, 15.0, 16.0, 15.0);
     private static final VoxelShape BASE_SHAPE = Block.box(1.0, 0.0, 1.0, 15.0, 16.0, 15.0);
     public static final BooleanProperty TIP = ModBlockStateProperties.TIP;
+
+    @Override
+    public MapCodec<HangingMossBlock> codec() {
+        return CODEC;
+    }
 
     public HangingMossBlock(Properties properties) {
         super(properties);
@@ -106,7 +113,7 @@ public class HangingMossBlock extends Block implements BonemealableBlock {
     }
 
     @Override
-    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state, boolean isClient) {
+    public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state) {
         return this.canGrowInto(level.getBlockState(this.getTip(level, pos).below()));
     }
 

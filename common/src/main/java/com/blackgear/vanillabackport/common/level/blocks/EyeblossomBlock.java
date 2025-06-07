@@ -3,7 +3,11 @@ package com.blackgear.vanillabackport.common.level.blocks;
 import com.blackgear.vanillabackport.client.level.particles.particleoptions.TrailParticleOption;
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
 import com.blackgear.vanillabackport.common.registries.ModBlocks;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
@@ -17,16 +21,30 @@ import net.minecraft.world.entity.animal.Bee;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.FlowerBlock;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 
 public class EyeblossomBlock extends FlowerBlock {
+    public static final MapCodec<EyeblossomBlock> CODEC = RecordCodecBuilder.mapCodec(instance ->
+        instance.group(Codec.BOOL.fieldOf("open").forGetter(block -> block.type.open), propertiesCodec()).apply(instance, EyeblossomBlock::new)
+    );
     private final Type type;
+
+    @Override
+    public MapCodec<? extends EyeblossomBlock> codec() {
+        return CODEC;
+    }
 
     public EyeblossomBlock(Type type, Properties properties) {
         super(type.effect, type.effectDuration, properties);
         this.type = type;
+    }
+
+    public EyeblossomBlock(boolean open, BlockBehaviour.Properties properties) {
+        super(Type.fromBoolean(open).effect, Type.fromBoolean(open).effectDuration, properties);
+        this.type = Type.fromBoolean(open);
     }
 
     @Override
@@ -108,13 +126,13 @@ public class EyeblossomBlock extends FlowerBlock {
         CLOSED(false, MobEffects.CONFUSION, 7, ModSoundEvents.EYEBLOSSOM_CLOSE_LONG.get(), ModSoundEvents.EYEBLOSSOM_CLOSE.get(), 6250335);
 
         final boolean open;
-        final MobEffect effect;
+        final Holder<MobEffect> effect;
         final int effectDuration;
         final SoundEvent longSwitchSound;
         final SoundEvent shortSwitchSound;
         final int particleColor;
 
-        Type(boolean open, MobEffect effect, int effectDuration, SoundEvent longSwitchSound, SoundEvent shortSwitchSound, int particleColor) {
+        Type(boolean open, Holder<MobEffect> effect, int effectDuration, SoundEvent longSwitchSound, SoundEvent shortSwitchSound, int particleColor) {
             this.open = open;
             this.effect = effect;
             this.effectDuration = effectDuration;

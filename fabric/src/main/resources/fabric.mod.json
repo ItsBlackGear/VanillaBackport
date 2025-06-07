@@ -8,11 +8,9 @@
     "BlackGear"
   ],
   "contact": {
-    "homepage": "https://www.curseforge.com/minecraft/mc-mods/vanillabackport",
-    "sources": "https://github.com/ItsBlackGear/VanillaBackport",
-    "issues": "https://github.com/ItsBlackGear/VanillaBackport/issues"
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/vanilla-backport"
   },
-  "license": "MIT",
+  "license": "ARR",
   "icon": "icon.png",
   "environment": "*",
   "entrypoints": {
@@ -30,10 +28,10 @@
     "vanillabackport.mixins.json"
   ],
   "depends": {
-    "fabricloader": ">=0.16.11",
+    "fabricloader": ">=0.16.12",
     "platform": ">=1.2.7",
-    "minecraft": "~1.20.1",
-    "java": ">=17",
+    "minecraft": "~1.21.1",
+    "java": ">=21",
     "fabric-api": "*"
   }
 }

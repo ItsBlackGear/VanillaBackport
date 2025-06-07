@@ -5,6 +5,7 @@ import com.blackgear.vanillabackport.common.registries.ModBlocks;
 import com.blackgear.vanillabackport.common.registries.ModTreeDecorators;
 import com.blackgear.vanillabackport.common.worldgen.features.TheGardenAwakensFeatures;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
@@ -19,7 +20,7 @@ import org.apache.commons.lang3.mutable.MutableObject;
 import java.util.List;
 
 public class PaleMossDecorator extends TreeDecorator {
-    public static final Codec<PaleMossDecorator> CODEC = RecordCodecBuilder.create(
+    public static final MapCodec<PaleMossDecorator> CODEC = RecordCodecBuilder.mapCodec(
         instance -> instance.group(
             Codec.floatRange(0.0F, 1.0F).fieldOf("leaves_probability").forGetter(decorator -> decorator.leavesProbability),
             Codec.floatRange(0.0F, 1.0F).fieldOf("trunk_probability").forGetter(decorator -> decorator.trunkProbability),
@@ -48,7 +49,7 @@ public class PaleMossDecorator extends TreeDecorator {
         WorldGenLevel level = (WorldGenLevel) context.level();
         List<BlockPos> positions = Util.shuffledCopy(context.logs(), random);
         if (!positions.isEmpty()) {
-            Mutable<BlockPos> mutable = new MutableObject<>(positions.get(0));
+            Mutable<BlockPos> mutable = new MutableObject<>(positions.getFirst());
             positions.forEach(pos -> {
                 if (pos.getY() < mutable.getValue().getY()) {
                     mutable.setValue(pos);

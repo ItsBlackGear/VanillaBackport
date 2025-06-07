@@ -4,18 +4,20 @@ import com.blackgear.platform.core.helper.BlockRegistry;
 import com.blackgear.vanillabackport.client.registries.ModParticles;
 import com.blackgear.vanillabackport.client.registries.ModSoundTypes;
 import com.blackgear.vanillabackport.common.level.blocks.*;
-import com.blackgear.vanillabackport.common.worldgen.grower.PaleOakTreeGrower;
+import com.blackgear.vanillabackport.common.worldgen.features.TheGardenAwakensFeatures;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.grower.TreeGrower;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 
+import java.util.Optional;
 import java.util.function.Supplier;
 
 public class ModBlocks {
@@ -78,7 +80,7 @@ public class ModBlocks {
     );
     public static final Supplier<Block> PALE_OAK_FENCE_GATE = BLOCKS.register(
         "pale_oak_fence_gate",
-        properties -> new FenceGateBlock(properties, ModWoodTypes.PALE_OAK),
+        properties -> new FenceGateBlock(ModWoodTypes.PALE_OAK, properties),
         BlockBehaviour.Properties.of()
             .mapColor(MapColor.QUARTZ)
             .forceSolidOn()
@@ -88,7 +90,7 @@ public class ModBlocks {
     );
     public static final Supplier<Block> PALE_OAK_DOOR = BLOCKS.register(
         "pale_oak_door",
-        properties -> new DoorBlock(properties, ModBlockSetTypes.PALE_OAK),
+        properties -> new DoorBlock(ModBlockSetTypes.PALE_OAK, properties),
         BlockBehaviour.Properties.of()
             .mapColor(MapColor.QUARTZ)
             .instrument(NoteBlockInstrument.BASS)
@@ -183,7 +185,7 @@ public class ModBlocks {
     );
     public static final Supplier<Block> PALE_OAK_SAPLING = BLOCKS.register(
         "pale_oak_sapling",
-        properties -> new SaplingBlock(new PaleOakTreeGrower(), properties),
+        properties -> new SaplingBlock(new TreeGrower("pale_oak", Optional.of(TheGardenAwakensFeatures.PALE_OAK_BONEMEAL), Optional.empty(), Optional.empty()), properties),
         BlockBehaviour.Properties.of()
             .mapColor(MapColor.COLOR_LIGHT_GRAY)
             .noCollission()
@@ -228,7 +230,7 @@ public class ModBlocks {
     );
     public static final Supplier<Block> PALE_OAK_PRESSURE_PLATE = BLOCKS.register(
         "pale_oak_pressure_plate",
-        properties -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, properties, ModBlockSetTypes.PALE_OAK),
+        properties -> new PressurePlateBlock(ModBlockSetTypes.PALE_OAK, properties),
         BlockBehaviour.Properties.of()
             .mapColor(MapColor.QUARTZ)
             .forceSolidOn()
@@ -240,7 +242,7 @@ public class ModBlocks {
     );
     public static final Supplier<Block> PALE_OAK_TRAPDOOR = BLOCKS.register(
         "pale_oak_trapdoor",
-        properties -> new TrapDoorBlock(properties, ModBlockSetTypes.PALE_OAK),
+        properties -> new TrapDoorBlock(ModBlockSetTypes.PALE_OAK, properties),
         BlockBehaviour.Properties.of()
             .mapColor(MapColor.QUARTZ)
             .instrument(NoteBlockInstrument.BASS)
@@ -251,7 +253,7 @@ public class ModBlocks {
     );
     public static final Supplier<Block> PALE_OAK_BUTTON = BLOCKS.register(
         "pale_oak_button",
-        properties -> new ButtonBlock(properties, ModBlockSetTypes.PALE_OAK, 30, true),
+        properties -> new ButtonBlock(ModBlockSetTypes.PALE_OAK, 30, properties),
         buttonProperties()
     );
     public static final Supplier<Block> RESIN_CLUMP = BLOCKS.register(
@@ -362,8 +364,8 @@ public class ModBlocks {
             .noCollission()
             .strength(1.0F)
             .ignitedByLava();
-        Supplier<Block> standing = BLOCKS.registerNoItem(name + "_sign", () -> new StandingSignBlock(properties, woodType));
-        Supplier<Block> wall = BLOCKS.registerNoItem(name + "_wall_sign", () -> new WallSignBlock(properties.dropsLike(standing.get()), woodType));
+        Supplier<Block> standing = BLOCKS.registerNoItem(name + "_sign", () -> new StandingSignBlock(woodType, properties));
+        Supplier<Block> wall = BLOCKS.registerNoItem(name + "_wall_sign", () -> new WallSignBlock(woodType, properties.dropsLike(standing.get())));
         BLOCKS.registerItem(name + "_sign", () -> new SignItem(new Item.Properties().stacksTo(16), standing.get(), wall.get()));
         return new Pair<>(standing, wall);
     }
@@ -377,8 +379,8 @@ public class ModBlocks {
             .strength(1.0F)
             .ignitedByLava();
 
-        Supplier<Block> ceiling = BLOCKS.registerNoItem(name + "_hanging_sign", () -> new CeilingHangingSignBlock(properties, woodType));
-        Supplier<Block> wall = BLOCKS.registerNoItem(name + "_wall_hanging_sign", () -> new WallHangingSignBlock(properties.dropsLike(ceiling.get()), woodType));
+        Supplier<Block> ceiling = BLOCKS.registerNoItem(name + "_hanging_sign", () -> new CeilingHangingSignBlock(woodType, properties));
+        Supplier<Block> wall = BLOCKS.registerNoItem(name + "_wall_hanging_sign", () -> new WallHangingSignBlock(woodType, properties.dropsLike(ceiling.get())));
         BLOCKS.registerItem(name + "_hanging_sign", () -> new HangingSignItem(ceiling.get(), wall.get(), new Item.Properties().stacksTo(16)));
         return new Pair<>(ceiling, wall);
     }

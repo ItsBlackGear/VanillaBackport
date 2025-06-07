@@ -21,7 +21,7 @@ public class HarnessItem extends Item {
         if (target instanceof HappyGhast ghast && target.isAlive()) {
             if (!ghast.isSaddled() && ghast.isSaddleable()) {
                 if (!player.level().isClientSide) {
-                    ghast.equipSaddle(SoundSource.NEUTRAL);
+                    ghast.equipSaddle(ItemStack.EMPTY, SoundSource.NEUTRAL);
                     ghast.setItemSlot(EquipmentSlot.CHEST, new ItemStack(this));
                     target.level().gameEvent(target, GameEvent.EQUIP, target.position());
                     stack.shrink(1);

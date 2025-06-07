@@ -31,6 +31,16 @@ public class BlockTagGenerator extends FabricTagProvider.BlockTagProvider {
 
         // Special behavior tags
         addSpecialBehaviorTags();
+
+        this.getOrCreateTagBuilder(ModBlockTags.HAPPY_GHAST_AVOIDS)
+            .add(
+                Blocks.SWEET_BERRY_BUSH,
+                Blocks.CACTUS,
+                Blocks.WITHER_ROSE,
+                Blocks.MAGMA_BLOCK,
+                Blocks.FIRE,
+                Blocks.POINTED_DRIPSTONE
+            );
     }
 
     private void addWoodRelatedTags() {
@@ -84,16 +94,6 @@ public class BlockTagGenerator extends FabricTagProvider.BlockTagProvider {
             .add(ModBlocks.PALE_OAK_WOOD.get())
             .add(ModBlocks.STRIPPED_PALE_OAK_LOG.get())
             .add(ModBlocks.STRIPPED_PALE_OAK_WOOD.get());
-
-        this.getOrCreateTagBuilder(ModBlockTags.HAPPY_GHAST_AVOIDS)
-            .add(
-                Blocks.SWEET_BERRY_BUSH,
-                Blocks.CACTUS,
-                Blocks.WITHER_ROSE,
-                Blocks.MAGMA_BLOCK,
-                Blocks.FIRE,
-                Blocks.POINTED_DRIPSTONE
-            );
     }
 
     private void addBuildingBlockTags() {

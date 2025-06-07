@@ -6,7 +6,7 @@ import com.blackgear.vanillabackport.common.worldgen.features.TheGardenAwakensFe
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -26,7 +26,7 @@ public class TheGardenAwakensPlacements {
     public static final ResourceKey<PlacedFeature> PALE_GARDEN_FLOWERS = FEATURES.create("pale_garden_flowers");
     public static final ResourceKey<PlacedFeature> PALE_MOSS_PATCH = FEATURES.create("pale_moss_patch");
 
-    public static void bootstrap(BootstapContext<PlacedFeature> context) {
+    public static void bootstrap(BootstrapContext<PlacedFeature> context) {
         HolderGetter<ConfiguredFeature<?, ?>> features = context.lookup(Registries.CONFIGURED_FEATURE);
 
         // TREE PLACEMENTS

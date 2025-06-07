@@ -3,8 +3,8 @@ package com.blackgear.vanillabackport.common.level.dispenser;
 import com.blackgear.vanillabackport.common.level.boat.PaleOakBoat;
 import com.blackgear.vanillabackport.common.level.boat.PaleOakChestBoat;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.BlockSource;
 import net.minecraft.core.Direction;
+import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.FluidTags;
@@ -12,6 +12,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.DispenserBlock;
+import net.minecraft.world.phys.Vec3;
 
 public class PaleOakBoatDispenseBehavior extends DefaultDispenseItemBehavior {
     private final DefaultDispenseItemBehavior defaultDispenseItemBehavior;
@@ -27,13 +28,14 @@ public class PaleOakBoatDispenseBehavior extends DefaultDispenseItemBehavior {
     }
 
     public ItemStack execute(BlockSource source, ItemStack stack) {
-        Direction direction = source.getBlockState().getValue(DispenserBlock.FACING);
-        ServerLevel level = source.getLevel();
+        Direction direction = source.state().getValue(DispenserBlock.FACING);
+        ServerLevel level = source.level();
+        Vec3 center = source.center();
         double width = 0.5625 + (double) EntityType.BOAT.getWidth() / 2.0;
-        double x = source.x() + (double) direction.getStepX() * width;
-        double y = source.y() + (double) ((float) direction.getStepY() * 1.125F);
-        double z = source.z() + (double) direction.getStepZ() * width;
-        BlockPos blockpos = source.getPos().relative(direction);
+        double x = center.x() + (double) direction.getStepX() * width;
+        double y = center.y() + (double) ((float) direction.getStepY() * 1.125F);
+        double z = center.z() + (double) direction.getStepZ() * width;
+        BlockPos blockpos = source.pos().relative(direction);
         double offset = 0.0;
         if (level.getFluidState(blockpos).is(FluidTags.WATER)) {
             offset = 1.0;
@@ -52,6 +54,6 @@ public class PaleOakBoatDispenseBehavior extends DefaultDispenseItemBehavior {
     }
 
     protected void playSound(BlockSource source) {
-        source.getLevel().levelEvent(1000, source.getPos(), 0);
+        source.level().levelEvent(1000, source.pos(), 0);
     }
 }

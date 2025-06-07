@@ -6,6 +6,9 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.core.Direction;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
@@ -21,13 +24,16 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePrope
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
+import java.util.concurrent.CompletableFuture;
+
 public class BlockLootGenerator extends FabricBlockLootTableProvider {
-    public BlockLootGenerator(FabricDataOutput dataOutput) {
-        super(dataOutput);
+    public BlockLootGenerator(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
+        super(dataOutput, registryLookup);
     }
 
     @Override
     public void generate() {
+        HolderLookup.RegistryLookup<Enchantment> enchantments = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
         this.dropSelf(ModBlocks.PALE_OAK_PLANKS.get());
         this.dropSelf(ModBlocks.PALE_OAK_SAPLING.get());
         this.dropSelf(ModBlocks.PALE_OAK_LOG.get());
@@ -73,7 +79,7 @@ public class BlockLootGenerator extends FabricBlockLootTableProvider {
                     block,
                     LootItem.lootTableItem(ModBlocks.RESIN_CLUMP.get())
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 3.0F)))
-                        .apply(ApplyBonusCount.addUniformBonusCount(Enchantments.BLOCK_FORTUNE))
+                        .apply(ApplyBonusCount.addUniformBonusCount(enchantments.getOrThrow(Enchantments.FORTUNE)))
                         .apply(LimitCount.limitCount(IntRange.upperBound(9)))
                 )
             )
@@ -122,6 +128,6 @@ public class BlockLootGenerator extends FabricBlockLootTableProvider {
 
     protected LootTable.Builder createShearsOrSilkTouchOnlyDrop(ItemLike itemLike) {
         return LootTable.lootTable()
-            .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).when(HAS_SHEARS_OR_SILK_TOUCH).add(LootItem.lootTableItem(itemLike)));
+            .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).when(this.hasShearsOrSilkTouch()).add(LootItem.lootTableItem(itemLike)));
     }
 }

@@ -2,7 +2,10 @@ package com.blackgear.vanillabackport.common.worldgen;
 
 import com.blackgear.platform.common.worldgen.placement.BiomePlacement;
 import com.blackgear.platform.common.worldgen.placement.Placement;
-import com.blackgear.platform.common.worldgen.placement.parameters.*;
+import com.blackgear.platform.common.worldgen.placement.parameters.Continentalness;
+import com.blackgear.platform.common.worldgen.placement.parameters.Erosion;
+import com.blackgear.platform.common.worldgen.placement.parameters.Humidity;
+import com.blackgear.platform.common.worldgen.placement.parameters.Temperature;
 import com.blackgear.vanillabackport.common.registries.ModBiomes;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 

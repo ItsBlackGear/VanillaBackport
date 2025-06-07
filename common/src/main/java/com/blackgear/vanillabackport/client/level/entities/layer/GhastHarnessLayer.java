@@ -60,7 +60,7 @@ public class GhastHarnessLayer<T extends HappyGhast> extends RenderLayer<T, Happ
             this.model.prepareMobModel(entity, limbSwing, limbSwingAmount, partialTick);
             this.model.setupAnim(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
             VertexConsumer vertices = buffer.getBuffer(RenderType.entityCutoutNoCull(texture.get()));
-            this.model.renderToBuffer(poseStack, vertices, packedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+            this.model.renderToBuffer(poseStack, vertices, packedLight, OverlayTexture.NO_OVERLAY);
         }
     }
 }

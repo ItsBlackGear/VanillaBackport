@@ -23,15 +23,15 @@ import java.util.stream.Stream;
 
 @Mixin(ServerEntity.class)
 public abstract class ServerEntityMixin {
-    @Shadow private Vec3 ap;
-    @Shadow private int yRotp;
-    @Shadow private int xRotp;
     @Shadow private int tickCount;
-    @Shadow private int yHeadRotp;
+    @Shadow private int lastSentXRot;
+    @Shadow private int lastSentYRot;
     @Shadow private int teleportDelay;
     @Shadow private boolean wasRiding;
     @Shadow private boolean wasOnGround;
     @Shadow @Final private Entity entity;
+    @Shadow private int lastSentYHeadRot;
+    @Shadow private Vec3 lastSentMovement;
     @Shadow @Final private int updateInterval;
     @Shadow @Final private boolean trackDelta;
     @Shadow private List<Entity> lastPassengers;
@@ -69,7 +69,7 @@ public abstract class ServerEntityMixin {
                     boolean positionChanged = this.positionCodec.delta(position).lengthSqr() >= 7.6293945E-6F;
 
                     boolean shouldUpdatePosition = positionChanged || this.tickCount % 60 == 0;
-                    boolean shouldUpdateRotation = Math.abs(yRot - this.yRotp) >= 1 || Math.abs(xRot - this.xRotp) >= 1;
+                    boolean shouldUpdateRotation = Math.abs(yRot - this.lastSentYRot) >= 1 || Math.abs(xRot - this.lastSentXRot) >= 1;
 
                     Packet<?> packet = null;
                     boolean positionUpdated = false;
@@ -104,11 +104,11 @@ public abstract class ServerEntityMixin {
 
                     if ((this.trackDelta || this.entity.hasImpulse || this.entity instanceof LivingEntity && ((LivingEntity)this.entity).isFallFlying()) && this.tickCount > 0) {
                         Vec3 movement = this.entity.getDeltaMovement();
-                        double distance = movement.distanceToSqr(this.ap);
+                        double distance = movement.distanceToSqr(this.lastSentMovement);
 
                         if (distance > 1.0E-7 || distance > 0.0 && movement.lengthSqr() == 0.0) {
-                            this.ap = movement;
-                            this.broadcast.accept(new ClientboundSetEntityMotionPacket(this.entity.getId(), this.ap));
+                            this.lastSentMovement = movement;
+                            this.broadcast.accept(new ClientboundSetEntityMotionPacket(this.entity.getId(), this.lastSentMovement));
                         }
                     }
 
@@ -122,17 +122,17 @@ public abstract class ServerEntityMixin {
                     }
 
                     if (rotationUpdated) {
-                        this.yRotp = yRot;
-                        this.xRotp = xRot;
+                        this.lastSentYRot = yRot;
+                        this.lastSentXRot = xRot;
                     }
 
                     this.wasRiding = false;
                 }
 
                 int headYaw = Mth.floor(this.entity.getYHeadRot() * 256.0F / 360.0F);
-                if (Math.abs(headYaw - this.yHeadRotp) >= 1) {
+                if (Math.abs(headYaw - this.lastSentYHeadRot) >= 1) {
                     this.broadcast.accept(new ClientboundRotateHeadPacket(this.entity, (byte) headYaw));
-                    this.yHeadRotp = headYaw;
+                    this.lastSentYHeadRot = headYaw;
                 }
 
                 this.entity.hasImpulse = false;

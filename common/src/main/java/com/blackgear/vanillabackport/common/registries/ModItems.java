@@ -1,8 +1,8 @@
 package com.blackgear.vanillabackport.common.registries;
 
 import com.blackgear.platform.core.helper.ItemRegistry;
-import com.blackgear.vanillabackport.common.level.items.PaleOakBoatItem;
 import com.blackgear.vanillabackport.common.level.items.HarnessItem;
+import com.blackgear.vanillabackport.common.level.items.PaleOakBoatItem;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.world.item.Item;
 

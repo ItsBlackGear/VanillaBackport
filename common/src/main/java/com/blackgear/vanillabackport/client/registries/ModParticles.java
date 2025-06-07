@@ -22,8 +22,8 @@ public class ModParticles {
     public static final Supplier<ParticleType<TrailParticleOption>> TRAIL = PARTICLES.register(
         "trail",
         false,
-        TrailParticleOption.DESERIALIZER,
-        particle -> TrailParticleOption.CODEC
+        particle -> TrailParticleOption.CODEC,
+        particle -> TrailParticleOption.STREAM_CODEC
     );
 
     public static <T extends ParticleOptions> int sendParticles(ServerLevel level, T particle, double x, double y, double z, int particleCount, double xOffset, double yOffset, double zOffset, double speed) {

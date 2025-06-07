@@ -14,6 +14,8 @@ import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.FastColor;
+import net.minecraft.util.Mth;
 
 import java.util.List;
 import java.util.function.Function;
@@ -53,16 +55,15 @@ public class CreakingEmissiveLayer<T extends Creaking, M extends CreakingModel<T
     ) {
         if (!entity.isInvisible() && this.onlyDrawSelectedParts()) {
             VertexConsumer vertices = buffer.getBuffer(this.bufferProvider.apply(this.texture));
+            float alpha = this.alphaFunction.apply(entity, partialTick, ageInTicks);
+            int color = FastColor.ARGB32.color(Mth.floor(alpha * 255.0F), 255, 255, 255);
             this.getParentModel()
                 .renderToBuffer(
                     poseStack,
                     vertices,
                     packedLight,
                     LivingEntityRenderer.getOverlayCoords(entity, 0.0F),
-                    1.0F,
-                    1.0F,
-                    1.0F,
-                    this.alphaFunction.apply(entity, partialTick, ageInTicks)
+                    color
                 );
             this.resetDrawForAllParts();
         }

@@ -11,10 +11,10 @@ import net.minecraft.world.item.ItemStack;
 
 import java.util.function.Supplier;
 
-public interface ModCreativeTabs {
-    CoreRegistry<CreativeModeTab> TABS = CoreRegistry.create(Registries.CREATIVE_MODE_TAB, VanillaBackport.MOD_ID);
+public class ModCreativeTabs {
+    public static final CoreRegistry<CreativeModeTab> TABS = CoreRegistry.create(Registries.CREATIVE_MODE_TAB, VanillaBackport.MOD_ID);
 
-    Supplier<CreativeModeTab> THE_GARDEN_AWAKENS = TABS.register(
+    public static final Supplier<CreativeModeTab> THE_GARDEN_AWAKENS = TABS.register(
         "the_garden_awakens",
         () -> CreativeModeTab.builder(CreativeModeTab.Row.TOP, 1)
             .title(Component.literal("The Garden Awakens"))
@@ -57,11 +57,10 @@ public interface ModCreativeTabs {
             })
             .build()
     );
-
-    Supplier<CreativeModeTab> CHASE_THE_SKIES = TABS.register(
+    public static final Supplier<CreativeModeTab> CHASE_THE_SKIES = TABS.register(
         "chase_the_skies",
-        () -> CreativeModeTab.builder(CreativeModeTab.Row.TOP, 1)
-            .title(Component.literal("Chase The Skies"))
+        () -> CreativeModeTab.builder(CreativeModeTab.Row.TOP, 2)
+            .title(Component.literal("Chase the Skies"))
             .icon(() -> new ItemStack(ModItems.BROWN_HARNESS.get()))
             .displayItems((parameters, output) -> {
                 output.accept(ModBlocks.DRIED_GHAST.get());

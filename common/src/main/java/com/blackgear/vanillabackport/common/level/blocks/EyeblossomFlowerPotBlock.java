@@ -17,7 +17,7 @@ public class EyeblossomFlowerPotBlock extends FlowerPotBlock {
     @Override
     public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         if (this.isRandomlyTicking(state) && level.dimensionType().natural()) {
-            boolean hasOpenEyeblossom = this.getContent() == ModBlocks.OPEN_EYEBLOSSOM.get();
+            boolean hasOpenEyeblossom = this.getPotted() == ModBlocks.OPEN_EYEBLOSSOM.get();
             boolean isNaturalNight = CreakingHeartBlock.isNaturalNight(level);
 
             if (hasOpenEyeblossom != isNaturalNight) {

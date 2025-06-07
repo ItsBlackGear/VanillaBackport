@@ -6,6 +6,7 @@ import com.blackgear.vanillabackport.common.level.blocks.blockstates.CreakingHea
 import com.blackgear.vanillabackport.common.registries.ModBlockEntities;
 import com.blackgear.vanillabackport.common.registries.ModBlockStateProperties;
 import com.blackgear.vanillabackport.core.data.tags.ModBlockTags;
+import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -28,9 +29,15 @@ import net.minecraft.world.level.block.state.properties.EnumProperty;
 import org.jetbrains.annotations.Nullable;
 
 public class CreakingHeartBlock extends BaseEntityBlock {
+    public static final MapCodec<CreakingHeartBlock> CODEC = simpleCodec(CreakingHeartBlock::new);
     public static final EnumProperty<Direction.Axis> AXIS = BlockStateProperties.AXIS;
     public static final EnumProperty<CreakingHeartState> STATE = ModBlockStateProperties.CREAKING_HEART_STATE;
     public static final BooleanProperty NATURAL = ModBlockStateProperties.NATURAL;
+
+    @Override
+    protected MapCodec<? extends BaseEntityBlock> codec() {
+        return CODEC;
+    }
 
     public CreakingHeartBlock(Properties properties) {
         super(properties);
@@ -160,13 +167,13 @@ public class CreakingHeartBlock extends BaseEntityBlock {
     }
 
     @Override
-    public void playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
+    public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
         if (level.getBlockEntity(pos) instanceof CreakingHeartBlockEntity heart) {
             heart.removeProtector(player.damageSources().playerAttack(player));
             this.tryAwardExperience(player, state, level, pos);
         }
 
-        super.playerWillDestroy(level, pos, state, player);
+        return super.playerWillDestroy(level, pos, state, player);
     }
 
     private void tryAwardExperience(Player player, BlockState state, Level level, BlockPos pos) {
