@@ -137,5 +137,6 @@ public class LangGenerator extends FabricLanguageProvider {
         builder.add("subtitles.entity.happy_ghast.harness_goggles_down", "Happy Ghast is ready");
         builder.add("subtitles.entity.happy_ghast.harness_goggles_up", "Happy Ghast stops");
         builder.add("subtitles.entity.happy_ghast.unequip", "Harness unequips");
+        builder.add("subtitles.entity.happy_ghast.equip", "Harness equips");
     }
 }
