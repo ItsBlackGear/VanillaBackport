@@ -85,7 +85,7 @@ public class RecipeGenerator extends FabricRecipeProvider {
     private void dryGhast(Consumer<FinishedRecipe> exporter, ItemLike ghast) {
         ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ghast)
             .define('#', Items.GHAST_TEAR)
-            .define('X', Items.BONE_BLOCK)
+            .define('X', Items.SOUL_SAND)
             .pattern("###")
             .pattern("#X#")
             .pattern("###")

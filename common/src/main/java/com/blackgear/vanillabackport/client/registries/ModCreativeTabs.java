@@ -82,6 +82,7 @@ public interface ModCreativeTabs {
                 output.accept(ModItems.GREEN_HARNESS.get());
                 output.accept(ModItems.RED_HARNESS.get());
                 output.accept(ModItems.BLACK_HARNESS.get());
+                output.accept(ModItems.MUSIC_DISC_TEARS.get());
             })
             .build()
     );

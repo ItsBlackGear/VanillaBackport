@@ -1,5 +1,6 @@
 package com.blackgear.vanillabackport.common;
 
+import com.blackgear.platform.common.data.LootModifier;
 import com.blackgear.platform.common.integration.BlockIntegration;
 import com.blackgear.platform.common.integration.MobIntegration;
 import com.blackgear.platform.common.integration.TradeIntegration;
@@ -13,10 +14,20 @@ import com.blackgear.vanillabackport.common.registries.ModEntities;
 import com.blackgear.vanillabackport.common.registries.ModItems;
 import com.blackgear.vanillabackport.common.worldgen.BiomeGeneration;
 import com.blackgear.vanillabackport.core.VanillaBackport;
+import net.minecraft.advancements.critereon.DamageSourcePredicate;
+import net.minecraft.advancements.critereon.EntityPredicate;
+import net.minecraft.advancements.critereon.TagPredicate;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.npc.VillagerTrades;
+import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
+import net.minecraft.world.level.storage.loot.predicates.DamageSourceCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemKilledByPlayerCondition;
+import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 
 public class CommonSetup {
     public static void setup() {
@@ -24,9 +35,27 @@ public class CommonSetup {
     }
 
     public static void asyncSetup(ParallelDispatch dispatch) {
-        BiomePlacement.registerBiomePlacements(BiomeGeneration::bootstrap);
-        BlockIntegration.registerIntegrations(CommonSetup::blockIntegrations);
-        TradeIntegration.registerVillagerTrades(CommonSetup::tradeIntegrations);
+        dispatch.enqueueWork(() -> {
+            BiomePlacement.registerBiomePlacements(BiomeGeneration::bootstrap);
+            BlockIntegration.registerIntegrations(CommonSetup::blockIntegrations);
+            TradeIntegration.registerVillagerTrades(CommonSetup::tradeIntegrations);
+            LootModifier.modify((manager, path, context, builtin) -> {
+                if (path == EntityType.GHAST.getDefaultLootTable()) {
+                    context.addPool(
+                        LootPool.lootPool()
+                            .setRolls(ConstantValue.exactly(1.0F))
+                            .add(LootItem.lootTableItem(ModItems.MUSIC_DISC_TEARS.get()))
+                            .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F)))
+                            .when(DamageSourceCondition.hasDamageSource(
+                                DamageSourcePredicate.Builder.damageType()
+                                    .tag(TagPredicate.is(DamageTypeTags.IS_PROJECTILE))
+                                    .direct(EntityPredicate.Builder.entity().of(EntityType.FIREBALL)))
+                            )
+                            .when(LootItemKilledByPlayerCondition.killedByPlayer())
+                    );
+                }
+            });
+        });
     }
 
     public static void blockIntegrations(BlockIntegration.Event event) {

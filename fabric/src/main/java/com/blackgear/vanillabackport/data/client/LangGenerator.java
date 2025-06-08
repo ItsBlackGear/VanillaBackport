@@ -119,6 +119,11 @@ public class LangGenerator extends FabricLanguageProvider {
         builder.add(ModItems.RED_HARNESS.get(), "Red Harness");
         builder.add(ModItems.BLACK_HARNESS.get(), "Black Harness");
 
+        builder.add("item.vanillabackport.music_disc_tears", "Music Disc");
+        builder.add("item.vanillabackport.music_disc_tears.desc", "Amos Roddy - Tears");
+
+        builder.add("jukebox_song.vanillabackport.tears", "Amos Roddy - Tears");
+
         builder.add(ModEntities.HAPPY_GHAST.get(), "Happy Ghast");
 
         builder.add("subtitles.block.dried_ghast.ambient", "Dried Ghast wheezes");
