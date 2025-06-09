@@ -87,8 +87,9 @@ public class LangGenerator extends FabricLanguageProvider {
         // Entity Subtitles
         builder.add("subtitles.entity.creaking.activate", "Creaking watches");
         builder.add("subtitles.entity.creaking.ambient", "Creaking creaks");
-        builder.add("subtitles.entity.creaking.deactivate", "Creaking attacks");
-        builder.add("subtitles.entity.creaking.death", "Creaking calms");
+        builder.add("subtitles.entity.creaking.deactivate", "Creaking calms");
+        builder.add("subtitles.entity.creaking.attack", "Creaking attacks");
+        builder.add("subtitles.entity.creaking.death", "Creaking dies");
         builder.add("subtitles.entity.creaking.freeze", "Creaking stop");
         builder.add("subtitles.entity.creaking.spawn", "Creaking manifests");
         builder.add("subtitles.entity.creaking.sway", "Creaking is hit");

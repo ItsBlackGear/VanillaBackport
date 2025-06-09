@@ -22,6 +22,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.npc.VillagerTrades;
+import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
@@ -39,7 +40,7 @@ public class CommonSetup {
             BiomePlacement.registerBiomePlacements(BiomeGeneration::bootstrap);
             BlockIntegration.registerIntegrations(CommonSetup::blockIntegrations);
             TradeIntegration.registerVillagerTrades(CommonSetup::tradeIntegrations);
-            LootModifier.modify((manager, path, context, builtin) -> {
+            LootModifier.modify((path, context, builtin) -> {
                 if (path == EntityType.GHAST.getDefaultLootTable()) {
                     context.addPool(
                         LootPool.lootPool()
@@ -52,6 +53,15 @@ public class CommonSetup {
                                     .direct(EntityPredicate.Builder.entity().of(EntityType.FIREBALL)))
                             )
                             .when(LootItemKilledByPlayerCondition.killedByPlayer())
+                    );
+                }
+
+                if (path.equals(BuiltInLootTables.PIGLIN_BARTERING)) {
+                    context.addToPool(
+                        LootItem.lootTableItem(ModBlocks.DRIED_GHAST.get())
+                            .setWeight(10)
+                            .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F)))
+                            .build()
                     );
                 }
             });

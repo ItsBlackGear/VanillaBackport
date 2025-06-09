@@ -94,5 +94,8 @@
   "subtitles.entity.happy_ghast.unequip": "Упряжь снята",
   "subtitles.entity.parrot.imitate.creaking": "Попугай подражает скрипуну",
   "trim_material.vanillabackport.resin": "Смоляная",
-  "subtitles.entity.happy_ghast.equip": "Harness equips"
+  "subtitles.entity.happy_ghast.equip": "Harness equips",
+  "item.vanillabackport.music_disc_tears": "Music Disc",
+  "item.vanillabackport.music_disc_tears.desc": "Amos Roddy - Tears",
+  "jukebox_song.vanillabackport.tears": "Amos Roddy - Tears"
 }
