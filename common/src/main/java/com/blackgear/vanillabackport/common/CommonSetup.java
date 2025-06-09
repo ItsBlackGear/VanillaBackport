@@ -17,6 +17,7 @@ import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.advancements.critereon.DamageSourcePredicate;
 import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.advancements.critereon.TagPredicate;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.PathfinderMob;
@@ -40,31 +41,7 @@ public class CommonSetup {
             BiomePlacement.registerBiomePlacements(BiomeGeneration::bootstrap);
             BlockIntegration.registerIntegrations(CommonSetup::blockIntegrations);
             TradeIntegration.registerVillagerTrades(CommonSetup::tradeIntegrations);
-            LootModifier.modify((path, context, builtin) -> {
-                if (path == EntityType.GHAST.getDefaultLootTable()) {
-                    context.addPool(
-                        LootPool.lootPool()
-                            .setRolls(ConstantValue.exactly(1.0F))
-                            .add(LootItem.lootTableItem(ModItems.MUSIC_DISC_TEARS.get()))
-                            .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F)))
-                            .when(DamageSourceCondition.hasDamageSource(
-                                DamageSourcePredicate.Builder.damageType()
-                                    .tag(TagPredicate.is(DamageTypeTags.IS_PROJECTILE))
-                                    .direct(EntityPredicate.Builder.entity().of(EntityType.FIREBALL)))
-                            )
-                            .when(LootItemKilledByPlayerCondition.killedByPlayer())
-                    );
-                }
-
-                if (path.equals(BuiltInLootTables.PIGLIN_BARTERING)) {
-                    context.addToPool(
-                        LootItem.lootTableItem(ModBlocks.DRIED_GHAST.get())
-                            .setWeight(10)
-                            .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F)))
-                            .build()
-                    );
-                }
-            });
+            LootModifier.modify(CommonSetup::lootIntegrations);
         });
     }
 
@@ -121,5 +98,31 @@ public class CommonSetup {
         event.registerGoal(EntityType.PILLAGER, 1, mob -> new AvoidEntityGoal<>((PathfinderMob) mob, Creaking.class, 8.0F, 0.6, 1.2));
         event.registerGoal(EntityType.ILLUSIONER, 3, mob -> new AvoidEntityGoal<>((PathfinderMob) mob, Creaking.class, 8.0F, 0.6, 1.2));
         event.registerGoal(EntityType.EVOKER, 3, mob -> new AvoidEntityGoal<>((PathfinderMob) mob, Creaking.class, 8.0F, 0.6, 1.2));
+    }
+
+    public static void lootIntegrations(ResourceLocation path, LootModifier.LootTableContext context, boolean builtin) {
+        if (path == EntityType.GHAST.getDefaultLootTable()) {
+            context.addPool(
+                LootPool.lootPool()
+                    .setRolls(ConstantValue.exactly(1.0F))
+                    .add(LootItem.lootTableItem(ModItems.MUSIC_DISC_TEARS.get()))
+                    .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F)))
+                    .when(DamageSourceCondition.hasDamageSource(
+                        DamageSourcePredicate.Builder.damageType()
+                            .tag(TagPredicate.is(DamageTypeTags.IS_PROJECTILE))
+                            .direct(EntityPredicate.Builder.entity().of(EntityType.FIREBALL)))
+                    )
+                    .when(LootItemKilledByPlayerCondition.killedByPlayer())
+            );
+        }
+
+        if (path.equals(BuiltInLootTables.PIGLIN_BARTERING)) {
+            context.addToPool(
+                LootItem.lootTableItem(ModBlocks.DRIED_GHAST.get())
+                    .setWeight(10)
+                    .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F)))
+                    .build()
+            );
+        }
     }
 }

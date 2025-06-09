@@ -79,7 +79,7 @@
   "subtitles.entity.creaking.ambient": "Creaking creaks",
   "subtitles.entity.creaking.attack": "Creaking attacks",
   "subtitles.entity.creaking.deactivate": "Creaking calms",
-  "subtitles.entity.creaking.death": "Creaking dies",
+  "subtitles.entity.creaking.death": "Creaking crumbles",
   "subtitles.entity.creaking.freeze": "Creaking stop",
   "subtitles.entity.creaking.spawn": "Creaking manifests",
   "subtitles.entity.creaking.sway": "Creaking is hit",
@@ -97,5 +97,5 @@
   "subtitles.entity.happy_ghast.hurt": "Happy Ghast hurts",
   "subtitles.entity.happy_ghast.unequip": "Harness unequips",
   "subtitles.entity.parrot.imitate.creaking": "Parrot creaks",
-  "trim_material.vanillabackport.resin": "Resin"
+  "trim_material.vanillabackport.resin": "Resin Material"
 }

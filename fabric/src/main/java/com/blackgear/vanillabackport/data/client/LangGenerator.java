@@ -71,7 +71,7 @@ public class LangGenerator extends FabricLanguageProvider {
         builder.add(ModEntities.PALE_OAK_CHEST_BOAT.get(), "Pale Oak Boat with Chest");
 
         // Trims
-        builder.add("trim_material.vanillabackport.resin", "Resin");
+        builder.add("trim_material.vanillabackport.resin", "Resin Material");
 
         // Block Subtitles
         builder.add("subtitles.block.creaking_heart.hurt", "Creaking Heart grumbles");
@@ -89,7 +89,7 @@ public class LangGenerator extends FabricLanguageProvider {
         builder.add("subtitles.entity.creaking.ambient", "Creaking creaks");
         builder.add("subtitles.entity.creaking.deactivate", "Creaking calms");
         builder.add("subtitles.entity.creaking.attack", "Creaking attacks");
-        builder.add("subtitles.entity.creaking.death", "Creaking dies");
+        builder.add("subtitles.entity.creaking.death", "Creaking crumbles");
         builder.add("subtitles.entity.creaking.freeze", "Creaking stop");
         builder.add("subtitles.entity.creaking.spawn", "Creaking manifests");
         builder.add("subtitles.entity.creaking.sway", "Creaking is hit");
