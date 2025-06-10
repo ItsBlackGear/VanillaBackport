@@ -6,6 +6,7 @@ import com.blackgear.platform.common.integration.MobIntegration;
 import com.blackgear.platform.common.integration.TradeIntegration;
 import com.blackgear.platform.common.worldgen.placement.BiomePlacement;
 import com.blackgear.platform.core.ParallelDispatch;
+import com.blackgear.vanillabackport.common.api.leash.LeashIntegration;
 import com.blackgear.vanillabackport.common.level.dispenser.PaleOakBoatDispenseBehavior;
 import com.blackgear.vanillabackport.common.level.entities.creaking.Creaking;
 import com.blackgear.vanillabackport.common.level.entities.happyghast.HappyGhast;
@@ -19,8 +20,7 @@ import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.advancements.critereon.TagPredicate;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.DamageTypeTags;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
@@ -91,6 +91,8 @@ public class CommonSetup {
     }
 
     public static void mobIntegrations(MobIntegration.Event event) {
+        event.registerMobInteraction(new LeashIntegration());
+
         event.registerAttributes(ModEntities.CREAKING, Creaking::createAttributes);
         event.registerAttributes(ModEntities.HAPPY_GHAST, HappyGhast::createAttributes);
 
