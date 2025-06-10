@@ -87,7 +87,7 @@ public class LeashIntegration implements MobInteraction {
     private boolean canHaveALeashAttachedTo(Mob source, Entity target) {
         if (source == target) return false;
 
-        double leashDistance = target.getBoundingBox().getCenter().distanceTo(source.getBoundingBox().getCenter());
+        double leashDistance = LeashPhysics.leashDistanceTo(source, target);
         if (leashDistance > 12.0) {
             return false;
         }

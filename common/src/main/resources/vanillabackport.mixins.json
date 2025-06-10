@@ -13,12 +13,14 @@
     "client.SpriteResourceLoaderMixin$PalettedPermutationsAccessor"
   ],
   "mixins": [
+    "access.EntityAccessor",
     "access.LivingEntityAccessor",
     "access.NoiseGeneratorSettingsAccessor",
     "access.OverworldBiomesAccessor",
     "access.TextureSlotAccessor",
     "access.TreeDecoratorTypeAccessor",
     "common.entities.EntityMixin",
+    "common.entities.LeashBehaviorMixin",
     "common.entities.MobMixin",
     "common.entities.ParrotMixin",
     "common.entities.ServerEntityMixin",
