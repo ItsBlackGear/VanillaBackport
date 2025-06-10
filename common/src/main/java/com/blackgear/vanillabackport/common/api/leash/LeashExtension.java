@@ -2,6 +2,7 @@ package com.blackgear.vanillabackport.common.api.leash;
 
 import com.blackgear.vanillabackport.core.mixin.access.PathfinderMobAccessor;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.ai.goal.Goal;
@@ -28,6 +29,7 @@ public interface LeashExtension {
                     return;
                 }
 
+                this.whenLeashedTo(holder);
                 if (leashDistance > this.leashSnapDistance()) {
                     this.leashTooFarBehaviour();
                 } else if (leashDistance > this.leashElasticDistance() - (double) holder.getBbWidth() - (double) mob.getBbWidth() && LeashPhysics.checkElasticInteractions(mob, holder)) {
@@ -65,6 +67,16 @@ public interface LeashExtension {
                 mob.getNavigation().moveTo(mob.getX() + movement.x, mob.getY() + movement.y, mob.getZ() + movement.z, ((PathfinderMobAccessor) this).callFollowLeashSpeed());
             }
         }
+    }
+
+    default void whenLeashedTo(Entity entity) {
+        if (entity instanceof LeashExtension ext) {
+            ext.notifyLeashHolder(this);
+        }
+    }
+
+    default void notifyLeashHolder(LeashExtension entity) {
+
     }
 
     default double leashSnapDistance() {

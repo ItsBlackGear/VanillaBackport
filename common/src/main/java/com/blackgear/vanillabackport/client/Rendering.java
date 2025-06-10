@@ -17,6 +17,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.BoatModel;
 import net.minecraft.client.model.ChestBoatModel;
+import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.renderer.RenderType;
 
 @Environment(EnvType.CLIENT)
@@ -35,9 +36,11 @@ public class Rendering {
 
     public static void modelLayers(GameRendering.ModelLayerEvent event) {
         event.register(ModModelLayers.CREAKING, CreakingModel::createBodyLayer);
-        event.register(ModModelLayers.HAPPY_GHAST, () -> HappyGhastModel.createBodyLayer(false));
-        event.register(ModModelLayers.HAPPY_GHAST_BABY, () -> HappyGhastModel.createBodyLayer(true));
+        event.register(ModModelLayers.HAPPY_GHAST, () -> HappyGhastModel.createBodyLayer(false, CubeDeformation.NONE));
+        event.register(ModModelLayers.HAPPY_GHAST_BABY, () -> HappyGhastModel.createBodyLayer(true, CubeDeformation.NONE));
         event.register(ModModelLayers.HAPPY_GHAST_HARNESS, HappyGhastHarnessModel::createHarnessLayer);
+        event.register(ModModelLayers.HAPPY_GHAST_ROPES, () -> HappyGhastModel.createBodyLayer(false, new CubeDeformation(0.2F)));
+        event.register(ModModelLayers.HAPPY_GHAST_BABY_ROPES, () -> HappyGhastModel.createBodyLayer(true, new CubeDeformation(0.2F)));
         event.register(ModModelLayers.PALE_OAK_BOAT, BoatModel::createBodyModel);
         event.register(ModModelLayers.PALE_OAK_CHEST_BOAT, ChestBoatModel::createBodyModel);
     }

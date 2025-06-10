@@ -58,8 +58,10 @@ import java.util.function.BooleanSupplier;
 
 public class HappyGhast extends Animal implements Saddleable, PlayerRideable, LeashExtension {
     public static final Ingredient IS_FOOD = Ingredient.of(ModItemTags.HAPPY_GHAST_FOOD);
-    private static final EntityDataAccessor<Boolean> STAYS_STILL = SynchedEntityData.defineId(HappyGhast.class, EntityDataSerializers.BOOLEAN);
+    private int leashHolderTime = 0;
     private int serverStillTimeout;
+    private static final EntityDataAccessor<Boolean> IS_LEASH_HOLDER = SynchedEntityData.defineId(HappyGhast.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> STAYS_STILL = SynchedEntityData.defineId(HappyGhast.class, EntityDataSerializers.BOOLEAN);
     private boolean requiresPrecisePosition;
 
     public HappyGhast(EntityType<? extends Animal> entityType, Level level) {
@@ -458,6 +460,11 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable, Le
         super.tick();
         if (this.level().isClientSide) return;
 
+        if (this.leashHolderTime > 0) {
+            this.leashHolderTime--;
+        }
+
+        this.setLeashHolder(this.leashHolderTime > 0);
         if (this.serverStillTimeout > 0) {
             this.setServerStillTimeout(this.serverStillTimeout - 1);
         }
@@ -527,19 +534,16 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable, Le
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
+        this.entityData.define(IS_LEASH_HOLDER, false);
         this.entityData.define(STAYS_STILL, false);
     }
 
-    @Override
-    public void addAdditionalSaveData(CompoundTag compound) {
-        super.addAdditionalSaveData(compound);
-        compound.putInt("still_timeout", this.serverStillTimeout);
+    private void setLeashHolder(boolean holder) {
+        this.entityData.set(IS_LEASH_HOLDER, holder);
     }
 
-    @Override
-    public void readAdditionalSaveData(CompoundTag compound) {
-        super.readAdditionalSaveData(compound);
-        this.setServerStillTimeout(compound.getInt("still_timeout"));
+    public boolean isLeashHolder() {
+        return this.entityData.get(IS_LEASH_HOLDER);
     }
 
     private void syncStayStillFlag() {
@@ -579,6 +583,25 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable, Le
     public void onElasticLeashPull(Entity entity) {
         LeashExtension.super.onElasticLeashPull(entity);
         this.getMoveControl().operation = MoveControl.Operation.WAIT;
+    }
+
+    @Override
+    public void notifyLeashHolder(LeashExtension entity) {
+        if (entity.supportQuadLeash()) {
+            this.leashHolderTime = 5;
+        }
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+        compound.putInt("still_timeout", this.serverStillTimeout);
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
+        this.setServerStillTimeout(compound.getInt("still_timeout"));
     }
 
     public boolean isPlayerAboveGhast() {
