@@ -1,7 +1,7 @@
 package com.blackgear.vanillabackport.common.level.entities.happyghast;
 
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
-import com.blackgear.vanillabackport.common.api.leash.LeashExtension;
+import com.blackgear.vanillabackport.common.api.leash.Leashable;
 import com.blackgear.vanillabackport.common.registries.ModEntities;
 import com.blackgear.vanillabackport.core.data.tags.ModBlockTags;
 import com.blackgear.vanillabackport.core.data.tags.ModItemTags;
@@ -56,7 +56,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.EnumSet;
 import java.util.function.BooleanSupplier;
 
-public class HappyGhast extends Animal implements Saddleable, PlayerRideable, LeashExtension {
+public class HappyGhast extends Animal implements Saddleable, PlayerRideable, Leashable {
     public static final Ingredient IS_FOOD = Ingredient.of(ModItemTags.HAPPY_GHAST_FOOD);
     private int leashHolderTime = 0;
     private int serverStillTimeout;
@@ -561,7 +561,7 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable, Le
 
     @Override
     public Vec3[] getQuadLeashOffsets() {
-        return LeashExtension.createQuadLeashOffsets(this, -0.03125, 0.4375, 0.46875, 0.03125);
+        return Leashable.createQuadLeashOffsets(this, -0.03125, 0.4375, 0.46875, 0.03125);
     }
 
     @Override
@@ -581,12 +581,12 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable, Le
 
     @Override
     public void onElasticLeashPull(Entity entity) {
-        LeashExtension.super.onElasticLeashPull(entity);
+        Leashable.super.onElasticLeashPull(entity);
         this.getMoveControl().operation = MoveControl.Operation.WAIT;
     }
 
     @Override
-    public void notifyLeashHolder(LeashExtension entity) {
+    public void notifyLeashHolder(Leashable entity) {
         if (entity.supportQuadLeash()) {
             this.leashHolderTime = 5;
         }

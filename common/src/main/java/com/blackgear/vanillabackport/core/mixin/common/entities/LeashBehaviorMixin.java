@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.core.mixin.common.entities;
 
-import com.blackgear.vanillabackport.common.api.leash.LeashExtension;
+import com.blackgear.vanillabackport.common.api.leash.Leashable;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(PathfinderMob.class)
-public abstract class LeashBehaviorMixin extends Mob implements LeashExtension {
+public abstract class LeashBehaviorMixin extends Mob implements Leashable {
     @Unique private double angularMomentum;
 
     protected LeashBehaviorMixin(EntityType<? extends Mob> entityType, Level level) {

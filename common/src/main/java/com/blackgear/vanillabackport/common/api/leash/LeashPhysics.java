@@ -16,7 +16,12 @@ public class LeashPhysics {
     public static final Vec3 AXIS_SPECIFIC_ELASTICITY = new Vec3(0.8, 0.2, 0.8);
     public static final List<Vec3> ENTITY_ATTACHMENT_POINT = ImmutableList.of(new Vec3(0.0, 0.5, 0.5));
     public static final List<Vec3> LEASHER_ATTACHMENT_POINT = ImmutableList.of(new Vec3(0.0, 0.5, 0.0));
-    public static final List<Vec3> SHARED_QUAD_ATTACHMENT_POINTS = ImmutableList.of(new Vec3(-0.5, 0.5, 0.5), new Vec3(-0.5, 0.5, -0.5), new Vec3(0.5, 0.5, -0.5), new Vec3(0.5, 0.5, 0.5));
+    public static final List<Vec3> SHARED_QUAD_ATTACHMENT_POINTS = ImmutableList.of(
+        new Vec3(-0.5, 0.5, 0.5),
+        new Vec3(-0.5, 0.5, -0.5),
+        new Vec3(0.5, 0.5, -0.5),
+        new Vec3(0.5, 0.5, 0.5)
+    );
 
     public static double leashDistanceTo(Entity source, Entity target) {
         return target.getBoundingBox().getCenter().distanceTo(source.getBoundingBox().getCenter());
@@ -34,9 +39,9 @@ public class LeashPhysics {
         return 0.91F;
     }
 
-    public static boolean checkElasticInteractions(Mob self, Entity holder) {
-        boolean handleHolderQuadLeash = holder instanceof LeashExtension ext && ext.supportQuadLeashAsHolder();
-        boolean handleQuadLeash = self instanceof LeashExtension ext && ext.supportQuadLeash();
+    public static boolean checkElasticInteractions(Entity self, Entity holder) {
+        boolean handleHolderQuadLeash = holder instanceof Leashable ext && ext.supportQuadLeashAsHolder();
+        boolean handleQuadLeash = self instanceof Leashable ext && ext.supportQuadLeash();
 
         boolean supportQuad = handleHolderQuadLeash && handleQuadLeash;
         List<Wrench> wrenches = computeElasticInteraction(self, holder, supportQuad ? SHARED_QUAD_ATTACHMENT_POINTS : ENTITY_ATTACHMENT_POINT, supportQuad ? SHARED_QUAD_ATTACHMENT_POINTS : LEASHER_ATTACHMENT_POINT);
@@ -44,7 +49,7 @@ public class LeashPhysics {
 
         Wrench wrench = Wrench.accumulate(wrenches).scale(supportQuad ? 0.25 : 1.0);
 
-        if (self instanceof LeashExtension ext) {
+        if (self instanceof Leashable ext) {
             ext.setAngularMomentum(ext.angularMomentum() + 10.0 * wrench.torque());
         }
 
@@ -73,7 +78,7 @@ public class LeashPhysics {
     }
 
     private static <E extends Entity> List<Wrench> computeElasticInteraction(E entity, Entity holder, List<Vec3> attachmentPoints, List<Vec3> holderAttachmentPoints) {
-        double elasticDistance = entity instanceof LeashExtension ext ? ext.leashElasticDistance() : 6.0;
+        double elasticDistance = entity instanceof Leashable ext ? ext.leashElasticDistance() : 6.0;
         Vec3 entityMovement = getHolderMovement(entity);
         float entityYaw = entity.getYRot() * ((float) Math.PI / 180);
         Vec3 entityDimensions = new Vec3(entity.getBbWidth(), entity.getBbHeight(), entity.getBbWidth());

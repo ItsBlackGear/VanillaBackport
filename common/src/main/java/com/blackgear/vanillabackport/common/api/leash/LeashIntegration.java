@@ -25,12 +25,12 @@ public class LeashIntegration implements MobInteraction {
         ItemStack stack = player.getItemInHand(hand);
         if (!entity.level().isClientSide() && player.isSecondaryUseActive() && entity instanceof Mob mob && mob.canBeLeashed(player) && entity.isAlive()) {
             if (!mob.isBaby()) {
-                List<Mob> nearbyMobs = this.leashableInArea(mob, l -> l.getLeashHolder() == player);
+                List<Leashable> nearbyMobs = this.leashableInArea(mob, l -> l.getLeashHolder() == player);
 
                 if (!nearbyMobs.isEmpty()) {
                     boolean attachedAny = false;
 
-                    for (Mob target : nearbyMobs) {
+                    for (Leashable target : nearbyMobs) {
                         if (this.canHaveALeashAttachedTo(target, mob)) {
                             target.setLeashedTo(mob, true);
                             attachedAny = true;
@@ -52,27 +52,27 @@ public class LeashIntegration implements MobInteraction {
             return InteractionResult.SUCCESS;
         }
 
-        if (entity.isAlive() && entity instanceof Mob mob) {
+        if (entity.isAlive() && entity instanceof Leashable leashable) {
             // Drop leash
-            if (mob.getLeashHolder() == player) {
-                if (!mob.level().isClientSide()) {
-                    mob.dropLeash(true, !player.isCreative());
-                    mob.level().gameEvent(GameEvent.ENTITY_INTERACT, mob.position(), GameEvent.Context.of(player));
-                    mob.playSound(SoundEvents.LEASH_KNOT_BREAK);
+            if (leashable.getLeashHolder() == player) {
+                if (!entity.level().isClientSide()) {
+                    leashable.dropLeash(true, !player.isCreative());
+                    entity.level().gameEvent(GameEvent.ENTITY_INTERACT, entity.position(), GameEvent.Context.of(player));
+                    entity.playSound(SoundEvents.LEASH_KNOT_BREAK);
                 }
 
                 return InteractionResult.SUCCESS;
             }
 
             // Attach a new leash
-            if (stack.is(Items.LEAD) && !(mob.getLeashHolder() instanceof Player)) {
-                if (!mob.level().isClientSide() && this.canHaveALeashAttachedTo(mob, player)) {
-                    if (mob.isLeashed()) {
-                        mob.dropLeash(true, true);
+            if (stack.is(Items.LEAD) && !(leashable.getLeashHolder() instanceof Player)) {
+                if (!entity.level().isClientSide() && this.canHaveALeashAttachedTo(leashable, player)) {
+                    if (leashable.isLeashed()) {
+                        leashable.dropLeash(true, true);
                     }
 
-                    mob.setLeashedTo(player, true);
-                    mob.playSound(SoundEvents.LEASH_KNOT_PLACE);
+                    leashable.setLeashedTo(player, true);
+                    entity.playSound(SoundEvents.LEASH_KNOT_PLACE);
 
                     if (!player.isCreative()) stack.shrink(1);
                 }
@@ -84,24 +84,22 @@ public class LeashIntegration implements MobInteraction {
         return InteractionResult.PASS;
     }
 
-    private boolean canHaveALeashAttachedTo(Mob source, Entity target) {
+    private boolean canHaveALeashAttachedTo(Leashable source, Entity target) {
         if (source == target) return false;
 
-        double leashDistance = LeashPhysics.leashDistanceTo(source, target);
-        if (leashDistance > 12.0) {
-            return false;
-        }
-
-        return source.canBeLeashed(target instanceof Player player ? player : null);
+        return source.leashDistanceTo(target) > source.leashSnapDistance() || source.canBeLeashed(target instanceof Player player ? player : null);
     }
 
-    private List<Mob> leashableInArea(Entity entity, Predicate<Mob> filter) {
+    private List<Leashable> leashableInArea(Entity entity, Predicate<Leashable> filter) {
         return this.leashableInArea(entity.level(), entity.getBoundingBox().getCenter(), filter);
     }
 
-    private List<Mob> leashableInArea(Level level, Vec3 pos, Predicate<Mob> filter) {
+    private List<Leashable> leashableInArea(Level level, Vec3 pos, Predicate<Leashable> filter) {
         AABB area = AABB.ofSize(pos, 32.0, 32.0, 32.0);
-        return level.getEntitiesOfClass(Mob.class, area, filter);
+        return level.getEntitiesOfClass(Entity.class, area, entity -> entity instanceof Leashable leashable && filter.test(leashable))
+            .stream()
+            .map(Leashable.class::cast)
+            .toList();
     }
 
     private boolean shearOffAllLeashConnections(Entity entity, Player player) {
@@ -119,16 +117,16 @@ public class LeashIntegration implements MobInteraction {
     }
 
     private boolean dropAllLeashConnections(Entity entity, @Nullable Player player) {
-        List<Mob> leashed = this.leashableInArea(entity, mob -> mob.getLeashHolder() == entity);
+        List<Leashable> leashed = this.leashableInArea(entity, mob -> mob.getLeashHolder() == entity);
         boolean anyDroppedConnections = !leashed.isEmpty();
 
-        if (entity instanceof Mob mob && mob.isLeashed()) {
-            mob.dropLeash(true, true);
+        if (entity instanceof Leashable leashable && leashable.isLeashed()) {
+            leashable.dropLeash(true, true);
             anyDroppedConnections = true;
         }
 
-        for (Mob mob : leashed) {
-            mob.dropLeash(true, true);
+        for (Leashable leashable : leashed) {
+            leashable.dropLeash(true, true);
         }
 
         if (anyDroppedConnections) {

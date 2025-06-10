@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.core.mixin.client;
 
-import com.blackgear.vanillabackport.common.api.leash.LeashExtension;
+import com.blackgear.vanillabackport.common.api.leash.Leashable;
 import com.blackgear.vanillabackport.common.api.leash.LeashState;
 import com.blackgear.vanillabackport.core.mixin.access.EntityRendererAccessor;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -130,8 +130,8 @@ public abstract class MobRendererMixin<T extends Mob, M extends EntityModel<T>> 
             int entitySkyLight = entity.level().getBrightness(LightLayer.SKY, entityPos);
             int holderSkyLight = entity.level().getBrightness(LightLayer.SKY, holderPos);
 
-            boolean handleHolderQuadLeash = leashHolder instanceof LeashExtension ext && ext.supportQuadLeashAsHolder();
-            boolean handleQuadLeash = entity instanceof LeashExtension ext && ext.supportQuadLeash();
+            boolean handleHolderQuadLeash = leashHolder instanceof Leashable ext && ext.supportQuadLeashAsHolder();
+            boolean handleQuadLeash = entity instanceof Leashable ext && ext.supportQuadLeash();
             boolean useQuadLeash = handleHolderQuadLeash && handleQuadLeash;
             int leashCount = useQuadLeash ? 4 : 1;
 
@@ -145,8 +145,8 @@ public abstract class MobRendererMixin<T extends Mob, M extends EntityModel<T>> 
             if (useQuadLeash) {
                 float holderRotation = Mth.lerp(partialTicks, leashHolder.yRotO, leashHolder.getYRot()) * ((float) Math.PI / 180);
                 Vec3 holderPosition = leashHolder.getPosition(partialTicks);
-                Vec3[] entityOffsets = ((LeashExtension) entity).getQuadLeashOffsets();
-                Vec3[] holderOffsets = ((LeashExtension) leashHolder).getQuadLeashHolderOffsets();
+                Vec3[] entityOffsets = ((Leashable) entity).getQuadLeashOffsets();
+                Vec3[] holderOffsets = ((Leashable) leashHolder).getQuadLeashHolderOffsets();
 
                 for (int i = 0; i < leashCount; i++) {
                     LeashState leashState = this.leashStates.get(i);
