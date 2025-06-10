@@ -87,6 +87,10 @@ public interface LeashExtension {
         return createQuadLeashOffsets((Entity) this, 0.0, 0.5, 0.5, 0.5);
     }
 
+    default Vec3[] getQuadLeashHolderOffsets() {
+        return createQuadLeashOffsets((Entity) this, 0.0, 0.5, 0.5, 0.0);
+    }
+
     static Vec3[] createQuadLeashOffsets(Entity entity, double forwardOffset, double sideOffset, double widthOffset, double heightOffset) {
         float entityWidth = entity.getBbWidth();
         double forward = forwardOffset * (double) entityWidth;

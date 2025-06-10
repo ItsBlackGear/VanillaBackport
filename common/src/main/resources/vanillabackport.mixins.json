@@ -4,10 +4,12 @@
   "compatibilityLevel": "JAVA_17",
   "minVersion": "0.8",
   "client": [
+    "access.EntityRendererAccessor",
     "access.SoundEngineAccessor",
     "access.SoundManagerAccessor",
     "client.CameraMixin",
     "client.LocalPlayerMixin",
+    "client.MobRendererMixin",
     "client.MusicManagerMixin",
     "client.SpriteResourceLoaderMixin",
     "client.SpriteResourceLoaderMixin$PalettedPermutationsAccessor"
@@ -21,6 +23,8 @@
     "access.TextureSlotAccessor",
     "access.TreeDecoratorTypeAccessor",
     "common.entities.EntityMixin",
+    "common.entities.LeashablesMixin$AbstractHorseMixin",
+    "common.entities.LeashablesMixin$CamelMixin",
     "common.entities.LeashBehaviorMixin",
     "common.entities.MobMixin",
     "common.entities.ParrotMixin",
