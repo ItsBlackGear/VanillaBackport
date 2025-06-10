@@ -35,16 +35,19 @@ public class LeashPhysics {
     }
 
     public static boolean checkElasticInteractions(Mob self, Entity holder) {
-        boolean handleHolderQuadLeash = LeashExtension.getOrDefault(holder, LeashExtension::supportQuadLeashAsHolder, false);
-        boolean handleQuadLeash = LeashExtension.getOrDefault(self, LeashExtension::supportQuadLeash, false);
+        boolean handleHolderQuadLeash = holder instanceof LeashExtension ext && ext.supportQuadLeashAsHolder();
+        boolean handleQuadLeash = self instanceof LeashExtension ext && ext.supportQuadLeash();
 
         boolean supportQuad = handleHolderQuadLeash && handleQuadLeash;
         List<Wrench> wrenches = computeElasticInteraction(self, holder, supportQuad ? SHARED_QUAD_ATTACHMENT_POINTS : ENTITY_ATTACHMENT_POINT, supportQuad ? SHARED_QUAD_ATTACHMENT_POINTS : LEASHER_ATTACHMENT_POINT);
         if (wrenches.isEmpty()) return false;
 
         Wrench wrench = Wrench.accumulate(wrenches).scale(supportQuad ? 0.25 : 1.0);
-        LeashAccess access = LeashAccess.of(self);
-        access.setAngularMomentum(access.angularMomentum() + 10.0 * wrench.torque());
+
+        if (self instanceof LeashExtension ext) {
+            ext.setAngularMomentum(ext.angularMomentum() + 10.0 * wrench.torque());
+        }
+
         Vec3 offset = getHolderMovement(holder).subtract(getKnownMovement(self));
         self.addDeltaMovement(wrench.force().multiply(AXIS_SPECIFIC_ELASTICITY).add(offset.scale(0.11)));
         return true;
@@ -70,7 +73,7 @@ public class LeashPhysics {
     }
 
     private static <E extends Entity> List<Wrench> computeElasticInteraction(E entity, Entity holder, List<Vec3> attachmentPoints, List<Vec3> holderAttachmentPoints) {
-        double elasticDistance = LeashExtension.getOrDefault(entity, LeashExtension::leashElasticDistance, 6.0);
+        double elasticDistance = entity instanceof LeashExtension ext ? ext.leashElasticDistance() : 6.0;
         Vec3 entityMovement = getHolderMovement(entity);
         float entityYaw = entity.getYRot() * ((float) Math.PI / 180);
         Vec3 entityDimensions = new Vec3(entity.getBbWidth(), entity.getBbHeight(), entity.getBbWidth());

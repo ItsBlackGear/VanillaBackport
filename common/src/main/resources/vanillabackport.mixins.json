@@ -17,6 +17,7 @@
     "access.LivingEntityAccessor",
     "access.NoiseGeneratorSettingsAccessor",
     "access.OverworldBiomesAccessor",
+    "access.PathfinderMobAccessor",
     "access.TextureSlotAccessor",
     "access.TreeDecoratorTypeAccessor",
     "common.entities.EntityMixin",
