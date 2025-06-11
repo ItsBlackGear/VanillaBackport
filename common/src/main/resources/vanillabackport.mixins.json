@@ -12,7 +12,8 @@
     "client.MobRendererMixin",
     "client.MusicManagerMixin",
     "client.SpriteResourceLoaderMixin",
-    "client.SpriteResourceLoaderMixin$PalettedPermutationsAccessor"
+    "client.SpriteResourceLoaderMixin$PalettedPermutationsAccessor",
+    "common.network.ClientPacketListenerMixin"
   ],
   "mixins": [
     "access.EntityAccessor",
@@ -22,6 +23,7 @@
     "access.PathfinderMobAccessor",
     "access.TextureSlotAccessor",
     "access.TreeDecoratorTypeAccessor",
+    "common.entities.BoatMixin",
     "common.entities.EntityMixin",
     "common.entities.LeashablesMixin$AbstractHorseMixin",
     "common.entities.LeashablesMixin$CamelMixin",

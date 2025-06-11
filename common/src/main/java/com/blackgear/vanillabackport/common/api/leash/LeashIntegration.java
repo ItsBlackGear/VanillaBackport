@@ -6,7 +6,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -23,23 +23,23 @@ public class LeashIntegration implements MobInteraction {
     @Override
     public InteractionResult onInteract(Player player, Entity entity, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
-        if (!entity.level().isClientSide() && player.isSecondaryUseActive() && entity instanceof Mob mob && mob.canBeLeashed(player) && entity.isAlive()) {
-            if (!mob.isBaby()) {
-                List<Leashable> nearbyMobs = this.leashableInArea(mob, l -> l.getLeashHolder() == player);
+        if (!entity.level().isClientSide() && player.isSecondaryUseActive() && entity instanceof Leashable leashable && leashable.canBeLeashed(player) && entity.isAlive()) {
+            if (!(entity instanceof LivingEntity living && living.isBaby())) {
+                List<Leashable> nearbyMobs = this.leashableInArea(entity, l -> l.getLeashHolder() == player);
 
                 if (!nearbyMobs.isEmpty()) {
                     boolean attachedAny = false;
 
                     for (Leashable target : nearbyMobs) {
-                        if (this.canHaveALeashAttachedTo(target, mob)) {
-                            target.setLeashedTo(mob, true);
+                        if (this.canHaveALeashAttachedTo(target, entity)) {
+                            target.setLeashedTo(entity, true);
                             attachedAny = true;
                         }
                     }
 
                     if (attachedAny) {
-                        mob.level().gameEvent(GameEvent.ENTITY_INTERACT, mob.position(), GameEvent.Context.of(player));
-                        mob.playSound(SoundEvents.LEASH_KNOT_PLACE);
+                        entity.level().gameEvent(GameEvent.ENTITY_INTERACT, entity.blockPosition(), GameEvent.Context.of(player));
+                        entity.playSound(SoundEvents.LEASH_KNOT_PLACE);
                         return InteractionResult.SUCCESS;
                     }
                 }

@@ -8,6 +8,7 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
 
@@ -51,7 +52,7 @@ public interface Leashable {
             return mob.canBeLeashed(entity);
         }
 
-        return false;
+        return !(this instanceof Enemy);
     }
 
     default double leashDistanceTo(Entity entity) {
@@ -165,7 +166,7 @@ public interface Leashable {
     }
 
     default boolean iShouldStayCloseToLeashHolder() {
-        if (this instanceof PathfinderMob mob) {
+        if (this instanceof PathfinderMob) {
             return ((PathfinderMobAccessor) this).callShouldStayCloseToLeashHolder();
         }
 
@@ -173,16 +174,13 @@ public interface Leashable {
     }
 
     default double iFollowLeashSpeed() {
-        if (this instanceof PathfinderMob mob) {
+        if (this instanceof PathfinderMob) {
             return ((PathfinderMobAccessor) this).callFollowLeashSpeed();
         }
 
         return 1.0;
     }
 
-    default void iOnLeashDistance(float distance) {
-        if (this instanceof PathfinderMob mob) {
-            ((PathfinderMobAccessor) this).callOnLeashDistance(distance);
-        }
+    default void setBoatDelayedLeashHolderId(int leashHolderId) {
     }
 }
