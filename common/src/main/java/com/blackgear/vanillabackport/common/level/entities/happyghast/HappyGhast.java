@@ -66,7 +66,7 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable, Le
 
     public HappyGhast(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
-        this.moveControl = new GhastMoveControl(this, true, this::isPlayerAboveGhast);
+        this.moveControl = new GhastMoveControl(this, true, this::isOnStillTimeout);
         this.lookControl = new HappyGhastLookControl();
     }
 
@@ -102,7 +102,7 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable, Le
     }
 
     private void adultGhastSetup() {
-        this.moveControl = new GhastMoveControl(this, true, this::isPlayerAboveGhast);
+        this.moveControl = new GhastMoveControl(this, true, this::isOnStillTimeout);
         this.lookControl = new HappyGhastLookControl();
         this.navigation = this.createNavigation(this.level());
 
@@ -167,7 +167,7 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable, Le
 
     @Override
     public void travel(Vec3 travelVector) {
-        if (this.isPlayerAboveGhast()) {
+        if (this.isOnStillTimeout()) {
             this.setDeltaMovement(Vec3.ZERO);
             return;
         }
@@ -365,7 +365,7 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable, Le
     protected void removePassenger(Entity passenger) {
         super.removePassenger(passenger);
         if (!this.level().isClientSide) {
-            this.setServerStillTimeout(this.getPassengers().isEmpty() ? 40 : 10);
+            this.setServerStillTimeout(10);
         }
 
         if (!this.isVehicle()) {
@@ -381,7 +381,7 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable, Le
 
     @Override @Nullable
     public LivingEntity getControllingPassenger() {
-        return this.isSaddled() && !this.isPlayerAboveGhast() && this.getFirstPassenger() instanceof Player player
+        return this.isSaddled() && !this.isOnStillTimeout() && this.getFirstPassenger() instanceof Player player
             ? player
             : super.getControllingPassenger();
     }
@@ -450,7 +450,7 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable, Le
             this.level().getProfiler().pop();
         }
 
-        this.setRequiresPrecisePosition(this.isPlayerAboveGhast());
+//        this.setRequiresPrecisePosition(this.isPlayerAboveGhast());
         this.checkRestriction();
         super.customServerAiStep();
     }
@@ -466,16 +466,24 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable, Le
 
         this.setLeashHolder(this.leashHolderTime > 0);
         if (this.serverStillTimeout > 0) {
-            this.setServerStillTimeout(this.serverStillTimeout - 1);
+            if (this.tickCount > 60) {
+                this.serverStillTimeout--;
+            }
+
+            this.setServerStillTimeout(this.serverStillTimeout);
         }
 
         if (this.scanPlayerAboveGhast()) {
-            this.setServerStillTimeout(this.getPassengers().isEmpty() ? 40 : 10);
+            this.setServerStillTimeout(10);
         }
     }
 
     @Override
     public void aiStep() {
+        if (!this.level().isClientSide) {
+            this.setRequiresPrecisePosition(this.isOnStillTimeout());
+        }
+
         super.aiStep();
         this.continuousHeal();
     }
@@ -604,7 +612,7 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable, Le
         this.setServerStillTimeout(compound.getInt("still_timeout"));
     }
 
-    public boolean isPlayerAboveGhast() {
+    public boolean isOnStillTimeout() {
         return this.staysStill() || this.serverStillTimeout > 0;
     }
 
@@ -627,19 +635,15 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable, Le
     }
 
     public boolean canBeCollidedWith(Entity entity) {
-        if (this.isBaby() || !this.isAlive()) {
+        if (!this.isBaby() && this.isAlive()) {
+            if (this.level().isClientSide() && entity instanceof Player && entity.position().y >= this.getBoundingBox().maxY) {
+                return true;
+            } else {
+                return this.isVehicle() && entity instanceof HappyGhast || this.isOnStillTimeout();
+            }
+        } else {
             return false;
         }
-
-        if (this.level().isClientSide() && entity instanceof Player && entity.position().y >= this.getBoundingBox().maxY) {
-            return true;
-        }
-
-        if (this.isVehicle() && entity instanceof HappyGhast) {
-            return true;
-        }
-
-        return this.isPlayerAboveGhast();
     }
 
     static class BabyFlyingPathNavigation extends FlyingPathNavigation {
@@ -674,7 +678,6 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable, Le
     }
 
     static class GhastFloatGoal extends FloatGoal {
-
         private final HappyGhast ghast;
 
         public GhastFloatGoal(HappyGhast ghast) {
@@ -684,7 +687,7 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable, Le
 
         @Override
         public boolean canUse() {
-            return !this.ghast.isPlayerAboveGhast() && super.canUse();
+            return !this.ghast.isOnStillTimeout() && super.canUse();
         }
     }
 
@@ -695,7 +698,7 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable, Le
 
         @Override
         public void tick() {
-            if (HappyGhast.this.isPlayerAboveGhast()) {
+            if (HappyGhast.this.isOnStillTimeout()) {
                 float degrees = wrapDegrees90(HappyGhast.this.getYRot());
                 HappyGhast.this.setYRot(HappyGhast.this.getYRot() - degrees);
                 HappyGhast.this.setYHeadRot(HappyGhast.this.getYRot());

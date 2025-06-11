@@ -80,8 +80,6 @@ public abstract class BoatMixin extends Entity implements Leashable {
         }
     }
 
-    // ADD INTERACTIONS
-
     @Unique
     private void tickLeash() {
         if (this.leashInfoTag != null) {
@@ -168,8 +166,6 @@ public abstract class BoatMixin extends Entity implements Leashable {
         this.delayedLeashHolderId = leashHolderId;
         this.dropLeash(false, false);
     }
-
-    // START RIDING
 
     @Unique
     private void restoreLeashFromSave() {
