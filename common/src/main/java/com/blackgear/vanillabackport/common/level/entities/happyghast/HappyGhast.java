@@ -560,7 +560,7 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable, Le
     }
 
     @Override
-    public Vec3[] getQuadLeashOffsets() {
+    public Vec3[] getQuadLeashHolderOffsets() {
         return Leashable.createQuadLeashOffsets(this, -0.03125, 0.4375, 0.46875, 0.03125);
     }
 
