@@ -9,11 +9,12 @@
     "access.SoundManagerAccessor",
     "client.CameraMixin",
     "client.LocalPlayerMixin",
-    "client.MobRendererMixin",
     "client.MusicManagerMixin",
     "client.SpriteResourceLoaderMixin",
     "client.SpriteResourceLoaderMixin$PalettedPermutationsAccessor",
-    "common.network.ClientPacketListenerMixin"
+    "leashable.client.MobRendererMixin",
+    "leashable.client.BoatRendererMixin",
+    "leashable.client.network.ClientPacketListenerMixin"
   ],
   "mixins": [
     "access.EntityAccessor",
@@ -23,16 +24,16 @@
     "access.PathfinderMobAccessor",
     "access.TextureSlotAccessor",
     "access.TreeDecoratorTypeAccessor",
-    "common.entities.BoatMixin",
     "common.entities.EntityMixin",
-    "common.entities.LeashablesMixin$AbstractHorseMixin",
-    "common.entities.LeashablesMixin$CamelMixin",
-    "common.entities.LeashBehaviorMixin",
-    "common.entities.MobMixin",
     "common.entities.ParrotMixin",
     "common.entities.ServerEntityMixin",
     "common.worldgen.feature.SimpleBlockFeatureMixin",
-    "common.worldgen.structure.NetherFossilPieceMixin"
+    "common.worldgen.structure.NetherFossilPieceMixin",
+    "leashable.common.entities.BoatMixin",
+    "leashable.common.entities.LeashablesMixin$AbstractHorseMixin",
+    "leashable.common.entities.LeashablesMixin$CamelMixin",
+    "leashable.common.entities.LeashBehaviorMixin",
+    "leashable.common.entities.MobMixin"
   ],
   "injectors": {
     "defaultRequire": 1

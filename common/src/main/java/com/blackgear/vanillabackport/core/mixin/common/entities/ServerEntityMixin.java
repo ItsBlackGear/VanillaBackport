@@ -1,5 +1,6 @@
 package com.blackgear.vanillabackport.core.mixin.common.entities;
 
+import com.blackgear.vanillabackport.common.api.leash.Leashable;
 import com.blackgear.vanillabackport.common.level.entities.happyghast.HappyGhast;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.*;
@@ -9,6 +10,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -145,6 +147,13 @@ public abstract class ServerEntityMixin {
             }
 
             ci.cancel();
+        }
+    }
+
+    @Inject(method = "sendPairingData", at = @At("TAIL"))
+    private void onSendPairingData(ServerPlayer player, Consumer<Packet<ClientGamePacketListener>> consumer, CallbackInfo ci) {
+        if (this.entity instanceof Boat boat && boat instanceof Leashable leashable && leashable.isLeashed()) {
+            consumer.accept(new ClientboundSetEntityLinkPacket(boat, leashable.getLeashHolder()));
         }
     }
 }

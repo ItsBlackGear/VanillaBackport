@@ -1,4 +1,4 @@
-package com.blackgear.vanillabackport.core.mixin.common.entities;
+package com.blackgear.vanillabackport.core.mixin.leashable.common.entities;
 
 import com.blackgear.vanillabackport.common.api.leash.Leashable;
 import net.minecraft.core.BlockPos;

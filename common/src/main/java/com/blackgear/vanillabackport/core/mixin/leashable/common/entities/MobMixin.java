@@ -1,4 +1,4 @@
-package com.blackgear.vanillabackport.core.mixin.common.entities;
+package com.blackgear.vanillabackport.core.mixin.leashable.common.entities;
 
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.monster.Enemy;

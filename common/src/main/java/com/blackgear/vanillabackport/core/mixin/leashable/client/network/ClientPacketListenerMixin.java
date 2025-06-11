@@ -1,4 +1,4 @@
-package com.blackgear.vanillabackport.core.mixin.common.network;
+package com.blackgear.vanillabackport.core.mixin.leashable.client.network;
 
 import com.blackgear.vanillabackport.common.api.leash.Leashable;
 import net.minecraft.client.multiplayer.ClientLevel;

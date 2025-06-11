@@ -1,4 +1,4 @@
-package com.blackgear.vanillabackport.core.mixin.client;
+package com.blackgear.vanillabackport.core.mixin.leashable.client;
 
 import com.blackgear.vanillabackport.common.api.leash.Leashable;
 import com.blackgear.vanillabackport.common.api.leash.LeashState;

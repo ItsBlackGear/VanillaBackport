@@ -65,8 +65,7 @@ public interface Leashable {
             if (holder != null && holder.level() == entity.level()) {
                 double leashDistance = LeashPhysics.leashDistanceTo(entity, holder);
 
-                if (this instanceof Mob mob) {
-                    mob.restrictTo(holder.blockPosition(), 5);
+                if (this instanceof Mob) {
                     if (entity instanceof TamableAnimal pet && pet.isInSittingPose()) {
                         if (leashDistance > this.leashSnapDistance()) {
                             this.dropLeash(true, true);
@@ -78,7 +77,6 @@ public interface Leashable {
 
                 this.whenLeashedTo(holder);
                 if (leashDistance > this.leashSnapDistance()) {
-                    entity.level().playSound(null, holder, SoundEvents.LEASH_KNOT_BREAK, SoundSource.NEUTRAL, 1.0F, 1.0F);
                     entity.level().playSound(null, holder, SoundEvents.LEASH_KNOT_BREAK, SoundSource.NEUTRAL, 1.0F, 1.0F);
                     this.leashTooFarBehaviour();
                 } else if (leashDistance > this.leashElasticDistance() - (double) holder.getBbWidth() - (double) entity.getBbWidth() && LeashPhysics.checkElasticInteractions(entity, holder)) {
@@ -117,6 +115,10 @@ public interface Leashable {
     }
 
     default void whenLeashedTo(Entity entity) {
+        if (this instanceof PathfinderMob mob) {
+            mob.restrictTo(entity.blockPosition(), (int) this.leashElasticDistance() - 1);
+        }
+
         if (entity instanceof Leashable ext) {
             ext.notifyLeashHolder(this);
         }
