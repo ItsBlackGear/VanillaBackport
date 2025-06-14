@@ -61,6 +61,10 @@ public interface Leashable {
 
     static <E extends Entity & Leashable> void onTickLeash(E entity) {
         Entity holder = entity.getLeashHolder();
+        if (!entity.isAlive() || (holder != null && !holder.isAlive())) {
+            entity.dropLeash(true, true);
+        }
+
         if (holder != null && holder.level() == entity.level()) {
             double leashDistance = entity.leashDistanceTo(holder);
 
@@ -166,6 +170,7 @@ public interface Leashable {
                 return player.getDeltaMovement();
             }
         }
+
         return entity.getDeltaMovement();
     }
 
@@ -287,7 +292,7 @@ public interface Leashable {
         /**
          * Combines multiple wrenches into a single resultant wrench.
          */
-        static Wrench accumulate(List<Wrench> wrenches) {
+        public static Wrench accumulate(List<Wrench> wrenches) {
             if (wrenches.isEmpty()) return ZERO;
 
             double x = 0.0;

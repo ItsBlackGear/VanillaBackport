@@ -1,5 +1,6 @@
 package com.blackgear.vanillabackport.core.mixin.leashable.common.entities;
 
+import com.blackgear.vanillabackport.common.api.leash.InterpolationHandler;
 import com.blackgear.vanillabackport.common.api.leash.Leashable;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -27,6 +28,8 @@ import java.util.UUID;
 
 @Mixin(Boat.class)
 public abstract class BoatMixin extends Entity implements Leashable {
+    @Unique private final InterpolationHandler interpolation = new InterpolationHandler(this, 3);
+
     @Unique @Nullable Entity leashHolder;
     @Unique private int delayedLeashHolderId;
     @Unique @Nullable CompoundTag leashInfoTag;
@@ -194,5 +197,23 @@ public abstract class BoatMixin extends Entity implements Leashable {
     protected void removeAfterChangingDimensions() {
         super.removeAfterChangingDimensions();
         this.dropLeash(true, false);
+    }
+
+    @Inject(method = "lerpTo", at = @At("HEAD"), cancellable = true)
+    private void vb$lerpTo(double x, double y, double z, float yRot, float xRot, int lerpSteps, boolean teleport, CallbackInfo ci) {
+        ci.cancel();
+        this.interpolation.interpolateTo(new Vec3(x, y, z), yRot, xRot);
+    }
+
+    @Inject(method = "tickLerp", at = @At("HEAD"), cancellable = true)
+    private void vb$tickLerp(CallbackInfo ci) {
+        ci.cancel();
+
+        if (this.isControlledByLocalInstance()) {
+            this.interpolation.cancel();
+            this.syncPacketPositionCodec(this.getX(), this.getY(), this.getZ());
+        }
+
+        this.interpolation.interpolate();
     }
 }
