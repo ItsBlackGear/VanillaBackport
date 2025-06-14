@@ -144,8 +144,8 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable, Le
         return this.requiresPrecisePosition;
     }
 
-    public void setRequiresPrecisePosition(boolean bl) {
-        this.requiresPrecisePosition = bl;
+    public void setRequiresPrecisePosition(boolean requiresPrecisePosition) {
+        this.requiresPrecisePosition = requiresPrecisePosition;
     }
 
     public void stopInPlace() {
@@ -154,6 +154,7 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable, Le
         this.setYya(0.0F);
         this.setSpeed(0.0F);
         this.setDeltaMovement(0.0, 0.0, 0.0);
+        this.setAngularMomentum(0.0);
     }
 
     @Override
