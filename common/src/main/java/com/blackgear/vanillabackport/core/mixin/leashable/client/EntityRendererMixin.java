@@ -8,13 +8,14 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.level.LightLayer;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4f;
@@ -25,6 +26,7 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,12 +40,32 @@ public abstract class EntityRendererMixin<T extends Entity> {
 
     @Inject(method = "render", at = @At("TAIL"))
     private void renderAdditional(T entity, float entityYaw, float partialTick, PoseStack poseStack, MultiBufferSource buffer, int packedLight, CallbackInfo ci) {
-        if (entity instanceof Boat) {
+        if (entity instanceof Leashable) {
             this.setupLeashRendering(entity, partialTick);
 
             if (this.leashStates != null) {
                 for (LeashState state : this.leashStates) {
                     this.renderLeash(poseStack, buffer, state);
+                }
+            }
+        }
+    }
+
+    @Inject(method = "shouldRender(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/client/renderer/culling/Frustum;DDD)Z", at = @At("TAIL"), cancellable = true)
+    private void shouldRenderLeash(T entity, Frustum camera, double camX, double camY, double camZ, CallbackInfoReturnable<Boolean> cir) {
+        if (!cir.getReturnValue() && entity instanceof Leashable leashable) {
+            AABB aabb = entity.getBoundingBoxForCulling().inflate(0.5);
+            if (aabb.hasNaN() || aabb.getSize() == 0.0) {
+                aabb = new AABB(entity.getX() - 2.0, entity.getY() - 2.0, entity.getZ() - 2.0,entity.getX() + 2.0, entity.getY() + 2.0, entity.getZ() + 2.0);
+            }
+
+            if (camera.isVisible(aabb)) {
+                cir.setReturnValue(true);
+            } else {
+                Entity leashHolder = leashable.getLeashHolder();
+                if (leashHolder != null) {
+                    AABB aabb2 = leashHolder.getBoundingBoxForCulling();
+                    cir.setReturnValue(camera.isVisible(aabb2) || camera.isVisible(aabb.minmax(aabb2)));
                 }
             }
         }
@@ -114,7 +136,7 @@ public abstract class EntityRendererMixin<T extends Entity> {
             Entity leashHolder = leashable.getLeashHolder();
 
             if (leashHolder != null) {
-                float entityRotation = Mth.lerp(partialTicks, entity.yRotO, entity.getYRot()) * ((float) Math.PI / 180);
+                float entityRotation = Leashable.getPreciseBodyRotation(entity, partialTicks) * ((float) Math.PI / 180);
                 Vec3 leashOffset = entity.getLeashOffset(partialTicks);
 
                 BlockPos entityPos = BlockPos.containing(entity.getEyePosition(partialTicks));
@@ -137,7 +159,7 @@ public abstract class EntityRendererMixin<T extends Entity> {
                 }
 
                 if (useQuadLeash) {
-                    float holderRotation = Mth.lerp(partialTicks, leashHolder.yRotO, leashHolder.getYRot()) * ((float) Math.PI / 180);
+                    float holderRotation = Leashable.getPreciseBodyRotation(leashHolder, partialTicks) * ((float) Math.PI / 180);
                     Vec3 holderPosition = leashHolder.getPosition(partialTicks);
                     Vec3[] entityOffsets = leashable.getQuadLeashOffsets();
                     Vec3[] holderOffsets = ((Leashable) leashHolder).getQuadLeashHolderOffsets();

@@ -8,6 +8,7 @@ import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.entity.BoatRenderer;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -16,6 +17,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.level.LightLayer;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4f;
@@ -45,6 +47,28 @@ public abstract class BoatRendererMixin extends EntityRenderer<Boat> {
                 this.renderLeash(poseStack, buffer, state);
             }
         }
+    }
+
+    @Override
+    public boolean shouldRender(Boat boat, Frustum camera, double camX, double camY, double camZ) {
+        if (!super.shouldRender(boat, camera, camX, camY, camZ)) {
+            AABB aabb = boat.getBoundingBoxForCulling().inflate(0.5);
+            if (aabb.hasNaN() || aabb.getSize() == 0.0) {
+                aabb = new AABB(boat.getX() - 2.0, boat.getY() - 2.0, boat.getZ() - 2.0, boat.getX() + 2.0, boat.getY() + 2.0, boat.getZ() + 2.0);
+            }
+
+            if (camera.isVisible(aabb)) {
+                return true;
+            } else if (boat instanceof Leashable leashable) {
+                Entity leashHolder = leashable.getLeashHolder();
+                if (leashHolder != null) {
+                    AABB holderAABB = leashHolder.getBoundingBoxForCulling();
+                    return camera.isVisible(holderAABB) || camera.isVisible(aabb.minmax(holderAABB));
+                }
+            }
+        }
+
+        return super.shouldRender(boat, camera, camX, camY, camZ);
     }
 
     @Unique
