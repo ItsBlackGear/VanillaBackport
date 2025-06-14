@@ -103,9 +103,9 @@ public class InterpolationHandler {
             this.position = this.position.add(vec3);
         }
 
-        public void addRotation(float f, float g) {
-            this.yRot += f;
-            this.xRot += g;
+        public void addRotation(float yRot, float xRot) {
+            this.yRot += yRot;
+            this.xRot += xRot;
         }
     }
 }

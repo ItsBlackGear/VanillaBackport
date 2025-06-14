@@ -132,7 +132,7 @@ public class LeashRenderer<T extends Entity> {
         Entity leashHolder = leashable.getLeashHolder();
 
         if (leashHolder != null) {
-            float entityRotation = Mth.lerp(partialTicks, entity.yRotO, entity.getYRot()) * ((float) Math.PI / 180);
+            float entityRotation = Leashable.getPreciseBodyRotation(entity, partialTicks) * ((float) Math.PI / 180);
             Vec3 leashOffset = entity.getLeashOffset(partialTicks);
 
             BlockPos entityPos = BlockPos.containing(entity.getEyePosition(partialTicks));
@@ -155,7 +155,7 @@ public class LeashRenderer<T extends Entity> {
             }
 
             if (useQuadLeash) {
-                float holderRotation = Mth.lerp(partialTicks, leashHolder.yRotO, leashHolder.getYRot()) * ((float) Math.PI / 180);
+                float holderRotation = Leashable.getPreciseBodyRotation(leashHolder, partialTicks) * ((float) Math.PI / 180);
                 Vec3 holderPosition = leashHolder.getPosition(partialTicks);
                 Vec3[] entityOffsets = leashable.getQuadLeashOffsets();
                 Vec3[] holderOffsets = ((Leashable) leashHolder).getQuadLeashHolderOffsets();
