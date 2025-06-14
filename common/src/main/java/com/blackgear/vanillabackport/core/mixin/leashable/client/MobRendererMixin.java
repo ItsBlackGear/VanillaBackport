@@ -9,14 +9,17 @@ import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.level.LightLayer;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4f;
@@ -25,6 +28,7 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,6 +56,28 @@ public abstract class MobRendererMixin<T extends Mob, M extends EntityModel<T>> 
         if (this.leashStates != null) {
             for (LeashState state : this.leashStates) {
                 this.renderLeash(poseStack, buffer, state);
+            }
+        }
+    }
+
+    @Inject(method = "shouldRender(Lnet/minecraft/world/entity/Mob;Lnet/minecraft/client/renderer/culling/Frustum;DDD)Z", at = @At("HEAD"), cancellable = true)
+    private void shouldRenderLeash(T entity, Frustum camera, double camX, double camY, double camZ, CallbackInfoReturnable<Boolean> cir) {
+        if (!super.shouldRender(entity, camera, camX, camY, camZ)) {
+            AABB aabb = entity.getBoundingBoxForCulling().inflate(0.5);
+            if (aabb.hasNaN() || aabb.getSize() == 0.0) {
+                aabb = new AABB(entity.getX() - 2.0, entity.getY() - 2.0, entity.getZ() - 2.0,entity.getX() + 2.0, entity.getY() + 2.0, entity.getZ() + 2.0);
+            }
+
+            if (camera.isVisible(aabb)) {
+                cir.setReturnValue(true);
+            } else {
+                if (entity instanceof Leashable leashable) {
+                    Entity leashHolder = leashable.getLeashHolder();
+                    if (leashHolder != null) {
+                        AABB aabb2 = leashHolder.getBoundingBoxForCulling();
+                        cir.setReturnValue(camera.isVisible(aabb2) || camera.isVisible(aabb.minmax(aabb2)));
+                    }
+                }
             }
         }
     }
@@ -120,7 +146,7 @@ public abstract class MobRendererMixin<T extends Mob, M extends EntityModel<T>> 
         Entity leashHolder = entity.getLeashHolder();
 
         if (leashHolder != null) {
-            float entityRotation = Mth.lerp(partialTicks, entity.yRotO, entity.getYRot()) * ((float) Math.PI / 180);
+            float entityRotation = Leashable.getPreciseBodyRotation(entity, partialTicks) * ((float) Math.PI / 180);
             Vec3 leashOffset = entity.getLeashOffset(partialTicks);
 
             BlockPos entityPos = BlockPos.containing(entity.getEyePosition(partialTicks));
@@ -143,7 +169,7 @@ public abstract class MobRendererMixin<T extends Mob, M extends EntityModel<T>> 
             }
 
             if (useQuadLeash) {
-                float holderRotation = Mth.lerp(partialTicks, leashHolder.yRotO, leashHolder.getYRot()) * ((float) Math.PI / 180);
+                float holderRotation = Leashable.getPreciseBodyRotation(leashHolder, partialTicks) * ((float) Math.PI / 180);
                 Vec3 holderPosition = leashHolder.getPosition(partialTicks);
                 Vec3[] entityOffsets = ((Leashable) entity).getQuadLeashOffsets();
                 Vec3[] holderOffsets = ((Leashable) leashHolder).getQuadLeashHolderOffsets();

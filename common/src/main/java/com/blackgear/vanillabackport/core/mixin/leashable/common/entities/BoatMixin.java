@@ -92,7 +92,7 @@ public abstract class BoatMixin extends Entity implements Leashable {
             }
         }
 
-        this.onTickLeash();
+        Leashable.onTickLeash(this);
     }
 
     @Override

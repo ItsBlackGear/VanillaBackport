@@ -31,6 +31,6 @@ public abstract class LeashBehaviorMixin extends Mob implements Leashable {
     private void vb$onTickLeash(CallbackInfo ci) {
         ci.cancel();
         super.tickLeash();
-        this.onTickLeash();
+        Leashable.onTickLeash(this);
     }
 }
