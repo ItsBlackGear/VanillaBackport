@@ -34,7 +34,8 @@
     "leashable.common.entities.LeashablesMixin$AbstractHorseMixin",
     "leashable.common.entities.LeashablesMixin$CamelMixin",
     "leashable.common.entities.LeashBehaviorMixin",
-    "leashable.common.entities.MobMixin"
+    "leashable.common.entities.MobMixin",
+    "leashable.common.item.FireworkRocketItemMixin"
   ],
   "injectors": {
     "defaultRequire": 1

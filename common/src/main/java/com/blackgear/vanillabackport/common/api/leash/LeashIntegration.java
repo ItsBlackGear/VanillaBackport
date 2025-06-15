@@ -81,7 +81,7 @@ public class LeashIntegration implements MobInteraction {
     }
 
     private boolean shearOffAllLeashConnections(Entity entity, Player player) {
-        boolean sheared = this.dropAllLeashConnections(entity, player);
+        boolean sheared = dropAllLeashConnections(entity, player);
         if (sheared && entity.level() instanceof ServerLevel server) {
             server.playSound(null, entity.blockPosition(), SoundEvents.SHEEP_SHEAR, player != null ? player.getSoundSource() : entity.getSoundSource());
         }
@@ -89,23 +89,24 @@ public class LeashIntegration implements MobInteraction {
         return sheared;
     }
 
-    private boolean dropAllLeashConnections(Entity entity, @Nullable Player player) {
+    public static boolean dropAllLeashConnections(Entity entity, @Nullable Player player) {
         List<Leashable> leashed = Leashable.leashableLeashedTo(entity);
-        boolean anyDroppedConnections = !leashed.isEmpty();
+        boolean dropConnections = !leashed.isEmpty();
+
         if (entity instanceof Leashable leashable && leashable.isLeashed()) {
             leashable.dropLeash(true, true);
-            anyDroppedConnections = true;
+            dropConnections = true;
         }
 
         for (Leashable leashable : leashed) {
             leashable.dropLeash(true, true);
         }
 
-        if (anyDroppedConnections) {
+        if (dropConnections) {
             entity.gameEvent(GameEvent.SHEAR, player);
             return true;
+        } else {
+            return false;
         }
-
-        return false;
     }
 }
