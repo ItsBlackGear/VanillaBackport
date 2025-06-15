@@ -134,6 +134,8 @@ public interface Leashable {
     }
 
     default boolean checkElasticInteractions(Entity entity) {
+        if (((Entity) this).getControllingPassenger() instanceof Player) return false;
+
         boolean supportQuadLeash = entity instanceof Leashable holder && holder.supportQuadLeashAsHolder() && this.supportQuadLeash();
         List<Wrench> wrenches = computeElasticInteraction(
             (Entity & Leashable) this,
