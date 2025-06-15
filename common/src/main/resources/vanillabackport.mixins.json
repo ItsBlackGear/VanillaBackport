@@ -31,8 +31,10 @@
     "common.worldgen.feature.SimpleBlockFeatureMixin",
     "common.worldgen.structure.NetherFossilPieceMixin",
     "leashable.common.entities.BoatMixin",
+    "leashable.common.entities.LeashablesMixin$AbstractChestedHorseMixin",
     "leashable.common.entities.LeashablesMixin$AbstractHorseMixin",
     "leashable.common.entities.LeashablesMixin$CamelMixin",
+    "leashable.common.entities.LeashablesMixin$SnifferMixin",
     "leashable.common.entities.LeashBehaviorMixin",
     "leashable.common.entities.MobMixin",
     "leashable.common.item.FireworkRocketItemMixin"

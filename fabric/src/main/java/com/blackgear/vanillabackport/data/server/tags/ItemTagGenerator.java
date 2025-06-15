@@ -53,6 +53,8 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
         this.getOrCreateTagBuilder(ModItemTags.HAPPY_GHAST_TEMPT_ITEMS)
             .addTag(ModItemTags.HAPPY_GHAST_FOOD)
             .addTag(ModItemTags.HARNESSES);
+
+        this.getOrCreateTagBuilder(ItemTags.MUSIC_DISCS).add(ModItems.MUSIC_DISC_TEARS.get());
     }
 
     private void addWoodRelatedTags() {
