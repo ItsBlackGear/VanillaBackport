@@ -9,7 +9,6 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.GameRules;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -62,10 +61,6 @@ public interface Leashable {
 
     static <E extends Entity & Leashable> void onTickLeash(E entity) {
         Entity holder = entity.getLeashHolder();
-        if (!entity.isAlive() || (holder != null && !holder.isAlive())) {
-            entity.dropLeash(true, entity.level().getGameRules().getBoolean(GameRules.RULE_DOENTITYDROPS));
-        }
-
         if (holder != null && holder.level() == entity.level()) {
             double leashDistance = entity.leashDistanceTo(holder);
 

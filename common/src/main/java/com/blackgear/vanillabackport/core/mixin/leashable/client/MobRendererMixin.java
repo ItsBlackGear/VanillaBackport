@@ -18,10 +18,15 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(MobRenderer.class)
 public abstract class MobRendererMixin<T extends Mob, M extends EntityModel<T>> extends LivingEntityRenderer<T, M> {
-    @Unique private final LeashRenderer<T> leashRenderer = new LeashRenderer<>(this.entityRenderDispatcher);
+    @Unique private LeashRenderer<T> leashRenderer;
 
     public MobRendererMixin(EntityRendererProvider.Context context, M model, float shadowRadius) {
         super(context, model, shadowRadius);
+    }
+
+    @Inject(method = "<init>", at = @At("TAIL"))
+    private void vb$init(EntityRendererProvider.Context context, M model, float shadowRadius, CallbackInfo ci) {
+        this.leashRenderer = new LeashRenderer<>(this.entityRenderDispatcher);
     }
 
     @Inject(

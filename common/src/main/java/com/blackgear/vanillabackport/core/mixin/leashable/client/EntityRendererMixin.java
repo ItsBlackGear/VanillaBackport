@@ -6,6 +6,7 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.world.entity.Entity;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -18,9 +19,14 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(EntityRenderer.class)
 public abstract class EntityRendererMixin<T extends Entity> {
-    @Unique private final LeashRenderer<T> leashRenderer = new LeashRenderer<>(this.entityRenderDispatcher);
+    @Unique private LeashRenderer<T> leashRenderer;
 
     @Shadow @Final protected EntityRenderDispatcher entityRenderDispatcher;
+
+    @Inject(method = "<init>", at = @At("TAIL"))
+    private void vb$init(EntityRendererProvider.Context context, CallbackInfo ci) {
+        this.leashRenderer = new LeashRenderer<>(this.entityRenderDispatcher);
+    }
 
     @Inject(method = "render", at = @At("TAIL"))
     private void renderAdditional(T entity, float entityYaw, float partialTick, PoseStack poseStack, MultiBufferSource buffer, int packedLight, CallbackInfo ci) {
