@@ -27,7 +27,7 @@ public abstract class BoatRendererMixin extends EntityRenderer<Boat> {
         this.leashRenderer = new LeashRenderer<>(this.entityRenderDispatcher);
     }
 
-    @Inject(method = "render(Lnet/minecraft/world/entity/vehicle/Boat;FFLcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;I)V", at = @At("TAIL"))
+    @Inject(method = "render(Lnet/minecraft/world/entity/vehicle/Boat;FFLcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;I)V", at = @At("HEAD"))
     private void vb$render(Boat entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource buffer, int packedLight, CallbackInfo ci) {
         this.leashRenderer.render(entity, partialTicks, poseStack, buffer);
     }

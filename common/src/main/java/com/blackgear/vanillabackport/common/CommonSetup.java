@@ -41,8 +41,9 @@ public class CommonSetup {
             BiomePlacement.registerBiomePlacements(BiomeGeneration::bootstrap);
             BlockIntegration.registerIntegrations(CommonSetup::blockIntegrations);
             TradeIntegration.registerVillagerTrades(CommonSetup::tradeIntegrations);
-            LootModifier.modify(CommonSetup::lootIntegrations);
         });
+
+        LootModifier.modify(CommonSetup::lootIntegrations);
     }
 
     public static void blockIntegrations(BlockIntegration.Event event) {
@@ -103,7 +104,7 @@ public class CommonSetup {
     }
 
     public static void lootIntegrations(ResourceLocation path, LootModifier.LootTableContext context, boolean builtin) {
-        if (path == EntityType.GHAST.getDefaultLootTable()) {
+        if (path.equals(EntityType.GHAST.getDefaultLootTable())) {
             context.addPool(
                 LootPool.lootPool()
                     .setRolls(ConstantValue.exactly(1.0F))

@@ -38,8 +38,8 @@ public abstract class MobRendererMixin<T extends Mob, M extends EntityModel<T>> 
         cancellable = true
     )
     private void onRenderLeash(T entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource buffer, int packedLight, CallbackInfo ci) {
-        ci.cancel();
         this.leashRenderer.render(entity, partialTicks, poseStack, buffer);
+        ci.cancel();
     }
 
     @Inject(method = "shouldRender(Lnet/minecraft/world/entity/Mob;Lnet/minecraft/client/renderer/culling/Frustum;DDD)Z", at = @At("HEAD"), cancellable = true)

@@ -28,7 +28,7 @@ public abstract class EntityRendererMixin<T extends Entity> {
         this.leashRenderer = new LeashRenderer<>(this.entityRenderDispatcher);
     }
 
-    @Inject(method = "render", at = @At("TAIL"))
+    @Inject(method = "render", at = @At("HEAD"))
     private void renderAdditional(T entity, float entityYaw, float partialTick, PoseStack poseStack, MultiBufferSource buffer, int packedLight, CallbackInfo ci) {
         this.leashRenderer.render(entity, partialTick, poseStack, buffer);
     }
