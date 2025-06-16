@@ -1,6 +1,7 @@
 package com.blackgear.vanillabackport.client.level.entities.renderer;
 
 import com.blackgear.vanillabackport.client.registries.ModModelLayers;
+import com.blackgear.vanillabackport.common.api.leash.LeashRenderer;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -14,6 +15,7 @@ import net.minecraft.client.model.ListModel;
 import net.minecraft.client.model.WaterPatchModel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.culling.Frustum;
 import net.minecraft.client.renderer.entity.BoatRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.texture.OverlayTexture;
@@ -27,10 +29,12 @@ public class PaleOakBoatRenderer extends BoatRenderer {
     private static final ResourceLocation PALE_OAK_BOAT = VanillaBackport.resource("textures/entity/boat/pale_oak.png");
     private static final ResourceLocation PALE_OAK_CHEST_BOAT = VanillaBackport.resource("textures/entity/chest_boat/pale_oak.png");
     private final Pair<ResourceLocation, ListModel<Boat>> boatResource;
+    private final LeashRenderer<Boat> leashRenderer;
 
     public PaleOakBoatRenderer(EntityRendererProvider.Context context, boolean chestBoat) {
         super(context, chestBoat);
         this.boatResource = Pair.of(chestBoat ? PALE_OAK_CHEST_BOAT : PALE_OAK_BOAT, chestBoat ? new ChestBoatModel(context.bakeLayer(ModModelLayers.PALE_OAK_CHEST_BOAT)) : new BoatModel(context.bakeLayer(ModModelLayers.PALE_OAK_BOAT)));
+        this.leashRenderer = new LeashRenderer<>(this.entityRenderDispatcher);
     }
 
     @Override
@@ -74,6 +78,13 @@ public class PaleOakBoatRenderer extends BoatRenderer {
         if (this.shouldShowName(entity)) {
             this.renderNameTag(entity, entity.getDisplayName(), matrices, buffer, packedLight);
         }
+
+        this.leashRenderer.render(entity, partialTicks, matrices, buffer);
+    }
+
+    @Override
+    public boolean shouldRender(Boat entity, Frustum camera, double camX, double camY, double camZ) {
+        return this.leashRenderer.shouldRender(entity, camera, super.shouldRender(entity, camera, camX, camY, camZ));
     }
 
     @Override

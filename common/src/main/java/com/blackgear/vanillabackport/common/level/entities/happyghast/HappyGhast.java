@@ -1,6 +1,7 @@
 package com.blackgear.vanillabackport.common.level.entities.happyghast;
 
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
+import com.blackgear.vanillabackport.common.api.leash.Leashable;
 import com.blackgear.vanillabackport.common.registries.ModEntities;
 import com.blackgear.vanillabackport.core.data.tags.ModBlockTags;
 import com.blackgear.vanillabackport.core.data.tags.ModItemTags;
@@ -55,15 +56,17 @@ import org.jetbrains.annotations.Nullable;
 import java.util.EnumSet;
 import java.util.function.BooleanSupplier;
 
-public class HappyGhast extends Animal implements Saddleable, PlayerRideable {
+public class HappyGhast extends Animal implements Saddleable, PlayerRideable, Leashable {
     public static final Ingredient IS_FOOD = Ingredient.of(ModItemTags.HAPPY_GHAST_FOOD);
-    private static final EntityDataAccessor<Boolean> STAYS_STILL = SynchedEntityData.defineId(HappyGhast.class, EntityDataSerializers.BOOLEAN);
+    private int leashHolderTime = 0;
     private int serverStillTimeout;
+    private static final EntityDataAccessor<Boolean> IS_LEASH_HOLDER = SynchedEntityData.defineId(HappyGhast.class, EntityDataSerializers.BOOLEAN);
+    private static final EntityDataAccessor<Boolean> STAYS_STILL = SynchedEntityData.defineId(HappyGhast.class, EntityDataSerializers.BOOLEAN);
     private boolean requiresPrecisePosition;
 
     public HappyGhast(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
-        this.moveControl = new GhastMoveControl(this, true, this::isPlayerAboveGhast);
+        this.moveControl = new GhastMoveControl(this, true, this::isOnStillTimeout);
         this.lookControl = new HappyGhastLookControl();
     }
 
@@ -79,32 +82,6 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable {
 
     private PathNavigation createBabyNavigation(Level level) {
         return new BabyFlyingPathNavigation(this, level);
-    }
-
-    @Override
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(STAYS_STILL, false);
-    }
-
-    @Override
-    public void addAdditionalSaveData(CompoundTag compound) {
-        super.addAdditionalSaveData(compound);
-        compound.putInt("still_timeout", this.serverStillTimeout);
-    }
-
-    @Override
-    public void readAdditionalSaveData(CompoundTag compound) {
-        super.readAdditionalSaveData(compound);
-        this.setServerStillTimeout(compound.getInt("still_timeout"));
-    }
-
-    private void syncStayStillFlag() {
-        this.entityData.set(STAYS_STILL, this.serverStillTimeout > 0);
-    }
-
-    public boolean staysStill() {
-        return this.entityData.get(STAYS_STILL);
     }
 
     @Override
@@ -125,7 +102,7 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable {
     }
 
     private void adultGhastSetup() {
-        this.moveControl = new GhastMoveControl(this, true, this::isPlayerAboveGhast);
+        this.moveControl = new GhastMoveControl(this, true, this::isOnStillTimeout);
         this.lookControl = new HappyGhastLookControl();
         this.navigation = this.createNavigation(this.level());
 
@@ -167,8 +144,8 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable {
         return this.requiresPrecisePosition;
     }
 
-    public void setRequiresPrecisePosition(boolean bl) {
-        this.requiresPrecisePosition = bl;
+    public void setRequiresPrecisePosition(boolean requiresPrecisePosition) {
+        this.requiresPrecisePosition = requiresPrecisePosition;
     }
 
     public void stopInPlace() {
@@ -177,6 +154,7 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable {
         this.setYya(0.0F);
         this.setSpeed(0.0F);
         this.setDeltaMovement(0.0, 0.0, 0.0);
+        this.setAngularMomentum(0.0);
     }
 
     @Override
@@ -190,7 +168,7 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable {
 
     @Override
     public void travel(Vec3 travelVector) {
-        if (this.isPlayerAboveGhast()) {
+        if (this.isOnStillTimeout()) {
             this.setDeltaMovement(Vec3.ZERO);
             return;
         }
@@ -228,47 +206,6 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable {
     @Override
     protected boolean shouldStayCloseToLeashHolder() {
         return false;
-    }
-
-    @Override
-    protected Vec3 getLeashOffset() {
-        return Vec3.ZERO;
-    }
-
-    @Override
-    protected void tickLeash() {
-        if (this.leashInfoTag != null) {
-            this.restoreLeashFromSave();
-        }
-
-        if (this.getLeashHolder() != null) {
-            if (!this.isAlive() || !this.getLeashHolder().isAlive()) {
-                this.dropLeash(true, true);
-            }
-        }
-
-        Entity leashHolder = this.getLeashHolder();
-        if (leashHolder != null && leashHolder.level() == this.level()) {
-            this.restrictTo(leashHolder.blockPosition(), 5);
-            float distanceFromHolder = this.distanceTo(leashHolder);
-
-            this.onLeashDistance(distanceFromHolder);
-            if (distanceFromHolder > 16.0F) {
-                this.dropLeash(true, true);
-                this.goalSelector.disableControlFlag(Goal.Flag.MOVE);
-            } else if (distanceFromHolder > 10.0F) {
-                double x = (leashHolder.getX() - this.getX()) / (double) distanceFromHolder;
-                double y = (leashHolder.getY() - this.getY()) / (double) distanceFromHolder;
-                double z = (leashHolder.getZ() - this.getZ()) / (double) distanceFromHolder;
-                this.setDeltaMovement(this.getDeltaMovement().add(Math.copySign(x * x * 0.4, x), Math.copySign(y * y * 0.4, y), Math.copySign(z * z * 0.4, z)));
-                this.checkSlowFallDistance();
-                this.getMoveControl().operation = MoveControl.Operation.WAIT;
-            } else if (this.shouldStayCloseToLeashHolder()) {
-                this.goalSelector.enableControlFlag(Goal.Flag.MOVE);
-                Vec3 offset = new Vec3(leashHolder.getX() - this.getX(), leashHolder.getY() - this.getY(), leashHolder.getZ() - this.getZ()).normalize().scale(Math.max(distanceFromHolder - 2.0F, 0.0F));
-                this.getNavigation().moveTo(this.getX() + offset.x, this.getY() + offset.y, this.getZ() + offset.z, this.followLeashSpeed());
-            }
-        }
     }
 
     @Override
@@ -429,7 +366,7 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable {
     protected void removePassenger(Entity passenger) {
         super.removePassenger(passenger);
         if (!this.level().isClientSide) {
-            this.setServerStillTimeout(this.getPassengers().isEmpty() ? 40 : 10);
+            this.setServerStillTimeout(10);
         }
 
         if (!this.isVehicle()) {
@@ -445,7 +382,7 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable {
 
     @Override @Nullable
     public LivingEntity getControllingPassenger() {
-        return this.isSaddled() && !this.isPlayerAboveGhast() && this.getFirstPassenger() instanceof Player player
+        return this.isSaddled() && !this.isOnStillTimeout() && this.getFirstPassenger() instanceof Player player
             ? player
             : super.getControllingPassenger();
     }
@@ -514,7 +451,7 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable {
             this.level().getProfiler().pop();
         }
 
-        this.setRequiresPrecisePosition(this.isPlayerAboveGhast());
+//        this.setRequiresPrecisePosition(this.isPlayerAboveGhast());
         this.checkRestriction();
         super.customServerAiStep();
     }
@@ -524,17 +461,30 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable {
         super.tick();
         if (this.level().isClientSide) return;
 
+        if (this.leashHolderTime > 0) {
+            this.leashHolderTime--;
+        }
+
+        this.setLeashHolder(this.leashHolderTime > 0);
         if (this.serverStillTimeout > 0) {
-            this.setServerStillTimeout(this.serverStillTimeout - 1);
+            if (this.tickCount > 60) {
+                this.serverStillTimeout--;
+            }
+
+            this.setServerStillTimeout(this.serverStillTimeout);
         }
 
         if (this.scanPlayerAboveGhast()) {
-            this.setServerStillTimeout(this.getPassengers().isEmpty() ? 40 : 10);
+            this.setServerStillTimeout(10);
         }
     }
 
     @Override
     public void aiStep() {
+        if (!this.level().isClientSide) {
+            this.setRequiresPrecisePosition(this.isOnStillTimeout());
+        }
+
         super.aiStep();
         this.continuousHeal();
     }
@@ -590,7 +540,80 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable {
         return false;
     }
 
-    public boolean isPlayerAboveGhast() {
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(IS_LEASH_HOLDER, false);
+        this.entityData.define(STAYS_STILL, false);
+    }
+
+    private void setLeashHolder(boolean holder) {
+        this.entityData.set(IS_LEASH_HOLDER, holder);
+    }
+
+    public boolean isLeashHolder() {
+        return this.entityData.get(IS_LEASH_HOLDER);
+    }
+
+    private void syncStayStillFlag() {
+        this.entityData.set(STAYS_STILL, this.serverStillTimeout > 0);
+    }
+
+    public boolean staysStill() {
+        return this.entityData.get(STAYS_STILL);
+    }
+
+    @Override
+    public boolean supportQuadLeashAsHolder() {
+        return true;
+    }
+
+    @Override
+    public Vec3[] getQuadLeashHolderOffsets() {
+        return Leashable.createQuadLeashOffsets(this, -0.03125, 0.4375, 0.46875, 0.03125);
+    }
+
+    @Override
+    protected Vec3 getLeashOffset() {
+        return Vec3.ZERO;
+    }
+
+    @Override
+    public double leashElasticDistance() {
+        return 10.0;
+    }
+
+    @Override
+    public double leashSnapDistance() {
+        return 16.0;
+    }
+
+    @Override
+    public void onElasticLeashPull(Entity entity) {
+        Leashable.super.onElasticLeashPull(entity);
+        this.getMoveControl().operation = MoveControl.Operation.WAIT;
+    }
+
+    @Override
+    public void notifyLeashHolder(Leashable entity) {
+        if (entity.supportQuadLeash()) {
+            this.leashHolderTime = 5;
+        }
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+        compound.putInt("still_timeout", this.serverStillTimeout);
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
+        this.setServerStillTimeout(compound.getInt("still_timeout"));
+    }
+
+    public boolean isOnStillTimeout() {
         return this.staysStill() || this.serverStillTimeout > 0;
     }
 
@@ -613,19 +636,15 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable {
     }
 
     public boolean canBeCollidedWith(Entity entity) {
-        if (this.isBaby() || !this.isAlive()) {
+        if (!this.isBaby() && this.isAlive()) {
+            if (this.level().isClientSide() && entity instanceof Player && entity.position().y >= this.getBoundingBox().maxY) {
+                return true;
+            } else {
+                return this.isVehicle() && entity instanceof HappyGhast || this.isOnStillTimeout();
+            }
+        } else {
             return false;
         }
-
-        if (this.level().isClientSide() && entity instanceof Player && entity.position().y >= this.getBoundingBox().maxY) {
-            return true;
-        }
-
-        if (this.isVehicle() && entity instanceof HappyGhast) {
-            return true;
-        }
-
-        return this.isPlayerAboveGhast();
     }
 
     static class BabyFlyingPathNavigation extends FlyingPathNavigation {
@@ -660,7 +679,6 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable {
     }
 
     static class GhastFloatGoal extends FloatGoal {
-
         private final HappyGhast ghast;
 
         public GhastFloatGoal(HappyGhast ghast) {
@@ -670,7 +688,7 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable {
 
         @Override
         public boolean canUse() {
-            return !this.ghast.isPlayerAboveGhast() && super.canUse();
+            return !this.ghast.isOnStillTimeout() && super.canUse();
         }
     }
 
@@ -681,7 +699,7 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable {
 
         @Override
         public void tick() {
-            if (HappyGhast.this.isPlayerAboveGhast()) {
+            if (HappyGhast.this.isOnStillTimeout()) {
                 float degrees = wrapDegrees90(HappyGhast.this.getYRot());
                 HappyGhast.this.setYRot(HappyGhast.this.getYRot() - degrees);
                 HappyGhast.this.setYHeadRot(HappyGhast.this.getYRot());

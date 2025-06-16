@@ -4,25 +4,36 @@
   "compatibilityLevel": "JAVA_17",
   "minVersion": "0.8",
   "client": [
+    "access.EntityRendererAccessor",
     "access.SoundEngineAccessor",
     "access.SoundManagerAccessor",
     "client.CameraMixin",
     "client.LocalPlayerMixin",
     "client.MusicManagerMixin",
     "client.SpriteResourceLoaderMixin",
-    "client.SpriteResourceLoaderMixin$PalettedPermutationsAccessor"
+    "client.SpriteResourceLoaderMixin$PalettedPermutationsAccessor",
+    "leashable.client.BoatRendererMixin",
+    "leashable.client.EntityRendererMixin",
+    "leashable.client.MobRendererMixin",
+    "leashable.client.network.ClientPacketListenerMixin"
   ],
   "mixins": [
+    "access.EntityAccessor",
     "access.LivingEntityAccessor",
     "access.NoiseGeneratorSettingsAccessor",
     "access.OverworldBiomesAccessor",
+    "access.PathfinderMobAccessor",
     "access.TextureSlotAccessor",
     "access.TreeDecoratorTypeAccessor",
     "common.entities.EntityMixin",
     "common.entities.ParrotMixin",
     "common.entities.ServerEntityMixin",
     "common.worldgen.feature.SimpleBlockFeatureMixin",
-    "common.worldgen.structure.NetherFossilPieceMixin"
+    "common.worldgen.structure.NetherFossilPieceMixin",
+    "leashable.common.entities.BoatMixin",
+    "leashable.common.entities.LeashBehaviorMixin",
+    "leashable.common.entities.MobMixin",
+    "leashable.common.item.FireworkRocketItemMixin"
   ],
   "injectors": {
     "defaultRequire": 1

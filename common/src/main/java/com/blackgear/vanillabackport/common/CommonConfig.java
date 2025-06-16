@@ -12,6 +12,7 @@ public class CommonConfig {
 
     // Chase the Skies
     public final ConfigBuilder.ConfigValue<Boolean> generateDriedGhasts;
+    public final ConfigBuilder.ConfigValue<Boolean> dropLeashConnectionsOnFireworkBoost;
 
     public CommonConfig(ConfigBuilder builder) {
         builder.push("The Garden Awakens");
@@ -24,6 +25,7 @@ public class CommonConfig {
 
         builder.push("Chase the Skies");
         this.generateDriedGhasts = builder.comment("Determine if dried ghasts should generate in Nether Fossils").define("generateDriedGhasts", true);
+        this.dropLeashConnectionsOnFireworkBoost = builder.comment("Determine if all leash connections should be dropped when using a firework rocket while elytra flying").define("dropLeashConnectionsOnFireworkBoost", true);
         builder.pop();
     }
 }
