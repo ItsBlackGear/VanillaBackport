@@ -3,23 +3,36 @@ package com.blackgear.vanillabackport.common.api.leash;
 import com.blackgear.vanillabackport.core.mixin.access.EntityAccessor;
 import com.blackgear.vanillabackport.core.mixin.access.PathfinderMobAccessor;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
+import net.minecraft.Util;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.monster.Ghast;
+import net.minecraft.world.entity.animal.camel.Camel;
+import net.minecraft.world.entity.animal.horse.AbstractChestedHorse;
+import net.minecraft.world.entity.animal.horse.AbstractHorse;
+import net.minecraft.world.entity.animal.sniffer.Sniffer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 public interface Leashable {
+    Map<Predicate<Entity>, Function<Entity, Vec3[]>> QUAD_LEASH_OFFSETS = Util.make(() -> {
+        ImmutableMap.Builder<Predicate<Entity>, Function<Entity, Vec3[]>> offsets = new ImmutableMap.Builder<>();
+        offsets.put(entity -> entity instanceof Camel, entity -> Leashable.createQuadLeashOffsets(entity, 0.02, 0.48, 0.25, 0.82));
+        offsets.put(entity -> entity instanceof AbstractHorse, entity -> Leashable.createQuadLeashOffsets(entity, 0.04, 0.52, 0.23, 0.87));
+        offsets.put(entity -> entity instanceof AbstractChestedHorse, entity -> Leashable.createQuadLeashOffsets(entity, 0.04, 0.41, 0.18, 0.73));
+        offsets.put(entity -> entity instanceof Sniffer, entity -> Leashable.createQuadLeashOffsets(entity, -0.01, 0.63, 0.38, 1.15));
+        return offsets.build();
+    });
+
     Vec3 AXIS_SPECIFIC_ELASTICITY = new Vec3(0.8, 0.2, 0.8);
     List<Vec3> ENTITY_ATTACHMENT_POINT = ImmutableList.of(new Vec3(0.0, 0.5, 0.5));
     List<Vec3> LEASHER_ATTACHMENT_POINT = ImmutableList.of(new Vec3(0.0, 0.5, 0.0));
@@ -208,6 +221,13 @@ public interface Leashable {
     }
 
     default boolean supportQuadLeash() {
+        Entity entity = (Entity) this;
+        for (Predicate<Entity> filter : QUAD_LEASH_OFFSETS.keySet()) {
+            if (filter.test(entity)) {
+                return true;
+            }
+        }
+
         return false;
     }
 
@@ -216,6 +236,13 @@ public interface Leashable {
     }
 
     default Vec3[] getQuadLeashOffsets() {
+        Entity entity = (Entity) this;
+        for (Predicate<Entity> filter : QUAD_LEASH_OFFSETS.keySet()) {
+            if (filter.test(entity)) {
+                return QUAD_LEASH_OFFSETS.get(filter).apply(entity);
+            }
+        }
+
         return createQuadLeashOffsets((Entity) this, 0.0, 0.5, 0.5, 0.5);
     }
 
