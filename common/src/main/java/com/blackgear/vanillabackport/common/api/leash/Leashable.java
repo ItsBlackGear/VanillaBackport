@@ -8,6 +8,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.monster.Ghast;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
@@ -38,7 +39,7 @@ public interface Leashable {
         if (this == target) {
             return false;
         } else {
-            return this.leashDistanceTo(target) > this.leashSnapDistance() || this.canBeLeashed(target instanceof Player player ? player : null);
+            return this.leashDistanceTo(target) <= this.leashSnapDistance() && this.canBeLeashed(target instanceof Player player ? player : null);
         }
     }
 
