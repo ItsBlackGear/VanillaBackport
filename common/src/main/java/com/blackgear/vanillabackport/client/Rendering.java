@@ -1,9 +1,11 @@
 package com.blackgear.vanillabackport.client;
 
 import com.blackgear.platform.client.GameRendering;
+import com.blackgear.vanillabackport.client.level.entities.model.BatModel;
 import com.blackgear.vanillabackport.client.level.entities.model.CreakingModel;
 import com.blackgear.vanillabackport.client.level.entities.model.HappyGhastHarnessModel;
 import com.blackgear.vanillabackport.client.level.entities.model.HappyGhastModel;
+import com.blackgear.vanillabackport.client.level.entities.renderer.BatRenderer;
 import com.blackgear.vanillabackport.client.level.entities.renderer.CreakingRenderer;
 import com.blackgear.vanillabackport.client.level.entities.renderer.HappyGhastRenderer;
 import com.blackgear.vanillabackport.client.level.particles.FallingLeavesParticle;
@@ -17,8 +19,10 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.BoatModel;
 import net.minecraft.client.model.ChestBoatModel;
+import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.world.entity.EntityType;
 
 @Environment(EnvType.CLIENT)
 public class Rendering {
@@ -32,6 +36,8 @@ public class Rendering {
         event.register(ModEntities.HAPPY_GHAST.get(), HappyGhastRenderer::new);
         event.register(ModEntities.PALE_OAK_BOAT.get(), context -> new PaleOakBoatRenderer(context, false));
         event.register(ModEntities.PALE_OAK_CHEST_BOAT.get(), context -> new PaleOakBoatRenderer(context, true));
+
+        event.register(EntityType.BAT, BatRenderer::new);
     }
 
     public static void modelLayers(GameRendering.ModelLayerEvent event) {
@@ -43,6 +49,8 @@ public class Rendering {
         event.register(ModModelLayers.HAPPY_GHAST_BABY_ROPES, () -> HappyGhastModel.createBodyLayer(true, new CubeDeformation(0.2F)));
         event.register(ModModelLayers.PALE_OAK_BOAT, BoatModel::createBodyModel);
         event.register(ModModelLayers.PALE_OAK_CHEST_BOAT, ChestBoatModel::createBodyModel);
+
+        event.register(ModModelLayers.BAT, BatModel::createBodyLayer);
     }
 
     public static void blockRendering(GameRendering.BlockRendererEvent event) {

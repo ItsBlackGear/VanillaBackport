@@ -12,6 +12,7 @@ public class ModModelLayers {
     public static final ModelLayerLocation HAPPY_GHAST_BABY_ROPES = register("happy_ghast", "baby_ropes");
     public static final ModelLayerLocation PALE_OAK_BOAT = register("pale_oak_boat");
     public static final ModelLayerLocation PALE_OAK_CHEST_BOAT = register("pale_oak_chest_boat");
+    public static final ModelLayerLocation BAT = register("bat");
 
     private static ModelLayerLocation register(String name) {
         return register(name, "main");

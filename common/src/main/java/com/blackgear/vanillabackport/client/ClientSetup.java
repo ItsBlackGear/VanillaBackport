@@ -1,7 +1,6 @@
 package com.blackgear.vanillabackport.client;
 
 import com.blackgear.platform.client.GameRendering;
-import com.blackgear.platform.common.CreativeTabs;
 import com.blackgear.platform.common.block.WoodTypeRegistry;
 import com.blackgear.platform.core.ParallelDispatch;
 import com.blackgear.vanillabackport.common.registries.ModWoodTypes;
