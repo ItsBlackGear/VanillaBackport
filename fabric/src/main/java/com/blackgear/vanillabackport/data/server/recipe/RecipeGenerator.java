@@ -76,10 +76,29 @@ public class RecipeGenerator extends FabricRecipeProvider {
         this.harness(exporter, ModItems.GREEN_HARNESS.get(), Blocks.GREEN_WOOL);
         this.harness(exporter, ModItems.RED_HARNESS.get(), Blocks.RED_WOOL);
         this.harness(exporter, ModItems.BLACK_HARNESS.get(), Blocks.BLACK_WOOL);
+
+        shaped(RecipeCategory.COMBAT, Items.SADDLE)
+            .define('X', Items.LEATHER)
+            .define('#', Items.IRON_INGOT)
+            .pattern(" X ")
+            .pattern("X#X")
+            .unlockedBy("has_leather", has(Items.LEATHER))
+            .save(exporter);
+        shaped(RecipeCategory.TOOLS, Items.LEAD, 2)
+            .define('~', Items.STRING)
+            .pattern("~~ ")
+            .pattern("~~ ")
+            .pattern("  ~")
+            .unlockedBy("has_string", has(Items.STRING))
+            .save(exporter);
     }
 
     public static ShapedRecipeBuilder shaped(RecipeCategory category, ItemLike entry) {
         return ShapedRecipeBuilder.shaped(category, entry);
+    }
+
+    public static ShapedRecipeBuilder shaped(RecipeCategory category, ItemLike entry, int amount) {
+        return ShapedRecipeBuilder.shaped(category, entry, amount);
     }
 
     private void dryGhast(Consumer<FinishedRecipe> exporter, ItemLike ghast) {
