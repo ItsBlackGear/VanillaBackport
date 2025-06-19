@@ -4,13 +4,15 @@
   "compatibilityLevel": "JAVA_21",
   "minVersion": "0.8",
   "client": [
+    "access.EntityRendererAccessor",
     "access.SoundEngineAccessor",
     "access.SoundManagerAccessor",
     "client.CameraMixin",
     "client.LocalPlayerMixin",
     "client.MusicManagerMixin",
     "client.SpriteSourceListMixin",
-    "client.SpriteSourceListMixin$PalettedPermutationsAccessor"
+    "client.SpriteSourceListMixin$PalettedPermutationsAccessor",
+    "leash.EntityRendererMixin"
   ],
   "mixins": [
     "access.EntityAccessor",
