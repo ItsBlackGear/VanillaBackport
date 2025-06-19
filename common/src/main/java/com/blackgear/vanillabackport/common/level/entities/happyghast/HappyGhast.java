@@ -451,7 +451,6 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable, Le
             this.level().getProfiler().pop();
         }
 
-//        this.setRequiresPrecisePosition(this.isPlayerAboveGhast());
         this.checkRestriction();
         super.customServerAiStep();
     }
