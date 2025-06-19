@@ -21,6 +21,7 @@
     "access.OverworldBiomesAccessor",
     "access.TextureSlotAccessor",
     "access.TreeDecoratorTypeAccessor",
+    "common.ServerGamePacketListenerImplMixin",
     "common.entities.EntityMixin",
     "common.entities.LeashableMixin",
     "common.entities.ParrotMixin",
