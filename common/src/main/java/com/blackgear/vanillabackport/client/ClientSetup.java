@@ -15,5 +15,6 @@ public class ClientSetup {
     public static void asyncSetup(ParallelDispatch dispatch) {
         GameRendering.registerBlockRenderers(Rendering::blockRendering);
         WoodTypeRegistry.registerWoodType(ModWoodTypes.PALE_OAK);
+        CreativeTabIntegration.bootstrap();
     }
 }

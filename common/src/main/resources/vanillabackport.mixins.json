@@ -13,6 +13,7 @@
     "client.SpriteSourceListMixin$PalettedPermutationsAccessor"
   ],
   "mixins": [
+    "access.EntityAccessor",
     "access.LivingEntityAccessor",
     "access.NoiseGeneratorSettingsAccessor",
     "access.OverworldBiomesAccessor",
@@ -23,7 +24,11 @@
     "common.entities.ParrotMixin",
     "common.entities.ServerEntityMixin",
     "common.worldgen.feature.SimpleBlockFeatureMixin",
-    "common.worldgen.structure.NetherFossilPieceMixin"
+    "common.worldgen.structure.NetherFossilPieceMixin",
+    "leash.BoatMixin",
+    "leash.FireworkRocketItemMixin",
+    "leash.LeashableMixin",
+    "leash.LeashDataMixin"
   ],
   "injectors": {
     "defaultRequire": 1
