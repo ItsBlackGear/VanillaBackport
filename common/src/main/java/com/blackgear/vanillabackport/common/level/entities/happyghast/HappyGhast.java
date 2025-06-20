@@ -748,17 +748,15 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable, Le
                 this.ghast.stopInPlace();
             }
 
-            if (this.operation != Operation.MOVE_TO) return;
-
-            if (this.floatDuration-- <= 0) {
-                this.floatDuration += this.ghast.getRandom().nextInt(5) + 2;
-
-                Vec3 target = new Vec3(this.wantedX - this.ghast.getX(), this.wantedY - this.ghast.getY(), this.wantedZ - this.ghast.getZ());
-
-                if (this.canReach(target)) {
-                    this.ghast.setDeltaMovement(this.ghast.getDeltaMovement().add(target.normalize().scale(this.ghast.getAttributeValue(Attributes.FLYING_SPEED) * 5.0 / 3.0)));
-                } else {
-                    this.operation = Operation.WAIT;
+            if (this.operation == Operation.MOVE_TO) {
+                if (this.floatDuration-- <= 0) {
+                    this.floatDuration += this.ghast.getRandom().nextInt(5) + 2;
+                    Vec3 target = new Vec3(this.wantedX - this.ghast.getX(), this.wantedY - this.ghast.getY(), this.wantedZ - this.ghast.getZ());
+                    if (this.canReach(target)) {
+                        this.ghast.setDeltaMovement(this.ghast.getDeltaMovement().add(target.normalize().scale(this.ghast.getAttributeValue(Attributes.FLYING_SPEED) * (double) 5.0F / (double) 3.0F)));
+                    } else {
+                        this.operation = Operation.WAIT;
+                    }
                 }
             }
         }
@@ -851,7 +849,7 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable, Le
         @Override
         public void start() {
             Vec3 target = getSuitableFlyToPosition(this.ghast, this.distanceToBlocks);
-            this.ghast.getMoveControl().setWantedPosition(target.x(), target.y(), target.z(), 1.0);
+            this.ghast.getMoveControl().setWantedPosition(target.x(), target.y(), target.z(), 1.0F);
         }
 
         public static Vec3 getSuitableFlyToPosition(Mob mob, int distanceToBlocks) {

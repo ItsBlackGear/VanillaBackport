@@ -48,8 +48,8 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:$rootProject.fabric_loader_version"
 
     modImplementation "net.fabricmc.fabric-api:fabric-api:$rootProject.fabric_api_version"
-    modApi "flatDir:Platform-fabric-1.20.1-$rootProject.platform_indev_version"
-//    modApi "curse.maven:platform-997634:$rootProject.platform_fabric_version"
+//    modApi "flatDir:Platform-fabric-1.20.1-$rootProject.platform_indev_version"
+    modApi "curse.maven:platform-997634:$rootProject.platform_fabric_version"
 
     modApi("com.github.glitchfiend:TerraBlender-fabric:$rootProject.terrablender_version")
 0

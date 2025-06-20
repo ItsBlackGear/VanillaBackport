@@ -39,8 +39,8 @@ configurations {
 
 dependencies {
     forge "net.minecraftforge:forge:$rootProject.forge_version"
-    modApi "flatDir:Platform-forge-1.20.1-$rootProject.platform_indev_version"
-//    modApi "curse.maven:platform-997634:$rootProject.platform_forge_version"
+//    modApi "flatDir:Platform-forge-1.20.1-$rootProject.platform_indev_version"
+    modApi "curse.maven:platform-997634:$rootProject.platform_forge_version"
 
     modApi("com.github.glitchfiend:TerraBlender-forge:$rootProject.terrablender_version")
 
