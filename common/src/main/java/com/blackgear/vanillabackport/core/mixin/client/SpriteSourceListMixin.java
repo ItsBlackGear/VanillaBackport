@@ -25,12 +25,17 @@ public abstract class SpriteSourceListMixin {
     )
     private static void vb$handleArmorTrims(ResourceManager manager, ResourceLocation location, CallbackInfoReturnable<SpriteSourceList> cir) {
         if (location.equals(ResourceLocation.withDefaultNamespace("armor_trims"))) {
-            SpriteSourceList loader = cir.getReturnValue();
-            for (SpriteSource source : ((SpriteSourceListMixin) (Object) loader).getSources()) {
+            for (SpriteSource source : ((SpriteSourceListMixin) (Object) cir.getReturnValue()).getSources()) {
                 if (source instanceof PalettedPermutationsAccessor permutations && permutations.getPaletteKey().equals(ResourceLocation.withDefaultNamespace("trims/color_palettes/trim_palette"))) {
-                    Map<String, ResourceLocation> map = new HashMap<>(permutations.getPermutations());
-                    map.put("resin", VanillaBackport.resource("trims/color_palettes/resin"));
-                    permutations.setPermutations(map);
+                    ResourceLocation resin = VanillaBackport.resource("trims/color_palettes/resin");
+
+                    if (manager.getResource(ResourceLocation.fromNamespaceAndPath(resin.getNamespace(), "textures/" + resin.getPath() + ".png")).isPresent()) {
+                        Map<String, ResourceLocation> map = new HashMap<>(permutations.getPermutations());
+                        map.put("resin", resin);
+                        permutations.setPermutations(map);
+                    } else {
+                        VanillaBackport.LOGGER.warn("Resin palette texture not found at: {}", resin);
+                    }
                 }
             }
         }
@@ -41,19 +46,12 @@ public abstract class SpriteSourceListMixin {
 
     @Mixin(PalettedPermutations.class)
     private interface PalettedPermutationsAccessor {
-        @Accessor
-        List<ResourceLocation> getTextures();
+        @Accessor List<ResourceLocation> getTextures();
+        @Accessor("textures") @Mutable void setTextures(List<ResourceLocation> textures);
 
-        @Accessor("textures") @Mutable
-        void setTextures(List<ResourceLocation> textures);
+        @Accessor Map<String, ResourceLocation> getPermutations();
+        @Accessor("permutations") @Mutable void setPermutations(Map<String, ResourceLocation> permutations);
 
-        @Accessor
-        Map<String, ResourceLocation> getPermutations();
-
-        @Accessor("permutations") @Mutable
-        void setPermutations(Map<String, ResourceLocation> permutations);
-
-        @Accessor
-        ResourceLocation getPaletteKey();
+        @Accessor ResourceLocation getPaletteKey();
     }
 }
