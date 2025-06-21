@@ -27,7 +27,6 @@
     "access.TreeDecoratorTypeAccessor",
     "common.ServerGamePacketListenerImplMixin",
     "common.entities.BatMixin",
-    "common.entities.EntityMixin",
     "common.entities.ParrotMixin",
     "common.entities.ServerEntityMixin",
     "common.worldgen.feature.SimpleBlockFeatureMixin",

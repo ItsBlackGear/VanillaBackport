@@ -111,6 +111,9 @@ public class BlockTagGenerator extends FabricTagProvider.BlockTagProvider {
         this.getOrCreateTagBuilder(BlockTags.LEAVES)
             .add(ModBlocks.PALE_OAK_LEAVES.get());
 
+        this.getOrCreateTagBuilder(BlockTags.MINEABLE_WITH_HOE)
+            .add(ModBlocks.PALE_OAK_LEAVES.get());
+
         this.getOrCreateTagBuilder(BlockTags.SAPLINGS)
             .add(ModBlocks.PALE_OAK_SAPLING.get());
 

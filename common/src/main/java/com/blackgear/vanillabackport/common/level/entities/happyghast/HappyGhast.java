@@ -634,13 +634,10 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable, Le
         return new GhastBodyRotationControl(this);
     }
 
-    public boolean canBeCollidedWith(Entity entity) {
-        if (!this.isBaby() && this.isAlive()) {
-            if (this.level().isClientSide() && entity instanceof Player && entity.position().y >= this.getBoundingBox().maxY) {
-                return true;
-            } else {
-                return this.isVehicle() && entity instanceof HappyGhast || this.isOnStillTimeout();
-            }
+    @Override
+    public boolean canBeCollidedWith() {
+        if (!this.isBaby() && !this.isAlive()) {
+            return this.isVehicle() || this.isOnStillTimeout();
         } else {
             return false;
         }
