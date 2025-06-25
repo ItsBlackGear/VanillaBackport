@@ -108,4 +108,12 @@ public class ModItems {
             .stacksTo(1)
             .rarity(Rarity.UNCOMMON)
     );
+
+    public static final Supplier<Item> MUSIC_DISC_LAVA_CHICKEN = ITEMS.register(
+        "music_disc_lava_chicken",
+        properties -> new RecordItem(9, ModSoundEvents.MUSIC_DISC_LAVA_CHICKEN.get(), properties, 134),
+        new Item.Properties()
+            .stacksTo(1)
+            .rarity(Rarity.RARE)
+    );
 }

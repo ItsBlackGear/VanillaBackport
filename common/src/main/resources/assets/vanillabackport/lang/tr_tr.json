@@ -97,5 +97,10 @@
   "subtitles.entity.happy_ghast.hurt": "Mutlu ghast inciniyor",
   "subtitles.entity.happy_ghast.unequip": "Mutlu ghast uçuş takımını çıkartıyor",
   "subtitles.entity.parrot.imitate.creaking": "Papağan gıcırdıyor",
-  "trim_material.vanillabackport.resin": "Reçine Materyali"
+  "trim_material.vanillabackport.resin": "Reçine Materyali",
+  "item.vanillabackport.music_disc_lava_chicken": "Müzik Diski",
+  "item.vanillabackport.music_disc_lava_chicken.desc": "Hyper Potions - Lava Chicken",
+  "jukebox_song.vanillabackport.lava_chicken": "Hyper Potions - Lava Chicken",
+  "painting.vanillabackport.dennis.author": "Sarah Boeving",
+  "painting.vanillabackport.dennis.desc": "Dennis"
 }

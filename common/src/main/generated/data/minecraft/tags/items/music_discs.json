@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "vanillabackport:music_disc_tears"
+    "vanillabackport:music_disc_tears",
+    "vanillabackport:music_disc_lava_chicken"
   ]
 }

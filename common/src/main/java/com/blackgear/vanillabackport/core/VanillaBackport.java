@@ -48,6 +48,7 @@ public final class VanillaBackport {
         ModSoundTypes.SOUNDS.register();
 
         ModCreativeTabs.TABS.register();
+        ModPaintingVariants.VARIANTS.register();
 
         ModBiomes.BIOMES.register();
         ModTreeDecorators.DECORATORS.register();

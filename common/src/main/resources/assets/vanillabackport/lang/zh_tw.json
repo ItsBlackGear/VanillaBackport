@@ -97,5 +97,10 @@
   "item.vanillabackport.music_disc_tears.desc": "Amos Roddy - Tears",
   "jukebox_song.vanillabackport.tears": "Amos Roddy - Tears",
   "subtitles.entity.creaking.attack": "嘎枝攻擊",
-  "subtitles.entity.happy_ghast.equip": "帽鞍裝備聲"
+  "subtitles.entity.happy_ghast.equip": "帽鞍裝備聲",
+  "item.vanillabackport.music_disc_lava_chicken": "唱片",
+  "item.vanillabackport.music_disc_lava_chicken.desc": "Hyper Potions - Lava Chicken",
+  "jukebox_song.vanillabackport.lava_chicken": "Hyper Potions - Lava Chicken",
+  "painting.vanillabackport.dennis.author": "Sarah Boeving",
+  "painting.vanillabackport.dennis.desc": "Dennis"
 }
