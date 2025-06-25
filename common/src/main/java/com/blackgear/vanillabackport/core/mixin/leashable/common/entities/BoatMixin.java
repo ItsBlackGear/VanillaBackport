@@ -52,7 +52,7 @@ public abstract class BoatMixin extends Entity implements Leashable {
     @Inject(method = "tick", at = @At("TAIL"))
     private void vb$onTick(CallbackInfo ci) {
         if (!this.level().isClientSide) {
-            this.tickLeash();
+            this.vb$tickLeash();
         }
     }
 
@@ -84,9 +84,9 @@ public abstract class BoatMixin extends Entity implements Leashable {
     }
 
     @Unique
-    private void tickLeash() {
+    private void vb$tickLeash() {
         if (this.leashInfoTag != null) {
-            this.restoreLeashFromSave();
+            this.vb$restoreLeashFromSave();
         }
 
         if (this.leashHolder != null) {
@@ -116,16 +116,6 @@ public abstract class BoatMixin extends Entity implements Leashable {
     @Override
     protected Vec3 getLeashOffset() {
         return new Vec3(0.0, 0.88F * this.getBbHeight(), 0.64F * this.getBbWidth());
-    }
-
-    @Override
-    public boolean supportQuadLeash() {
-        return true;
-    }
-
-    @Override
-    public Vec3[] getQuadLeashOffsets() {
-        return Leashable.createQuadLeashOffsets(this, 0.0, 0.64, 0.382, 0.88);
     }
 
     @Override
@@ -171,7 +161,7 @@ public abstract class BoatMixin extends Entity implements Leashable {
     }
 
     @Unique
-    private void restoreLeashFromSave() {
+    private void vb$restoreLeashFromSave() {
         if (this.leashInfoTag != null && this.level() instanceof ServerLevel server) {
             if (this.leashInfoTag.hasUUID("UUID")) {
                 UUID uuid = this.leashInfoTag.getUUID("UUID");

@@ -8,6 +8,7 @@ import com.blackgear.vanillabackport.core.data.tags.ModItemTags;
 import com.blackgear.vanillabackport.core.mixin.access.LivingEntityAccessor;
 import com.blackgear.vanillabackport.core.util.BlockPosUtils;
 import com.blackgear.vanillabackport.core.util.CollisionUtils;
+import com.blackgear.vanillabackport.core.util.MthUtils;
 import com.mojang.serialization.Dynamic;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -21,6 +22,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
+import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -64,6 +66,13 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable, Le
     private static final EntityDataAccessor<Boolean> STAYS_STILL = SynchedEntityData.defineId(HappyGhast.class, EntityDataSerializers.BOOLEAN);
     private boolean requiresPrecisePosition;
 
+    private static final Vec3[] PASSENGER_ATTACHMENTS = {
+        new Vec3(0.0, 3.75, 1.8),
+        new Vec3(-1.8, 3.75, 0.0),
+        new Vec3(0.0, 3.75, -1.8),
+        new Vec3(1.8, 3.75, 0.0)
+    };
+
     public HappyGhast(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
         this.moveControl = new GhastMoveControl(this, true, this::isOnStillTimeout);
@@ -98,7 +107,7 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable, Le
                     7.0
                 )
             );
-        this.goalSelector.addGoal(5, new RandomFloatAroundGoal(this));
+        this.goalSelector.addGoal(5, new RandomFloatAroundGoal(this, 16));
     }
 
     private void adultGhastSetup() {
@@ -129,6 +138,7 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable, Le
         } else {
             this.adultGhastSetup();
         }
+
         super.ageBoundaryReached();
     }
 
@@ -161,32 +171,35 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable, Le
     protected void checkFallDamage(double y, boolean onGround, BlockState state, BlockPos pos) {
     }
 
-    @Override
-    public boolean onClimbable() {
-        return false;
-    }
-
-    @Override
     public void travel(Vec3 travelVector) {
         if (this.isOnStillTimeout()) {
             this.setDeltaMovement(Vec3.ZERO);
             return;
         }
 
-        float speed = 0.09F;
-        if (this.isInWater()) {
-            this.moveRelative(speed, travelVector);
-            this.move(MoverType.SELF, this.getDeltaMovement());
-            this.setDeltaMovement(this.getDeltaMovement().scale(0.8F));
-        } else if (this.isInLava()) {
-            this.moveRelative(speed, travelVector);
-            this.move(MoverType.SELF, this.getDeltaMovement());
-            this.setDeltaMovement(this.getDeltaMovement().scale(0.5));
-        } else {
-            this.moveRelative(speed, travelVector);
-            this.move(MoverType.SELF, this.getDeltaMovement());
-            this.setDeltaMovement(this.getDeltaMovement().scale(0.91F));
+        float speed = (float) this.getAttributeValue(Attributes.FLYING_SPEED) * 5.0F / 3.0F;
+        if (this.isControlledByLocalInstance()) {
+            if (this.isInWater()) {
+                this.moveRelative(speed, travelVector);
+                this.move(MoverType.SELF, this.getDeltaMovement());
+                this.setDeltaMovement(this.getDeltaMovement().scale(0.8F));
+            } else if (this.isInLava()) {
+                this.moveRelative(speed, travelVector);
+                this.move(MoverType.SELF, this.getDeltaMovement());
+                this.setDeltaMovement(this.getDeltaMovement().scale(0.5F));
+            } else {
+                this.moveRelative(speed, travelVector);
+                this.move(MoverType.SELF, this.getDeltaMovement());
+                this.setDeltaMovement(this.getDeltaMovement().scale(0.91F));
+            }
         }
+
+        this.calculateEntityAnimation(false);
+    }
+
+    @Override
+    public boolean onClimbable() {
+        return false;
     }
 
     @Override
@@ -215,6 +228,11 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable, Le
     @Override
     public float getVoicePitch() {
         return 1.0F;
+    }
+
+    @Override
+    public SoundSource getSoundSource() {
+        return SoundSource.NEUTRAL;
     }
 
     @Override
@@ -322,27 +340,11 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable, Le
     @Override
     protected void positionRider(Entity passenger, MoveFunction callback) {
         if (this.hasPassenger(passenger)) {
-            double y = this.getY() + passenger.getMyRidingOffset();
-            int index = this.getPassengers().indexOf(passenger);
+            double baseY = this.getY() + passenger.getMyRidingOffset();
+            int idx = Math.min(this.getPassengers().indexOf(passenger), PASSENGER_ATTACHMENTS.length - 1);
+            Vec3 offset = PASSENGER_ATTACHMENTS[idx].yRot(-this.getYRot() * MthUtils.TO_DEGREES);
 
-            double offsetX = 0.0;
-            double offsetZ = 0.0;
-
-            if (index == 0) { // Front
-                offsetZ = 1.8;
-            } else if (index == 1) { // Left
-                offsetX = -1.8;
-            } else if (index == 2) { // Back
-                offsetZ = -1.8;
-            } else if (index == 3) { // Right
-                offsetX = 1.8;
-            }
-
-            float yaw = this.getYRot() * ((float) Math.PI / 180F);
-            double rotatedX = offsetX * Mth.cos(yaw) - offsetZ * Mth.sin(yaw);
-            double rotatedZ = offsetX * Mth.sin(yaw) + offsetZ * Mth.cos(yaw);
-
-            callback.accept(passenger, this.getX() + rotatedX, y + 3.75, this.getZ() + rotatedZ);
+            callback.accept(passenger, this.getX() + offset.x, baseY + offset.y, this.getZ() + offset.z);
         }
     }
 
@@ -444,11 +446,12 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable, Le
     @Override
     protected void customServerAiStep() {
         if (this.isBaby()) {
-            this.level().getProfiler().push("happyGhastBrain");
+            ProfilerFiller profiler = this.level().getProfiler();
+            profiler.push("happyGhastBrain");
             this.getBrain().tick((ServerLevel) this.level(), this);
-            this.level().getProfiler().popPush("HappyGhastActivityUpdate");
+            profiler.popPush("HappyGhastActivityUpdate");
             HappyGhastAi.updateActivity(this);
-            this.level().getProfiler().pop();
+            profiler.pop();
         }
 
         this.checkRestriction();
@@ -458,23 +461,23 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable, Le
     @Override
     public void tick() {
         super.tick();
-        if (this.level().isClientSide) return;
-
-        if (this.leashHolderTime > 0) {
-            this.leashHolderTime--;
-        }
-
-        this.setLeashHolder(this.leashHolderTime > 0);
-        if (this.serverStillTimeout > 0) {
-            if (this.tickCount > 60) {
-                this.serverStillTimeout--;
+        if (!this.level().isClientSide()) {
+            if (this.leashHolderTime > 0) {
+                this.leashHolderTime--;
             }
 
-            this.setServerStillTimeout(this.serverStillTimeout);
-        }
+            this.setLeashHolder(this.leashHolderTime > 0);
+            if (this.serverStillTimeout > 0) {
+                if (this.tickCount > 60) {
+                    this.serverStillTimeout--;
+                }
 
-        if (this.scanPlayerAboveGhast()) {
-            this.setServerStillTimeout(10);
+                this.setServerStillTimeout(this.serverStillTimeout);
+            }
+
+            if (this.scanPlayerAboveGhast()) {
+                this.setServerStillTimeout(10);
+            }
         }
     }
 
@@ -493,14 +496,12 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable, Le
     }
 
     private void checkRestriction() {
-        if (this.isLeashed() || this.isVehicle()) return;
-
-        int restrictionRadius = this.getHappyGhastRestrictionRadius();
-        if (this.hasRestriction() && this.getRestrictCenter().closerThan(this.blockPosition(), restrictionRadius + 16) && restrictionRadius == this.getRestrictRadius()) {
-            return;
+        if (!this.isLeashed() && !this.isVehicle()) {
+            int i = this.getHappyGhastRestrictionRadius();
+            if (!this.hasRestriction() || !this.getRestrictCenter().closerThan(this.blockPosition(), i + 16) || i != this.getRestrictRadius()) {
+                this.restrictTo(this.blockPosition(), i);
+            }
         }
-
-        this.restrictTo(this.blockPosition(), restrictionRadius);
     }
 
     private void continuousHeal() {
@@ -621,9 +622,12 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable, Le
         AABB topSurface = new AABB(box.minX - 1.0, box.maxY, box.minZ - 1.0, box.maxX + 1.0, box.maxY + box.getYsize() / 2.0, box.maxZ + 1.0);
 
         for (Player player : this.level().players()) {
-            Entity vehicle = player.getRootVehicle();
-            if (player.isSpectator() || vehicle instanceof HappyGhast || !topSurface.contains(vehicle.position())) continue;
-            return true;
+            if (!player.isSpectator()) {
+                Entity entity = player.getRootVehicle();
+                if (!(entity instanceof HappyGhast) && topSurface.contains(player.position())) {
+                    return true;
+                }
+            }
         }
 
         return false;
@@ -636,7 +640,7 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable, Le
 
     @Override
     public boolean canBeCollidedWith() {
-        if (!this.isBaby() && !this.isAlive()) {
+        if (!this.isBaby() && this.isAlive()) {
             return this.isVehicle() || this.isOnStillTimeout();
         } else {
             return false;
@@ -750,7 +754,7 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable, Le
                     this.floatDuration += this.ghast.getRandom().nextInt(5) + 2;
                     Vec3 target = new Vec3(this.wantedX - this.ghast.getX(), this.wantedY - this.ghast.getY(), this.wantedZ - this.ghast.getZ());
                     if (this.canReach(target)) {
-                        this.ghast.setDeltaMovement(this.ghast.getDeltaMovement().add(target.normalize().scale(this.ghast.getAttributeValue(Attributes.FLYING_SPEED) * (double) 5.0F / (double) 3.0F)));
+                        this.ghast.setDeltaMovement(this.ghast.getDeltaMovement().add(target.normalize().scale(this.ghast.getAttributeValue(Attributes.FLYING_SPEED) * 5.0 / 3.0)));
                     } else {
                         this.operation = Operation.WAIT;
                     }
@@ -764,11 +768,9 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable, Le
 
             if (this.careful) {
                 for (BlockPos position : BlockPosUtils.betweenClosed(targetBox.inflate(1.0))) {
-                    if (this.blockTraversalPossible(this.ghast.level(), null, null, position, false, false)) {
-                        continue;
+                    if (!this.blockTraversalPossible(this.ghast.level(), null, null, position, false, false)) {
+                        return false;
                     }
-
-                    return false;
                 }
             }
 
@@ -777,46 +779,49 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable, Le
             Vec3 currentPos = this.ghast.position();
             Vec3 targetPos = currentPos.add(target);
 
-            return BlockPosUtils.forEachIntersectedBetween(currentPos, targetPos, targetBox, (pos, steps) -> {
-                if (entityBox.intersects(pos.getX(), pos.getY(), pos.getZ(), pos.getX() + 1, pos.getY() + 1, pos.getZ() + 1)) {
-                    return true;
-                }
-
-                return this.blockTraversalPossible(this.ghast.level(), currentPos, targetPos, pos, inWater, inLava);
-            });
+            return BlockPosUtils.forEachBlockIntersectedBetween(
+                currentPos,
+                targetPos,
+                targetBox,
+                (pos, step) -> CollisionUtils.intersects(entityBox, pos) || this.blockTraversalPossible(this.ghast.level(), currentPos, targetPos, pos, inWater, inLava)
+            );
         }
 
         private boolean blockTraversalPossible(BlockGetter level, @Nullable Vec3 origin, @Nullable Vec3 target, BlockPos pos, boolean inWater, boolean inLava) {
             BlockState state = level.getBlockState(pos);
-            if (state.isAir()) return true;
+            if (state.isAir()) {
+                return true;
+            } else {
+                boolean hasValidPath = origin != null && target != null;
+                boolean noCollisionDetected = hasValidPath
+                    ? !CollisionUtils.collidedWithShapeMovingFrom(this.ghast, origin, target, state.getCollisionShape(level, pos).move(pos.getX(), pos.getY(), pos.getZ()).toAabbs())
+                    : state.getCollisionShape(level, pos).isEmpty();
 
-            boolean hasValidPath = origin != null && target != null;
-            boolean hasNoBlockCollision = state.getCollisionShape(level, pos).isEmpty();
-            boolean noCollisionDetected = hasValidPath
-                ? !CollisionUtils.collidedWithShapeMovingFrom(this.ghast, origin, target, state.getCollisionShape(level, pos).move(pos.getX(), pos.getY(), pos.getZ()).toAabbs())
-                : hasNoBlockCollision;
+                if (!this.careful) {
+                    return noCollisionDetected;
+                } else if (state.is(ModBlockTags.HAPPY_GHAST_AVOIDS)) {
+                    return false;
+                } else {
+                    FluidState fluidState = level.getFluidState(pos);
+                    if (!fluidState.isEmpty() && (!hasValidPath || CollisionUtils.collidedWithFluid(this.ghast, fluidState, pos, origin, target))) {
+                        if (fluidState.is(FluidTags.WATER)) {
+                            return inWater;
+                        }
 
-            if (!this.careful) return noCollisionDetected;
+                        if (fluidState.is(FluidTags.LAVA)) {
+                            return inLava;
+                        }
+                    }
 
-            if (state.is(ModBlockTags.HAPPY_GHAST_AVOIDS)) return false;
-
-            FluidState fluidState = level.getFluidState(pos);
-            if (!(fluidState.isEmpty() || hasValidPath && !CollisionUtils.collidedWithFluid(this.ghast, fluidState, pos, origin, target))) {
-                if (fluidState.is(FluidTags.WATER)) return inWater;
-                if (fluidState.is(FluidTags.LAVA)) return inLava;
+                    return noCollisionDetected;
+                }
             }
-
-            return hasNoBlockCollision;
         }
     }
 
     static class RandomFloatAroundGoal extends Goal {
         private final HappyGhast ghast;
         private final int distanceToBlocks;
-
-        public RandomFloatAroundGoal(HappyGhast ghast) {
-            this(ghast, 0);
-        }
 
         public RandomFloatAroundGoal(HappyGhast ghast, int distanceToBlocks) {
             this.ghast = ghast;
@@ -846,7 +851,7 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable, Le
         @Override
         public void start() {
             Vec3 target = getSuitableFlyToPosition(this.ghast, this.distanceToBlocks);
-            this.ghast.getMoveControl().setWantedPosition(target.x(), target.y(), target.z(), 1.0F);
+            this.ghast.getMoveControl().setWantedPosition(target.x(), target.y(), target.z(), 1.0);
         }
 
         public static Vec3 getSuitableFlyToPosition(Mob mob, int distanceToBlocks) {
@@ -868,7 +873,7 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable, Le
 
             BlockPos pos = BlockPos.containing(target);
             int floor = level.getHeight(Heightmap.Types.MOTION_BLOCKING, pos.getX(), pos.getZ());
-            if (floor < pos.getY() && floor > level.dimensionType().minY()) {
+            if (floor < pos.getY() && floor > level.getMinBuildHeight()) {
                 target = new Vec3(target.x(), mob.getY() - Math.abs(mob.getY() - target.y()), target.z());
             }
 
@@ -880,15 +885,13 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable, Le
                 return true;
             } else {
                 BlockPos pos = BlockPos.containing(target);
-                if (!level.getBlockState(pos).isAir()) {
-                    return false;
-                }
-
-                for (Direction direction : Direction.values()) {
-                    for (int distance = 1; distance < distanceToBlocks; distance++) {
-                        BlockPos neighbor = pos.relative(direction, distance);
-                        if (!level.getBlockState(neighbor).isAir()) {
-                            return true;
+                if (level.getBlockState(pos).isAir()) {
+                    for (Direction direction : Direction.values()) {
+                        for (int distance = 1; distance < distanceToBlocks; distance++) {
+                            BlockPos neighbor = pos.relative(direction, distance);
+                            if (!level.getBlockState(neighbor).isAir()) {
+                                return true;
+                            }
                         }
                     }
                 }
@@ -898,10 +901,9 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable, Le
         }
 
         private static Vec3 chooseRandomPosition(Vec3 origin, RandomSource random) {
-            double flyRadius = 16.0F;
-            double x = origin.x() + (random.nextFloat() * 2.0F - 1.0F) * flyRadius;
-            double y = origin.y() + (random.nextFloat() * 2.0F - 1.0F) * flyRadius;
-            double z = origin.z() + (random.nextFloat() * 2.0F - 1.0F) * flyRadius;
+            double x = origin.x() + (random.nextFloat() * 2.0F - 1.0F) * 16.0F;
+            double y = origin.y() + (random.nextFloat() * 2.0F - 1.0F) * 16.0F;
+            double z = origin.z() + (random.nextFloat() * 2.0F - 1.0F) * 16.0F;
             return new Vec3(x, y, z);
         }
 

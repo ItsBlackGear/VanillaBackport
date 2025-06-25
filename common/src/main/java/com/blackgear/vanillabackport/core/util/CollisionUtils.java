@@ -11,6 +11,10 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class CollisionUtils {
+    public static boolean intersects(AABB box, BlockPos pos) {
+        return box.intersects(pos.getX(), pos.getY(), pos.getZ(), pos.getX() + 1, pos.getY() + 1, pos.getZ() + 1);
+    }
+
     /**
      * Checks if an entity would collide with fluid when moving from origin to target
      */

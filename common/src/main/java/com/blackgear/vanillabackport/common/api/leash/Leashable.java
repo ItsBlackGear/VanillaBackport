@@ -15,6 +15,7 @@ import net.minecraft.world.entity.animal.horse.AbstractChestedHorse;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.animal.sniffer.Sniffer;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -26,6 +27,7 @@ import java.util.function.Predicate;
 public interface Leashable {
     Map<Predicate<Entity>, Function<Entity, Vec3[]>> QUAD_LEASH_OFFSETS = Util.make(() -> {
         ImmutableMap.Builder<Predicate<Entity>, Function<Entity, Vec3[]>> offsets = new ImmutableMap.Builder<>();
+        offsets.put(entity -> entity instanceof Boat, entity -> Leashable.createQuadLeashOffsets(entity, 0.0, 0.64, 0.382, 0.88));
         offsets.put(entity -> entity instanceof Camel, entity -> Leashable.createQuadLeashOffsets(entity, 0.02, 0.48, 0.25, 0.82));
         offsets.put(entity -> entity instanceof AbstractHorse, entity -> Leashable.createQuadLeashOffsets(entity, 0.04, 0.52, 0.23, 0.87));
         offsets.put(entity -> entity instanceof AbstractChestedHorse, entity -> Leashable.createQuadLeashOffsets(entity, 0.04, 0.41, 0.18, 0.73));
