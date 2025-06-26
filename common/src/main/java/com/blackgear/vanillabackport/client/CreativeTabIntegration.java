@@ -83,7 +83,7 @@ public interface CreativeTabIntegration {
             ModItems.PALE_OAK_BOAT.get(),
             ModItems.PALE_OAK_CHEST_BOAT.get()
         ));
-        output.addAfter(Items.MUSIC_DISC_PIGSTEP, ModItems.MUSIC_DISC_TEARS.get());
+        output.addAllAfter(Items.MUSIC_DISC_PIGSTEP, List.of(ModItems.MUSIC_DISC_TEARS.get(), ModItems.MUSIC_DISC_LAVA_CHICKEN.get()));
     };
 
     CreativeTabs.Modifier COMBAT = (flag, output, operator) -> {};

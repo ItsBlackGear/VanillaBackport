@@ -16,6 +16,7 @@ import com.blackgear.vanillabackport.common.registries.ModItems;
 import com.blackgear.vanillabackport.common.worldgen.BiomeGeneration;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.advancements.critereon.DamageSourcePredicate;
+import net.minecraft.advancements.critereon.EntityFlagsPredicate;
 import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.advancements.critereon.TagPredicate;
 import net.minecraft.resources.ResourceKey;
@@ -25,11 +26,13 @@ import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
+import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.DamageSourceCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemKilledByPlayerCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 
@@ -126,6 +129,22 @@ public class CommonSetup {
                     .setWeight(10)
                     .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F)))
                     .build()
+            );
+        }
+
+        if (key.equals(EntityType.ZOMBIE.getDefaultLootTable())) {
+            context.addPool(
+                LootPool.lootPool()
+                    .add(LootItem.lootTableItem(ModItems.MUSIC_DISC_LAVA_CHICKEN.get()))
+                    .when(LootItemKilledByPlayerCondition.killedByPlayer())
+                    .when(
+                        LootItemEntityPropertyCondition.hasProperties(
+                            LootContext.EntityTarget.THIS,
+                            EntityPredicate.Builder.entity()
+                                .flags(EntityFlagsPredicate.Builder.flags().setIsBaby(true))
+                                .vehicle(EntityPredicate.Builder.entity().of(EntityType.CHICKEN))
+                        )
+                    )
             );
         }
     }

@@ -96,6 +96,11 @@
   "subtitles.entity.happy_ghast.harness_goggles_up": "Ghast feliz deteniéndose",
   "subtitles.entity.happy_ghast.hurt": "Ghast feliz herido",
   "subtitles.entity.happy_ghast.unequip": "Arnés desequipado",
-  "subtitles.entity.parrot.imitate.creaking": "Loro imitando a un crepitante",Add commentMore actions
-  "trim_material.vanillabackport.resin": "Material de resina"
+  "subtitles.entity.parrot.imitate.creaking": "Loro imitando a un crepitante",
+  "trim_material.vanillabackport.resin": "Material de resina",
+  "item.vanillabackport.music_disc_lava_chicken": "Disco",
+  "item.vanillabackport.music_disc_lava_chicken.desc": "Hyper Potions - Lava Chicken",
+  "jukebox_song.vanillabackport.lava_chicken": "Hyper Potions - Lava Chicken",
+  "painting.vanillabackport.dennis.author": "Sarah Boeving",
+  "painting.vanillabackport.dennis.title": "Dennis"
 }

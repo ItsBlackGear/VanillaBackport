@@ -501,5 +501,13 @@
         "stream": true
       }
     ]
+  },
+  "music_disc.lava_chicken": {
+    "sounds": [
+      {
+        "name": "vanillabackport:records/lava_chicken",
+        "stream": true
+      }
+    ]
   }
 }

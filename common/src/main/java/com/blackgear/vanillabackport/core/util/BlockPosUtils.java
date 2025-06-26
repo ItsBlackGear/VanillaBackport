@@ -25,36 +25,36 @@ public class BlockPosUtils {
      * Traverses all block positions between two points that intersect with a bounding box.
      * Visits each position with a visitor function that can control traversal.
      */
-    public static boolean forEachIntersectedBetween(Vec3 start, Vec3 end, AABB aabb, BlockStepVisitor visitor) {
+    public static boolean forEachBlockIntersectedBetween(Vec3 start, Vec3 end, AABB aabb, BlockStepVisitor visitor) {
         Vec3 direction = end.subtract(start);
 
         // For very small movements, just check blocks in the current bounding box
         if (direction.lengthSqr() < (double) Mth.square(0.99999F)) {
             for (BlockPos pos : betweenClosed(aabb)) {
-                if (visitor.visit(pos, 0)) continue;
-                return false;
+                if (!visitor.visit(pos, 0)) {
+                    return false;
+                }
             }
 
             return true;
+        } else { // For longer movements, trace along the path
+            LongSet visitedPositions = new LongOpenHashSet();
+            Vec3 minPosition = new Vec3(aabb.minX, aabb.minY, aabb.minZ);
+            Vec3 startOffset = minPosition.subtract(direction);
+
+            int stepCount = addCollisionsAlongTravel(visitedPositions, startOffset, minPosition, aabb, visitor);
+            if (stepCount < 0) {
+                return false;
+            } else { // Check any remaining positions in the final bounding box
+                for (BlockPos pos : betweenClosed(aabb)) {
+                    if (!visitedPositions.contains(pos.asLong()) && !visitor.visit(pos, stepCount + 1)) {
+                        return false;
+                    }
+                }
+
+                return true;
+            }
         }
-
-        // For longer movements, trace along the path
-        LongOpenHashSet visitedPositions = new LongOpenHashSet();
-        Vec3 minPosition = new Vec3(aabb.minX, aabb.minY, aabb.minZ);
-        Vec3 startOffset = minPosition.subtract(direction);
-
-        int stepCount = addCollisionsAlongTravel(visitedPositions, startOffset, minPosition, aabb, visitor);
-        if (stepCount < 0) {
-            return false;
-        }
-
-        // Check any remaining positions in the final bounding box
-        for (BlockPos pos : betweenClosed(aabb)) {
-            if (visitedPositions.contains(pos.asLong()) || visitor.visit(pos, stepCount + 1)) continue;
-            return false;
-        }
-
-        return true;
     }
 
     /**
@@ -141,11 +141,9 @@ public class BlockPosUtils {
             for (int localX = startX; localX <= maxX; ++localX) {
                 for (int localY = startY; localY <= maxY; ++localY) {
                     for (int localZ = startZ; localZ <= maxZ; ++localZ) {
-                        if (!visitedPositions.add(BlockPos.asLong(localX, localY, localZ)) || visitor.visit(mutable.set(localX, localY, localZ), stepsTaken)){
-                            continue;
+                        if (visitedPositions.add(BlockPos.asLong(localX, localY, localZ)) && !visitor.visit(mutable.set(localX, localY, localZ), stepsTaken)) {
+                            return -1;
                         }
-
-                        return -1;
                     }
                 }
             }

@@ -107,4 +107,11 @@ public class ModItems {
             .rarity(Rarity.UNCOMMON)
             .jukeboxPlayable(ModJukeboxSongs.TEARS)
     );
+    public static final Supplier<Item> MUSIC_DISC_LAVA_CHICKEN = ITEMS.register(
+        "music_disc_lava_chicken",
+        new Item.Properties()
+            .stacksTo(1)
+            .rarity(Rarity.RARE)
+            .jukeboxPlayable(ModJukeboxSongs.LAVA_CHICKEN)
+    );
 }

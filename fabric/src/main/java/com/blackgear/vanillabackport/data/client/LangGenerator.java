@@ -128,6 +128,14 @@ public class LangGenerator extends FabricLanguageProvider {
 
         builder.add("jukebox_song.vanillabackport.tears", "Amos Roddy - Tears");
 
+        builder.add("item.vanillabackport.music_disc_lava_chicken", "Music Disc");
+        builder.add("item.vanillabackport.music_disc_lava_chicken.desc", "Hyper Potions - Lava Chicken");
+
+        builder.add("jukebox_song.vanillabackport.lava_chicken", "Hyper Potions - Lava Chicken");
+
+        builder.add("painting.vanillabackport.dennis.author", "Sarah Boeving");
+        builder.add("painting.vanillabackport.dennis.title", "Dennis");
+
         builder.add(ModEntities.HAPPY_GHAST.get(), "Happy Ghast");
 
         builder.add("subtitles.block.dried_ghast.ambient", "Dried Ghast wheezes");

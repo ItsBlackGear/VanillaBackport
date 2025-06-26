@@ -8,7 +8,6 @@ import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.Leashable;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -29,8 +28,15 @@ public class EntityRendererMixin<T extends Entity> {
         this.leashRenderer = new LeashRenderer<>(this.entityRenderDispatcher);
     }
 
-    @Inject(method = "renderLeash", at = @At("HEAD"), cancellable = true)
-    private <E extends Entity & Leashable> void vb$renderLeash(T entity, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, E leashHolder, CallbackInfo ci) {
+    @Inject(
+        method = "render",
+        at = @At(
+            value = "INVOKE",
+            target = "Lnet/minecraft/client/renderer/entity/EntityRenderer;renderLeash(Lnet/minecraft/world/entity/Entity;FLcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;Lnet/minecraft/world/entity/Entity;)V"
+        ),
+        cancellable = true
+    )
+    private void vb$renderLeash(T entity, float entityYaw, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, CallbackInfo ci) {
         ci.cancel();
         this.leashRenderer.render(entity, partialTick, poseStack, bufferSource);
     }

@@ -13,9 +13,11 @@ import net.minecraft.world.item.JukeboxSong;
 
 public class ModJukeboxSongs {
     public static final ResourceKey<JukeboxSong> TEARS = create("tears");
+    public static final ResourceKey<JukeboxSong> LAVA_CHICKEN = create("lava_chicken");
 
     public static void bootstrap(BootstrapContext<JukeboxSong> context) {
         register(context, TEARS, ModSoundEvents.MUSIC_DISC_TEARS.get(), 175, 10);
+        register(context, LAVA_CHICKEN, ModSoundEvents.MUSIC_DISC_LAVA_CHICKEN.get(), 134, 9);
     }
 
     private static void register(BootstrapContext<JukeboxSong> context, ResourceKey<JukeboxSong> key, SoundEvent soundEvent, int lengthInSeconds, int comparatorOutput) {
