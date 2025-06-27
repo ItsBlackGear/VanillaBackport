@@ -21,7 +21,7 @@ import java.util.Optional;
 import java.util.function.Supplier;
 
 public class ModBlocks {
-    public static final BlockRegistry BLOCKS = BlockRegistry.create(VanillaBackport.NAMESPACE);
+    public static final BlockRegistry BLOCKS = BlockRegistry.create(VanillaBackport.MOD_ID);
 
     public static final Supplier<Block> PALE_OAK_LEAVES = BLOCKS.register(
         "pale_oak_leaves",

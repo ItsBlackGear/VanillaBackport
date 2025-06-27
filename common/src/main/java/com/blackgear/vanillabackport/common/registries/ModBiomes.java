@@ -12,7 +12,7 @@ import net.minecraft.world.level.levelgen.carver.ConfiguredWorldCarver;
 import net.minecraft.world.level.levelgen.placement.PlacedFeature;
 
 public class ModBiomes {
-    public static final WorldGenRegistry<Biome> BIOMES = WorldGenRegistry.of(Registries.BIOME, VanillaBackport.NAMESPACE);
+    public static final WorldGenRegistry<Biome> BIOMES = WorldGenRegistry.of(Registries.BIOME, VanillaBackport.MOD_ID);
 
     public static final ResourceKey<Biome> PALE_GARDEN = BIOMES.create("pale_garden");
 

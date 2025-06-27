@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "vanillabackport:block/chiseled_resin_bricks"
+  }
+}

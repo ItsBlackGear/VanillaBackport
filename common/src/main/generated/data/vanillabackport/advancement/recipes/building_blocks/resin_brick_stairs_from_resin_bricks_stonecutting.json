@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "minecraft:resin_bricks"
+            "items": "vanillabackport:resin_bricks"
           }
         ]
       },

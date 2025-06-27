@@ -13,7 +13,7 @@ import net.minecraft.world.phys.Vec3;
 import java.util.function.Supplier;
 
 public class ModEntities {
-    public static final EntityRegistry ENTITIES = EntityRegistry.create(VanillaBackport.NAMESPACE);
+    public static final EntityRegistry ENTITIES = EntityRegistry.create(VanillaBackport.MOD_ID);
 
     public static final Supplier<EntityType<Creaking>> CREAKING = ENTITIES.entity(
         "creaking",

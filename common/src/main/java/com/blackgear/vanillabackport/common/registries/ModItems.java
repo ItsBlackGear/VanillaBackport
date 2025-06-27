@@ -11,7 +11,7 @@ import net.minecraft.world.item.Rarity;
 import java.util.function.Supplier;
 
 public class ModItems {
-    public static final ItemRegistry ITEMS = ItemRegistry.create(VanillaBackport.NAMESPACE);
+    public static final ItemRegistry ITEMS = ItemRegistry.create(VanillaBackport.MOD_ID);
 
     public static final Supplier<Item> RESIN_BRICK = ITEMS.register("resin_brick");
     public static final Supplier<Item> PALE_OAK_BOAT = ITEMS.register("pale_oak_boat", () -> new PaleOakBoatItem(false, new Item.Properties().stacksTo(1)));

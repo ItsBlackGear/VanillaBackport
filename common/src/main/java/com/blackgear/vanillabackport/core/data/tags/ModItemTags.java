@@ -7,7 +7,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 
 public class ModItemTags {
-    public static final TagRegistry<Item> TAGS = TagRegistry.create(Registries.ITEM, VanillaBackport.NAMESPACE);
+    public static final TagRegistry<Item> TAGS = TagRegistry.create(Registries.ITEM, VanillaBackport.MOD_ID);
 
     public static final TagKey<Item> PALE_OAK_LOGS = TAGS.register("pale_oak_logs");
     public static final TagKey<Item> HAPPY_GHAST_TEMPT_ITEMS = TAGS.register("happy_ghast_tempt_items");

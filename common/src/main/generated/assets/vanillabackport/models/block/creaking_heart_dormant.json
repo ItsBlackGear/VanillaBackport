@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:block/cube_column",
+  "textures": {
+    "end": "vanillabackport:block/creaking_heart_top_dormant",
+    "side": "vanillabackport:block/creaking_heart_dormant"
+  }
+}

@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "minecraft:resin_brick"
+            "items": "vanillabackport:resin_brick"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:resin_bricks"
+        "recipe": "vanillabackport:resin_bricks"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:resin_bricks"
+      "vanillabackport:resin_bricks"
     ]
   }
 }

@@ -18,6 +18,6 @@ public class ModPaintingVariants {
     }
 
     private static ResourceKey<PaintingVariant> registryKey(String name) {
-        return ResourceKey.create(Registries.PAINTING_VARIANT, VanillaBackport.vanilla(name));
+        return ResourceKey.create(Registries.PAINTING_VARIANT, VanillaBackport.resource(name));
     }
 }

@@ -14,7 +14,7 @@ import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.placement.*;
 
 public class TheGardenAwakensPlacements {
-    public static final WorldGenRegistry<PlacedFeature> FEATURES = WorldGenRegistry.of(Registries.PLACED_FEATURE, VanillaBackport.NAMESPACE);
+    public static final WorldGenRegistry<PlacedFeature> FEATURES = WorldGenRegistry.of(Registries.PLACED_FEATURE, VanillaBackport.MOD_ID);
 
     // TREE PLACEMENTS
     public static final ResourceKey<PlacedFeature> PALE_OAK_CHECKED = FEATURES.create("pale_oak_checked");

@@ -1,7 +1,7 @@
 {
   "values": [
-    "minecraft:pale_oak_leaves",
-    "minecraft:pale_moss_block",
-    "minecraft:pale_moss_carpet"
+    "vanillabackport:pale_oak_leaves",
+    "vanillabackport:pale_moss_block",
+    "vanillabackport:pale_moss_carpet"
   ]
 }

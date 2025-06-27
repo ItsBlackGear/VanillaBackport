@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "minecraft:open_eyeblossom"
+            "items": "vanillabackport:open_eyeblossom"
           }
         ]
       },

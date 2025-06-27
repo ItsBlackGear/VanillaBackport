@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:pale_oak_boat"
+        "recipe": "vanillabackport:pale_oak_boat"
       },
       "trigger": "minecraft:recipe_unlocked"
     },
@@ -22,7 +22,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:pale_oak_boat"
+      "vanillabackport:pale_oak_boat"
     ]
   }
 }

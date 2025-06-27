@@ -14,7 +14,6 @@ import com.blackgear.vanillabackport.common.CommonSetup;
 import com.blackgear.vanillabackport.common.registries.*;
 import com.blackgear.vanillabackport.common.worldgen.features.TheGardenAwakensFeatures;
 import com.blackgear.vanillabackport.common.worldgen.placements.TheGardenAwakensPlacements;
-import com.blackgear.vanillabackport.core.data.DataTransformation;
 import com.blackgear.vanillabackport.core.data.tags.ModBlockTags;
 import com.blackgear.vanillabackport.core.data.tags.ModEntityTypeTags;
 import com.blackgear.vanillabackport.core.data.tags.ModItemTags;
@@ -24,7 +23,6 @@ import org.slf4j.Logger;
 
 public final class VanillaBackport {
     public static final String MOD_ID = "vanillabackport";
-    public static final String NAMESPACE = "minecraft";
     public static final Logger LOGGER = LogUtils.getLogger();
     public static final ClientConfig CLIENT_CONFIG = Environment.registerUnsafeConfig(MOD_ID, ModConfig.Type.CLIENT, ClientConfig::new);
     public static final CommonConfig CONFIG = Environment.registerUnsafeConfig(MOD_ID, ModConfig.Type.COMMON, CommonConfig::new);
@@ -59,15 +57,9 @@ public final class VanillaBackport {
         ModBlockTags.TAGS.register();
         ModItemTags.TAGS.register();
         ModEntityTypeTags.TAGS.register();
-
-        DataTransformation.bootstrap();
     }
 
     public static ResourceLocation resource(String path) {
         return ResourceLocation.fromNamespaceAndPath(MOD_ID, path);
-    }
-
-    public static ResourceLocation vanilla(String path) {
-        return ResourceLocation.withDefaultNamespace(path);
     }
 }

@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "vanillabackport:block/pale_moss_block"
+    }
+  }
+}
