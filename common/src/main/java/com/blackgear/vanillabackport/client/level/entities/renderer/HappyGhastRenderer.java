@@ -15,9 +15,9 @@ import net.minecraft.resources.ResourceLocation;
 
 @Environment(EnvType.CLIENT)
 public class HappyGhastRenderer extends AgeableMobRenderer<HappyGhast, HappyGhastModel<HappyGhast>> {
-    private static final ResourceLocation GHAST_LOCATION = VanillaBackport.resource("textures/entity/ghast/happy_ghast.png");
-    private static final ResourceLocation GHAST_BABY_LOCATION = VanillaBackport.resource("textures/entity/ghast/happy_ghast_baby.png");
-    private static final ResourceLocation GHAST_ROPES = VanillaBackport.resource("textures/entity/ghast/happy_ghast_ropes.png");
+    private static final ResourceLocation GHAST_LOCATION = VanillaBackport.vanilla("textures/entity/ghast/happy_ghast.png");
+    private static final ResourceLocation GHAST_BABY_LOCATION = VanillaBackport.vanilla("textures/entity/ghast/happy_ghast_baby.png");
+    private static final ResourceLocation GHAST_ROPES = VanillaBackport.vanilla("textures/entity/ghast/happy_ghast_ropes.png");
 
     public HappyGhastRenderer(EntityRendererProvider.Context context) {
         super(context, new HappyGhastModel<>(context.bakeLayer(ModModelLayers.HAPPY_GHAST)), new HappyGhastModel<>(context.bakeLayer(ModModelLayers.HAPPY_GHAST_BABY)), 1.5F);

@@ -25,6 +25,6 @@ public class ModJukeboxSongs {
     }
 
     private static ResourceKey<JukeboxSong> create(String name) {
-        return ResourceKey.create(Registries.JUKEBOX_SONG, VanillaBackport.resource(name));
+        return ResourceKey.create(Registries.JUKEBOX_SONG, VanillaBackport.vanilla(name));
     }
 }

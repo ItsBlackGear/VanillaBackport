@@ -1,0 +1,513 @@
+{
+  "block.eyeblossom.close": {
+    "sounds": [
+      "block/eyeblossom/eyeblossom_close1",
+      "block/eyeblossom/eyeblossom_close2",
+      "block/eyeblossom/eyeblossom_close3"
+    ],
+    "subtitle": "subtitles.block.eyeblossom.close"
+  },
+  "block.eyeblossom.close_long": {
+    "sounds": [
+      "block/eyeblossom/eyeblossom_close_long"
+    ],
+    "subtitle": "subtitles.block.eyeblossom.close"
+  },
+  "block.eyeblossom.idle": {
+    "sounds": [
+      "block/eyeblossom/eyeblossom_idle1",
+      "block/eyeblossom/eyeblossom_idle2",
+      "block/eyeblossom/eyeblossom_idle3",
+      "block/eyeblossom/eyeblossom_idle4",
+      "block/eyeblossom/eyeblossom_idle5",
+      "block/eyeblossom/eyeblossom_idle6"
+    ],
+    "subtitle": "subtitles.block.eyeblossom.idle"
+  },
+  "block.eyeblossom.open": {
+    "sounds": [
+      "block/eyeblossom/eyeblossom_open1",
+      "block/eyeblossom/eyeblossom_open2",
+      "block/eyeblossom/eyeblossom_open3",
+      "block/eyeblossom/eyeblossom_open4"
+    ],
+    "subtitle": "subtitles.block.eyeblossom.open"
+  },
+  "block.eyeblossom.open_long": {
+    "sounds": [
+      "block/eyeblossom/eyeblossom_open_long"
+    ],
+    "subtitle": "subtitles.block.eyeblossom.open"
+  },
+  
+  "block.pale_hanging_moss.idle": {
+    "sounds": [
+      "block/pale_hanging_moss/pale_hanging_moss1",
+      "block/pale_hanging_moss/pale_hanging_moss2",
+      "block/pale_hanging_moss/pale_hanging_moss3",
+      "block/pale_hanging_moss/pale_hanging_moss4",
+      "block/pale_hanging_moss/pale_hanging_moss5",
+      "block/pale_hanging_moss/pale_hanging_moss6",
+      "block/pale_hanging_moss/pale_hanging_moss7",
+      "block/pale_hanging_moss/pale_hanging_moss8",
+      "block/pale_hanging_moss/pale_hanging_moss9",
+      "block/pale_hanging_moss/pale_hanging_moss10",
+      "block/pale_hanging_moss/pale_hanging_moss11",
+      "block/pale_hanging_moss/pale_hanging_moss12",
+      "block/pale_hanging_moss/pale_hanging_moss13",
+      "block/pale_hanging_moss/pale_hanging_moss14",
+      "block/pale_hanging_moss/pale_hanging_moss15"
+    ],
+    "subtitle": "subtitles.block.pale_hanging_moss.idle"
+  },
+  
+  "block.creaking_heart.break": {
+    "sounds": [
+      {
+        "name": "block/creaking_heart/break/creaking_heart_break",
+        "volume": 0.5
+      }
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.creaking_heart.fall": {
+    "sounds": [
+      "block/creaking_heart/fall/creaking_heart_fall"
+    ],
+    "subtitle": "subtitles.block.generic.fall"
+  },
+  "block.creaking_heart.hit": {
+    "sounds": [
+      "block/creaking_heart/hit/creaking_heart_hit1",
+      "block/creaking_heart/hit/creaking_heart_hit2",
+      "block/creaking_heart/hit/creaking_heart_hit3",
+      "block/creaking_heart/hit/creaking_heart_hit4",
+      "block/creaking_heart/hit/creaking_heart_hit5"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.creaking_heart.hurt": {
+    "sounds": [
+      "block/creaking_heart/hurt/trail1",
+      "block/creaking_heart/hurt/trail2",
+      "block/creaking_heart/hurt/trail3",
+      "block/creaking_heart/hurt/trail4",
+      "block/creaking_heart/hurt/trail5",
+      "block/creaking_heart/hurt/trail6",
+      "block/creaking_heart/hurt/trail7"
+    ],
+    "subtitle": "subtitles.block.creaking_heart.hurt"
+  },
+  "block.creaking_heart.idle": {
+    "sounds": [
+      "block/creaking_heart/idle/creaking_heart_idle1",
+      "block/creaking_heart/idle/creaking_heart_idle2",
+      "block/creaking_heart/idle/creaking_heart_idle3",
+      "block/creaking_heart/idle/creaking_heart_idle4"
+    ],
+    "subtitle": "subtitles.block.creaking_heart.idle"
+  },
+  "block.creaking_heart.place": {
+    "sounds": [
+      "block/creaking_heart/place/creaking_heart_place1",
+      "block/creaking_heart/place/creaking_heart_place2",
+      "block/creaking_heart/place/creaking_heart_place3",
+      "block/creaking_heart/place/creaking_heart_place4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.creaking_heart.spawn": {
+    "sounds": [
+      "block/creaking_heart/spawnmob/creaking_heart_spawnmob"
+    ],
+    "subtitle": "subtitles.block.creaking_heart.spawn"
+  },
+  "block.creaking_heart.step": {
+    "sounds": [
+      "block/creaking_heart/step/creaking_heart_step1",
+      "block/creaking_heart/step/creaking_heart_step2",
+      "block/creaking_heart/step/creaking_heart_step3",
+      "block/creaking_heart/step/creaking_heart_step4",
+      "block/creaking_heart/step/creaking_heart_step5",
+      "block/creaking_heart/step/creaking_heart_step6"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  
+  "block.resin.break": {
+    "sounds": [
+      "block/resin/resin_break1",
+      "block/resin/resin_break2",
+      "block/resin/resin_break3",
+      "block/resin/resin_break4",
+      "block/resin/resin_break5"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.resin.fall": {
+    "sounds": [
+      "block/resin/resin_fall"
+    ],
+    "subtitle": "subtitles.block.generic.fall"
+  },
+  "block.resin.place": {
+    "sounds": [
+      "block/resin/resin_place1",
+      "block/resin/resin_place2",
+      "block/resin/resin_place3",
+      "block/resin/resin_place4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.resin.step": {
+    "sounds": [
+      "block/resin/resin_step1",
+      "block/resin/resin_step2",
+      "block/resin/resin_step3",
+      "block/resin/resin_step4",
+      "block/resin/resin_step5"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.resin_bricks.break": {
+    "sounds": [
+      "block/resin_bricks/resin_brick_break"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.resin_bricks.fall": {
+    "sounds": [
+      "block/resin_bricks/resin_brick_fall"
+    ],
+    "subtitle": "subtitles.block.generic.fall"
+  },
+  "block.resin_bricks.hit": {
+    "sounds": [
+      "block/resin_bricks/resin_brick_hit1",
+      "block/resin_bricks/resin_brick_hit2",
+      "block/resin_bricks/resin_brick_hit3",
+      "block/resin_bricks/resin_brick_hit4",
+      "block/resin_bricks/resin_brick_hit5"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.resin_bricks.place": {
+    "sounds": [
+      "block/resin_bricks/resin_brick_place1",
+      "block/resin_bricks/resin_brick_place2",
+      "block/resin_bricks/resin_brick_place3",
+      "block/resin_bricks/resin_brick_place4",
+      "block/resin_bricks/resin_brick_place5"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.resin_bricks.step": {
+    "sounds": [
+      "block/resin_bricks/resin_brick_step1",
+      "block/resin_bricks/resin_brick_step2",
+      "block/resin_bricks/resin_brick_step3",
+      "block/resin_bricks/resin_brick_step4",
+      "block/resin_bricks/resin_brick_step5"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  
+  "entity.creaking.activate": {
+    "sounds": [
+      "mob/creaking/creaking_activate"
+    ],
+    "subtitle": "subtitles.entity.creaking.activate"
+  },
+  "entity.creaking.ambient": {
+    "sounds": [
+      "mob/creaking/creaking_idle1",
+      "mob/creaking/creaking_idle2",
+      "mob/creaking/creaking_idle3",
+      "mob/creaking/creaking_idle4",
+      "mob/creaking/creaking_idle5",
+      "mob/creaking/creaking_idle6"
+    ],
+    "subtitle": "subtitles.entity.creaking.ambient"
+  },
+  "entity.creaking.attack": {
+    "sounds": [
+      "mob/creaking/creaking_attack1",
+      "mob/creaking/creaking_attack2",
+      "mob/creaking/creaking_attack3",
+      "mob/creaking/creaking_attack4"
+    ],
+    "subtitle": "subtitles.entity.creaking.attack"
+  },
+  "entity.creaking.deactivate": {
+    "sounds": [
+      "mob/creaking/creaking_deactivate"
+    ],
+    "subtitle": "subtitles.entity.creaking.deactivate"
+  },
+  "entity.creaking.death": {
+    "sounds": [
+      "mob/creaking/creaking_death"
+    ],
+    "subtitle": "subtitles.entity.creaking.death"
+  },
+  "entity.creaking.freeze": {
+    "sounds": [
+      "mob/creaking/creaking_freeze1",
+      "mob/creaking/creaking_freeze2",
+      "mob/creaking/creaking_freeze3",
+      "mob/creaking/creaking_freeze4"
+    ],
+    "subtitle": "subtitles.entity.creaking.freeze"
+  },
+  "entity.creaking.spawn": {
+    "sounds": [
+      "mob/creaking/creaking_spawn"
+    ],
+    "subtitle": "subtitles.entity.creaking.spawn"
+  },
+  "entity.creaking.step": {
+    "sounds": [
+      "mob/creaking/creaking_step1",
+      "mob/creaking/creaking_step2",
+      "mob/creaking/creaking_step3",
+      "mob/creaking/creaking_step4",
+      "mob/creaking/creaking_step5"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "entity.creaking.sway": {
+    "sounds": [
+      "mob/creaking/creaking_sway1",
+      "mob/creaking/creaking_sway2",
+      "mob/creaking/creaking_sway3",
+      "mob/creaking/creaking_sway4"
+    ],
+    "subtitle": "subtitles.entity.creaking.sway"
+  },
+  "entity.creaking.twitch": {
+    "sounds": [
+      "mob/creaking/creaking_twitch"
+    ],
+    "subtitle": "subtitles.entity.creaking.twitch"
+  },
+  "entity.creaking.unfreeze": {
+    "sounds": [
+      "mob/creaking/creaking_unfreeze1",
+      "mob/creaking/creaking_unfreeze2",
+      "mob/creaking/creaking_unfreeze3"
+    ],
+    "subtitle": "subtitles.entity.creaking.unfreeze"
+  },
+  
+  "entity.parrot.imitate.creaking": {
+    "sounds": [
+      "mob/creaking/parrot_imitate_creaking"
+    ],
+    "subtitle": "subtitles.entity.parrot.imitate.creaking"
+  },
+
+  "block.dried_ghast.ambient": {
+    "sounds": [
+      "block/dried_ghast/ambient1",
+      "block/dried_ghast/ambient2",
+      "block/dried_ghast/ambient3",
+      "block/dried_ghast/ambient4"
+    ],
+    "subtitle": "subtitles.block.dried_ghast.ambient"
+  },
+  "block.dried_ghast.ambient_water": {
+    "sounds": [
+      "block/dried_ghast/ambient_water1",
+      "block/dried_ghast/ambient_water2"
+    ],
+    "subtitle": "subtitles.block.dried_ghast.ambient_water"
+  },
+  "block.dried_ghast.break": {
+    "sounds": [
+      "block/dried_ghast/break"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.dried_ghast.fall": {
+    "sounds": [
+      "block/dried_ghast/step1",
+      "block/dried_ghast/step2",
+      "block/dried_ghast/step3",
+      "block/dried_ghast/step4",
+      "block/dried_ghast/step5",
+      "block/dried_ghast/step6"
+    ],
+    "subtitle": "subtitles.block.generic.fall"
+  },
+  "block.dried_ghast.place": {
+    "sounds": [
+      "block/dried_ghast/place1",
+      "block/dried_ghast/place2",
+      "block/dried_ghast/place3",
+      "block/dried_ghast/place4",
+      "block/dried_ghast/place5",
+      "block/dried_ghast/place6"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.dried_ghast.place_in_water": {
+    "sounds": [
+      "block/dried_ghast/placeinwater"
+    ],
+    "subtitle": "subtitles.block.dried_ghast.place_in_water"
+  },
+  "block.dried_ghast.step": {
+    "sounds": [
+      "block/dried_ghast/step1",
+      "block/dried_ghast/step2",
+      "block/dried_ghast/step3",
+      "block/dried_ghast/step4",
+      "block/dried_ghast/step5",
+      "block/dried_ghast/step6"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.dried_ghast.transition": {
+    "sounds": [
+      "block/dried_ghast/transition"
+    ],
+    "subtitle": "subtitles.block.dried_ghast.transition"
+  },
+
+  "entity.ghastling.ambient": {
+    "sounds": [
+      "mob/ghastling/ghastling1",
+      "mob/ghastling/ghastling2",
+      "mob/ghastling/ghastling3",
+      "mob/ghastling/ghastling4",
+      "mob/ghastling/ghastling5",
+      "mob/ghastling/ghastling6",
+      "mob/ghastling/ghastling7"
+    ],
+    "subtitle": "subtitles.entity.ghastling.ambient"
+  },
+  "entity.ghastling.death": {
+    "sounds": [
+      "mob/ghastling/death"
+    ],
+    "subtitle": "subtitles.entity.ghastling.death"
+  },
+  "entity.ghastling.hurt": {
+    "sounds": [
+      "mob/ghastling/hurt1",
+      "mob/ghastling/hurt2",
+      "mob/ghastling/hurt3",
+      "mob/ghastling/hurt4",
+      "mob/ghastling/hurt5"
+    ],
+    "subtitle": "subtitles.entity.ghastling.hurt"
+  },
+  "entity.ghastling.spawn": {
+    "sounds": [
+      "mob/ghastling/spawn"
+    ],
+    "subtitle": "subtitles.entity.ghastling.spawn"
+  },
+
+
+  "entity.happy_ghast.ambient": {
+    "sounds": [
+      "mob/happy_ghast/ambient1",
+      {
+        "name": "mob/happy_ghast/ambient2",
+        "weight": 3
+      },
+      {
+        "name": "mob/happy_ghast/ambient3",
+        "weight": 2
+      },
+      "mob/happy_ghast/ambient4",
+      {
+        "name": "mob/happy_ghast/ambient5",
+        "weight": 2
+      },
+      "mob/happy_ghast/ambient6",
+      {
+        "name": "mob/happy_ghast/ambient7",
+        "weight": 2
+      },
+      "mob/happy_ghast/ambient8",
+      "mob/happy_ghast/ambient9",
+      "mob/happy_ghast/ambient10",
+      "mob/happy_ghast/ambient11",
+      {
+        "name": "mob/happy_ghast/ambient12",
+        "weight": 2
+      },
+      {
+        "name": "mob/happy_ghast/ambient13",
+        "weight": 2
+      },
+      "mob/happy_ghast/ambient14"
+    ],
+    "subtitle": "subtitles.entity.happy_ghast.ambient"
+  },
+  "entity.happy_ghast.death": {
+    "sounds": [
+      "mob/happy_ghast/death"
+    ],
+    "subtitle": "subtitles.entity.happy_ghast.death"
+  },
+  "entity.happy_ghast.equip": {
+    "sounds": [
+      "mob/happy_ghast/harness_equip"
+    ],
+    "subtitle": "subtitles.entity.happy_ghast.equip"
+  },
+  "entity.happy_ghast.harness_goggles_down": {
+    "sounds": [
+      "mob/happy_ghast/goggles_down"
+    ],
+    "subtitle": "subtitles.entity.happy_ghast.harness_goggles_down"
+  },
+  "entity.happy_ghast.harness_goggles_up": {
+    "sounds": [
+      "mob/happy_ghast/goggles_up"
+    ],
+    "subtitle": "subtitles.entity.happy_ghast.harness_goggles_up"
+  },
+  "entity.happy_ghast.hurt": {
+    "sounds": [
+      "mob/happy_ghast/hurt1",
+      "mob/happy_ghast/hurt2",
+      "mob/happy_ghast/hurt3",
+      "mob/happy_ghast/hurt4",
+      "mob/happy_ghast/hurt5",
+      "mob/happy_ghast/hurt6"
+    ],
+    "subtitle": "subtitles.entity.happy_ghast.hurt"
+  },
+  "entity.happy_ghast.riding": {
+    "sounds": [
+      "mob/happy_ghast/ghast_ride"
+    ]
+  },
+  "entity.happy_ghast.unequip": {
+    "sounds": [
+      "mob/happy_ghast/harness_unequip"
+    ],
+    "subtitle": "subtitles.entity.happy_ghast.unequip"
+  },
+
+  "music_disc.tears": {
+    "sounds": [
+      {
+        "name": "records/tears",
+        "stream": true
+      }
+    ]
+  },
+  "music_disc.lava_chicken": {
+    "sounds": [
+      {
+        "name": "records/lava_chicken",
+        "stream": true
+      }
+    ]
+  }
+}

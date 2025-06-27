@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "vanillabackport:item/magenta_harness"
-  }
-}

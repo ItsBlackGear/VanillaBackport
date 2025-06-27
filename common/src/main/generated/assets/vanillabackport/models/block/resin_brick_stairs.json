@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:block/stairs",
-  "textures": {
-    "bottom": "vanillabackport:block/resin_bricks",
-    "side": "vanillabackport:block/resin_bricks",
-    "top": "vanillabackport:block/resin_bricks"
-  }
-}

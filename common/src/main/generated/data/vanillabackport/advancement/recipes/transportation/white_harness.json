@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "vanillabackport:dried_ghast"
+            "items": "minecraft:dried_ghast"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "vanillabackport:white_harness"
+        "recipe": "minecraft:white_harness"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "vanillabackport:white_harness"
+      "minecraft:white_harness"
     ]
   }
 }

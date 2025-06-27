@@ -26,8 +26,8 @@ import org.joml.Quaternionf;
 
 @Environment(EnvType.CLIENT)
 public class PaleOakBoatRenderer extends BoatRenderer {
-    private static final ResourceLocation PALE_OAK_BOAT = VanillaBackport.resource("textures/entity/boat/pale_oak.png");
-    private static final ResourceLocation PALE_OAK_CHEST_BOAT = VanillaBackport.resource("textures/entity/chest_boat/pale_oak.png");
+    private static final ResourceLocation PALE_OAK_BOAT = VanillaBackport.vanilla("textures/entity/boat/pale_oak.png");
+    private static final ResourceLocation PALE_OAK_CHEST_BOAT = VanillaBackport.vanilla("textures/entity/chest_boat/pale_oak.png");
     private final Pair<ResourceLocation, ListModel<Boat>> boatResource;
 
     public PaleOakBoatRenderer(EntityRendererProvider.Context context, boolean chestBoat) {
@@ -52,7 +52,7 @@ public class PaleOakBoatRenderer extends BoatRenderer {
 
         float bubbleAngle = entity.getBubbleAngle(partialTick);
         if (!Mth.equal(bubbleAngle, 0.0F)) {
-            matrices.mulPose((new Quaternionf()).setAngleAxis(entity.getBubbleAngle(partialTick) * ((float)Math.PI / 180F), 1.0F, 0.0F, 1.0F));
+            matrices.mulPose((new Quaternionf()).setAngleAxis(entity.getBubbleAngle(partialTick) * ((float) Math.PI / 180F), 1.0F, 0.0F, 1.0F));
         }
 
         Pair<ResourceLocation, ListModel<Boat>> pair = this.getModelWithLocation(entity);
