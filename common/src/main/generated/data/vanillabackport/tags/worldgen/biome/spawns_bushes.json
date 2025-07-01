@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "#minecraft:is_hill",
+    "#minecraft:is_river",
+    "minecraft:forest",
+    "minecraft:birch_forest",
+    "minecraft:old_growth_birch_forest",
+    "minecraft:plains"
+  ]
+}

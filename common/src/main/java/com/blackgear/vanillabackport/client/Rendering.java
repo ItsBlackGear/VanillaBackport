@@ -16,11 +16,16 @@ import com.blackgear.vanillabackport.common.registries.ModBlocks;
 import com.blackgear.vanillabackport.common.registries.ModEntities;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.BoatModel;
 import net.minecraft.client.model.ChestBoatModel;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
+import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.level.GrassColor;
+import net.minecraft.world.level.block.state.BlockState;
 
 @Environment(EnvType.CLIENT)
 public class Rendering {
@@ -73,7 +78,24 @@ public class Rendering {
             ModBlocks.PALE_OAK_SAPLING.get(),
             ModBlocks.POTTED_PALE_OAK_SAPLING.get(),
             ModBlocks.RESIN_CLUMP.get(),
+            ModBlocks.BUSH.get(),
             ModBlocks.FIREFLY_BUSH.get()
+        );
+    }
+
+    public static void blockColors(GameRendering.BlockColorEvent event) {
+        event.register(
+            (blockState, blockAndTintGetter, blockPos, i) -> blockAndTintGetter != null && blockPos != null
+                ? BiomeColors.getAverageGrassColor(blockAndTintGetter, blockPos)
+                : GrassColor.getDefaultColor(),
+            ModBlocks.BUSH.get()
+        );
+        event.register(
+            (itemStack, i) -> {
+                BlockState state = ((BlockItem) itemStack.getItem()).getBlock().defaultBlockState();
+                return Minecraft.getInstance().getBlockColors().getColor(state, null, null, i);
+            },
+            ModBlocks.BUSH.get()
         );
     }
 }

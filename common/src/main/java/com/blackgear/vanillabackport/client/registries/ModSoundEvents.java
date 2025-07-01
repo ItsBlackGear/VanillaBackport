@@ -47,6 +47,8 @@ public class ModSoundEvents {
     public static final Supplier<SoundEvent> DRIED_GHAST_PLACE_IN_WATER = SOUNDS.soundEvent("block.dried_ghast.place_in_water");
     public static final Supplier<SoundEvent> DRIED_GHAST_TRANSITION = SOUNDS.soundEvent("block.dried_ghast.transition");
 
+    public static final Supplier<SoundEvent> FIREFLY_BUSH_IDLE = SOUNDS.soundEvent("block.firefly_bush.idle");
+
     // ENTITIES
     public static final Supplier<SoundEvent> CREAKING_AMBIENT = SOUNDS.soundEvent("entity.creaking.ambient");
     public static final Supplier<SoundEvent> CREAKING_ACTIVATE = SOUNDS.soundEvent("entity.creaking.activate");

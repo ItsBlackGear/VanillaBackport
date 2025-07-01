@@ -93,6 +93,7 @@ public interface ModCreativeTabs {
             .title(Component.literal("Spring to Life"))
             .icon(() -> new ItemStack(ModBlocks.FIREFLY_BUSH.get()))
             .displayItems((parameters, output) -> {
+                output.accept(ModBlocks.BUSH.get());
                 output.accept(ModBlocks.FIREFLY_BUSH.get());
             })
             .build()

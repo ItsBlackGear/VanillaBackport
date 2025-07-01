@@ -2,7 +2,9 @@ package com.blackgear.vanillabackport.data;
 
 import com.blackgear.vanillabackport.common.registries.ModBiomes;
 import com.blackgear.vanillabackport.common.registries.ModTrimMaterials;
+import com.blackgear.vanillabackport.common.worldgen.features.SpringToLifeFeatures;
 import com.blackgear.vanillabackport.common.worldgen.features.TheGardenAwakensFeatures;
+import com.blackgear.vanillabackport.common.worldgen.placements.SpringToLifePlacements;
 import com.blackgear.vanillabackport.common.worldgen.placements.TheGardenAwakensPlacements;
 import com.blackgear.vanillabackport.data.client.LangGenerator;
 import com.blackgear.vanillabackport.data.client.ModelGenerator;
@@ -45,7 +47,9 @@ public class DataGenerator implements DataGeneratorEntrypoint {
     public void buildRegistry(RegistrySetBuilder builder) {
         builder.add(Registries.TRIM_MATERIAL, ModTrimMaterials::bootstrap);
         builder.add(Registries.BIOME, ModBiomes::bootstrap);
+        builder.add(Registries.CONFIGURED_FEATURE, SpringToLifeFeatures::bootstrap);
         builder.add(Registries.CONFIGURED_FEATURE, TheGardenAwakensFeatures::bootstrap);
+        builder.add(Registries.PLACED_FEATURE, SpringToLifePlacements::bootstrap);
         builder.add(Registries.PLACED_FEATURE, TheGardenAwakensPlacements::bootstrap);
     }
 }

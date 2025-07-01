@@ -1,0 +1,17 @@
+{
+  "replace": false,
+  "values": [
+    "#minecraft:is_beach",
+    "#minecraft:is_river",
+    "#minecraft:is_taiga",
+    "#minecraft:is_forest",
+    "#minecraft:is_ocean",
+    "#minecraft:is_savanna",
+    "#minecraft:is_hill",
+    "#minecraft:is_jungle",
+    "#minecraft:is_badlands",
+    "#minecraft:has_structure/village_plains",
+    "minecraft:mushroom_fields",
+    "minecraft:mangrove_swamp"
+  ]
+}

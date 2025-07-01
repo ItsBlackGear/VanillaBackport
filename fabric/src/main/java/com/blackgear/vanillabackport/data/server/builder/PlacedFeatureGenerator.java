@@ -1,5 +1,6 @@
 package com.blackgear.vanillabackport.data.server.builder;
 
+import com.blackgear.vanillabackport.common.worldgen.placements.SpringToLifePlacements;
 import com.blackgear.vanillabackport.common.worldgen.placements.TheGardenAwakensPlacements;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
@@ -17,6 +18,12 @@ public class PlacedFeatureGenerator extends FabricDynamicRegistryProvider {
 
     @Override
     protected void configure(HolderLookup.Provider provider, Entries entries) {
+        this.add(provider, entries, SpringToLifePlacements.PATCH_BUSH);
+
+        this.add(provider, entries, SpringToLifePlacements.PATCH_FIREFLY_BUSH_NEAR_WATER);
+        this.add(provider, entries, SpringToLifePlacements.PATCH_FIREFLY_BUSH_NEAR_WATER_SWAMP);
+        this.add(provider, entries, SpringToLifePlacements.PATCH_FIREFLY_BUSH_SWAMP);
+
         this.add(provider, entries, TheGardenAwakensPlacements.PALE_OAK_CHECKED);
         this.add(provider, entries, TheGardenAwakensPlacements.PALE_OAK_CREAKING_CHECKED);
 

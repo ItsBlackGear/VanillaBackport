@@ -1,9 +1,11 @@
 package com.blackgear.vanillabackport.common.level.blocks;
 
 import com.blackgear.vanillabackport.client.registries.ModParticles;
+import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
 import com.blackgear.vanillabackport.core.util.LevelUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -27,7 +29,7 @@ public class FireflyBushBlock extends BushBlock implements BonemealableBlock {
     @Override
     public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
         if (random.nextInt(FIREFLY_AMBIENT_SOUND_CHANCE_ONE_IN) == 0 && LevelUtils.isMoonVisible(level) && level.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, pos.getX(), pos.getZ()) <= pos.getY()) {
-            // TODO: add firefly sounds
+            level.playLocalSound(pos, ModSoundEvents.FIREFLY_BUSH_IDLE.get(), SoundSource.AMBIENT, 1.0F, 1.0F, false);
         }
 
         if (LevelUtils.isMoonVisible(level) || level.getMaxLocalRawBrightness(pos) <= FIREFLY_SPAWN_MAX_BRIGHTNESS_LEVEL) {

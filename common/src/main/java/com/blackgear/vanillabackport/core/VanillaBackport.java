@@ -12,7 +12,9 @@ import com.blackgear.vanillabackport.client.registries.ModSoundTypes;
 import com.blackgear.vanillabackport.common.CommonConfig;
 import com.blackgear.vanillabackport.common.CommonSetup;
 import com.blackgear.vanillabackport.common.registries.*;
+import com.blackgear.vanillabackport.common.worldgen.features.SpringToLifeFeatures;
 import com.blackgear.vanillabackport.common.worldgen.features.TheGardenAwakensFeatures;
+import com.blackgear.vanillabackport.common.worldgen.placements.SpringToLifePlacements;
 import com.blackgear.vanillabackport.common.worldgen.placements.TheGardenAwakensPlacements;
 import com.blackgear.vanillabackport.core.data.tags.ModBlockTags;
 import com.blackgear.vanillabackport.core.data.tags.ModEntityTypeTags;
@@ -52,7 +54,9 @@ public final class VanillaBackport {
 
         ModBiomes.BIOMES.register();
         ModTreeDecorators.DECORATORS.register();
+        SpringToLifeFeatures.FEATURES.register();
         TheGardenAwakensFeatures.FEATURES.register();
+        SpringToLifePlacements.FEATURES.register();
         TheGardenAwakensPlacements.FEATURES.register();
 
         ModBlockTags.TAGS.register();

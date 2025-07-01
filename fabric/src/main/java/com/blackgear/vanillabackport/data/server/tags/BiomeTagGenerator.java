@@ -19,6 +19,30 @@ public class BiomeTagGenerator extends FabricTagProvider<Biome> {
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
+        this.getOrCreateTagBuilder(ModBiomeTags.SPAWNS_BUSHES)
+            .forceAddTag(BiomeTags.IS_HILL)
+            .forceAddTag(BiomeTags.IS_RIVER)
+            .add(Biomes.FOREST)
+            .add(Biomes.BIRCH_FOREST)
+            .add(Biomes.OLD_GROWTH_BIRCH_FOREST)
+            .add(Biomes.PLAINS);
+        this.getOrCreateTagBuilder(ModBiomeTags.SPAWNS_FIREFLY_BUSHES)
+            .forceAddTag(BiomeTags.IS_BEACH)
+            .forceAddTag(BiomeTags.IS_RIVER)
+            .forceAddTag(BiomeTags.IS_TAIGA)
+            .forceAddTag(BiomeTags.IS_FOREST)
+            .forceAddTag(BiomeTags.IS_OCEAN)
+            .forceAddTag(BiomeTags.IS_SAVANNA)
+            .forceAddTag(BiomeTags.IS_HILL)
+            .forceAddTag(BiomeTags.IS_JUNGLE)
+            .forceAddTag(BiomeTags.IS_BADLANDS)
+            .forceAddTag(BiomeTags.HAS_VILLAGE_PLAINS)
+            .add(Biomes.MUSHROOM_FIELDS)
+            .add(Biomes.MANGROVE_SWAMP);
+        this.getOrCreateTagBuilder(ModBiomeTags.SPAWNS_FIREFLY_BUSHES_SWAMP)
+            .forceAddTag(BiomeTags.HAS_SWAMP_HUT)
+            .forceAddTag(BiomeTags.HAS_RUINED_PORTAL_SWAMP);
+
         this.getOrCreateTagBuilder(BiomeTags.IS_FOREST)
             .add(ModBiomes.PALE_GARDEN);
         this.getOrCreateTagBuilder(BiomeTags.HAS_WOODLAND_MANSION)

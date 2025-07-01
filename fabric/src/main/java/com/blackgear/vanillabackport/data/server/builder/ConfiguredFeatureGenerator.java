@@ -1,5 +1,6 @@
 package com.blackgear.vanillabackport.data.server.builder;
 
+import com.blackgear.vanillabackport.common.worldgen.features.SpringToLifeFeatures;
 import com.blackgear.vanillabackport.common.worldgen.features.TheGardenAwakensFeatures;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
@@ -17,6 +18,9 @@ public class ConfiguredFeatureGenerator extends FabricDynamicRegistryProvider {
 
     @Override
     protected void configure(HolderLookup.Provider provider, Entries entries) {
+        this.add(provider, entries, SpringToLifeFeatures.PATCH_BUSH);
+        this.add(provider, entries, SpringToLifeFeatures.PATCH_FIREFLY_BUSH);
+
         this.add(provider, entries, TheGardenAwakensFeatures.PALE_OAK);
         this.add(provider, entries, TheGardenAwakensFeatures.PALE_OAK_BONEMEAL);
         this.add(provider, entries, TheGardenAwakensFeatures.PALE_OAK_CREAKING);

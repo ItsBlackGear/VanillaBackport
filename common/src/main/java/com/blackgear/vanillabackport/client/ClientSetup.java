@@ -10,6 +10,7 @@ public class ClientSetup {
         GameRendering.registerParticleFactories(Rendering::particleFactories);
         GameRendering.registerModelLayers(Rendering::modelLayers);
         GameRendering.registerEntityRenderers(Rendering::entityRendering);
+        GameRendering.registerBlockColors(Rendering::blockColors);
     }
 
     public static void asyncSetup(ParallelDispatch dispatch) {

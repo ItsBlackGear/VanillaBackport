@@ -80,11 +80,12 @@ public class BlockLootGenerator extends FabricBlockLootTableProvider {
             )
         );
 
-        // Summer Drop
+        // Chase the Skies
         this.dropSelf(ModBlocks.DRIED_GHAST.get());
 
         // Spring to Life
         this.dropSelf(ModBlocks.FIREFLY_BUSH.get());
+        this.add(ModBlocks.BUSH.get(), this::createShearsOrSilkTouchOnlyDrop);
     }
 
     protected LootTable.Builder createMultifaceBlockDrops(Block block) {

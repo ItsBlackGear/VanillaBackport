@@ -332,6 +332,19 @@ public class ModBlocks {
             .randomTicks()
     );
 
+    public static final Supplier<Block> BUSH = BLOCKS.register(
+        "bush",
+        BushBlock::new,
+        BlockBehaviour.Properties.of()
+            .mapColor(MapColor.PLANT)
+            .replaceable()
+            .noCollission()
+            .instabreak()
+            .sound(SoundType.GRASS)
+            .ignitedByLava()
+            .pushReaction(PushReaction.DESTROY)
+    );
+
     public static final Supplier<Block> FIREFLY_BUSH = BLOCKS.register(
         "firefly_bush",
         FireflyBushBlock::new,

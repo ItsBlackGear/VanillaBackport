@@ -4,6 +4,7 @@ import com.blackgear.platform.common.data.LootModifier;
 import com.blackgear.platform.common.integration.BlockIntegration;
 import com.blackgear.platform.common.integration.MobIntegration;
 import com.blackgear.platform.common.integration.TradeIntegration;
+import com.blackgear.platform.common.worldgen.modifier.BiomeManager;
 import com.blackgear.platform.common.worldgen.placement.BiomePlacement;
 import com.blackgear.platform.core.ParallelDispatch;
 import com.blackgear.vanillabackport.common.api.leash.LeashIntegration;
@@ -14,6 +15,7 @@ import com.blackgear.vanillabackport.common.registries.ModBlocks;
 import com.blackgear.vanillabackport.common.registries.ModEntities;
 import com.blackgear.vanillabackport.common.registries.ModItems;
 import com.blackgear.vanillabackport.common.worldgen.BiomeGeneration;
+import com.blackgear.vanillabackport.common.worldgen.WorldGeneration;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.advancements.critereon.DamageSourcePredicate;
 import net.minecraft.advancements.critereon.EntityFlagsPredicate;
@@ -33,6 +35,7 @@ import net.minecraft.world.level.storage.loot.predicates.DamageSourceCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemKilledByPlayerCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
+import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
 public class CommonSetup {
     public static void setup() {
@@ -41,6 +44,7 @@ public class CommonSetup {
 
     public static void asyncSetup(ParallelDispatch dispatch) {
         dispatch.enqueueWork(() -> {
+            BiomeManager.add(WorldGeneration::bootstrap);
             BiomePlacement.registerBiomePlacements(BiomeGeneration::bootstrap);
             BlockIntegration.registerIntegrations(CommonSetup::blockIntegrations);
             TradeIntegration.registerVillagerTrades(CommonSetup::tradeIntegrations);
@@ -65,6 +69,7 @@ public class CommonSetup {
         event.registerFlammableBlock(ModBlocks.PALE_HANGING_MOSS.get(), 5, 100);
         event.registerFlammableBlock(ModBlocks.OPEN_EYEBLOSSOM.get(), 60, 100);
         event.registerFlammableBlock(ModBlocks.CLOSED_EYEBLOSSOM.get(), 60, 100);
+        event.registerFlammableBlock(ModBlocks.BUSH.get(), 60, 100);
         event.registerFlammableBlock(ModBlocks.FIREFLY_BUSH.get(), 60, 100);
 
         event.registerCompostableItem(ModBlocks.PALE_OAK_LEAVES.get(), 0.3F);
@@ -72,6 +77,7 @@ public class CommonSetup {
         event.registerCompostableItem(ModBlocks.PALE_MOSS_CARPET.get(), 0.3F);
         event.registerCompostableItem(ModBlocks.PALE_HANGING_MOSS.get(), 0.3F);
         event.registerCompostableItem(ModBlocks.PALE_MOSS_BLOCK.get(), 0.3F);
+        event.registerCompostableItem(ModBlocks.BUSH.get(), 0.3F);
         event.registerCompostableItem(ModBlocks.FIREFLY_BUSH.get(), 0.3F);
         event.registerCompostableItem(ModBlocks.OPEN_EYEBLOSSOM.get(), 0.65F);
         event.registerCompostableItem(ModBlocks.CLOSED_EYEBLOSSOM.get(), 0.65F);
@@ -147,6 +153,16 @@ public class CommonSetup {
                                 .vehicle(EntityPredicate.Builder.entity().of(EntityType.CHICKEN).build())
                         )
                     )
+            );
+        }
+
+        if (path.equals(BuiltInLootTables.WOODLAND_MANSION)) {
+            context.addToPool(
+                1,
+                LootItem.lootTableItem(ModBlocks.RESIN_CLUMP.get())
+                    .setWeight(50)
+                    .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 4.0F)))
+                    .build()
             );
         }
     }

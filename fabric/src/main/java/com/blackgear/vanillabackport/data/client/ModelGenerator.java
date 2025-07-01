@@ -2,29 +2,24 @@ package com.blackgear.vanillabackport.data.client;
 
 import com.blackgear.vanillabackport.common.registries.ModBlocks;
 import com.blackgear.vanillabackport.common.registries.ModItems;
+import com.blackgear.vanillabackport.data.client.model.provider.VanillaBlockModels;
+import com.blackgear.vanillabackport.data.client.model.provider.VanillaItemModels;
+import com.blackgear.vanillabackport.data.client.model.provider.VanillaModelGenerator;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.minecraft.data.BlockFamily;
 import net.minecraft.data.models.BlockModelGenerators;
-import net.minecraft.data.models.ItemModelGenerators;
-import net.minecraft.data.models.model.ModelLocationUtils;
-import net.minecraft.data.models.model.ModelTemplates;
 import net.minecraft.data.models.model.TexturedModel;
-import net.minecraft.resources.ResourceLocation;
 
-public class ModelGenerator extends FabricModelProvider {
-    private static final ResourceLocation TEMPLATE_SPAWN_EGG = ModelLocationUtils.decorateItemModelLocation("template_spawn_egg");
-
+public class ModelGenerator extends VanillaModelGenerator {
     public ModelGenerator(FabricDataOutput output) {
         super(output);
     }
 
     @Override
-    public void generateBlockStateModels(BlockModelGenerators gen) {
+    public void generateBlockStateModels(VanillaBlockModels gen) {
         BlockFamilies.getAllFamilies()
             .filter(BlockFamily::shouldGenerateModel)
             .forEach(family -> gen.family(family.getBaseBlock()).generateFor(family));
-        BlockModels models = new BlockModels(gen);
 
         // The Garden Awakens
         gen.createHangingSign(ModBlocks.STRIPPED_PALE_OAK_LOG.get(), ModBlocks.PALE_OAK_HANGING_SIGN.getFirst().get(), ModBlocks.PALE_OAK_HANGING_SIGN.getSecond().get());
@@ -39,47 +34,48 @@ public class ModelGenerator extends FabricModelProvider {
         gen.createPlant(ModBlocks.PALE_OAK_SAPLING.get(), ModBlocks.POTTED_PALE_OAK_SAPLING.get(), BlockModelGenerators.TintState.NOT_TINTED);
         gen.createPlant(ModBlocks.OPEN_EYEBLOSSOM.get(), ModBlocks.POTTED_OPEN_EYEBLOSSOM.get(), BlockModelGenerators.TintState.NOT_TINTED);
         gen.createPlant(ModBlocks.CLOSED_EYEBLOSSOM.get(), ModBlocks.POTTED_CLOSED_EYEBLOSSOM.get(), BlockModelGenerators.TintState.NOT_TINTED);
-        models.createMossyCarpet(ModBlocks.PALE_MOSS_CARPET.get());
-        models.createHangingMoss(ModBlocks.PALE_HANGING_MOSS.get());
-        models.createCreakingHeart(ModBlocks.CREAKING_HEART.get());
-        models.createMultiface(ModBlocks.RESIN_CLUMP.get(), ModBlocks.RESIN_CLUMP.get().asItem());
+        gen.createMossyCarpet(ModBlocks.PALE_MOSS_CARPET.get());
+        gen.createHangingMoss(ModBlocks.PALE_HANGING_MOSS.get());
+        gen.createCreakingHeart(ModBlocks.CREAKING_HEART.get());
+        gen.createMultiface(ModBlocks.RESIN_CLUMP.get(), ModBlocks.RESIN_CLUMP.get().asItem());
         gen.createTrivialCube(ModBlocks.RESIN_BLOCK.get());
-        gen.delegateItemModel(ModItems.CREAKING_SPAWN_EGG.get(), TEMPLATE_SPAWN_EGG);
+        gen.createSpawnEgg(ModItems.CREAKING_SPAWN_EGG.get());
 
-        // Summer Drop
-        models.createDriedGhastBlock();
-        gen.delegateItemModel(ModItems.HAPPY_GHAST_SPAWN_EGG.get(), TEMPLATE_SPAWN_EGG);
+        // Chase the Skies
+        gen.createDriedGhastBlock();
+        gen.createSpawnEgg(ModItems.HAPPY_GHAST_SPAWN_EGG.get());
 
         // Spring to Life
+        gen.createCrossBlockWithDefaultItem(ModBlocks.BUSH.get(), BlockModelGenerators.TintState.TINTED);
         gen.createCrossBlock(ModBlocks.FIREFLY_BUSH.get(), BlockModelGenerators.TintState.NOT_TINTED);
         gen.createSimpleFlatItemModel(ModBlocks.FIREFLY_BUSH.get().asItem());
     }
 
     @Override
-    public void generateItemModels(ItemModelGenerators gen) {
+    public void generateItemModels(VanillaItemModels gen) {
         // The Garden Awakens
-        gen.generateFlatItem(ModItems.RESIN_BRICK.get(), ModelTemplates.FLAT_ITEM);
-        gen.generateFlatItem(ModItems.PALE_OAK_BOAT.get(), ModelTemplates.FLAT_ITEM);
-        gen.generateFlatItem(ModItems.PALE_OAK_CHEST_BOAT.get(), ModelTemplates.FLAT_ITEM);
+        gen.createFlatItem(ModItems.RESIN_BRICK.get());
+        gen.createFlatItem(ModItems.PALE_OAK_BOAT.get());
+        gen.createFlatItem(ModItems.PALE_OAK_CHEST_BOAT.get());
 
-        // Summer Drop
-        gen.generateFlatItem(ModItems.WHITE_HARNESS.get(), ModelTemplates.FLAT_ITEM);
-        gen.generateFlatItem(ModItems.ORANGE_HARNESS.get(), ModelTemplates.FLAT_ITEM);
-        gen.generateFlatItem(ModItems.MAGENTA_HARNESS.get(), ModelTemplates.FLAT_ITEM);
-        gen.generateFlatItem(ModItems.LIGHT_BLUE_HARNESS.get(), ModelTemplates.FLAT_ITEM);
-        gen.generateFlatItem(ModItems.YELLOW_HARNESS.get(), ModelTemplates.FLAT_ITEM);
-        gen.generateFlatItem(ModItems.LIME_HARNESS.get(), ModelTemplates.FLAT_ITEM);
-        gen.generateFlatItem(ModItems.PINK_HARNESS.get(), ModelTemplates.FLAT_ITEM);
-        gen.generateFlatItem(ModItems.GRAY_HARNESS.get(), ModelTemplates.FLAT_ITEM);
-        gen.generateFlatItem(ModItems.LIGHT_GRAY_HARNESS.get(), ModelTemplates.FLAT_ITEM);
-        gen.generateFlatItem(ModItems.CYAN_HARNESS.get(), ModelTemplates.FLAT_ITEM);
-        gen.generateFlatItem(ModItems.PURPLE_HARNESS.get(), ModelTemplates.FLAT_ITEM);
-        gen.generateFlatItem(ModItems.BLUE_HARNESS.get(), ModelTemplates.FLAT_ITEM);
-        gen.generateFlatItem(ModItems.BROWN_HARNESS.get(), ModelTemplates.FLAT_ITEM);
-        gen.generateFlatItem(ModItems.GREEN_HARNESS.get(), ModelTemplates.FLAT_ITEM);
-        gen.generateFlatItem(ModItems.RED_HARNESS.get(), ModelTemplates.FLAT_ITEM);
-        gen.generateFlatItem(ModItems.BLACK_HARNESS.get(), ModelTemplates.FLAT_ITEM);
-        gen.generateFlatItem(ModItems.MUSIC_DISC_TEARS.get(), ModelTemplates.MUSIC_DISC);
-        gen.generateFlatItem(ModItems.MUSIC_DISC_LAVA_CHICKEN.get(), ModelTemplates.MUSIC_DISC);
+        // Chase the Skies
+        gen.createFlatItem(ModItems.WHITE_HARNESS.get());
+        gen.createFlatItem(ModItems.ORANGE_HARNESS.get());
+        gen.createFlatItem(ModItems.MAGENTA_HARNESS.get());
+        gen.createFlatItem(ModItems.LIGHT_BLUE_HARNESS.get());
+        gen.createFlatItem(ModItems.YELLOW_HARNESS.get());
+        gen.createFlatItem(ModItems.LIME_HARNESS.get());
+        gen.createFlatItem(ModItems.PINK_HARNESS.get());
+        gen.createFlatItem(ModItems.GRAY_HARNESS.get());
+        gen.createFlatItem(ModItems.LIGHT_GRAY_HARNESS.get());
+        gen.createFlatItem(ModItems.CYAN_HARNESS.get());
+        gen.createFlatItem(ModItems.PURPLE_HARNESS.get());
+        gen.createFlatItem(ModItems.BLUE_HARNESS.get());
+        gen.createFlatItem(ModItems.BROWN_HARNESS.get());
+        gen.createFlatItem(ModItems.GREEN_HARNESS.get());
+        gen.createFlatItem(ModItems.RED_HARNESS.get());
+        gen.createFlatItem(ModItems.BLACK_HARNESS.get());
+        gen.createMusicDisc(ModItems.MUSIC_DISC_TEARS.get());
+        gen.createMusicDisc(ModItems.MUSIC_DISC_LAVA_CHICKEN.get());
     }
 }

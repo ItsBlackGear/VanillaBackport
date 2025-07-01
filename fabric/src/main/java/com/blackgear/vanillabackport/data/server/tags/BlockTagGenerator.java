@@ -130,7 +130,10 @@ public class BlockTagGenerator extends FabricTagProvider.BlockTagProvider {
             .add(ModBlocks.POTTED_PALE_OAK_SAPLING.get());
 
         this.getOrCreateTagBuilder(BlockTags.REPLACEABLE_BY_TREES)
-            .add(ModBlocks.FIREFLY_BUSH.get());
+            .add(
+                ModBlocks.BUSH.get(),
+                ModBlocks.FIREFLY_BUSH.get()
+            );
     }
 
     private void addToolTags() {
