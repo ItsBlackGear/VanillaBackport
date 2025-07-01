@@ -28,6 +28,7 @@ public class BlockLootGenerator extends FabricBlockLootTableProvider {
 
     @Override
     public void generate() {
+        // The Garden Awakens
         this.dropSelf(ModBlocks.PALE_OAK_PLANKS.get());
         this.dropSelf(ModBlocks.PALE_OAK_SAPLING.get());
         this.dropSelf(ModBlocks.PALE_OAK_LOG.get());
@@ -79,8 +80,13 @@ public class BlockLootGenerator extends FabricBlockLootTableProvider {
             )
         );
 
+        // Summer Drop
         this.dropSelf(ModBlocks.DRIED_GHAST.get());
+
+        // Spring to Life
+        this.dropSelf(ModBlocks.FIREFLY_BUSH.get());
     }
+
     protected LootTable.Builder createMultifaceBlockDrops(Block block) {
         return LootTable.lootTable()
             .withPool(

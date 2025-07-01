@@ -65,12 +65,14 @@ public class CommonSetup {
         event.registerFlammableBlock(ModBlocks.PALE_HANGING_MOSS.get(), 5, 100);
         event.registerFlammableBlock(ModBlocks.OPEN_EYEBLOSSOM.get(), 60, 100);
         event.registerFlammableBlock(ModBlocks.CLOSED_EYEBLOSSOM.get(), 60, 100);
+        event.registerFlammableBlock(ModBlocks.FIREFLY_BUSH.get(), 60, 100);
 
         event.registerCompostableItem(ModBlocks.PALE_OAK_LEAVES.get(), 0.3F);
         event.registerCompostableItem(ModBlocks.PALE_OAK_SAPLING.get(), 0.3F);
         event.registerCompostableItem(ModBlocks.PALE_MOSS_CARPET.get(), 0.3F);
         event.registerCompostableItem(ModBlocks.PALE_HANGING_MOSS.get(), 0.3F);
         event.registerCompostableItem(ModBlocks.PALE_MOSS_BLOCK.get(), 0.3F);
+        event.registerCompostableItem(ModBlocks.FIREFLY_BUSH.get(), 0.3F);
         event.registerCompostableItem(ModBlocks.OPEN_EYEBLOSSOM.get(), 0.65F);
         event.registerCompostableItem(ModBlocks.CLOSED_EYEBLOSSOM.get(), 0.65F);
 
@@ -89,7 +91,8 @@ public class CommonSetup {
                 new VillagerTrades.ItemsForEmeralds(ModBlocks.PALE_OAK_SAPLING.get(), 5, 1, 8, 1),
                 new VillagerTrades.ItemsForEmeralds(ModBlocks.PALE_HANGING_MOSS.get(), 1, 3, 4, 1),
                 new VillagerTrades.ItemsForEmeralds(ModBlocks.PALE_MOSS_BLOCK.get(), 1, 2, 5, 1),
-                new VillagerTrades.ItemsForEmeralds(ModBlocks.OPEN_EYEBLOSSOM.get(), 1, 1, 7, 1)
+                new VillagerTrades.ItemsForEmeralds(ModBlocks.OPEN_EYEBLOSSOM.get(), 1, 1, 7, 1),
+                new VillagerTrades.ItemsForEmeralds(ModBlocks.FIREFLY_BUSH.get(), 3, 1, 12, 1)
             );
         }
     }

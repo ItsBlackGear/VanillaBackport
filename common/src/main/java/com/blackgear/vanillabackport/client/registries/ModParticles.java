@@ -26,6 +26,8 @@ public class ModParticles {
         particle -> TrailParticleOption.CODEC
     );
 
+    public static final Supplier<SimpleParticleType> FIREFLY = PARTICLES.register("firefly", false);
+
     public static <T extends ParticleOptions> int sendParticles(ServerLevel level, T particle, double x, double y, double z, int particleCount, double xOffset, double yOffset, double zOffset, double speed) {
         return sendParticles(level, particle, false, false, x, y, z, particleCount, xOffset, yOffset, zOffset, speed);
     }

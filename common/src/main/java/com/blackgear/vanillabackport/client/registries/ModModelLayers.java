@@ -14,6 +14,11 @@ public class ModModelLayers {
     public static final ModelLayerLocation PALE_OAK_CHEST_BOAT = register("pale_oak_chest_boat");
     public static final ModelLayerLocation BAT = register("bat");
 
+    public static final ModelLayerLocation COLD_PIG = register("cold_pig");
+    public static final ModelLayerLocation COLD_CHICKEN = register("cold_chicken");
+    public static final ModelLayerLocation COLD_COW = register("cold_cow");
+    public static final ModelLayerLocation WARM_COW = register("warm_cow");
+
     private static ModelLayerLocation register(String name) {
         return register(name, "main");
     }

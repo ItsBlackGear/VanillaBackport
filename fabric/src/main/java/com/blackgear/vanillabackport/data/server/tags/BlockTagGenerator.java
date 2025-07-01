@@ -128,6 +128,9 @@ public class BlockTagGenerator extends FabricTagProvider.BlockTagProvider {
             .add(ModBlocks.POTTED_OPEN_EYEBLOSSOM.get())
             .add(ModBlocks.POTTED_CLOSED_EYEBLOSSOM.get())
             .add(ModBlocks.POTTED_PALE_OAK_SAPLING.get());
+
+        this.getOrCreateTagBuilder(BlockTags.REPLACEABLE_BY_TREES)
+            .add(ModBlocks.FIREFLY_BUSH.get());
     }
 
     private void addToolTags() {

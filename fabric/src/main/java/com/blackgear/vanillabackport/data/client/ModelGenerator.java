@@ -25,6 +25,8 @@ public class ModelGenerator extends FabricModelProvider {
             .filter(BlockFamily::shouldGenerateModel)
             .forEach(family -> gen.family(family.getBaseBlock()).generateFor(family));
         BlockModels models = new BlockModels(gen);
+
+        // The Garden Awakens
         gen.createHangingSign(ModBlocks.STRIPPED_PALE_OAK_LOG.get(), ModBlocks.PALE_OAK_HANGING_SIGN.getFirst().get(), ModBlocks.PALE_OAK_HANGING_SIGN.getSecond().get());
         gen.createTrivialCube(ModBlocks.PALE_MOSS_BLOCK.get());
         gen.createTrivialBlock(ModBlocks.PALE_OAK_LEAVES.get(), TexturedModel.LEAVES);
@@ -44,16 +46,23 @@ public class ModelGenerator extends FabricModelProvider {
         gen.createTrivialCube(ModBlocks.RESIN_BLOCK.get());
         gen.delegateItemModel(ModItems.CREAKING_SPAWN_EGG.get(), TEMPLATE_SPAWN_EGG);
 
+        // Summer Drop
         models.createDriedGhastBlock();
         gen.delegateItemModel(ModItems.HAPPY_GHAST_SPAWN_EGG.get(), TEMPLATE_SPAWN_EGG);
+
+        // Spring to Life
+        gen.createCrossBlock(ModBlocks.FIREFLY_BUSH.get(), BlockModelGenerators.TintState.NOT_TINTED);
+        gen.createSimpleFlatItemModel(ModBlocks.FIREFLY_BUSH.get().asItem());
     }
 
     @Override
     public void generateItemModels(ItemModelGenerators gen) {
+        // The Garden Awakens
         gen.generateFlatItem(ModItems.RESIN_BRICK.get(), ModelTemplates.FLAT_ITEM);
         gen.generateFlatItem(ModItems.PALE_OAK_BOAT.get(), ModelTemplates.FLAT_ITEM);
         gen.generateFlatItem(ModItems.PALE_OAK_CHEST_BOAT.get(), ModelTemplates.FLAT_ITEM);
 
+        // Summer Drop
         gen.generateFlatItem(ModItems.WHITE_HARNESS.get(), ModelTemplates.FLAT_ITEM);
         gen.generateFlatItem(ModItems.ORANGE_HARNESS.get(), ModelTemplates.FLAT_ITEM);
         gen.generateFlatItem(ModItems.MAGENTA_HARNESS.get(), ModelTemplates.FLAT_ITEM);

@@ -6,6 +6,7 @@ import com.blackgear.vanillabackport.common.level.blocks.blockstates.CreakingHea
 import com.blackgear.vanillabackport.common.registries.ModBlockEntities;
 import com.blackgear.vanillabackport.common.registries.ModBlockStateProperties;
 import com.blackgear.vanillabackport.core.data.tags.ModBlockTags;
+import com.blackgear.vanillabackport.core.util.LevelUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -59,12 +60,7 @@ public class CreakingHeartBlock extends BaseEntityBlock {
     }
 
     public static boolean isNaturalNight(Level level) {
-        if (!level.dimensionType().natural()) {
-            return false;
-        } else {
-            int ticks = (int) (level.getDayTime() % 24000L);
-            return ticks >= 12600 && ticks <= 23400;
-        }
+        return LevelUtils.isMoonVisible(level);
     }
 
     @Override

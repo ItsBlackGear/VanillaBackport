@@ -86,4 +86,15 @@ public interface ModCreativeTabs {
             })
             .build()
     );
+
+    Supplier<CreativeModeTab> SPRING_TO_LIFE = TABS.register(
+        "spring_to_life",
+        () -> CreativeModeTab.builder(CreativeModeTab.Row.TOP, 2)
+            .title(Component.literal("Spring to Life"))
+            .icon(() -> new ItemStack(ModBlocks.FIREFLY_BUSH.get()))
+            .displayItems((parameters, output) -> {
+                output.accept(ModBlocks.FIREFLY_BUSH.get());
+            })
+            .build()
+    );
 }
