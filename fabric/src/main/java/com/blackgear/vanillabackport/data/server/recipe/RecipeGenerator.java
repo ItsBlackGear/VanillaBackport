@@ -33,7 +33,7 @@ public class RecipeGenerator extends FabricRecipeProvider {
         woodFromLogs(exporter, ModBlocks.PALE_OAK_WOOD.get(), ModBlocks.PALE_OAK_LOG.get());
         woodFromLogs(exporter, ModBlocks.STRIPPED_PALE_OAK_WOOD.get(), ModBlocks.STRIPPED_PALE_OAK_LOG.get());
         woodenBoat(exporter, ModItems.PALE_OAK_BOAT.get(), ModBlocks.PALE_OAK_PLANKS.get());
-        chestBoat(exporter, ModItems.PALE_OAK_CHEST_BOAT.get(), ModBlocks.PALE_OAK_PLANKS.get());
+        chestBoat(exporter, ModItems.PALE_OAK_CHEST_BOAT.get(), ModItems.PALE_OAK_BOAT.get());
         hangingSign(exporter, ModBlocks.PALE_OAK_HANGING_SIGN.getFirst().get(), ModBlocks.STRIPPED_PALE_OAK_LOG.get());
         carpet(exporter, ModBlocks.PALE_MOSS_CARPET.get(), ModBlocks.PALE_MOSS_BLOCK.get());
 
@@ -76,16 +76,35 @@ public class RecipeGenerator extends FabricRecipeProvider {
         this.harness(exporter, ModItems.GREEN_HARNESS.get(), Blocks.GREEN_WOOL);
         this.harness(exporter, ModItems.RED_HARNESS.get(), Blocks.RED_WOOL);
         this.harness(exporter, ModItems.BLACK_HARNESS.get(), Blocks.BLACK_WOOL);
+
+        shaped(RecipeCategory.COMBAT, Items.SADDLE)
+            .define('X', Items.LEATHER)
+            .define('#', Items.IRON_INGOT)
+            .pattern(" X ")
+            .pattern("X#X")
+            .unlockedBy("has_leather", has(Items.LEATHER))
+            .save(exporter);
+        shaped(RecipeCategory.TOOLS, Items.LEAD, 2)
+            .define('~', Items.STRING)
+            .pattern("~~ ")
+            .pattern("~~ ")
+            .pattern("  ~")
+            .unlockedBy("has_string", has(Items.STRING))
+            .save(exporter);
     }
 
     public static ShapedRecipeBuilder shaped(RecipeCategory category, ItemLike entry) {
         return ShapedRecipeBuilder.shaped(category, entry);
     }
 
+    public static ShapedRecipeBuilder shaped(RecipeCategory category, ItemLike entry, int amount) {
+        return ShapedRecipeBuilder.shaped(category, entry, amount);
+    }
+
     private void dryGhast(Consumer<FinishedRecipe> exporter, ItemLike ghast) {
         ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ghast)
             .define('#', Items.GHAST_TEAR)
-            .define('X', Items.BONE_BLOCK)
+            .define('X', Items.SOUL_SAND)
             .pattern("###")
             .pattern("#X#")
             .pattern("###")

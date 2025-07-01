@@ -18,7 +18,9 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.BoatModel;
 import net.minecraft.client.model.ChestBoatModel;
+import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.world.entity.EntityType;
 
 @Environment(EnvType.CLIENT)
 public class Rendering {
@@ -34,13 +36,17 @@ public class Rendering {
         event.register(ModEntities.HAPPY_GHAST.get(), HappyGhastRenderer::new);
         event.register(ModEntities.PALE_OAK_BOAT.get(), context -> new PaleOakBoatRenderer(context, false));
         event.register(ModEntities.PALE_OAK_CHEST_BOAT.get(), context -> new PaleOakBoatRenderer(context, true));
+
+        event.register(EntityType.BAT, BatRenderer::new);
     }
 
     public static void modelLayers(GameRendering.ModelLayerEvent event) {
         event.register(ModModelLayers.CREAKING, CreakingModel::createBodyLayer);
-        event.register(ModModelLayers.HAPPY_GHAST, () -> HappyGhastModel.createBodyLayer(false));
-        event.register(ModModelLayers.HAPPY_GHAST_BABY, () -> HappyGhastModel.createBodyLayer(true));
+        event.register(ModModelLayers.HAPPY_GHAST, () -> HappyGhastModel.createBodyLayer(false, CubeDeformation.NONE));
+        event.register(ModModelLayers.HAPPY_GHAST_BABY, () -> HappyGhastModel.createBodyLayer(true, CubeDeformation.NONE));
         event.register(ModModelLayers.HAPPY_GHAST_HARNESS, HappyGhastHarnessModel::createHarnessLayer);
+        event.register(ModModelLayers.HAPPY_GHAST_ROPES, () -> HappyGhastModel.createBodyLayer(false, new CubeDeformation(0.2F)));
+        event.register(ModModelLayers.HAPPY_GHAST_BABY_ROPES, () -> HappyGhastModel.createBodyLayer(true, new CubeDeformation(0.2F)));
         event.register(ModModelLayers.PALE_OAK_BOAT, BoatModel::createBodyModel);
         event.register(ModModelLayers.PALE_OAK_CHEST_BOAT, ChestBoatModel::createBodyModel);
 
@@ -48,6 +54,7 @@ public class Rendering {
         event.register(ModModelLayers.COLD_CHICKEN, ColdChickenModel::createBodyLayer);
         event.register(ModModelLayers.COLD_COW, ColdCowModel::createBodyLayer);
         event.register(ModModelLayers.WARM_COW, WarmCowModel::createBodyLayer);
+        event.register(ModModelLayers.BAT, BatModel::createBodyLayer);
     }
 
     public static void blockRendering(GameRendering.BlockRendererEvent event) {

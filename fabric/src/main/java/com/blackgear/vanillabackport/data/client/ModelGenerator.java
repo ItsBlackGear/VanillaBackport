@@ -79,5 +79,7 @@ public class ModelGenerator extends FabricModelProvider {
         gen.generateFlatItem(ModItems.GREEN_HARNESS.get(), ModelTemplates.FLAT_ITEM);
         gen.generateFlatItem(ModItems.RED_HARNESS.get(), ModelTemplates.FLAT_ITEM);
         gen.generateFlatItem(ModItems.BLACK_HARNESS.get(), ModelTemplates.FLAT_ITEM);
+        gen.generateFlatItem(ModItems.MUSIC_DISC_TEARS.get(), ModelTemplates.MUSIC_DISC);
+        gen.generateFlatItem(ModItems.MUSIC_DISC_LAVA_CHICKEN.get(), ModelTemplates.MUSIC_DISC);
     }
 }

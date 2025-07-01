@@ -6,16 +6,10 @@ import com.blackgear.vanillabackport.common.worldgen.features.TheGardenAwakensFe
 import com.blackgear.vanillabackport.common.worldgen.placements.TheGardenAwakensPlacements;
 import com.blackgear.vanillabackport.data.client.LangGenerator;
 import com.blackgear.vanillabackport.data.client.ModelGenerator;
-import com.blackgear.vanillabackport.data.server.builder.BiomeGenerator;
-import com.blackgear.vanillabackport.data.server.builder.ConfiguredFeatureGenerator;
-import com.blackgear.vanillabackport.data.server.builder.PlacedFeatureGenerator;
-import com.blackgear.vanillabackport.data.server.builder.TrimMaterialGenerator;
+import com.blackgear.vanillabackport.data.server.builder.*;
 import com.blackgear.vanillabackport.data.server.loot.BlockLootGenerator;
 import com.blackgear.vanillabackport.data.server.recipe.RecipeGenerator;
-import com.blackgear.vanillabackport.data.server.tags.BiomeTagGenerator;
-import com.blackgear.vanillabackport.data.server.tags.BlockTagGenerator;
-import com.blackgear.vanillabackport.data.server.tags.EntityTypeTagGenerator;
-import com.blackgear.vanillabackport.data.server.tags.ItemTagGenerator;
+import com.blackgear.vanillabackport.data.server.tags.*;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator;
 import net.minecraft.core.RegistrySetBuilder;
@@ -39,6 +33,7 @@ public class DataGenerator implements DataGeneratorEntrypoint {
         pack.addProvider(BlockTagGenerator::new);
         pack.addProvider(ItemTagGenerator::new);
         pack.addProvider(EntityTypeTagGenerator::new);
+        pack.addProvider(PaintingVariantTagGenerator::new);
 
         pack.addProvider(TrimMaterialGenerator::new);
         pack.addProvider(BiomeGenerator::new);

@@ -33,7 +33,7 @@ public class ModSoundTypes {
         ModSoundEvents.DRIED_GHAST_BREAK,
         ModSoundEvents.DRIED_GHAST_STEP,
         () -> SoundEvents.EMPTY,
-        ModSoundEvents.DRIED_GHAST_HIT,
+        () -> SoundEvents.EMPTY,
         ModSoundEvents.DRIED_GHAST_FALL
     );
 }

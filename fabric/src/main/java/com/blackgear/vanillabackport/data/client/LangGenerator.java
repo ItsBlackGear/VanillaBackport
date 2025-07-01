@@ -71,7 +71,7 @@ public class LangGenerator extends FabricLanguageProvider {
         builder.add(ModEntities.PALE_OAK_CHEST_BOAT.get(), "Pale Oak Boat with Chest");
 
         // Trims
-        builder.add("trim_material.vanillabackport.resin", "Resin");
+        builder.add("trim_material.vanillabackport.resin", "Resin Material");
 
         // Block Subtitles
         builder.add("subtitles.block.creaking_heart.hurt", "Creaking Heart grumbles");
@@ -87,8 +87,9 @@ public class LangGenerator extends FabricLanguageProvider {
         // Entity Subtitles
         builder.add("subtitles.entity.creaking.activate", "Creaking watches");
         builder.add("subtitles.entity.creaking.ambient", "Creaking creaks");
-        builder.add("subtitles.entity.creaking.deactivate", "Creaking attacks");
-        builder.add("subtitles.entity.creaking.death", "Creaking calms");
+        builder.add("subtitles.entity.creaking.deactivate", "Creaking calms");
+        builder.add("subtitles.entity.creaking.attack", "Creaking attacks");
+        builder.add("subtitles.entity.creaking.death", "Creaking crumbles");
         builder.add("subtitles.entity.creaking.freeze", "Creaking stop");
         builder.add("subtitles.entity.creaking.spawn", "Creaking manifests");
         builder.add("subtitles.entity.creaking.sway", "Creaking is hit");
@@ -119,6 +120,19 @@ public class LangGenerator extends FabricLanguageProvider {
         builder.add(ModItems.RED_HARNESS.get(), "Red Harness");
         builder.add(ModItems.BLACK_HARNESS.get(), "Black Harness");
 
+        builder.add("item.vanillabackport.music_disc_tears", "Music Disc");
+        builder.add("item.vanillabackport.music_disc_tears.desc", "Amos Roddy - Tears");
+
+        builder.add("jukebox_song.vanillabackport.tears", "Amos Roddy - Tears");
+
+        builder.add("item.vanillabackport.music_disc_lava_chicken", "Music Disc");
+        builder.add("item.vanillabackport.music_disc_lava_chicken.desc", "Hyper Potions - Lava Chicken");
+
+        builder.add("jukebox_song.vanillabackport.lava_chicken", "Hyper Potions - Lava Chicken");
+
+        builder.add("painting.vanillabackport.dennis.author", "Sarah Boeving");
+        builder.add("painting.vanillabackport.dennis.desc", "Dennis");
+
         builder.add(ModEntities.HAPPY_GHAST.get(), "Happy Ghast");
 
         builder.add("subtitles.block.dried_ghast.ambient", "Dried Ghast wheezes");
@@ -137,5 +151,6 @@ public class LangGenerator extends FabricLanguageProvider {
         builder.add("subtitles.entity.happy_ghast.harness_goggles_down", "Happy Ghast is ready");
         builder.add("subtitles.entity.happy_ghast.harness_goggles_up", "Happy Ghast stops");
         builder.add("subtitles.entity.happy_ghast.unequip", "Harness unequips");
+        builder.add("subtitles.entity.happy_ghast.equip", "Harness equips");
     }
 }

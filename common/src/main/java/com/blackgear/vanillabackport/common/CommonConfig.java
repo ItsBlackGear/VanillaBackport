@@ -10,9 +10,9 @@ public class CommonConfig {
     public final ConfigBuilder.ConfigValue<Boolean> generatePaleGarden;
     public final ConfigBuilder.ConfigValue<Boolean> paleTradesFromWanderer;
 
-    // Summer Drop
+    // Chase the Skies
     public final ConfigBuilder.ConfigValue<Boolean> generateDriedGhasts;
-    public final ConfigBuilder.ConfigValue<Double> happyGhastSpeedModifier;
+    public final ConfigBuilder.ConfigValue<Boolean> dropLeashConnectionsOnFireworkBoost;
 
     public CommonConfig(ConfigBuilder builder) {
         builder.push("The Garden Awakens");
@@ -23,9 +23,9 @@ public class CommonConfig {
         this.paleTradesFromWanderer = builder.comment("Determine if the wandering trader should have trades from the pale garden").define("paleTradesFromWanderer", true);
         builder.pop();
 
-        builder.push("Summer Drop");
+        builder.push("Chase the Skies");
         this.generateDriedGhasts = builder.comment("Determine if dried ghasts should generate in Nether Fossils").define("generateDriedGhasts", true);
-        this.happyGhastSpeedModifier = builder.comment("Determine the speed of happy ghasts when ridden").defineInRange("happyGhastSpeedModifier", 1.0, 0.0, 10.0);
+        this.dropLeashConnectionsOnFireworkBoost = builder.comment("Determine if all leash connections should be dropped when using a firework rocket while elytra flying").define("dropLeashConnectionsOnFireworkBoost", true);
         builder.pop();
     }
 }

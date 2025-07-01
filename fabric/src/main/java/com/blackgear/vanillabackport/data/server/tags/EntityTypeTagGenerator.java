@@ -1,9 +1,11 @@
 package com.blackgear.vanillabackport.data.server.tags;
 
+import com.blackgear.vanillabackport.common.registries.ModEntities;
 import com.blackgear.vanillabackport.core.data.tags.ModEntityTypeTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.entity.EntityType;
 
 import java.util.concurrent.CompletableFuture;
@@ -25,6 +27,7 @@ public class EntityTypeTagGenerator extends FabricTagProvider.EntityTypeTagProvi
                 EntityType.DONKEY,
                 EntityType.FOX,
                 EntityType.GOAT,
+                ModEntities.HAPPY_GHAST.get(),
                 EntityType.HORSE,
                 EntityType.SKELETON_HORSE,
                 EntityType.LLAMA,
@@ -41,6 +44,7 @@ public class EntityTypeTagGenerator extends FabricTagProvider.EntityTypeTagProvi
                 EntityType.VILLAGER,
                 EntityType.WOLF
             );
-
+        this.getOrCreateTagBuilder(EntityTypeTags.FALL_DAMAGE_IMMUNE).add(ModEntities.HAPPY_GHAST.get());
+        this.getOrCreateTagBuilder(EntityTypeTags.DISMOUNTS_UNDERWATER).add(ModEntities.HAPPY_GHAST.get());
     }
 }

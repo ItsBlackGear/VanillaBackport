@@ -58,10 +58,10 @@ public interface ModCreativeTabs {
             .build()
     );
 
-    Supplier<CreativeModeTab> SUMMER_DROP = TABS.register(
-        "summer_drop",
+    Supplier<CreativeModeTab> CHASE_THE_SKIES = TABS.register(
+        "chase_the_skies",
         () -> CreativeModeTab.builder(CreativeModeTab.Row.TOP, 1)
-            .title(Component.literal("Summer Drop"))
+            .title(Component.literal("Chase The Skies"))
             .icon(() -> new ItemStack(ModItems.BROWN_HARNESS.get()))
             .displayItems((parameters, output) -> {
                 output.accept(ModBlocks.DRIED_GHAST.get());
@@ -82,6 +82,7 @@ public interface ModCreativeTabs {
                 output.accept(ModItems.GREEN_HARNESS.get());
                 output.accept(ModItems.RED_HARNESS.get());
                 output.accept(ModItems.BLACK_HARNESS.get());
+                output.accept(ModItems.MUSIC_DISC_TEARS.get());
             })
             .build()
     );

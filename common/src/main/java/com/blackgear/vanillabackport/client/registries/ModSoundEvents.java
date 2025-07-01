@@ -41,7 +41,6 @@ public class ModSoundEvents {
     public static final Supplier<SoundEvent> DRIED_GHAST_BREAK = SOUNDS.soundEvent("block.dried_ghast.break");
     public static final Supplier<SoundEvent> DRIED_GHAST_STEP = SOUNDS.soundEvent("block.dried_ghast.step");
     public static final Supplier<SoundEvent> DRIED_GHAST_FALL = SOUNDS.soundEvent("block.dried_ghast.fall");
-    public static final Supplier<SoundEvent> DRIED_GHAST_HIT = SOUNDS.soundEvent("block.dried_ghast.hit");
     public static final Supplier<SoundEvent> DRIED_GHAST_AMBIENT = SOUNDS.soundEvent("block.dried_ghast.ambient");
     public static final Supplier<SoundEvent> DRIED_GHAST_AMBIENT_WATER = SOUNDS.soundEvent("block.dried_ghast.ambient_water");
     public static final Supplier<SoundEvent> DRIED_GHAST_PLACE = SOUNDS.soundEvent("block.dried_ghast.place");
@@ -77,4 +76,8 @@ public class ModSoundEvents {
     public static final Supplier<SoundEvent> HARNESS_GOGGLES_DOWN = SOUNDS.soundEvent("entity.happy_ghast.harness_goggles_down");
 
     public static final Supplier<SoundEvent> PARROT_IMITATE_CREAKING = SOUNDS.soundEvent("entity.parrot.imitate.creaking");
+
+    // RECORDS
+    public static final Supplier<SoundEvent> MUSIC_DISC_TEARS = SOUNDS.soundEvent("music_disc.tears");
+    public static final Supplier<SoundEvent> MUSIC_DISC_LAVA_CHICKEN = SOUNDS.soundEvent("music_disc.lava_chicken");
 }

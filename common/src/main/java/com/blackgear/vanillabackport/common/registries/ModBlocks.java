@@ -329,9 +329,7 @@ public class ModBlocks {
             .instabreak()
             .sound(ModSoundTypes.DRIED_GHAST)
             .noOcclusion()
-            .randomTicks(),
-        BlockItem::new,
-        new Item.Properties().rarity(Rarity.UNCOMMON)
+            .randomTicks()
     );
 
     public static final Supplier<Block> FIREFLY_BUSH = BLOCKS.register(

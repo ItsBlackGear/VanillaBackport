@@ -1,10 +1,12 @@
 package com.blackgear.vanillabackport.common;
 
+import com.blackgear.platform.common.data.LootModifier;
 import com.blackgear.platform.common.integration.BlockIntegration;
 import com.blackgear.platform.common.integration.MobIntegration;
 import com.blackgear.platform.common.integration.TradeIntegration;
 import com.blackgear.platform.common.worldgen.placement.BiomePlacement;
 import com.blackgear.platform.core.ParallelDispatch;
+import com.blackgear.vanillabackport.common.api.leash.LeashIntegration;
 import com.blackgear.vanillabackport.common.level.dispenser.PaleOakBoatDispenseBehavior;
 import com.blackgear.vanillabackport.common.level.entities.creaking.Creaking;
 import com.blackgear.vanillabackport.common.level.entities.happyghast.HappyGhast;
@@ -13,10 +15,24 @@ import com.blackgear.vanillabackport.common.registries.ModEntities;
 import com.blackgear.vanillabackport.common.registries.ModItems;
 import com.blackgear.vanillabackport.common.worldgen.BiomeGeneration;
 import com.blackgear.vanillabackport.core.VanillaBackport;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.advancements.critereon.DamageSourcePredicate;
+import net.minecraft.advancements.critereon.EntityFlagsPredicate;
+import net.minecraft.advancements.critereon.EntityPredicate;
+import net.minecraft.advancements.critereon.TagPredicate;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.DamageTypeTags;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.npc.VillagerTrades;
+import net.minecraft.world.level.storage.loot.BuiltInLootTables;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
+import net.minecraft.world.level.storage.loot.predicates.DamageSourceCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemKilledByPlayerCondition;
+import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 
 public class CommonSetup {
     public static void setup() {
@@ -24,9 +40,13 @@ public class CommonSetup {
     }
 
     public static void asyncSetup(ParallelDispatch dispatch) {
-        BiomePlacement.registerBiomePlacements(BiomeGeneration::bootstrap);
-        BlockIntegration.registerIntegrations(CommonSetup::blockIntegrations);
-        TradeIntegration.registerVillagerTrades(CommonSetup::tradeIntegrations);
+        dispatch.enqueueWork(() -> {
+            BiomePlacement.registerBiomePlacements(BiomeGeneration::bootstrap);
+            BlockIntegration.registerIntegrations(CommonSetup::blockIntegrations);
+            TradeIntegration.registerVillagerTrades(CommonSetup::tradeIntegrations);
+        });
+
+        LootModifier.modify(CommonSetup::lootIntegrations);
     }
 
     public static void blockIntegrations(BlockIntegration.Event event) {
@@ -78,6 +98,8 @@ public class CommonSetup {
     }
 
     public static void mobIntegrations(MobIntegration.Event event) {
+        event.registerMobInteraction(new LeashIntegration());
+
         event.registerAttributes(ModEntities.CREAKING, Creaking::createAttributes);
         event.registerAttributes(ModEntities.HAPPY_GHAST, HappyGhast::createAttributes);
 
@@ -85,5 +107,47 @@ public class CommonSetup {
         event.registerGoal(EntityType.PILLAGER, 1, mob -> new AvoidEntityGoal<>((PathfinderMob) mob, Creaking.class, 8.0F, 0.6, 1.2));
         event.registerGoal(EntityType.ILLUSIONER, 3, mob -> new AvoidEntityGoal<>((PathfinderMob) mob, Creaking.class, 8.0F, 0.6, 1.2));
         event.registerGoal(EntityType.EVOKER, 3, mob -> new AvoidEntityGoal<>((PathfinderMob) mob, Creaking.class, 8.0F, 0.6, 1.2));
+    }
+
+    public static void lootIntegrations(ResourceLocation path, LootModifier.LootTableContext context, boolean builtin) {
+        if (path.equals(EntityType.GHAST.getDefaultLootTable())) {
+            context.addPool(
+                LootPool.lootPool()
+                    .setRolls(ConstantValue.exactly(1.0F))
+                    .add(LootItem.lootTableItem(ModItems.MUSIC_DISC_TEARS.get()))
+                    .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F)))
+                    .when(DamageSourceCondition.hasDamageSource(
+                        DamageSourcePredicate.Builder.damageType()
+                            .tag(TagPredicate.is(DamageTypeTags.IS_PROJECTILE))
+                            .direct(EntityPredicate.Builder.entity().of(EntityType.FIREBALL)))
+                    )
+                    .when(LootItemKilledByPlayerCondition.killedByPlayer())
+            );
+        }
+
+        if (path.equals(BuiltInLootTables.PIGLIN_BARTERING)) {
+            context.addToPool(
+                LootItem.lootTableItem(ModBlocks.DRIED_GHAST.get())
+                    .setWeight(10)
+                    .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F)))
+                    .build()
+            );
+        }
+
+        if (path.equals(EntityType.ZOMBIE.getDefaultLootTable())) {
+            context.addPool(
+                LootPool.lootPool()
+                    .add(LootItem.lootTableItem(ModItems.MUSIC_DISC_LAVA_CHICKEN.get()))
+                    .when(LootItemKilledByPlayerCondition.killedByPlayer())
+                    .when(
+                        LootItemEntityPropertyCondition.hasProperties(
+                            LootContext.EntityTarget.THIS,
+                            EntityPredicate.Builder.entity()
+                                .flags(EntityFlagsPredicate.Builder.flags().setIsBaby(true).build())
+                                .vehicle(EntityPredicate.Builder.entity().of(EntityType.CHICKEN).build())
+                        )
+                    )
+            );
+        }
     }
 }
