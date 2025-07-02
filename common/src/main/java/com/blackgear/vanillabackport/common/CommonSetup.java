@@ -73,6 +73,7 @@ public class CommonSetup {
         event.registerFlammableBlock(ModBlocks.BUSH.get(), 60, 100);
         event.registerFlammableBlock(ModBlocks.FIREFLY_BUSH.get(), 60, 100);
         event.registerFlammableBlock(ModBlocks.WILDFLOWERS.get(), 60, 100);
+        event.registerFlammableBlock(ModBlocks.CACTUS_FLOWER.get(), 60, 100);
 
         event.registerCompostableItem(ModBlocks.PALE_OAK_LEAVES.get(), 0.3F);
         event.registerCompostableItem(ModBlocks.PALE_OAK_SAPLING.get(), 0.3F);
@@ -82,6 +83,7 @@ public class CommonSetup {
         event.registerCompostableItem(ModBlocks.BUSH.get(), 0.3F);
         event.registerCompostableItem(ModBlocks.FIREFLY_BUSH.get(), 0.3F);
         event.registerCompostableItem(ModBlocks.WILDFLOWERS.get(), 0.3F);
+        event.registerCompostableItem(ModBlocks.CACTUS_FLOWER.get(), 0.3F);
         event.registerCompostableItem(ModBlocks.OPEN_EYEBLOSSOM.get(), 0.65F);
         event.registerCompostableItem(ModBlocks.CLOSED_EYEBLOSSOM.get(), 0.65F);
 

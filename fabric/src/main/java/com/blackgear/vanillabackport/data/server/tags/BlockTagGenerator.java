@@ -31,6 +31,9 @@ public class BlockTagGenerator extends FabricTagProvider.BlockTagProvider {
 
         // Special behavior tags
         addSpecialBehaviorTags();
+
+        this.getOrCreateTagBuilder(BlockTags.WALL_POST_OVERRIDE)
+            .add(ModBlocks.CACTUS_FLOWER.get());
     }
 
     private void addWoodRelatedTags() {
@@ -123,7 +126,8 @@ public class BlockTagGenerator extends FabricTagProvider.BlockTagProvider {
         this.getOrCreateTagBuilder(BlockTags.FLOWERS)
             .add(ModBlocks.OPEN_EYEBLOSSOM.get())
             .add(ModBlocks.CLOSED_EYEBLOSSOM.get())
-            .add(ModBlocks.WILDFLOWERS.get());
+            .add(ModBlocks.WILDFLOWERS.get())
+            .add(ModBlocks.CACTUS_FLOWER.get());
 
         this.getOrCreateTagBuilder(BlockTags.FLOWER_POTS)
             .add(ModBlocks.POTTED_OPEN_EYEBLOSSOM.get())

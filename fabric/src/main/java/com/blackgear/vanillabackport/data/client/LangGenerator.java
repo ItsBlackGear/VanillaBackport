@@ -157,5 +157,6 @@ public class LangGenerator extends FabricLanguageProvider {
         builder.add(ModBlocks.BUSH.get(), "Bush");
         builder.add(ModBlocks.FIREFLY_BUSH.get(), "Firefly Bush");
         builder.add(ModBlocks.WILDFLOWERS.get(), "Wildflowers");
+        builder.add(ModBlocks.CACTUS_FLOWER.get(), "Cactus Flower");
     }
 }

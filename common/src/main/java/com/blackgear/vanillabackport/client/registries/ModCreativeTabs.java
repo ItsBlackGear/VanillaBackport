@@ -96,6 +96,7 @@ public interface ModCreativeTabs {
                 output.accept(ModBlocks.BUSH.get());
                 output.accept(ModBlocks.FIREFLY_BUSH.get());
                 output.accept(ModBlocks.WILDFLOWERS.get());
+                output.accept(ModBlocks.CACTUS_FLOWER.get());
             })
             .build()
     );

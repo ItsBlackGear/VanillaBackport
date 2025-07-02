@@ -81,7 +81,8 @@ public class Rendering {
             ModBlocks.RESIN_CLUMP.get(),
             ModBlocks.BUSH.get(),
             ModBlocks.FIREFLY_BUSH.get(),
-            ModBlocks.WILDFLOWERS.get()
+            ModBlocks.WILDFLOWERS.get(),
+            ModBlocks.CACTUS_FLOWER.get()
         );
     }
 

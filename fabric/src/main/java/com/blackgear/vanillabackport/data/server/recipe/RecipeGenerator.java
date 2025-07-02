@@ -91,6 +91,8 @@ public class RecipeGenerator extends FabricRecipeProvider {
             .pattern("  ~")
             .unlockedBy("has_string", has(Items.STRING))
             .save(exporter);
+
+        oneToOneConversionRecipe(exporter, Items.PINK_DYE, ModBlocks.CACTUS_FLOWER.get(), "pink_dye");
     }
 
     public static ShapedRecipeBuilder shaped(RecipeCategory category, ItemLike entry) {
