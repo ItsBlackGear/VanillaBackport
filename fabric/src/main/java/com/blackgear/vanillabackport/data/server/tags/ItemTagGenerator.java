@@ -134,6 +134,7 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
 
         this.getOrCreateTagBuilder(ItemTags.FLOWERS)
             .add(ModBlocks.OPEN_EYEBLOSSOM.get().asItem())
-            .add(ModBlocks.CLOSED_EYEBLOSSOM.get().asItem());
+            .add(ModBlocks.CLOSED_EYEBLOSSOM.get().asItem())
+            .add(ModBlocks.WILDFLOWERS.get().asItem());
     }
 }

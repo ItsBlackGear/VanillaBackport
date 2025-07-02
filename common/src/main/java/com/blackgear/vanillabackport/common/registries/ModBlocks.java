@@ -344,7 +344,6 @@ public class ModBlocks {
             .ignitedByLava()
             .pushReaction(PushReaction.DESTROY)
     );
-
     public static final Supplier<Block> FIREFLY_BUSH = BLOCKS.register(
         "firefly_bush",
         FireflyBushBlock::new,
@@ -355,6 +354,15 @@ public class ModBlocks {
             .noCollission()
             .instabreak()
             .sound(SoundType.SWEET_BERRY_BUSH)
+            .pushReaction(PushReaction.DESTROY)
+    );
+    public static final Supplier<Block> WILDFLOWERS = BLOCKS.register(
+        "wildflowers",
+        PinkPetalsBlock::new,
+        BlockBehaviour.Properties.of()
+            .mapColor(MapColor.PLANT)
+            .noCollission()
+            .sound(SoundType.PINK_PETALS)
             .pushReaction(PushReaction.DESTROY)
     );
 

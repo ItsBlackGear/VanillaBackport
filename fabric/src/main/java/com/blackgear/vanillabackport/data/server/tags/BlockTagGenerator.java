@@ -122,7 +122,8 @@ public class BlockTagGenerator extends FabricTagProvider.BlockTagProvider {
 
         this.getOrCreateTagBuilder(BlockTags.FLOWERS)
             .add(ModBlocks.OPEN_EYEBLOSSOM.get())
-            .add(ModBlocks.CLOSED_EYEBLOSSOM.get());
+            .add(ModBlocks.CLOSED_EYEBLOSSOM.get())
+            .add(ModBlocks.WILDFLOWERS.get());
 
         this.getOrCreateTagBuilder(BlockTags.FLOWER_POTS)
             .add(ModBlocks.POTTED_OPEN_EYEBLOSSOM.get())

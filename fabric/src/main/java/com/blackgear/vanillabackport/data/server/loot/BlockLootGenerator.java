@@ -86,6 +86,7 @@ public class BlockLootGenerator extends FabricBlockLootTableProvider {
         // Spring to Life
         this.dropSelf(ModBlocks.FIREFLY_BUSH.get());
         this.add(ModBlocks.BUSH.get(), this::createShearsOrSilkTouchOnlyDrop);
+        this.add(ModBlocks.WILDFLOWERS.get(), this.createPetalsDrops(ModBlocks.WILDFLOWERS.get()));
     }
 
     protected LootTable.Builder createMultifaceBlockDrops(Block block) {

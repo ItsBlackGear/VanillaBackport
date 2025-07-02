@@ -95,6 +95,7 @@ public interface ModCreativeTabs {
             .displayItems((parameters, output) -> {
                 output.accept(ModBlocks.BUSH.get());
                 output.accept(ModBlocks.FIREFLY_BUSH.get());
+                output.accept(ModBlocks.WILDFLOWERS.get());
             })
             .build()
     );

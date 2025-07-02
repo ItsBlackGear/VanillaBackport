@@ -27,6 +27,8 @@ public class SpringToLifePlacements {
     public static final ResourceKey<PlacedFeature> PATCH_FIREFLY_BUSH_NEAR_WATER = FEATURES.create("patch_firefly_bush_near_water");
     public static final ResourceKey<PlacedFeature> PATCH_FIREFLY_BUSH_NEAR_WATER_SWAMP = FEATURES.create("patch_firefly_bush_near_water_swamp");
     public static final ResourceKey<PlacedFeature> PATCH_FIREFLY_BUSH_SWAMP = FEATURES.create("patch_firefly_bush_swamp");
+    public static final ResourceKey<PlacedFeature> WILDFLOWERS_BIRCH_FOREST = FEATURES.create("wildflowers_birch_forest");
+    public static final ResourceKey<PlacedFeature> WILDFLOWERS_MEADOW = FEATURES.create("wildflowers_meadow");
 
     public static void bootstrap(BootstapContext<PlacedFeature> context) {
         HolderGetter<ConfiguredFeature<?, ?>> features = context.lookup(Registries.CONFIGURED_FEATURE);
@@ -67,6 +69,25 @@ public class SpringToLifePlacements {
             PATCH_FIREFLY_BUSH_SWAMP,
             patch,
             RarityFilter.onAverageOnceEvery(8),
+            InSquarePlacement.spread(),
+            PlacementUtils.HEIGHTMAP,
+            BiomeFilter.biome()
+        );
+        FEATURES.register(
+            context,
+            WILDFLOWERS_BIRCH_FOREST,
+            features.getOrThrow(SpringToLifeFeatures.WILDFLOWERS_BIRCH_FOREST),
+            CountPlacement.of(3),
+            RarityFilter.onAverageOnceEvery(2),
+            InSquarePlacement.spread(),
+            PlacementUtils.HEIGHTMAP,
+            BiomeFilter.biome()
+        );
+        FEATURES.register(
+            context,
+            WILDFLOWERS_MEADOW,
+            features.getOrThrow(SpringToLifeFeatures.WILDFLOWERS_MEADOW),
+            NoiseThresholdCountPlacement.of(-0.8, 5, 10),
             InSquarePlacement.spread(),
             PlacementUtils.HEIGHTMAP,
             BiomeFilter.biome()

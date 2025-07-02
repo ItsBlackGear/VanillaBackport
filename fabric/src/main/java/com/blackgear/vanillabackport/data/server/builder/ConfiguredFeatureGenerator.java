@@ -18,9 +18,7 @@ public class ConfiguredFeatureGenerator extends FabricDynamicRegistryProvider {
 
     @Override
     protected void configure(HolderLookup.Provider provider, Entries entries) {
-        this.add(provider, entries, SpringToLifeFeatures.PATCH_BUSH);
-        this.add(provider, entries, SpringToLifeFeatures.PATCH_FIREFLY_BUSH);
-
+        // The Garden Awakens
         this.add(provider, entries, TheGardenAwakensFeatures.PALE_OAK);
         this.add(provider, entries, TheGardenAwakensFeatures.PALE_OAK_BONEMEAL);
         this.add(provider, entries, TheGardenAwakensFeatures.PALE_OAK_CREAKING);
@@ -32,6 +30,13 @@ public class ConfiguredFeatureGenerator extends FabricDynamicRegistryProvider {
         this.add(provider, entries, TheGardenAwakensFeatures.PALE_MOSS_VEGETATION);
         this.add(provider, entries, TheGardenAwakensFeatures.PALE_MOSS_PATCH);
         this.add(provider, entries, TheGardenAwakensFeatures.PALE_MOSS_PATCH_BONEMEAL);
+
+        // Spring to Life
+        this.add(provider, entries, SpringToLifeFeatures.PATCH_BUSH);
+        this.add(provider, entries, SpringToLifeFeatures.PATCH_FIREFLY_BUSH);
+
+        this.add(provider, entries, SpringToLifeFeatures.WILDFLOWERS_BIRCH_FOREST);
+        this.add(provider, entries, SpringToLifeFeatures.WILDFLOWERS_MEADOW);
     }
 
     private void add(HolderLookup.Provider provider, Entries entries, ResourceKey<ConfiguredFeature<?, ?>> key) {

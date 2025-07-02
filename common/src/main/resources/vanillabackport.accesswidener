@@ -12,6 +12,7 @@ accessible field net/minecraft/world/entity/ai/control/MoveControl operation Lne
 mutable field net/minecraft/world/entity/ai/control/MoveControl operation Lnet/minecraft/world/entity/ai/control/MoveControl$Operation;
 
 accessible method net/minecraft/world/level/block/BushBlock <init> (Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V
+accessible method net/minecraft/world/level/block/PinkPetalsBlock <init> (Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V
 accessible method net/minecraft/world/level/block/SaplingBlock <init> (Lnet/minecraft/world/level/block/grower/AbstractTreeGrower;Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V
 accessible method net/minecraft/world/level/block/PressurePlateBlock <init> (Lnet/minecraft/world/level/block/PressurePlateBlock$Sensitivity;Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;Lnet/minecraft/world/level/block/state/properties/BlockSetType;)V
 accessible method net/minecraft/world/level/block/ButtonBlock <init> (Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;Lnet/minecraft/world/level/block/state/properties/BlockSetType;IZ)V

@@ -156,5 +156,6 @@ public class LangGenerator extends FabricLanguageProvider {
         // Spring to Life
         builder.add(ModBlocks.BUSH.get(), "Bush");
         builder.add(ModBlocks.FIREFLY_BUSH.get(), "Firefly Bush");
+        builder.add(ModBlocks.WILDFLOWERS.get(), "Wildflowers");
     }
 }

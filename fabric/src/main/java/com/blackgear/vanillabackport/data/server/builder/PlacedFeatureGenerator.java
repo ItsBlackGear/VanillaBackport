@@ -18,12 +18,7 @@ public class PlacedFeatureGenerator extends FabricDynamicRegistryProvider {
 
     @Override
     protected void configure(HolderLookup.Provider provider, Entries entries) {
-        this.add(provider, entries, SpringToLifePlacements.PATCH_BUSH);
-
-        this.add(provider, entries, SpringToLifePlacements.PATCH_FIREFLY_BUSH_NEAR_WATER);
-        this.add(provider, entries, SpringToLifePlacements.PATCH_FIREFLY_BUSH_NEAR_WATER_SWAMP);
-        this.add(provider, entries, SpringToLifePlacements.PATCH_FIREFLY_BUSH_SWAMP);
-
+        // The Garden Awakens
         this.add(provider, entries, TheGardenAwakensPlacements.PALE_OAK_CHECKED);
         this.add(provider, entries, TheGardenAwakensPlacements.PALE_OAK_CREAKING_CHECKED);
 
@@ -31,6 +26,16 @@ public class PlacedFeatureGenerator extends FabricDynamicRegistryProvider {
         this.add(provider, entries, TheGardenAwakensPlacements.PALE_GARDEN_VEGETATION);
         this.add(provider, entries, TheGardenAwakensPlacements.PALE_GARDEN_FLOWERS);
         this.add(provider, entries, TheGardenAwakensPlacements.PALE_MOSS_PATCH);
+
+        // Spring to Life
+        this.add(provider, entries, SpringToLifePlacements.PATCH_BUSH);
+
+        this.add(provider, entries, SpringToLifePlacements.PATCH_FIREFLY_BUSH_NEAR_WATER);
+        this.add(provider, entries, SpringToLifePlacements.PATCH_FIREFLY_BUSH_NEAR_WATER_SWAMP);
+        this.add(provider, entries, SpringToLifePlacements.PATCH_FIREFLY_BUSH_SWAMP);
+
+        this.add(provider, entries, SpringToLifePlacements.WILDFLOWERS_BIRCH_FOREST);
+        this.add(provider, entries, SpringToLifePlacements.WILDFLOWERS_MEADOW);
     }
 
     private void add(HolderLookup.Provider provider, Entries entries, ResourceKey<PlacedFeature> key) {
