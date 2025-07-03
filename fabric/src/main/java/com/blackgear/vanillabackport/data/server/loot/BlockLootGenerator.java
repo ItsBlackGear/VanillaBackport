@@ -88,6 +88,8 @@ public class BlockLootGenerator extends FabricBlockLootTableProvider {
         this.add(ModBlocks.BUSH.get(), this::createShearsOrSilkTouchOnlyDrop);
         this.add(ModBlocks.WILDFLOWERS.get(), this.createPetalsDrops(ModBlocks.WILDFLOWERS.get()));
         this.dropSelf(ModBlocks.CACTUS_FLOWER.get());
+        this.add(ModBlocks.SHORT_DRY_GRASS.get(), this::createShearsOrSilkTouchOnlyDrop);
+        this.add(ModBlocks.TALL_DRY_GRASS.get(), this::createShearsOrSilkTouchOnlyDrop);
     }
 
     protected LootTable.Builder createMultifaceBlockDrops(Block block) {

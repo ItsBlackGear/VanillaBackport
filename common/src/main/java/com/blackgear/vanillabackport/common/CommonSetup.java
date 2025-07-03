@@ -25,7 +25,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
-import net.minecraft.world.entity.npc.VillagerTrades;
 import net.minecraft.world.entity.npc.VillagerTrades.ItemsForEmeralds;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootContext;
@@ -55,6 +54,9 @@ public class CommonSetup {
     }
 
     public static void blockIntegrations(BlockIntegration.Event event) {
+        event.registerFuelItem(ModBlocks.SHORT_DRY_GRASS.get(), 100);
+        event.registerFuelItem(ModBlocks.TALL_DRY_GRASS.get(), 100);
+
         event.registerFlammableBlock(ModBlocks.PALE_OAK_PLANKS.get(), 5, 20);
         event.registerFlammableBlock(ModBlocks.PALE_OAK_SLAB.get(), 5, 20);
         event.registerFlammableBlock(ModBlocks.PALE_OAK_FENCE_GATE.get(), 5, 20);
@@ -74,6 +76,8 @@ public class CommonSetup {
         event.registerFlammableBlock(ModBlocks.FIREFLY_BUSH.get(), 60, 100);
         event.registerFlammableBlock(ModBlocks.WILDFLOWERS.get(), 60, 100);
         event.registerFlammableBlock(ModBlocks.CACTUS_FLOWER.get(), 60, 100);
+        event.registerFlammableBlock(ModBlocks.SHORT_DRY_GRASS.get(), 60, 100);
+        event.registerFlammableBlock(ModBlocks.TALL_DRY_GRASS.get(), 60, 100);
 
         event.registerCompostableItem(ModBlocks.PALE_OAK_LEAVES.get(), 0.3F);
         event.registerCompostableItem(ModBlocks.PALE_OAK_SAPLING.get(), 0.3F);
@@ -84,6 +88,8 @@ public class CommonSetup {
         event.registerCompostableItem(ModBlocks.FIREFLY_BUSH.get(), 0.3F);
         event.registerCompostableItem(ModBlocks.WILDFLOWERS.get(), 0.3F);
         event.registerCompostableItem(ModBlocks.CACTUS_FLOWER.get(), 0.3F);
+        event.registerCompostableItem(ModBlocks.SHORT_DRY_GRASS.get(), 0.3F);
+        event.registerCompostableItem(ModBlocks.TALL_DRY_GRASS.get(), 0.3F);
         event.registerCompostableItem(ModBlocks.OPEN_EYEBLOSSOM.get(), 0.65F);
         event.registerCompostableItem(ModBlocks.CLOSED_EYEBLOSSOM.get(), 0.65F);
 

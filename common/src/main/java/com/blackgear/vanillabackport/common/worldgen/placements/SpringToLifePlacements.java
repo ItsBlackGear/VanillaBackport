@@ -29,6 +29,8 @@ public class SpringToLifePlacements {
     public static final ResourceKey<PlacedFeature> PATCH_FIREFLY_BUSH_SWAMP = FEATURES.create("patch_firefly_bush_swamp");
     public static final ResourceKey<PlacedFeature> WILDFLOWERS_BIRCH_FOREST = FEATURES.create("wildflowers_birch_forest");
     public static final ResourceKey<PlacedFeature> WILDFLOWERS_MEADOW = FEATURES.create("wildflowers_meadow");
+    public static final ResourceKey<PlacedFeature> PATCH_DRY_GRASS_BADLANDS = FEATURES.create("patch_dry_grass_badlands");
+    public static final ResourceKey<PlacedFeature> PATCH_DRY_GRASS_DESERT = FEATURES.create("patch_dry_grass_desert");
 
     public static void bootstrap(BootstapContext<PlacedFeature> context) {
         HolderGetter<ConfiguredFeature<?, ?>> features = context.lookup(Registries.CONFIGURED_FEATURE);
@@ -88,6 +90,24 @@ public class SpringToLifePlacements {
             WILDFLOWERS_MEADOW,
             features.getOrThrow(SpringToLifeFeatures.WILDFLOWERS_MEADOW),
             NoiseThresholdCountPlacement.of(-0.8, 5, 10),
+            InSquarePlacement.spread(),
+            PlacementUtils.HEIGHTMAP,
+            BiomeFilter.biome()
+        );
+        FEATURES.register(
+            context,
+            PATCH_DRY_GRASS_BADLANDS,
+            features.getOrThrow(SpringToLifeFeatures.PATCH_DRY_GRASS),
+            RarityFilter.onAverageOnceEvery(6),
+            InSquarePlacement.spread(),
+            PlacementUtils.HEIGHTMAP,
+            BiomeFilter.biome()
+        );
+        FEATURES.register(
+            context,
+            PATCH_DRY_GRASS_DESERT,
+            features.getOrThrow(SpringToLifeFeatures.PATCH_DRY_GRASS),
+            RarityFilter.onAverageOnceEvery(3),
             InSquarePlacement.spread(),
             PlacementUtils.HEIGHTMAP,
             BiomeFilter.biome()

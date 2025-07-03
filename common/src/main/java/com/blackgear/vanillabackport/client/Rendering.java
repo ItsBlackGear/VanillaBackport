@@ -25,7 +25,6 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.GrassColor;
-import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.state.BlockState;
 
 @Environment(EnvType.CLIENT)
@@ -82,7 +81,9 @@ public class Rendering {
             ModBlocks.BUSH.get(),
             ModBlocks.FIREFLY_BUSH.get(),
             ModBlocks.WILDFLOWERS.get(),
-            ModBlocks.CACTUS_FLOWER.get()
+            ModBlocks.CACTUS_FLOWER.get(),
+            ModBlocks.SHORT_DRY_GRASS.get(),
+            ModBlocks.TALL_DRY_GRASS.get()
         );
     }
 

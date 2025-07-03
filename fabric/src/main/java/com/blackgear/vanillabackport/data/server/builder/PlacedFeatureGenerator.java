@@ -36,6 +36,9 @@ public class PlacedFeatureGenerator extends FabricDynamicRegistryProvider {
 
         this.add(provider, entries, SpringToLifePlacements.WILDFLOWERS_BIRCH_FOREST);
         this.add(provider, entries, SpringToLifePlacements.WILDFLOWERS_MEADOW);
+
+        this.add(provider, entries, SpringToLifePlacements.PATCH_DRY_GRASS_BADLANDS);
+        this.add(provider, entries, SpringToLifePlacements.PATCH_DRY_GRASS_DESERT);
     }
 
     private void add(HolderLookup.Provider provider, Entries entries, ResourceKey<PlacedFeature> key) {

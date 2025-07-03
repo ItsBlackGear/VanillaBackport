@@ -4,6 +4,7 @@ import com.blackgear.platform.common.worldgen.modifier.BiomeContext;
 import com.blackgear.platform.common.worldgen.modifier.BiomeWriter;
 import com.blackgear.vanillabackport.common.worldgen.placements.SpringToLifePlacements;
 import com.blackgear.vanillabackport.core.data.tags.ModBiomeTags;
+import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.levelgen.GenerationStep;
 
@@ -28,6 +29,14 @@ public class WorldGeneration {
 
         if (context.is(Biomes.BIRCH_FOREST) || context.is(Biomes.OLD_GROWTH_BIRCH_FOREST)) {
             writer.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, SpringToLifePlacements.WILDFLOWERS_BIRCH_FOREST);
+        }
+
+        if (context.is(BiomeTags.HAS_DESERT_PYRAMID) || context.is(BiomeTags.HAS_VILLAGE_DESERT) || context.is(BiomeTags.HAS_RUINED_PORTAL_DESERT)) {
+            writer.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, SpringToLifePlacements.PATCH_DRY_GRASS_DESERT);
+        }
+
+        if (context.is(BiomeTags.IS_BADLANDS)) {
+            writer.addFeature(GenerationStep.Decoration.VEGETAL_DECORATION, SpringToLifePlacements.PATCH_DRY_GRASS_BADLANDS);
         }
     }
 }

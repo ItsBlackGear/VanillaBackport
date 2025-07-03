@@ -563,5 +563,178 @@
       }
     ],
     "subtitle": "subtitles.block.firefly_bush.idle"
+  },
+  "block.sand.idle": {
+    "sounds": [
+      {
+        "name": "vanillabackport:block/sand/sand1",
+        "volume": 4.0,
+        "weight": 2
+      },
+      {
+        "name": "vanillabackport:block/sand/sand2",
+        "volume": 4.0,
+        "weight": 2
+      },
+      {
+        "name": "vanillabackport:block/sand/sand3",
+        "volume": 4.0,
+        "weight": 2
+      },
+      {
+        "name": "vanillabackport:block/sand/sand4",
+        "volume": 4.0
+      },
+      {
+        "name": "vanillabackport:block/sand/sand5",
+        "volume": 4.0,
+        "weight": 2
+      },
+      {
+        "name": "vanillabackport:block/sand/sand6",
+        "volume": 4.0,
+        "weight": 2
+      },
+      {
+        "name": "vanillabackport:block/sand/sand7",
+        "volume": 4.0
+      },
+      {
+        "name": "vanillabackport:block/sand/sand8",
+        "volume": 4.0
+      },
+      {
+        "name": "vanillabackport:block/sand/sand9",
+        "volume": 4.0
+      },
+      {
+        "name": "vanillabackport:block/sand/sand10",
+        "volume": 4.0
+      },
+      {
+        "name": "vanillabackport:block/sand/sand10",
+        "volume": 4.0,
+        "weight": 2
+      },
+      {
+        "name": "vanillabackport:block/sand/sand11",
+        "volume": 4.0
+      },
+      {
+        "name": "vanillabackport:block/sand/sand12",
+        "volume": 4.0
+      },
+      {
+        "name": "vanillabackport:block/sand/sand12",
+        "volume": 4.0
+      },
+      {
+        "name": "vanillabackport:block/sand/sand13",
+        "volume": 4.0
+      },
+      {
+        "name": "vanillabackport:block/sand/sand14",
+        "volume": 4.0
+      },
+      {
+        "name": "vanillabackport:block/sand/sand15",
+        "volume": 4.0
+      },
+      {
+        "name": "vanillabackport:block/sand/sand16",
+        "volume": 4.0
+      },
+      {
+        "name": "vanillabackport:block/sand/sand17",
+        "volume": 4.0
+      },
+      {
+        "name": "vanillabackport:block/sand/sand18",
+        "volume": 4.0
+      },
+      {
+        "name": "vanillabackport:block/sand/sand19",
+        "volume": 4.0
+      },
+      {
+        "name": "vanillabackport:block/sand/sand20",
+        "volume": 4.0
+      },
+      {
+        "name": "vanillabackport:block/sand/sand21",
+        "volume": 4.0
+      }
+    ],
+    "subtitle": "subtitles.block.sand.idle"
+  },
+  "block.deadbush.idle": {
+    "sounds": [
+      {
+        "name": "vanillabackport:block/deadbush/bushrustle1",
+        "volume": 4.0
+      },
+      {
+        "name": "vanillabackport:block/deadbush/bushrustle2",
+        "volume": 4.0
+      },
+      {
+        "name": "vanillabackport:block/deadbush/bushrustle3",
+        "volume": 4.0
+      },
+      {
+        "name": "vanillabackport:block/deadbush/creakysand1",
+        "volume": 4.0
+      },
+      {
+        "name": "vanillabackport:block/deadbush/crickets",
+        "volume": 4.0,
+        "weight": 3
+      },
+      {
+        "name": "vanillabackport:block/deadbush/howlingwind1",
+        "volume": 4.0
+      },
+      {
+        "name": "vanillabackport:block/deadbush/insect1",
+        "volume": 4.0
+      },
+      {
+        "name": "vanillabackport:block/deadbush/leaves",
+        "volume": 4.0
+      },
+      {
+        "name": "vanillabackport:block/deadbush/movingsand1",
+        "volume": 4.0,
+        "weight": 2
+      },
+      {
+        "name": "vanillabackport:block/deadbush/movingsand2",
+        "volume": 4.0,
+        "weight": 2
+      },
+      {
+        "name": "vanillabackport:block/deadbush/movingsand3",
+        "volume": 4.0,
+        "weight": 2
+      }
+    ],
+    "subtitle": "subtitles.block.deadbush.idle"
+  },
+  "block.dry_grass.ambient": {
+    "sounds": [
+      "vanillabackport:block/dry_grass/wind1",
+      "vanillabackport:block/dry_grass/wind2",
+      "vanillabackport:block/dry_grass/wind3",
+      "vanillabackport:block/dry_grass/wind4",
+      "vanillabackport:block/dry_grass/wind5",
+      "vanillabackport:block/dry_grass/wind6",
+      "vanillabackport:block/dry_grass/wind7",
+      "vanillabackport:block/dry_grass/wind8",
+      "vanillabackport:block/dry_grass/wind9",
+      "vanillabackport:block/dry_grass/wind10",
+      "vanillabackport:block/dry_grass/wind11",
+      "vanillabackport:block/dry_grass/wind12"
+    ],
+    "subtitle": "subtitles.block.dry_grass.ambient"
   }
 }

@@ -376,6 +376,32 @@ public class ModBlocks {
             .sound(SoundType.GRASS)
             .pushReaction(PushReaction.DESTROY)
     );
+    public static final Supplier<Block> SHORT_DRY_GRASS = BLOCKS.register(
+        "short_dry_grass",
+        ShortDryGrassBlock::new,
+        BlockBehaviour.Properties.of()
+            .mapColor(MapColor.COLOR_YELLOW)
+            .replaceable()
+            .noCollission()
+            .instabreak()
+            .sound(SoundType.GRASS)
+            .ignitedByLava()
+            .offsetType(BlockBehaviour.OffsetType.XYZ)
+            .pushReaction(PushReaction.DESTROY)
+    );
+    public static final Supplier<Block> TALL_DRY_GRASS = BLOCKS.register(
+        "tall_dry_grass",
+        TallDryGrassBlock::new,
+        BlockBehaviour.Properties.of()
+            .mapColor(MapColor.COLOR_YELLOW)
+            .replaceable()
+            .noCollission()
+            .instabreak()
+            .sound(SoundType.GRASS)
+            .ignitedByLava()
+            .offsetType(BlockBehaviour.OffsetType.XYZ)
+            .pushReaction(PushReaction.DESTROY)
+    );
 
     private static BlockBehaviour.Properties logProperties(MapColor topColor, MapColor sideColor, SoundType sound) {
         return BlockBehaviour.Properties.of()

@@ -4,6 +4,7 @@ import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
 import com.blackgear.vanillabackport.common.level.entities.happyghast.HappyGhast;
 import com.blackgear.vanillabackport.common.registries.ModBlockStateProperties;
 import com.blackgear.vanillabackport.common.registries.ModEntities;
+import com.blackgear.vanillabackport.core.data.tags.ModBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
@@ -137,7 +138,7 @@ public class DriedGhastBlock extends HorizontalDirectionalBlock implements Simpl
         double y = pos.getY() + 0.5;
         double z = pos.getZ() + 0.5;
         if (!state.getValue(WATERLOGGED)) {
-            if (random.nextInt(40) == 0) {
+            if (random.nextInt(40) == 0 && level.getBlockState(pos.below()).is(ModBlockTags.TRIGGERS_AMBIENT_DRIED_GHAST_BLOCK_SOUNDS)) {
                 level.playLocalSound(x, y, z, ModSoundEvents.DRIED_GHAST_AMBIENT.get(), SoundSource.AMBIENT, 1.0F, 1.0F, false);
             }
 

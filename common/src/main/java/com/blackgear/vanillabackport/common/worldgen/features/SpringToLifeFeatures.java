@@ -7,6 +7,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.random.SimpleWeightedRandomList;
@@ -31,6 +32,7 @@ public class SpringToLifeFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_FIREFLY_BUSH = FEATURES.create("patch_firefly_bush");
     public static final ResourceKey<ConfiguredFeature<?, ?>> WILDFLOWERS_BIRCH_FOREST = FEATURES.create("wildflowers_birch_forest");
     public static final ResourceKey<ConfiguredFeature<?, ?>> WILDFLOWERS_MEADOW = FEATURES.create("wildflowers_meadow");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_DRY_GRASS = FEATURES.create("patch_dry_grass");
 
     public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> context) {
         HolderGetter<ConfiguredFeature<?, ?>> features = context.lookup(Registries.CONFIGURED_FEATURE);
@@ -101,6 +103,24 @@ public class SpringToLifeFeatures {
                 )
             )
         );
+        FEATURES.register(
+            context,
+            PATCH_DRY_GRASS,
+            Feature.RANDOM_PATCH,
+            grassPatch(
+                new WeightedStateProvider(
+                    SimpleWeightedRandomList.<BlockState>builder()
+                        .add(ModBlocks.SHORT_DRY_GRASS.get().defaultBlockState(), 1)
+                        .add(ModBlocks.TALL_DRY_GRASS.get().defaultBlockState(), 1)
+                        .build()
+                ),
+                64
+            )
+        );
+    }
+
+    private static RandomPatchConfiguration grassPatch(BlockStateProvider provider, int tries) {
+        return FeatureUtils.simpleRandomPatchConfiguration(tries, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(provider)));
     }
 
     private static SimpleWeightedRandomList.Builder<BlockState> flowerBedPatchBuilder(Block block) {
