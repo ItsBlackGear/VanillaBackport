@@ -39,6 +39,35 @@ public class PlacedFeatureGenerator extends FabricDynamicRegistryProvider {
 
         this.add(provider, entries, SpringToLifePlacements.PATCH_DRY_GRASS_BADLANDS);
         this.add(provider, entries, SpringToLifePlacements.PATCH_DRY_GRASS_DESERT);
+
+        this.add(provider, entries, SpringToLifePlacements.PATCH_LEAF_LITTER);
+
+        this.add(provider, entries, SpringToLifePlacements.FALLEN_OAK_TREE);
+        this.add(provider, entries, SpringToLifePlacements.FALLEN_BIRCH_TREE);
+        this.add(provider, entries, SpringToLifePlacements.FALLEN_SUPER_BIRCH_TREE);
+        this.add(provider, entries, SpringToLifePlacements.FALLEN_JUNGLE_TREE);
+        this.add(provider, entries, SpringToLifePlacements.FALLEN_SPRUCE_TREE);
+
+        this.add(provider, entries, SpringToLifePlacements.OAK_BEES_0002_LEAF_LITTER);
+        this.add(provider, entries, SpringToLifePlacements.BIRCH_BEES_0002_LEAF_LITTER);
+        this.add(provider, entries, SpringToLifePlacements.FANCY_OAK_BEES_0002_LEAF_LITTER);
+
+        this.add(provider, entries, SpringToLifePlacements.OAK_LEAF_LITTER);
+        this.add(provider, entries, SpringToLifePlacements.DARK_OAK_LEAF_LITTER);
+        this.add(provider, entries, SpringToLifePlacements.BIRCH_LEAF_LITTER);
+        this.add(provider, entries, SpringToLifePlacements.FANCY_OAK_LEAF_LITTER);
+
+        this.add(provider, entries, SpringToLifePlacements.DARK_FOREST_VEGETATION);
+        this.add(provider, entries, SpringToLifePlacements.TREES_BADLANDS);
+        this.add(provider, entries, SpringToLifePlacements.TREES_BIRCH_AND_OAK_LEAF_LITTER);
+
+        this.add(provider, entries, SpringToLifePlacements.PLACED_FALLEN_OAK_TREE);
+        this.add(provider, entries, SpringToLifePlacements.PLACED_FALLEN_BIRCH_TREE);
+        this.add(provider, entries, SpringToLifePlacements.PLACED_COMMON_FALLEN_BIRCH_TREE);
+        this.add(provider, entries, SpringToLifePlacements.PLACED_FALLEN_SUPER_BIRCH_TREE);
+        this.add(provider, entries, SpringToLifePlacements.PLACED_FALLEN_JUNGLE_TREE);
+        this.add(provider, entries, SpringToLifePlacements.PLACED_FALLEN_SPRUCE_TREE);
+        this.add(provider, entries, SpringToLifePlacements.PLACED_RARE_FALLEN_SPRUCE_TREE);
     }
 
     private void add(HolderLookup.Provider provider, Entries entries, ResourceKey<PlacedFeature> key) {

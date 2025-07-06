@@ -53,6 +53,7 @@ public final class VanillaBackport {
         ModPaintingVariants.VARIANTS.register();
 
         ModBiomes.BIOMES.register();
+        ModFeatures.FEATURES.register();
         ModTreeDecorators.DECORATORS.register();
         SpringToLifeFeatures.FEATURES.register();
         TheGardenAwakensFeatures.FEATURES.register();

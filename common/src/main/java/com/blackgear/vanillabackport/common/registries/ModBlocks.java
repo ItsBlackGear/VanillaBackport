@@ -365,6 +365,16 @@ public class ModBlocks {
             .sound(SoundType.PINK_PETALS)
             .pushReaction(PushReaction.DESTROY)
     );
+    public static final Supplier<Block> LEAF_LITTER = BLOCKS.register(
+        "leaf_litter",
+        LeafLitterBlock::new,
+        BlockBehaviour.Properties.of()
+            .mapColor(MapColor.COLOR_BROWN)
+            .replaceable()
+            .noCollission()
+            .sound(SoundType.GRASS) // TODO
+            .pushReaction(PushReaction.DESTROY)
+    );
     public static final Supplier<Block> CACTUS_FLOWER = BLOCKS.register(
         "cactus_flower",
         CactusFlowerBlock::new,

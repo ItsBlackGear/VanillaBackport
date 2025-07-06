@@ -47,7 +47,8 @@ public abstract class PigRendererMixin extends MobRendererMixin<Pig, PigModel<Pi
         EnumMap<AnimalVariant, PigModel<Pig>> map = new EnumMap<>(AnimalVariant.class);
         map.put(AnimalVariant.DEFAULT, this.defaultModel);
         map.put(AnimalVariant.WARM, this.defaultModel);
-        map.put(AnimalVariant.COLD, new ColdPigModel<>(context.bakeLayer(ModModelLayers.COLD_PIG)));
+        map.put(AnimalVariant.COLD, this.defaultModel);
+//        map.put(AnimalVariant.COLD, new ColdPigModel<>(context.bakeLayer(ModModelLayers.COLD_PIG)));
 
         return map;
     }

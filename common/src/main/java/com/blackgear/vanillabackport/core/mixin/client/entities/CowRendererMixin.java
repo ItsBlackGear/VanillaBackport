@@ -47,8 +47,10 @@ public abstract class CowRendererMixin extends MobRendererMixin<Cow, CowModel<Co
     private Map<AnimalVariant, CowModel<Cow>> bakeModels(EntityRendererProvider.Context context) {
         EnumMap<AnimalVariant, CowModel<Cow>> map = new EnumMap<>(AnimalVariant.class);
         map.put(AnimalVariant.DEFAULT, this.defaultModel);
-        map.put(AnimalVariant.WARM, new WarmCowModel<>(context.bakeLayer(ModModelLayers.WARM_COW)));
-        map.put(AnimalVariant.COLD, new ColdCowModel<>(context.bakeLayer(ModModelLayers.COLD_COW)));
+        map.put(AnimalVariant.WARM, this.defaultModel);
+        map.put(AnimalVariant.COLD, this.defaultModel);
+//        map.put(AnimalVariant.WARM, new WarmCowModel<>(context.bakeLayer(ModModelLayers.WARM_COW)));
+//        map.put(AnimalVariant.COLD, new ColdCowModel<>(context.bakeLayer(ModModelLayers.COLD_COW)));
 
         return map;
     }

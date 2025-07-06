@@ -14,6 +14,14 @@ public class CommonConfig {
     public final ConfigBuilder.ConfigValue<Boolean> generateDriedGhasts;
     public final ConfigBuilder.ConfigValue<Boolean> dropLeashConnectionsOnFireworkBoost;
 
+    // Spring to Life
+    public final ConfigBuilder.ConfigValue<Boolean> generateBushes;
+    public final ConfigBuilder.ConfigValue<Boolean> generateFireflyBushes;
+    public final ConfigBuilder.ConfigValue<Boolean> generateWildflowers;
+    public final ConfigBuilder.ConfigValue<Boolean> generateDryGrass;
+    public final ConfigBuilder.ConfigValue<Boolean> generateFallenTrees;
+    public final ConfigBuilder.ConfigValue<Boolean> generateLeafLitter;
+
     public CommonConfig(ConfigBuilder builder) {
         builder.push("The Garden Awakens");
         this.generateResin = builder.comment("Determine if resin should generate after hitting a creaking").define("generateResin", true);
@@ -26,6 +34,15 @@ public class CommonConfig {
         builder.push("Chase the Skies");
         this.generateDriedGhasts = builder.comment("Determine if dried ghasts should generate in Nether Fossils").define("generateDriedGhasts", true);
         this.dropLeashConnectionsOnFireworkBoost = builder.comment("Determine if all leash connections should be dropped when using a firework rocket while elytra flying").define("dropLeashConnectionsOnFireworkBoost", true);
+        builder.pop();
+
+        builder.push("Spring to Life");
+        this.generateBushes = builder.comment("Determine if bushes should generate in the overworld").define("bushes", true);
+        this.generateFireflyBushes = builder.comment("Determine if firefly bushes should generate in the overworld").define("firefly_bushes", true);
+        this.generateWildflowers = builder.comment("Determine if wildflowers should generate in the overworld").define("wildflowers", true);
+        this.generateDryGrass = builder.comment("Determine if dry grass should generate in the overworld").define("dry_grass", true);
+        this.generateFallenTrees = builder.comment("Determine if fallen trees should generate in the overworld").define("fallen_trees", true);
+        this.generateLeafLitter = builder.comment("Determine if leaf litter should generate in the overworld").define("leaf_litter", true);
         builder.pop();
     }
 }

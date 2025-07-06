@@ -1,6 +1,8 @@
 package com.blackgear.vanillabackport.client;
 
 import com.blackgear.platform.client.GameRendering;
+import com.blackgear.vanillabackport.client.level.color.DryFoliageColor;
+import com.blackgear.vanillabackport.client.level.color.LeafLitterColors;
 import com.blackgear.vanillabackport.client.level.entities.model.*;
 import com.blackgear.vanillabackport.client.level.entities.model.chicken.ColdChickenModel;
 import com.blackgear.vanillabackport.client.level.entities.model.cow.ColdCowModel;
@@ -81,6 +83,7 @@ public class Rendering {
             ModBlocks.BUSH.get(),
             ModBlocks.FIREFLY_BUSH.get(),
             ModBlocks.WILDFLOWERS.get(),
+            ModBlocks.LEAF_LITTER.get(),
             ModBlocks.CACTUS_FLOWER.get(),
             ModBlocks.SHORT_DRY_GRASS.get(),
             ModBlocks.TALL_DRY_GRASS.get()
@@ -88,6 +91,16 @@ public class Rendering {
     }
 
     public static void blockColors(GameRendering.BlockColorEvent event) {
+        event.register(
+            (state, level, pos, tint) -> {
+                if (level != null && pos != null) {
+                    return LeafLitterColors.getAverageDryFoliageColor(pos);
+                } else {
+                    return DryFoliageColor.FOLIAGE_DRY_DEFAULT;
+                }
+            },
+            ModBlocks.LEAF_LITTER.get()
+        );
         event.register(
             (state, level, pos, tint) -> level != null && pos != null
                 ? BiomeColors.getAverageGrassColor(level, pos)

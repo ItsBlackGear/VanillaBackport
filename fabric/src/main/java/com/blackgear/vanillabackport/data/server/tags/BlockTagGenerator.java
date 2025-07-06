@@ -42,6 +42,8 @@ public class BlockTagGenerator extends FabricTagProvider.BlockTagProvider {
             .add(Blocks.SAND, Blocks.RED_SAND);
         this.getOrCreateTagBuilder(ModBlockTags.TRIGGERS_AMBIENT_DRIED_GHAST_BLOCK_SOUNDS)
             .add(Blocks.SOUL_SAND, Blocks.SOUL_SOIL);
+        this.getOrCreateTagBuilder(BlockTags.INSIDE_STEP_SOUND_BLOCKS)
+            .add(ModBlocks.WILDFLOWERS.get(), ModBlocks.LEAF_LITTER.get());
     }
 
     private void addWoodRelatedTags() {
@@ -144,10 +146,12 @@ public class BlockTagGenerator extends FabricTagProvider.BlockTagProvider {
 
         this.getOrCreateTagBuilder(BlockTags.REPLACEABLE_BY_TREES)
             .add(
+                ModBlocks.PALE_MOSS_CARPET.get(),
                 ModBlocks.BUSH.get(),
                 ModBlocks.FIREFLY_BUSH.get(),
                 ModBlocks.SHORT_DRY_GRASS.get(),
-                ModBlocks.TALL_DRY_GRASS.get()
+                ModBlocks.TALL_DRY_GRASS.get(),
+                ModBlocks.LEAF_LITTER.get()
             );
     }
 

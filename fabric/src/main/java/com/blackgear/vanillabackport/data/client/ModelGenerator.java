@@ -49,6 +49,7 @@ public class ModelGenerator extends VanillaModelGenerator {
         gen.createCrossBlockWithDefaultItem(ModBlocks.BUSH.get(), BlockModelGenerators.TintState.TINTED);
         gen.createCrossBlock(ModBlocks.FIREFLY_BUSH.get(), BlockModelGenerators.TintState.NOT_TINTED);
         gen.createSimpleFlatItemModel(ModBlocks.FIREFLY_BUSH.get().asItem());
+        gen.createLeafLitter(ModBlocks.LEAF_LITTER.get());
         gen.createFlowerBed(ModBlocks.WILDFLOWERS.get());
         gen.createCrossBlockWithDefaultItem(ModBlocks.CACTUS_FLOWER.get(), BlockModelGenerators.TintState.NOT_TINTED);
         gen.createCrossBlockWithDefaultItem(ModBlocks.SHORT_DRY_GRASS.get(), BlockModelGenerators.TintState.NOT_TINTED);

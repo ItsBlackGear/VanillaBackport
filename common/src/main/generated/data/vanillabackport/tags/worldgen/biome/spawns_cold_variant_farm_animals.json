@@ -21,6 +21,26 @@
     "minecraft:windswept_forest",
     "minecraft:windswept_gravelly_hills",
     "minecraft:stony_peaks",
-    "#minecraft:is_end"
+    "#minecraft:is_end",
+    {
+      "id": "#forge:is_cold",
+      "required": false
+    },
+    {
+      "id": "#forge:is_snowy",
+      "required": false
+    },
+    {
+      "id": "#c:climate_cold",
+      "required": false
+    },
+    {
+      "id": "#c:snowy",
+      "required": false
+    },
+    {
+      "id": "#c:icy",
+      "required": false
+    }
   ]
 }

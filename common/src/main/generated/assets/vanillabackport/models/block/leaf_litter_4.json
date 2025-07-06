@@ -1,0 +1,6 @@
+{
+  "parent": "vanillabackport:block/template_leaf_litter_4",
+  "textures": {
+    "texture": "vanillabackport:block/leaf_litter"
+  }
+}

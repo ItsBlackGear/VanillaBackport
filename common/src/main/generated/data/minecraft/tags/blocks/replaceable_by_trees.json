@@ -1,8 +1,12 @@
 {
   "replace": false,
   "values": [
+    "vanillabackport:pale_moss_carpet",
     "vanillabackport:bush",
     "vanillabackport:firefly_bush",
+    "vanillabackport:short_dry_grass",
+    "vanillabackport:tall_dry_grass",
+    "vanillabackport:leaf_litter",
     "vanillabackport:pale_moss_carpet"
   ]
 }

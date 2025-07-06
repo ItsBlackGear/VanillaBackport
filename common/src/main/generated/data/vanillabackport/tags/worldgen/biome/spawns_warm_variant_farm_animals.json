@@ -9,6 +9,14 @@
     "#minecraft:is_nether",
     "#minecraft:is_savanna",
     "#minecraft:is_jungle",
-    "#minecraft:is_badlands"
+    "#minecraft:is_badlands",
+    {
+      "id": "#forge:is_hot",
+      "required": false
+    },
+    {
+      "id": "#c:climate_hot",
+      "required": false
+    }
   ]
 }

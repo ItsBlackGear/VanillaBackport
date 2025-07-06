@@ -22,6 +22,7 @@
     "leashable.client.network.ClientPacketListenerMixin"
   ],
   "mixins": [
+    "access.BiomeAccessor",
     "access.EntityAccessor",
     "access.LivingEntityAccessor",
     "access.NoiseGeneratorSettingsAccessor",

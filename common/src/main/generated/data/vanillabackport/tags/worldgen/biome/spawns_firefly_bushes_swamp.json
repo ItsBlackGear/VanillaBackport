@@ -1,7 +1,13 @@
 {
   "replace": false,
   "values": [
-    "#minecraft:has_structure/swamp_hut",
-    "#minecraft:has_structure/ruined_portal_swamp"
+    {
+      "id": "#forge:is_swamp",
+      "required": false
+    },
+    {
+      "id": "#c:swamp",
+      "required": false
+    }
   ]
 }

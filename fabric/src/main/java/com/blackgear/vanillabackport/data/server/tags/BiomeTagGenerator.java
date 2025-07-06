@@ -2,6 +2,8 @@ package com.blackgear.vanillabackport.data.server.tags;
 
 import com.blackgear.vanillabackport.common.registries.ModBiomes;
 import com.blackgear.vanillabackport.core.data.tags.ModBiomeTags;
+import com.blackgear.vanillabackport.core.data.tags.fabric.FabricBiomeTags;
+import com.blackgear.vanillabackport.core.data.tags.forge.ForgeBiomeTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.core.HolderLookup;
@@ -19,30 +21,6 @@ public class BiomeTagGenerator extends FabricTagProvider<Biome> {
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
-        this.getOrCreateTagBuilder(ModBiomeTags.SPAWNS_BUSHES)
-            .forceAddTag(BiomeTags.IS_HILL)
-            .forceAddTag(BiomeTags.IS_RIVER)
-            .add(Biomes.FOREST)
-            .add(Biomes.BIRCH_FOREST)
-            .add(Biomes.OLD_GROWTH_BIRCH_FOREST)
-            .add(Biomes.PLAINS);
-        this.getOrCreateTagBuilder(ModBiomeTags.SPAWNS_FIREFLY_BUSHES)
-            .forceAddTag(BiomeTags.IS_BEACH)
-            .forceAddTag(BiomeTags.IS_RIVER)
-            .forceAddTag(BiomeTags.IS_TAIGA)
-            .forceAddTag(BiomeTags.IS_FOREST)
-            .forceAddTag(BiomeTags.IS_OCEAN)
-            .forceAddTag(BiomeTags.IS_SAVANNA)
-            .forceAddTag(BiomeTags.IS_HILL)
-            .forceAddTag(BiomeTags.IS_JUNGLE)
-            .forceAddTag(BiomeTags.IS_BADLANDS)
-            .forceAddTag(BiomeTags.HAS_VILLAGE_PLAINS)
-            .add(Biomes.MUSHROOM_FIELDS)
-            .add(Biomes.MANGROVE_SWAMP);
-        this.getOrCreateTagBuilder(ModBiomeTags.SPAWNS_FIREFLY_BUSHES_SWAMP)
-            .forceAddTag(BiomeTags.HAS_SWAMP_HUT)
-            .forceAddTag(BiomeTags.HAS_RUINED_PORTAL_SWAMP);
-
         this.getOrCreateTagBuilder(BiomeTags.IS_FOREST)
             .add(ModBiomes.PALE_GARDEN);
         this.getOrCreateTagBuilder(BiomeTags.HAS_WOODLAND_MANSION)
@@ -63,7 +41,9 @@ public class BiomeTagGenerator extends FabricTagProvider<Biome> {
             .forceAddTag(BiomeTags.IS_NETHER)
             .forceAddTag(BiomeTags.IS_SAVANNA)
             .forceAddTag(BiomeTags.IS_JUNGLE)
-            .forceAddTag(BiomeTags.IS_BADLANDS);
+            .forceAddTag(BiomeTags.IS_BADLANDS)
+            .addOptionalTag(ForgeBiomeTags.IS_HOT)
+            .addOptionalTag(FabricBiomeTags.CLIMATE_HOT);
 
         this.getOrCreateTagBuilder(ModBiomeTags.SPAWNS_COLD_VARIANT_FARM_ANIMALS)
             .add(
@@ -88,6 +68,40 @@ public class BiomeTagGenerator extends FabricTagProvider<Biome> {
                 Biomes.WINDSWEPT_GRAVELLY_HILLS,
                 Biomes.STONY_PEAKS
             )
-            .forceAddTag(BiomeTags.IS_END);
+            .forceAddTag(BiomeTags.IS_END)
+            .addOptionalTag(ForgeBiomeTags.IS_COLD)
+            .addOptionalTag(ForgeBiomeTags.IS_SNOWY)
+            .addOptionalTag(FabricBiomeTags.CLIMATE_COLD)
+            .addOptionalTag(FabricBiomeTags.SNOWY)
+            .addOptionalTag(FabricBiomeTags.ICY);
+
+        this.getOrCreateTagBuilder(ModBiomeTags.SPAWNS_BUSHES)
+            .forceAddTag(BiomeTags.IS_HILL)
+            .forceAddTag(BiomeTags.IS_RIVER)
+            .add(Biomes.FOREST)
+            .add(Biomes.BIRCH_FOREST)
+            .add(Biomes.OLD_GROWTH_BIRCH_FOREST)
+            .addOptionalTag(ForgeBiomeTags.IS_PLAINS)
+            .addOptionalTag(FabricBiomeTags.PLAINS);
+
+        this.getOrCreateTagBuilder(ModBiomeTags.SPAWNS_FIREFLY_BUSHES)
+            .forceAddTag(BiomeTags.IS_BEACH)
+            .forceAddTag(BiomeTags.IS_RIVER)
+            .forceAddTag(BiomeTags.IS_TAIGA)
+            .forceAddTag(BiomeTags.IS_FOREST)
+            .forceAddTag(BiomeTags.IS_OCEAN)
+            .forceAddTag(BiomeTags.IS_SAVANNA)
+            .forceAddTag(BiomeTags.IS_HILL)
+            .forceAddTag(BiomeTags.IS_JUNGLE)
+            .forceAddTag(BiomeTags.IS_BADLANDS)
+            .addOptionalTag(ForgeBiomeTags.IS_PLAINS)
+            .addOptionalTag(FabricBiomeTags.PLAINS)
+            .addOptionalTag(ForgeBiomeTags.IS_MUSHROOM)
+            .addOptionalTag(FabricBiomeTags.MUSHROOM)
+            .add(Biomes.MANGROVE_SWAMP);
+
+        this.getOrCreateTagBuilder(ModBiomeTags.SPAWNS_FIREFLY_BUSHES_SWAMP)
+            .addOptionalTag(ForgeBiomeTags.IS_SWAMP)
+            .addOptionalTag(FabricBiomeTags.SWAMP);
     }
 }

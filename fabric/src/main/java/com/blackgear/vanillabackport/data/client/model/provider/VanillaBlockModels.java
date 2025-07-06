@@ -205,4 +205,124 @@ public class VanillaBlockModels extends BlockModelGenerators {
                     .with(BlockModelGenerators.createHorizontalFacingDispatch())
             );
     }
+
+    public void createLeafLitter(Block block) {
+        ResourceLocation resourceLocation = TexturedModels.LEAF_LITTER_1.create(block, this.modelOutput);
+        ResourceLocation resourceLocation2 = TexturedModels.LEAF_LITTER_2.create(block, this.modelOutput);
+        ResourceLocation resourceLocation3 = TexturedModels.LEAF_LITTER_3.create(block, this.modelOutput);
+        ResourceLocation resourceLocation4 = TexturedModels.LEAF_LITTER_4.create(block, this.modelOutput);
+        this.createSimpleFlatItemModel(block.asItem());
+        this.blockStateOutput.accept(
+            MultiPartGenerator.multiPart(block)
+                .with(
+                    Condition.condition()
+                        .term(BlockStateProperties.FLOWER_AMOUNT, 1)
+                        .term(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH),
+                    Variant.variant()
+                        .with(VariantProperties.MODEL, resourceLocation)
+                ).with(
+                    Condition.condition()
+                        .term(BlockStateProperties.FLOWER_AMOUNT, 1)
+                        .term(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST),
+                    Variant.variant()
+                        .with(VariantProperties.MODEL, resourceLocation)
+                        .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)
+                ).with(
+                    Condition.condition()
+                        .term(BlockStateProperties.FLOWER_AMOUNT, 1)
+                        .term(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH),
+                    Variant.variant()
+                        .with(VariantProperties.MODEL, resourceLocation)
+                        .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180)
+                ).with(
+                    Condition.condition()
+                        .term(BlockStateProperties.FLOWER_AMOUNT, 1)
+                        .term(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST),
+                    Variant.variant()
+                        .with(VariantProperties.MODEL, resourceLocation)
+                        .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270)
+                ).with(
+                    Condition.condition()
+                        .term(BlockStateProperties.FLOWER_AMOUNT, 2, 3)
+                        .term(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH),
+                    Variant.variant()
+                        .with(VariantProperties.MODEL, resourceLocation2)
+                ).with(
+                    Condition.condition()
+                        .term(BlockStateProperties.FLOWER_AMOUNT, 2, 3)
+                        .term(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST),
+                    Variant.variant()
+                        .with(VariantProperties.MODEL, resourceLocation2)
+                        .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)
+                ).with(
+                    Condition.condition()
+                        .term(BlockStateProperties.FLOWER_AMOUNT, 2, 3)
+                        .term(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH),
+                    Variant.variant()
+                        .with(VariantProperties.MODEL, resourceLocation2)
+                        .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180)
+                ).with(
+                    Condition.condition()
+                        .term(BlockStateProperties.FLOWER_AMOUNT, 2, 3)
+                        .term(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST),
+                    Variant.variant()
+                        .with(VariantProperties.MODEL, resourceLocation2)
+                        .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270)
+                ).with(
+                    Condition.condition()
+                        .term(BlockStateProperties.FLOWER_AMOUNT, 3)
+                        .term(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH),
+                    Variant.variant()
+                        .with(VariantProperties.MODEL, resourceLocation3)
+                ).with(
+                    Condition.condition()
+                        .term(BlockStateProperties.FLOWER_AMOUNT, 3)
+                        .term(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST),
+                    Variant.variant()
+                        .with(VariantProperties.MODEL, resourceLocation3)
+                        .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)
+                ).with(
+                    Condition.condition()
+                        .term(BlockStateProperties.FLOWER_AMOUNT, 3)
+                        .term(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH),
+                    Variant.variant()
+                        .with(VariantProperties.MODEL, resourceLocation3)
+                        .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180)
+                ).with(
+                    Condition.condition()
+                        .term(BlockStateProperties.FLOWER_AMOUNT, 3)
+                        .term(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST),
+                    Variant.variant()
+                        .with(VariantProperties.MODEL, resourceLocation3)
+                        .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270)
+                ).with(
+                    Condition.condition()
+                        .term(BlockStateProperties.FLOWER_AMOUNT, 4)
+                        .term(BlockStateProperties.HORIZONTAL_FACING, Direction.NORTH),
+                    Variant.variant()
+                        .with(VariantProperties.MODEL, resourceLocation4)
+                ).with(
+                    Condition.condition()
+                        .term(BlockStateProperties.FLOWER_AMOUNT, 4)
+                        .term(BlockStateProperties.HORIZONTAL_FACING, Direction.EAST),
+                    Variant.variant()
+                        .with(VariantProperties.MODEL, resourceLocation4)
+                        .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)
+                ).with(
+                    Condition.condition()
+                        .term(BlockStateProperties.FLOWER_AMOUNT, 4)
+                        .term(BlockStateProperties.HORIZONTAL_FACING, Direction.SOUTH),
+                    Variant.variant()
+                        .with(VariantProperties.MODEL, resourceLocation4)
+                        .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180)
+                ).with(
+                    Condition.condition()
+                        .term(BlockStateProperties.FLOWER_AMOUNT, 4)
+                        .term(BlockStateProperties.HORIZONTAL_FACING, Direction.WEST),
+                    Variant.variant()
+                        .with(VariantProperties.MODEL, resourceLocation4)
+                        .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270)
+                )
+        );
+    }
 }

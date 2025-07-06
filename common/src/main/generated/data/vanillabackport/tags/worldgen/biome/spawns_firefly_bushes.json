@@ -10,8 +10,22 @@
     "#minecraft:is_hill",
     "#minecraft:is_jungle",
     "#minecraft:is_badlands",
-    "#minecraft:has_structure/village_plains",
-    "minecraft:mushroom_fields",
+    {
+      "id": "#forge:is_plains",
+      "required": false
+    },
+    {
+      "id": "#c:plains",
+      "required": false
+    },
+    {
+      "id": "#forge:is_mushroom",
+      "required": false
+    },
+    {
+      "id": "#c:mushroom",
+      "required": false
+    },
     "minecraft:mangrove_swamp"
   ]
 }

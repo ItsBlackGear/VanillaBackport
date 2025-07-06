@@ -46,7 +46,8 @@ public abstract class ChickenRendererMixin extends MobRendererMixin<Chicken, Chi
         Map<AnimalVariant, ChickenModel<Chicken>> map = Maps.newEnumMap(AnimalVariant.class);
         map.put(AnimalVariant.DEFAULT, this.defaultModel);
         map.put(AnimalVariant.WARM, this.defaultModel);
-        map.put(AnimalVariant.COLD, new ColdChickenModel<>(context.bakeLayer(ModModelLayers.COLD_CHICKEN)));
+        map.put(AnimalVariant.COLD, this.defaultModel);
+//        map.put(AnimalVariant.COLD, new ColdChickenModel<>(context.bakeLayer(ModModelLayers.COLD_CHICKEN)));
 
         return map;
     }
