@@ -22,19 +22,19 @@ public abstract class FeatureManager {
 
     public abstract void bootstrap();
 
-    protected Builder testFor(boolean filter) {
+    protected Builder getOrCreateBiomeBuilder(boolean filter) {
         return new Builder(this.context, ctx -> filter);
     }
 
-    protected Builder testFor(ResourceKey<Biome> biome) {
+    protected Builder getOrCreateBiomeBuilder(ResourceKey<Biome> biome) {
         return new Builder(this.context, ctx -> ctx.is(biome));
     }
 
-    protected Builder testFor(TagKey<Biome> biome) {
+    protected Builder getOrCreateBiomeBuilder(TagKey<Biome> biome) {
         return new Builder(this.context, ctx -> ctx.is(biome));
     }
 
-    protected Builder testFor(Predicate<BiomeContext> context) {
+    protected Builder getOrCreateBiomeBuilder(Predicate<BiomeContext> context) {
         return new Builder(this.context, ctx -> ctx.is(context));
     }
 

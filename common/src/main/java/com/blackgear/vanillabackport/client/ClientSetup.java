@@ -8,15 +8,9 @@ import com.blackgear.vanillabackport.client.resources.DryFoliageColorReloadListe
 import com.blackgear.vanillabackport.common.registries.ModWoodTypes;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.InputStream;
-
 public class ClientSetup {
     public static void setup() {
-        ResourceReloadManager.registerClient(event -> {
-            event.register(VanillaBackport.resource("dry_foliage"), new DryFoliageColorReloadListener());
-        });
+        ResourceReloadManager.registerClient(event -> event.register(VanillaBackport.resource("dry_foliage"), new DryFoliageColorReloadListener()));
 
         GameRendering.registerParticleFactories(Rendering::particleFactories);
         GameRendering.registerModelLayers(Rendering::modelLayers);

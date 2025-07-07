@@ -18,24 +18,24 @@ public class SpringToLifeFeatureManager extends FeatureManager {
     @Override
     public void bootstrap() {
         this.addIf(VanillaBackport.CONFIG.generateBushes.get(), (context, writer) -> {
-            this.testFor(ModBiomeTags.SPAWNS_BUSHES)
+            this.getOrCreateBiomeBuilder(ModBiomeTags.SPAWNS_BUSHES)
                 .add(() -> this.addVegetation(SpringToLifePlacements.PATCH_BUSH));
         });
 
         this.addIf(VanillaBackport.CONFIG.generateFireflyBushes.get(), (context, writer) -> {
-            this.testFor(ModBiomeTags.SPAWNS_FIREFLY_BUSHES)
+            this.getOrCreateBiomeBuilder(ModBiomeTags.SPAWNS_FIREFLY_BUSHES)
                 .add(() -> this.addVegetation(SpringToLifePlacements.PATCH_FIREFLY_BUSH_NEAR_WATER));
 
-            this.testFor(context.is(ModBiomeTags.SPAWNS_FIREFLY_BUSHES_SWAMP) && !context.is(ModBiomeTags.SPAWNS_FIREFLY_BUSHES))
+            this.getOrCreateBiomeBuilder(context.is(ModBiomeTags.SPAWNS_FIREFLY_BUSHES_SWAMP) && !context.is(ModBiomeTags.SPAWNS_FIREFLY_BUSHES))
                 .add(() -> this.addVegetation(SpringToLifePlacements.PATCH_FIREFLY_BUSH_SWAMP))
                 .add(() -> this.addVegetation(SpringToLifePlacements.PATCH_FIREFLY_BUSH_NEAR_WATER_SWAMP));
         });
 
         this.addIf(VanillaBackport.CONFIG.generateWildflowers.get(), (context, writer) -> {
-            this.testFor(Biomes.MEADOW)
+            this.getOrCreateBiomeBuilder(Biomes.MEADOW)
                 .add(() -> this.addVegetation(SpringToLifePlacements.WILDFLOWERS_MEADOW));
 
-            this.testFor(context.is(Biomes.BIRCH_FOREST) || context.is(Biomes.OLD_GROWTH_BIRCH_FOREST) || context.is(FabricBiomeTags.BIRCH_FOREST))
+            this.getOrCreateBiomeBuilder(context.is(Biomes.BIRCH_FOREST) || context.is(Biomes.OLD_GROWTH_BIRCH_FOREST) || context.is(FabricBiomeTags.BIRCH_FOREST))
                 .add(() -> this.addVegetation(SpringToLifePlacements.WILDFLOWERS_BIRCH_FOREST));
         });
 
