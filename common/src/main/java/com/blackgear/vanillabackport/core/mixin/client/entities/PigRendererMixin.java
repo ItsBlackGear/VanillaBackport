@@ -1,6 +1,8 @@
 package com.blackgear.vanillabackport.core.mixin.client.entities;
 
 import com.blackgear.vanillabackport.client.level.entities.variant.PigVariantRenderer;
+import com.blackgear.vanillabackport.common.level.entities.AnimalVariant;
+import com.blackgear.vanillabackport.common.level.entities.AnimalVariantHolder;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.PigModel;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -41,7 +43,7 @@ public abstract class PigRendererMixin extends MobRendererMixin<Pig, PigModel<Pi
 
     @Override
     public void render(Pig entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource buffer, int packedLight) {
-        if (this.renderer.getModel(entity) != null) {
+        if (this.renderer.getModel(entity) != null && AnimalVariantHolder.testFor(entity).getVariant() != AnimalVariant.DEFAULT) {
             this.model = this.renderer.getModel(entity);
         }
 

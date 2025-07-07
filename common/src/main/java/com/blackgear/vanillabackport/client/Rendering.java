@@ -18,16 +18,13 @@ import com.blackgear.vanillabackport.common.registries.ModBlocks;
 import com.blackgear.vanillabackport.common.registries.ModEntities;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.BoatModel;
 import net.minecraft.client.model.ChestBoatModel;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.GrassColor;
-import net.minecraft.world.level.block.state.BlockState;
 
 @Environment(EnvType.CLIENT)
 public class Rendering {
@@ -92,26 +89,15 @@ public class Rendering {
 
     public static void blockColors(GameRendering.BlockColorEvent event) {
         event.register(
-            (state, level, pos, tint) -> {
-                if (level != null && pos != null) {
-                    return LeafLitterColors.getAverageDryFoliageColor(pos);
-                } else {
-                    return DryFoliageColor.FOLIAGE_DRY_DEFAULT;
-                }
-            },
+            (state, level, pos, tint) -> level != null && pos != null
+                ? LeafLitterColors.getAverageDryFoliageColor(pos)
+                : DryFoliageColor.FOLIAGE_DRY_DEFAULT,
             ModBlocks.LEAF_LITTER.get()
         );
         event.register(
             (state, level, pos, tint) -> level != null && pos != null
                 ? BiomeColors.getAverageGrassColor(level, pos)
                 : GrassColor.getDefaultColor(),
-            ModBlocks.BUSH.get()
-        );
-        event.register(
-            (stack, tint) -> {
-                BlockState state = ((BlockItem) stack.getItem()).getBlock().defaultBlockState();
-                return Minecraft.getInstance().getBlockColors().getColor(state, null, null, tint);
-            },
             ModBlocks.BUSH.get()
         );
         event.register((state, level, pos, tint) -> {
@@ -123,5 +109,9 @@ public class Rendering {
             },
             ModBlocks.WILDFLOWERS.get()
         );
+    }
+
+    public static void itemColors(GameRendering.ItemColorEvent event) {
+        event.register(event::getColor, ModBlocks.BUSH.get());
     }
 }

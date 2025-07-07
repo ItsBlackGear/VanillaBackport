@@ -15,11 +15,12 @@ public class ClientSetup {
         GameRendering.registerParticleFactories(Rendering::particleFactories);
         GameRendering.registerModelLayers(Rendering::modelLayers);
         GameRendering.registerEntityRenderers(Rendering::entityRendering);
+        GameRendering.registerBlockColors(Rendering::blockColors);
+        GameRendering.registerItemColors(Rendering::itemColors);
     }
 
     public static void asyncSetup(ParallelDispatch dispatch) {
         GameRendering.registerBlockRenderers(Rendering::blockRendering);
-        GameRendering.registerBlockColors(Rendering::blockColors);
         WoodTypeRegistry.registerWoodType(ModWoodTypes.PALE_OAK);
         CreativeTabIntegration.bootstrap();
     }
