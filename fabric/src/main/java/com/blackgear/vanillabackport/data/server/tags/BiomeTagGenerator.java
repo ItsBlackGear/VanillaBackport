@@ -21,53 +21,41 @@ public class BiomeTagGenerator extends FabricTagProvider<Biome> {
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
+        this.addFeatureTags(provider);
+
         this.getOrCreateTagBuilder(BiomeTags.IS_FOREST)
             .add(ModBiomes.PALE_GARDEN);
-        this.getOrCreateTagBuilder(BiomeTags.HAS_WOODLAND_MANSION)
-            .add(ModBiomes.PALE_GARDEN);
-        this.getOrCreateTagBuilder(BiomeTags.STRONGHOLD_BIASED_TO)
-            .add(ModBiomes.PALE_GARDEN);
+
         this.getOrCreateTagBuilder(BiomeTags.IS_OVERWORLD)
             .add(ModBiomes.PALE_GARDEN);
 
-        this.getOrCreateTagBuilder(ModBiomeTags.SPAWNS_WARM_VARIANT_FARM_ANIMALS)
-            .add(
-                Biomes.DESERT,
-                Biomes.WARM_OCEAN,
-                Biomes.MANGROVE_SWAMP,
-                Biomes.DEEP_LUKEWARM_OCEAN,
-                Biomes.LUKEWARM_OCEAN
-            )
-            .forceAddTag(BiomeTags.IS_NETHER)
-            .forceAddTag(BiomeTags.IS_SAVANNA)
-            .forceAddTag(BiomeTags.IS_JUNGLE)
-            .forceAddTag(BiomeTags.IS_BADLANDS)
-            .addOptionalTag(ForgeBiomeTags.IS_HOT)
-            .addOptionalTag(FabricBiomeTags.CLIMATE_HOT);
+        this.getOrCreateTagBuilder(BiomeTags.HAS_WOODLAND_MANSION)
+            .add(ModBiomes.PALE_GARDEN);
+
+        this.getOrCreateTagBuilder(BiomeTags.STRONGHOLD_BIASED_TO)
+            .add(ModBiomes.PALE_GARDEN);
 
         this.getOrCreateTagBuilder(ModBiomeTags.SPAWNS_COLD_VARIANT_FARM_ANIMALS)
-            .add(
-                Biomes.SNOWY_PLAINS,
-                Biomes.ICE_SPIKES,
-                Biomes.FROZEN_PEAKS,
-                Biomes.JAGGED_PEAKS,
-                Biomes.SNOWY_SLOPES,
-                Biomes.FROZEN_OCEAN,
-                Biomes.DEEP_FROZEN_OCEAN,
-                Biomes.GROVE,
-                Biomes.DEEP_DARK,
-                Biomes.FROZEN_RIVER,
-                Biomes.SNOWY_TAIGA,
-                Biomes.SNOWY_BEACH,
-                Biomes.COLD_OCEAN,
-                Biomes.DEEP_COLD_OCEAN,
-                Biomes.OLD_GROWTH_PINE_TAIGA,
-                Biomes.OLD_GROWTH_SPRUCE_TAIGA,
-                Biomes.TAIGA,
-                Biomes.WINDSWEPT_FOREST,
-                Biomes.WINDSWEPT_GRAVELLY_HILLS,
-                Biomes.STONY_PEAKS
-            )
+            .add(Biomes.SNOWY_PLAINS)
+            .add(Biomes.ICE_SPIKES)
+            .add(Biomes.FROZEN_PEAKS)
+            .add(Biomes.JAGGED_PEAKS)
+            .add(Biomes.SNOWY_SLOPES)
+            .add(Biomes.FROZEN_OCEAN)
+            .add(Biomes.DEEP_FROZEN_OCEAN)
+            .add(Biomes.GROVE)
+            .add(Biomes.DEEP_DARK)
+            .add(Biomes.FROZEN_RIVER)
+            .add(Biomes.SNOWY_TAIGA)
+            .add(Biomes.SNOWY_BEACH)
+            .add(Biomes.COLD_OCEAN)
+            .add(Biomes.DEEP_COLD_OCEAN)
+            .add(Biomes.OLD_GROWTH_PINE_TAIGA)
+            .add(Biomes.OLD_GROWTH_SPRUCE_TAIGA)
+            .add(Biomes.TAIGA)
+            .add(Biomes.WINDSWEPT_FOREST)
+            .add(Biomes.WINDSWEPT_GRAVELLY_HILLS)
+            .add(Biomes.STONY_PEAKS)
             .forceAddTag(BiomeTags.IS_END)
             .addOptionalTag(ForgeBiomeTags.IS_COLD)
             .addOptionalTag(ForgeBiomeTags.IS_SNOWY)
@@ -75,6 +63,21 @@ public class BiomeTagGenerator extends FabricTagProvider<Biome> {
             .addOptionalTag(FabricBiomeTags.SNOWY)
             .addOptionalTag(FabricBiomeTags.ICY);
 
+        this.getOrCreateTagBuilder(ModBiomeTags.SPAWNS_WARM_VARIANT_FARM_ANIMALS)
+            .add(Biomes.DESERT)
+            .add(Biomes.WARM_OCEAN)
+            .add(Biomes.MANGROVE_SWAMP)
+            .add(Biomes.DEEP_LUKEWARM_OCEAN)
+            .add(Biomes.LUKEWARM_OCEAN)
+            .forceAddTag(BiomeTags.IS_NETHER)
+            .forceAddTag(BiomeTags.IS_SAVANNA)
+            .forceAddTag(BiomeTags.IS_JUNGLE)
+            .forceAddTag(BiomeTags.IS_BADLANDS)
+            .addOptionalTag(ForgeBiomeTags.IS_HOT)
+            .addOptionalTag(FabricBiomeTags.CLIMATE_HOT);
+    }
+
+    protected void addFeatureTags(HolderLookup.Provider provider) {
         this.getOrCreateTagBuilder(ModBiomeTags.SPAWNS_BUSHES)
             .forceAddTag(BiomeTags.IS_HILL)
             .forceAddTag(BiomeTags.IS_RIVER)

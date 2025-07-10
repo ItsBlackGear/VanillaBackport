@@ -59,15 +59,20 @@ public class BlockTagGenerator extends FabricTagProvider.BlockTagProvider {
             .add(ModBlocks.CREAKING_HEART.get());
 
         this.getOrCreateTagBuilder(BlockTags.MINEABLE_WITH_HOE)
-            .add(ModBlocks.PALE_MOSS_BLOCK.get())
-            .add(ModBlocks.PALE_MOSS_CARPET.get());
+            .add(
+                ModBlocks.PALE_OAK_LEAVES.get(),
+                ModBlocks.PALE_MOSS_BLOCK.get(),
+                ModBlocks.PALE_MOSS_CARPET.get()
+            );
 
         this.getOrCreateTagBuilder(BlockTags.MINEABLE_WITH_PICKAXE)
-            .add(ModBlocks.RESIN_BRICKS.get())
-            .add(ModBlocks.RESIN_BRICK_SLAB.get())
-            .add(ModBlocks.RESIN_BRICK_WALL.get())
-            .add(ModBlocks.RESIN_BRICK_STAIRS.get())
-            .add(ModBlocks.CHISELED_RESIN_BRICKS.get());
+            .add(
+                ModBlocks.RESIN_BRICKS.get(),
+                ModBlocks.RESIN_BRICK_SLAB.get(),
+                ModBlocks.RESIN_BRICK_WALL.get(),
+                ModBlocks.RESIN_BRICK_STAIRS.get(),
+                ModBlocks.CHISELED_RESIN_BRICKS.get()
+            );
 
         this.getOrCreateTagBuilder(BlockTags.REPLACEABLE_BY_TREES)
             .add(
