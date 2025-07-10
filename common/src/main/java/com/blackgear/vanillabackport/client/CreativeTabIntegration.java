@@ -44,10 +44,21 @@ public interface CreativeTabIntegration {
         output.addAfter(Items.CHERRY_LOG, ModBlocks.PALE_OAK_LOG.get());
         output.addAfter(Items.CHERRY_LEAVES, ModBlocks.PALE_OAK_LEAVES.get());
         output.addAfter(Items.CHERRY_SAPLING, ModBlocks.PALE_OAK_SAPLING.get());
+        output.addAllAfter(Items.FERN, List.of(
+            ModBlocks.SHORT_DRY_GRASS.get(),
+            ModBlocks.BUSH.get()
+        ));
         output.addAllAfter(Items.TORCHFLOWER, List.of(
+            ModBlocks.CACTUS_FLOWER.get(),
             ModBlocks.CLOSED_EYEBLOSSOM.get(),
             ModBlocks.OPEN_EYEBLOSSOM.get()
         ));
+        output.addAllAfter(Items.PINK_PETALS, List.of(
+            ModBlocks.WILDFLOWERS.get(),
+            ModBlocks.LEAF_LITTER.get()
+        ));
+        output.addAfter(Items.SPORE_BLOSSOM, ModBlocks.FIREFLY_BUSH.get());
+        output.addAfter(Items.LARGE_FERN, ModBlocks.TALL_DRY_GRASS.get());
         output.addAfter(Items.SNIFFER_EGG, ModBlocks.DRIED_GHAST.get());
     };
 

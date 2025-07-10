@@ -160,6 +160,7 @@ public class LangGenerator extends FabricLanguageProvider {
         builder.add(ModBlocks.CACTUS_FLOWER.get(), "Cactus Flower");
         builder.add(ModBlocks.SHORT_DRY_GRASS.get(), "Short Dry Grass");
         builder.add(ModBlocks.TALL_DRY_GRASS.get(), "Tall Dry Grass");
+        builder.add(ModBlocks.LEAF_LITTER.get(), "Leaf Litter");
 
         builder.add("subtitles.block.sand.idle", "Sandy sounds");
         builder.add("subtitles.block.deadbush.idle", "Dry sounds");
