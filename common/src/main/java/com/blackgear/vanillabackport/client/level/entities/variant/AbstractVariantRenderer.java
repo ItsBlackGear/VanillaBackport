@@ -14,11 +14,9 @@ import java.util.Map;
 @Environment(EnvType.CLIENT)
 public abstract class AbstractVariantRenderer<T extends LivingEntity, M extends EntityModel<T>> {
     protected final Map<AnimalVariant, M> modelByVariant;
-    protected final M model;
 
-    protected AbstractVariantRenderer(EntityRendererProvider.Context context, M model) {
+    protected AbstractVariantRenderer(EntityRendererProvider.Context context) {
         this.modelByVariant = this.bakeModels(context);
-        this.model = model;
     }
 
     public abstract Map<AnimalVariant, M> bakeModels(EntityRendererProvider.Context context);

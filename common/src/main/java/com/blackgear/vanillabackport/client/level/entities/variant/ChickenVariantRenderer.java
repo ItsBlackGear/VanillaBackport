@@ -16,15 +16,15 @@ import java.util.Map;
 
 @Environment(EnvType.CLIENT)
 public class ChickenVariantRenderer extends AbstractVariantRenderer<Chicken, ChickenModel<Chicken>> {
-    public ChickenVariantRenderer(EntityRendererProvider.Context context, ChickenModel<Chicken> model) {
-        super(context, model);
+    public ChickenVariantRenderer(EntityRendererProvider.Context context) {
+        super(context);
     }
 
     @Override
     public Map<AnimalVariant, ChickenModel<Chicken>> bakeModels(EntityRendererProvider.Context context) {
         Map<AnimalVariant, ChickenModel<Chicken>> map = Maps.newEnumMap(AnimalVariant.class);
-        map.put(AnimalVariant.DEFAULT, this.model);
-        map.put(AnimalVariant.WARM, this.model);
+        map.put(AnimalVariant.DEFAULT, null);
+        map.put(AnimalVariant.WARM, null);
         map.put(AnimalVariant.COLD, new ColdChickenModel<>(context.bakeLayer(ModModelLayers.COLD_CHICKEN)));
         return map;
     }

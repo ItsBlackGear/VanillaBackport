@@ -2,7 +2,7 @@ package com.blackgear.vanillabackport.client;
 
 import com.blackgear.platform.client.GameRendering;
 import com.blackgear.vanillabackport.client.level.color.DryFoliageColor;
-import com.blackgear.vanillabackport.client.level.color.LeafLitterColors;
+import com.blackgear.vanillabackport.client.level.color.LeafColors;
 import com.blackgear.vanillabackport.client.level.entities.model.*;
 import com.blackgear.vanillabackport.client.level.entities.model.chicken.ColdChickenModel;
 import com.blackgear.vanillabackport.client.level.entities.model.cow.ColdCowModel;
@@ -33,6 +33,8 @@ public class Rendering {
         event.register(ModParticles.TRAIL, TrailParticle.Provider::new);
 
         event.register(ModParticles.FIREFLY, FireflyParticle.Provider::new);
+        event.register(ModParticles.TINTED_LEAVES, FallingLeavesParticle.TintedLeavesProvider::new);
+        event.register(ModParticles.TINTED_NEEDLES, FallingLeavesParticle.TintedLeavesProvider::new);
     }
 
     public static void entityRendering(GameRendering.EntityRendererEvent event) {
@@ -90,7 +92,7 @@ public class Rendering {
     public static void blockColors(GameRendering.BlockColorEvent event) {
         event.register(
             (state, level, pos, tint) -> level != null && pos != null
-                ? LeafLitterColors.getAverageDryFoliageColor(pos)
+                ? LeafColors.getAverageDryFoliageColor(pos)
                 : DryFoliageColor.FOLIAGE_DRY_DEFAULT,
             ModBlocks.LEAF_LITTER.get()
         );

@@ -1,8 +1,6 @@
 package com.blackgear.vanillabackport.core.mixin.client.entities;
 
 import com.blackgear.vanillabackport.client.level.entities.variant.PigVariantRenderer;
-import com.blackgear.vanillabackport.common.level.entities.AnimalVariant;
-import com.blackgear.vanillabackport.common.level.entities.AnimalVariantHolder;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.PigModel;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -27,7 +25,7 @@ public abstract class PigRendererMixin extends MobRendererMixin<Pig, PigModel<Pi
 
     @Inject(method = "<init>", at = @At("TAIL"))
     private void vb$init(EntityRendererProvider.Context context, CallbackInfo ci) {
-        this.renderer = new PigVariantRenderer(context, this.defaultModel);
+        this.renderer = new PigVariantRenderer(context);
     }
 
     @Inject(
@@ -43,9 +41,8 @@ public abstract class PigRendererMixin extends MobRendererMixin<Pig, PigModel<Pi
 
     @Override
     public void render(Pig entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource buffer, int packedLight) {
-        if (this.renderer.getModel(entity) != null && AnimalVariantHolder.testFor(entity).getVariant() != AnimalVariant.DEFAULT) {
-            this.model = this.renderer.getModel(entity);
-        }
+        PigModel<Pig> model = this.renderer.getModel(entity);
+        this.model = model != null ? model : this.defaultModel;
 
         super.render(entity, entityYaw, partialTicks, poseStack, buffer, packedLight);
     }

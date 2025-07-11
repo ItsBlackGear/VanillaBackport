@@ -16,6 +16,7 @@
     "client.entities.CowRendererMixin",
     "client.entities.MobRendererMixin",
     "client.entities.PigRendererMixin",
+    "common.blocks.LeavesBlockMixin",
     "leashable.client.BoatRendererMixin",
     "leashable.client.EntityRendererMixin",
     "leashable.client.MobRendererMixin",

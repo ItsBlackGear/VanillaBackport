@@ -1,5 +1,6 @@
 package com.blackgear.vanillabackport.client.level.color;
 
+import com.blackgear.vanillabackport.client.resources.LeafColorReloadListener;
 import com.blackgear.vanillabackport.common.registries.ModBiomes;
 import com.blackgear.vanillabackport.core.mixin.access.BiomeAccessor;
 import net.fabricmc.api.EnvType;
@@ -13,14 +14,15 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.level.ColorResolver;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 
-import java.util.Collections;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Predicate;
 
 @Environment(EnvType.CLIENT)
-public class LeafLitterColors {
+public class LeafColors {
     private static final Map<Predicate<Holder<Biome>>, Integer> COLOR_MAP = new ConcurrentHashMap<>();
 
     public static final ColorResolver DRY_FOLIAGE_COLOR_RESOLVER = (biome, d, e) -> {
@@ -39,10 +41,24 @@ public class LeafLitterColors {
                 .filter(entry -> entry.getKey().test(biome))
                 .findFirst()
                 .map(Map.Entry::getValue)
-                .orElseGet(() -> new BlockTintCache(value -> level.calculateBlockTint(value, LeafLitterColors.DRY_FOLIAGE_COLOR_RESOLVER)).getColor(pos));
+                .orElseGet(() -> new BlockTintCache(value -> level.calculateBlockTint(value, DRY_FOLIAGE_COLOR_RESOLVER)).getColor(pos));
         } else {
             return DryFoliageColor.FOLIAGE_DRY_DEFAULT;
         }
+    }
+
+    public static int getClientLeafTintColor(BlockPos pos) {
+        ClientLevel level = Minecraft.getInstance().level;
+        if (level == null) return 0;
+
+        BlockState state = level.getBlockState(pos);
+        Block block = state.getBlock();
+
+        if (LeafColorReloadListener.hasCustomColor(block)) {
+            return LeafColorReloadListener.getCustomColor(block);
+        }
+
+        return Minecraft.getInstance().getBlockColors().getColor(state, level, pos, 0);
     }
 
     static {

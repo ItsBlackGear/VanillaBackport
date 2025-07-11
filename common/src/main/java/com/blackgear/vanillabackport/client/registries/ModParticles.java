@@ -1,6 +1,7 @@
 package com.blackgear.vanillabackport.client.registries;
 
 import com.blackgear.platform.core.helper.ParticleRegistry;
+import com.blackgear.vanillabackport.client.level.particles.particleoptions.ColorParticleOption;
 import com.blackgear.vanillabackport.client.level.particles.particleoptions.TrailParticleOption;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.core.BlockPos;
@@ -27,6 +28,18 @@ public class ModParticles {
     );
 
     public static final Supplier<SimpleParticleType> FIREFLY = PARTICLES.register("firefly", false);
+    public static final Supplier<ParticleType<ColorParticleOption>> TINTED_LEAVES = PARTICLES.register(
+        "tinted_leaves",
+        false,
+        ColorParticleOption.DESERIALIZER,
+        ColorParticleOption::codec
+    );
+    public static final Supplier<ParticleType<ColorParticleOption>> TINTED_NEEDLES = PARTICLES.register(
+        "tinted_needles",
+        false,
+        ColorParticleOption.DESERIALIZER,
+        ColorParticleOption::codec
+    );
 
     public static <T extends ParticleOptions> int sendParticles(ServerLevel level, T particle, double x, double y, double z, int particleCount, double xOffset, double yOffset, double zOffset, double speed) {
         return sendParticles(level, particle, false, false, x, y, z, particleCount, xOffset, yOffset, zOffset, speed);

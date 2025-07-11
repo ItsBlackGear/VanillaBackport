@@ -17,14 +17,14 @@ import java.util.Map;
 
 @Environment(EnvType.CLIENT)
 public class CowVariantRenderer extends AbstractVariantRenderer<Cow, CowModel<Cow>> {
-    public CowVariantRenderer(EntityRendererProvider.Context context, CowModel<Cow> model) {
-        super(context, model);
+    public CowVariantRenderer(EntityRendererProvider.Context context) {
+        super(context);
     }
 
     @Override
     public Map<AnimalVariant, CowModel<Cow>> bakeModels(EntityRendererProvider.Context context) {
         Map<AnimalVariant, CowModel<Cow>> map = Maps.newEnumMap(AnimalVariant.class);
-        map.put(AnimalVariant.DEFAULT, this.model);
+        map.put(AnimalVariant.DEFAULT, null);
         map.put(AnimalVariant.WARM, new WarmCowModel<>(context.bakeLayer(ModModelLayers.WARM_COW)));
         map.put(AnimalVariant.COLD, new ColdCowModel<>(context.bakeLayer(ModModelLayers.COLD_COW)));
         return map;

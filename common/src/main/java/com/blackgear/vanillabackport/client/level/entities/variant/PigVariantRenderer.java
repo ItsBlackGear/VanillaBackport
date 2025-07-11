@@ -16,15 +16,15 @@ import java.util.Map;
 
 @Environment(EnvType.CLIENT)
 public class PigVariantRenderer extends AbstractVariantRenderer<Pig, PigModel<Pig>> {
-    public PigVariantRenderer(EntityRendererProvider.Context context, PigModel<Pig> model) {
-        super(context, model);
+    public PigVariantRenderer(EntityRendererProvider.Context context) {
+        super(context);
     }
 
     @Override
     public Map<AnimalVariant, PigModel<Pig>> bakeModels(EntityRendererProvider.Context context) {
         Map<AnimalVariant, PigModel<Pig>> map = Maps.newEnumMap(AnimalVariant.class);
-        map.put(AnimalVariant.DEFAULT, this.model);
-        map.put(AnimalVariant.WARM, this.model);
+        map.put(AnimalVariant.DEFAULT, null);
+        map.put(AnimalVariant.WARM, null);
         map.put(AnimalVariant.COLD, new ColdPigModel<>(context.bakeLayer(ModModelLayers.COLD_PIG)));
         return map;
     }

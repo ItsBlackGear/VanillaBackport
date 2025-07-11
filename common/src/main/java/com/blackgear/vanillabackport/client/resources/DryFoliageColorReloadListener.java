@@ -15,6 +15,7 @@ import java.io.IOException;
 @Environment(EnvType.CLIENT)
 public class DryFoliageColorReloadListener extends SimplePreparableReloadListener<int[]> {
     private static final ResourceLocation LOCATION = VanillaBackport.resource("textures/colormap/dry_foliage.png");
+    public static final DryFoliageColorReloadListener INSTANCE = new DryFoliageColorReloadListener();
 
     @Override
     protected int[] prepare(ResourceManager resourceManager, ProfilerFiller profiler) {

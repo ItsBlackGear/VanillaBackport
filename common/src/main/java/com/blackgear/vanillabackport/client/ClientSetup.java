@@ -5,12 +5,16 @@ import com.blackgear.platform.common.block.WoodTypeRegistry;
 import com.blackgear.platform.core.ParallelDispatch;
 import com.blackgear.platform.core.events.ResourceReloadManager;
 import com.blackgear.vanillabackport.client.resources.DryFoliageColorReloadListener;
+import com.blackgear.vanillabackport.client.resources.LeafColorReloadListener;
 import com.blackgear.vanillabackport.common.registries.ModWoodTypes;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 
 public class ClientSetup {
     public static void setup() {
-        ResourceReloadManager.registerClient(event -> event.register(VanillaBackport.resource("dry_foliage"), new DryFoliageColorReloadListener()));
+        ResourceReloadManager.registerClient(event -> {
+            event.register(VanillaBackport.resource("dry_foliage"), DryFoliageColorReloadListener.INSTANCE);
+            event.register(VanillaBackport.resource("leaf_colors"), LeafColorReloadListener.INSTANCE);
+        });
 
         GameRendering.registerParticleFactories(Rendering::particleFactories);
         GameRendering.registerModelLayers(Rendering::modelLayers);
