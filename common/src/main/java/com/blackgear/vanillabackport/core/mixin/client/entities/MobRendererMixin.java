@@ -18,9 +18,11 @@ public abstract class MobRendererMixin<T extends Mob, M extends EntityModel<T>> 
     }
 
     @Unique protected M defaultModel;
+    @Unique protected EntityRendererProvider.Context context;
 
     @Inject(method = "<init>", at = @At("TAIL"))
     private void vb$init(EntityRendererProvider.Context context, M model, float shadowRadius, CallbackInfo ci) {
+        this.context = context;
         this.defaultModel = model;
     }
 }

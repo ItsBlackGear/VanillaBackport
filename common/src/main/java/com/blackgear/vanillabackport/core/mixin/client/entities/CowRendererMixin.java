@@ -12,7 +12,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(CowRenderer.class)
@@ -23,9 +22,13 @@ public abstract class CowRendererMixin extends MobRendererMixin<Cow, CowModel<Co
         super(context, model, shadowRadius);
     }
 
-    @Inject(method = "<init>", at = @At("TAIL"))
-    private void vb$init(EntityRendererProvider.Context context, CallbackInfo ci) {
-        this.renderer = new CowVariantRenderer(context);
+    @Unique
+    private CowVariantRenderer renderer() {
+        if (this.renderer == null) {
+            this.renderer = new CowVariantRenderer(this.context);
+        }
+
+        return this.renderer;
     }
 
     @Inject(
@@ -34,14 +37,14 @@ public abstract class CowRendererMixin extends MobRendererMixin<Cow, CowModel<Co
         cancellable = true
     )
     private void vb$getTextureLocation(Cow entity, CallbackInfoReturnable<ResourceLocation> cir) {
-        if (this.renderer.getTexture(entity) != null) {
-            cir.setReturnValue(this.renderer.getTexture(entity));
+        if (this.renderer().getTexture(entity) != null) {
+            cir.setReturnValue(this.renderer().getTexture(entity));
         }
     }
 
     @Override
     public void render(Cow entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource buffer, int packedLight) {
-        CowModel<Cow> model = this.renderer.getModel(entity);
+        CowModel<Cow> model = this.renderer().getModel(entity);
         this.model = model != null ? model : this.defaultModel;
 
         super.render(entity, entityYaw, partialTicks, poseStack, buffer, packedLight);

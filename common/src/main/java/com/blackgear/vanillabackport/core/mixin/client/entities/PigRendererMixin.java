@@ -12,7 +12,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(PigRenderer.class)
@@ -23,9 +22,13 @@ public abstract class PigRendererMixin extends MobRendererMixin<Pig, PigModel<Pi
         super(context, model, shadowRadius);
     }
 
-    @Inject(method = "<init>", at = @At("TAIL"))
-    private void vb$init(EntityRendererProvider.Context context, CallbackInfo ci) {
-        this.renderer = new PigVariantRenderer(context);
+    @Unique
+    private PigVariantRenderer renderer() {
+        if (this.renderer == null) {
+            this.renderer = new PigVariantRenderer(this.context);
+        }
+
+        return this.renderer;
     }
 
     @Inject(
@@ -34,14 +37,14 @@ public abstract class PigRendererMixin extends MobRendererMixin<Pig, PigModel<Pi
         cancellable = true
     )
     private void vb$getTextureLocation(Pig entity, CallbackInfoReturnable<ResourceLocation> cir) {
-        if (this.renderer.getTexture(entity) != null) {
-            cir.setReturnValue(this.renderer.getTexture(entity));
+        if (this.renderer().getTexture(entity) != null) {
+            cir.setReturnValue(this.renderer().getTexture(entity));
         }
     }
 
     @Override
     public void render(Pig entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource buffer, int packedLight) {
-        PigModel<Pig> model = this.renderer.getModel(entity);
+        PigModel<Pig> model = this.renderer().getModel(entity);
         this.model = model != null ? model : this.defaultModel;
 
         super.render(entity, entityYaw, partialTicks, poseStack, buffer, packedLight);

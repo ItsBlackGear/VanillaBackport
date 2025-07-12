@@ -1,5 +1,6 @@
 package com.blackgear.vanillabackport.client.level.entities.variant;
 
+import com.blackgear.platform.client.GameRendering;
 import com.blackgear.vanillabackport.client.level.entities.model.chicken.ColdChickenModel;
 import com.blackgear.vanillabackport.client.registries.ModModelLayers;
 import com.blackgear.vanillabackport.common.level.entities.AnimalVariant;

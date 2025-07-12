@@ -12,7 +12,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ChickenRenderer.class)
@@ -23,9 +22,13 @@ public abstract class ChickenRendererMixin extends MobRendererMixin<Chicken, Chi
         super(context, model, shadowRadius);
     }
 
-    @Inject(method = "<init>", at = @At("TAIL"))
-    private void vb$init(EntityRendererProvider.Context context, CallbackInfo ci) {
-        this.renderer = new ChickenVariantRenderer(context);
+    @Unique
+    private ChickenVariantRenderer renderer() {
+        if (this.renderer == null) {
+            this.renderer = new ChickenVariantRenderer(this.context);
+        }
+
+        return this.renderer;
     }
 
     @Inject(
@@ -34,14 +37,14 @@ public abstract class ChickenRendererMixin extends MobRendererMixin<Chicken, Chi
         cancellable = true
     )
     private void vb$getTextureLocation(Chicken entity, CallbackInfoReturnable<ResourceLocation> cir) {
-        if (this.renderer.getTexture(entity) != null) {
-            cir.setReturnValue(this.renderer.getTexture(entity));
+        if (this.renderer().getTexture(entity) != null) {
+            cir.setReturnValue(this.renderer().getTexture(entity));
         }
     }
 
     @Override
     public void render(Chicken entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource buffer, int packedLight) {
-        ChickenModel<Chicken> model = this.renderer.getModel(entity);
+        ChickenModel<Chicken> model = this.renderer().getModel(entity);
         this.model = model != null ? model : this.defaultModel;
 
         super.render(entity, entityYaw, partialTicks, poseStack, buffer, packedLight);
