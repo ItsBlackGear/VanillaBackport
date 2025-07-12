@@ -372,7 +372,7 @@ public class ModBlocks {
             .mapColor(MapColor.COLOR_BROWN)
             .replaceable()
             .noCollission()
-            .sound(SoundType.GRASS) // TODO
+            .sound(ModSoundTypes.LEAF_LITTER)
             .pushReaction(PushReaction.DESTROY)
     );
     public static final Supplier<Block> CACTUS_FLOWER = BLOCKS.register(

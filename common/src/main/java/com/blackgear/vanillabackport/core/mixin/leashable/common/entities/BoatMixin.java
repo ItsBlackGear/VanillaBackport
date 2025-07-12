@@ -206,4 +206,14 @@ public abstract class BoatMixin extends Entity implements Leashable {
 
         this.interpolation.interpolate();
     }
+
+    @Override
+    public boolean supportQuadLeash() {
+        return true;
+    }
+
+    @Override
+    public Vec3[] getQuadLeashOffsets() {
+        return Leashable.createQuadLeashOffsets(this, 0.0, 0.64, 0.382, 0.88);
+    }
 }

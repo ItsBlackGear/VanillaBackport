@@ -93,6 +93,16 @@ public class RecipeGenerator extends FabricRecipeProvider {
             .save(exporter);
 
         oneToOneConversionRecipe(exporter, Items.PINK_DYE, ModBlocks.CACTUS_FLOWER.get(), "pink_dye");
+
+        shaped(RecipeCategory.DECORATIONS, Blocks.LODESTONE)
+            .define('S', Items.CHISELED_STONE_BRICKS)
+            .define('#', Items.IRON_INGOT)
+            .pattern("SSS")
+            .pattern("S#S")
+            .pattern("SSS")
+            .unlockedBy("has_iron_ingot", has(Items.IRON_INGOT))
+            .unlockedBy("has_lodestone", has(Items.LODESTONE))
+            .save(exporter);
     }
 
     public static ShapedRecipeBuilder shaped(RecipeCategory category, ItemLike entry) {

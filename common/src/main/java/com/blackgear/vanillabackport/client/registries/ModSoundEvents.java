@@ -47,6 +47,12 @@ public class ModSoundEvents {
     public static final Supplier<SoundEvent> DRIED_GHAST_PLACE_IN_WATER = SOUNDS.soundEvent("block.dried_ghast.place_in_water");
     public static final Supplier<SoundEvent> DRIED_GHAST_TRANSITION = SOUNDS.soundEvent("block.dried_ghast.transition");
 
+    public static final Supplier<SoundEvent> LEAF_LITTER_BREAK = SOUNDS.soundEvent("block.leaf_litter.break");
+    public static final Supplier<SoundEvent> LEAF_LITTER_STEP = SOUNDS.soundEvent("block.leaf_litter.step");
+    public static final Supplier<SoundEvent> LEAF_LITTER_PLACE = SOUNDS.soundEvent("block.leaf_litter.place");
+    public static final Supplier<SoundEvent> LEAF_LITTER_HIT = SOUNDS.soundEvent("block.leaf_litter.hit");
+    public static final Supplier<SoundEvent> LEAF_LITTER_FALL = SOUNDS.soundEvent("block.leaf_litter.fall");
+
     public static final Supplier<SoundEvent> FIREFLY_BUSH_IDLE = SOUNDS.soundEvent("block.firefly_bush.idle");
     public static final Supplier<SoundEvent> SAND_IDLE = SOUNDS.soundEvent("block.sand.idle");
     public static final Supplier<SoundEvent> DEAD_BUSH_IDLE = SOUNDS.soundEvent("block.deadbush.idle");
