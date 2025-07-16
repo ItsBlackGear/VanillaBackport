@@ -29,15 +29,16 @@ public class ClientSetup {
         GameRendering.registerItemColors(Rendering::itemColors);
 
         BundleMouseActions.bootstrap();
-        BundleContents.getAllBundleItemColors()
-            .stream()
-            .filter(item -> !item.getDefaultInstance().is(Items.BUNDLE))
-            .forEach(item -> ItemPropertyRegistry.register(item, new ResourceLocation("filled"), (stack, level, entity, seed) -> BundleItem.getFullnessDisplay(stack)));
     }
 
     public static void asyncSetup(ParallelDispatch dispatch) {
         GameRendering.registerBlockRenderers(Rendering::blockRendering);
         WoodTypeRegistry.registerWoodType(ModWoodTypes.PALE_OAK);
         CreativeTabIntegration.bootstrap();
+
+        BundleContents.getAllBundleItemColors()
+            .stream()
+            .filter(item -> !item.getDefaultInstance().is(Items.BUNDLE))
+            .forEach(item -> ItemPropertyRegistry.register(item, new ResourceLocation("filled"), (stack, level, entity, seed) -> BundleItem.getFullnessDisplay(stack)));
     }
 }

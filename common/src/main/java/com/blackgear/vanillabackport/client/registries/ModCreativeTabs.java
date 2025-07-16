@@ -8,6 +8,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 
 import java.util.function.Supplier;
 
@@ -98,6 +99,35 @@ public interface ModCreativeTabs {
                 output.accept(ModBlocks.WILDFLOWERS.get());
                 output.accept(ModBlocks.LEAF_LITTER.get());
                 output.accept(ModBlocks.CACTUS_FLOWER.get());
+                output.accept(ModBlocks.SHORT_DRY_GRASS.get());
+                output.accept(ModBlocks.TALL_DRY_GRASS.get());
+            })
+            .build()
+    );
+
+    Supplier<CreativeModeTab> BUNDLES_OF_BRAVERY = TABS.register(
+        "bundles_of_bravery",
+        () -> CreativeModeTab.builder(CreativeModeTab.Row.TOP, 3)
+            .title(Component.literal("Bundles of Bravery"))
+            .icon(() -> new ItemStack(Items.BUNDLE))
+            .displayItems((parameters, output) -> {
+                output.accept(Items.BUNDLE);
+                output.accept(ModItems.WHITE_BUNDLE.get());
+                output.accept(ModItems.LIGHT_GRAY_BUNDLE.get());
+                output.accept(ModItems.GRAY_BUNDLE.get());
+                output.accept(ModItems.BLACK_BUNDLE.get());
+                output.accept(ModItems.BROWN_BUNDLE.get());
+                output.accept(ModItems.RED_BUNDLE.get());
+                output.accept(ModItems.ORANGE_BUNDLE.get());
+                output.accept(ModItems.YELLOW_BUNDLE.get());
+                output.accept(ModItems.LIME_BUNDLE.get());
+                output.accept(ModItems.GREEN_BUNDLE.get());
+                output.accept(ModItems.CYAN_BUNDLE.get());
+                output.accept(ModItems.LIGHT_BLUE_BUNDLE.get());
+                output.accept(ModItems.BLUE_BUNDLE.get());
+                output.accept(ModItems.PURPLE_BUNDLE.get());
+                output.accept(ModItems.MAGENTA_BUNDLE.get());
+                output.accept(ModItems.PINK_BUNDLE.get());
             })
             .build()
     );
