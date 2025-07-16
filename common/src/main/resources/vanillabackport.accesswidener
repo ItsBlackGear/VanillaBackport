@@ -6,6 +6,7 @@ accessible field net/minecraft/world/entity/Mob leashInfoTag Lnet/minecraft/nbt/
 accessible method net/minecraft/world/entity/Mob restoreLeashFromSave ()V
 
 accessible method net/minecraft/world/item/RecordItem <init> (ILnet/minecraft/sounds/SoundEvent;Lnet/minecraft/world/item/Item$Properties;I)V
+accessible method net/minecraft/world/item/BundleItem getWeight (Lnet/minecraft/world/item/ItemStack;)I
 
 accessible class net/minecraft/world/entity/ai/control/MoveControl$Operation
 accessible field net/minecraft/world/entity/ai/control/MoveControl operation Lnet/minecraft/world/entity/ai/control/MoveControl$Operation;
@@ -26,6 +27,8 @@ accessible field net/minecraft/world/entity/vehicle/Boat lastYd D
 accessible field net/minecraft/world/entity/vehicle/Boat status Lnet/minecraft/world/entity/vehicle/Boat$Status;
 
 accessible class net/minecraft/world/entity/npc/VillagerTrades$ItemsForEmeralds
+
+accessible field net/minecraft/client/gui/screens/inventory/AbstractContainerScreen hoveredSlot Lnet/minecraft/world/inventory/Slot;
 
 accessible field net/minecraft/world/item/CreativeModeTabs BUILDING_BLOCKS Lnet/minecraft/resources/ResourceKey;
 accessible field net/minecraft/world/item/CreativeModeTabs COLORED_BLOCKS Lnet/minecraft/resources/ResourceKey;

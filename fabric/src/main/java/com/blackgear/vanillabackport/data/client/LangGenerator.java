@@ -165,5 +165,10 @@ public class LangGenerator extends FabricLanguageProvider {
         builder.add("subtitles.block.sand.idle", "Sandy sounds");
         builder.add("subtitles.block.deadbush.idle", "Dry sounds");
         builder.add("subtitles.block.dry_grass.ambient", "Windy sounds");
+
+        // Bundles of Bravery
+        builder.add("item.minecraft.bundle.empty", "Empty");
+        builder.add("item.minecraft.bundle.empty.description", "Can hold a mixed stack of items");
+        builder.add("item.minecraft.bundle.full", "Full");
     }
 }

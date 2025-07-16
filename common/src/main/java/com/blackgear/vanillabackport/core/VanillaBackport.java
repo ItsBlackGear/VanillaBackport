@@ -19,6 +19,7 @@ import com.blackgear.vanillabackport.common.worldgen.placements.TheGardenAwakens
 import com.blackgear.vanillabackport.core.data.tags.ModBlockTags;
 import com.blackgear.vanillabackport.core.data.tags.ModEntityTypeTags;
 import com.blackgear.vanillabackport.core.data.tags.ModItemTags;
+import com.blackgear.vanillabackport.core.network.NetworkHandler;
 import com.mojang.logging.LogUtils;
 import net.minecraft.resources.ResourceLocation;
 import org.slf4j.Logger;
@@ -37,6 +38,7 @@ public final class VanillaBackport {
 
     public static void bootstrap() {
         INSTANCE.bootstrap();
+        NetworkHandler.bootstrap();
 
         ModParticles.PARTICLES.register();
 

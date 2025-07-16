@@ -20,7 +20,8 @@
     "leashable.client.BoatRendererMixin",
     "leashable.client.EntityRendererMixin",
     "leashable.client.MobRendererMixin",
-    "leashable.client.network.ClientPacketListenerMixin"
+    "leashable.client.network.ClientPacketListenerMixin",
+    "client.ClientBundleTooltipMixin"
   ],
   "mixins": [
     "access.BiomeAccessor",
@@ -43,6 +44,7 @@
     "common.entities.ParrotMixin",
     "common.entities.PigMixin",
     "common.entities.ServerEntityMixin",
+    "common.items.BundleItemMixin",
     "common.worldgen.feature.SimpleBlockFeatureMixin",
     "common.worldgen.structure.NetherFossilPieceMixin",
     "leashable.common.entities.BoatMixin",
