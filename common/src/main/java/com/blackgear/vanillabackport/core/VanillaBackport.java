@@ -51,6 +51,8 @@ public final class VanillaBackport {
         ModSoundEvents.SOUNDS.register();
         ModSoundTypes.SOUNDS.register();
 
+        ModRecipeSerializers.SERIALIZERS.register();
+
         ModCreativeTabs.TABS.register();
         ModPaintingVariants.VARIANTS.register();
 

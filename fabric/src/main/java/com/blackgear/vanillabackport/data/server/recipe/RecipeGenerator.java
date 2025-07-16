@@ -2,14 +2,12 @@ package com.blackgear.vanillabackport.data.server.recipe;
 
 import com.blackgear.vanillabackport.common.registries.ModBlocks;
 import com.blackgear.vanillabackport.common.registries.ModItems;
+import com.blackgear.vanillabackport.common.registries.ModRecipeSerializers;
 import com.blackgear.vanillabackport.core.data.tags.ModItemTags;
 import com.blackgear.vanillabackport.data.client.BlockFamilies;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
-import net.minecraft.data.recipes.FinishedRecipe;
-import net.minecraft.data.recipes.RecipeCategory;
-import net.minecraft.data.recipes.ShapedRecipeBuilder;
-import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
+import net.minecraft.data.recipes.*;
 import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Items;
@@ -103,6 +101,16 @@ public class RecipeGenerator extends FabricRecipeProvider {
             .unlockedBy("has_iron_ingot", has(Items.IRON_INGOT))
             .unlockedBy("has_lodestone", has(Items.LODESTONE))
             .save(exporter);
+
+        shaped(RecipeCategory.TOOLS, Items.BUNDLE)
+            .define('-', Items.STRING)
+            .define('#', Items.LEATHER)
+            .pattern("-")
+            .pattern("#")
+            .unlockedBy("has_string", has(Items.STRING))
+            .save(exporter);
+
+        SpecialRecipeBuilder.special(ModRecipeSerializers.BUNDLE_COLORING.get()).save(exporter, "bundle_coloring");
     }
 
     public static ShapedRecipeBuilder shaped(RecipeCategory category, ItemLike entry) {

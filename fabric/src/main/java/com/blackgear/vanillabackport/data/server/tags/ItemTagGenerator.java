@@ -33,6 +33,27 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
         this.getOrCreateTagBuilder(ItemTags.CHEST_BOATS)
             .add(ModItems.PALE_OAK_CHEST_BOAT.get());
 
+        this.getOrCreateTagBuilder(ModItemTags.BUNDLES)
+            .add(
+                Items.BUNDLE,
+                ModItems.BLACK_BUNDLE.get(),
+                ModItems.BLUE_BUNDLE.get(),
+                ModItems.BROWN_BUNDLE.get(),
+                ModItems.CYAN_BUNDLE.get(),
+                ModItems.GRAY_BUNDLE.get(),
+                ModItems.GREEN_BUNDLE.get(),
+                ModItems.LIGHT_BLUE_BUNDLE.get(),
+                ModItems.LIGHT_GRAY_BUNDLE.get(),
+                ModItems.LIME_BUNDLE.get(),
+                ModItems.MAGENTA_BUNDLE.get(),
+                ModItems.ORANGE_BUNDLE.get(),
+                ModItems.PINK_BUNDLE.get(),
+                ModItems.PURPLE_BUNDLE.get(),
+                ModItems.RED_BUNDLE.get(),
+                ModItems.YELLOW_BUNDLE.get(),
+                ModItems.WHITE_BUNDLE.get()
+            );
+
         this.getOrCreateTagBuilder(ItemTags.MUSIC_DISCS)
             .add(ModItems.MUSIC_DISC_TEARS.get(), ModItems.MUSIC_DISC_LAVA_CHICKEN.get());
 

@@ -1,11 +1,12 @@
 package com.blackgear.vanillabackport.common.api.bundle;
 
+import com.blackgear.vanillabackport.common.registries.ModItems;
+import com.blackgear.vanillabackport.core.data.tags.ModItemTags;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.Slot;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
+import net.minecraft.world.item.*;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -61,7 +62,7 @@ public final class BundleContents {
     }
 
     public static int getWeight(ItemStack stack) {
-        if (stack.is(Items.BUNDLE)) {
+        if (stack.is(ModItemTags.BUNDLES)) {
             return BUNDLE_IN_BUNDLE_WEIGHT + getContentWeight(stack);
         }
 
@@ -198,5 +199,50 @@ public final class BundleContents {
         int remainder = contents % 4;
         int padding = remainder == 0 ? 0 : 4 - remainder;
         return Math.min(contents, maxDisplay - padding);
+    }
+
+    public static Item getByColor(DyeColor dyeColor) {
+        return switch (dyeColor) {
+            case WHITE -> ModItems.WHITE_BUNDLE.get();
+            case ORANGE -> ModItems.ORANGE_BUNDLE.get();
+            case MAGENTA -> ModItems.MAGENTA_BUNDLE.get();
+            case LIGHT_BLUE -> ModItems.LIGHT_BLUE_BUNDLE.get();
+            case YELLOW -> ModItems.YELLOW_BUNDLE.get();
+            case LIME -> ModItems.LIME_BUNDLE.get();
+            case PINK -> ModItems.PINK_BUNDLE.get();
+            case GRAY -> ModItems.GRAY_BUNDLE.get();
+            case LIGHT_GRAY -> ModItems.LIGHT_GRAY_BUNDLE.get();
+            case CYAN -> ModItems.CYAN_BUNDLE.get();
+            case BLUE -> ModItems.BLUE_BUNDLE.get();
+            case BROWN -> ModItems.BROWN_BUNDLE.get();
+            case GREEN -> ModItems.GREEN_BUNDLE.get();
+            case RED -> ModItems.RED_BUNDLE.get();
+            case BLACK -> ModItems.BLACK_BUNDLE.get();
+            case PURPLE -> ModItems.PURPLE_BUNDLE.get();
+        };
+    }
+
+    public static List<BundleItem> getAllBundleItemColors() {
+        return Stream.of(
+                Items.BUNDLE,
+                ModItems.WHITE_BUNDLE.get(),
+                ModItems.ORANGE_BUNDLE.get(),
+                ModItems.MAGENTA_BUNDLE.get(),
+                ModItems.LIGHT_BLUE_BUNDLE.get(),
+                ModItems.YELLOW_BUNDLE.get(),
+                ModItems.LIME_BUNDLE.get(),
+                ModItems.PINK_BUNDLE.get(),
+                ModItems.GRAY_BUNDLE.get(),
+                ModItems.LIGHT_GRAY_BUNDLE.get(),
+                ModItems.CYAN_BUNDLE.get(),
+                ModItems.BLACK_BUNDLE.get(),
+                ModItems.BROWN_BUNDLE.get(),
+                ModItems.GREEN_BUNDLE.get(),
+                ModItems.RED_BUNDLE.get(),
+                ModItems.BLUE_BUNDLE.get(),
+                ModItems.PURPLE_BUNDLE.get()
+            )
+            .map(item -> (BundleItem) item)
+            .toList();
     }
 }

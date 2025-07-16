@@ -170,5 +170,22 @@ public class LangGenerator extends FabricLanguageProvider {
         builder.add("item.minecraft.bundle.empty", "Empty");
         builder.add("item.minecraft.bundle.empty.description", "Can hold a mixed stack of items");
         builder.add("item.minecraft.bundle.full", "Full");
+
+        builder.add(ModItems.BLACK_BUNDLE.get(), "Black Bundle");
+        builder.add(ModItems.WHITE_BUNDLE.get(), "White Bundle");
+        builder.add(ModItems.GRAY_BUNDLE.get(), "Gray Bundle");
+        builder.add(ModItems.LIGHT_GRAY_BUNDLE.get(), "Light Gray Bundle");
+        builder.add(ModItems.LIGHT_BLUE_BUNDLE.get(), "Light Blue Bundle");
+        builder.add(ModItems.BLUE_BUNDLE.get(), "Blue Bundle");
+        builder.add(ModItems.CYAN_BUNDLE.get(), "Cyan Bundle");
+        builder.add(ModItems.YELLOW_BUNDLE.get(), "Yellow Bundle");
+        builder.add(ModItems.RED_BUNDLE.get(), "Red Bundle");
+        builder.add(ModItems.PURPLE_BUNDLE.get(), "Purple Bundle");
+        builder.add(ModItems.MAGENTA_BUNDLE.get(), "Magenta Bundle");
+        builder.add(ModItems.PINK_BUNDLE.get(), "Pink Bundle");
+        builder.add(ModItems.GREEN_BUNDLE.get(), "Green Bundle");
+        builder.add(ModItems.LIME_BUNDLE.get(), "Lime Bundle");
+        builder.add(ModItems.BROWN_BUNDLE.get(), "Brown Bundle");
+        builder.add(ModItems.ORANGE_BUNDLE.get(), "Orange Bundle");
     }
 }

@@ -1,0 +1,14 @@
+{
+  "parent": "minecraft:item/generated",
+  "overrides": [
+    {
+      "model": "vanillabackport:item/light_gray_bundle_filled",
+      "predicate": {
+        "filled": 1.0E-7
+      }
+    }
+  ],
+  "textures": {
+    "layer0": "vanillabackport:item/light_gray_bundle"
+  }
+}

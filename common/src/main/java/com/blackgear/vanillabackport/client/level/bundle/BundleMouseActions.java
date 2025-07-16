@@ -4,6 +4,7 @@ import com.blackgear.platform.client.event.screen.ContainerInteractEvents;
 import com.blackgear.platform.client.event.screen.ScreenMouseInputEvents;
 import com.blackgear.platform.core.util.event.EventResult;
 import com.blackgear.vanillabackport.common.api.bundle.BundleContents;
+import com.blackgear.vanillabackport.core.data.tags.ModItemTags;
 import com.blackgear.vanillabackport.core.network.NetworkHandler;
 import com.blackgear.vanillabackport.core.network.ServerboundSelectBundleItemPacket;
 import net.fabricmc.api.EnvType;
@@ -58,7 +59,7 @@ public class BundleMouseActions implements ItemSlotMouseAction {
 
     @Override
     public boolean matches(Slot slot) {
-        return slot.getItem().is(Items.BUNDLE);
+        return slot.getItem().is(ModItemTags.BUNDLES);
     }
 
     @Override

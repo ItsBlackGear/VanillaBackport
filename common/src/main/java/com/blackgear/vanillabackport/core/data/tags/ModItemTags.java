@@ -13,4 +13,5 @@ public class ModItemTags {
     public static final TagKey<Item> HAPPY_GHAST_TEMPT_ITEMS = TAGS.register("happy_ghast_tempt_items");
     public static final TagKey<Item> HAPPY_GHAST_FOOD = TAGS.register("happy_ghast_food");
     public static final TagKey<Item> HARNESSES = TAGS.register("harnesses");
+    public static final TagKey<Item> BUNDLES = TAGS.register("bundles");
 }

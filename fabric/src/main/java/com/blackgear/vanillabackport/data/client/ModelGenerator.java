@@ -82,5 +82,23 @@ public class ModelGenerator extends VanillaModelGenerator {
         gen.createFlatItem(ModItems.BLACK_HARNESS.get());
         gen.createMusicDisc(ModItems.MUSIC_DISC_TEARS.get());
         gen.createMusicDisc(ModItems.MUSIC_DISC_LAVA_CHICKEN.get());
+
+        // Bundles of Bravery
+        gen.createBundle(ModItems.BLACK_BUNDLE.get());
+        gen.createBundle(ModItems.WHITE_BUNDLE.get());
+        gen.createBundle(ModItems.GRAY_BUNDLE.get());
+        gen.createBundle(ModItems.LIGHT_GRAY_BUNDLE.get());
+        gen.createBundle(ModItems.LIGHT_BLUE_BUNDLE.get());
+        gen.createBundle(ModItems.BLUE_BUNDLE.get());
+        gen.createBundle(ModItems.CYAN_BUNDLE.get());
+        gen.createBundle(ModItems.YELLOW_BUNDLE.get());
+        gen.createBundle(ModItems.RED_BUNDLE.get());
+        gen.createBundle(ModItems.PURPLE_BUNDLE.get());
+        gen.createBundle(ModItems.MAGENTA_BUNDLE.get());
+        gen.createBundle(ModItems.PINK_BUNDLE.get());
+        gen.createBundle(ModItems.GREEN_BUNDLE.get());
+        gen.createBundle(ModItems.LIME_BUNDLE.get());
+        gen.createBundle(ModItems.BROWN_BUNDLE.get());
+        gen.createBundle(ModItems.ORANGE_BUNDLE.get());
     }
 }
