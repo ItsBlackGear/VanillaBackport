@@ -26,9 +26,11 @@ import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.npc.VillagerTrades.ItemsForEmeralds;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.world.level.storage.loot.entries.EmptyLootItem;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.DamageSourceCondition;
@@ -131,6 +133,7 @@ public class CommonSetup {
     }
 
     public static void lootIntegrations(ResourceLocation path, LootModifier.LootTableContext context, boolean builtin) {
+        // GHASTS DROP TEARS MUSIC DISC
         if (path.equals(EntityType.GHAST.getDefaultLootTable())) {
             context.addPool(
                 LootPool.lootPool()
@@ -146,6 +149,7 @@ public class CommonSetup {
             );
         }
 
+        // PIGLINS BARTER DRIED GHASTS
         if (path.equals(BuiltInLootTables.PIGLIN_BARTERING)) {
             context.addToPool(
                 LootItem.lootTableItem(ModBlocks.DRIED_GHAST.get())
@@ -155,6 +159,7 @@ public class CommonSetup {
             );
         }
 
+        // CHICKEN JOCKEYS DROP LAVA CHICKEN MUSIC DISC
         if (path.equals(EntityType.ZOMBIE.getDefaultLootTable())) {
             context.addPool(
                 LootPool.lootPool()
@@ -171,6 +176,7 @@ public class CommonSetup {
             );
         }
 
+        // RESIN ON WOODLAND MANSION CHESTS
         if (path.equals(BuiltInLootTables.WOODLAND_MANSION)) {
             context.addToPool(
                 1,
@@ -178,6 +184,25 @@ public class CommonSetup {
                     .setWeight(50)
                     .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 4.0F)))
                     .build()
+            );
+        }
+
+        // VILLAGES GENERATE BUNDLES
+        if (
+            path.equals(BuiltInLootTables.VILLAGE_WEAPONSMITH)
+            || path.equals(BuiltInLootTables.VILLAGE_CARTOGRAPHER)
+            || path.equals(BuiltInLootTables.VILLAGE_TANNERY)
+            || path.equals(BuiltInLootTables.VILLAGE_PLAINS_HOUSE)
+            || path.equals(BuiltInLootTables.VILLAGE_TAIGA_HOUSE)
+            || path.equals(BuiltInLootTables.VILLAGE_SAVANNA_HOUSE)
+            || path.equals(BuiltInLootTables.VILLAGE_SNOWY_HOUSE)
+            || path.equals(BuiltInLootTables.VILLAGE_DESERT_HOUSE)
+        ) {
+            context.addPool(
+                LootPool.lootPool()
+                    .setRolls(ConstantValue.exactly(1.0F))
+                    .add(LootItem.lootTableItem(Items.BUNDLE).setWeight(1).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F))))
+                    .add(EmptyLootItem.emptyItem().setWeight(2))
             );
         }
     }
