@@ -170,6 +170,8 @@ public class LangGenerator extends FabricLanguageProvider {
         builder.add("item.minecraft.bundle.empty", "Empty");
         builder.add("item.minecraft.bundle.empty.description", "Can hold a mixed stack of items");
         builder.add("item.minecraft.bundle.full", "Full");
+        
+        builder.add("subtitles.item.bundle.insert_fail", "Bundle full");
 
         builder.add(ModItems.BLACK_BUNDLE.get(), "Black Bundle");
         builder.add(ModItems.WHITE_BUNDLE.get(), "White Bundle");

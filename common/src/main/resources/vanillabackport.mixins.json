@@ -7,7 +7,9 @@
     "access.EntityRendererAccessor",
     "access.SoundEngineAccessor",
     "access.SoundManagerAccessor",
+    "client.AbstractContainerScreenMixin",
     "client.CameraMixin",
+    "client.ClientBundleTooltipMixin",
     "client.LocalPlayerMixin",
     "client.MusicManagerMixin",
     "client.SpriteResourceLoaderMixin",
@@ -20,8 +22,7 @@
     "leashable.client.BoatRendererMixin",
     "leashable.client.EntityRendererMixin",
     "leashable.client.MobRendererMixin",
-    "leashable.client.network.ClientPacketListenerMixin",
-    "client.ClientBundleTooltipMixin"
+    "leashable.client.network.ClientPacketListenerMixin"
   ],
   "mixins": [
     "access.BiomeAccessor",

@@ -53,10 +53,16 @@ public class ModSoundEvents {
     public static final Supplier<SoundEvent> LEAF_LITTER_HIT = SOUNDS.soundEvent("block.leaf_litter.hit");
     public static final Supplier<SoundEvent> LEAF_LITTER_FALL = SOUNDS.soundEvent("block.leaf_litter.fall");
 
+    public static final Supplier<SoundEvent> CACTUS_FLOWER_BREAK = SOUNDS.soundEvent("block.cactus_flower.break");
+    public static final Supplier<SoundEvent> CACTUS_FLOWER_PLACE = SOUNDS.soundEvent("block.cactus_flower.place");
+
     public static final Supplier<SoundEvent> FIREFLY_BUSH_IDLE = SOUNDS.soundEvent("block.firefly_bush.idle");
     public static final Supplier<SoundEvent> SAND_IDLE = SOUNDS.soundEvent("block.sand.idle");
     public static final Supplier<SoundEvent> DEAD_BUSH_IDLE = SOUNDS.soundEvent("block.deadbush.idle");
     public static final Supplier<SoundEvent> DRY_GRASS = SOUNDS.soundEvent("block.dry_grass.ambient");
+
+    // ITEMS
+    public static final Supplier<SoundEvent> BUNDLE_INSERT_FAIL = SOUNDS.soundEvent("item.bundle.insert_fail");
 
     // ENTITIES
     public static final Supplier<SoundEvent> CREAKING_AMBIENT = SOUNDS.soundEvent("entity.creaking.ambient");

@@ -383,7 +383,7 @@ public class ModBlocks {
             .noCollission()
             .instabreak()
             .ignitedByLava()
-            .sound(SoundType.GRASS)
+            .sound(ModSoundTypes.CACTUS_FLOWER)
             .pushReaction(PushReaction.DESTROY)
     );
     public static final Supplier<Block> SHORT_DRY_GRASS = BLOCKS.register(

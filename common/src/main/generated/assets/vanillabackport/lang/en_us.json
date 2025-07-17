@@ -131,5 +131,6 @@
   "subtitles.entity.happy_ghast.hurt": "Happy Ghast hurts",
   "subtitles.entity.happy_ghast.unequip": "Harness unequips",
   "subtitles.entity.parrot.imitate.creaking": "Parrot creaks",
+  "subtitles.item.bundle.insert_fail": "Bundle full",
   "trim_material.vanillabackport.resin": "Resin Material"
 }

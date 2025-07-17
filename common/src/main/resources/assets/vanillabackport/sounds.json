@@ -790,5 +790,31 @@
       "vanillabackport:block/leaf_litter/step6"
     ],
     "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "item.bundle.insert_fail": {
+    "sounds": [
+      "vanillabackport:item/bundle/insert_fail"
+    ],
+    "subtitle": "subtitles.item.bundle.insert_fail"
+  },
+
+  "block.cactus_flower.break": {
+    "sounds": [
+      "vanillabackport:block/cactus_flower/break1",
+      "vanillabackport:block/cactus_flower/break2",
+      "vanillabackport:block/cactus_flower/break3",
+      "vanillabackport:block/cactus_flower/break4",
+      "vanillabackport:block/cactus_flower/break5"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.cactus_flower.place": {
+    "sounds": [
+      "vanillabackport:block/cactus_flower/place1",
+      "vanillabackport:block/cactus_flower/place2",
+      "vanillabackport:block/cactus_flower/place3",
+      "vanillabackport:block/cactus_flower/place4"
+    ],
+    "subtitle": "subtitles.block.generic.place"
   }
 }

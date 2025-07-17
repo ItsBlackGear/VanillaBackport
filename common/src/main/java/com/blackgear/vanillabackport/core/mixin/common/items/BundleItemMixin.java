@@ -1,11 +1,11 @@
 package com.blackgear.vanillabackport.core.mixin.common.items;
 
+import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
 import com.blackgear.vanillabackport.common.api.bundle.BundleContents;
 import com.blackgear.vanillabackport.common.api.bundle.BundleSelectionTooltip;
 import com.blackgear.vanillabackport.core.util.ColorUtils;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.SlotAccess;
 import net.minecraft.world.entity.player.Player;
@@ -141,6 +141,16 @@ public abstract class BundleItemMixin {
         cir.setReturnValue(BundleContents.getContentWeight(stack) >= BundleContents.MAX_WEIGHT ? FULL_BAR_COLOR : BAR_COLOR);
     }
 
+    @Inject(
+        method = "getBarWidth",
+        at = @At("HEAD"),
+        cancellable = true
+    )
+    private void vb$onGetBarWidth(ItemStack stack, CallbackInfoReturnable<Integer> cir) {
+        int weight = BundleContents.getContentWeight(stack);
+        cir.setReturnValue(Math.min(1 + ((weight * 12) / BundleContents.MAX_WEIGHT), 13));
+    }
+
     @Inject(method = "appendHoverText", at = @At("HEAD"), cancellable = true)
     private void vb$onAppendHoverText(ItemStack stack, Level level, List<Component> tooltipComponents, TooltipFlag isAdvanced, CallbackInfo ci) {
         ci.cancel();
@@ -159,7 +169,7 @@ public abstract class BundleItemMixin {
 
     @Unique
     private void playInsertFailSound(Entity entity) {
-        entity.playSound(SoundEvents.DISPENSER_FAIL, 1.0F, 1.0F);
+        entity.playSound(ModSoundEvents.BUNDLE_INSERT_FAIL.get(), 1.0F, 1.0F);
     }
 
     @Unique

@@ -76,10 +76,6 @@ public final class BundleContents {
     }
 
     private static Optional<CompoundTag> getMatchingItem(ItemStack stack, ListTag items) {
-        if (stack.is(Items.BUNDLE)) {
-            return Optional.empty();
-        }
-
         return items.stream()
             .filter(CompoundTag.class::isInstance)
             .map(CompoundTag.class::cast)
@@ -199,6 +195,26 @@ public final class BundleContents {
         int remainder = contents % 4;
         int padding = remainder == 0 ? 0 : 4 - remainder;
         return Math.min(contents, maxDisplay - padding);
+    }
+
+    public static ItemStack getSelectedItemStack(ItemStack bundle) {
+        int selectedIndex = getSelectedItem(bundle);
+        if (selectedIndex == NO_SELECTED_ITEM) {
+            return ItemStack.EMPTY;
+        }
+
+        CompoundTag tag = bundle.getTag();
+        if (tag == null || !tag.contains(TAG_ITEMS)) {
+            return ItemStack.EMPTY;
+        }
+
+        ListTag items = tag.getList(TAG_ITEMS, 10);
+        if (!isValidIndex(selectedIndex, items.size())) {
+            return ItemStack.EMPTY;
+        }
+
+        CompoundTag itemTag = items.getCompound(selectedIndex);
+        return ItemStack.of(itemTag);
     }
 
     public static Item getByColor(DyeColor dyeColor) {
