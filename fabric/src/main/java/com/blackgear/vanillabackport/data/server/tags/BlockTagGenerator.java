@@ -107,10 +107,18 @@ public class BlockTagGenerator extends FabricTagProvider.BlockTagProvider {
         this.getOrCreateTagBuilder(ModBlockTags.TRIGGERS_AMBIENT_DRIED_GHAST_BLOCK_SOUNDS)
             .add(Blocks.SOUL_SAND, Blocks.SOUL_SOIL);
 
-        this.getOrCreateTagBuilder(ModBlockTags.IGNORE_FALLING_LEAVES)
-            .add(Blocks.CHERRY_LEAVES, ModBlocks.PALE_OAK_LEAVES.get());
+        this.getOrCreateTagBuilder(ModBlockTags.SPAWN_FALLING_LEAVES)
+            .add(
+                Blocks.OAK_LEAVES,
+                Blocks.BIRCH_LEAVES,
+                Blocks.JUNGLE_LEAVES,
+                Blocks.ACACIA_LEAVES,
+                Blocks.DARK_OAK_LEAVES,
+                Blocks.AZALEA_LEAVES,
+                Blocks.FLOWERING_AZALEA_LEAVES
+            );
 
-        this.getOrCreateTagBuilder(ModBlockTags.CONIFEROUS_LEAVES)
+        this.getOrCreateTagBuilder(ModBlockTags.SPAWN_FALLING_NEEDLES)
             .add(Blocks.SPRUCE_LEAVES);
     }
 }
