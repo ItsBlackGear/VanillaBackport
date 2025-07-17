@@ -1,13 +1,5 @@
 {
   "parent": "minecraft:item/generated",
-  "overrides": [
-    {
-      "model": "vanillabackport:item/lime_bundle_filled",
-      "predicate": {
-        "filled": 1.0E-7
-      }
-    }
-  ],
   "textures": {
     "layer0": "vanillabackport:item/lime_bundle"
   }

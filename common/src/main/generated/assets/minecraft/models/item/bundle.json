@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "vanillabackport:item/cyan_bundle_filled"
+    "layer0": "minecraft:item/bundle_filled"
   }
 }

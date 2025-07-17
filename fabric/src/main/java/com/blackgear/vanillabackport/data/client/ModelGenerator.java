@@ -9,6 +9,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.data.BlockFamily;
 import net.minecraft.data.models.BlockModelGenerators;
 import net.minecraft.data.models.model.TexturedModel;
+import net.minecraft.world.item.Items;
 
 public class ModelGenerator extends VanillaModelGenerator {
     public ModelGenerator(FabricDataOutput output) {
@@ -84,21 +85,22 @@ public class ModelGenerator extends VanillaModelGenerator {
         gen.createMusicDisc(ModItems.MUSIC_DISC_LAVA_CHICKEN.get());
 
         // Bundles of Bravery
-        gen.createBundle(ModItems.BLACK_BUNDLE.get());
-        gen.createBundle(ModItems.WHITE_BUNDLE.get());
-        gen.createBundle(ModItems.GRAY_BUNDLE.get());
-        gen.createBundle(ModItems.LIGHT_GRAY_BUNDLE.get());
-        gen.createBundle(ModItems.LIGHT_BLUE_BUNDLE.get());
-        gen.createBundle(ModItems.BLUE_BUNDLE.get());
-        gen.createBundle(ModItems.CYAN_BUNDLE.get());
-        gen.createBundle(ModItems.YELLOW_BUNDLE.get());
-        gen.createBundle(ModItems.RED_BUNDLE.get());
-        gen.createBundle(ModItems.PURPLE_BUNDLE.get());
-        gen.createBundle(ModItems.MAGENTA_BUNDLE.get());
-        gen.createBundle(ModItems.PINK_BUNDLE.get());
-        gen.createBundle(ModItems.GREEN_BUNDLE.get());
-        gen.createBundle(ModItems.LIME_BUNDLE.get());
-        gen.createBundle(ModItems.BROWN_BUNDLE.get());
-        gen.createBundle(ModItems.ORANGE_BUNDLE.get());
+        gen.createFlatItemWithSuffix(Items.BUNDLE, "_filled");
+        gen.createFlatItem(ModItems.BLACK_BUNDLE.get());
+        gen.createFlatItem(ModItems.WHITE_BUNDLE.get());
+        gen.createFlatItem(ModItems.GRAY_BUNDLE.get());
+        gen.createFlatItem(ModItems.LIGHT_GRAY_BUNDLE.get());
+        gen.createFlatItem(ModItems.LIGHT_BLUE_BUNDLE.get());
+        gen.createFlatItem(ModItems.BLUE_BUNDLE.get());
+        gen.createFlatItem(ModItems.CYAN_BUNDLE.get());
+        gen.createFlatItem(ModItems.YELLOW_BUNDLE.get());
+        gen.createFlatItem(ModItems.RED_BUNDLE.get());
+        gen.createFlatItem(ModItems.PURPLE_BUNDLE.get());
+        gen.createFlatItem(ModItems.MAGENTA_BUNDLE.get());
+        gen.createFlatItem(ModItems.PINK_BUNDLE.get());
+        gen.createFlatItem(ModItems.GREEN_BUNDLE.get());
+        gen.createFlatItem(ModItems.LIME_BUNDLE.get());
+        gen.createFlatItem(ModItems.BROWN_BUNDLE.get());
+        gen.createFlatItem(ModItems.ORANGE_BUNDLE.get());
     }
 }
