@@ -1,8 +1,7 @@
 package com.blackgear.vanillabackport.client.level.bundle;
 
-import com.blackgear.platform.client.event.screen.ContainerInteractEvents;
-import com.blackgear.platform.client.event.screen.ScreenMouseInputEvents;
-import com.blackgear.platform.core.util.event.EventResult;
+import com.blackgear.platform.client.event.screen.HudInteractions;
+import com.blackgear.platform.core.util.event.CancellableResult;
 import com.blackgear.vanillabackport.common.api.bundle.BundleContents;
 import com.blackgear.vanillabackport.core.data.tags.ModItemTags;
 import com.blackgear.vanillabackport.core.network.NetworkHandler;
@@ -25,20 +24,20 @@ public class BundleMouseActions implements ItemSlotMouseAction {
     }
 
     public static void bootstrap() {
-        ScreenMouseInputEvents.SCROLLING_PRE.register((minecraft, screen, mouseX, mouseY, scrollDelta) -> {
+        HudInteractions.SCROLLING_PRE.register((minecraft, screen, mouseX, mouseY, scrollDelta) -> {
             if (screen instanceof AbstractContainerScreen<?> container) {
                 Slot slot = container.hoveredSlot;
                 if (slot != null && slot.hasItem()) {
                     ItemSlotMouseAction action = BundleMouseActions.INSTANCE;
                     if (action.matches(slot) && action.onMouseScrolled(scrollDelta, slot.index, slot.getItem())) {
-                        return EventResult.interruptFalse();
+                        return CancellableResult.CANCEL;
                     }
                 }
             }
 
-            return EventResult.pass();
+            return CancellableResult.PASS;
         });
-        ContainerInteractEvents.STOP_HOVERING.register((minecraft, screen, slot) -> {
+        HudInteractions.STOP_HOVERING.register((minecraft, screen, slot) -> {
             if (slot != null && slot.hasItem()) {
                 ItemSlotMouseAction action = BundleMouseActions.INSTANCE;
                 if (action.matches(slot)) {
@@ -46,7 +45,7 @@ public class BundleMouseActions implements ItemSlotMouseAction {
                 }
             }
         });
-        ContainerInteractEvents.SLOT_CLICK.register((minecraft, screen, slot, clickType) -> {
+        HudInteractions.SLOT_CLICK.register((minecraft, screen, slot, clickType) -> {
             if (slot != null && slot.hasItem()) {
                 ItemSlotMouseAction action = BundleMouseActions.INSTANCE;
                 if (action.matches(slot)) {

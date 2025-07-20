@@ -10,6 +10,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 
 import java.util.Map;
+import java.util.Optional;
 
 @Environment(EnvType.CLIENT)
 public abstract class AbstractVariantRenderer<T extends LivingEntity, M extends EntityModel<T>> {
@@ -28,8 +29,8 @@ public abstract class AbstractVariantRenderer<T extends LivingEntity, M extends 
         return this.textureByVariant().get(variant);
     }
 
-    public M getModel(T entity) {
+    public Optional<M> getModel(T entity) {
         AnimalVariant variant = AnimalVariantHolder.testFor(entity).getVariant();
-        return this.modelByVariant.get(variant);
+        return Optional.ofNullable(this.modelByVariant.get(variant));
     }
 }

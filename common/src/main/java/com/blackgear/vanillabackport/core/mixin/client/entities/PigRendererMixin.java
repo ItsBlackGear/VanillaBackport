@@ -44,9 +44,7 @@ public abstract class PigRendererMixin extends MobRendererMixin<Pig, PigModel<Pi
 
     @Override
     public void render(Pig entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource buffer, int packedLight) {
-        PigModel<Pig> model = this.renderer().getModel(entity);
-        this.model = model != null ? model : this.defaultModel;
-
+        this.model = this.renderer().getModel(entity).orElseGet(() -> this.defaultModel);
         super.render(entity, entityYaw, partialTicks, poseStack, buffer, packedLight);
     }
 }

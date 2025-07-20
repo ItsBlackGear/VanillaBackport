@@ -44,8 +44,7 @@ public abstract class ChickenRendererMixin extends MobRendererMixin<Chicken, Chi
 
     @Override
     public void render(Chicken entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource buffer, int packedLight) {
-        ChickenModel<Chicken> model = this.renderer().getModel(entity);
-        this.model = model != null ? model : this.defaultModel;
+        this.model =  this.renderer().getModel(entity).orElseGet(() -> this.defaultModel);
 
         super.render(entity, entityYaw, partialTicks, poseStack, buffer, packedLight);
     }

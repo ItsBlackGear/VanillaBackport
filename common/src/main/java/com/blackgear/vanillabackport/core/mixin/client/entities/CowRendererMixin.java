@@ -44,8 +44,7 @@ public abstract class CowRendererMixin extends MobRendererMixin<Cow, CowModel<Co
 
     @Override
     public void render(Cow entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource buffer, int packedLight) {
-        CowModel<Cow> model = this.renderer().getModel(entity);
-        this.model = model != null ? model : this.defaultModel;
+        this.model = this.renderer().getModel(entity).orElseGet(() -> this.defaultModel);
 
         super.render(entity, entityYaw, partialTicks, poseStack, buffer, packedLight);
     }

@@ -16,9 +16,7 @@ import com.blackgear.vanillabackport.common.worldgen.features.SpringToLifeFeatur
 import com.blackgear.vanillabackport.common.worldgen.features.TheGardenAwakensFeatures;
 import com.blackgear.vanillabackport.common.worldgen.placements.SpringToLifePlacements;
 import com.blackgear.vanillabackport.common.worldgen.placements.TheGardenAwakensPlacements;
-import com.blackgear.vanillabackport.core.data.tags.ModBlockTags;
-import com.blackgear.vanillabackport.core.data.tags.ModEntityTypeTags;
-import com.blackgear.vanillabackport.core.data.tags.ModItemTags;
+import com.blackgear.vanillabackport.core.data.tags.*;
 import com.blackgear.vanillabackport.core.network.NetworkHandler;
 import com.mojang.logging.LogUtils;
 import net.minecraft.resources.ResourceLocation;
@@ -66,6 +64,7 @@ public final class VanillaBackport {
 
         ModBlockTags.TAGS.register();
         ModItemTags.TAGS.register();
+        ModBiomeTags.TAGS.register();
         ModEntityTypeTags.TAGS.register();
     }
 

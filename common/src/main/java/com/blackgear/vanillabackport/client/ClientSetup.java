@@ -1,9 +1,11 @@
 package com.blackgear.vanillabackport.client;
 
 import com.blackgear.platform.client.GameRendering;
+import com.blackgear.platform.client.event.LocalPlayerEvents;
 import com.blackgear.platform.common.block.WoodTypeRegistry;
 import com.blackgear.platform.core.ParallelDispatch;
 import com.blackgear.platform.core.events.ResourceReloadManager;
+import com.blackgear.vanillabackport.client.api.selector.BundledContentSelector;
 import com.blackgear.vanillabackport.client.level.bundle.BundleMouseActions;
 import com.blackgear.vanillabackport.client.resources.DryFoliageColorReloadListener;
 import com.blackgear.vanillabackport.client.resources.LeafColorReloadListener;
@@ -24,6 +26,7 @@ public class ClientSetup {
         GameRendering.registerItemColors(Rendering::itemColors);
 
         BundleMouseActions.bootstrap();
+        LocalPlayerEvents.ON_LOGIN.register(player -> BundledContentSelector.INSTANCE.bootstrap());
     }
 
     public static void asyncSetup(ParallelDispatch dispatch) {

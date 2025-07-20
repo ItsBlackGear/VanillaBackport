@@ -9,7 +9,6 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.data.BlockFamily;
 import net.minecraft.data.models.BlockModelGenerators;
 import net.minecraft.data.models.model.TexturedModel;
-import net.minecraft.world.item.Items;
 
 public class ModelGenerator extends VanillaModelGenerator {
     public ModelGenerator(FabricDataOutput output) {
@@ -85,7 +84,6 @@ public class ModelGenerator extends VanillaModelGenerator {
         gen.createMusicDisc(ModItems.MUSIC_DISC_LAVA_CHICKEN.get());
 
         // Bundles of Bravery
-        gen.createFlatItemWithSuffix(Items.BUNDLE, "_filled");
         gen.createFlatItem(ModItems.BLACK_BUNDLE.get());
         gen.createFlatItem(ModItems.WHITE_BUNDLE.get());
         gen.createFlatItem(ModItems.GRAY_BUNDLE.get());
