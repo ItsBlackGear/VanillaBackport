@@ -55,7 +55,7 @@ public class GhastHarnessLayer<T extends HappyGhast> extends RenderLayer<T, Happ
             .filter(entry -> entity.getItemBySlot(EquipmentSlot.CHEST).is(entry.getKey().getItem()))
             .map(Map.Entry::getValue)
             .findFirst();
-        if (texture.isPresent() && entity.isSaddled()) {
+        if (texture.isPresent() && entity.isHarnessed()) {
             this.getParentModel().copyPropertiesTo(this.model);
             this.model.prepareMobModel(entity, limbSwing, limbSwingAmount, partialTick);
             this.model.setupAnim(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);

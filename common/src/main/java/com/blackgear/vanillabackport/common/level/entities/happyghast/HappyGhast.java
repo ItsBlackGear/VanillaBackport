@@ -58,7 +58,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.EnumSet;
 import java.util.function.BooleanSupplier;
 
-public class HappyGhast extends Animal implements Saddleable, PlayerRideable, Leashable {
+public class HappyGhast extends Animal implements PlayerRideable, Leashable {
     public static final Ingredient IS_FOOD = Ingredient.of(ModItemTags.HAPPY_GHAST_FOOD);
     private int leashHolderTime = 0;
     private int serverStillTimeout;
@@ -102,7 +102,7 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable, Le
                 new HappyGhastTemptGoal(
                     this,
                     1.0,
-                    stack -> !this.isSaddled() && !this.isBaby() ? stack.is(ModItemTags.HAPPY_GHAST_TEMPT_ITEMS) : IS_FOOD.test(stack),
+                    stack -> !this.isHarnessed() && !this.isBaby() ? stack.is(ModItemTags.HAPPY_GHAST_TEMPT_ITEMS) : IS_FOOD.test(stack),
                     false,
                     7.0
                 )
@@ -231,11 +231,6 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable, Le
     }
 
     @Override
-    public SoundSource getSoundSource() {
-        return SoundSource.NEUTRAL;
-    }
-
-    @Override
     public int getAmbientSoundInterval() {
         int interval = super.getAmbientSoundInterval();
         return this.isVehicle() ? interval * 6 : interval;
@@ -281,18 +276,15 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable, Le
         return IS_FOOD.test(stack);
     }
 
-    @Override
-    public void equipSaddle(@Nullable SoundSource source) {
+    public void equipHarness() {
         this.level().playSound(null, this, ModSoundEvents.HARNESS_EQUIP.get(), SoundSource.NEUTRAL, 0.5F, 1.0F);
     }
 
-    @Override
-    public boolean isSaddleable() {
+    public boolean canBeHarnessed() {
         return this.isAlive() && !this.isBaby();
     }
 
-    @Override
-    public boolean isSaddled() {
+    public boolean isHarnessed() {
         return this.getItemBySlot(EquipmentSlot.CHEST).is(ModItemTags.HARNESSES);
     }
 
@@ -309,8 +301,8 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable, Le
                 }
             }
 
-            if (!stack.is(Items.SHEARS) || this.isVehicle() || !this.isSaddled() && !player.isCreative()) {
-                if (this.isSaddled()) {
+            if (!stack.is(Items.SHEARS) || this.isVehicle() || !this.isHarnessed() && !player.isCreative()) {
+                if (this.isHarnessed()) {
                     if (!this.level().isClientSide()) {
                         player.startRiding(this);
                     }
@@ -384,7 +376,7 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable, Le
 
     @Override @Nullable
     public LivingEntity getControllingPassenger() {
-        return this.isSaddled() && !this.isOnStillTimeout() && this.getFirstPassenger() instanceof Player player
+        return this.isHarnessed() && !this.isOnStillTimeout() && this.getFirstPassenger() instanceof Player player
             ? player
             : super.getControllingPassenger();
     }
@@ -492,7 +484,7 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable, Le
     }
 
     private int getHappyGhastRestrictionRadius() {
-        return !this.isBaby() && !this.isSaddled() ? 64 : 32;
+        return !this.isBaby() && !this.isHarnessed() ? 64 : 32;
     }
 
     private void checkRestriction() {

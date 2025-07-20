@@ -29,7 +29,7 @@ public class RopesLayer<T extends HappyGhast> extends RenderLayer<T, HappyGhastM
 
     @Override
     public void render(PoseStack poseStack, MultiBufferSource buffer, int packedLight, T entity, float limbSwing, float limbSwingAmount, float partialTick, float ageInTicks, float netHeadYaw, float headPitch) {
-        if (entity.isLeashHolder() && entity.isSaddled()) {
+        if (entity.isLeashHolder() && entity.isHarnessed()) {
             HappyGhastModel<T> model = entity.isBaby() ? this.babyModel : this.adultModel;
             model.setupAnim(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
             model.renderToBuffer(poseStack, buffer.getBuffer(this.ropes), packedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
