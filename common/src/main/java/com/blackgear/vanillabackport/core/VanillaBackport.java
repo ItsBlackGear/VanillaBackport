@@ -16,6 +16,7 @@ import com.blackgear.vanillabackport.common.worldgen.features.SpringToLifeFeatur
 import com.blackgear.vanillabackport.common.worldgen.features.TheGardenAwakensFeatures;
 import com.blackgear.vanillabackport.common.worldgen.placements.SpringToLifePlacements;
 import com.blackgear.vanillabackport.common.worldgen.placements.TheGardenAwakensPlacements;
+import com.blackgear.vanillabackport.core.data.DataTransformation;
 import com.blackgear.vanillabackport.core.data.tags.*;
 import com.blackgear.vanillabackport.core.network.NetworkHandler;
 import com.mojang.logging.LogUtils;
@@ -67,6 +68,8 @@ public final class VanillaBackport {
         ModItemTags.TAGS.register();
         ModBiomeTags.TAGS.register();
         ModEntityTypeTags.TAGS.register();
+
+        DataTransformation.bootstrap();
     }
 
     public static ResourceLocation resource(String path) {
