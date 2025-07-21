@@ -10,7 +10,7 @@ import net.minecraft.world.level.levelgen.feature.Feature;
 import java.util.function.Supplier;
 
 public class ModFeatures {
-    public static final CoreRegistry<Feature<?>> FEATURES = CoreRegistry.create(Registries.FEATURE, VanillaBackport.MOD_ID);
+    public static final CoreRegistry<Feature<?>> FEATURES = CoreRegistry.create(Registries.FEATURE, VanillaBackport.NAMESPACE);
 
     public static final Supplier<Feature<FallenTreeConfiguration>> FALLEN_TREE = FEATURES.register("fallen_tree", () -> new FallenTreeFeature(FallenTreeConfiguration.CODEC));
 }

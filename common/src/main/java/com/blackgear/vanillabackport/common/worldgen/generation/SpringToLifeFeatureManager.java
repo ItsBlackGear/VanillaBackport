@@ -91,11 +91,11 @@ public class SpringToLifeFeatureManager extends FeatureManager {
         this.addIf(VanillaBackport.CONFIG.generateLeafLitter.get(), (context, writer) -> {
             if (context.is(Biomes.DARK_FOREST)) {
                 this.addVegetation(SpringToLifePlacements.PATCH_LEAF_LITTER);
-                this.addVegetation(SpringToLifePlacements.DARK_FOREST_VEGETATION);
+                this.addVegetation(SpringToLifePlacements.TREES_DARK_FOREST_LEAF_LITTER);
             }
 
             if (context.is(Biomes.WOODED_BADLANDS)) {
-                this.addVegetation(SpringToLifePlacements.TREES_BADLANDS);
+                this.addVegetation(SpringToLifePlacements.TREES_BADLANDS_LEAF_LITTER);
             }
 
             if (context.is(Biomes.FOREST) || context.is(Biomes.FLOWER_FOREST)) {

@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:block/cube_column",
-  "textures": {
-    "end": "vanillabackport:block/pale_oak_log_top",
-    "side": "vanillabackport:block/pale_oak_log"
-  }
-}

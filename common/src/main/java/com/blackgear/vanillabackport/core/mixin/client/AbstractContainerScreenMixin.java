@@ -25,8 +25,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class AbstractContainerScreenMixin<T extends AbstractContainerMenu> extends Screen implements MenuAccess<T> {
     @Shadow protected int imageWidth;
 
-    @Unique private static final ResourceLocation BUNDLE_OPEN_BACK = VanillaBackport.resource("textures/item/bundle_open_back.png");
-    @Unique private static final ResourceLocation BUNDLE_OPEN_FRONT = VanillaBackport.resource("textures/item/bundle_open_front.png");
+    @Unique private static final ResourceLocation BUNDLE_OPEN_BACK = VanillaBackport.vanilla("textures/item/bundle_open_back.png");
+    @Unique private static final ResourceLocation BUNDLE_OPEN_FRONT = VanillaBackport.vanilla("textures/item/bundle_open_front.png");
 
     protected AbstractContainerScreenMixin(Component title) {
         super(title);
@@ -44,8 +44,8 @@ public abstract class AbstractContainerScreenMixin<T extends AbstractContainerMe
 
                 for (DyeColor color : DyeColor.values()) {
                     if (stack.is(BundleContents.getByColor(color))) {
-                        backTexture = VanillaBackport.resource("textures/item/" + color.getName() + "_bundle_open_back.png");
-                        frontTexture = VanillaBackport.resource("textures/item/" + color.getName() + "_bundle_open_front.png");
+                        backTexture = VanillaBackport.vanilla("textures/item/" + color.getName() + "_bundle_open_back.png");
+                        frontTexture = VanillaBackport.vanilla("textures/item/" + color.getName() + "_bundle_open_front.png");
                         break;
                     }
                 }

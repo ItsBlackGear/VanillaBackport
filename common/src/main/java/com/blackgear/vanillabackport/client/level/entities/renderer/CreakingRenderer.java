@@ -14,8 +14,8 @@ import net.minecraft.resources.ResourceLocation;
 
 @Environment(EnvType.CLIENT)
 public class CreakingRenderer<T extends Creaking> extends MobRenderer<T, CreakingModel<T>> {
-    private static final ResourceLocation TEXTURE_LOCATION = new ResourceLocation(VanillaBackport.MOD_ID, "textures/entity/creaking/creaking.png");
-    private static final ResourceLocation EYES_TEXTURE_LOCATION = new ResourceLocation(VanillaBackport.MOD_ID, "textures/entity/creaking/creaking_eyes.png");
+    private static final ResourceLocation TEXTURE_LOCATION = VanillaBackport.vanilla("textures/entity/creaking/creaking.png");
+    private static final ResourceLocation EYES_TEXTURE_LOCATION = VanillaBackport.vanilla("textures/entity/creaking/creaking_eyes.png");
 
     public CreakingRenderer(EntityRendererProvider.Context context) {
         super(context, new CreakingModel<>(context.bakeLayer(ModModelLayers.CREAKING)), 0.7F);

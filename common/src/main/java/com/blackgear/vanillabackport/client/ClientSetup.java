@@ -15,8 +15,8 @@ import com.blackgear.vanillabackport.core.VanillaBackport;
 public class ClientSetup {
     public static void setup() {
         ResourceReloadManager.registerClient(event -> {
-            event.register(VanillaBackport.resource("dry_foliage"), DryFoliageColorReloadListener.INSTANCE);
-            event.register(VanillaBackport.resource("leaf_colors"), LeafColorReloadListener.INSTANCE);
+            event.register(VanillaBackport.vanilla("dry_foliage"), DryFoliageColorReloadListener.INSTANCE);
+            event.register(VanillaBackport.vanilla("leaf_colors"), LeafColorReloadListener.INSTANCE);
         });
 
         GameRendering.registerParticleFactories(Rendering::particleFactories);

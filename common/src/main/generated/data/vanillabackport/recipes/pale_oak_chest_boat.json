@@ -7,10 +7,10 @@
       "item": "minecraft:chest"
     },
     {
-      "item": "vanillabackport:pale_oak_boat"
+      "item": "minecraft:pale_oak_boat"
     }
   ],
   "result": {
-    "item": "vanillabackport:pale_oak_chest_boat"
+    "item": "minecraft:pale_oak_chest_boat"
   }
 }

@@ -4,7 +4,7 @@
   "group": "hanging_sign",
   "key": {
     "#": {
-      "item": "vanillabackport:stripped_pale_oak_log"
+      "item": "minecraft:stripped_pale_oak_log"
     },
     "X": {
       "item": "minecraft:chain"
@@ -17,7 +17,7 @@
   ],
   "result": {
     "count": 6,
-    "item": "vanillabackport:pale_oak_hanging_sign"
+    "item": "minecraft:pale_oak_hanging_sign"
   },
   "show_notification": true
 }

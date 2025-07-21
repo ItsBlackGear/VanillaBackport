@@ -18,8 +18,6 @@ public class ConfiguredFeatureGenerator extends FabricDynamicRegistryProvider {
 
     @Override
     protected void configure(HolderLookup.Provider provider, Entries entries) {
-        this.add(provider, entries, SpringToLifeFeatures.EMPTY);
-
         // The Garden Awakens
         this.add(provider, entries, TheGardenAwakensFeatures.PALE_OAK);
         this.add(provider, entries, TheGardenAwakensFeatures.PALE_OAK_BONEMEAL);
@@ -59,7 +57,7 @@ public class ConfiguredFeatureGenerator extends FabricDynamicRegistryProvider {
         this.add(provider, entries, SpringToLifeFeatures.BIRCH_LEAF_LITTER);
         this.add(provider, entries, SpringToLifeFeatures.FANCY_OAK_LEAF_LITTER);
 
-        this.add(provider, entries, SpringToLifeFeatures.DARK_FOREST_VEGETATION);
+        this.add(provider, entries, SpringToLifeFeatures.TREES_DARK_FOREST_LEAF_LITTER);
         this.add(provider, entries, SpringToLifeFeatures.TREES_BIRCH_AND_OAK_LEAF_LITTER);
     }
 

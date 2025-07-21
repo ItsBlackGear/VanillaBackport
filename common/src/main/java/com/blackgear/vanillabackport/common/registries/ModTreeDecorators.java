@@ -16,7 +16,7 @@ import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorTy
 import java.util.function.Supplier;
 
 public class ModTreeDecorators {
-    public static final CoreRegistry<TreeDecoratorType<?>> DECORATORS = CoreRegistry.create(Registries.TREE_DECORATOR_TYPE, VanillaBackport.MOD_ID);
+    public static final CoreRegistry<TreeDecoratorType<?>> DECORATORS = CoreRegistry.create(Registries.TREE_DECORATOR_TYPE, VanillaBackport.NAMESPACE);
 
     public static final Supplier<TreeDecoratorType<PaleMossDecorator>> PALE_MOSS = register("pale_moss", PaleMossDecorator.CODEC);
     public static final Supplier<TreeDecoratorType<CreakingHeartDecorator>> CREAKING_HEART = register("creaking_heart", CreakingHeartDecorator.CODEC);

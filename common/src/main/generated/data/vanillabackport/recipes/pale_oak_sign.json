@@ -4,7 +4,7 @@
   "group": "wooden_sign",
   "key": {
     "#": {
-      "item": "vanillabackport:pale_oak_planks"
+      "item": "minecraft:pale_oak_planks"
     },
     "X": {
       "item": "minecraft:stick"
@@ -17,7 +17,7 @@
   ],
   "result": {
     "count": 3,
-    "item": "vanillabackport:pale_oak_sign"
+    "item": "minecraft:pale_oak_sign"
   },
   "show_notification": true
 }

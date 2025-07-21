@@ -4,10 +4,10 @@
   "group": "wooden_button",
   "ingredients": [
     {
-      "item": "vanillabackport:pale_oak_planks"
+      "item": "minecraft:pale_oak_planks"
     }
   ],
   "result": {
-    "item": "vanillabackport:pale_oak_button"
+    "item": "minecraft:pale_oak_button"
   }
 }

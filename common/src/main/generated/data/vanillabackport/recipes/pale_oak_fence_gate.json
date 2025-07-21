@@ -7,7 +7,7 @@
       "item": "minecraft:stick"
     },
     "W": {
-      "item": "vanillabackport:pale_oak_planks"
+      "item": "minecraft:pale_oak_planks"
     }
   },
   "pattern": [
@@ -15,7 +15,7 @@
     "#W#"
   ],
   "result": {
-    "item": "vanillabackport:pale_oak_fence_gate"
+    "item": "minecraft:pale_oak_fence_gate"
   },
   "show_notification": true
 }

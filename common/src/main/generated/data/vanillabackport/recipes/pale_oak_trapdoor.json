@@ -4,7 +4,7 @@
   "group": "wooden_trapdoor",
   "key": {
     "#": {
-      "item": "vanillabackport:pale_oak_planks"
+      "item": "minecraft:pale_oak_planks"
     }
   },
   "pattern": [
@@ -13,7 +13,7 @@
   ],
   "result": {
     "count": 2,
-    "item": "vanillabackport:pale_oak_trapdoor"
+    "item": "minecraft:pale_oak_trapdoor"
   },
   "show_notification": true
 }

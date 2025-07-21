@@ -6,7 +6,7 @@
         "items": [
           {
             "items": [
-              "vanillabackport:resin_brick_slab"
+              "minecraft:resin_brick_slab"
             ]
           }
         ]
@@ -15,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "vanillabackport:chiseled_resin_bricks"
+        "recipe": "minecraft:chiseled_resin_bricks"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -28,7 +28,7 @@
   ],
   "rewards": {
     "recipes": [
-      "vanillabackport:chiseled_resin_bricks"
+      "minecraft:chiseled_resin_bricks"
     ]
   },
   "sends_telemetry_event": false

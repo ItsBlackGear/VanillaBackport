@@ -7,7 +7,7 @@ import net.minecraft.sounds.SoundEvent;
 import java.util.function.Supplier;
 
 public class ModSoundEvents {
-    public static final SoundRegistry SOUNDS = SoundRegistry.create(VanillaBackport.MOD_ID);
+    public static final SoundRegistry SOUNDS = SoundRegistry.create(VanillaBackport.NAMESPACE);
 
     // BLOCKS
     public static final Supplier<SoundEvent> EYEBLOSSOM_OPEN_LONG = SOUNDS.soundEvent("block.eyeblossom.open_long");

@@ -15,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "vanillabackport:dried_ghast"
+        "recipe": "minecraft:dried_ghast"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -28,7 +28,7 @@
   ],
   "rewards": {
     "recipes": [
-      "vanillabackport:dried_ghast"
+      "minecraft:dried_ghast"
     ]
   },
   "sends_telemetry_event": false

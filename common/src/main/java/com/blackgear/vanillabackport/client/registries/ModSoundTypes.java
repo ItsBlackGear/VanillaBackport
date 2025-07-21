@@ -6,7 +6,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.level.block.SoundType;
 
 public class ModSoundTypes {
-    public static final SoundRegistry SOUNDS = SoundRegistry.create(VanillaBackport.MOD_ID);
+    public static final SoundRegistry SOUNDS = SoundRegistry.create(VanillaBackport.NAMESPACE);
 
     public static final SoundType CREAKING_HEART = SOUNDS.soundType(
         ModSoundEvents.CREAKING_HEART_BREAK,

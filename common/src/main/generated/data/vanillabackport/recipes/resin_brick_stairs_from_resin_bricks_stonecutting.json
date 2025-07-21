@@ -2,7 +2,7 @@
   "type": "minecraft:stonecutting",
   "count": 1,
   "ingredient": {
-    "item": "vanillabackport:resin_bricks"
+    "item": "minecraft:resin_bricks"
   },
-  "result": "vanillabackport:resin_brick_stairs"
+  "result": "minecraft:resin_brick_stairs"
 }

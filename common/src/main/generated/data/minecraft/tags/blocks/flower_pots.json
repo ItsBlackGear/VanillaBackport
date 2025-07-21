@@ -1,8 +1,8 @@
 {
   "replace": false,
   "values": [
-    "vanillabackport:potted_open_eyeblossom",
-    "vanillabackport:potted_closed_eyeblossom",
-    "vanillabackport:potted_pale_oak_sapling"
+    "minecraft:potted_open_eyeblossom",
+    "minecraft:potted_closed_eyeblossom",
+    "minecraft:potted_pale_oak_sapling"
   ]
 }

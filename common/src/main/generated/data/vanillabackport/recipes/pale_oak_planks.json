@@ -4,11 +4,11 @@
   "group": "planks",
   "ingredients": [
     {
-      "tag": "vanillabackport:pale_oak_logs"
+      "tag": "minecraft:pale_oak_logs"
     }
   ],
   "result": {
     "count": 4,
-    "item": "vanillabackport:pale_oak_planks"
+    "item": "minecraft:pale_oak_planks"
   }
 }

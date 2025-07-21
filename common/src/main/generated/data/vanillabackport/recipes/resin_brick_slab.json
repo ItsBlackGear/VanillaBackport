@@ -3,7 +3,7 @@
   "category": "building",
   "key": {
     "#": {
-      "item": "vanillabackport:resin_bricks"
+      "item": "minecraft:resin_bricks"
     }
   },
   "pattern": [
@@ -11,7 +11,7 @@
   ],
   "result": {
     "count": 6,
-    "item": "vanillabackport:resin_brick_slab"
+    "item": "minecraft:resin_brick_slab"
   },
   "show_notification": true
 }

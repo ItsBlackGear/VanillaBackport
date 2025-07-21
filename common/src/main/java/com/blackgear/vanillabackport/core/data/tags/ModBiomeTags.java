@@ -8,7 +8,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.biome.Biome;
 
 public class ModBiomeTags {
-    public static final TagRegistry<Biome> TAGS = TagRegistry.create(Registries.BIOME, VanillaBackport.MOD_ID);
+    public static final TagRegistry<Biome> TAGS = TagRegistry.create(Registries.BIOME, VanillaBackport.NAMESPACE);
 
     public static final TagKey<Biome> SPAWNS_WARM_VARIANT_FARM_ANIMALS = TAGS.register("spawns_warm_variant_farm_animals");
     public static final TagKey<Biome> SPAWNS_COLD_VARIANT_FARM_ANIMALS = TAGS.register("spawns_cold_variant_farm_animals");

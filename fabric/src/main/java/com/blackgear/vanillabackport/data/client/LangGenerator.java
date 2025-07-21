@@ -16,7 +16,7 @@ public class LangGenerator extends FabricLanguageProvider {
         // THE GARDEN AWAKENS
 
         // Biomes
-        builder.add("biome.vanillabackport.pale_garden", "Pale Garden");
+        builder.add("biome.minecraft.pale_garden", "Pale Garden");
 
         // Blocks
         builder.add(ModBlocks.PALE_HANGING_MOSS.get(), "Pale Hanging Moss");
@@ -37,8 +37,8 @@ public class LangGenerator extends FabricLanguageProvider {
         builder.add(ModBlocks.PALE_OAK_SLAB.get(), "Pale Oak Slab");
         builder.add(ModBlocks.PALE_OAK_STAIRS.get(), "Pale Oak Stairs");
         builder.add(ModBlocks.PALE_OAK_TRAPDOOR.get(), "Pale Oak Trapdoor");
-        builder.add("block.vanillabackport.pale_oak_wall_hanging_sign", "Pale Oak Wall Hanging Sign");
-        builder.add("block.vanillabackport.pale_oak_wall_sign", "Pale Oak Wall Sign");
+        builder.add("block.minecraft.pale_oak_wall_hanging_sign", "Pale Oak Wall Hanging Sign");
+        builder.add("block.minecraft.pale_oak_wall_sign", "Pale Oak Wall Sign");
         builder.add(ModBlocks.PALE_OAK_WOOD.get(), "Pale Oak Wood");
         builder.add(ModBlocks.STRIPPED_PALE_OAK_LOG.get(), "Stripped Pale Oak Log");
         builder.add(ModBlocks.STRIPPED_PALE_OAK_WOOD.get(), "Stripped Pale Oak Wood");
@@ -71,7 +71,7 @@ public class LangGenerator extends FabricLanguageProvider {
         builder.add(ModEntities.PALE_OAK_CHEST_BOAT.get(), "Pale Oak Boat with Chest");
 
         // Trims
-        builder.add("trim_material.vanillabackport.resin", "Resin Material");
+        builder.add("trim_material.minecraft.resin", "Resin Material");
 
         // Block Subtitles
         builder.add("subtitles.block.creaking_heart.hurt", "Creaking Heart grumbles");
@@ -120,18 +120,18 @@ public class LangGenerator extends FabricLanguageProvider {
         builder.add(ModItems.RED_HARNESS.get(), "Red Harness");
         builder.add(ModItems.BLACK_HARNESS.get(), "Black Harness");
 
-        builder.add("item.vanillabackport.music_disc_tears", "Music Disc");
-        builder.add("item.vanillabackport.music_disc_tears.desc", "Amos Roddy - Tears");
+        builder.add("item.minecraft.music_disc_tears", "Music Disc");
+        builder.add("item.minecraft.music_disc_tears.desc", "Amos Roddy - Tears");
 
-        builder.add("jukebox_song.vanillabackport.tears", "Amos Roddy - Tears");
+        builder.add("jukebox_song.minecraft.tears", "Amos Roddy - Tears");
 
-        builder.add("item.vanillabackport.music_disc_lava_chicken", "Music Disc");
-        builder.add("item.vanillabackport.music_disc_lava_chicken.desc", "Hyper Potions - Lava Chicken");
+        builder.add("item.minecraft.music_disc_lava_chicken", "Music Disc");
+        builder.add("item.minecraft.music_disc_lava_chicken.desc", "Hyper Potions - Lava Chicken");
 
-        builder.add("jukebox_song.vanillabackport.lava_chicken", "Hyper Potions - Lava Chicken");
+        builder.add("jukebox_song.minecraft.lava_chicken", "Hyper Potions - Lava Chicken");
 
-        builder.add("painting.vanillabackport.dennis.author", "Sarah Boeving");
-        builder.add("painting.vanillabackport.dennis.title", "Dennis");
+        builder.add("painting.minecraft.dennis.author", "Sarah Boeving");
+        builder.add("painting.minecraft.dennis.title", "Dennis");
 
         builder.add(ModEntities.HAPPY_GHAST.get(), "Happy Ghast");
 

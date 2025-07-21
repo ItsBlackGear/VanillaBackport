@@ -12,7 +12,7 @@ public class ModModelLayers {
     public static final ModelLayerLocation HAPPY_GHAST_BABY_ROPES = register("happy_ghast", "baby_ropes");
     public static final ModelLayerLocation PALE_OAK_BOAT = register("pale_oak_boat");
     public static final ModelLayerLocation PALE_OAK_CHEST_BOAT = register("pale_oak_chest_boat");
-    public static final ModelLayerLocation BAT = register("bat");
+    public static final ModelLayerLocation BAT = alt("bat");
 
     public static final ModelLayerLocation COLD_PIG = register("cold_pig");
     public static final ModelLayerLocation COLD_CHICKEN = register("cold_chicken");
@@ -24,6 +24,14 @@ public class ModModelLayers {
     }
 
     private static ModelLayerLocation register(String name, String layer) {
+        return new ModelLayerLocation(VanillaBackport.vanilla(name), layer);
+    }
+
+    private static ModelLayerLocation alt(String name) {
+        return alt(name, "main");
+    }
+
+    private static ModelLayerLocation alt(String name, String layer) {
         return new ModelLayerLocation(VanillaBackport.resource(name), layer);
     }
 }

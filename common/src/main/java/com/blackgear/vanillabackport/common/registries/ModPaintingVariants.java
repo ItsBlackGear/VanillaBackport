@@ -7,7 +7,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.decoration.PaintingVariant;
 
 public class ModPaintingVariants {
-    public static final CoreRegistry<PaintingVariant> VARIANTS = CoreRegistry.create(Registries.PAINTING_VARIANT, VanillaBackport.MOD_ID);
+    public static final CoreRegistry<PaintingVariant> VARIANTS = CoreRegistry.create(Registries.PAINTING_VARIANT, VanillaBackport.NAMESPACE);
 
     public static final ResourceKey<PaintingVariant> DENNIS = register("dennis", 3, 3);
 

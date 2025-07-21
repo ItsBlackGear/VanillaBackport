@@ -4,7 +4,7 @@
   "group": "bark",
   "key": {
     "#": {
-      "item": "vanillabackport:stripped_pale_oak_log"
+      "item": "minecraft:stripped_pale_oak_log"
     }
   },
   "pattern": [
@@ -13,7 +13,7 @@
   ],
   "result": {
     "count": 3,
-    "item": "vanillabackport:stripped_pale_oak_wood"
+    "item": "minecraft:stripped_pale_oak_wood"
   },
   "show_notification": true
 }

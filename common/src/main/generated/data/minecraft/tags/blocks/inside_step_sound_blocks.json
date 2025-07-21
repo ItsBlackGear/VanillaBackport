@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "vanillabackport:wildflowers",
-    "vanillabackport:leaf_litter"
+    "minecraft:wildflowers",
+    "minecraft:leaf_litter"
   ]
 }

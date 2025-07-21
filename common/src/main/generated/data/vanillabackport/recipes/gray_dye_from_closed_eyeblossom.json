@@ -4,7 +4,7 @@
   "group": "gray_dye",
   "ingredients": [
     {
-      "item": "vanillabackport:closed_eyeblossom"
+      "item": "minecraft:closed_eyeblossom"
     }
   ],
   "result": {

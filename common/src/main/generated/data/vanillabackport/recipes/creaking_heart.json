@@ -3,10 +3,10 @@
   "category": "misc",
   "key": {
     "L": {
-      "item": "vanillabackport:pale_oak_log"
+      "item": "minecraft:pale_oak_log"
     },
     "R": {
-      "item": "vanillabackport:resin_block"
+      "item": "minecraft:resin_block"
     }
   },
   "pattern": [
@@ -15,7 +15,7 @@
     " L "
   ],
   "result": {
-    "item": "vanillabackport:creaking_heart"
+    "item": "minecraft:creaking_heart"
   },
   "show_notification": true
 }

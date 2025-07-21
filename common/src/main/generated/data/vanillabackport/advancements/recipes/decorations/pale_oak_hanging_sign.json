@@ -6,7 +6,7 @@
         "items": [
           {
             "items": [
-              "vanillabackport:stripped_pale_oak_log"
+              "minecraft:stripped_pale_oak_log"
             ]
           }
         ]
@@ -15,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "vanillabackport:pale_oak_hanging_sign"
+        "recipe": "minecraft:pale_oak_hanging_sign"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -28,7 +28,7 @@
   ],
   "rewards": {
     "recipes": [
-      "vanillabackport:pale_oak_hanging_sign"
+      "minecraft:pale_oak_hanging_sign"
     ]
   },
   "sends_telemetry_event": false

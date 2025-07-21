@@ -1,6 +1,0 @@
-{
-  "parent": "vanillabackport:block/mossy_carpet_side",
-  "textures": {
-    "side": "vanillabackport:block/pale_moss_carpet_side_tall"
-  }
-}

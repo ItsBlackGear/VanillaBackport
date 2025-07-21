@@ -33,12 +33,12 @@ public class LeafColorGenerator implements DataProvider {
 
     private void add(Block block, int color) {
         ResourceLocation registry = BuiltInRegistries.BLOCK.getKey(block);
-        ResourceLocation name = VanillaBackport.resource(registry.getPath());
+        ResourceLocation name = VanillaBackport.vanilla(registry.getPath());
         this.addElement(name, registry.toString(), color);
     }
 
     private void add(String block, int color) {
-        this.addElement(VanillaBackport.resource(block), block, color);
+        this.addElement(VanillaBackport.vanilla(block), block, color);
     }
 
     @Override

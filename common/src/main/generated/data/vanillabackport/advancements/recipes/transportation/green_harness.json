@@ -6,7 +6,7 @@
         "items": [
           {
             "items": [
-              "vanillabackport:dried_ghast"
+              "minecraft:dried_ghast"
             ]
           }
         ]
@@ -15,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "vanillabackport:green_harness"
+        "recipe": "minecraft:green_harness"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -28,7 +28,7 @@
   ],
   "rewards": {
     "recipes": [
-      "vanillabackport:green_harness"
+      "minecraft:green_harness"
     ]
   },
   "sends_telemetry_event": false

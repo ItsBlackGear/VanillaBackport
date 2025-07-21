@@ -6,7 +6,7 @@
         "items": [
           {
             "items": [
-              "vanillabackport:resin_block"
+              "minecraft:resin_block"
             ]
           }
         ]
@@ -15,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "vanillabackport:creaking_heart"
+        "recipe": "minecraft:creaking_heart"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -28,7 +28,7 @@
   ],
   "rewards": {
     "recipes": [
-      "vanillabackport:creaking_heart"
+      "minecraft:creaking_heart"
     ]
   },
   "sends_telemetry_event": false

@@ -4,7 +4,7 @@
   "group": "wooden_stairs",
   "key": {
     "#": {
-      "item": "vanillabackport:pale_oak_planks"
+      "item": "minecraft:pale_oak_planks"
     }
   },
   "pattern": [
@@ -14,7 +14,7 @@
   ],
   "result": {
     "count": 4,
-    "item": "vanillabackport:pale_oak_stairs"
+    "item": "minecraft:pale_oak_stairs"
   },
   "show_notification": true
 }

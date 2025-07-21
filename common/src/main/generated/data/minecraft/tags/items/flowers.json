@@ -1,7 +1,7 @@
 {
   "replace": false,
   "values": [
-    "vanillabackport:wildflowers",
-    "vanillabackport:cactus_flower"
+    "minecraft:wildflowers",
+    "minecraft:cactus_flower"
   ]
 }

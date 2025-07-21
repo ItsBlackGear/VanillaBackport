@@ -35,7 +35,7 @@ import java.util.List;
 import java.util.OptionalInt;
 
 public class TheGardenAwakensFeatures {
-    public static final WorldGenRegistry<ConfiguredFeature<?, ?>> FEATURES = WorldGenRegistry.of(Registries.CONFIGURED_FEATURE, VanillaBackport.MOD_ID);
+    public static final WorldGenRegistry<ConfiguredFeature<?, ?>> FEATURES = WorldGenRegistry.of(Registries.CONFIGURED_FEATURE, VanillaBackport.NAMESPACE);
 
     // TREE FEATURES
     public static final ResourceKey<ConfiguredFeature<?, ?>> PALE_OAK = FEATURES.create("pale_oak");

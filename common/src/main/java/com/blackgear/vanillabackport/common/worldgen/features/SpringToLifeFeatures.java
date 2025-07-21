@@ -49,9 +49,7 @@ import java.util.List;
 import java.util.OptionalInt;
 
 public class SpringToLifeFeatures {
-    public static final WorldGenRegistry<ConfiguredFeature<?, ?>> FEATURES = WorldGenRegistry.of(Registries.CONFIGURED_FEATURE, VanillaBackport.MOD_ID);
-
-    public static final ResourceKey<ConfiguredFeature<?, ?>> EMPTY = FEATURES.create("empty");
+    public static final WorldGenRegistry<ConfiguredFeature<?, ?>> FEATURES = WorldGenRegistry.of(Registries.CONFIGURED_FEATURE, VanillaBackport.NAMESPACE);
 
     // VEGETATION FEATURES
     public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_BUSH = FEATURES.create("patch_bush");
@@ -60,7 +58,6 @@ public class SpringToLifeFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> WILDFLOWERS_MEADOW = FEATURES.create("wildflowers_meadow");
     public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_DRY_GRASS = FEATURES.create("patch_dry_grass");
     public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_LEAF_LITTER = FEATURES.create("patch_leaf_litter");
-
 
     // TREE FEATURES
     public static final ResourceKey<ConfiguredFeature<?, ?>> FALLEN_OAK_TREE = FEATURES.create("fallen_oak_tree");
@@ -79,13 +76,11 @@ public class SpringToLifeFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> FANCY_OAK_LEAF_LITTER = FEATURES.create("fancy_oak_leaf_litter");
 
     public static final ResourceKey<ConfiguredFeature<?, ?>> TREES_BIRCH_AND_OAK_LEAF_LITTER = FEATURES.create("trees_birch_and_oak_leaf_litter");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> DARK_FOREST_VEGETATION = FEATURES.create("dark_forest_vegetation");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> TREES_DARK_FOREST_LEAF_LITTER = FEATURES.create("trees_dark_forest_leaf_litter");
 
     public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> context) {
         HolderGetter<ConfiguredFeature<?, ?>> features = context.lookup(Registries.CONFIGURED_FEATURE);
         HolderGetter<PlacedFeature> placements = context.lookup(Registries.PLACED_FEATURE);
-
-        FEATURES.register(context, EMPTY, Feature.NO_OP);
 
         // VEGETATION FEATURES
         FEATURES.register(
@@ -270,7 +265,7 @@ public class SpringToLifeFeatures {
 
         FEATURES.register(
             context,
-            DARK_FOREST_VEGETATION,
+            TREES_DARK_FOREST_LEAF_LITTER,
             Feature.RANDOM_SELECTOR,
             new RandomFeatureConfiguration(
                 List.of(

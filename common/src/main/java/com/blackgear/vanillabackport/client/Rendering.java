@@ -23,7 +23,6 @@ import net.minecraft.client.model.ChestBoatModel;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.GrassColor;
 
 @Environment(EnvType.CLIENT)
@@ -42,8 +41,6 @@ public class Rendering {
         event.register(ModEntities.HAPPY_GHAST.get(), HappyGhastRenderer::new);
         event.register(ModEntities.PALE_OAK_BOAT.get(), context -> new PaleOakBoatRenderer(context, false));
         event.register(ModEntities.PALE_OAK_CHEST_BOAT.get(), context -> new PaleOakBoatRenderer(context, true));
-
-        event.register(EntityType.BAT, BatRenderer::new);
     }
 
     public static void modelLayers(GameRendering.ModelLayerEvent event) {

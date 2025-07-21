@@ -33,8 +33,8 @@ public class CowVariantRenderer extends AbstractVariantRenderer<Cow, CowModel<Co
     @Override
     public Map<AnimalVariant, ResourceLocation> textureByVariant() {
         Map<AnimalVariant, ResourceLocation> map = Maps.newEnumMap(AnimalVariant.class);
-        map.put(AnimalVariant.COLD, VanillaBackport.resource("textures/entity/cow/cold_cow.png"));
-        map.put(AnimalVariant.WARM, VanillaBackport.resource("textures/entity/cow/warm_cow.png"));
+        map.put(AnimalVariant.COLD, VanillaBackport.vanilla("textures/entity/cow/cold_cow.png"));
+        map.put(AnimalVariant.WARM, VanillaBackport.vanilla("textures/entity/cow/warm_cow.png"));
         return map;
     }
 }

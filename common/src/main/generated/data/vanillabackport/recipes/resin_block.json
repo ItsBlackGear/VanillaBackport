@@ -3,7 +3,7 @@
   "category": "building",
   "key": {
     "#": {
-      "item": "vanillabackport:resin_clump"
+      "item": "minecraft:resin_clump"
     }
   },
   "pattern": [
@@ -12,7 +12,7 @@
     "###"
   ],
   "result": {
-    "item": "vanillabackport:resin_block"
+    "item": "minecraft:resin_block"
   },
   "show_notification": true
 }

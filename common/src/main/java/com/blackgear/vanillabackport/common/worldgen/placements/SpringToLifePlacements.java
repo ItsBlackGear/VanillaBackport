@@ -21,7 +21,7 @@ import net.minecraft.world.level.levelgen.placement.*;
 import net.minecraft.world.level.material.Fluids;
 
 public class SpringToLifePlacements {
-    public static final WorldGenRegistry<PlacedFeature> FEATURES = WorldGenRegistry.of(Registries.PLACED_FEATURE, VanillaBackport.MOD_ID);
+    public static final WorldGenRegistry<PlacedFeature> FEATURES = WorldGenRegistry.of(Registries.PLACED_FEATURE, VanillaBackport.NAMESPACE);
 
     // VEGETATION PLACEMENTS
     public static final ResourceKey<PlacedFeature> PATCH_BUSH = FEATURES.create("patch_bush");
@@ -50,8 +50,8 @@ public class SpringToLifePlacements {
     public static final ResourceKey<PlacedFeature> BIRCH_LEAF_LITTER = FEATURES.create("birch_leaf_litter");
     public static final ResourceKey<PlacedFeature> FANCY_OAK_LEAF_LITTER = FEATURES.create("fancy_oak_leaf_litter");
 
-    public static final ResourceKey<PlacedFeature> DARK_FOREST_VEGETATION = FEATURES.create("dark_forest_vegetation");
-    public static final ResourceKey<PlacedFeature> TREES_BADLANDS = FEATURES.create("trees_badlands");
+    public static final ResourceKey<PlacedFeature> TREES_DARK_FOREST_LEAF_LITTER = FEATURES.create("trees_dark_forest_leaf_litter");
+    public static final ResourceKey<PlacedFeature> TREES_BADLANDS_LEAF_LITTER = FEATURES.create("trees_badlands_leaf_litter");
     public static final ResourceKey<PlacedFeature> TREES_BIRCH_AND_OAK_LEAF_LITTER = FEATURES.create("trees_birch_and_oak_leaf_litter");
 
     public static final ResourceKey<PlacedFeature> PLACED_FALLEN_OAK_TREE = FEATURES.create("placed_fallen_oak_tree");
@@ -228,8 +228,8 @@ public class SpringToLifePlacements {
 
         FEATURES.register(
             context,
-            DARK_FOREST_VEGETATION,
-            features.getOrThrow(SpringToLifeFeatures.DARK_FOREST_VEGETATION),
+            TREES_DARK_FOREST_LEAF_LITTER,
+            features.getOrThrow(SpringToLifeFeatures.TREES_DARK_FOREST_LEAF_LITTER),
             CountPlacement.of(16),
             InSquarePlacement.spread(),
             SurfaceWaterDepthFilter.forMaxDepth(0),
@@ -238,7 +238,7 @@ public class SpringToLifePlacements {
         );
         FEATURES.register(
             context,
-            TREES_BADLANDS,
+            TREES_BADLANDS_LEAF_LITTER,
             features.getOrThrow(SpringToLifeFeatures.OAK_LEAF_LITTER),
             VegetationPlacements.treePlacement(CountPlacement.of(3), Blocks.OAK_SAPLING)
         );

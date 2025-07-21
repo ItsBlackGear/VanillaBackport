@@ -6,7 +6,7 @@
         "items": [
           {
             "items": [
-              "vanillabackport:dried_ghast"
+              "minecraft:dried_ghast"
             ]
           }
         ]
@@ -15,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "vanillabackport:pink_harness"
+        "recipe": "minecraft:pink_harness"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -28,7 +28,7 @@
   ],
   "rewards": {
     "recipes": [
-      "vanillabackport:pink_harness"
+      "minecraft:pink_harness"
     ]
   },
   "sends_telemetry_event": false

@@ -3,7 +3,7 @@
   "category": "building",
   "key": {
     "#": {
-      "item": "vanillabackport:resin_brick_slab"
+      "item": "minecraft:resin_brick_slab"
     }
   },
   "pattern": [
@@ -11,7 +11,7 @@
     "#"
   ],
   "result": {
-    "item": "vanillabackport:chiseled_resin_bricks"
+    "item": "minecraft:chiseled_resin_bricks"
   },
   "show_notification": true
 }

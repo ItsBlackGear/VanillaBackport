@@ -26,8 +26,8 @@ import org.joml.Quaternionf;
 
 @Environment(EnvType.CLIENT)
 public class PaleOakBoatRenderer extends BoatRenderer {
-    private static final ResourceLocation PALE_OAK_BOAT = VanillaBackport.resource("textures/entity/boat/pale_oak.png");
-    private static final ResourceLocation PALE_OAK_CHEST_BOAT = VanillaBackport.resource("textures/entity/chest_boat/pale_oak.png");
+    private static final ResourceLocation PALE_OAK_BOAT = VanillaBackport.vanilla("textures/entity/boat/pale_oak.png");
+    private static final ResourceLocation PALE_OAK_CHEST_BOAT = VanillaBackport.vanilla("textures/entity/chest_boat/pale_oak.png");
     private final Pair<ResourceLocation, ListModel<Boat>> boatResource;
     private final LeashRenderer<Boat> leashRenderer;
 

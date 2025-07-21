@@ -24,6 +24,7 @@ import org.slf4j.Logger;
 
 public final class VanillaBackport {
     public static final String MOD_ID = "vanillabackport";
+    public static final String NAMESPACE = "minecraft";
     public static final Logger LOGGER = LogUtils.getLogger();
     public static final ClientConfig CLIENT_CONFIG = Environment.registerUnsafeConfig(MOD_ID, ModConfig.Type.CLIENT, ClientConfig::new);
     public static final CommonConfig CONFIG = Environment.registerUnsafeConfig(MOD_ID, ModConfig.Type.COMMON, CommonConfig::new);
@@ -70,5 +71,9 @@ public final class VanillaBackport {
 
     public static ResourceLocation resource(String path) {
         return new ResourceLocation(MOD_ID, path);
+    }
+
+    public static ResourceLocation vanilla(String path) {
+        return new ResourceLocation(NAMESPACE, path);
     }
 }

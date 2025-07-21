@@ -29,10 +29,10 @@ import java.util.List;
 
 @Mixin(ClientBundleTooltip.class)
 public class ClientBundleTooltipMixin implements ClientTooltipComponent {
-    @Unique private static final ResourceLocation BUNDLE_PROGRESS_BAR_TEXTURE = VanillaBackport.resource("textures/container/bundle/bundle_progressbar.png");
-    @Unique private static final ResourceLocation BUNDLE_SLOT_HIGHLIGHT_BACK_TEXTURE = VanillaBackport.resource("textures/container/bundle/slot_highlight_back.png");
-    @Unique private static final ResourceLocation BUNDLE_SLOT_HIGHLIGHT_FRONT_TEXTURE = VanillaBackport.resource("textures/container/bundle/slot_highlight_front.png");
-    @Unique private static final ResourceLocation BUNDLE_SLOT_BACKGROUND_TEXTURE = VanillaBackport.resource("textures/container/bundle/slot_background.png");
+    @Unique private static final ResourceLocation BUNDLE_PROGRESS_BAR_TEXTURE = VanillaBackport.vanilla("textures/container/bundle/bundle_progressbar.png");
+    @Unique private static final ResourceLocation BUNDLE_SLOT_HIGHLIGHT_BACK_TEXTURE = VanillaBackport.vanilla("textures/container/bundle/slot_highlight_back.png");
+    @Unique private static final ResourceLocation BUNDLE_SLOT_HIGHLIGHT_FRONT_TEXTURE = VanillaBackport.vanilla("textures/container/bundle/slot_highlight_front.png");
+    @Unique private static final ResourceLocation BUNDLE_SLOT_BACKGROUND_TEXTURE = VanillaBackport.vanilla("textures/container/bundle/slot_background.png");
     @Unique private static final Component BUNDLE_EMPTY_DESCRIPTION = Component.translatable("item.minecraft.bundle.empty.description");
     @Unique private static final Component BUNDLE_FULL = Component.translatable("item.minecraft.bundle.full");
     @Unique private static final Component BUNDLE_EMPTY = Component.translatable("item.minecraft.bundle.empty");

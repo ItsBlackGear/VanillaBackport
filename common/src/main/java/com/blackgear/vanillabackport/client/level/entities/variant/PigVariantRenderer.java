@@ -32,8 +32,8 @@ public class PigVariantRenderer extends AbstractVariantRenderer<Pig, PigModel<Pi
     @Override
     public Map<AnimalVariant, ResourceLocation> textureByVariant() {
         Map<AnimalVariant, ResourceLocation> map = Maps.newEnumMap(AnimalVariant.class);
-        map.put(AnimalVariant.COLD, VanillaBackport.resource("textures/entity/pig/cold_pig.png"));
-        map.put(AnimalVariant.WARM, VanillaBackport.resource("textures/entity/pig/warm_pig.png"));
+        map.put(AnimalVariant.COLD, VanillaBackport.vanilla("textures/entity/pig/cold_pig.png"));
+        map.put(AnimalVariant.WARM, VanillaBackport.vanilla("textures/entity/pig/warm_pig.png"));
         return map;
     }
 }

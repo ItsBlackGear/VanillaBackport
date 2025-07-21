@@ -17,7 +17,7 @@ import net.minecraft.world.phys.Vec3;
 import java.util.function.Supplier;
 
 public class ModParticles {
-    public static final ParticleRegistry PARTICLES = ParticleRegistry.create(VanillaBackport.MOD_ID);
+    public static final ParticleRegistry PARTICLES = ParticleRegistry.create(VanillaBackport.NAMESPACE);
 
     public static final Supplier<SimpleParticleType> PALE_OAK_LEAVES = PARTICLES.register("pale_oak_leaves", false);
     public static final Supplier<ParticleType<TrailParticleOption>> TRAIL = PARTICLES.register(

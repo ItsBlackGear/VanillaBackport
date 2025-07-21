@@ -3,11 +3,11 @@
   "category": "misc",
   "ingredients": [
     {
-      "item": "vanillabackport:resin_block"
+      "item": "minecraft:resin_block"
     }
   ],
   "result": {
     "count": 9,
-    "item": "vanillabackport:resin_clump"
+    "item": "minecraft:resin_clump"
   }
 }

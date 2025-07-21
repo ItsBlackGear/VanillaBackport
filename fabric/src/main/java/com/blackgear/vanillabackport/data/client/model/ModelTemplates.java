@@ -25,10 +25,10 @@ public class ModelTemplates {
     public static final ModelTemplate LEAF_LITTER_4 = create("template_leaf_litter_4", "_4", TextureSlot.TEXTURE);
 
     private static ModelTemplate create(String name, String suffix, TextureSlot... slots) {
-        return new ModelTemplate(Optional.of(VanillaBackport.resource("block/" + name)), Optional.of(suffix), slots);
+        return new ModelTemplate(Optional.of(VanillaBackport.vanilla("block/" + name)), Optional.of(suffix), slots);
     }
 
     private static ModelTemplate create(String name, TextureSlot... slots) {
-        return new ModelTemplate(Optional.of(VanillaBackport.resource("block/" + name)), Optional.empty(), slots);
+        return new ModelTemplate(Optional.of(VanillaBackport.vanilla("block/" + name)), Optional.empty(), slots);
     }
 }

@@ -1,6 +1,5 @@
 package com.blackgear.vanillabackport.client.level.entities.variant;
 
-import com.blackgear.platform.client.GameRendering;
 import com.blackgear.vanillabackport.client.level.entities.model.chicken.ColdChickenModel;
 import com.blackgear.vanillabackport.client.registries.ModModelLayers;
 import com.blackgear.vanillabackport.common.level.entities.AnimalVariant;
@@ -33,8 +32,8 @@ public class ChickenVariantRenderer extends AbstractVariantRenderer<Chicken, Chi
     @Override
     public Map<AnimalVariant, ResourceLocation> textureByVariant() {
         Map<AnimalVariant, ResourceLocation> map = Maps.newEnumMap(AnimalVariant.class);
-        map.put(AnimalVariant.COLD, VanillaBackport.resource("textures/entity/chicken/cold_chicken.png"));
-        map.put(AnimalVariant.WARM, VanillaBackport.resource("textures/entity/chicken/warm_chicken.png"));
+        map.put(AnimalVariant.COLD, VanillaBackport.vanilla("textures/entity/chicken/cold_chicken.png"));
+        map.put(AnimalVariant.WARM, VanillaBackport.vanilla("textures/entity/chicken/warm_chicken.png"));
         return map;
     }
 }

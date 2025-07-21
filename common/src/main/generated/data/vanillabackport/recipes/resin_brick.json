@@ -4,7 +4,7 @@
   "cookingtime": 200,
   "experience": 0.1,
   "ingredient": {
-    "item": "vanillabackport:resin_clump"
+    "item": "minecraft:resin_clump"
   },
-  "result": "vanillabackport:resin_brick"
+  "result": "minecraft:resin_brick"
 }

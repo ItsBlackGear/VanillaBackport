@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:item/template_music_disc",
-  "textures": {
-    "layer0": "vanillabackport:item/music_disc_tears"
-  }
-}

@@ -6,7 +6,7 @@
         "items": [
           {
             "items": [
-              "vanillabackport:pale_oak_planks"
+              "minecraft:pale_oak_planks"
             ]
           }
         ]
@@ -15,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "vanillabackport:pale_oak_fence"
+        "recipe": "minecraft:pale_oak_fence"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -28,7 +28,7 @@
   ],
   "rewards": {
     "recipes": [
-      "vanillabackport:pale_oak_fence"
+      "minecraft:pale_oak_fence"
     ]
   },
   "sends_telemetry_event": false

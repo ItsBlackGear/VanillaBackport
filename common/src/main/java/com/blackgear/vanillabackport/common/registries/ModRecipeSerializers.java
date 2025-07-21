@@ -10,7 +10,7 @@ import net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer;
 import java.util.function.Supplier;
 
 public class ModRecipeSerializers {
-    public static final CoreRegistry<RecipeSerializer<?>> SERIALIZERS = CoreRegistry.create(BuiltInRegistries.RECIPE_SERIALIZER, VanillaBackport.MOD_ID);
+    public static final CoreRegistry<RecipeSerializer<?>> SERIALIZERS = CoreRegistry.create(BuiltInRegistries.RECIPE_SERIALIZER, VanillaBackport.NAMESPACE);
 
     public static final Supplier<RecipeSerializer<BundleColoring>> BUNDLE_COLORING = SERIALIZERS.register(
         "crafting_special_bundlecoloring",

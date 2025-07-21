@@ -4,7 +4,7 @@
   "group": "boat",
   "key": {
     "#": {
-      "item": "vanillabackport:pale_oak_planks"
+      "item": "minecraft:pale_oak_planks"
     }
   },
   "pattern": [
@@ -12,7 +12,7 @@
     "###"
   ],
   "result": {
-    "item": "vanillabackport:pale_oak_boat"
+    "item": "minecraft:pale_oak_boat"
   },
   "show_notification": true
 }

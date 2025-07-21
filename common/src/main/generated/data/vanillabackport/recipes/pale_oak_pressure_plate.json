@@ -4,14 +4,14 @@
   "group": "wooden_pressure_plate",
   "key": {
     "#": {
-      "item": "vanillabackport:pale_oak_planks"
+      "item": "minecraft:pale_oak_planks"
     }
   },
   "pattern": [
     "##"
   ],
   "result": {
-    "item": "vanillabackport:pale_oak_pressure_plate"
+    "item": "minecraft:pale_oak_pressure_plate"
   },
   "show_notification": true
 }

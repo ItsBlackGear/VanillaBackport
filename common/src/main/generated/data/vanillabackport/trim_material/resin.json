@@ -1,9 +1,0 @@
-{
-  "asset_name": "resin",
-  "description": {
-    "color": "#FC7812",
-    "translate": "trim_material.vanillabackport.resin"
-  },
-  "ingredient": "vanillabackport:resin_brick",
-  "item_model_index": 0.5
-}

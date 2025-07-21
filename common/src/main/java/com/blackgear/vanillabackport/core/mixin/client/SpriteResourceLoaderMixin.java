@@ -27,7 +27,7 @@ public abstract class SpriteResourceLoaderMixin {
         if (location.equals(new ResourceLocation("armor_trims"))) {
             for (SpriteSource source : ((SpriteResourceLoaderMixin) (Object) cir.getReturnValue()).getSources()) {
                 if (source instanceof PalettedPermutationsAccessor permutations && permutations.getPaletteKey().equals(new ResourceLocation("trims/color_palettes/trim_palette"))) {
-                    ResourceLocation resin = VanillaBackport.resource("trims/color_palettes/resin");
+                    ResourceLocation resin = VanillaBackport.vanilla("trims/color_palettes/resin");
 
                     if (manager.getResource(new ResourceLocation(resin.getNamespace(), "textures/" + resin.getPath() + ".png")).isPresent()) {
                         Map<String, ResourceLocation> map = new HashMap<>(permutations.getPermutations());
