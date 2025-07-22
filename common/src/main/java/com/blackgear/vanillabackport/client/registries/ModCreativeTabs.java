@@ -1,7 +1,7 @@
 package com.blackgear.vanillabackport.client.registries;
 
 import com.blackgear.platform.core.CoreRegistry;
-import com.blackgear.vanillabackport.client.api.selector.BundledContent;
+import com.blackgear.vanillabackport.client.api.tabs.BundledTabs;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -22,7 +22,7 @@ public interface ModCreativeTabs {
             .title(Component.literal("Vanilla Backport"))
             .icon(() -> new ItemStack(Items.BUNDLE))
             .displayItems((parameters, output) -> {
-                List<BundledContent> filters = ModBundledContents.getFilters();
+                List<BundledTabs> filters = ModBundledTabs.getFilters();
                 Collections.reverse(filters);
                 filters.stream()
                     .flatMap(filter -> filter.getDisplayItems().stream())

@@ -100,5 +100,9 @@ public class ModelGenerator extends VanillaModelGenerator {
         gen.createFlatItem(ModItems.LIME_BUNDLE.get());
         gen.createFlatItem(ModItems.BROWN_BUNDLE.get());
         gen.createFlatItem(ModItems.ORANGE_BUNDLE.get());
+
+        // Spring to Life
+        gen.createFlatItem(ModItems.BLUE_EGG.get());
+        gen.createFlatItem(ModItems.BROWN_EGG.get());
     }
 }

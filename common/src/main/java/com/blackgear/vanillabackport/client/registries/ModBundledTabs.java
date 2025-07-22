@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.client.registries;
 
-import com.blackgear.vanillabackport.client.api.selector.BundledContent;
+import com.blackgear.vanillabackport.client.api.tabs.BundledTabs;
 import com.blackgear.vanillabackport.common.registries.ModBlocks;
 import com.blackgear.vanillabackport.common.registries.ModItems;
 import com.blackgear.vanillabackport.common.registries.ModPaintingVariants;
@@ -13,12 +13,12 @@ import net.minecraft.world.item.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ModBundledContents {
-    private static final List<BundledContent> FILTERS = new ArrayList<>();
+public class ModBundledTabs {
+    private static final List<BundledTabs> FILTERS = new ArrayList<>();
 
-    public static final BundledContent BUNDLES_OF_BRAVERY = register(
-        BundledContent.builder()
-            .title(Component.literal("Bundles of Bravery"))
+    public static final BundledTabs BUNDLES_OF_BRAVERY = register(
+        BundledTabs.builder()
+            .title(Component.translatable("bundled_tab.bundles_of_bravery.title"))
             .icon(new ItemStack(Items.BUNDLE))
             .displayItems((provider, output) -> {
                 output.accept(Items.BUNDLE);
@@ -42,9 +42,9 @@ public class ModBundledContents {
             .build()
     );
 
-    public static final BundledContent THE_GARDEN_AWAKENS = register(
-        BundledContent.builder()
-            .title(Component.literal("The Garden Awakens"))
+    public static final BundledTabs THE_GARDEN_AWAKENS = register(
+        BundledTabs.builder()
+            .title(Component.translatable("bundled_tab.the_garden_awakens.title"))
             .icon(new ItemStack(ModBlocks.OPEN_EYEBLOSSOM.get()))
             .displayItems((provider, output) -> {
                 output.accept(ModBlocks.CREAKING_HEART.get());
@@ -85,9 +85,9 @@ public class ModBundledContents {
             .build()
     );
 
-    public static final BundledContent SPRING_TO_LIFE = register(
-        BundledContent.builder()
-            .title(Component.literal("Spring to Life"))
+    public static final BundledTabs SPRING_TO_LIFE = register(
+        BundledTabs.builder()
+            .title(Component.translatable("bundled_tab.spring_to_life.title"))
             .icon(new ItemStack(ModBlocks.WILDFLOWERS.get()))
             .displayItems((provider, output) -> {
                 output.accept(ModBlocks.BUSH.get());
@@ -97,12 +97,14 @@ public class ModBundledContents {
                 output.accept(ModBlocks.CACTUS_FLOWER.get());
                 output.accept(ModBlocks.SHORT_DRY_GRASS.get());
                 output.accept(ModBlocks.TALL_DRY_GRASS.get());
+                output.accept(ModItems.BROWN_EGG.get());
+                output.accept(ModItems.BLUE_EGG.get());
             })
             .build()
     );
 
-    public static final BundledContent CHASE_THE_SKIES = register(
-        BundledContent.builder()
+    public static final BundledTabs CHASE_THE_SKIES = register(
+        BundledTabs.builder()
             .title(Component.literal("Chase The Skies"))
             .icon(new ItemStack(ModItems.BLUE_HARNESS.get()))
             .displayItems((provider, output) -> {
@@ -129,9 +131,9 @@ public class ModBundledContents {
             .build()
     );
 
-    public static final BundledContent HOT_AS_LAVA = register(
-        BundledContent.builder()
-            .title(Component.literal("Hot as Lava"))
+    public static final BundledTabs HOT_AS_LAVA = register(
+        BundledTabs.builder()
+            .title(Component.translatable("bundled_tab.hot_as_lava.title"))
             .icon(new ItemStack(ModItems.MUSIC_DISC_LAVA_CHICKEN.get()))
             .displayItems((provider, output) -> {
                 output.accept(ModItems.MUSIC_DISC_LAVA_CHICKEN.get());
@@ -148,12 +150,12 @@ public class ModBundledContents {
             .build()
     );
 
-    public static BundledContent register(BundledContent builder) {
+    public static BundledTabs register(BundledTabs builder) {
         FILTERS.add(builder);
         return builder;
     }
 
-    public static List<BundledContent> getFilters() {
+    public static List<BundledTabs> getFilters() {
         return FILTERS;
     }
 }

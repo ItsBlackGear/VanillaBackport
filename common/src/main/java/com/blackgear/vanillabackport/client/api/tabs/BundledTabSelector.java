@@ -1,8 +1,8 @@
-package com.blackgear.vanillabackport.client.api.selector;
+package com.blackgear.vanillabackport.client.api.tabs;
 
 import com.blackgear.platform.client.event.screen.HudRendering;
 import com.blackgear.platform.client.event.screen.api.ScreenAccess;
-import com.blackgear.vanillabackport.client.registries.ModBundledContents;
+import com.blackgear.vanillabackport.client.registries.ModBundledTabs;
 import com.blackgear.vanillabackport.client.registries.ModCreativeTabs;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.blackgear.vanillabackport.core.mixin.access.CreativeModeInventoryScreenAccessor;
@@ -26,10 +26,10 @@ import net.minecraft.world.item.ItemStack;
 import java.util.*;
 import java.util.function.Consumer;
 
-public class BundledContentSelector {
-    public static final BundledContentSelector INSTANCE = new BundledContentSelector();
+public class BundledTabSelector {
+    public static final BundledTabSelector INSTANCE = new BundledTabSelector();
 
-    private static final ResourceLocation SELECTOR_BAR = VanillaBackport.resource("textures/gui/tab_selector/tab_selector.png");
+    private static final ResourceLocation SELECTOR_BAR = VanillaBackport.resource("textures/gui/bundled_tabs/interface.png");
     private static final int VISIBLE_CATEGORIES = 5;
 
     private int guiLeft;
@@ -39,11 +39,11 @@ public class BundledContentSelector {
     private AbstractWidget scrollUpButton;
     private AbstractWidget scrollDownButton;
 
-    private List<BundledContent> bundles;
+    private List<BundledTabs> bundles;
     private CreativeModeTab lastTab;
 
     public void bootstrap() {
-        List<BundledContent> bundles = ModBundledContents.getFilters();
+        List<BundledTabs> bundles = ModBundledTabs.getFilters();
         Collections.reverse(bundles);
         this.bundles = bundles;
 
@@ -84,17 +84,13 @@ public class BundledContentSelector {
                 bundle.setContentTab(null);
                 bundle.deselect();
             });
-
-            if (!this.bundles.isEmpty()) {
-                this.bundles.get(0).select();
-            }
         }
     }
 
     private void injectWidgets(CreativeModeInventoryScreen screen, Consumer<AbstractWidget> widgets) {
         this.bundles.forEach(category -> {
             Tab tab = new Tab(this.guiLeft - 23, this.guiTop + 7, category, button -> {
-                this.bundles.forEach(BundledContent::deselect);
+                this.bundles.forEach(BundledTabs::deselect);
                 category.select();
                 this.updateItems(screen);
             });
@@ -127,16 +123,25 @@ public class BundledContentSelector {
         Set<ItemStack> seenItems = new HashSet<>();
         LinkedHashSet<ItemStack> displayItems = new LinkedHashSet<>();
 
-        ModCreativeTabs.VANILLA_BACKPORT.get().getDisplayItems().forEach(stack ->
-            this.bundles.stream()
-                .filter(BundledContent::isSelected)
-                .forEach(bundle -> {
-                    if (!seenItems.contains(stack) && bundle.contains(stack)) {
-                        displayItems.add(stack.copy());
-                        seenItems.add(stack);
-                    }
-                })
-        );
+        boolean hasSelected = this.bundles.stream().anyMatch(BundledTabs::isSelected);
+
+        ModCreativeTabs.VANILLA_BACKPORT.get().getDisplayItems().forEach(stack -> {
+            if (!hasSelected) {
+                if (!seenItems.contains(stack)) {
+                    displayItems.add(stack.copy());
+                    seenItems.add(stack);
+                }
+            } else {
+                this.bundles.stream()
+                    .filter(BundledTabs::isSelected)
+                    .forEach(bundle -> {
+                        if (!seenItems.contains(stack) && bundle.contains(stack)) {
+                            displayItems.add(stack.copy());
+                            seenItems.add(stack);
+                        }
+                    });
+            }
+        });
 
         NonNullList<ItemStack> items = screen.getMenu().items;
         items.clear();
@@ -148,7 +153,7 @@ public class BundledContentSelector {
         this.bundles.forEach(bundle -> bundle.setVisible(false));
 
         for (int i = this.scroll; i < this.scroll + VISIBLE_CATEGORIES && i < this.bundles.size(); i++) {
-            BundledContent bundle = this.bundles.get(i);
+            BundledTabs bundle = this.bundles.get(i);
             bundle.setY(this.guiTop + 18 * (i - this.scroll) + 18);
             bundle.setVisible(true);
         }
@@ -175,9 +180,9 @@ public class BundledContentSelector {
     }
 
     public static class Tab extends Button {
-        private final BundledContent bundle;
+        private final BundledTabs bundle;
 
-        protected Tab(int x, int y, BundledContent bundle, OnPress onPress) {
+        protected Tab(int x, int y, BundledTabs bundle, OnPress onPress) {
             super(x, y, 16, 16, Component.empty(), onPress, DEFAULT_NARRATION);
             this.bundle = bundle;
             bundle.setContentTab(this);

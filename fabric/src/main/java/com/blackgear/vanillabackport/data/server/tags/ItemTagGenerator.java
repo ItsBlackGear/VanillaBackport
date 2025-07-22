@@ -86,5 +86,8 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
         this.getOrCreateTagBuilder(ModItemTags.HAPPY_GHAST_TEMPT_ITEMS)
             .addTag(ModItemTags.HAPPY_GHAST_FOOD)
             .addTag(ModItemTags.HARNESSES);
+
+        this.getOrCreateTagBuilder(ModItemTags.EGGS)
+            .add(Items.EGG, ModItems.BLUE_EGG.get(), ModItems.BROWN_EGG.get());
     }
 }

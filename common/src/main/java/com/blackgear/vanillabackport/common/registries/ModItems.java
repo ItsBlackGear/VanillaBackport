@@ -2,8 +2,10 @@ package com.blackgear.vanillabackport.common.registries;
 
 import com.blackgear.platform.core.helper.ItemRegistry;
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
+import com.blackgear.vanillabackport.common.level.entities.AnimalVariant;
 import com.blackgear.vanillabackport.common.level.items.PaleOakBoatItem;
 import com.blackgear.vanillabackport.common.level.items.HarnessItem;
+import com.blackgear.vanillabackport.common.level.items.VariantEggItem;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.world.item.*;
 
@@ -167,4 +169,13 @@ public class ModItems {
     public static final Supplier<Item> BLACK_BUNDLE = ITEMS.register(
         "black_bundle",
         BundleItem::new, new Item.Properties().stacksTo(1));
+
+    public static final Supplier<Item> BLUE_EGG = ITEMS.register(
+        "blue_egg",
+        properties -> new VariantEggItem(AnimalVariant.COLD, properties),
+        new Item.Properties().stacksTo(16));
+    public static final Supplier<Item> BROWN_EGG = ITEMS.register(
+        "brown_egg",
+        properties -> new VariantEggItem(AnimalVariant.WARM, properties),
+        new Item.Properties().stacksTo(16));
 }

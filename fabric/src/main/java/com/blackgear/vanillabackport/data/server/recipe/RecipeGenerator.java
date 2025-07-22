@@ -110,6 +110,25 @@ public class RecipeGenerator extends FabricRecipeProvider {
             .unlockedBy("has_string", has(Items.STRING))
             .save(exporter);
 
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, Items.PUMPKIN_PIE)
+            .requires(Blocks.PUMPKIN)
+            .requires(Items.SUGAR)
+            .requires(ModItemTags.EGGS)
+            .unlockedBy("has_carved_pumpkin", has(Blocks.CARVED_PUMPKIN))
+            .unlockedBy("has_pumpkin", has(Blocks.PUMPKIN))
+            .save(exporter);
+
+        shaped(RecipeCategory.FOOD, Blocks.CAKE)
+            .define('A', Items.MILK_BUCKET)
+            .define('B', Items.SUGAR)
+            .define('C', Items.WHEAT)
+            .define('E', ModItemTags.EGGS)
+            .pattern("AAA")
+            .pattern("BEB")
+            .pattern("CCC")
+            .unlockedBy("has_egg", has(ModItemTags.EGGS))
+            .save(exporter);
+
         SpecialRecipeBuilder.special(ModRecipeSerializers.BUNDLE_COLORING.get()).save(exporter, "bundle_coloring");
     }
 

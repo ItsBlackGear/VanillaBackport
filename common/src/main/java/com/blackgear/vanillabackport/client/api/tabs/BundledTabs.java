@@ -1,4 +1,4 @@
-package com.blackgear.vanillabackport.client.api.selector;
+package com.blackgear.vanillabackport.client.api.tabs;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.HolderLookup;
@@ -11,14 +11,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiConsumer;
 
-public class BundledContent {
+public class BundledTabs {
     public final Component tooltip;
     private final ItemStack icon;
     private final List<ItemStack> displayItems;
-    private @Nullable BundledContentSelector.Tab tab;
+    private @Nullable BundledTabSelector.Tab tab;
     private boolean selected = false;
 
-    private BundledContent(Component tooltip, ItemStack icon, List<ItemStack> displayItems) {
+    private BundledTabs(Component tooltip, ItemStack icon, List<ItemStack> displayItems) {
         this.tooltip = tooltip;
         this.icon = icon;
         this.displayItems = displayItems;
@@ -52,7 +52,7 @@ public class BundledContent {
         return this.selected;
     }
 
-    public void setContentTab(@Nullable BundledContentSelector.Tab tab) {
+    public void setContentTab(@Nullable BundledTabSelector.Tab tab) {
         this.tab = tab;
     }
 
@@ -104,10 +104,10 @@ public class BundledContent {
             return this;
         }
 
-        public BundledContent build() {
+        public BundledTabs build() {
             if (this.title == null) this.title = Component.empty();
             if (this.icon == null) this.icon = ItemStack.EMPTY;
-            return new BundledContent(this.title, this.icon, new ArrayList<>(this.displayItems));
+            return new BundledTabs(this.title, this.icon, new ArrayList<>(this.displayItems));
         }
     }
 

@@ -2,6 +2,7 @@ package com.blackgear.vanillabackport.core.mixin.common.entities;
 
 import com.blackgear.vanillabackport.common.level.entities.AnimalVariant;
 import com.blackgear.vanillabackport.common.level.entities.AnimalVariantHolder;
+import com.blackgear.vanillabackport.common.registries.ModItems;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -14,12 +15,14 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Chicken;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
@@ -40,6 +43,24 @@ public abstract class ChickenMixin extends MobMixin implements AnimalVariantHold
         if (child != null && otherParent instanceof Chicken mate) {
             AnimalVariantHolder.trySetOffspringVariant(child, this, mate);
         }
+    }
+
+    @ModifyArg(
+        method = "aiStep",
+        at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/animal/Chicken;spawnAtLocation(Lnet/minecraft/world/level/ItemLike;)Lnet/minecraft/world/entity/item/ItemEntity;"),
+        index = 0
+    )
+    private ItemLike vb$modifyEggDrop(ItemLike originalItem) {
+        Chicken chicken = (Chicken) (Object) this;
+        if (chicken instanceof AnimalVariantHolder holder) {
+            return switch (holder.getVariant()) {
+                case COLD -> ModItems.BLUE_EGG.get();
+                case WARM -> ModItems.BROWN_EGG.get();
+                default -> originalItem;
+            };
+        }
+
+        return originalItem;
     }
 
     @Override

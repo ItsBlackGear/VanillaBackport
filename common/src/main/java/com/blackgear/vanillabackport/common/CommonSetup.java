@@ -21,6 +21,7 @@ import net.minecraft.advancements.critereon.DamageSourcePredicate;
 import net.minecraft.advancements.critereon.EntityFlagsPredicate;
 import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.advancements.critereon.TagPredicate;
+import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.entity.*;
@@ -100,6 +101,8 @@ public class CommonSetup {
 
         event.registerDispenserBehavior(ModItems.PALE_OAK_BOAT.get(), new PaleOakBoatDispenseBehavior());
         event.registerDispenserBehavior(ModItems.PALE_OAK_CHEST_BOAT.get(), new PaleOakBoatDispenseBehavior(true));
+        event.registerDispenserBehavior(ModItems.BLUE_EGG.get(), new DefaultDispenseItemBehavior());
+        event.registerDispenserBehavior(ModItems.BROWN_EGG.get(), new DefaultDispenseItemBehavior());
     }
 
     public static void tradeIntegrations(TradeIntegration.Event event) {
