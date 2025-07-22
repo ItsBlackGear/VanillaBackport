@@ -28,7 +28,7 @@ public final class VanillaBackport {
     public static final String NAMESPACE = "minecraft";
     public static final Logger LOGGER = LogUtils.getLogger();
     public static final ClientConfig CLIENT_CONFIG = Environment.registerUnsafeConfig(MOD_ID, ModConfig.Type.CLIENT, ClientConfig::new);
-    public static final CommonConfig CONFIG = Environment.registerUnsafeConfig(MOD_ID, ModConfig.Type.COMMON, CommonConfig::new);
+    public static final CommonConfig COMMON_CONFIG = Environment.registerUnsafeConfig(MOD_ID, ModConfig.Type.COMMON, CommonConfig::new);
     public static final ModInstance INSTANCE = ModInstance.create(MOD_ID)
         .client(ClientSetup::setup)
         .postClient(ClientSetup::asyncSetup)

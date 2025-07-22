@@ -17,12 +17,12 @@ public class SpringToLifeFeatureManager extends FeatureManager {
 
     @Override
     public void bootstrap() {
-        this.addIf(VanillaBackport.CONFIG.generateBushes.get(), (context, writer) -> {
+        this.addIf(VanillaBackport.COMMON_CONFIG.hasBushes.get(), (context, writer) -> {
             this.getOrCreateBiomeBuilder(ModBiomeTags.SPAWNS_BUSHES)
                 .add(() -> this.addVegetation(SpringToLifePlacements.PATCH_BUSH));
         });
 
-        this.addIf(VanillaBackport.CONFIG.generateFireflyBushes.get(), (context, writer) -> {
+        this.addIf(VanillaBackport.COMMON_CONFIG.hasFireflyBushes.get(), (context, writer) -> {
             this.getOrCreateBiomeBuilder(ModBiomeTags.SPAWNS_FIREFLY_BUSHES)
                 .add(() -> this.addVegetation(SpringToLifePlacements.PATCH_FIREFLY_BUSH_NEAR_WATER));
 
@@ -31,7 +31,7 @@ public class SpringToLifeFeatureManager extends FeatureManager {
                 .add(() -> this.addVegetation(SpringToLifePlacements.PATCH_FIREFLY_BUSH_NEAR_WATER_SWAMP));
         });
 
-        this.addIf(VanillaBackport.CONFIG.generateWildflowers.get(), (context, writer) -> {
+        this.addIf(VanillaBackport.COMMON_CONFIG.hasWildflowers.get(), (context, writer) -> {
             this.getOrCreateBiomeBuilder(Biomes.MEADOW)
                 .add(() -> this.addVegetation(SpringToLifePlacements.WILDFLOWERS_MEADOW));
 
@@ -39,7 +39,7 @@ public class SpringToLifeFeatureManager extends FeatureManager {
                 .add(() -> this.addVegetation(SpringToLifePlacements.WILDFLOWERS_BIRCH_FOREST));
         });
 
-        this.addIf(VanillaBackport.CONFIG.generateDryGrass.get(), (context, writer) -> {
+        this.addIf(VanillaBackport.COMMON_CONFIG.hasDryGrass.get(), (context, writer) -> {
             if (context.is(FabricBiomeTags.DESERT) || context.is(ForgeBiomeTags.IS_DESERT)) {
                 this.addVegetation(SpringToLifePlacements.PATCH_DRY_GRASS_DESERT);
             }
@@ -49,7 +49,7 @@ public class SpringToLifeFeatureManager extends FeatureManager {
             }
         });
 
-        this.addIf(VanillaBackport.CONFIG.generateFallenTrees.get(), (context, writer) -> {
+        this.addIf(VanillaBackport.COMMON_CONFIG.hasFallenTrees.get(), (context, writer) -> {
             if (
                 context.is(Biomes.DARK_FOREST)
                 || context.is(BiomeTags.IS_BADLANDS)
@@ -88,7 +88,7 @@ public class SpringToLifeFeatureManager extends FeatureManager {
             }
         });
 
-        this.addIf(VanillaBackport.CONFIG.generateLeafLitter.get(), (context, writer) -> {
+        this.addIf(VanillaBackport.COMMON_CONFIG.hasLeafLitter.get(), (context, writer) -> {
             if (context.is(Biomes.DARK_FOREST)) {
                 this.addVegetation(SpringToLifePlacements.PATCH_LEAF_LITTER);
                 this.addVegetation(SpringToLifePlacements.TREES_DARK_FOREST_LEAF_LITTER);

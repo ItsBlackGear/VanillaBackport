@@ -3,23 +3,32 @@ package com.blackgear.vanillabackport.client;
 import com.blackgear.platform.core.util.config.ConfigBuilder;
 
 public class ClientConfig {
-    public final ConfigBuilder.ConfigValue<Boolean> fadeMusicOnPaleGarden;
-    public final ConfigBuilder.ConfigValue<Boolean> fallingLeaves;
+    // Bats and Pots
+    public final ConfigBuilder.ConfigValue<Boolean> hasUpdatedBatModel;
+
+    // The Garden Awakens
+    public final ConfigBuilder.ConfigValue<Boolean> musicFadesOnPaleGarden;
+
+    // Spring to Life
+    public final ConfigBuilder.ConfigValue<Boolean> hasFallingLeaves;
     public final ConfigBuilder.ConfigValue<Double> fallingLeavesFrequency;
-    public final ConfigBuilder.ConfigValue<Boolean> updatedBatModel;
 
     public ClientConfig(ConfigBuilder builder) {
-        builder.push("The Garden Awakens");
-        this.fadeMusicOnPaleGarden = builder.comment("Determine if the music should fade out when entering a pale garden").define("fadeMusicOnPaleGarden", true);
-        builder.pop();
-
-        builder.push("Falling Leaves");
-        this.fallingLeaves = builder.comment("Enable falling leaves particles in the world").define("falling_leaves", true);
-        this.fallingLeavesFrequency = builder.comment("The frequency of falling leaves particles in the world, lower values mean more particles").defineInRange("falling_leaves_frequency", 0.01, 0.0, 1.0);
-        builder.pop();
-
         builder.push("Bats and Pots");
-        this.updatedBatModel = builder.comment("Use the updated bat model for bats").define("updated_bat_model", true);
+        this.hasUpdatedBatModel = builder.comment("Use the updated bat model for bats")
+            .define("updated_bat_model", true);
+        builder.pop();
+
+        builder.push("The Garden Awakens");
+        this.musicFadesOnPaleGarden = builder.comment("toggle whether music should fade on the pale garden")
+            .define("pale_garden_music_fade", true);
+        builder.pop();
+
+        builder.push("Spring to Life");
+        this.hasFallingLeaves = builder.comment("allow falling leaves particles to generate")
+            .define("falling_leaves", true);
+        this.fallingLeavesFrequency = builder.comment("how often should falling leaves particles generate")
+            .defineInRange("falling_leaves_frequency", 0.01, 0.0, 1.0);
         builder.pop();
     }
 }

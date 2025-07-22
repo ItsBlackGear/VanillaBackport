@@ -16,20 +16,10 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 
 public class VariantThrownEgg extends ThrowableItemProjectile {
-    private AnimalVariant variant;
-
-    public VariantThrownEgg(EntityType<? extends ThrowableItemProjectile> entityType, Level level) {
-        super(entityType, level);
-    }
+    private final AnimalVariant variant;
 
     public VariantThrownEgg(Level level, LivingEntity shooter, ItemStack stack, AnimalVariant variant) {
         super(EntityType.EGG, shooter, level);
-        this.variant = variant;
-        this.setItem(stack);
-    }
-
-    public VariantThrownEgg(Level level, double x, double y, double z, ItemStack stack, AnimalVariant variant) {
-        super(EntityType.EGG, x, y, z, level);
         this.variant = variant;
         this.setItem(stack);
     }

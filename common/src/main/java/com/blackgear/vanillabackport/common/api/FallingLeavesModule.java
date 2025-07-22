@@ -28,7 +28,7 @@ public class FallingLeavesModule {
 
     private void spawnFallingLeavesParticle(Level level, BlockPos pos, RandomSource random) {
         BlockState state = level.getBlockState(pos);
-        if (VanillaBackport.CLIENT_CONFIG.fallingLeaves.get()) {
+        if (VanillaBackport.CLIENT_CONFIG.hasFallingLeaves.get()) {
             ParticleType<ColorParticleOption> particle = null;
 
             if (state.is(ModBlockTags.SPAWN_FALLING_LEAVES)) {

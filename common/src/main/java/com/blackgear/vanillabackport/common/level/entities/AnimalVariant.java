@@ -1,5 +1,6 @@
 package com.blackgear.vanillabackport.common.level.entities;
 
+import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.blackgear.vanillabackport.core.data.tags.ModBiomeTags;
 import net.minecraft.core.Holder;
 import net.minecraft.tags.TagKey;
@@ -29,6 +30,10 @@ public enum AnimalVariant {
     }
 
     public static AnimalVariant getByName(String name) {
+        if (!VanillaBackport.COMMON_CONFIG.hasFarmAnimalVariants.get()) {
+            return DEFAULT;
+        }
+
         for (AnimalVariant variant : values()) {
             if (variant.name.equals(name)) {
                 return variant;
@@ -39,6 +44,8 @@ public enum AnimalVariant {
     }
 
     public static <T extends LivingEntity & AnimalVariantHolder> void selectVariantToSpawn(ServerLevelAccessor level, T entity, MobSpawnType spawnType) {
+        if (!VanillaBackport.COMMON_CONFIG.hasFarmAnimalVariants.get()) return;
+
         if (spawnType != MobSpawnType.BREEDING && spawnType != MobSpawnType.COMMAND) {
             Holder<Biome> biome = level.getBiome(entity.blockPosition());
 

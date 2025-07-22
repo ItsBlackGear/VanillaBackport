@@ -53,7 +53,7 @@ public class CommonSetup {
             TradeIntegration.registerVillagerTrades(CommonSetup::tradeIntegrations);
         });
 
-        LootModifier.modify(CommonSetup::lootIntegrations);
+        LootModifier.modify(new LootIntegrations());
     }
 
     public static void blockIntegrations(BlockIntegration.Event event) {
@@ -106,7 +106,7 @@ public class CommonSetup {
     }
 
     public static void tradeIntegrations(TradeIntegration.Event event) {
-        if (VanillaBackport.CONFIG.paleTradesFromWanderer.get()) {
+        if (VanillaBackport.COMMON_CONFIG.hasPaleTrades.get()) {
             event.registerWandererTrade(
                 false,
                 new ItemsForEmeralds(ModBlocks.PALE_OAK_LOG.get(), 1, 8, 4, 1)
@@ -133,80 +133,5 @@ public class CommonSetup {
         event.registerGoal(EntityType.PILLAGER, 1, mob -> new AvoidEntityGoal<>((PathfinderMob) mob, Creaking.class, 8.0F, 0.6, 1.2));
         event.registerGoal(EntityType.ILLUSIONER, 3, mob -> new AvoidEntityGoal<>((PathfinderMob) mob, Creaking.class, 8.0F, 0.6, 1.2));
         event.registerGoal(EntityType.EVOKER, 3, mob -> new AvoidEntityGoal<>((PathfinderMob) mob, Creaking.class, 8.0F, 0.6, 1.2));
-    }
-
-    public static void lootIntegrations(ResourceLocation path, LootModifier.LootTableContext context, boolean builtin) {
-        // GHASTS DROP TEARS MUSIC DISC
-        if (path.equals(EntityType.GHAST.getDefaultLootTable())) {
-            context.addPool(
-                LootPool.lootPool()
-                    .setRolls(ConstantValue.exactly(1.0F))
-                    .add(LootItem.lootTableItem(ModItems.MUSIC_DISC_TEARS.get()))
-                    .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F)))
-                    .when(DamageSourceCondition.hasDamageSource(
-                        DamageSourcePredicate.Builder.damageType()
-                            .tag(TagPredicate.is(DamageTypeTags.IS_PROJECTILE))
-                            .direct(EntityPredicate.Builder.entity().of(EntityType.FIREBALL)))
-                    )
-                    .when(LootItemKilledByPlayerCondition.killedByPlayer())
-            );
-        }
-
-        // PIGLINS BARTER DRIED GHASTS
-        if (path.equals(BuiltInLootTables.PIGLIN_BARTERING)) {
-            context.addToPool(
-                LootItem.lootTableItem(ModBlocks.DRIED_GHAST.get())
-                    .setWeight(10)
-                    .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F)))
-                    .build()
-            );
-        }
-
-        // CHICKEN JOCKEYS DROP LAVA CHICKEN MUSIC DISC
-        if (path.equals(EntityType.ZOMBIE.getDefaultLootTable())) {
-            context.addPool(
-                LootPool.lootPool()
-                    .add(LootItem.lootTableItem(ModItems.MUSIC_DISC_LAVA_CHICKEN.get()))
-                    .when(LootItemKilledByPlayerCondition.killedByPlayer())
-                    .when(
-                        LootItemEntityPropertyCondition.hasProperties(
-                            LootContext.EntityTarget.THIS,
-                            EntityPredicate.Builder.entity()
-                                .flags(EntityFlagsPredicate.Builder.flags().setIsBaby(true).build())
-                                .vehicle(EntityPredicate.Builder.entity().of(EntityType.CHICKEN).build())
-                        )
-                    )
-            );
-        }
-
-        // RESIN ON WOODLAND MANSION CHESTS
-        if (path.equals(BuiltInLootTables.WOODLAND_MANSION)) {
-            context.addToPool(
-                1,
-                LootItem.lootTableItem(ModBlocks.RESIN_CLUMP.get())
-                    .setWeight(50)
-                    .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 4.0F)))
-                    .build()
-            );
-        }
-
-        // VILLAGES GENERATE BUNDLES
-        if (
-            path.equals(BuiltInLootTables.VILLAGE_WEAPONSMITH)
-            || path.equals(BuiltInLootTables.VILLAGE_CARTOGRAPHER)
-            || path.equals(BuiltInLootTables.VILLAGE_TANNERY)
-            || path.equals(BuiltInLootTables.VILLAGE_PLAINS_HOUSE)
-            || path.equals(BuiltInLootTables.VILLAGE_TAIGA_HOUSE)
-            || path.equals(BuiltInLootTables.VILLAGE_SAVANNA_HOUSE)
-            || path.equals(BuiltInLootTables.VILLAGE_SNOWY_HOUSE)
-            || path.equals(BuiltInLootTables.VILLAGE_DESERT_HOUSE)
-        ) {
-            context.addPool(
-                LootPool.lootPool()
-                    .setRolls(ConstantValue.exactly(1.0F))
-                    .add(LootItem.lootTableItem(Items.BUNDLE).setWeight(1).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F))))
-                    .add(EmptyLootItem.emptyItem().setWeight(2))
-            );
-        }
     }
 }

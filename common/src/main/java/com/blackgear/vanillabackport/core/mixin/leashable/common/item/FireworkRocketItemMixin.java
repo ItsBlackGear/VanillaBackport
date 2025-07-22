@@ -19,7 +19,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class FireworkRocketItemMixin {
     @Inject(method = "use", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/projectile/FireworkRocketEntity;<init>(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/entity/LivingEntity;)V"))
     private void vb$onUse(Level level, Player player, InteractionHand usedHand, CallbackInfoReturnable<InteractionResultHolder<ItemStack>> cir) {
-        if (VanillaBackport.CONFIG.dropLeashConnectionsOnFireworkBoost.get()) {
+        if (VanillaBackport.COMMON_CONFIG.leashDropConnections.get()) {
             if (LeashIntegration.dropAllLeashConnections(player, null)) {
                 level.playSound(null, player, SoundEvents.LEASH_KNOT_BREAK, SoundSource.NEUTRAL, 1.0F, 1.0F);
             }

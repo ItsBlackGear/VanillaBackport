@@ -8,7 +8,7 @@ import com.blackgear.vanillabackport.core.VanillaBackport;
 
 public class BiomeGeneration {
     public static void bootstrap(BiomePlacement.Event event) {
-        if (VanillaBackport.CONFIG.generatePaleGarden.get()) {
+        if (VanillaBackport.COMMON_CONFIG.hasPaleGarden.get()) {
             // Peaks
             event.addSurfaceBiome(Placement.PEAK_VARIANT, Temperature.NEUTRAL.parameter(), Humidity.HUMID.parameter(), Continentalness.span(Continentalness.MID_INLAND, Continentalness.FAR_INLAND), Erosion.EROSION_2.parameter(), 0.0F, ModBiomes.PALE_GARDEN);
             event.addSurfaceBiome(Placement.PEAK_VARIANT, Temperature.NEUTRAL.parameter(), Humidity.HUMID.parameter(), Continentalness.FAR_INLAND.parameter(), Erosion.EROSION_3.parameter(), 0.0F, ModBiomes.PALE_GARDEN);

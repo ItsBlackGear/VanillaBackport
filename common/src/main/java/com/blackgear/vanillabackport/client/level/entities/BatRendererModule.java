@@ -25,7 +25,7 @@ public class BatRendererModule<T extends Entity, M extends EntityModel<T>> {
     }
 
     public boolean enabled() {
-        return VanillaBackport.CLIENT_CONFIG.updatedBatModel.get();
+        return VanillaBackport.CLIENT_CONFIG.hasUpdatedBatModel.get();
     }
 
     public Optional<M> getModel() {

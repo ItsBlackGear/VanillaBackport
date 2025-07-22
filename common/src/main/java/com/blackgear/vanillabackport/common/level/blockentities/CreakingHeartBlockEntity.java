@@ -196,7 +196,7 @@ public class CreakingHeartBlockEntity extends BlockEntity {
 
     @Nullable
     private static Creaking spawnProtector(ServerLevel level, CreakingHeartBlockEntity heart) {
-        if (!VanillaBackport.CONFIG.spawnCreakingFromHearts.get()) {
+        if (!VanillaBackport.COMMON_CONFIG.hasCreaking.get()) {
             return null;
         }
 
@@ -239,9 +239,7 @@ public class CreakingHeartBlockEntity extends BlockEntity {
             if (this.level instanceof ServerLevel server) {
                 if (this.emitter <= 0) {
                     this.emitParticles(server, 20, false);
-                    if (this.getBlockState().getValue(CreakingHeartBlock.STATE) == CreakingHeartState.AWAKE
-                        && VanillaBackport.CONFIG.generateResin.get()
-                    ) {
+                    if (this.getBlockState().getValue(CreakingHeartBlock.STATE) == CreakingHeartState.AWAKE && VanillaBackport.COMMON_CONFIG.hasResin.get()) {
                         int i = this.level.getRandom().nextIntBetweenInclusive(2, 3);
 
                         for (int j = 0; j < i; j++) {

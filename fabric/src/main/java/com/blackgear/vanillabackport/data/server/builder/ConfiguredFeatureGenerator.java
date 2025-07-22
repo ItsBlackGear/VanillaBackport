@@ -22,7 +22,6 @@ public class ConfiguredFeatureGenerator extends FabricDynamicRegistryProvider {
         this.add(provider, entries, TheGardenAwakensFeatures.PALE_OAK);
         this.add(provider, entries, TheGardenAwakensFeatures.PALE_OAK_BONEMEAL);
         this.add(provider, entries, TheGardenAwakensFeatures.PALE_OAK_CREAKING);
-        this.add(provider, entries, TheGardenAwakensFeatures.PALE_OAK_CREAKING_BONEMEAL);
 
         this.add(provider, entries, TheGardenAwakensFeatures.FLOWER_PALE_GARDEN);
         this.add(provider, entries, TheGardenAwakensFeatures.PALE_GARDEN_FLOWERS);

@@ -201,7 +201,6 @@ public class DataTransformation {
         remap("pale_oak");
         remap("pale_oak_bonemeal");
         remap("pale_oak_creaking");
-        remap("pale_oak_creaking_bonemeal");
         remap("flower_pale_garden");
         remap("pale_garden_flowers");
         remap("pale_garden_vegetation");
