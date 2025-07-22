@@ -5,6 +5,7 @@ import com.blackgear.vanillabackport.core.data.tags.ModBlockTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -120,5 +121,41 @@ public class BlockTagGenerator extends FabricTagProvider.BlockTagProvider {
 
         this.getOrCreateTagBuilder(ModBlockTags.SPAWN_FALLING_NEEDLES)
             .add(Blocks.SPRUCE_LEAVES);
+    }
+
+    protected DualTagHolder getDualTagBuilder(TagKey<Block> forge, TagKey<Block> fabric) {
+        return new DualTagHolder(this.getOrCreateTagBuilder(fabric), this.getOrCreateTagBuilder(forge));
+    }
+
+    protected record DualTagHolder(FabricTagProvider<Block>.FabricTagBuilder forge, FabricTagProvider<Block>.FabricTagBuilder fabric) {
+        public DualTagHolder add(Block entry) {
+            this.forge.add(entry);
+            this.fabric.add(entry);
+            return this;
+        }
+
+        public DualTagHolder add(Block... toAdd) {
+            this.forge.add(toAdd);
+            this.fabric.add(toAdd);
+            return this;
+        }
+
+        public DualTagHolder addOptional(ResourceLocation location) {
+            this.forge.addOptional(location);
+            this.fabric.addOptional(location);
+            return this;
+        }
+
+        public DualTagHolder addTag(TagKey<Block> tag) {
+            this.forge.addTag(tag);
+            this.fabric.addTag(tag);
+            return this;
+        }
+
+        public DualTagHolder addOptionalTag(TagKey<Block> tag) {
+            this.forge.addOptionalTag(tag);
+            this.fabric.addOptionalTag(tag);
+            return this;
+        }
     }
 }

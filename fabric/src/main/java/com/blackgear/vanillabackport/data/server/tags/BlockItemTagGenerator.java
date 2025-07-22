@@ -3,6 +3,10 @@ package com.blackgear.vanillabackport.data.server.tags;
 import com.blackgear.vanillabackport.common.registries.ModBlocks;
 import com.blackgear.vanillabackport.core.data.tags.ModBlockTags;
 import com.blackgear.vanillabackport.core.data.tags.ModItemTags;
+import com.blackgear.vanillabackport.core.data.tags.fabric.FabricBlockTags;
+import com.blackgear.vanillabackport.core.data.tags.fabric.FabricItemTags;
+import com.blackgear.vanillabackport.core.data.tags.forge.ForgeBlockTags;
+import com.blackgear.vanillabackport.core.data.tags.forge.ForgeItemTags;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
@@ -14,6 +18,8 @@ import net.minecraft.world.level.block.Block;
 
 public abstract class BlockItemTagGenerator {
     protected void addTags() {
+        this.handleConventionalTags();
+
         this.tag(BlockTags.PLANKS, ItemTags.PLANKS)
             .add(ModBlocks.PALE_OAK_PLANKS.get());
 
@@ -76,6 +82,20 @@ public abstract class BlockItemTagGenerator {
 
         this.tag(BlockTags.CEILING_HANGING_SIGNS, ItemTags.HANGING_SIGNS)
             .add(ModBlocks.PALE_OAK_HANGING_SIGN.getFirst().get());
+    }
+
+    private void handleConventionalTags() {
+        this.tag(ForgeBlockTags.STRIPPED_LOGS, ForgeItemTags.STRIPPED_LOGS)
+            .add(ModBlocks.STRIPPED_PALE_OAK_LOG.get());
+
+        this.tag(FabricBlockTags.STRIPPED_LOGS, FabricItemTags.STRIPPED_LOGS)
+            .add(ModBlocks.STRIPPED_PALE_OAK_LOG.get());
+
+        this.tag(ForgeBlockTags.STRIPPED_WOOD, ForgeItemTags.STRIPPED_WOOD)
+            .add(ModBlocks.STRIPPED_PALE_OAK_WOOD.get());
+
+        this.tag(FabricBlockTags.STRIPPED_WOOD, FabricItemTags.STRIPPED_WOOD)
+            .add(ModBlocks.STRIPPED_PALE_OAK_WOOD.get());
     }
 
     protected abstract TagHolder tag(TagKey<Block> block, TagKey<Item> item);
