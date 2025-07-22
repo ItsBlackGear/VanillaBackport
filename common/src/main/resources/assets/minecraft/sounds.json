@@ -1,4 +1,129 @@
 {
+  "music.game": {
+    "replace": false,
+    "sounds": [
+      {
+        "name": "music/game/below_and_above",
+        "stream": true,
+        "volume": 0.4
+      },
+      {
+        "name": "music/game/broken_clocks",
+        "stream": true,
+        "volume": 0.4
+      },
+      {
+        "name": "music/game/fireflies",
+        "stream": true,
+        "volume": 0.4
+      },
+      {
+        "name": "music/game/lilypad",
+        "stream": true,
+        "volume": 0.4
+      },
+      {
+        "name": "music/game/os_piano",
+        "stream": true,
+        "volume": 0.4
+      }
+    ]
+  },
+  "music.menu": {
+    "replace": false,
+    "sounds": [
+      {
+        "name": "music/game/below_and_above",
+        "stream": true,
+        "volume": 0.4
+      },
+      {
+        "name": "music/game/broken_clocks",
+        "stream": true,
+        "volume": 0.4
+      },
+      {
+        "name": "music/game/fireflies",
+        "stream": true,
+        "volume": 0.4
+      },
+      {
+        "name": "music/game/lilypad",
+        "stream": true,
+        "volume": 0.4
+      },
+      {
+        "name": "music/game/os_piano",
+        "stream": true,
+        "volume": 0.4
+      }
+    ]
+  },
+  "music.overworld.cherry_grove": {
+    "replace": false,
+    "sounds": [
+      {
+        "name": "music/game/below_and_above",
+        "stream": true,
+        "volume": 0.4,
+        "weight": 2
+      }
+    ]
+  },
+  "music.overworld.forest": {
+    "replace": false,
+    "sounds": [
+      {
+        "name": "music/game/broken_clocks",
+        "stream": true,
+        "volume": 0.4,
+        "weight": 2
+      }
+    ]
+  },
+  "music.overworld.desert": {
+    "replace": false,
+    "sounds": [
+      {
+        "name": "music/game/fireflies",
+        "stream": true,
+        "volume": 0.4,
+        "weight": 2
+      }
+    ]
+  },
+  "music.overworld.frozen_peaks": {
+    "replace": false,
+    "sounds": [
+      {
+        "name": "music/game/fireflies",
+        "stream": true,
+        "volume": 0.4
+      }
+    ]
+  },
+  "music.overworld.grove": {
+    "replace": false,
+    "sounds": [
+      {
+        "name": "music/game/fireflies",
+        "stream": true,
+        "volume": 0.4,
+        "weight": 2
+      }
+    ]
+  },
+  "music.overworld.lush_caves": {
+    "replace": false,
+    "sounds": [
+      {
+        "name": "music/game/os_piano",
+        "stream": true,
+        "volume": 0.4,
+        "weight": 2
+      }
+    ]
+  },
   "block.eyeblossom.close": {
     "sounds": [
       "block/eyeblossom/eyeblossom_close1",
