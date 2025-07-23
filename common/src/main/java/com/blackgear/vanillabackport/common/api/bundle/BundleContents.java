@@ -33,6 +33,10 @@ public final class BundleContents {
                 int selectedItem = tag.getInt(TAG_SELECTED_ITEM);
                 int index = isValidIndex(selectedItem, items.size()) ? selectedItem : 0;
 
+                if (!isValidIndex(index, items.size())) {
+                    return null;
+                }
+
                 CompoundTag itemTag = items.getCompound(index);
                 ItemStack removedItem = ItemStack.of(itemTag);
                 items.remove(index);
@@ -170,6 +174,12 @@ public final class BundleContents {
         }
 
         ListTag items = tag.getList(TAG_ITEMS, 10);
+
+        if (!isValidIndex(index, items.size())) {
+            setSelectedItem(bundle, NO_SELECTED_ITEM);
+            return;
+        }
+
         boolean outsideBounds = index < 0 || index >= items.size();
 
         int selected = selected0 != index && !outsideBounds ? index : NO_SELECTED_ITEM;
@@ -236,29 +246,5 @@ public final class BundleContents {
             case BLACK -> ModItems.BLACK_BUNDLE.get();
             case PURPLE -> ModItems.PURPLE_BUNDLE.get();
         };
-    }
-
-    public static List<BundleItem> getAllBundleItemColors() {
-        return Stream.of(
-                Items.BUNDLE,
-                ModItems.WHITE_BUNDLE.get(),
-                ModItems.ORANGE_BUNDLE.get(),
-                ModItems.MAGENTA_BUNDLE.get(),
-                ModItems.LIGHT_BLUE_BUNDLE.get(),
-                ModItems.YELLOW_BUNDLE.get(),
-                ModItems.LIME_BUNDLE.get(),
-                ModItems.PINK_BUNDLE.get(),
-                ModItems.GRAY_BUNDLE.get(),
-                ModItems.LIGHT_GRAY_BUNDLE.get(),
-                ModItems.CYAN_BUNDLE.get(),
-                ModItems.BLACK_BUNDLE.get(),
-                ModItems.BROWN_BUNDLE.get(),
-                ModItems.GREEN_BUNDLE.get(),
-                ModItems.RED_BUNDLE.get(),
-                ModItems.BLUE_BUNDLE.get(),
-                ModItems.PURPLE_BUNDLE.get()
-            )
-            .map(item -> (BundleItem) item)
-            .toList();
     }
 }
