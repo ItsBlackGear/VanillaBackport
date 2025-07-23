@@ -1,4 +1,4 @@
-package com.blackgear.vanillabackport.client.level.color;
+package com.blackgear.vanillabackport.client.api.color;
 
 import com.blackgear.vanillabackport.client.resources.LeafColorReloadListener;
 import com.blackgear.vanillabackport.common.registries.ModBiomes;

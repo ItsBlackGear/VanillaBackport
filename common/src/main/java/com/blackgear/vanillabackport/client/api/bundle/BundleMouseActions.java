@@ -1,4 +1,4 @@
-package com.blackgear.vanillabackport.client.level.bundle;
+package com.blackgear.vanillabackport.client.api.bundle;
 
 import com.blackgear.platform.client.event.screen.HudInteractions;
 import com.blackgear.platform.core.util.event.CancellableResult;
@@ -25,11 +25,14 @@ public class BundleMouseActions implements ItemSlotMouseAction {
 
     public static void bootstrap() {
         HudInteractions.SCROLLING_PRE.register((minecraft, screen, mouseX, mouseY, scrollDelta) -> {
+
             if (screen instanceof AbstractContainerScreen<?> container) {
                 Slot slot = container.hoveredSlot;
                 if (slot != null && slot.hasItem()) {
                     ItemSlotMouseAction action = BundleMouseActions.INSTANCE;
                     if (action.matches(slot) && action.onMouseScrolled(scrollDelta, slot.index, slot.getItem())) {
+                        if (!BundleContents.onBundleUpdate()) return CancellableResult.PASS;
+
                         return CancellableResult.CANCEL;
                     }
                 }
@@ -38,9 +41,11 @@ public class BundleMouseActions implements ItemSlotMouseAction {
             return CancellableResult.PASS;
         });
         HudInteractions.STOP_HOVERING.register((minecraft, screen, slot) -> {
+
             if (slot != null && slot.hasItem()) {
                 ItemSlotMouseAction action = BundleMouseActions.INSTANCE;
                 if (action.matches(slot)) {
+                    if (!BundleContents.onBundleUpdate()) return;
                     action.onStopHovering(slot);
                 }
             }
@@ -49,6 +54,7 @@ public class BundleMouseActions implements ItemSlotMouseAction {
             if (slot != null && slot.hasItem()) {
                 ItemSlotMouseAction action = BundleMouseActions.INSTANCE;
                 if (action.matches(slot)) {
+                    if (!BundleContents.onBundleUpdate()) return;
                     action.onSlotClicked(slot, clickType);
                 }
             }

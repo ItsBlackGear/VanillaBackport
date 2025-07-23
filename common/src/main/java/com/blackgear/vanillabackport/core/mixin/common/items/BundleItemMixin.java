@@ -42,6 +42,8 @@ public abstract class BundleItemMixin {
         cancellable = true
     )
     private void vb$onOverrideStackedOnOther(ItemStack stack, Slot slot, ClickAction action, Player player, CallbackInfoReturnable<Boolean> cir) {
+        if (!BundleContents.onBundleUpdate()) return;
+
         ItemStack itemInSlot = slot.getItem();
         if (action == ClickAction.PRIMARY && !itemInSlot.isEmpty()) {
             if (BundleContents.tryTransfer(stack, slot, player) > 0) {
@@ -76,6 +78,8 @@ public abstract class BundleItemMixin {
         cancellable = true
     )
     private void vb$onOverrideOtherStackedOnMe(ItemStack stack, ItemStack other, Slot slot, ClickAction action, Player player, SlotAccess slotAccess, CallbackInfoReturnable<Boolean> cir) {
+        if (!BundleContents.onBundleUpdate()) return;
+
         if (action == ClickAction.PRIMARY && other.isEmpty()) {
             BundleContents.toggleSelectedItem(stack, -1);
             cir.setReturnValue(false);
@@ -113,6 +117,8 @@ public abstract class BundleItemMixin {
         cancellable = true
     )
     private static void vb$dropContents(ItemStack stack, Player player, CallbackInfoReturnable<Boolean> cir) {
+        if (!BundleContents.onBundleUpdate()) return;
+
         Optional<ItemStack> taken = removeOneFromBundle(stack);
         if (taken.isPresent()) {
             player.drop(taken.get(), true);
@@ -138,6 +144,8 @@ public abstract class BundleItemMixin {
         cancellable = true
     )
     private void vb$onGetBarColor(ItemStack stack, CallbackInfoReturnable<Integer> cir) {
+        if (!BundleContents.onBundleUpdate()) return;
+
         cir.setReturnValue(BundleContents.getContentWeight(stack) >= BundleContents.MAX_WEIGHT ? FULL_BAR_COLOR : BAR_COLOR);
     }
 
@@ -147,12 +155,16 @@ public abstract class BundleItemMixin {
         cancellable = true
     )
     private void vb$onGetBarWidth(ItemStack stack, CallbackInfoReturnable<Integer> cir) {
+        if (!BundleContents.onBundleUpdate()) return;
+
         int weight = BundleContents.getContentWeight(stack);
         cir.setReturnValue(Math.min(1 + ((weight * 12) / BundleContents.MAX_WEIGHT), 13));
     }
 
     @Inject(method = "appendHoverText", at = @At("HEAD"), cancellable = true)
     private void vb$onAppendHoverText(ItemStack stack, Level level, List<Component> tooltipComponents, TooltipFlag isAdvanced, CallbackInfo ci) {
+        if (!BundleContents.onBundleUpdate()) return;
+
         ci.cancel();
     }
 
@@ -162,6 +174,8 @@ public abstract class BundleItemMixin {
         cancellable = true
     )
     private void vb$onGetTooltipImage(ItemStack stack, CallbackInfoReturnable<Optional<TooltipComponent>> cir) {
+        if (!BundleContents.onBundleUpdate()) return;
+
         NonNullList<ItemStack> items = NonNullList.create();
         BundleContents.getContents(stack).forEach(items::add);
         cir.setReturnValue(Optional.of(new BundleSelectionTooltip(items, BundleContents.getContentWeight(stack), BundleContents.getSelectedItem(stack))));

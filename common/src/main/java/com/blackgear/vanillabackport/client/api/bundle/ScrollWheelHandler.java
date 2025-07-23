@@ -1,4 +1,4 @@
-package com.blackgear.vanillabackport.client.level.bundle;
+package com.blackgear.vanillabackport.client.api.bundle;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

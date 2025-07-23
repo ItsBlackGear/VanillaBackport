@@ -95,7 +95,7 @@ public class LootIntegrations implements LootModifier.LootTableModifier {
         }
 
         // VILLAGES GENERATE BUNDLES
-        if (CONTAIN_BUNDLE.contains(path) && VanillaBackport.COMMON_CONFIG.hasBundles.get()) {
+        if (CONTAIN_BUNDLE.contains(path) && VanillaBackport.COMMON_CONFIG.hasVillageBundles.get()) {
             context.addPool(
                 LootPool.lootPool()
                     .setRolls(ConstantValue.exactly(1.0F))

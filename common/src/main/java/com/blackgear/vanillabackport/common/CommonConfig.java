@@ -5,6 +5,7 @@ import com.blackgear.platform.core.util.config.ConfigBuilder;
 public class CommonConfig {
     // Bundles of Bravery
     public final ConfigBuilder.ConfigValue<Boolean> hasBundles;
+    public final ConfigBuilder.ConfigValue<Boolean> hasVillageBundles;
 
     // The Garden Awakens
     public final ConfigBuilder.ConfigValue<Boolean> hasResin;
@@ -31,8 +32,10 @@ public class CommonConfig {
 
     public CommonConfig(ConfigBuilder builder) {
         builder.push("Bundles of Bravery");
-        this.hasBundles = builder.comment("allow bundles to generate in village chests")
+        this.hasBundles = builder.comment("toggle the updated controls and UI for bundles")
             .define("bundles", true);
+        this.hasVillageBundles = builder.comment("allow bundles to generate in village chests")
+            .define("bundles_on_villages", true);
         builder.pop();
 
         builder.push("The Garden Awakens");

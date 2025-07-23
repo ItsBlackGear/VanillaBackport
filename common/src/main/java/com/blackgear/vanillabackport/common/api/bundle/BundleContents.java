@@ -1,6 +1,7 @@
 package com.blackgear.vanillabackport.common.api.bundle;
 
 import com.blackgear.vanillabackport.common.registries.ModItems;
+import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.blackgear.vanillabackport.core.data.tags.ModItemTags;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -19,6 +20,10 @@ public final class BundleContents {
     public static final int MAX_WEIGHT = 64;
     private static final int BUNDLE_IN_BUNDLE_WEIGHT = 4;
     private static final int NO_SELECTED_ITEM = -1;
+
+    public static boolean onBundleUpdate() {
+        return VanillaBackport.COMMON_CONFIG.hasBundles.get();
+    }
 
     public static boolean canItemBeInBundle(ItemStack stack) {
         return !stack.isEmpty() && stack.getItem().canFitInsideContainerItems();

@@ -105,7 +105,7 @@ public class ModBundledTabs {
 
     public static final BundledTabs CHASE_THE_SKIES = register(
         BundledTabs.builder()
-            .title(Component.literal("Chase The Skies"))
+            .title(Component.translatable("bundled_tab.chase_the_skies.title"))
             .icon(new ItemStack(ModItems.BLUE_HARNESS.get()))
             .displayItems((provider, output) -> {
                 output.accept(ModBlocks.DRIED_GHAST.get());

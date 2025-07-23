@@ -1,8 +1,8 @@
 package com.blackgear.vanillabackport.client;
 
 import com.blackgear.platform.client.GameRendering;
-import com.blackgear.vanillabackport.client.level.color.DryFoliageColor;
-import com.blackgear.vanillabackport.client.level.color.LeafColors;
+import com.blackgear.vanillabackport.client.api.color.DryFoliageColor;
+import com.blackgear.vanillabackport.client.api.color.LeafColors;
 import com.blackgear.vanillabackport.client.level.entities.model.*;
 import com.blackgear.vanillabackport.client.level.entities.model.chicken.ColdChickenModel;
 import com.blackgear.vanillabackport.client.level.entities.model.cow.ColdCowModel;

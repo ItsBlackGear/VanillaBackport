@@ -93,6 +93,8 @@ public class ClientBundleTooltipMixin implements ClientTooltipComponent {
 
     @Inject(method = "renderImage", at = @At("HEAD"), cancellable = true)
     private void vb$onRenderImage(Font font, int x, int y, GuiGraphics graphics, CallbackInfo ci) {
+        if (!BundleContents.onBundleUpdate()) return;
+
         if (this.items.isEmpty()) {
             this.renderEmptyBundleTooltip(font, x, y, this.getWidth(font), graphics);
         } else {
