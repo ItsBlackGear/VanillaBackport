@@ -90,8 +90,12 @@ public class BundledTabSelector {
     private void injectWidgets(CreativeModeInventoryScreen screen, Consumer<AbstractWidget> widgets) {
         this.bundles.forEach(category -> {
             Tab tab = new Tab(this.guiLeft - 23, this.guiTop + 7, category, button -> {
-                this.bundles.forEach(BundledTabs::deselect);
-                category.select();
+                if (category.isSelected()) {
+                    category.deselect();
+                } else {
+                    this.bundles.forEach(BundledTabs::deselect);
+                    category.select();
+                }
                 this.updateItems(screen);
             });
 
