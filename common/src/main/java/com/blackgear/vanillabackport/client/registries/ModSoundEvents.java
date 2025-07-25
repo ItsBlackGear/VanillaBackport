@@ -94,6 +94,48 @@ public class ModSoundEvents {
 
     public static final Supplier<SoundEvent> PARROT_IMITATE_CREAKING = SOUNDS.soundEvent("entity.parrot.imitate.creaking");
 
+    public static final Supplier<SoundEvent> WOLF_PUGLIN_AMBIENT = SOUNDS.soundEvent("entity.wolf_puglin.ambient");
+    public static final Supplier<SoundEvent> WOLF_PUGLIN_DEATH = SOUNDS.soundEvent("entity.wolf_puglin.death");
+    public static final Supplier<SoundEvent> WOLF_PUGLIN_GROWL = SOUNDS.soundEvent("entity.wolf_puglin.growl");
+    public static final Supplier<SoundEvent> WOLF_PUGLIN_HURT = SOUNDS.soundEvent("entity.wolf_puglin.hurt");
+    public static final Supplier<SoundEvent> WOLF_PUGLIN_PANT = SOUNDS.soundEvent("entity.wolf_puglin.pant");
+    public static final Supplier<SoundEvent> WOLF_PUGLIN_WHINE = SOUNDS.soundEvent("entity.wolf_puglin.whine");
+
+    public static final Supplier<SoundEvent> WOLF_SAD_AMBIENT = SOUNDS.soundEvent("entity.wolf_sad.ambient");
+    public static final Supplier<SoundEvent> WOLF_SAD_DEATH = SOUNDS.soundEvent("entity.wolf_sad.death");
+    public static final Supplier<SoundEvent> WOLF_SAD_GROWL = SOUNDS.soundEvent("entity.wolf_sad.growl");
+    public static final Supplier<SoundEvent> WOLF_SAD_HURT = SOUNDS.soundEvent("entity.wolf_sad.hurt");
+    public static final Supplier<SoundEvent> WOLF_SAD_PANT = SOUNDS.soundEvent("entity.wolf_sad.pant");
+    public static final Supplier<SoundEvent> WOLF_SAD_WHINE = SOUNDS.soundEvent("entity.wolf_sad.whine");
+
+    public static final Supplier<SoundEvent> WOLF_ANGRY_AMBIENT = SOUNDS.soundEvent("entity.wolf_angry.ambient");
+    public static final Supplier<SoundEvent> WOLF_ANGRY_DEATH = SOUNDS.soundEvent("entity.wolf_angry.death");
+    public static final Supplier<SoundEvent> WOLF_ANGRY_GROWL = SOUNDS.soundEvent("entity.wolf_angry.growl");
+    public static final Supplier<SoundEvent> WOLF_ANGRY_HURT = SOUNDS.soundEvent("entity.wolf_angry.hurt");
+    public static final Supplier<SoundEvent> WOLF_ANGRY_PANT = SOUNDS.soundEvent("entity.wolf_angry.pant");
+    public static final Supplier<SoundEvent> WOLF_ANGRY_WHINE = SOUNDS.soundEvent("entity.wolf_angry.whine");
+
+    public static final Supplier<SoundEvent> WOLF_GRUMPY_AMBIENT = SOUNDS.soundEvent("entity.wolf_grumpy.ambient");
+    public static final Supplier<SoundEvent> WOLF_GRUMPY_DEATH = SOUNDS.soundEvent("entity.wolf_grumpy.death");
+    public static final Supplier<SoundEvent> WOLF_GRUMPY_GROWL = SOUNDS.soundEvent("entity.wolf_grumpy.growl");
+    public static final Supplier<SoundEvent> WOLF_GRUMPY_HURT = SOUNDS.soundEvent("entity.wolf_grumpy.hurt");
+    public static final Supplier<SoundEvent> WOLF_GRUMPY_PANT = SOUNDS.soundEvent("entity.wolf_grumpy.pant");
+    public static final Supplier<SoundEvent> WOLF_GRUMPY_WHINE = SOUNDS.soundEvent("entity.wolf_grumpy.whine");
+
+    public static final Supplier<SoundEvent> WOLF_BIG_AMBIENT = SOUNDS.soundEvent("entity.wolf_big.ambient");
+    public static final Supplier<SoundEvent> WOLF_BIG_DEATH = SOUNDS.soundEvent("entity.wolf_big.death");
+    public static final Supplier<SoundEvent> WOLF_BIG_GROWL = SOUNDS.soundEvent("entity.wolf_big.growl");
+    public static final Supplier<SoundEvent> WOLF_BIG_HURT = SOUNDS.soundEvent("entity.wolf_big.hurt");
+    public static final Supplier<SoundEvent> WOLF_BIG_PANT = SOUNDS.soundEvent("entity.wolf_big.pant");
+    public static final Supplier<SoundEvent> WOLF_BIG_WHINE = SOUNDS.soundEvent("entity.wolf_big.whine");
+
+    public static final Supplier<SoundEvent> WOLF_CUTE_AMBIENT = SOUNDS.soundEvent("entity.wolf_cute.ambient");
+    public static final Supplier<SoundEvent> WOLF_CUTE_DEATH = SOUNDS.soundEvent("entity.wolf_cute.death");
+    public static final Supplier<SoundEvent> WOLF_CUTE_GROWL = SOUNDS.soundEvent("entity.wolf_cute.growl");
+    public static final Supplier<SoundEvent> WOLF_CUTE_HURT = SOUNDS.soundEvent("entity.wolf_cute.hurt");
+    public static final Supplier<SoundEvent> WOLF_CUTE_PANT = SOUNDS.soundEvent("entity.wolf_cute.pant");
+    public static final Supplier<SoundEvent> WOLF_CUTE_WHINE = SOUNDS.soundEvent("entity.wolf_cute.whine");
+
     // RECORDS
     public static final Supplier<SoundEvent> MUSIC_DISC_TEARS = SOUNDS.soundEvent("music_disc.tears");
     public static final Supplier<SoundEvent> MUSIC_DISC_LAVA_CHICKEN = SOUNDS.soundEvent("music_disc.lava_chicken");

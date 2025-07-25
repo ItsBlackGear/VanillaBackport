@@ -19,6 +19,7 @@ import com.blackgear.vanillabackport.common.worldgen.placements.TheGardenAwakens
 import com.blackgear.vanillabackport.core.data.DataTransformation;
 import com.blackgear.vanillabackport.core.data.tags.*;
 import com.blackgear.vanillabackport.core.network.NetworkHandler;
+import com.blackgear.vanillabackport.core.registries.ModBuiltinRegistries;
 import com.mojang.logging.LogUtils;
 import net.minecraft.resources.ResourceLocation;
 import org.slf4j.Logger;
@@ -55,6 +56,7 @@ public final class VanillaBackport {
 
         ModCreativeTabs.TABS.register();
         ModPaintingVariants.VARIANTS.register();
+        ModBuiltinRegistries.VARIANTS.register();
 
         ModBiomes.BIOMES.register();
         ModFeatures.FEATURES.register();
@@ -69,6 +71,7 @@ public final class VanillaBackport {
         ModBiomeTags.TAGS.register();
         ModEntityTypeTags.TAGS.register();
 
+        ModEntityDataSerializers.SERIALIZERS.register();
         DataTransformation.bootstrap();
     }
 

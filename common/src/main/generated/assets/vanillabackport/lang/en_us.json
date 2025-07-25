@@ -138,6 +138,9 @@
   "subtitles.entity.happy_ghast.hurt": "Happy Ghast hurts",
   "subtitles.entity.happy_ghast.unequip": "Harness unequips",
   "subtitles.entity.parrot.imitate.creaking": "Parrot creaks",
+  "subtitles.entity.wolf.bark": "Wolf barks",
+  "subtitles.entity.wolf.pant": "Wolf pants",
+  "subtitles.entity.wolf.whine": "Wolf whines",
   "subtitles.item.bundle.insert_fail": "Bundle full",
   "trim_material.minecraft.resin": "Resin Material"
 }

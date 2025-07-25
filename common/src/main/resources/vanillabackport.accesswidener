@@ -42,3 +42,5 @@ accessible field net/minecraft/world/item/CreativeModeTabs COMBAT Lnet/minecraft
 accessible field net/minecraft/world/item/CreativeModeTabs FOOD_AND_DRINKS Lnet/minecraft/resources/ResourceKey;
 accessible field net/minecraft/world/item/CreativeModeTabs INGREDIENTS Lnet/minecraft/resources/ResourceKey;
 accessible field net/minecraft/world/item/CreativeModeTabs SPAWN_EGGS Lnet/minecraft/resources/ResourceKey;
+
+accessible class net/minecraft/core/registries/BuiltInRegistries$RegistryBootstrap

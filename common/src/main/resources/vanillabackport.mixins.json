@@ -47,6 +47,8 @@
     "common.entities.ParrotMixin",
     "common.entities.PigMixin",
     "common.entities.ServerEntityMixin",
+    "common.entities.TamableAnimalMixin",
+    "common.entities.WolfMixin",
     "common.items.BundleItemMixin",
     "common.worldgen.feature.SimpleBlockFeatureMixin",
     "common.worldgen.structure.NetherFossilPieceMixin",
