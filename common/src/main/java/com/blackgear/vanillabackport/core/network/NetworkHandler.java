@@ -8,6 +8,6 @@ public class NetworkHandler {
     public static final NetworkChannel DEFAULT_CHANNEL = new NetworkChannel(VanillaBackport.MOD_ID, 1, "network");
 
     public static void bootstrap() {
-        DEFAULT_CHANNEL.registerPacket(NetworkDirection.TO_SERVER, ServerboundSelectBundleItemPacket.ID, ServerboundSelectBundleItemPacket.HANDLER, ServerboundSelectBundleItemPacket.class);
+        DEFAULT_CHANNEL.registerPacket(NetworkDirection.SERVERBOUND, ServerboundSelectBundleItemPacket.ID, ServerboundSelectBundleItemPacket.HANDLER, ServerboundSelectBundleItemPacket.class);
     }
 }
