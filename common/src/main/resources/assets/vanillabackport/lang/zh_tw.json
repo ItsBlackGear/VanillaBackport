@@ -139,5 +139,8 @@
   "bundled_tab.spring_to_life.title": "春意盎然",
   "bundled_tab.the_garden_awakens.title": "蒼園覺醒",
   "item.minecraft.blue_egg": "藍色雞蛋",
-  "item.minecraft.brown_egg": "棕色雞蛋"
+  "item.minecraft.brown_egg": "棕色雞蛋",
+  "subtitles.entity.wolf.bark": "狼嗥叫",
+  "subtitles.entity.wolf.pant": "狼喘氣聲",
+  "subtitles.entity.wolf.whine": "狼嗚咽聲"
 }
