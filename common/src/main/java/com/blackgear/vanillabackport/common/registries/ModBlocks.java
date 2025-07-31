@@ -334,7 +334,7 @@ public class ModBlocks {
 
     public static final Supplier<Block> BUSH = BLOCKS.register(
         "bush",
-        BushBlock::new,
+        ActualBushBlock::new,
         BlockBehaviour.Properties.of()
             .mapColor(MapColor.PLANT)
             .replaceable()

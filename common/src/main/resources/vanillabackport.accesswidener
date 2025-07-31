@@ -14,7 +14,6 @@ mutable field net/minecraft/world/entity/ai/control/MoveControl operation Lnet/m
 
 accessible class net/minecraft/world/level/biome/Biome$ClimateSettings
 
-accessible method net/minecraft/world/level/block/BushBlock <init> (Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V
 accessible method net/minecraft/world/level/block/PinkPetalsBlock <init> (Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V
 accessible method net/minecraft/world/level/block/SaplingBlock <init> (Lnet/minecraft/world/level/block/grower/AbstractTreeGrower;Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V
 accessible method net/minecraft/world/level/block/PressurePlateBlock <init> (Lnet/minecraft/world/level/block/PressurePlateBlock$Sensitivity;Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;Lnet/minecraft/world/level/block/state/properties/BlockSetType;)V
@@ -44,3 +43,4 @@ accessible field net/minecraft/world/item/CreativeModeTabs INGREDIENTS Lnet/mine
 accessible field net/minecraft/world/item/CreativeModeTabs SPAWN_EGGS Lnet/minecraft/resources/ResourceKey;
 
 accessible class net/minecraft/core/registries/BuiltInRegistries$RegistryBootstrap
+accessible method net/minecraft/advancements/critereon/MinMaxBounds$Doubles <init> (Ljava/lang/Double;Ljava/lang/Double;)V

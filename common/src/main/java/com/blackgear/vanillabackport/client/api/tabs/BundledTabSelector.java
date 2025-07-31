@@ -27,10 +27,18 @@ import java.util.*;
 import java.util.function.Consumer;
 
 public class BundledTabSelector {
-    public static final BundledTabSelector INSTANCE = new BundledTabSelector();
-
     private static final ResourceLocation SELECTOR_BAR = VanillaBackport.resource("textures/gui/bundled_tabs/interface.png");
     private static final int VISIBLE_CATEGORIES = 5;
+
+    private static BundledTabSelector instance;
+
+    public static BundledTabSelector bootstrap() {
+        if (instance == null) {
+            instance = new BundledTabSelector();
+        }
+
+        return instance;
+    }
 
     private int guiLeft;
     private int guiTop;
@@ -39,14 +47,10 @@ public class BundledTabSelector {
     private AbstractWidget scrollUpButton;
     private AbstractWidget scrollDownButton;
 
-    private List<BundledTabs> bundles;
+    private List<BundledTabs> bundles = null;
     private CreativeModeTab lastTab;
 
-    public void bootstrap() {
-        List<BundledTabs> bundles = ModBundledTabs.getFilters();
-        Collections.reverse(bundles);
-        this.bundles = bundles;
-
+    private BundledTabSelector() {
         HudRendering.POST_INITIALIZE.register(this::init);
         HudRendering.RENDER_BACKGROUND.register(this::renderBackground);
         HudRendering.CLOSE_CONTAINER.register(this::onClose);
@@ -54,6 +58,12 @@ public class BundledTabSelector {
 
     private void init(Minecraft minecraft, Screen screen, ScreenAccess access) {
         if (screen instanceof CreativeModeInventoryScreen creativeScreen) {
+            if (this.bundles == null) {
+                List<BundledTabs> bundles = ModBundledTabs.getFilters();
+                Collections.reverse(bundles);
+                this.bundles = bundles;
+            }
+
             this.guiLeft = creativeScreen.leftPos;
             this.guiTop = creativeScreen.topPos;
             this.injectWidgets(creativeScreen, access::addRenderableWidget);

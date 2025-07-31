@@ -11,6 +11,7 @@ import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
 import com.blackgear.vanillabackport.client.registries.ModSoundTypes;
 import com.blackgear.vanillabackport.common.CommonConfig;
 import com.blackgear.vanillabackport.common.CommonSetup;
+import com.blackgear.vanillabackport.common.api.variant.SpawnConditions;
 import com.blackgear.vanillabackport.common.registries.*;
 import com.blackgear.vanillabackport.common.worldgen.features.SpringToLifeFeatures;
 import com.blackgear.vanillabackport.common.worldgen.features.TheGardenAwakensFeatures;
@@ -56,7 +57,9 @@ public final class VanillaBackport {
 
         ModCreativeTabs.TABS.register();
         ModPaintingVariants.VARIANTS.register();
-        ModBuiltinRegistries.VARIANTS.register();
+        ModBuiltinRegistries.WOLF_SOUND_VARIANTS.register();
+        ModBuiltinRegistries.COW_VARIANTS.register();
+        SpawnConditions.CONDITIONS.register();
 
         ModBiomes.BIOMES.register();
         ModFeatures.FEATURES.register();

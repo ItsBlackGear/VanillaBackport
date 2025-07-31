@@ -26,9 +26,7 @@ import net.minecraft.world.entity.npc.VillagerTrades.ItemsForEmeralds;
 
 public class CommonSetup {
     public static void setup() {
-        ResourceReloadManager.registerServer(event -> {
-            event.register(VanillaBackport.resource("wolf_sound_variants"), WolfSoundVariantReloadListener.INSTANCE);
-        });
+        ResourceReloadManager.registerServer(event -> event.register(VanillaBackport.resource("wolf_sound_variants"), WolfSoundVariantReloadListener.INSTANCE));
         MobIntegration.registerIntegrations(CommonSetup::mobIntegrations);
     }
 

@@ -3,8 +3,8 @@ package com.blackgear.vanillabackport.client.level.entities.variant;
 import com.blackgear.vanillabackport.client.level.entities.model.cow.ColdCowModel;
 import com.blackgear.vanillabackport.client.level.entities.model.cow.WarmCowModel;
 import com.blackgear.vanillabackport.client.registries.ModModelLayers;
-import com.blackgear.vanillabackport.common.level.entities.AnimalVariant;
-import com.blackgear.vanillabackport.core.VanillaBackport;
+import com.blackgear.vanillabackport.common.api.variant.VariantHolder;
+import com.blackgear.vanillabackport.common.level.entities.animal.CowVariant;
 import com.google.common.collect.Maps;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -14,27 +14,35 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.animal.Cow;
 
 import java.util.Map;
+import java.util.Optional;
 
 @Environment(EnvType.CLIENT)
-public class CowVariantRenderer extends AbstractVariantRenderer<Cow, CowModel<Cow>> {
+public class CowVariantRenderer {
+    protected final Map<CowVariant.ModelType, CowModel<Cow>> modelByVariant;
+
     public CowVariantRenderer(EntityRendererProvider.Context context) {
-        super(context);
+        this.modelByVariant = this.bakeModels(context);
     }
 
-    @Override
-    public Map<AnimalVariant, CowModel<Cow>> bakeModels(EntityRendererProvider.Context context) {
-        Map<AnimalVariant, CowModel<Cow>> map = Maps.newEnumMap(AnimalVariant.class);
-        map.put(AnimalVariant.DEFAULT, null);
-        map.put(AnimalVariant.WARM, new WarmCowModel<>(context.bakeLayer(ModModelLayers.WARM_COW)));
-        map.put(AnimalVariant.COLD, new ColdCowModel<>(context.bakeLayer(ModModelLayers.COLD_COW)));
+    public Map<CowVariant.ModelType, CowModel<Cow>> bakeModels(EntityRendererProvider.Context context) {
+        Map<CowVariant.ModelType, CowModel<Cow>> map = Maps.newEnumMap(CowVariant.ModelType.class);
+        map.put(CowVariant.ModelType.NORMAL, null);
+        map.put(CowVariant.ModelType.WARM, new WarmCowModel<>(context.bakeLayer(ModModelLayers.WARM_COW)));
+        map.put(CowVariant.ModelType.COLD, new ColdCowModel<>(context.bakeLayer(ModModelLayers.COLD_COW)));
         return map;
     }
 
-    @Override
-    public Map<AnimalVariant, ResourceLocation> textureByVariant() {
-        Map<AnimalVariant, ResourceLocation> map = Maps.newEnumMap(AnimalVariant.class);
-        map.put(AnimalVariant.COLD, VanillaBackport.vanilla("textures/entity/cow/cold_cow.png"));
-        map.put(AnimalVariant.WARM, VanillaBackport.vanilla("textures/entity/cow/warm_cow.png"));
-        return map;
+    public ResourceLocation getTexture(Cow entity) {
+        CowVariant variant = ((VariantHolder<CowVariant>) entity).getVariant();
+        if (variant != null) {
+            return variant.modelAndTexture().asset().path();
+        }
+
+        return null;
+    }
+
+    public Optional<CowModel<Cow>> getModel(Cow entity) {
+        CowVariant variant = ((VariantHolder<CowVariant>) entity).getVariant();
+        return Optional.ofNullable(this.modelByVariant.get(variant.modelAndTexture().model()));
     }
 }

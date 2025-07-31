@@ -33,7 +33,7 @@ public class WolfSoundVariantReloadListener extends SimpleJsonResourceReloadList
             try {
                 WolfSoundVariant.CODEC.parse(JsonOps.INSTANCE, entry.getValue())
                     .resultOrPartial(error -> VanillaBackport.LOGGER.error("Failed to parse wolf sound variant {}: {}", name, error))
-                    .ifPresent(variant -> ModBuiltinRegistries.VARIANTS.register(name, variant));
+                    .ifPresent(variant -> ModBuiltinRegistries.WOLF_SOUND_VARIANTS.register(name, variant));
                 count++;
             } catch (JsonParseException exception) {
                 VanillaBackport.LOGGER.error("Failed to parse wolf sound variant JSON {}: {}", name, exception.getMessage(), exception);

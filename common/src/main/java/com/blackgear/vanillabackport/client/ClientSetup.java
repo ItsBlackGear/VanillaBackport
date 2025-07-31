@@ -26,10 +26,10 @@ public class ClientSetup {
         GameRendering.registerItemColors(Rendering::itemColors);
 
         BundleMouseActions.bootstrap();
-        LocalPlayerEvents.ON_LOGIN.register(player -> BundledTabSelector.INSTANCE.bootstrap());
     }
 
     public static void asyncSetup(ParallelDispatch dispatch) {
+        dispatch.enqueueWork(() -> LocalPlayerEvents.ON_LOGIN.register(player -> BundledTabSelector.bootstrap()));
         GameRendering.registerBlockRenderers(Rendering::blockRendering);
         WoodTypeRegistry.registerWoodType(ModWoodTypes.PALE_OAK);
         CreativeTabIntegration.bootstrap();

@@ -1,14 +1,16 @@
 package com.blackgear.vanillabackport.client.api.tabs;
 
-import net.minecraft.client.Minecraft;
+import com.blackgear.platform.core.Environment;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ItemLike;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.BiConsumer;
 
 public class BundledTabs {
@@ -84,9 +86,9 @@ public class BundledTabs {
         }
 
         public Builder displayItems(BiConsumer<HolderLookup.Provider, Output> consumer) {
-            Minecraft minecraft = Minecraft.getInstance();
-            assert minecraft.player != null;
-            HolderLookup.Provider provider = minecraft.player.level().registryAccess();
+            Optional<MinecraftServer> server = Environment.getCurrentServer();
+            assert server.isPresent();
+            HolderLookup.Provider provider = server.get().registryAccess();
 
             Output output = new Output() {
                 @Override
