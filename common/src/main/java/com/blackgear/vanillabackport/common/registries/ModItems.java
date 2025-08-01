@@ -2,14 +2,11 @@ package com.blackgear.vanillabackport.common.registries;
 
 import com.blackgear.platform.core.helper.ItemRegistry;
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
-import com.blackgear.vanillabackport.common.level.entities.animal.ChickenVariants;
+import com.blackgear.vanillabackport.common.level.entities.animal.VariantKeys;
 import com.blackgear.vanillabackport.common.level.items.PaleOakBoatItem;
 import com.blackgear.vanillabackport.common.level.items.HarnessItem;
 import com.blackgear.vanillabackport.common.level.items.VariantEggItem;
 import com.blackgear.vanillabackport.core.VanillaBackport;
-import com.blackgear.vanillabackport.core.registries.ModBuiltinRegistries;
-import com.blackgear.vanillabackport.core.registries.ModRegistries;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.*;
 
 import java.util.function.Supplier;
@@ -175,10 +172,10 @@ public class ModItems {
 
     public static final Supplier<Item> BLUE_EGG = ITEMS.register(
         "blue_egg",
-        properties -> new VariantEggItem(ResourceKey.create(ModRegistries.CHICKEN_VARIANT_KEY, VanillaBackport.vanilla("cold")), properties),
+        properties -> new VariantEggItem(VariantKeys.COLD_CHICKEN, properties),
         new Item.Properties().stacksTo(16));
     public static final Supplier<Item> BROWN_EGG = ITEMS.register(
         "brown_egg",
-        properties -> new VariantEggItem(ResourceKey.create(ModRegistries.CHICKEN_VARIANT_KEY, VanillaBackport.vanilla("warm")), properties),
+        properties -> new VariantEggItem(VariantKeys.WARM_CHICKEN, properties),
         new Item.Properties().stacksTo(16));
 }
