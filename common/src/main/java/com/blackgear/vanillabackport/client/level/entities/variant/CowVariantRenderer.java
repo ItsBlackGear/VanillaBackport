@@ -16,6 +16,7 @@ import net.minecraft.world.entity.animal.Cow;
 import java.util.Map;
 import java.util.Optional;
 
+@SuppressWarnings("unchecked")
 @Environment(EnvType.CLIENT)
 public class CowVariantRenderer {
     protected final Map<CowVariant.ModelType, CowModel<Cow>> modelByVariant;

@@ -1,7 +1,8 @@
 package com.blackgear.vanillabackport.common.level.items;
 
-import com.blackgear.vanillabackport.common.level.entities.AnimalVariant;
+import com.blackgear.vanillabackport.common.level.entities.animal.ChickenVariant;
 import com.blackgear.vanillabackport.common.level.entities.projectile.VariantThrownEgg;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
@@ -14,9 +15,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
 public class VariantEggItem extends EggItem {
-    private final AnimalVariant variant;
+    private final ResourceKey<ChickenVariant> variant;
 
-    public VariantEggItem(AnimalVariant variant, Item.Properties properties) {
+    public VariantEggItem(ResourceKey<ChickenVariant> variant, Item.Properties properties) {
         super(properties);
         this.variant = variant;
     }

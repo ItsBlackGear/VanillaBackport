@@ -42,6 +42,11 @@ public final class VanillaBackport {
         INSTANCE.bootstrap();
         NetworkHandler.bootstrap();
 
+        ModBlockTags.TAGS.register();
+        ModItemTags.TAGS.register();
+        ModBiomeTags.TAGS.register();
+        ModEntityTypeTags.TAGS.register();
+
         ModParticles.PARTICLES.register();
 
         ModBlocks.BLOCKS.register();
@@ -59,6 +64,8 @@ public final class VanillaBackport {
         ModPaintingVariants.VARIANTS.register();
         ModBuiltinRegistries.WOLF_SOUND_VARIANTS.register();
         ModBuiltinRegistries.COW_VARIANTS.register();
+        ModBuiltinRegistries.CHICKEN_VARIANTS.register();
+        ModBuiltinRegistries.PIG_VARIANTS.register();
         SpawnConditions.CONDITIONS.register();
 
         ModBiomes.BIOMES.register();
@@ -68,11 +75,6 @@ public final class VanillaBackport {
         TheGardenAwakensFeatures.FEATURES.register();
         SpringToLifePlacements.FEATURES.register();
         TheGardenAwakensPlacements.FEATURES.register();
-
-        ModBlockTags.TAGS.register();
-        ModItemTags.TAGS.register();
-        ModBiomeTags.TAGS.register();
-        ModEntityTypeTags.TAGS.register();
 
         ModEntityDataSerializers.SERIALIZERS.register();
         DataTransformation.bootstrap();

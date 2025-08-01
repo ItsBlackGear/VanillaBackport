@@ -1,11 +1,15 @@
 package com.blackgear.vanillabackport.core.mixin.common.entities;
 
-import com.blackgear.vanillabackport.common.level.entities.AnimalVariant;
-import com.blackgear.vanillabackport.common.level.entities.AnimalVariantHolder;
+import com.blackgear.vanillabackport.common.api.variant.SpawnContext;
+import com.blackgear.vanillabackport.common.api.variant.VariantHolder;
+import com.blackgear.vanillabackport.common.api.variant.VariantUtils;
+import com.blackgear.vanillabackport.common.level.entities.animal.ChickenVariant;
+import com.blackgear.vanillabackport.common.level.entities.animal.ChickenVariants;
+import com.blackgear.vanillabackport.common.registries.ModEntityDataSerializers;
 import com.blackgear.vanillabackport.common.registries.ModItems;
+import com.blackgear.vanillabackport.core.registries.ModBuiltinRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.DifficultyInstance;
@@ -27,8 +31,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Chicken.class)
-public abstract class ChickenMixin extends MobMixin implements AnimalVariantHolder {
-    @Unique private static final EntityDataAccessor<String> DATA_VARIANT_ID = SynchedEntityData.defineId(Chicken.class, EntityDataSerializers.STRING);
+public abstract class ChickenMixin extends MobMixin implements VariantHolder<ChickenVariant> {
+    @Unique private static final EntityDataAccessor<ChickenVariant> DATA_VARIANT_ID = SynchedEntityData.defineId(Chicken.class, ModEntityDataSerializers.CHICKEN_VARIANT);
 
     protected ChickenMixin(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
@@ -41,8 +45,39 @@ public abstract class ChickenMixin extends MobMixin implements AnimalVariantHold
     private void vb$getBreedOffspring(ServerLevel level, AgeableMob otherParent, CallbackInfoReturnable<Chicken> cir) {
         Chicken child = cir.getReturnValue();
         if (child != null && otherParent instanceof Chicken mate) {
-            AnimalVariantHolder.trySetOffspringVariant(child, this, mate);
+            VariantHolder.trySetOffspringVariant(child, this, mate);
         }
+    }
+
+    @Override
+    public ChickenVariant getVariant() {
+        return this.entityData.get(DATA_VARIANT_ID);
+    }
+
+    @Override
+    public void setVariant(ChickenVariant variant) {
+        this.entityData.set(DATA_VARIANT_ID, variant);
+    }
+
+    @Override
+    protected void vb$addAdditionalSaveData(CompoundTag tag, CallbackInfo ci) {
+        VariantUtils.addVariantSaveData(this, tag, ModBuiltinRegistries.CHICKEN_VARIANTS);
+    }
+
+    @Override
+    protected void vb$readAdditionalSaveData(CompoundTag tag, CallbackInfo ci) {
+        VariantUtils.readVariantSaveData(this, tag, ModBuiltinRegistries.CHICKEN_VARIANTS);
+    }
+
+    @Override
+    protected void vb$defineSynchedData(CallbackInfo ci) {
+        this.entityData.define(DATA_VARIANT_ID, VariantUtils.getDefault(ModBuiltinRegistries.CHICKEN_VARIANTS, ChickenVariants.TEMPERATE));
+    }
+
+    @Override
+    protected void vb$finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, SpawnGroupData spawnData, CompoundTag dataTag, CallbackInfoReturnable<SpawnGroupData> cir) {
+        VariantUtils.selectVariantToSpawn(SpawnContext.create(level, this.blockPosition()), ModBuiltinRegistries.CHICKEN_VARIANTS, ChickenVariants.TEMPERATE)
+            .ifPresent(this::setVariant);
     }
 
     @ModifyArg(
@@ -52,49 +87,18 @@ public abstract class ChickenMixin extends MobMixin implements AnimalVariantHold
     )
     private ItemLike vb$modifyEggDrop(ItemLike originalItem) {
         Chicken chicken = (Chicken) (Object) this;
-        if (chicken instanceof AnimalVariantHolder holder) {
-            return switch (holder.getVariant()) {
-                case COLD -> ModItems.BLUE_EGG.get();
-                case WARM -> ModItems.BROWN_EGG.get();
-                default -> originalItem;
-            };
+        if (chicken instanceof VariantHolder<?> holder) {
+            if (holder.getVariant() instanceof ChickenVariant variant) {
+                if (variant == ModBuiltinRegistries.CHICKEN_VARIANTS.get(ChickenVariants.COLD)) {
+                    return ModItems.BLUE_EGG.get();
+                }
+
+                if (variant == ModBuiltinRegistries.CHICKEN_VARIANTS.get(ChickenVariants.WARM)) {
+                    return ModItems.BROWN_EGG.get();
+                }
+            }
         }
 
         return originalItem;
-    }
-
-    @Override
-    public AnimalVariant getVariant() {
-        return AnimalVariant.getByName(this.getVariantName());
-    }
-
-    @Unique
-    private String getVariantName() {
-        return this.entityData.get(DATA_VARIANT_ID);
-    }
-
-    @Override
-    public void setVariant(AnimalVariant variant) {
-        this.entityData.set(DATA_VARIANT_ID, variant.getName());
-    }
-
-    @Override
-    protected void vb$addAdditionalSaveData(CompoundTag tag, CallbackInfo ci) {
-        tag.putString("Variant", this.getVariantName());
-    }
-
-    @Override
-    protected void vb$readAdditionalSaveData(CompoundTag tag, CallbackInfo ci) {
-        this.entityData.set(DATA_VARIANT_ID, tag.getString("Variant"));
-    }
-
-    @Override
-    protected void vb$defineSynchedData(CallbackInfo ci) {
-        this.entityData.define(DATA_VARIANT_ID, AnimalVariant.DEFAULT.getName());
-    }
-
-    @Override
-    protected void vb$finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, SpawnGroupData spawnData, CompoundTag dataTag, CallbackInfoReturnable<SpawnGroupData> cir) {
-        AnimalVariant.selectVariantToSpawn(level, this, reason);
     }
 }

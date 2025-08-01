@@ -1,6 +1,7 @@
 package com.blackgear.vanillabackport.common.api.variant;
 
 import com.blackgear.platform.core.BuiltInCoreRegistry;
+import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -24,7 +25,9 @@ public class VariantUtils {
         if (variant != null) entity.setVariant(variant);
     }
 
-    public static <T extends PriorityProvider<SpawnContext, ?>> Optional<T> selectVariantToSpawn(SpawnContext context, BuiltInCoreRegistry<T> registry) {
+    public static <T extends PriorityProvider<SpawnContext, ?>> Optional<T> selectVariantToSpawn(SpawnContext context, BuiltInCoreRegistry<T> registry, ResourceKey<T> fallback) {
+        if (!VanillaBackport.COMMON_CONFIG.hasFarmAnimalVariants.get()) return Optional.of(registry.getOrThrow(fallback));
+
         ServerLevelAccessor level = context.level();
         return PriorityProvider.pick(registry.values().stream(), entry -> entry, level.getRandom(), context);
     }

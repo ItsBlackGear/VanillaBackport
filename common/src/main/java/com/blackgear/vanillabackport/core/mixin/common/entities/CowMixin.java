@@ -72,14 +72,8 @@ public abstract class CowMixin extends MobMixin implements VariantHolder<CowVari
     }
 
     @Override
-    protected void vb$finalizeSpawn(
-        ServerLevelAccessor level,
-        DifficultyInstance difficulty,
-        MobSpawnType reason,
-        SpawnGroupData spawnData,
-        CompoundTag dataTag,
-        CallbackInfoReturnable<SpawnGroupData> cir
-    ) {
-        VariantUtils.selectVariantToSpawn(SpawnContext.create(level, this.blockPosition()), ModBuiltinRegistries.COW_VARIANTS).ifPresent(this::setVariant);
+    protected void vb$finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, SpawnGroupData spawnData, CompoundTag dataTag, CallbackInfoReturnable<SpawnGroupData> cir) {
+        VariantUtils.selectVariantToSpawn(SpawnContext.create(level, this.blockPosition()), ModBuiltinRegistries.COW_VARIANTS, CowVariants.TEMPERATE)
+            .ifPresent(this::setVariant);
     }
 }

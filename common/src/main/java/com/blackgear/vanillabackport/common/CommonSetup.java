@@ -16,6 +16,9 @@ import com.blackgear.vanillabackport.common.level.entities.happyghast.HappyGhast
 import com.blackgear.vanillabackport.common.registries.ModBlocks;
 import com.blackgear.vanillabackport.common.registries.ModEntities;
 import com.blackgear.vanillabackport.common.registries.ModItems;
+import com.blackgear.vanillabackport.common.resource.ChickenVariantReloadListener;
+import com.blackgear.vanillabackport.common.resource.CowVariantReloadListener;
+import com.blackgear.vanillabackport.common.resource.PigVariantReloadListener;
 import com.blackgear.vanillabackport.common.worldgen.BiomeGeneration;
 import com.blackgear.vanillabackport.common.worldgen.WorldGeneration;
 import com.blackgear.vanillabackport.core.VanillaBackport;
@@ -26,7 +29,12 @@ import net.minecraft.world.entity.npc.VillagerTrades.ItemsForEmeralds;
 
 public class CommonSetup {
     public static void setup() {
-        ResourceReloadManager.registerServer(event -> event.register(VanillaBackport.resource("wolf_sound_variants"), WolfSoundVariantReloadListener.INSTANCE));
+        ResourceReloadManager.registerServer(event -> {
+            event.register(VanillaBackport.resource("wolf_sound_variants"), WolfSoundVariantReloadListener.INSTANCE);
+            event.register(VanillaBackport.resource("cow_variants"), new CowVariantReloadListener());
+            event.register(VanillaBackport.resource("chicken_variants"), new ChickenVariantReloadListener());
+            event.register(VanillaBackport.resource("pig_variants"), new PigVariantReloadListener());
+        });
         MobIntegration.registerIntegrations(CommonSetup::mobIntegrations);
     }
 

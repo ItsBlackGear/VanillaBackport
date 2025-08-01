@@ -2,8 +2,8 @@ package com.blackgear.vanillabackport.client.level.entities.variant;
 
 import com.blackgear.vanillabackport.client.level.entities.model.pig.ColdPigModel;
 import com.blackgear.vanillabackport.client.registries.ModModelLayers;
-import com.blackgear.vanillabackport.common.level.entities.AnimalVariant;
-import com.blackgear.vanillabackport.core.VanillaBackport;
+import com.blackgear.vanillabackport.common.api.variant.VariantHolder;
+import com.blackgear.vanillabackport.common.level.entities.animal.PigVariant;
 import com.google.common.collect.Maps;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -13,27 +13,35 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.animal.Pig;
 
 import java.util.Map;
+import java.util.Optional;
 
+@SuppressWarnings("unchecked")
 @Environment(EnvType.CLIENT)
-public class PigVariantRenderer extends AbstractVariantRenderer<Pig, PigModel<Pig>> {
+public class PigVariantRenderer {
+    protected final Map<PigVariant.ModelType, PigModel<Pig>> modelByVariant;
+
     public PigVariantRenderer(EntityRendererProvider.Context context) {
-        super(context);
+        this.modelByVariant = this.bakeModels(context);
     }
 
-    @Override
-    public Map<AnimalVariant, PigModel<Pig>> bakeModels(EntityRendererProvider.Context context) {
-        Map<AnimalVariant, PigModel<Pig>> map = Maps.newEnumMap(AnimalVariant.class);
-        map.put(AnimalVariant.DEFAULT, null);
-        map.put(AnimalVariant.WARM, null);
-        map.put(AnimalVariant.COLD, new ColdPigModel<>(context.bakeLayer(ModModelLayers.COLD_PIG)));
+    public Map<PigVariant.ModelType, PigModel<Pig>> bakeModels(EntityRendererProvider.Context context) {
+        Map<PigVariant.ModelType, PigModel<Pig>> map = Maps.newEnumMap(PigVariant.ModelType.class);
+        map.put(PigVariant.ModelType.NORMAL, null);
+        map.put(PigVariant.ModelType.COLD, new ColdPigModel<>(context.bakeLayer(ModModelLayers.COLD_PIG)));
         return map;
     }
 
-    @Override
-    public Map<AnimalVariant, ResourceLocation> textureByVariant() {
-        Map<AnimalVariant, ResourceLocation> map = Maps.newEnumMap(AnimalVariant.class);
-        map.put(AnimalVariant.COLD, VanillaBackport.vanilla("textures/entity/pig/cold_pig.png"));
-        map.put(AnimalVariant.WARM, VanillaBackport.vanilla("textures/entity/pig/warm_pig.png"));
-        return map;
+    public ResourceLocation getTexture(Pig entity) {
+        PigVariant variant = ((VariantHolder<PigVariant>) entity).getVariant();
+        if (variant != null) {
+            return variant.modelAndTexture().asset().path();
+        }
+
+        return null;
+    }
+
+    public Optional<PigModel<Pig>> getModel(Pig entity) {
+        PigVariant variant = ((VariantHolder<PigVariant>) entity).getVariant();
+        return Optional.ofNullable(this.modelByVariant.get(variant.modelAndTexture().model()));
     }
 }
