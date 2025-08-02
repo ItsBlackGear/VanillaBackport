@@ -1,4 +1,4 @@
-package com.blackgear.vanillabackport.core.mixin.client.entities;
+package com.blackgear.vanillabackport.core.mixin.client.entities.renderer;
 
 import com.blackgear.vanillabackport.client.level.entities.variant.ChickenVariantRenderer;
 import com.mojang.blaze3d.vertex.PoseStack;

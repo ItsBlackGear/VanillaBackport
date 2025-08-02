@@ -30,6 +30,8 @@ public class CowVariantReloadListener extends RegistryAwareJsonReloadListener {
     public void parse(Map<ResourceLocation, JsonElement> resources, RegistryAccess registryAccess, ResourceManager manager, ProfilerFiller profiler) {
         profiler.push("Loading cow variants");
 
+        ModBuiltinRegistries.COW_VARIANTS.clearDataDrivenEntries();
+
         DynamicOps<JsonElement> ops = RegistryOps.create(JsonOps.INSTANCE, registryAccess);
         for (Map.Entry<ResourceLocation, JsonElement> entry : resources.entrySet()) {
             ResourceLocation name = entry.getKey();
@@ -38,7 +40,7 @@ public class CowVariantReloadListener extends RegistryAwareJsonReloadListener {
             try {
                 CowVariant.CODEC.parse(ops, element)
                     .resultOrPartial(error -> VanillaBackport.LOGGER.error("Failed to parse cow variant {}: {}", name, error))
-                    .ifPresent(variant -> ModBuiltinRegistries.COW_VARIANTS.register(name, variant));
+                    .ifPresent(variant -> ModBuiltinRegistries.COW_VARIANTS.registerDataDriven(name, variant));
             } catch (JsonParseException exception) {
                 VanillaBackport.LOGGER.error("Failed to parse cow variant JSON {}: {}", name, exception.getMessage(), exception);
             } catch (Exception exception) {

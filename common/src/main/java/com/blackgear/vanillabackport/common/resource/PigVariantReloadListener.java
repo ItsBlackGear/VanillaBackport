@@ -30,6 +30,8 @@ public class PigVariantReloadListener extends RegistryAwareJsonReloadListener {
     public void parse(Map<ResourceLocation, JsonElement> resources, RegistryAccess registryAccess, ResourceManager manager, ProfilerFiller profiler) {
         profiler.push("Loading pig variants");
 
+        ModBuiltinRegistries.PIG_VARIANTS.clearDataDrivenEntries();
+
         DynamicOps<JsonElement> ops = RegistryOps.create(JsonOps.INSTANCE, registryAccess);
         for (Map.Entry<ResourceLocation, JsonElement> entry : resources.entrySet()) {
             ResourceLocation name = entry.getKey();
@@ -38,7 +40,7 @@ public class PigVariantReloadListener extends RegistryAwareJsonReloadListener {
             try {
                 PigVariant.CODEC.parse(ops, element)
                     .resultOrPartial(error -> VanillaBackport.LOGGER.error("Failed to parse pig variant {}: {}", name, error))
-                    .ifPresent(variant -> ModBuiltinRegistries.PIG_VARIANTS.register(name, variant));
+                    .ifPresent(variant -> ModBuiltinRegistries.PIG_VARIANTS.registerDataDriven(name, variant));
             } catch (JsonParseException exception) {
                 VanillaBackport.LOGGER.error("Failed to parse pig variant JSON {}: {}", name, exception.getMessage(), exception);
             } catch (Exception exception) {

@@ -27,13 +27,15 @@ public class WolfSoundVariantReloadListener extends SimpleJsonResourceReloadList
     protected void apply(Map<ResourceLocation, JsonElement> resources, ResourceManager manager, ProfilerFiller profiler) {
         profiler.push("Loading wolf sound variants");
 
+        ModBuiltinRegistries.WOLF_SOUND_VARIANTS.clearDataDrivenEntries();
+
         for (Map.Entry<ResourceLocation, JsonElement> entry : resources.entrySet()) {
             ResourceLocation name = entry.getKey();
 
             try {
                 WolfSoundVariant.CODEC.parse(JsonOps.INSTANCE, entry.getValue())
                     .resultOrPartial(error -> VanillaBackport.LOGGER.error("Failed to parse wolf sound variant {}: {}", name, error))
-                    .ifPresent(variant -> ModBuiltinRegistries.WOLF_SOUND_VARIANTS.register(name, variant));
+                    .ifPresent(variant -> ModBuiltinRegistries.WOLF_SOUND_VARIANTS.registerDataDriven(name, variant));
             } catch (JsonParseException exception) {
                 VanillaBackport.LOGGER.error("Failed to parse wolf sound variant JSON {}: {}", name, exception.getMessage(), exception);
             } catch (Exception exception) {
