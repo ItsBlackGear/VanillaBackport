@@ -1,0 +1,19 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:dark_forest",
+    "#minecraft:is_badlands",
+    "#minecraft:is_savanna",
+    "#minecraft:is_hill",
+    "minecraft:forest",
+    "minecraft:flower_forest",
+    {
+      "id": "#c:plains",
+      "required": false
+    },
+    {
+      "id": "#forge:is_plains",
+      "required": false
+    }
+  ]
+}

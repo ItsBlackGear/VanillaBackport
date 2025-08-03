@@ -2,13 +2,12 @@ package com.blackgear.vanillabackport.common.worldgen.generation;
 
 import com.blackgear.platform.common.worldgen.modifier.BiomeContext;
 import com.blackgear.platform.common.worldgen.modifier.BiomeWriter;
+import com.blackgear.vanillabackport.common.registries.ModBiomes;
 import com.blackgear.vanillabackport.common.worldgen.placements.SpringToLifePlacements;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.blackgear.vanillabackport.core.data.tags.ModBiomeTags;
-import com.blackgear.vanillabackport.core.data.tags.fabric.FabricBiomeTags;
-import com.blackgear.vanillabackport.core.data.tags.forge.ForgeBiomeTags;
-import net.minecraft.tags.BiomeTags;
-import net.minecraft.world.level.biome.Biomes;
+import net.minecraft.data.worldgen.placement.VegetationPlacements;
+import net.minecraft.world.level.levelgen.GenerationStep;
 
 public class SpringToLifeFeatureManager extends FeatureManager {
     public SpringToLifeFeatureManager(BiomeContext context, BiomeWriter writer) {
@@ -32,74 +31,58 @@ public class SpringToLifeFeatureManager extends FeatureManager {
         });
 
         this.addIf(VanillaBackport.COMMON_CONFIG.hasWildflowers.get(), (context, writer) -> {
-            this.getOrCreateBiomeBuilder(Biomes.MEADOW)
+            this.getOrCreateBiomeBuilder(ModBiomeTags.SPAWNS_NOISE_BASED_WILDFLOWERS)
                 .add(() -> this.addVegetation(SpringToLifePlacements.WILDFLOWERS_MEADOW));
 
-            this.getOrCreateBiomeBuilder(context.is(Biomes.BIRCH_FOREST) || context.is(Biomes.OLD_GROWTH_BIRCH_FOREST) || context.is(FabricBiomeTags.BIRCH_FOREST))
+            this.getOrCreateBiomeBuilder(ModBiomeTags.SPAWNS_WILDFLOWERS)
                 .add(() -> this.addVegetation(SpringToLifePlacements.WILDFLOWERS_BIRCH_FOREST));
         });
 
         this.addIf(VanillaBackport.COMMON_CONFIG.hasDryGrass.get(), (context, writer) -> {
-            if (context.is(FabricBiomeTags.DESERT) || context.is(ForgeBiomeTags.IS_DESERT)) {
-                this.addVegetation(SpringToLifePlacements.PATCH_DRY_GRASS_DESERT);
-            }
+            this.getOrCreateBiomeBuilder(ModBiomeTags.SPAWNS_DRY_GRASS)
+                .add(() -> this.addVegetation(SpringToLifePlacements.PATCH_DRY_GRASS_DESERT));
 
-            if (context.is(BiomeTags.IS_BADLANDS)) {
-                this.addVegetation(SpringToLifePlacements.PATCH_DRY_GRASS_BADLANDS);
-            }
+            this.getOrCreateBiomeBuilder(ModBiomeTags.SPAWNS_DRY_GRASS_RARELY)
+                .add(() -> this.addVegetation(SpringToLifePlacements.PATCH_DRY_GRASS_BADLANDS));
         });
 
         this.addIf(VanillaBackport.COMMON_CONFIG.hasFallenTrees.get(), (context, writer) -> {
-            if (
-                context.is(Biomes.DARK_FOREST)
-                || context.is(BiomeTags.IS_BADLANDS)
-                || context.is(BiomeTags.IS_SAVANNA)
-                || context.is(BiomeTags.IS_HILL)
-                || context.is(Biomes.FOREST)
-                || context.is(Biomes.FLOWER_FOREST)
-                || context.is(FabricBiomeTags.PLAINS)
-                || context.is(ForgeBiomeTags.IS_PLAINS)
-            ) {
-                this.addVegetation(SpringToLifePlacements.PLACED_FALLEN_OAK_TREE);
-            }
+            this.getOrCreateBiomeBuilder(ModBiomeTags.SPAWNS_FALLEN_OAK_TREES)
+                .add(() -> this.addVegetation(SpringToLifePlacements.PLACED_FALLEN_OAK_TREE));
 
-            if (context.is(BiomeTags.IS_FOREST)) {
-                this.addVegetation(SpringToLifePlacements.PLACED_FALLEN_BIRCH_TREE);
-            }
+            this.getOrCreateBiomeBuilder(ctx -> ctx.is(ModBiomeTags.SPAWNS_FALLEN_BIRCH_TREES_RARELY) && !ctx.is(ModBiomes.PALE_GARDEN))
+                .add(() -> this.addVegetation(SpringToLifePlacements.PLACED_FALLEN_BIRCH_TREE));
 
-            if (context.is(Biomes.BIRCH_FOREST) || context.is(Biomes.OLD_GROWTH_BIRCH_FOREST) || context.is(FabricBiomeTags.BIRCH_FOREST)) {
-                this.addVegetation(SpringToLifePlacements.PLACED_COMMON_FALLEN_BIRCH_TREE);
-            }
+            this.getOrCreateBiomeBuilder(ModBiomeTags.SPAWNS_FALLEN_BIRCH_TREES)
+                .add(() -> this.addVegetation(SpringToLifePlacements.PLACED_COMMON_FALLEN_BIRCH_TREE));
 
-            if (context.is(Biomes.OLD_GROWTH_BIRCH_FOREST)) {
-                this.addVegetation(SpringToLifePlacements.PLACED_FALLEN_SUPER_BIRCH_TREE);
-            }
+            this.getOrCreateBiomeBuilder(ModBiomeTags.SPAWNS_FALLEN_SUPER_BIRCH_TREES)
+                .add(() -> this.addVegetation(SpringToLifePlacements.PLACED_FALLEN_SUPER_BIRCH_TREE));
 
-            if (context.is(BiomeTags.IS_JUNGLE)) {
-                this.addVegetation(SpringToLifePlacements.PLACED_FALLEN_JUNGLE_TREE);
-            }
+            this.getOrCreateBiomeBuilder(ModBiomeTags.SPAWNS_FALLEN_JUNGLE_TREES)
+                .add(() -> this.addVegetation(SpringToLifePlacements.PLACED_FALLEN_JUNGLE_TREE));
 
-            if (context.is(BiomeTags.IS_TAIGA)) {
-                this.addVegetation(SpringToLifePlacements.PLACED_FALLEN_SPRUCE_TREE);
-            }
+            this.getOrCreateBiomeBuilder(ModBiomeTags.SPAWNS_FALLEN_SPRUCE_TREES)
+                .add(() -> this.addVegetation(SpringToLifePlacements.PLACED_FALLEN_SPRUCE_TREE));
 
-            if (context.is(BiomeTags.IS_HILL)) {
-                this.addVegetation(SpringToLifePlacements.PLACED_RARE_FALLEN_SPRUCE_TREE);
-            }
+            this.getOrCreateBiomeBuilder(ModBiomeTags.SPAWNS_FALLEN_SPRUCE_TREES_RARELY)
+                .add(() -> this.addVegetation(SpringToLifePlacements.PLACED_RARE_FALLEN_SPRUCE_TREE));
         });
 
         this.addIf(VanillaBackport.COMMON_CONFIG.hasLeafLitter.get(), (context, writer) -> {
-            if (context.is(Biomes.DARK_FOREST)) {
-                this.addVegetation(SpringToLifePlacements.PATCH_LEAF_LITTER);
-                this.addVegetation(SpringToLifePlacements.TREES_DARK_FOREST_LEAF_LITTER);
+            this.getOrCreateBiomeBuilder(ModBiomeTags.SPAWNS_LEAF_LITTER_PATCHES)
+                .add(() -> this.addVegetation(SpringToLifePlacements.PATCH_LEAF_LITTER));
+
+            if (context.hasFeature(VegetationPlacements.DARK_FOREST_VEGETATION)) {
+                writer.replaceFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.DARK_FOREST_VEGETATION, SpringToLifePlacements.TREES_DARK_FOREST_LEAF_LITTER);
             }
 
-            if (context.is(Biomes.WOODED_BADLANDS)) {
-                this.addVegetation(SpringToLifePlacements.TREES_BADLANDS_LEAF_LITTER);
+            if (context.hasFeature(VegetationPlacements.TREES_BADLANDS)) {
+                writer.replaceFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.TREES_BADLANDS, SpringToLifePlacements.TREES_BADLANDS_LEAF_LITTER);
             }
 
-            if (context.is(Biomes.FOREST) || context.is(Biomes.FLOWER_FOREST)) {
-                this.addVegetation(SpringToLifePlacements.TREES_BIRCH_AND_OAK_LEAF_LITTER);
+            if (context.hasFeature(VegetationPlacements.TREES_BIRCH_AND_OAK)) {
+                writer.replaceFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.TREES_BIRCH_AND_OAK, SpringToLifePlacements.TREES_BIRCH_AND_OAK_LEAF_LITTER);
             }
         });
     }

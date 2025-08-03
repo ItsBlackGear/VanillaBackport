@@ -15,6 +15,7 @@ import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.data.worldgen.features.FeatureUtils;
+import net.minecraft.data.worldgen.features.TreeFeatures;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.random.SimpleWeightedRandomList;
@@ -269,6 +270,8 @@ public class SpringToLifeFeatures {
             Feature.RANDOM_SELECTOR,
             new RandomFeatureConfiguration(
                 List.of(
+                    new WeightedPlacedFeature(PlacementUtils.inlinePlaced(features.getOrThrow(TreeFeatures.HUGE_BROWN_MUSHROOM)), 0.025F),
+                    new WeightedPlacedFeature(PlacementUtils.inlinePlaced(features.getOrThrow(TreeFeatures.HUGE_RED_MUSHROOM)), 0.05F),
                     new WeightedPlacedFeature(darkOakLeafLitter, 0.6666667F),
                     new WeightedPlacedFeature(birchLeafLitter, 0.2F),
                     new WeightedPlacedFeature(fancyOakLeafLitter, 0.1F)

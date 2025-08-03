@@ -4,6 +4,20 @@
     "default": "minecraft:oak_leaf_litter",
     "features": [
       {
+        "chance": 0.025,
+        "feature": {
+          "feature": "minecraft:huge_brown_mushroom",
+          "placement": []
+        }
+      },
+      {
+        "chance": 0.05,
+        "feature": {
+          "feature": "minecraft:huge_red_mushroom",
+          "placement": []
+        }
+      },
+      {
         "chance": 0.6666667,
         "feature": "minecraft:dark_oak_leaf_litter"
       },

@@ -106,5 +106,53 @@ public class BiomeTagGenerator extends FabricTagProvider<Biome> {
         this.getOrCreateTagBuilder(ModBiomeTags.SPAWNS_FIREFLY_BUSHES_SWAMP)
             .addOptionalTag(ForgeBiomeTags.IS_SWAMP)
             .addOptionalTag(FabricBiomeTags.SWAMP);
+
+        this.getOrCreateTagBuilder(ModBiomeTags.SPAWNS_WILDFLOWERS)
+            .add(Biomes.BIRCH_FOREST)
+            .add(Biomes.OLD_GROWTH_BIRCH_FOREST)
+            .addOptionalTag(FabricBiomeTags.BIRCH_FOREST);
+
+        this.getOrCreateTagBuilder(ModBiomeTags.SPAWNS_NOISE_BASED_WILDFLOWERS)
+            .add(Biomes.MEADOW);
+
+        this.getOrCreateTagBuilder(ModBiomeTags.SPAWNS_DRY_GRASS)
+            .addOptionalTag(FabricBiomeTags.DESERT)
+            .addOptionalTag(ForgeBiomeTags.IS_DESERT);
+
+        this.getOrCreateTagBuilder(ModBiomeTags.SPAWNS_DRY_GRASS_RARELY)
+            .forceAddTag(BiomeTags.IS_BADLANDS);
+
+        this.getOrCreateTagBuilder(ModBiomeTags.SPAWNS_FALLEN_OAK_TREES)
+            .add(Biomes.DARK_FOREST)
+            .forceAddTag(BiomeTags.IS_BADLANDS)
+            .forceAddTag(BiomeTags.IS_SAVANNA)
+            .forceAddTag(BiomeTags.IS_HILL)
+            .add(Biomes.FOREST)
+            .add(Biomes.FLOWER_FOREST)
+            .addOptionalTag(FabricBiomeTags.PLAINS)
+            .addOptionalTag(ForgeBiomeTags.IS_PLAINS);
+
+        this.getOrCreateTagBuilder(ModBiomeTags.SPAWNS_FALLEN_BIRCH_TREES_RARELY)
+            .forceAddTag(BiomeTags.IS_FOREST);
+
+        this.getOrCreateTagBuilder(ModBiomeTags.SPAWNS_FALLEN_BIRCH_TREES)
+            .add(Biomes.BIRCH_FOREST)
+            .add(Biomes.OLD_GROWTH_BIRCH_FOREST)
+            .addOptionalTag(FabricBiomeTags.BIRCH_FOREST);
+
+        this.getOrCreateTagBuilder(ModBiomeTags.SPAWNS_FALLEN_SUPER_BIRCH_TREES)
+            .add(Biomes.OLD_GROWTH_BIRCH_FOREST);
+
+        this.getOrCreateTagBuilder(ModBiomeTags.SPAWNS_FALLEN_JUNGLE_TREES)
+            .forceAddTag(BiomeTags.IS_JUNGLE);
+
+        this.getOrCreateTagBuilder(ModBiomeTags.SPAWNS_FALLEN_SPRUCE_TREES)
+            .forceAddTag(BiomeTags.IS_TAIGA);
+
+        this.getOrCreateTagBuilder(ModBiomeTags.SPAWNS_FALLEN_SPRUCE_TREES_RARELY)
+            .forceAddTag(BiomeTags.IS_HILL);
+
+        this.getOrCreateTagBuilder(ModBiomeTags.SPAWNS_LEAF_LITTER_PATCHES)
+            .add(Biomes.DARK_FOREST);
     }
 }
