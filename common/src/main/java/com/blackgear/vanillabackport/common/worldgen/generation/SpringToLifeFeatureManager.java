@@ -51,10 +51,10 @@ public class SpringToLifeFeatureManager extends FeatureManager {
                 .add(() -> this.addVegetation(SpringToLifePlacements.PLACED_FALLEN_OAK_TREE));
 
             this.getOrCreateBiomeBuilder(ctx -> ctx.is(ModBiomeTags.SPAWNS_FALLEN_BIRCH_TREES_RARELY) && !ctx.is(ModBiomes.PALE_GARDEN))
-                .add(() -> this.addVegetation(SpringToLifePlacements.PLACED_FALLEN_BIRCH_TREE));
+                .add(() -> this.addVegetation(SpringToLifePlacements.PLACED_RARE_FALLEN_BIRCH_TREE));
 
             this.getOrCreateBiomeBuilder(ModBiomeTags.SPAWNS_FALLEN_BIRCH_TREES)
-                .add(() -> this.addVegetation(SpringToLifePlacements.PLACED_COMMON_FALLEN_BIRCH_TREE));
+                .add(() -> this.addVegetation(SpringToLifePlacements.PLACED_FALLEN_BIRCH_TREE));
 
             this.getOrCreateBiomeBuilder(ModBiomeTags.SPAWNS_FALLEN_SUPER_BIRCH_TREES)
                 .add(() -> this.addVegetation(SpringToLifePlacements.PLACED_FALLEN_SUPER_BIRCH_TREE));

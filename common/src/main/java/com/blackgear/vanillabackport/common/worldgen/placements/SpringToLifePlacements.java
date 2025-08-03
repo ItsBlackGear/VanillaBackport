@@ -56,10 +56,11 @@ public class SpringToLifePlacements {
 
     public static final ResourceKey<PlacedFeature> PLACED_FALLEN_OAK_TREE = FEATURES.create("placed_fallen_oak_tree");
 
+    public static final ResourceKey<PlacedFeature> PLACED_RARE_FALLEN_BIRCH_TREE = FEATURES.create("placed_rare_fallen_birch_tree");
     public static final ResourceKey<PlacedFeature> PLACED_FALLEN_BIRCH_TREE = FEATURES.create("placed_fallen_birch_tree");
-    public static final ResourceKey<PlacedFeature> PLACED_COMMON_FALLEN_BIRCH_TREE = FEATURES.create("placed_common_fallen_birch_tree");
 
     public static final ResourceKey<PlacedFeature> PLACED_FALLEN_SUPER_BIRCH_TREE = FEATURES.create("placed_fallen_super_birch_tree");
+
     public static final ResourceKey<PlacedFeature> PLACED_FALLEN_JUNGLE_TREE = FEATURES.create("placed_fallen_jungle_tree");
 
     public static final ResourceKey<PlacedFeature> PLACED_FALLEN_SPRUCE_TREE = FEATURES.create("placed_fallen_spruce_tree");
@@ -258,13 +259,13 @@ public class SpringToLifePlacements {
 
         FEATURES.register(
             context,
-            PLACED_FALLEN_BIRCH_TREE,
+            PLACED_RARE_FALLEN_BIRCH_TREE,
             features.getOrThrow(SpringToLifeFeatures.FALLEN_BIRCH_TREE),
             VegetationPlacements.treePlacement(RarityFilter.onAverageOnceEvery(400), Blocks.BIRCH_SAPLING)
         );
         FEATURES.register(
             context,
-            PLACED_COMMON_FALLEN_BIRCH_TREE,
+            PLACED_FALLEN_BIRCH_TREE,
             features.getOrThrow(SpringToLifeFeatures.FALLEN_BIRCH_TREE),
             VegetationPlacements.treePlacement(RarityFilter.onAverageOnceEvery(80), Blocks.BIRCH_SAPLING)
         );

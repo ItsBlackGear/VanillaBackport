@@ -62,8 +62,8 @@ public class PlacedFeatureGenerator extends FabricDynamicRegistryProvider {
         this.add(provider, entries, SpringToLifePlacements.TREES_BIRCH_AND_OAK_LEAF_LITTER);
 
         this.add(provider, entries, SpringToLifePlacements.PLACED_FALLEN_OAK_TREE);
+        this.add(provider, entries, SpringToLifePlacements.PLACED_RARE_FALLEN_BIRCH_TREE);
         this.add(provider, entries, SpringToLifePlacements.PLACED_FALLEN_BIRCH_TREE);
-        this.add(provider, entries, SpringToLifePlacements.PLACED_COMMON_FALLEN_BIRCH_TREE);
         this.add(provider, entries, SpringToLifePlacements.PLACED_FALLEN_SUPER_BIRCH_TREE);
         this.add(provider, entries, SpringToLifePlacements.PLACED_FALLEN_JUNGLE_TREE);
         this.add(provider, entries, SpringToLifePlacements.PLACED_FALLEN_SPRUCE_TREE);
