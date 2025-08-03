@@ -22,6 +22,7 @@ public interface CreativeTabIntegration {
             ModBlocks.PALE_OAK_FENCE_GATE.get(),
             ModBlocks.PALE_OAK_DOOR.get(),
             ModBlocks.PALE_OAK_TRAPDOOR.get(),
+            ModBlocks.PALE_OAK_PRESSURE_PLATE.get(),
             ModBlocks.PALE_OAK_BUTTON.get()
         ));
         output.addAllAfter(Items.MUD_BRICK_WALL, List.of(
@@ -60,6 +61,7 @@ public interface CreativeTabIntegration {
         output.addAfter(Items.SPORE_BLOSSOM, ModBlocks.FIREFLY_BUSH.get());
         output.addAfter(Items.LARGE_FERN, ModBlocks.TALL_DRY_GRASS.get());
         output.addAfter(Items.SNIFFER_EGG, ModBlocks.DRIED_GHAST.get());
+        output.addAfter(Items.HONEY_BLOCK, ModBlocks.RESIN_BLOCK.get());
     };
 
     CreativeTabs.Modifier FUNCTIONAL_BLOCKS = (flag, output, operator) -> {
@@ -72,6 +74,25 @@ public interface CreativeTabIntegration {
     CreativeTabs.Modifier REDSTONE_BLOCKS = (flag, output, operator) -> {};
 
     CreativeTabs.Modifier TOOLS_AND_UTILITIES = (flag, output, operator) -> {
+        output.addAllAfter(Items.LEAD, List.of(
+            Items.BUNDLE,
+            ModItems.WHITE_BUNDLE.get(),
+            ModItems.LIGHT_GRAY_BUNDLE.get(),
+            ModItems.GRAY_BUNDLE.get(),
+            ModItems.BLACK_BUNDLE.get(),
+            ModItems.BROWN_BUNDLE.get(),
+            ModItems.RED_BUNDLE.get(),
+            ModItems.ORANGE_BUNDLE.get(),
+            ModItems.YELLOW_BUNDLE.get(),
+            ModItems.LIME_BUNDLE.get(),
+            ModItems.GREEN_BUNDLE.get(),
+            ModItems.CYAN_BUNDLE.get(),
+            ModItems.LIGHT_BLUE_BUNDLE.get(),
+            ModItems.BLUE_BUNDLE.get(),
+            ModItems.PURPLE_BUNDLE.get(),
+            ModItems.MAGENTA_BUNDLE.get(),
+            ModItems.PINK_BUNDLE.get()
+        ));
         output.addAllAfter(Items.SADDLE, List.of(
             ModItems.WHITE_HARNESS.get(),
             ModItems.LIGHT_GRAY_HARNESS.get(),
@@ -94,14 +115,26 @@ public interface CreativeTabIntegration {
             ModItems.PALE_OAK_BOAT.get(),
             ModItems.PALE_OAK_CHEST_BOAT.get()
         ));
-        output.addAllAfter(Items.MUSIC_DISC_RELIC, List.of(ModItems.MUSIC_DISC_TEARS.get(), ModItems.MUSIC_DISC_LAVA_CHICKEN.get()));
+        output.addAllAfter(Items.MUSIC_DISC_RELIC, List.of(
+            ModItems.MUSIC_DISC_TEARS.get(),
+            ModItems.MUSIC_DISC_LAVA_CHICKEN.get()
+        ));
     };
 
-    CreativeTabs.Modifier COMBAT = (flag, output, operator) -> {};
+    CreativeTabs.Modifier COMBAT = (flag, output, operator) -> {
+        output.addAllAfter(Items.EGG, List.of(
+            ModItems.BROWN_EGG.get(),
+            ModItems.BLUE_EGG.get()
+        ));
+    };
 
     CreativeTabs.Modifier FOOD_AND_DRINKS = (flag, output, operator) -> {};
 
     CreativeTabs.Modifier INGREDIENTS = (flag, output, operator) -> {
+        output.addAllAfter(Items.EGG, List.of(
+            ModItems.BROWN_EGG.get(),
+            ModItems.BLUE_EGG.get()
+        ));
         output.addAfter(Items.HONEYCOMB, ModBlocks.RESIN_CLUMP.get());
         output.addAfter(Items.NETHER_BRICK, ModItems.RESIN_BRICK.get());
     };
