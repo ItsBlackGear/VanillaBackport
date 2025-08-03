@@ -3,6 +3,7 @@ package com.blackgear.vanillabackport.common.level.entities.happyghast;
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
 import com.blackgear.vanillabackport.common.api.leash.Leashable;
 import com.blackgear.vanillabackport.common.registries.ModEntities;
+import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.blackgear.vanillabackport.core.data.tags.ModBlockTags;
 import com.blackgear.vanillabackport.core.data.tags.ModItemTags;
 import com.blackgear.vanillabackport.core.mixin.access.LivingEntityAccessor;
@@ -402,7 +403,7 @@ public class HappyGhast extends Animal implements PlayerRideable, Leashable {
             upward += 0.5F;
         }
 
-        return new Vec3(forward, upward, strafe).scale((double) 3.9F * this.getAttributeValue(Attributes.FLYING_SPEED));
+        return new Vec3(forward, upward, strafe).scale(((double) 3.9F * this.getAttributeValue(Attributes.FLYING_SPEED)) * VanillaBackport.COMMON_CONFIG.happyGhastSpeedModifier.get());
     }
 
     protected Vec2 getRiddenRotation(LivingEntity livingEntity) {

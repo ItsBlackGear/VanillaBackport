@@ -21,11 +21,13 @@ public class CommonConfig {
     public final ConfigBuilder.ConfigValue<Boolean> hasFallenTrees;
     public final ConfigBuilder.ConfigValue<Boolean> hasLeafLitter;
     public final ConfigBuilder.ConfigValue<Boolean> hasFarmAnimalVariants;
+    public final ConfigBuilder.ConfigValue<Boolean> hasSpringTrades;
 
     // Chase the Skies
     public final ConfigBuilder.ConfigValue<Boolean> hasDriedGhasts;
     public final ConfigBuilder.ConfigValue<Boolean> leashDropConnections;
     public final ConfigBuilder.ConfigValue<Boolean> hasTearsMusicDisc;
+    public final ConfigBuilder.ConfigValue<Double> happyGhastSpeedModifier;
 
     // Hot as Lava
     public final ConfigBuilder.ConfigValue<Boolean> hasLavaChickenMusicDisc;
@@ -45,7 +47,7 @@ public class CommonConfig {
             .define("creaking", true);
         this.hasPaleGarden = builder.comment("allow the pale garden to generate in the overworld")
             .define("pale_garden", true);
-        this.hasPaleTrades = builder.comment("allow features from the garden awakens to be obtainable through wandering traders")
+        this.hasPaleTrades = builder.comment("allow features from 'The Garden Awakens' to be obtainable through wandering traders")
             .define("pale_trades", true);
         builder.pop();
 
@@ -64,6 +66,8 @@ public class CommonConfig {
             .define("leaf_litter", true);
         this.hasFarmAnimalVariants = builder.comment("allow variants for pigs, cows and chickens to generate")
             .define("farm_animal_variants", true);
+        this.hasSpringTrades = builder.comment("allow features from 'Spring to Life' to be obtainable through wandering traders")
+            .define("spring_trades", true);
         builder.pop();
 
         builder.push("Chase the Skies");
@@ -73,6 +77,8 @@ public class CommonConfig {
             .define("leash_drop_connections", true);
         this.hasTearsMusicDisc = builder.comment("allows ghasts drop the tears music disc")
             .define("tears_music_disc", true);
+        this.happyGhastSpeedModifier = builder.comment("apply a modifier to the speed of happy ghasts when ridden, 1.0 is default speed")
+            .define("happy_ghast_speed_modifier", 1.0);
         builder.pop();
 
         builder.push("Hot as Lava");

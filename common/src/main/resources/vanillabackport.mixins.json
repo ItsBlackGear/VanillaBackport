@@ -44,7 +44,6 @@
     "common.entities.ChickenMixin",
     "common.entities.CowMixin",
     "common.entities.MobMixin",
-    "common.entities.ParrotMixin",
     "common.entities.PigMixin",
     "common.entities.ServerEntityMixin",
     "common.entities.SheepMixin",

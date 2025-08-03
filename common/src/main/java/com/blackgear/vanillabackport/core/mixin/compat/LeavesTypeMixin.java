@@ -27,6 +27,6 @@ public abstract class LeavesTypeMixin extends BlockType {
 
     @Unique
     private static final Set<String> VANILLA_LEAVES = Set.of(
-        "oak", "spruce", "birch", "jungle", "acacia", "dark_oak", "mangrove", "cherry", "azalea"
+        "oak", "spruce", "birch", "jungle", "acacia", "dark_oak", "mangrove", "cherry", "azalea", "flowering_azalea"
     );
 }

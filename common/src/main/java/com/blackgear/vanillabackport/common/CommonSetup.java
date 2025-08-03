@@ -8,6 +8,7 @@ import com.blackgear.platform.common.worldgen.modifier.BiomeManager;
 import com.blackgear.platform.common.worldgen.placement.BiomePlacement;
 import com.blackgear.platform.core.ParallelDispatch;
 import com.blackgear.platform.core.events.ResourceReloadManager;
+import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
 import com.blackgear.vanillabackport.common.api.leash.LeashIntegration;
 import com.blackgear.vanillabackport.common.api.wolf.WolfSoundVariantReloadListener;
 import com.blackgear.vanillabackport.common.level.dispenser.PaleOakBoatDispenseBehavior;
@@ -25,6 +26,7 @@ import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
+import net.minecraft.world.entity.animal.Parrot;
 import net.minecraft.world.entity.npc.VillagerTrades.ItemsForEmeralds;
 
 public class CommonSetup {
@@ -44,6 +46,7 @@ public class CommonSetup {
             BiomePlacement.registerBiomePlacements(BiomeGeneration::bootstrap);
             BlockIntegration.registerIntegrations(CommonSetup::blockIntegrations);
             TradeIntegration.registerVillagerTrades(CommonSetup::tradeIntegrations);
+            Parrot.MOB_SOUND_MAP.put(ModEntities.CREAKING.get(), ModSoundEvents.PARROT_IMITATE_CREAKING.get());
         });
 
         LootModifier.modify(new LootIntegrations());
@@ -106,12 +109,19 @@ public class CommonSetup {
             );
             event.registerWandererTrade(
                 true,
+                new ItemsForEmeralds(ModBlocks.OPEN_EYEBLOSSOM.get(), 1, 1, 7, 1),
                 new ItemsForEmeralds(ModBlocks.PALE_OAK_SAPLING.get(), 5, 1, 8, 1),
                 new ItemsForEmeralds(ModBlocks.PALE_HANGING_MOSS.get(), 1, 3, 4, 1),
-                new ItemsForEmeralds(ModBlocks.PALE_MOSS_BLOCK.get(), 1, 2, 5, 1),
-                new ItemsForEmeralds(ModBlocks.OPEN_EYEBLOSSOM.get(), 1, 1, 7, 1),
-                new ItemsForEmeralds(ModBlocks.FIREFLY_BUSH.get(), 3, 1, 12, 1),
-                new ItemsForEmeralds(ModBlocks.WILDFLOWERS.get(), 1, 1, 12, 1)
+                new ItemsForEmeralds(ModBlocks.PALE_MOSS_BLOCK.get(), 1, 2, 5, 1)
+            );
+        }
+
+        if (VanillaBackport.COMMON_CONFIG.hasSpringTrades.get()) {
+            event.registerWandererTrade(
+                true,
+                new ItemsForEmeralds(ModBlocks.WILDFLOWERS.get(), 1, 1, 12, 1),
+                new ItemsForEmeralds(ModBlocks.TALL_DRY_GRASS.get(), 1, 1, 12, 1),
+                new ItemsForEmeralds(ModBlocks.FIREFLY_BUSH.get(), 3, 1, 12, 1)
             );
         }
     }
