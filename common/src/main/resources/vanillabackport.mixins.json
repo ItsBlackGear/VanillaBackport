@@ -53,6 +53,7 @@
     "common.worldgen.feature.SimpleBlockFeatureMixin",
     "common.worldgen.structure.NetherFossilPieceMixin",
     "compat.LeavesTypeMixin",
+    "compat.WoodTypeMixin",
     "leashable.common.entities.BoatMixin",
     "leashable.common.entities.LeashBehaviorMixin",
     "leashable.common.entities.MobMixin",

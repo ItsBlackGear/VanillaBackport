@@ -4,7 +4,6 @@ import com.blackgear.platform.common.data.TagRegistry;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.level.biome.Biome;
 
 public class ModBiomeTags {
