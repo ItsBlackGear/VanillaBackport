@@ -12,7 +12,10 @@ public class ModBiomeTags {
     public static final TagKey<Biome> SPAWNS_WARM_VARIANT_FARM_ANIMALS = TAGS.register("spawns_warm_variant_farm_animals");
     public static final TagKey<Biome> SPAWNS_COLD_VARIANT_FARM_ANIMALS = TAGS.register("spawns_cold_variant_farm_animals");
 
-    // Worldgen tags
+    // Entity Placement Tags
+    public static final TagKey<Biome> SPAWNS_CAMELS = TAGS.register("spawns_camels");
+
+    // Feature Placement Tags
     public static final TagKey<Biome> SPAWNS_BUSHES = TAGS.register("spawns_bushes");
     public static final TagKey<Biome> SPAWNS_FIREFLY_BUSHES = TAGS.register("spawns_firefly_bushes");
     public static final TagKey<Biome> SPAWNS_FIREFLY_BUSHES_SWAMP = TAGS.register("spawns_firefly_bushes_swamp");

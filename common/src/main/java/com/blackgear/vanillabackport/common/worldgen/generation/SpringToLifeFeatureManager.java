@@ -7,6 +7,9 @@ import com.blackgear.vanillabackport.common.worldgen.placements.SpringToLifePlac
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.blackgear.vanillabackport.core.data.tags.ModBiomeTags;
 import net.minecraft.data.worldgen.placement.VegetationPlacements;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.levelgen.GenerationStep;
 
 public class SpringToLifeFeatureManager extends FeatureManager {
@@ -16,6 +19,11 @@ public class SpringToLifeFeatureManager extends FeatureManager {
 
     @Override
     public void bootstrap() {
+        this.addIf(VanillaBackport.COMMON_CONFIG.hasCamelSpawns.get(), (context, writer) -> {
+            this.getOrCreateBiomeBuilder(ModBiomeTags.SPAWNS_CAMELS)
+                .add(() -> writer.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(EntityType.CAMEL, 1, 1, 1)));
+        });
+
         this.addIf(VanillaBackport.COMMON_CONFIG.hasBushes.get(), (context, writer) -> {
             this.getOrCreateBiomeBuilder(ModBiomeTags.SPAWNS_BUSHES)
                 .add(() -> this.addVegetation(SpringToLifePlacements.PATCH_BUSH));

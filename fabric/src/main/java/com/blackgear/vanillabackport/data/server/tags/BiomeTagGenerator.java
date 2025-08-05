@@ -21,7 +21,8 @@ public class BiomeTagGenerator extends FabricTagProvider<Biome> {
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
-        this.addFeatureTags(provider);
+        this.addEntityPlacementTags(provider);
+        this.addFeaturePlacementTags(provider);
 
         this.getOrCreateTagBuilder(BiomeTags.IS_FOREST)
             .add(ModBiomes.PALE_GARDEN);
@@ -77,7 +78,13 @@ public class BiomeTagGenerator extends FabricTagProvider<Biome> {
             .addOptionalTag(FabricBiomeTags.CLIMATE_HOT);
     }
 
-    protected void addFeatureTags(HolderLookup.Provider provider) {
+    protected void addEntityPlacementTags(HolderLookup.Provider provider) {
+        this.getOrCreateTagBuilder(ModBiomeTags.SPAWNS_CAMELS)
+            .addOptionalTag(FabricBiomeTags.DESERT)
+            .addOptionalTag(ForgeBiomeTags.IS_DESERT);
+    }
+
+    protected void addFeaturePlacementTags(HolderLookup.Provider provider) {
         this.getOrCreateTagBuilder(ModBiomeTags.SPAWNS_BUSHES)
             .forceAddTag(BiomeTags.IS_HILL)
             .forceAddTag(BiomeTags.IS_RIVER)

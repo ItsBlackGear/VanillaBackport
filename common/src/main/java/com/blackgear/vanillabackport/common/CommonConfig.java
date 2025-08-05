@@ -21,6 +21,7 @@ public class CommonConfig {
     public final ConfigBuilder.ConfigValue<Boolean> hasFallenTrees;
     public final ConfigBuilder.ConfigValue<Boolean> hasLeafLitter;
     public final ConfigBuilder.ConfigValue<Boolean> hasFarmAnimalVariants;
+    public final ConfigBuilder.ConfigValue<Boolean> hasCamelSpawns;
     public final ConfigBuilder.ConfigValue<Boolean> hasSpringTrades;
 
     // Chase the Skies
@@ -68,6 +69,8 @@ public class CommonConfig {
             .define("farm_animal_variants", true);
         this.hasSpringTrades = builder.comment("allow features from 'Spring to Life' to be obtainable through wandering traders")
             .define("spring_trades", true);
+        this.hasCamelSpawns = builder.comment("allow camels to spawn outside of villages")
+            .define("camel_spawns", true);
         builder.pop();
 
         builder.push("Chase the Skies");

@@ -49,11 +49,11 @@ public class SheepColorSpawnRules {
         return weighted(builder().add(single(color), 499).add(single(DyeColor.PINK), 1).build());
     }
 
-    public static DyeColor getRandomSheepColor(DyeColor original, Level level, BlockPos pos) {
+    public static DyeColor getRandomSheepColor(DyeColor original, Level level, BlockPos pos, RandomSource random) {
         if (!VanillaBackport.COMMON_CONFIG.hasFarmAnimalVariants.get()) return original;
 
         SheepColorSpawnConfiguration config = getSheepColorConfiguration(level.getBiome(pos));
-        return config.colors().get(level.getRandom());
+        return config.colors().get(random);
     }
 
     private static SheepColorSpawnConfiguration getSheepColorConfiguration(Holder<Biome> biome) {
