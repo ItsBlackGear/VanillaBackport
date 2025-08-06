@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "vanillabackport:pale_moss_block"
+            "items": "minecraft:pale_moss_block"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "vanillabackport:pale_moss_carpet"
+        "recipe": "minecraft:pale_moss_carpet"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "vanillabackport:pale_moss_carpet"
+      "minecraft:pale_moss_carpet"
     ]
   }
 }

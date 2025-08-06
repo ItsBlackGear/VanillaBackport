@@ -12,7 +12,7 @@ import net.minecraft.world.item.ItemStack;
 import java.util.function.Supplier;
 
 public class ModCreativeTabs {
-    public static final CoreRegistry<CreativeModeTab> TABS = CoreRegistry.create(Registries.CREATIVE_MODE_TAB, VanillaBackport.MOD_ID);
+    public static final CoreRegistry<CreativeModeTab> TABS = CoreRegistry.create(Registries.CREATIVE_MODE_TAB, VanillaBackport.NAMESPACE);
 
     public static final Supplier<CreativeModeTab> THE_GARDEN_AWAKENS = TABS.register(
         "the_garden_awakens",

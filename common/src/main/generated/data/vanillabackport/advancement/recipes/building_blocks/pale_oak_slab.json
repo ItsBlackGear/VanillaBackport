@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "vanillabackport:pale_oak_planks"
+            "items": "minecraft:pale_oak_planks"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "vanillabackport:pale_oak_slab"
+        "recipe": "minecraft:pale_oak_slab"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "vanillabackport:pale_oak_slab"
+      "minecraft:pale_oak_slab"
     ]
   }
 }

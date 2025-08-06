@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "vanillabackport:resin_clump"
+            "items": "minecraft:resin_clump"
           }
         ]
       },

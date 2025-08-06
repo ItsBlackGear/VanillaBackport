@@ -11,7 +11,7 @@ import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorTy
 import java.util.function.Supplier;
 
 public class ModTreeDecorators {
-    public static final CoreRegistry<TreeDecoratorType<?>> DECORATORS = CoreRegistry.create(Registries.TREE_DECORATOR_TYPE, VanillaBackport.MOD_ID);
+    public static final CoreRegistry<TreeDecoratorType<?>> DECORATORS = CoreRegistry.create(Registries.TREE_DECORATOR_TYPE, VanillaBackport.NAMESPACE);
 
     public static final Supplier<TreeDecoratorType<PaleMossDecorator>> PALE_MOSS = DECORATORS.register(
         "pale_moss",

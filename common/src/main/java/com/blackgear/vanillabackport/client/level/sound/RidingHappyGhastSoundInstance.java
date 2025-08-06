@@ -23,7 +23,7 @@ public class RidingHappyGhastSoundInstance extends AbstractTickableSoundInstance
         this.attenuation = Attenuation.NONE;
         this.looping = true;
         this.delay = 0;
-        this.volume = 0.0F;
+        this.volume = VOLUME_MIN;
     }
 
     @Override
@@ -34,11 +34,11 @@ public class RidingHappyGhastSoundInstance extends AbstractTickableSoundInstance
     @Override
     public void tick() {
         if (!this.happyGhast.isRemoved() && this.player.isPassenger() && this.player.getVehicle() == this.happyGhast) {
-            float f = (float)this.happyGhast.getDeltaMovement().length();
-            if (f >= 0.01F) {
-                this.volume = 5.0F * Mth.clampedLerp(0.0F, 1.0F, f);
+            float speed = (float) this.happyGhast.getDeltaMovement().length();
+            if (speed >= 0.01F) {
+                this.volume = 5.0F * Mth.clampedLerp(VOLUME_MIN, VOLUME_MAX, speed);
             } else {
-                this.volume = 0.0F;
+                this.volume = VOLUME_MIN;
             }
         } else {
             this.stop();

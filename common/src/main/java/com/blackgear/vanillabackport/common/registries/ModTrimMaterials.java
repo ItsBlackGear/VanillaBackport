@@ -44,6 +44,6 @@ public class ModTrimMaterials {
     }
 
     private static ResourceKey<TrimMaterial> registryKey(String name) {
-        return ResourceKey.create(Registries.TRIM_MATERIAL, VanillaBackport.resource(name));
+        return ResourceKey.create(Registries.TRIM_MATERIAL, VanillaBackport.vanilla(name));
     }
 }

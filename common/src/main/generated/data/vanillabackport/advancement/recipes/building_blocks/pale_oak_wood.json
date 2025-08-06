@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "vanillabackport:pale_oak_log"
+            "items": "minecraft:pale_oak_log"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "vanillabackport:pale_oak_wood"
+        "recipe": "minecraft:pale_oak_wood"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "vanillabackport:pale_oak_wood"
+      "minecraft:pale_oak_wood"
     ]
   }
 }
