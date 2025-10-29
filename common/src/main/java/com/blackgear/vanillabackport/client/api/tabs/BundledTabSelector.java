@@ -49,6 +49,13 @@ public class BundledTabSelector {
 
     private List<BundledTabs> bundles = null;
     private CreativeModeTab lastTab;
+    // Check if a bundle tab is selected. - Echo2craft.
+    private boolean isBundleTabSelected;
+    // store amount of all Vanilla Backport items. - Echo2craft.
+    private int modItemsAmount;
+
+    // For JEI compat - Echo2craft.
+    private List<Rect2i> extraAreas = Collections.emptyList();
 
     private BundledTabSelector() {
         HudRendering.POST_INITIALIZE.register(this::init);
@@ -67,6 +74,14 @@ public class BundledTabSelector {
             this.guiLeft = creativeScreen.leftPos;
             this.guiTop = creativeScreen.topPos;
             this.injectWidgets(creativeScreen, access::addRenderableWidget);
+            modItemsAmount = ModCreativeTabs.VANILLA_BACKPORT.get().getDisplayItems().size();
+
+            // JEI integration - Echo2craft.
+            if(extraAreas.isEmpty()){
+                extraAreas = ImmutableList.of(
+                        new Rect2i(this.guiLeft - 30, this.guiTop + 2, 30, 120)
+                );
+            }
         }
     }
 
@@ -76,6 +91,17 @@ public class BundledTabSelector {
 
             if (this.isValidTab(tab)) {
                 graphics.blit(SELECTOR_BAR, this.guiLeft - 30, this.guiTop + 2, 0, 0, 30, 120);
+
+                // Below is the code to handle user clicking Vanilla Backport tab button again to view all items, on the same tab.
+                // Checking if there is any bundle tab being selected, deselect it right away to ensure visual consistency, I think.
+                // Check if a bundle is being selected. - Echo2craft.
+                if(isBundleTabSelected){
+                    // Check if displayed items are all Vanilla Backport items. - Echo2craft.
+                    if(creativeScreen.getMenu().items.size() == modItemsAmount){
+                        // Deselect all bundle tabs as user view all items, not the selected bundle tab items. - Echo2craft.
+                        this.bundles.forEach(BundledTabs::deselect);
+                    }
+                }
             }
 
             if (this.lastTab != tab) {
@@ -102,9 +128,13 @@ public class BundledTabSelector {
             Tab tab = new Tab(this.guiLeft - 23, this.guiTop + 7, category, button -> {
                 if (category.isSelected()) {
                     category.deselect();
+                    // Simple check - Echo2craft.
+                    isBundleTabSelected = false;
                 } else {
                     this.bundles.forEach(BundledTabs::deselect);
                     category.select();
+                    // - Echo2craft.
+                    isBundleTabSelected = true;
                 }
                 this.updateItems(screen);
             });
