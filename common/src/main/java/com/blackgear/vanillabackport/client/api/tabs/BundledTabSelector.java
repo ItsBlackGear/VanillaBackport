@@ -6,6 +6,7 @@ import com.blackgear.vanillabackport.client.registries.ModBundledTabs;
 import com.blackgear.vanillabackport.client.registries.ModCreativeTabs;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.blackgear.vanillabackport.core.mixin.access.CreativeModeInventoryScreenAccessor;
+import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -17,6 +18,7 @@ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipPositioner;
 import net.minecraft.client.gui.screens.inventory.tooltip.DefaultTooltipPositioner;
+import net.minecraft.client.renderer.Rect2i;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -48,13 +50,14 @@ public class BundledTabSelector {
     private AbstractWidget scrollDownButton;
 
     private List<BundledTabs> bundles = null;
+    // Since we don't use the last tab contents, maybe it is better to just use boolean check? - Echo2craft.
     private CreativeModeTab lastTab;
     // Check if a bundle tab is selected. - Echo2craft.
     private boolean isBundleTabSelected;
-    // store amount of all Vanilla Backport items. - Echo2craft.
+    // store amount of all Vanilla Backport items, use for checking current tab - Echo2craft.
     private int modItemsAmount;
 
-    // For JEI compat - Echo2craft.
+    // For JEI compat, in development right now. - Echo2craft.
     private List<Rect2i> extraAreas = Collections.emptyList();
 
     private BundledTabSelector() {
@@ -94,12 +97,14 @@ public class BundledTabSelector {
 
                 // Below is the code to handle user clicking Vanilla Backport tab button again to view all items, on the same tab.
                 // Checking if there is any bundle tab being selected, deselect it right away to ensure visual consistency, I think.
-                // Check if a bundle is being selected. - Echo2craft.
-                if(isBundleTabSelected){
+                // Check if a bundle tab is being selected and the last tab must be this tab - Echo2craft.
+                if(isBundleTabSelected && this.lastTab == tab){
                     // Check if displayed items are all Vanilla Backport items. - Echo2craft.
                     if(creativeScreen.getMenu().items.size() == modItemsAmount){
                         // Deselect all bundle tabs as user view all items, not the selected bundle tab items. - Echo2craft.
                         this.bundles.forEach(BundledTabs::deselect);
+                        // Avoid triggering the same function.
+                        isBundleTabSelected = false;
                     }
                 }
             }
@@ -221,6 +226,11 @@ public class BundledTabSelector {
 
     private boolean isValidTab(CreativeModeTab tab) {
         return tab == ModCreativeTabs.VANILLA_BACKPORT.get();
+    }
+
+    // For JEI compat, in development. - Echo2craft.
+    public List<Rect2i> getExtraAreas() {
+        return extraAreas;
     }
 
     public static class Tab extends Button {
