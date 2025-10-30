@@ -73,7 +73,6 @@ public class BundledTabSelector {
                 Collections.reverse(bundles);
                 this.bundles = bundles;
             }
-
             this.guiLeft = creativeScreen.leftPos;
             this.guiTop = creativeScreen.topPos;
             this.injectWidgets(creativeScreen, access::addRenderableWidget);

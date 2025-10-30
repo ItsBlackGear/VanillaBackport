@@ -1193,5 +1193,128 @@
       "block/cactus_flower/place4"
     ],
     "subtitle": "subtitles.block.generic.place"
+  },
+  "item.ominous_bottle.dispose": {
+    "sounds": [
+      "item/ominous_bottle/dispose"
+    ],
+    "subtitle": "subtitles.item.ominous_bottle.dispose"
+  },
+  "event.mob_effect.bad_omen": {
+    "sounds": [
+      "event/mob_effect/bad_omen"
+    ],
+    "subtitle": "subtitles.event.mob_effect.bad_omen"
+  },
+  "event.mob_effect.raid_omen": {
+    "sounds": [
+      "event/mob_effect/raid_omen"
+    ],
+    "subtitle": "subtitles.event.mob_effect.raid_omen"
+  },
+  "event.mob_effect.trial_omen": {
+    "sounds": [
+      "event/mob_effect/trial_omen"
+    ],
+    "subtitle": "subtitles.event.mob_effect.trial_omen"
+  },
+  "music_disc.creator": {
+    "sounds": [
+      {
+        "name": "records/creator",
+        "stream": true
+      }
+    ]
+  },
+  "music_disc.creator_music_box": {
+    "sounds": [
+      {
+        "name": "records/creator_music_box",
+        "stream": true
+      }
+    ]
+  },
+  "music_disc.precipice": {
+    "sounds": [
+      {
+        "name": "records/precipice",
+        "stream": true
+      }
+    ]
+  },
+  "block.decorated_pot.insert": {
+    "sounds": [
+      {
+        "name": "block/decorated_pot/insert1",
+        "volume": 0.9
+      },
+      {
+        "name": "block/decorated_pot/insert2",
+        "volume": 0.9
+      },
+      {
+        "name": "block/decorated_pot/insert3",
+        "volume": 0.9
+      },
+      {
+        "name": "block/decorated_pot/insert4",
+        "volume": 0.9
+      }
+    ],
+    "subtitle": "subtitles.block.decorated_pot.insert"
+  },
+  "block.decorated_pot.insert_fail": {
+    "sounds": [
+      {
+        "name": "block/decorated_pot/insert_fail1",
+        "volume": 0.9
+      },
+      {
+        "name": "block/decorated_pot/insert_fail2",
+        "volume": 0.9
+      },
+      {
+        "name": "block/decorated_pot/insert_fail3",
+        "volume": 0.9
+      },
+      {
+        "name": "block/decorated_pot/insert_fail4",
+        "volume": 0.9
+      },
+      {
+        "name": "block/decorated_pot/insert_fail5",
+        "volume": 0.9
+      }
+    ],
+    "subtitle": "subtitles.block.decorated_pot.insert_fail"
+  },
+  "block.decorated_pot.break": {
+    "sounds": [
+      "block/decorated_pot/break1",
+      "block/decorated_pot/break2",
+      "block/decorated_pot/break3",
+      "block/decorated_pot/break4"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.decorated_pot.shatter": {
+    "sounds": [
+      "block/decorated_pot/shatter1",
+      "block/decorated_pot/shatter2",
+      "block/decorated_pot/shatter3",
+      "block/decorated_pot/shatter4",
+      "block/decorated_pot/shatter5"
+    ],
+    "subtitle": "subtitles.block.decorated_pot.shatter"
+  },
+  "block.decorated_pot.step": {
+    "sounds": [
+      "block/decorated_pot/step1",
+      "block/decorated_pot/step2",
+      "block/decorated_pot/step3",
+      "block/decorated_pot/step4",
+      "block/decorated_pot/step5"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
   }
 }

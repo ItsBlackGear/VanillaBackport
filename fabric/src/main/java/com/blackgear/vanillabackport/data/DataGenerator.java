@@ -2,6 +2,7 @@ package com.blackgear.vanillabackport.data;
 
 import com.blackgear.vanillabackport.common.registries.ModBiomes;
 import com.blackgear.vanillabackport.common.registries.ModTrimMaterials;
+import com.blackgear.vanillabackport.common.registries.ModTrimPatterns;
 import com.blackgear.vanillabackport.common.worldgen.features.SpringToLifeFeatures;
 import com.blackgear.vanillabackport.common.worldgen.features.TheGardenAwakensFeatures;
 import com.blackgear.vanillabackport.common.worldgen.placements.SpringToLifePlacements;
@@ -36,10 +37,12 @@ public class DataGenerator implements DataGeneratorEntrypoint {
         pack.addProvider(BiomeTagGenerator::new);
         pack.addProvider(BlockTagGenerator::new);
         pack.addProvider(ItemTagGenerator::new);
+        pack.addProvider(EnchantmentTagGenerator::new);
         pack.addProvider(EntityTypeTagGenerator::new);
         pack.addProvider(PaintingVariantTagGenerator::new);
 
         pack.addProvider(TrimMaterialGenerator::new);
+        pack.addProvider(TrimPatternGenerator::new);
         pack.addProvider(BiomeGenerator::new);
         pack.addProvider(ConfiguredFeatureGenerator::new);
         pack.addProvider(PlacedFeatureGenerator::new);
@@ -48,6 +51,7 @@ public class DataGenerator implements DataGeneratorEntrypoint {
     @Override
     public void buildRegistry(RegistrySetBuilder builder) {
         builder.add(Registries.TRIM_MATERIAL, ModTrimMaterials::bootstrap);
+        builder.add(Registries.TRIM_PATTERN, ModTrimPatterns::bootstrap);
         builder.add(Registries.BIOME, ModBiomes::bootstrap);
         builder.add(Registries.CONFIGURED_FEATURE, SpringToLifeFeatures::bootstrap);
         builder.add(Registries.CONFIGURED_FEATURE, TheGardenAwakensFeatures::bootstrap);

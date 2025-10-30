@@ -8,8 +8,10 @@ import com.blackgear.vanillabackport.data.client.BlockFamilies;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.minecraft.data.recipes.*;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.flag.FeatureFlags;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
@@ -130,6 +132,21 @@ public class RecipeGenerator extends FabricRecipeProvider {
             .save(exporter);
 
         SpecialRecipeBuilder.special(ModRecipeSerializers.BUNDLE_COLORING.get()).save(exporter, "bundle_coloring");
+
+        // Tricky Trials - Echo2craft.
+        copySmithingTemplate(exporter, ModItems.FLOW_ARMOR_TRIM_SMITHING_TEMPLATE.get(), ModItems.BREEZE_ROD.get());
+        copySmithingTemplate(exporter, ModItems.BOLT_ARMOR_TRIM_SMITHING_TEMPLATE.get(), Ingredient.of(Items.COPPER_BLOCK, Items.WAXED_COPPER_BLOCK));
+        trimSmithing(exporter, ModItems.FLOW_ARMOR_TRIM_SMITHING_TEMPLATE.get(), getTrimSmithingLocation(ModItems.FLOW_ARMOR_TRIM_SMITHING_TEMPLATE.get()));
+        trimSmithing(exporter, ModItems.BOLT_ARMOR_TRIM_SMITHING_TEMPLATE.get(), getTrimSmithingLocation(ModItems.BOLT_ARMOR_TRIM_SMITHING_TEMPLATE.get()));
+    }
+
+    // Helper for trim smithing recipe file name. - Echo2craft.
+    private ResourceLocation getTrimSmithingLocation(Item pItem){
+        return new ResourceLocation(getItemName(pItem) + "_smithing_trim");
+    }
+    // Helper for copySmithingTemplate with custom ingredient. - Echo2craft.
+    protected static void copySmithingTemplate(Consumer<FinishedRecipe> pFinishedRecipeConsumer, ItemLike pResult, Ingredient pBaseItem) {
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, pResult, 2).define('#', Items.DIAMOND).define('C', pBaseItem).define('S', pResult).pattern("#S#").pattern("#C#").pattern("###").unlockedBy(getHasName(pResult), has(pResult)).save(pFinishedRecipeConsumer);
     }
 
     public static ShapedRecipeBuilder shaped(RecipeCategory category, ItemLike entry) {

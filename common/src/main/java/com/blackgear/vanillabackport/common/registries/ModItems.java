@@ -3,11 +3,13 @@ package com.blackgear.vanillabackport.common.registries;
 import com.blackgear.platform.core.helper.ItemRegistry;
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
 import com.blackgear.vanillabackport.common.level.entities.animal.VariantKeys;
+import com.blackgear.vanillabackport.common.level.items.OminousBottleItem;
 import com.blackgear.vanillabackport.common.level.items.PaleOakBoatItem;
 import com.blackgear.vanillabackport.common.level.items.HarnessItem;
 import com.blackgear.vanillabackport.common.level.items.VariantEggItem;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.world.item.*;
+import net.minecraft.world.level.block.Blocks;
 
 import java.util.function.Supplier;
 
@@ -178,4 +180,43 @@ public class ModItems {
         "brown_egg",
         properties -> new VariantEggItem(VariantKeys.WARM_CHICKEN, properties),
         new Item.Properties().stacksTo(16));
+
+    // Tricky Trials - Echo2craft.
+    public static final Supplier<Item> TRIAL_KEY = ITEMS.register(
+      "trial_key",
+            Item::new,
+            new Item.Properties());
+    public static final Supplier<Item> OMINOUS_TRIAL_KEY = ITEMS.register(
+            "ominous_trial_key",
+            Item::new,
+            new Item.Properties());
+    public static final Supplier<Item> OMINOUS_BOTTLE = ITEMS.register(
+            "ominous_bottle",
+            OminousBottleItem::new,
+            new Item.Properties().rarity(Rarity.UNCOMMON));
+    public static final Supplier<Item> BREEZE_ROD = ITEMS.register("breeze_rod");
+    public static final Supplier<Item> FLOW_ARMOR_TRIM_SMITHING_TEMPLATE = ITEMS.register(
+            "flow_armor_trim_smithing_template",
+            () -> SmithingTemplateItem.createArmorTrimTemplate(ModTrimPatterns.FLOW));
+    public static final Supplier<Item> BOLT_ARMOR_TRIM_SMITHING_TEMPLATE = ITEMS.register(
+            "bolt_armor_trim_smithing_template",
+            () -> SmithingTemplateItem.createArmorTrimTemplate(ModTrimPatterns.BOLT));
+    public static final Supplier<Item> MUSIC_DISC_PRECIPICE = ITEMS.register(
+            "music_disc_precipice",
+            properties -> new RecordItem(13, ModSoundEvents.MUSIC_DISC_PRECIPICE.get(), properties, 299),
+            new Item.Properties()
+                    .stacksTo(1)
+                    .rarity(Rarity.UNCOMMON));
+    public static final Supplier<Item> MUSIC_DISC_CREATOR = ITEMS.register(
+            "music_disc_creator",
+            properties -> new RecordItem(12, ModSoundEvents.MUSIC_DISC_CREATOR.get(), properties, 176),
+            new Item.Properties()
+                    .stacksTo(1)
+                    .rarity(Rarity.RARE));
+    public static final Supplier<Item> MUSIC_DISC_CREATOR_MUSIC_BOX = ITEMS.register(
+            "music_disc_creator_music_box",
+            properties -> new RecordItem(11, ModSoundEvents.MUSIC_DISC_CREATOR_MUSIC_BOX.get(), properties, 73),
+            new Item.Properties()
+                    .stacksTo(1)
+                    .rarity(Rarity.UNCOMMON));
 }
