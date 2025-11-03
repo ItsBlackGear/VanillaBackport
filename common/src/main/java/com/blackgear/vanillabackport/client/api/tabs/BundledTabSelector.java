@@ -59,6 +59,10 @@ public class BundledTabSelector {
 
     // For JEI compat, in development right now. - Echo2craft.
     private List<Rect2i> extraAreas = Collections.emptyList();
+    private static final int BUNDLED_TABS_WIDTH = 30;
+    private static final int BUNDLED_TABS_HEIGHT = 120;
+    private int bundledTabsLastXPos = Integer.MIN_VALUE;
+    private int bundledTabsLastYPos = Integer.MIN_VALUE;
 
     private BundledTabSelector() {
         HudRendering.POST_INITIALIZE.register(this::init);
@@ -79,9 +83,27 @@ public class BundledTabSelector {
             modItemsAmount = ModCreativeTabs.VANILLA_BACKPORT.get().getDisplayItems().size();
 
             // JEI integration - Echo2craft.
-            if(extraAreas.isEmpty()){
+            // It's being redefined many times, I'm seeking a better way to check this better. - Echo2craft.
+            // extraAreas = ImmutableList.of(new Rect2i(this.guiLeft - 30, this.guiTop + 2, BUNDLED_TABS_WIDTH, BUNDLED_TABS_HEIGHT));
+
+            int curXPos = this.guiLeft - 30;
+            int curYPos = this.guiTop + 2;
+
+            // 1. Check if the screen position has changed or if it's the first time
+            if (curXPos != this.bundledTabsLastXPos || curYPos != this.bundledTabsLastYPos) {
+
+                // 2. Update the last known position
+                this.bundledTabsLastXPos = curXPos;
+                this.bundledTabsLastYPos = curYPos;
+
+                // 3. Recalculate extraAreas based on the current position
                 extraAreas = ImmutableList.of(
-                        new Rect2i(this.guiLeft - 30, this.guiTop + 2, 30, 120)
+                        new Rect2i(
+                                curXPos, // The final X coordinate of the area
+                                curYPos, // The final Y coordinate of the area
+                                BUNDLED_TABS_WIDTH,
+                                BUNDLED_TABS_HEIGHT
+                        )
                 );
             }
         }
@@ -92,7 +114,8 @@ public class BundledTabSelector {
             CreativeModeTab tab = CreativeModeInventoryScreenAccessor.getSelectedTab();
 
             if (this.isValidTab(tab)) {
-                graphics.blit(SELECTOR_BAR, this.guiLeft - 30, this.guiTop + 2, 0, 0, 30, 120);
+                graphics.blit(SELECTOR_BAR, bundledTabsLastXPos, bundledTabsLastYPos, 0, 0, BUNDLED_TABS_WIDTH, BUNDLED_TABS_HEIGHT);
+                // graphics.renderOutline(bundledTabsLastXPos, bundledTabsLastYPos, BUNDLED_TABS_WIDTH, BUNDLED_TABS_HEIGHT, 0xff000000);
 
                 // Below is the code to handle user clicking Vanilla Backport tab button again to view all items, on the same tab.
                 // Checking if there is any bundle tab being selected, deselect it right away to ensure visual consistency, I think.
@@ -231,6 +254,13 @@ public class BundledTabSelector {
     public List<Rect2i> getExtraAreas() {
         return extraAreas;
     }
+
+    /*protected void debugExtraAreas(GuiGraphics graphics) {
+        for (Rect2i area : getExtraAreas()) {
+            graphics.fill(area.getX() + area.getWidth(), area.getY() + area.getHeight(), area.getX(), area.getY(),
+                    0xD3D3D3D3);
+        }
+    }*/
 
     public static class Tab extends Button {
         private final BundledTabs bundle;

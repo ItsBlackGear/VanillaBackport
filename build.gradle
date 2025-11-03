@@ -40,6 +40,12 @@ subprojects {
         }
         maven { url = "https://maven.tterrag.com/" } // Flywheel on both, Create and Registrate on forge
 
+        // EMI
+        maven {
+            name = "TerraformersMC"
+            url = "https://maven.terraformersmc.com/"
+        }
+
         // mavens for Create Fabric and dependencies
         maven { url = "https://mvn.devos.one/releases" } // Porting Lib releases
         maven { url = "https://mvn.devos.one/snapshots" } // Create and several dependencies

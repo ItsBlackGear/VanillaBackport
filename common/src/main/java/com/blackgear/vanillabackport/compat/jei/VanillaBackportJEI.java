@@ -15,6 +15,7 @@ public class VanillaBackportJEI implements IModPlugin {
 
     @Override
     public void registerGuiHandlers(IGuiHandlerRegistration registration) {
+        registration.addGuiContainerHandler(CreativeModeInventoryScreen.class, new VanillaBackportSlotMover());
         // registration.addGuiContainerHandler(CreativeModeInventoryScreen.class, new SlotMover());
         // registration.addGuiScreenHandler();
     }

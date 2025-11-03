@@ -55,6 +55,10 @@ dependencies {
     // Create - dependencies are added transitively
     modImplementation("com.simibubi.create:create-fabric-$minecraft_version:$create_fabric_version")
 
+    // Emi Fabric
+    modCompileOnly "dev.emi:emi-fabric:${emi_version}:api"
+    modLocalRuntime "dev.emi:emi-fabric:${emi_version}"
+
     // compile against the JEI API but do not include it at runtime
     modCompileOnlyApi("mezz.jei:jei-1.20.1-fabric-api:${jei_version}")
     // at runtime, use the full JEI jar for Fabric
