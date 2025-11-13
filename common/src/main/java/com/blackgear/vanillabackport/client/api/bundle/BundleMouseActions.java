@@ -2,7 +2,7 @@ package com.blackgear.vanillabackport.client.api.bundle;
 
 import com.blackgear.platform.client.event.screen.HudInteractions;
 import com.blackgear.platform.core.util.event.CancellableResult;
-import com.blackgear.vanillabackport.common.api.bundle.BundleContents;
+import com.blackgear.vanillabackport.common.api.bundle.BundleFeatures;
 import com.blackgear.vanillabackport.core.data.tags.ModItemTags;
 import com.blackgear.vanillabackport.core.network.NetworkHandler;
 import com.blackgear.vanillabackport.core.network.ServerboundSelectBundleItemPacket;
@@ -25,13 +25,12 @@ public class BundleMouseActions implements ItemSlotMouseAction {
 
     public static void bootstrap() {
         HudInteractions.SCROLLING_PRE.register((minecraft, screen, mouseX, mouseY, scrollDelta) -> {
-
             if (screen instanceof AbstractContainerScreen<?> container) {
                 Slot slot = container.hoveredSlot;
                 if (slot != null && slot.hasItem()) {
                     ItemSlotMouseAction action = BundleMouseActions.INSTANCE;
                     if (action.matches(slot) && action.onMouseScrolled(scrollDelta, slot.index, slot.getItem())) {
-                        if (!BundleContents.onBundleUpdate()) return CancellableResult.PASS;
+                        if (!BundleFeatures.onBundleUpdate()) return CancellableResult.PASS;
 
                         return CancellableResult.CANCEL;
                     }
@@ -41,11 +40,10 @@ public class BundleMouseActions implements ItemSlotMouseAction {
             return CancellableResult.PASS;
         });
         HudInteractions.STOP_HOVERING.register((minecraft, screen, slot) -> {
-
             if (slot != null && slot.hasItem()) {
                 ItemSlotMouseAction action = BundleMouseActions.INSTANCE;
                 if (action.matches(slot)) {
-                    if (!BundleContents.onBundleUpdate()) return;
+                    if (!BundleFeatures.onBundleUpdate()) return;
                     action.onStopHovering(slot);
                 }
             }
@@ -54,7 +52,7 @@ public class BundleMouseActions implements ItemSlotMouseAction {
             if (slot != null && slot.hasItem()) {
                 ItemSlotMouseAction action = BundleMouseActions.INSTANCE;
                 if (action.matches(slot)) {
-                    if (!BundleContents.onBundleUpdate()) return;
+                    if (!BundleFeatures.onBundleUpdate()) return;
                     action.onSlotClicked(slot, clickType);
                 }
             }
@@ -68,7 +66,7 @@ public class BundleMouseActions implements ItemSlotMouseAction {
 
     @Override
     public boolean onMouseScrolled(double scrollDelta, int slotId, ItemStack stack) {
-        int itemsToShow = BundleContents.getNumberOfItemsToShow(stack);
+        int itemsToShow = BundleFeatures.getNumberOfItemsToShow(stack);
         if (itemsToShow == 0) {
             return false;
         } else {
@@ -76,7 +74,7 @@ public class BundleMouseActions implements ItemSlotMouseAction {
             int delta = scroll.y == 0 ? -scroll.x : scroll.y;
 
             if (delta != 0) {
-                int selectedItem = BundleContents.getSelectedItem(stack);
+                int selectedItem = BundleFeatures.getSelectedItem(stack);
                 int selectedItemIndex = ScrollWheelHandler.getNextScrollWheelSelection(delta, selectedItem, itemsToShow);
                 if (selectedItem != selectedItemIndex) {
                     this.toggleSelectedBundleItem(stack, slotId, selectedItemIndex);
@@ -100,8 +98,8 @@ public class BundleMouseActions implements ItemSlotMouseAction {
     }
 
     private void toggleSelectedBundleItem(ItemStack stack, int slotId, int selectedItemIndex) {
-        if (selectedItemIndex < BundleContents.getNumberOfItemsToShow(stack)) {
-            BundleContents.toggleSelectedItem(stack, selectedItemIndex);
+        if (selectedItemIndex < BundleFeatures.getNumberOfItemsToShow(stack)) {
+            BundleFeatures.toggleSelectedItem(stack, selectedItemIndex);
             NetworkHandler.DEFAULT_CHANNEL.sendToServer(new ServerboundSelectBundleItemPacket(slotId, selectedItemIndex));
         }
     }

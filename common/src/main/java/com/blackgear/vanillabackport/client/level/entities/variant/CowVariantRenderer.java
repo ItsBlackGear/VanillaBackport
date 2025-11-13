@@ -16,7 +16,6 @@ import net.minecraft.world.entity.animal.Cow;
 import java.util.Map;
 import java.util.Optional;
 
-@SuppressWarnings("unchecked")
 @Environment(EnvType.CLIENT)
 public class CowVariantRenderer {
     protected final Map<CowVariant.ModelType, CowModel<Cow>> modelByVariant;
@@ -34,16 +33,12 @@ public class CowVariantRenderer {
     }
 
     public ResourceLocation getTexture(Cow entity) {
-        CowVariant variant = ((VariantHolder<CowVariant>) entity).getVariant();
-        if (variant != null) {
-            return variant.modelAndTexture().asset().path();
-        }
-
-        return null;
+        CowVariant variant = VariantHolder.<CowVariant>vb$getVariantHolder(entity).vb$getVariant();
+        return variant != null ? variant.modelAndTexture().asset().path() : null;
     }
 
     public Optional<CowModel<Cow>> getModel(Cow entity) {
-        CowVariant variant = ((VariantHolder<CowVariant>) entity).getVariant();
-        return Optional.ofNullable(this.modelByVariant.get(variant.modelAndTexture().model()));
+        CowVariant variant = VariantHolder.<CowVariant>vb$getVariantHolder(entity).vb$getVariant();
+        return variant != null ? Optional.ofNullable(this.modelByVariant.get(variant.modelAndTexture().model())) : Optional.empty();
     }
 }

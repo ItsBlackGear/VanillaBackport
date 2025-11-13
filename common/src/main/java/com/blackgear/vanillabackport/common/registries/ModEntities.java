@@ -3,6 +3,7 @@ package com.blackgear.vanillabackport.common.registries;
 import com.blackgear.platform.core.helper.EntityRegistry;
 import com.blackgear.vanillabackport.common.level.boat.PaleOakBoat;
 import com.blackgear.vanillabackport.common.level.boat.PaleOakChestBoat;
+import com.blackgear.vanillabackport.common.level.entities.armadillo.Armadillo;
 import com.blackgear.vanillabackport.common.level.entities.creaking.Creaking;
 import com.blackgear.vanillabackport.common.level.entities.happyghast.HappyGhast;
 import com.blackgear.vanillabackport.core.VanillaBackport;
@@ -37,6 +38,12 @@ public class ModEntities {
         "pale_oak_chest_boat",
         EntityType.Builder.<PaleOakChestBoat>of(PaleOakChestBoat::new, MobCategory.MISC)
             .sized(1.375F, 0.5625F)
+            .clientTrackingRange(10)
+    );
+    public static final Supplier<EntityType<Armadillo>> ARMADILLO = ENTITIES.entity(
+        "armadillo",
+        EntityType.Builder.of(Armadillo::new, MobCategory.CREATURE)
+            .sized(0.7F, 0.65F)
             .clientTrackingRange(10)
     );
 }

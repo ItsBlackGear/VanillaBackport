@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.core.mixin.client;
 
-import com.blackgear.vanillabackport.common.api.bundle.BundleContents;
+import com.blackgear.vanillabackport.common.api.bundle.BundleFeatures;
 import com.blackgear.vanillabackport.common.api.bundle.BundleSelectionTooltip;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -52,7 +52,7 @@ public class ClientBundleTooltipMixin implements ClientTooltipComponent {
     }
 
     @Unique
-    public boolean hasSelectedItem() {
+    private boolean hasSelectedItem() {
         return this.selectedItem != -1;
     }
 
@@ -93,7 +93,7 @@ public class ClientBundleTooltipMixin implements ClientTooltipComponent {
 
     @Inject(method = "renderImage", at = @At("HEAD"), cancellable = true)
     private void vb$onRenderImage(Font font, int x, int y, GuiGraphics graphics, CallbackInfo ci) {
-        if (!BundleContents.onBundleUpdate()) return;
+        if (!BundleFeatures.onBundleUpdate()) return;
 
         if (this.items.isEmpty()) {
             this.renderEmptyBundleTooltip(font, x, y, this.getWidth(font), graphics);
@@ -113,7 +113,7 @@ public class ClientBundleTooltipMixin implements ClientTooltipComponent {
     @Unique
     private void renderBundleWithItemsTooltip(Font font, int x, int y, int width, GuiGraphics graphics) {
         boolean maxDisplay = this.items.size() > 12;
-        List<ItemStack> stacks = this.getShownItems(BundleContents.getItemsToShow(this.items));
+        List<ItemStack> stacks = this.getShownItems(BundleFeatures.getItemsToShow(this.items));
         int xOffset = x + this.getContentXOffset(width) + 96;
         int yOffset = y + this.gridSizeY() * 24;
         int index = 1;

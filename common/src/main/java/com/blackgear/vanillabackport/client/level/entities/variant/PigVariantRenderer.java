@@ -15,7 +15,6 @@ import net.minecraft.world.entity.animal.Pig;
 import java.util.Map;
 import java.util.Optional;
 
-@SuppressWarnings("unchecked")
 @Environment(EnvType.CLIENT)
 public class PigVariantRenderer {
     protected final Map<PigVariant.ModelType, PigModel<Pig>> modelByVariant;
@@ -32,16 +31,12 @@ public class PigVariantRenderer {
     }
 
     public ResourceLocation getTexture(Pig entity) {
-        PigVariant variant = ((VariantHolder<PigVariant>) entity).getVariant();
-        if (variant != null) {
-            return variant.modelAndTexture().asset().path();
-        }
-
-        return null;
+        PigVariant variant = VariantHolder.<PigVariant>vb$getVariantHolder(entity).vb$getVariant();
+        return variant != null ? variant.modelAndTexture().asset().path() : null;
     }
 
     public Optional<PigModel<Pig>> getModel(Pig entity) {
-        PigVariant variant = ((VariantHolder<PigVariant>) entity).getVariant();
-        return Optional.ofNullable(this.modelByVariant.get(variant.modelAndTexture().model()));
+        PigVariant variant = VariantHolder.<PigVariant>vb$getVariantHolder(entity).vb$getVariant();
+        return variant != null ? Optional.ofNullable(this.modelByVariant.get(variant.modelAndTexture().model())) : Optional.empty();
     }
 }

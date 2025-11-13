@@ -1,0 +1,6 @@
+{
+  "parent": "item/cyan_bundle",
+  "textures": {
+    "layer0": "item/cyan_bundle"
+  }
+}

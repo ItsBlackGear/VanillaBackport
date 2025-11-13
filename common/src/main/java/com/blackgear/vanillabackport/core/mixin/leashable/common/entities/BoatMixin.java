@@ -40,12 +40,12 @@ public abstract class BoatMixin extends Entity implements Leashable {
     }
 
     @Override
-    public double angularMomentum() {
+    public double vb$angularMomentum() {
         return this.angularMomentum;
     }
 
     @Override
-    public void setAngularMomentum(double angularMomentum) {
+    public void vb$setAngularMomentum(double angularMomentum) {
         this.angularMomentum = angularMomentum;
     }
 
@@ -91,15 +91,15 @@ public abstract class BoatMixin extends Entity implements Leashable {
 
         if (this.leashHolder != null) {
             if (!this.isAlive() || !this.leashHolder.isAlive()) {
-                this.dropLeash(true, true);
+                this.vb$dropLeash(true, true);
             }
         }
 
-        Leashable.onTickLeash(this);
+        Leashable.vb$onTickLeash(this);
     }
 
     @Override
-    public void dropLeash(boolean broadcast, boolean dropItem) {
+    public void vb$dropLeash(boolean broadcast, boolean dropItem) {
         if (this.leashHolder != null) {
             this.leashHolder = null;
             this.leashInfoTag = null;
@@ -119,21 +119,21 @@ public abstract class BoatMixin extends Entity implements Leashable {
     }
 
     @Override
-    public boolean isLeashed() {
+    public boolean vb$isLeashed() {
         return this.leashHolder != null;
     }
 
     @Override
     public void remove(RemovalReason reason) {
-        if (!this.level().isClientSide && reason.shouldDestroy() && this.isLeashed()) {
-            this.dropLeash(true, true);
+        if (!this.level().isClientSide && reason.shouldDestroy() && this.vb$isLeashed()) {
+            this.vb$dropLeash(true, true);
         }
 
         super.remove(reason);
     }
 
     @Override
-    public @Nullable Entity getLeashHolder() {
+    public @Nullable Entity vb$getLeashHolder() {
         if (this.leashHolder == null && this.delayedLeashHolderId != 0 && this.level().isClientSide) {
             this.leashHolder = this.level().getEntity(this.delayedLeashHolderId);
         }
@@ -142,7 +142,7 @@ public abstract class BoatMixin extends Entity implements Leashable {
     }
 
     @Override
-    public void setLeashedTo(Entity entity, boolean sendAttachPacket) {
+    public void vb$setLeashedTo(Entity entity, boolean sendAttachPacket) {
         this.leashHolder = entity;
         this.leashInfoTag = null;
         if (!this.level().isClientSide && sendAttachPacket && this.level() instanceof ServerLevel server) {
@@ -155,9 +155,9 @@ public abstract class BoatMixin extends Entity implements Leashable {
     }
 
     @Override
-    public void setBoatDelayedLeashHolderId(int leashHolderId) {
+    public void vb$setBoatDelayedLeashHolderId(int leashHolderId) {
         this.delayedLeashHolderId = leashHolderId;
-        this.dropLeash(false, false);
+        this.vb$dropLeash(false, false);
     }
 
     @Unique
@@ -167,12 +167,12 @@ public abstract class BoatMixin extends Entity implements Leashable {
                 UUID uuid = this.leashInfoTag.getUUID("UUID");
                 Entity entity = server.getEntity(uuid);
                 if (entity != null) {
-                    this.setLeashedTo(entity, true);
+                    this.vb$setLeashedTo(entity, true);
                     return;
                 }
             } else if (this.leashInfoTag.contains("X", 99) && this.leashInfoTag.contains("Y", 99) && this.leashInfoTag.contains("Z", 99)) {
                 BlockPos pos = NbtUtils.readBlockPos(this.leashInfoTag);
-                this.setLeashedTo(LeashFenceKnotEntity.getOrCreateKnot(this.level(), pos), true);
+                this.vb$setLeashedTo(LeashFenceKnotEntity.getOrCreateKnot(this.level(), pos), true);
                 return;
             }
 
@@ -186,7 +186,7 @@ public abstract class BoatMixin extends Entity implements Leashable {
     @Override
     protected void removeAfterChangingDimensions() {
         super.removeAfterChangingDimensions();
-        this.dropLeash(true, false);
+        this.vb$dropLeash(true, false);
     }
 
     @Inject(method = "lerpTo", at = @At("HEAD"), cancellable = true)
@@ -208,12 +208,12 @@ public abstract class BoatMixin extends Entity implements Leashable {
     }
 
     @Override
-    public boolean supportQuadLeash() {
+    public boolean vb$supportQuadLeash() {
         return true;
     }
 
     @Override
-    public Vec3[] getQuadLeashOffsets() {
-        return Leashable.createQuadLeashOffsets(this, 0.0, 0.64, 0.382, 0.88);
+    public Vec3[] vb$getQuadLeashOffsets() {
+        return Leashable.vb$createQuadLeashOffsets(this, 0.0, 0.64, 0.382, 0.88);
     }
 }

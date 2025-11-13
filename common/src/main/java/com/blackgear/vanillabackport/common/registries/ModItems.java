@@ -6,9 +6,12 @@ import com.blackgear.vanillabackport.common.level.entities.animal.VariantKeys;
 import com.blackgear.vanillabackport.common.level.items.PaleOakBoatItem;
 import com.blackgear.vanillabackport.common.level.items.HarnessItem;
 import com.blackgear.vanillabackport.common.level.items.VariantEggItem;
+import com.blackgear.vanillabackport.common.level.items.WolfArmorItem;
 import com.blackgear.vanillabackport.core.VanillaBackport;
+import com.google.common.collect.ImmutableMap;
 import net.minecraft.world.item.*;
 
+import java.util.Map;
 import java.util.function.Supplier;
 
 public class ModItems {
@@ -17,8 +20,6 @@ public class ModItems {
     public static final Supplier<Item> RESIN_BRICK = ITEMS.register("resin_brick");
     public static final Supplier<Item> PALE_OAK_BOAT = ITEMS.register("pale_oak_boat", () -> new PaleOakBoatItem(false, new Item.Properties().stacksTo(1)));
     public static final Supplier<Item> PALE_OAK_CHEST_BOAT = ITEMS.register("pale_oak_chest_boat", () -> new PaleOakBoatItem(true, new Item.Properties().stacksTo(1)));
-    public static final Supplier<Item> CREAKING_SPAWN_EGG = ITEMS.spawnEgg("creaking_spawn_egg", ModEntities.CREAKING, 6250335, 16545810, new Item.Properties());
-    public static final Supplier<Item> HAPPY_GHAST_SPAWN_EGG = ITEMS.spawnEgg("happy_ghast_spawn_egg", ModEntities.HAPPY_GHAST, 16382457, 12369084, new Item.Properties());
 
     public static final Supplier<Item> WHITE_HARNESS = ITEMS.register(
         "white_harness",
@@ -178,4 +179,14 @@ public class ModItems {
         "brown_egg",
         properties -> new VariantEggItem(VariantKeys.WARM_CHICKEN, properties),
         new Item.Properties().stacksTo(16));
+
+    public static final Supplier<Item> ARMADILLO_SCUTE = ITEMS.register("armadillo_scute");
+    public static final Supplier<Item> WOLF_ARMOR = ITEMS.register(
+        "wolf_armor",
+        WolfArmorItem::new,
+        new Item.Properties().durability(64)
+    );
+    public static final Supplier<Item> ARMADILLO_SPAWN_EGG = ITEMS.spawnEgg("armadillo_spawn_egg", ModEntities.ARMADILLO, 13011076, 7421502, new Item.Properties());
+    public static final Supplier<Item> CREAKING_SPAWN_EGG = ITEMS.spawnEgg("creaking_spawn_egg", ModEntities.CREAKING, 6250335, 16545810, new Item.Properties());
+    public static final Supplier<Item> HAPPY_GHAST_SPAWN_EGG = ITEMS.spawnEgg("happy_ghast_spawn_egg", ModEntities.HAPPY_GHAST, 16382457, 12369084, new Item.Properties());
 }

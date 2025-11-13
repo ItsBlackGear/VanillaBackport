@@ -6,11 +6,9 @@ import com.blackgear.vanillabackport.common.registries.ModBiomes;
 import com.blackgear.vanillabackport.common.worldgen.placements.SpringToLifePlacements;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.blackgear.vanillabackport.core.data.tags.ModBiomeTags;
-import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.MobSpawnSettings;
-import net.minecraft.world.level.levelgen.GenerationStep;
 
 public class SpringToLifeFeatureManager extends FeatureManager {
     public SpringToLifeFeatureManager(BiomeContext context, BiomeWriter writer) {
@@ -81,17 +79,8 @@ public class SpringToLifeFeatureManager extends FeatureManager {
             this.getOrCreateBiomeBuilder(ModBiomeTags.SPAWNS_LEAF_LITTER_PATCHES)
                 .add(() -> this.addVegetation(SpringToLifePlacements.PATCH_LEAF_LITTER));
 
-            if (context.hasFeature(VegetationPlacements.DARK_FOREST_VEGETATION)) {
-                writer.replaceFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.DARK_FOREST_VEGETATION, SpringToLifePlacements.TREES_DARK_FOREST_LEAF_LITTER);
-            }
-
-            if (context.hasFeature(VegetationPlacements.TREES_BADLANDS)) {
-                writer.replaceFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.TREES_BADLANDS, SpringToLifePlacements.TREES_BADLANDS_LEAF_LITTER);
-            }
-
-            if (context.hasFeature(VegetationPlacements.TREES_BIRCH_AND_OAK)) {
-                writer.replaceFeature(GenerationStep.Decoration.VEGETAL_DECORATION, VegetationPlacements.TREES_BIRCH_AND_OAK, SpringToLifePlacements.TREES_BIRCH_AND_OAK_LEAF_LITTER);
-            }
+            this.getOrCreateBiomeBuilder(ModBiomeTags.SPAWNS_LEAF_LITTER)
+                .add(() -> this.addVegetation(SpringToLifePlacements.LEAF_LITTER));
         });
     }
 }

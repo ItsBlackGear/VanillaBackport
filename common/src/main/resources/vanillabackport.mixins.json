@@ -20,6 +20,7 @@
     "client.entities.renderer.CowRendererMixin",
     "client.entities.renderer.MobRendererMixin",
     "client.entities.renderer.PigRendererMixin",
+    "client.entities.renderer.WolfRendererMixin",
     "common.blocks.LeavesBlockMixin",
     "leashable.client.BoatRendererMixin",
     "leashable.client.EntityRendererMixin",
@@ -27,6 +28,8 @@
     "leashable.client.network.ClientPacketListenerMixin"
   ],
   "mixins": [
+    "access.AnimalMakeLoveAccessor",
+    "access.AnimationStateAccessor",
     "access.BiomeAccessor",
     "access.EntityAccessor",
     "access.LivingEntityAccessor",

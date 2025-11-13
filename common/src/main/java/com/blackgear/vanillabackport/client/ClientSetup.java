@@ -29,9 +29,17 @@ public class ClientSetup {
     }
 
     public static void asyncSetup(ParallelDispatch dispatch) {
-        dispatch.enqueueWork(() -> LocalPlayerEvents.ON_LOGIN.register(player -> BundledTabSelector.bootstrap()));
+        dispatch.enqueueWork(() -> {
+            LocalPlayerEvents.ON_LOGIN.register(player -> {
+                BundledTabSelector.bootstrap();
+            });
+
+            GameRendering.registerModelOverrides(Rendering::modelOverrides);
+        });
+
         GameRendering.registerBlockRenderers(Rendering::blockRendering);
         WoodTypeRegistry.registerWoodType(ModWoodTypes.PALE_OAK);
         CreativeTabIntegration.bootstrap();
+        ItemPropertyRegistrar.bootstrap();
     }
 }

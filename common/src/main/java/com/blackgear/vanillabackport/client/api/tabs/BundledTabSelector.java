@@ -49,6 +49,7 @@ public class BundledTabSelector {
 
     private List<BundledTabs> bundles = null;
     private CreativeModeTab lastTab;
+    private int itemCount;
 
     private BundledTabSelector() {
         HudRendering.POST_INITIALIZE.register(this::init);
@@ -59,14 +60,14 @@ public class BundledTabSelector {
     private void init(Minecraft minecraft, Screen screen, ScreenAccess access) {
         if (screen instanceof CreativeModeInventoryScreen creativeScreen) {
             if (this.bundles == null) {
-                List<BundledTabs> bundles = ModBundledTabs.getFilters();
+                List<BundledTabs> bundles = new ArrayList<>(ModBundledTabs.getFilters());
                 Collections.reverse(bundles);
                 this.bundles = bundles;
             }
-
             this.guiLeft = creativeScreen.leftPos;
             this.guiTop = creativeScreen.topPos;
             this.injectWidgets(creativeScreen, access::addRenderableWidget);
+            this.itemCount = ModCreativeTabs.VANILLA_BACKPORT.get().getDisplayItems().size();
         }
     }
 
@@ -76,6 +77,9 @@ public class BundledTabSelector {
 
             if (this.isValidTab(tab)) {
                 graphics.blit(SELECTOR_BAR, this.guiLeft - 30, this.guiTop + 2, 0, 0, 30, 120);
+                if (this.hasSelectedBundle() && creativeScreen.getMenu().items.size() == this.itemCount) {
+                    this.bundles.forEach(BundledTabs::deselect);
+                }
             }
 
             if (this.lastTab != tab) {
@@ -97,6 +101,10 @@ public class BundledTabSelector {
         }
     }
 
+    private boolean hasSelectedBundle() {
+        return this.bundles != null && this.bundles.stream().anyMatch(BundledTabs::isSelected);
+    }
+
     private void injectWidgets(CreativeModeInventoryScreen screen, Consumer<AbstractWidget> widgets) {
         this.bundles.forEach(category -> {
             Tab tab = new Tab(this.guiLeft - 23, this.guiTop + 7, category, button -> {
@@ -108,7 +116,6 @@ public class BundledTabSelector {
                 }
                 this.updateItems(screen);
             });
-
             tab.visible = false;
             widgets.accept(tab);
         });
@@ -134,32 +141,27 @@ public class BundledTabSelector {
     }
 
     private void updateItems(CreativeModeInventoryScreen screen) {
-        Set<ItemStack> seenItems = new HashSet<>();
-        LinkedHashSet<ItemStack> displayItems = new LinkedHashSet<>();
-
-        boolean hasSelected = this.bundles.stream().anyMatch(BundledTabs::isSelected);
+        Set<ItemStack> seen = new HashSet<>();
+        LinkedHashSet<ItemStack> display = new LinkedHashSet<>();
+        boolean hasSelection = this.hasSelectedBundle();
 
         ModCreativeTabs.VANILLA_BACKPORT.get().getDisplayItems().forEach(stack -> {
-            if (!hasSelected) {
-                if (!seenItems.contains(stack)) {
-                    displayItems.add(stack.copy());
-                    seenItems.add(stack);
-                }
+            if (!hasSelection) {
+                if (seen.add(stack)) display.add(stack.copy());
             } else {
                 this.bundles.stream()
                     .filter(BundledTabs::isSelected)
-                    .forEach(bundle -> {
-                        if (!seenItems.contains(stack) && bundle.contains(stack)) {
-                            displayItems.add(stack.copy());
-                            seenItems.add(stack);
-                        }
+                    .filter(bundle -> bundle.contains(stack))
+                    .findFirst()
+                    .ifPresent(bundle -> {
+                        if (seen.add(stack)) display.add(stack.copy());
                     });
             }
         });
 
         NonNullList<ItemStack> items = screen.getMenu().items;
         items.clear();
-        items.addAll(displayItems);
+        items.addAll(display);
         screen.getMenu().scrollTo(0);
     }
 
@@ -200,7 +202,7 @@ public class BundledTabSelector {
             super(x, y, 16, 16, Component.empty(), onPress, DEFAULT_NARRATION);
             this.bundle = bundle;
             bundle.setContentTab(this);
-            this.setTooltip(Tooltip.create(bundle.tooltip));
+            this.setTooltip(Tooltip.create(bundle.getTooltip()));
         }
 
         @Override

@@ -41,7 +41,7 @@ public class LeashRenderer<T extends Entity> {
             if (camera.isVisible(entityBox)) {
                 return true;
             } else if (entity instanceof Leashable leashable) {
-                Entity holder = leashable.getLeashHolder();
+                Entity holder = leashable.vb$getLeashHolder();
                 if (holder != null) {
                     AABB holderBox = holder.getBoundingBoxForCulling();
                     return camera.isVisible(holderBox) || camera.isVisible(entityBox.minmax(holderBox));
@@ -129,10 +129,10 @@ public class LeashRenderer<T extends Entity> {
             return;
         }
 
-        Entity leashHolder = leashable.getLeashHolder();
+        Entity leashHolder = leashable.vb$getLeashHolder();
 
         if (leashHolder != null) {
-            float entityRotation = Leashable.getPreciseBodyRotation(entity, partialTicks) * ((float) Math.PI / 180);
+            float entityRotation = Leashable.vb$getPreciseBodyRotation(entity, partialTicks) * ((float) Math.PI / 180);
             Vec3 leashOffset = entity.getLeashOffset(partialTicks);
 
             BlockPos entityPos = BlockPos.containing(entity.getEyePosition(partialTicks));
@@ -142,8 +142,8 @@ public class LeashRenderer<T extends Entity> {
             int entitySkyLight = entity.level().getBrightness(LightLayer.SKY, entityPos);
             int holderSkyLight = entity.level().getBrightness(LightLayer.SKY, holderPos);
 
-            boolean handleHolderQuadLeash = leashHolder instanceof Leashable ext && ext.supportQuadLeashAsHolder();
-            boolean handleQuadLeash = leashable.supportQuadLeash();
+            boolean handleHolderQuadLeash = leashHolder instanceof Leashable ext && ext.vb$supportQuadLeashAsHolder();
+            boolean handleQuadLeash = leashable.vb$supportQuadLeash();
             boolean useQuadLeash = handleHolderQuadLeash && handleQuadLeash;
             int leashCount = useQuadLeash ? 4 : 1;
 
@@ -155,10 +155,10 @@ public class LeashRenderer<T extends Entity> {
             }
 
             if (useQuadLeash) {
-                float holderRotation = Leashable.getPreciseBodyRotation(leashHolder, partialTicks) * ((float) Math.PI / 180);
+                float holderRotation = Leashable.vb$getPreciseBodyRotation(leashHolder, partialTicks) * ((float) Math.PI / 180);
                 Vec3 holderPosition = leashHolder.getPosition(partialTicks);
-                Vec3[] entityOffsets = leashable.getQuadLeashOffsets();
-                Vec3[] holderOffsets = ((Leashable) leashHolder).getQuadLeashHolderOffsets();
+                Vec3[] entityOffsets = leashable.vb$getQuadLeashOffsets();
+                Vec3[] holderOffsets = ((Leashable) leashHolder).vb$getQuadLeashHolderOffsets();
 
                 for (int i = 0; i < leashCount; i++) {
                     LeashState leashState = this.leashStates.get(i);

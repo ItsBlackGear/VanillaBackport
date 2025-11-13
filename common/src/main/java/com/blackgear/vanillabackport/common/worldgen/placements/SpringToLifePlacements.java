@@ -33,6 +33,7 @@ public class SpringToLifePlacements {
     public static final ResourceKey<PlacedFeature> PATCH_DRY_GRASS_BADLANDS = FEATURES.create("patch_dry_grass_badlands");
     public static final ResourceKey<PlacedFeature> PATCH_DRY_GRASS_DESERT = FEATURES.create("patch_dry_grass_desert");
     public static final ResourceKey<PlacedFeature> PATCH_LEAF_LITTER = FEATURES.create("patch_leaf_litter");
+    public static final ResourceKey<PlacedFeature> LEAF_LITTER = FEATURES.create("leaf_litter");
 
     // TREE PLACEMENTS
     public static final ResourceKey<PlacedFeature> FALLEN_OAK_TREE = FEATURES.create("fallen_oak_tree");
@@ -40,19 +41,6 @@ public class SpringToLifePlacements {
     public static final ResourceKey<PlacedFeature> FALLEN_SUPER_BIRCH_TREE = FEATURES.create("fallen_super_birch_tree");
     public static final ResourceKey<PlacedFeature> FALLEN_JUNGLE_TREE = FEATURES.create("fallen_jungle_tree");
     public static final ResourceKey<PlacedFeature> FALLEN_SPRUCE_TREE = FEATURES.create("fallen_spruce_tree");
-
-    public static final ResourceKey<PlacedFeature> OAK_BEES_0002_LEAF_LITTER = FEATURES.create("oak_bees_0002_leaf_litter");
-    public static final ResourceKey<PlacedFeature> BIRCH_BEES_0002_LEAF_LITTER = FEATURES.create("birch_bees_0002_leaf_litter");
-    public static final ResourceKey<PlacedFeature> FANCY_OAK_BEES_0002_LEAF_LITTER = FEATURES.create("fancy_oak_bees_0002_leaf_litter");
-
-    public static final ResourceKey<PlacedFeature> OAK_LEAF_LITTER = FEATURES.create("oak_leaf_litter");
-    public static final ResourceKey<PlacedFeature> DARK_OAK_LEAF_LITTER = FEATURES.create("dark_oak_leaf_litter");
-    public static final ResourceKey<PlacedFeature> BIRCH_LEAF_LITTER = FEATURES.create("birch_leaf_litter");
-    public static final ResourceKey<PlacedFeature> FANCY_OAK_LEAF_LITTER = FEATURES.create("fancy_oak_leaf_litter");
-
-    public static final ResourceKey<PlacedFeature> TREES_DARK_FOREST_LEAF_LITTER = FEATURES.create("trees_dark_forest_leaf_litter");
-    public static final ResourceKey<PlacedFeature> TREES_BADLANDS_LEAF_LITTER = FEATURES.create("trees_badlands_leaf_litter");
-    public static final ResourceKey<PlacedFeature> TREES_BIRCH_AND_OAK_LEAF_LITTER = FEATURES.create("trees_birch_and_oak_leaf_litter");
 
     public static final ResourceKey<PlacedFeature> PLACED_FALLEN_OAK_TREE = FEATURES.create("placed_fallen_oak_tree");
 
@@ -185,69 +173,9 @@ public class SpringToLifePlacements {
 
         FEATURES.register(
             context,
-            OAK_BEES_0002_LEAF_LITTER,
-            features.getOrThrow(SpringToLifeFeatures.OAK_BEES_0002_LEAF_LITTER),
-            PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING)
-        );
-        FEATURES.register(
-            context,
-            BIRCH_BEES_0002_LEAF_LITTER,
-            features.getOrThrow(SpringToLifeFeatures.BIRCH_BEES_0002_LEAF_LITTER),
-            PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING)
-        );
-        FEATURES.register(
-            context,
-            FANCY_OAK_BEES_0002_LEAF_LITTER,
-            features.getOrThrow(SpringToLifeFeatures.FANCY_OAK_BEES_0002_LEAF_LITTER),
-            PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING)
-        );
-
-        FEATURES.register(
-            context,
-            OAK_LEAF_LITTER,
-            features.getOrThrow(SpringToLifeFeatures.OAK_LEAF_LITTER),
-            PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING)
-        );
-        FEATURES.register(
-            context,
-            DARK_OAK_LEAF_LITTER,
-            features.getOrThrow(SpringToLifeFeatures.DARK_OAK_LEAF_LITTER),
-            PlacementUtils.filteredByBlockSurvival(Blocks.DARK_OAK_SAPLING)
-        );
-        FEATURES.register(
-            context,
-            BIRCH_LEAF_LITTER,
-            features.getOrThrow(SpringToLifeFeatures.BIRCH_LEAF_LITTER),
-            PlacementUtils.filteredByBlockSurvival(Blocks.BIRCH_SAPLING)
-        );
-        FEATURES.register(
-            context,
-            FANCY_OAK_LEAF_LITTER,
-            features.getOrThrow(SpringToLifeFeatures.FANCY_OAK_LEAF_LITTER),
-            PlacementUtils.filteredByBlockSurvival(Blocks.OAK_SAPLING)
-        );
-
-        FEATURES.register(
-            context,
-            TREES_DARK_FOREST_LEAF_LITTER,
-            features.getOrThrow(SpringToLifeFeatures.TREES_DARK_FOREST_LEAF_LITTER),
-            CountPlacement.of(16),
-            InSquarePlacement.spread(),
-            SurfaceWaterDepthFilter.forMaxDepth(0),
-            PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
-            BiomeFilter.biome()
-        );
-        FEATURES.register(
-            context,
-            TREES_BADLANDS_LEAF_LITTER,
-            features.getOrThrow(SpringToLifeFeatures.OAK_LEAF_LITTER),
-            VegetationPlacements.treePlacement(CountPlacement.of(3), Blocks.OAK_SAPLING)
-        );
-        FEATURES.register(
-            context,
-            TREES_BIRCH_AND_OAK_LEAF_LITTER,
-            features.getOrThrow(SpringToLifeFeatures.TREES_BIRCH_AND_OAK_LEAF_LITTER),
-            VegetationPlacements.treePlacement(PlacementUtils.countExtra(10, 0.1F, 1))
+            LEAF_LITTER,
+            features.getOrThrow(SpringToLifeFeatures.LEAF_LITTER),
+            VegetationPlacements.treePlacement(PlacementUtils.countExtra(16, 0.1F, 1))
         );
 
         FEATURES.register(

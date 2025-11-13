@@ -19,16 +19,16 @@ public class LeashIntegration implements MobInteraction {
     @Override
     public InteractionResult onInteract(Player player, Entity entity, InteractionHand hand) {
         ItemStack stack = player.getItemInHand(hand);
-        if (!entity.level().isClientSide() && player.isSecondaryUseActive() && entity instanceof Leashable leashable && leashable.canBeLeashed(player) && entity.isAlive()) {
+        if (!entity.level().isClientSide() && player.isSecondaryUseActive() && entity instanceof Leashable leashable && leashable.vb$canBeLeashed(player) && entity.isAlive()) {
             if (!(entity instanceof LivingEntity living && living.isBaby())) {
-                List<Leashable> nearbyMobs = Leashable.leashableInArea(entity, l -> l.getLeashHolder() == player);
+                List<Leashable> nearbyMobs = Leashable.vb$leashableInArea(entity, l -> l.vb$getLeashHolder() == player);
 
                 if (!nearbyMobs.isEmpty()) {
                     boolean attachedAny = false;
 
                     for (Leashable target : nearbyMobs) {
-                        if (target.canHaveALeashAttachedTo(entity)) {
-                            target.setLeashedTo(entity, true);
+                        if (target.vb$canHaveALeashAttachedTo(entity)) {
+                            target.vb$setLeashedTo(entity, true);
                             attachedAny = true;
                         }
                     }
@@ -50,9 +50,9 @@ public class LeashIntegration implements MobInteraction {
 
         if (entity.isAlive() && entity instanceof Leashable leashable) {
             // Drop leash
-            if (leashable.getLeashHolder() == player) {
+            if (leashable.vb$getLeashHolder() == player) {
                 if (!entity.level().isClientSide()) {
-                    leashable.dropLeash(true, !player.isCreative());
+                    leashable.vb$dropLeash(true, !player.isCreative());
                     entity.level().gameEvent(GameEvent.ENTITY_INTERACT, entity.position(), GameEvent.Context.of(player));
                     entity.playSound(SoundEvents.LEASH_KNOT_BREAK);
                 }
@@ -61,13 +61,13 @@ public class LeashIntegration implements MobInteraction {
             }
 
             // Attach a new leash
-            if (stack.is(Items.LEAD) && !(leashable.getLeashHolder() instanceof Player)) {
-                if (!entity.level().isClientSide() && leashable.canHaveALeashAttachedTo(player)) {
-                    if (leashable.isLeashed()) {
-                        leashable.dropLeash(true, true);
+            if (stack.is(Items.LEAD) && !(leashable.vb$getLeashHolder() instanceof Player)) {
+                if (!entity.level().isClientSide() && leashable.vb$canHaveALeashAttachedTo(player)) {
+                    if (leashable.vb$isLeashed()) {
+                        leashable.vb$dropLeash(true, true);
                     }
 
-                    leashable.setLeashedTo(player, true);
+                    leashable.vb$setLeashedTo(player, true);
                     entity.playSound(SoundEvents.LEASH_KNOT_PLACE);
 
                     if (!player.isCreative()) stack.shrink(1);
@@ -90,16 +90,16 @@ public class LeashIntegration implements MobInteraction {
     }
 
     public static boolean dropAllLeashConnections(Entity entity, @Nullable Player player) {
-        List<Leashable> leashed = Leashable.leashableLeashedTo(entity);
+        List<Leashable> leashed = Leashable.vb$leashableLeashedTo(entity);
         boolean dropConnections = !leashed.isEmpty();
 
-        if (entity instanceof Leashable leashable && leashable.isLeashed()) {
-            leashable.dropLeash(true, true);
+        if (entity instanceof Leashable leashable && leashable.vb$isLeashed()) {
+            leashable.vb$dropLeash(true, true);
             dropConnections = true;
         }
 
         for (Leashable leashable : leashed) {
-            leashable.dropLeash(true, true);
+            leashable.vb$dropLeash(true, true);
         }
 
         if (dropConnections) {

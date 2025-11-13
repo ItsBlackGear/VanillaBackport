@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.common.level.crafting;
 
-import com.blackgear.vanillabackport.common.api.bundle.BundleContents;
+import com.blackgear.vanillabackport.common.api.bundle.BundleFeatures;
 import com.blackgear.vanillabackport.common.registries.ModRecipeSerializers;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
@@ -60,7 +60,7 @@ public class BundleColoring extends CustomRecipe {
             }
         }
 
-        ItemStack result = BundleContents.getByColor(dye.getDyeColor()).getDefaultInstance();
+        ItemStack result = BundleFeatures.getByColor(dye.getDyeColor()).getDefaultInstance();
         if (
             bundle.hasTag()) {
             result.setTag(bundle.getTag().copy());

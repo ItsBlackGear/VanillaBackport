@@ -129,6 +129,14 @@ public class RecipeGenerator extends FabricRecipeProvider {
             .unlockedBy("has_egg", has(ModItemTags.EGGS))
             .save(exporter);
 
+        shaped(RecipeCategory.COMBAT, ModItems.WOLF_ARMOR.get())
+            .define('X', ModItems.ARMADILLO_SCUTE.get())
+            .pattern("X  ")
+            .pattern("XXX")
+            .pattern("X X")
+            .unlockedBy("has_armadillo_scute", has(ModItems.ARMADILLO_SCUTE.get()))
+            .save(exporter);
+
         SpecialRecipeBuilder.special(ModRecipeSerializers.BUNDLE_COLORING.get()).save(exporter, "bundle_coloring");
     }
 

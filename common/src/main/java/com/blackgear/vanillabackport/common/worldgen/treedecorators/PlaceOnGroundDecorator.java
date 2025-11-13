@@ -94,12 +94,12 @@ public class PlaceOnGroundDecorator extends TreeDecorator {
         }
     }
 
-    private void attemptToPlaceBlockAbove(TreeDecorator.Context context, BlockPos blockPos) {
-        BlockPos blockPos2 = blockPos.above();
-        if (context.level().isStateAtPosition(blockPos2, blockState -> blockState.isAir() || blockState.is(Blocks.VINE))
-            && context.level().isStateAtPosition(blockPos, state -> state.isSolidRender((BlockGetter) context.level(), blockPos))
-            && context.level().getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, blockPos).getY() <= blockPos2.getY()) {
-            context.setBlock(blockPos2, this.blockStateProvider.getState(context.random(), blockPos2));
+    private void attemptToPlaceBlockAbove(TreeDecorator.Context context, BlockPos pos) {
+        BlockPos above = pos.above();
+        if (context.level().isStateAtPosition(above, state -> state.isAir() || state.is(Blocks.VINE))
+            && context.level().isStateAtPosition(pos, state -> state.isSolidRender((BlockGetter) context.level(), pos))
+            && context.level().getHeightmapPos(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, pos).getY() <= above.getY()) {
+            context.setBlock(above, this.blockStateProvider.getState(context.random(), above));
         }
     }
 }

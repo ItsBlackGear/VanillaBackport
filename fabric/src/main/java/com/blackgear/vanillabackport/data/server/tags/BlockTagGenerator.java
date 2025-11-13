@@ -121,6 +121,18 @@ public class BlockTagGenerator extends FabricTagProvider.BlockTagProvider {
 
         this.getOrCreateTagBuilder(ModBlockTags.SPAWN_FALLING_NEEDLES)
             .add(Blocks.SPRUCE_LEAVES);
+
+        this.getOrCreateTagBuilder(ModBlockTags.ALLOWS_LEAF_LITTER)
+            .add(
+                Blocks.OAK_LEAVES,
+                Blocks.BIRCH_LEAVES,
+                Blocks.DARK_OAK_LEAVES
+            );
+
+        this.getOrCreateTagBuilder(ModBlockTags.ARMADILLO_SPAWNABLE_ON)
+            .forceAddTag(BlockTags.ANIMALS_SPAWNABLE_ON)
+            .forceAddTag(BlockTags.TERRACOTTA)
+            .add(Blocks.RED_SAND, Blocks.COARSE_DIRT);
     }
 
     protected DualTagHolder getDualTagBuilder(TagKey<Block> forge, TagKey<Block> fabric) {

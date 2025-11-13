@@ -18,12 +18,12 @@ public abstract class LeashBehaviorMixin extends Mob implements Leashable {
     }
 
     @Override
-    public double angularMomentum() {
+    public double vb$angularMomentum() {
         return this.angularMomentum;
     }
 
     @Override
-    public void setAngularMomentum(double angularMomentum) {
+    public void vb$setAngularMomentum(double angularMomentum) {
         this.angularMomentum = angularMomentum;
     }
 
@@ -31,6 +31,6 @@ public abstract class LeashBehaviorMixin extends Mob implements Leashable {
     private void vb$onTickLeash(CallbackInfo ci) {
         ci.cancel();
         super.tickLeash();
-        Leashable.onTickLeash(this);
+        Leashable.vb$onTickLeash(this);
     }
 }

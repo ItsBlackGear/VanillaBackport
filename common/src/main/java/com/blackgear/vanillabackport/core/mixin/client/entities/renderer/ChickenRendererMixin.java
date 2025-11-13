@@ -1,6 +1,7 @@
 package com.blackgear.vanillabackport.core.mixin.client.entities.renderer;
 
 import com.blackgear.vanillabackport.client.level.entities.variant.ChickenVariantRenderer;
+import com.blackgear.vanillabackport.core.ModChecker;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.ChickenModel;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -44,7 +45,7 @@ public abstract class ChickenRendererMixin extends MobRendererMixin<Chicken, Chi
 
     @Override
     public void render(Chicken entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource buffer, int packedLight) {
-        this.model = this.renderer().getModel(entity).orElseGet(() -> this.defaultModel);
+        if (!ModChecker.MIXED_LITTER_LOADED) this.model = this.renderer().getModel(entity).orElseGet(() -> this.defaultModel);
         super.render(entity, entityYaw, partialTicks, poseStack, buffer, packedLight);
     }
 }

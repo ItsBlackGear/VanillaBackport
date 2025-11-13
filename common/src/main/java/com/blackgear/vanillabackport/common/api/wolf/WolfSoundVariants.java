@@ -1,6 +1,7 @@
 package com.blackgear.vanillabackport.common.api.wolf;
 
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
+import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.blackgear.vanillabackport.core.registries.ModBuiltinRegistries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.sounds.SoundEvent;
@@ -15,33 +16,31 @@ public class WolfSoundVariants {
     public static final ResourceKey<WolfSoundVariant> BIG = register(SoundSet.BIG, ModSoundEvents.WOLF_BIG_AMBIENT.get(), ModSoundEvents.WOLF_BIG_DEATH.get(), ModSoundEvents.WOLF_BIG_GROWL.get(), ModSoundEvents.WOLF_BIG_HURT.get(), ModSoundEvents.WOLF_BIG_PANT.get(), ModSoundEvents.WOLF_BIG_WHINE.get());
     public static final ResourceKey<WolfSoundVariant> CUTE = register(SoundSet.CUTE, ModSoundEvents.WOLF_CUTE_AMBIENT.get(), ModSoundEvents.WOLF_CUTE_DEATH.get(), ModSoundEvents.WOLF_CUTE_GROWL.get(), ModSoundEvents.WOLF_CUTE_HURT.get(), ModSoundEvents.WOLF_CUTE_PANT.get(), ModSoundEvents.WOLF_CUTE_WHINE.get());
 
+    public static void bootstrap() {
+        VanillaBackport.LOGGER.info("Wolf sound variants registered: {}", ModBuiltinRegistries.WOLF_SOUND_VARIANTS.entries().size());
+    }
+
     private static ResourceKey<WolfSoundVariant> register(SoundSet soundSet, SoundEvent ambient, SoundEvent death, SoundEvent growl, SoundEvent hurt, SoundEvent pant, SoundEvent whine) {
         return ModBuiltinRegistries.WOLF_SOUND_VARIANTS.resource(soundSet.getIdentifier(), new WolfSoundVariant(ambient, death, growl, hurt, pant, whine));
     }
 
     public enum SoundSet {
-        CLASSIC("classic", ""),
-        PUGLIN("puglin", "_puglin"),
-        SAD("sad", "_sad"),
-        ANGRY("angry", "_angry"),
-        GRUMPY("grumpy", "_grumpy"),
-        BIG("big", "_big"),
-        CUTE("cute", "_cute");
+        CLASSIC("classic"),
+        PUGLIN("puglin"),
+        SAD("sad"),
+        ANGRY("angry"),
+        GRUMPY("grumpy"),
+        BIG("big"),
+        CUTE("cute");
 
         private final String identifier;
-        private final String soundEventSuffix;
 
-        SoundSet(String identifier, String soundEventSuffix) {
+        SoundSet(String identifier) {
             this.identifier = identifier;
-            this.soundEventSuffix = soundEventSuffix;
         }
 
         public String getIdentifier() {
             return this.identifier;
-        }
-
-        public String getSoundEventSuffix() {
-            return this.soundEventSuffix;
         }
     }
 }

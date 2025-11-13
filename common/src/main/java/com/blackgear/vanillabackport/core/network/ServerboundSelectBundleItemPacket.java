@@ -3,7 +3,7 @@ package com.blackgear.vanillabackport.core.network;
 import com.blackgear.platform.core.network.base.Packet;
 import com.blackgear.platform.core.network.base.PacketContext;
 import com.blackgear.platform.core.network.base.PacketHandler;
-import com.blackgear.vanillabackport.common.api.bundle.BundleContents;
+import com.blackgear.vanillabackport.common.api.bundle.BundleFeatures;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.FriendlyByteBuf;
@@ -53,7 +53,7 @@ public record ServerboundSelectBundleItemPacket(int slotId, int selectedItemInde
 
                 if (slotId >= 0 && slotId < slots.size()) {
                     ItemStack stack = slots.get(slotId).getItem();
-                    BundleContents.toggleSelectedItem(stack, selectedItemIndex);
+                    BundleFeatures.toggleSelectedItem(stack, selectedItemIndex);
                 }
             };
         }

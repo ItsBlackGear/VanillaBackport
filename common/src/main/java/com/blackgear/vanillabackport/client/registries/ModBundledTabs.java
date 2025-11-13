@@ -16,6 +16,18 @@ import java.util.List;
 public class ModBundledTabs {
     private static final List<BundledTabs> FILTERS = new ArrayList<>();
 
+    public static final BundledTabs ARMORED_PAWS = register(
+        BundledTabs.builder()
+            .title(Component.translatable("bundled_tab.armored_paws.title"))
+            .icon(new ItemStack(ModItems.WOLF_ARMOR.get()))
+            .displayItems((provider, output) -> {
+                output.accept(ModItems.ARMADILLO_SPAWN_EGG.get());
+                output.accept(ModItems.WOLF_ARMOR.get());
+                output.accept(ModItems.ARMADILLO_SCUTE.get());
+            })
+            .build()
+    );
+
     public static final BundledTabs BUNDLES_OF_BRAVERY = register(
         BundledTabs.builder()
             .title(Component.translatable("bundled_tab.bundles_of_bravery.title"))

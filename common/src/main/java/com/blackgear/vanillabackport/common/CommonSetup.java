@@ -8,35 +8,43 @@ import com.blackgear.platform.common.worldgen.modifier.BiomeManager;
 import com.blackgear.platform.common.worldgen.placement.BiomePlacement;
 import com.blackgear.platform.core.ParallelDispatch;
 import com.blackgear.platform.core.events.ResourceReloadManager;
+import com.blackgear.platform.core.events.ServerLifecycleEvents;
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
 import com.blackgear.vanillabackport.common.api.leash.LeashIntegration;
-import com.blackgear.vanillabackport.common.api.wolf.WolfSoundVariantReloadListener;
+import com.blackgear.vanillabackport.common.resource.*;
+import com.blackgear.vanillabackport.common.api.wolf.WolfSoundVariants;
 import com.blackgear.vanillabackport.common.level.dispenser.PaleOakBoatDispenseBehavior;
+import com.blackgear.vanillabackport.common.level.entities.animal.ChickenVariants;
+import com.blackgear.vanillabackport.common.level.entities.animal.CowVariants;
+import com.blackgear.vanillabackport.common.level.entities.animal.PigVariants;
+import com.blackgear.vanillabackport.common.level.entities.armadillo.Armadillo;
+import com.blackgear.vanillabackport.common.level.entities.wolf.WolfVariants;
 import com.blackgear.vanillabackport.common.level.entities.creaking.Creaking;
 import com.blackgear.vanillabackport.common.level.entities.happyghast.HappyGhast;
 import com.blackgear.vanillabackport.common.registries.ModBlocks;
 import com.blackgear.vanillabackport.common.registries.ModEntities;
 import com.blackgear.vanillabackport.common.registries.ModItems;
-import com.blackgear.vanillabackport.common.resource.ChickenVariantReloadListener;
-import com.blackgear.vanillabackport.common.resource.CowVariantReloadListener;
-import com.blackgear.vanillabackport.common.resource.PigVariantReloadListener;
 import com.blackgear.vanillabackport.common.worldgen.BiomeGeneration;
 import com.blackgear.vanillabackport.common.worldgen.WorldGeneration;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
-import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.animal.Parrot;
+import net.minecraft.world.entity.monster.Spider;
 import net.minecraft.world.entity.npc.VillagerTrades.ItemsForEmeralds;
 
 public class CommonSetup {
     public static void setup() {
         ResourceReloadManager.registerServer(event -> {
             event.register(VanillaBackport.resource("wolf_sound_variants"), WolfSoundVariantReloadListener.INSTANCE);
+            event.register(VanillaBackport.resource("wolf_variants"), new WolfVariantReloadListener());
             event.register(VanillaBackport.resource("cow_variants"), new CowVariantReloadListener());
             event.register(VanillaBackport.resource("chicken_variants"), new ChickenVariantReloadListener());
             event.register(VanillaBackport.resource("pig_variants"), new PigVariantReloadListener());
         });
+
         MobIntegration.registerIntegrations(CommonSetup::mobIntegrations);
     }
 
@@ -50,6 +58,14 @@ public class CommonSetup {
         });
 
         LootModifier.modify(new LootIntegrations());
+
+        ServerLifecycleEvents.STARTING.register(server -> {
+            WolfSoundVariants.bootstrap();
+            WolfVariants.bootstrap(server.registryAccess());
+            PigVariants.bootstrap(server.registryAccess());
+            CowVariants.bootstrap(server.registryAccess());
+            ChickenVariants.bootstrap(server.registryAccess());
+        });
     }
 
     public static void blockIntegrations(BlockIntegration.Event event) {
@@ -129,6 +145,7 @@ public class CommonSetup {
     public static void mobIntegrations(MobIntegration.Event event) {
         event.registerMobInteraction(new LeashIntegration());
 
+        event.registerAttributes(ModEntities.ARMADILLO, Armadillo::createAttributes);
         event.registerAttributes(ModEntities.CREAKING, Creaking::createAttributes);
         event.registerAttributes(ModEntities.HAPPY_GHAST, HappyGhast::createAttributes);
 
@@ -136,5 +153,7 @@ public class CommonSetup {
         event.registerGoal(EntityType.PILLAGER, 1, mob -> new AvoidEntityGoal<>((PathfinderMob) mob, Creaking.class, 8.0F, 0.6, 1.2));
         event.registerGoal(EntityType.ILLUSIONER, 3, mob -> new AvoidEntityGoal<>((PathfinderMob) mob, Creaking.class, 8.0F, 0.6, 1.2));
         event.registerGoal(EntityType.EVOKER, 3, mob -> new AvoidEntityGoal<>((PathfinderMob) mob, Creaking.class, 8.0F, 0.6, 1.2));
+
+        event.registerGoal(mob -> mob instanceof Spider, 2, mob -> new AvoidEntityGoal<>((PathfinderMob) mob, Armadillo.class, 6.0F, 1.0, 1.2, entity -> !((Armadillo) entity).isScared()));
     }
 }

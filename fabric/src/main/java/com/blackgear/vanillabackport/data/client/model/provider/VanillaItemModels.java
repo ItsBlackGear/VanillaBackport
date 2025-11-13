@@ -24,6 +24,10 @@ public class VanillaItemModels extends ItemModelGenerators {
         ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(item), TextureMapping.layer0(TextureMapping.getItemTexture(item, suffix)), this.output);
     }
 
+    public void generateItemWithOverlay(Item item) {
+        this.generateLayeredItem(ModelLocationUtils.getModelLocation(item), TextureMapping.getItemTexture(item), TextureMapping.getItemTexture(item, "_overlay"));
+    }
+
     public void createMusicDisc(Item item) {
         this.generateFlatItem(item, ModelTemplates.MUSIC_DISC);
     }
