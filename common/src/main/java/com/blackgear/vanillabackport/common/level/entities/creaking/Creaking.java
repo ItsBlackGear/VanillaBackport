@@ -19,6 +19,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.DamageTypeTags;
+import net.minecraft.util.profiling.ProfilerFiller;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.Brain;
@@ -62,14 +63,14 @@ public class Creaking extends Monster {
     public static final byte CREAKING_HURT = 66;
 
     private int attackAnimationRemainingTicks;
+    public final AnimationState attackAnimationState = new AnimationState();
+    public final AnimationState invulnerabilityAnimationState = new AnimationState();
+    public final AnimationState deathAnimationState = new AnimationState();
     private int invulnerabilityAnimationRemainingTicks;
     private boolean eyesGlowing;
     private int nextFlickerTime;
     private int playerStuckCounter;
     private int creakingDeathTime;
-    public final AnimationState attackAnimationState = new AnimationState();
-    public final AnimationState invulnerabilityAnimationState = new AnimationState();
-    public final AnimationState deathAnimationState = new AnimationState();
 
     public Creaking(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
@@ -86,8 +87,8 @@ public class Creaking extends Monster {
         this.setPathfindingMalus(PathType.DAMAGE_OTHER, 8.0F);
         this.setPathfindingMalus(PathType.POWDER_SNOW, 8.0F);
         this.setPathfindingMalus(PathType.LAVA, 8.0F);
-        this.setPathfindingMalus(PathType.DAMAGE_FIRE, 8.0F);
-        this.setPathfindingMalus(PathType.DANGER_FIRE, 8.0F);
+        this.setPathfindingMalus(PathType.DAMAGE_FIRE, 0.0F);
+        this.setPathfindingMalus(PathType.DANGER_FIRE, 0.0F);
     }
 
     public boolean isHeartBound() {
@@ -212,9 +213,10 @@ public class Creaking extends Monster {
 
     @Override
     protected void customServerAiStep() {
-        this.level().getProfiler().push("creakingBrain");
+        ProfilerFiller profiler = this.level().getProfiler();
+        profiler.push("creakingBrain");
         this.getBrain().tick((ServerLevel) this.level(), this);
-        this.level().getProfiler().pop();
+        profiler.pop();
         CreakingAi.updateActivity(this);
     }
 
@@ -306,25 +308,17 @@ public class Creaking extends Monster {
             ModParticles.sendParticles(
                 server,
                 new BlockParticleOption(ParticleTypes.BLOCK, ModBlocks.PALE_OAK_WOOD.get().defaultBlockState()),
-                center.x,
-                center.y,
-                center.z,
+                center.x, center.y, center.z,
                 100,
-                x,
-                y,
-                z,
+                x, y, z,
                 0.0
             );
             ModParticles.sendParticles(
                 server,
                 new BlockParticleOption(ParticleTypes.BLOCK, ModBlocks.CREAKING_HEART.get().defaultBlockState().setValue(CreakingHeartBlock.STATE, CreakingHeartState.AWAKE)),
-                center.x,
-                center.y,
-                center.z,
+                center.x, center.y, center.z,
                 10,
-                x,
-                y,
-                z,
+                x, y, z,
                 0.0
             );
         }
@@ -445,7 +439,7 @@ public class Creaking extends Monster {
     }
 
     public void playAttackSound() {
-        this.playSound(ModSoundEvents.CREAKING_ATTACK.get());
+        this.level().playLocalSound(this.getX(), this.getY(), this.getZ(), ModSoundEvents.CREAKING_ATTACK.get(), this.getSoundSource(), 1.0F, 1.0F, false);
     }
 
     @Override
@@ -512,8 +506,8 @@ public class Creaking extends Monster {
             if (!canMove && isActive) {
                 this.deactivate();
             }
-
         }
+
         return true;
     }
 
@@ -660,9 +654,10 @@ public class Creaking extends Monster {
                 return super.getPathType(context, x, y, z);
             } else {
                 double distance = pos.distSqr(new Vec3i(x, y, z));
-                return distance > 1024.0 && distance >= pos.distSqr(context.mobPosition())
-                    ? PathType.BLOCKED
-                    : super.getPathType(context, x, y, z);
+                return distance > 1024.0
+                    && distance >= pos.distSqr(context.mobPosition())
+                        ? PathType.BLOCKED
+                        : super.getPathType(context, x, y, z);
             }
         }
     }

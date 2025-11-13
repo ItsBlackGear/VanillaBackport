@@ -1,12 +1,16 @@
 package com.blackgear.vanillabackport.common.registries;
 
 import com.blackgear.platform.core.helper.ItemRegistry;
+import com.blackgear.vanillabackport.common.level.entities.animal.VariantKeys;
 import com.blackgear.vanillabackport.common.level.items.HarnessItem;
 import com.blackgear.vanillabackport.common.level.items.PaleOakBoatItem;
+import com.blackgear.vanillabackport.common.level.items.VariantEggItem;
 import com.blackgear.vanillabackport.core.VanillaBackport;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.world.item.BundleItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.JukeboxSongs;
 import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.component.BundleContents;
 
 import java.util.function.Supplier;
 
@@ -114,4 +118,62 @@ public class ModItems {
             .rarity(Rarity.RARE)
             .jukeboxPlayable(ModJukeboxSongs.LAVA_CHICKEN)
     );
+
+    public static final Supplier<Item> WHITE_BUNDLE = ITEMS.register(
+        "white_bundle",
+        BundleItem::new, new Item.Properties().stacksTo(1).component(DataComponents.BUNDLE_CONTENTS, BundleContents.EMPTY));
+    public static final Supplier<Item> ORANGE_BUNDLE = ITEMS.register(
+        "orange_bundle",
+        BundleItem::new, new Item.Properties().stacksTo(1).component(DataComponents.BUNDLE_CONTENTS, BundleContents.EMPTY));
+    public static final Supplier<Item> MAGENTA_BUNDLE = ITEMS.register(
+        "magenta_bundle",
+        BundleItem::new, new Item.Properties().stacksTo(1).component(DataComponents.BUNDLE_CONTENTS, BundleContents.EMPTY));
+    public static final Supplier<Item> LIGHT_BLUE_BUNDLE = ITEMS.register(
+        "light_blue_bundle",
+        BundleItem::new, new Item.Properties().stacksTo(1).component(DataComponents.BUNDLE_CONTENTS, BundleContents.EMPTY));
+    public static final Supplier<Item> YELLOW_BUNDLE = ITEMS.register(
+        "yellow_bundle",
+        BundleItem::new, new Item.Properties().stacksTo(1).component(DataComponents.BUNDLE_CONTENTS, BundleContents.EMPTY));
+    public static final Supplier<Item> LIME_BUNDLE = ITEMS.register(
+        "lime_bundle",
+        BundleItem::new, new Item.Properties().stacksTo(1).component(DataComponents.BUNDLE_CONTENTS, BundleContents.EMPTY));
+    public static final Supplier<Item> PINK_BUNDLE = ITEMS.register(
+        "pink_bundle",
+        BundleItem::new, new Item.Properties().stacksTo(1).component(DataComponents.BUNDLE_CONTENTS, BundleContents.EMPTY));
+    public static final Supplier<Item> GRAY_BUNDLE = ITEMS.register(
+        "gray_bundle",
+        BundleItem::new, new Item.Properties().stacksTo(1).component(DataComponents.BUNDLE_CONTENTS, BundleContents.EMPTY));
+    public static final Supplier<Item> LIGHT_GRAY_BUNDLE = ITEMS.register(
+        "light_gray_bundle",
+        BundleItem::new, new Item.Properties().stacksTo(1).component(DataComponents.BUNDLE_CONTENTS, BundleContents.EMPTY));
+    public static final Supplier<Item> CYAN_BUNDLE = ITEMS.register(
+        "cyan_bundle",
+        BundleItem::new, new Item.Properties().stacksTo(1).component(DataComponents.BUNDLE_CONTENTS, BundleContents.EMPTY));
+    public static final Supplier<Item> PURPLE_BUNDLE = ITEMS.register(
+        "purple_bundle",
+        BundleItem::new, new Item.Properties().stacksTo(1).component(DataComponents.BUNDLE_CONTENTS, BundleContents.EMPTY));
+    public static final Supplier<Item> BLUE_BUNDLE = ITEMS.register(
+        "blue_bundle",
+        BundleItem::new, new Item.Properties().stacksTo(1).component(DataComponents.BUNDLE_CONTENTS, BundleContents.EMPTY));
+    public static final Supplier<Item> BROWN_BUNDLE = ITEMS.register(
+        "brown_bundle",
+        BundleItem::new, new Item.Properties().stacksTo(1).component(DataComponents.BUNDLE_CONTENTS, BundleContents.EMPTY));
+    public static final Supplier<Item> GREEN_BUNDLE = ITEMS.register(
+        "green_bundle",
+        BundleItem::new, new Item.Properties().stacksTo(1).component(DataComponents.BUNDLE_CONTENTS, BundleContents.EMPTY));
+    public static final Supplier<Item> RED_BUNDLE = ITEMS.register(
+        "red_bundle",
+        BundleItem::new, new Item.Properties().stacksTo(1).component(DataComponents.BUNDLE_CONTENTS, BundleContents.EMPTY));
+    public static final Supplier<Item> BLACK_BUNDLE = ITEMS.register(
+        "black_bundle",
+        BundleItem::new, new Item.Properties().stacksTo(1).component(DataComponents.BUNDLE_CONTENTS, BundleContents.EMPTY));
+
+    public static final Supplier<Item> BLUE_EGG = ITEMS.register(
+        "blue_egg",
+        properties -> new VariantEggItem(VariantKeys.COLD_CHICKEN, properties),
+        new Item.Properties().stacksTo(16));
+    public static final Supplier<Item> BROWN_EGG = ITEMS.register(
+        "brown_egg",
+        properties -> new VariantEggItem(VariantKeys.WARM_CHICKEN, properties),
+        new Item.Properties().stacksTo(16));
 }

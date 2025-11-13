@@ -1,0 +1,6 @@
+{
+  "parent": "item/lime_bundle",
+  "textures": {
+    "layer0": "item/lime_bundle"
+  }
+}

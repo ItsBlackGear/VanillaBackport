@@ -20,7 +20,6 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.Leashable;
 import net.minecraft.world.entity.vehicle.Boat;
 import org.joml.Quaternionf;
 

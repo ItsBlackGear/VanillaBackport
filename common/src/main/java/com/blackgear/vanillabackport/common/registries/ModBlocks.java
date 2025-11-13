@@ -334,6 +334,87 @@ public class ModBlocks {
             .randomTicks()
     );
 
+    public static final Supplier<Block> BUSH = BLOCKS.register(
+        "bush",
+        ActualBushBlock::new,
+        BlockBehaviour.Properties.of()
+            .mapColor(MapColor.PLANT)
+            .replaceable()
+            .noCollission()
+            .instabreak()
+            .sound(SoundType.GRASS)
+            .ignitedByLava()
+            .pushReaction(PushReaction.DESTROY)
+    );
+    public static final Supplier<Block> FIREFLY_BUSH = BLOCKS.register(
+        "firefly_bush",
+        FireflyBushBlock::new,
+        BlockBehaviour.Properties.of()
+            .mapColor(MapColor.PLANT)
+            .ignitedByLava()
+            .lightLevel(state -> 2)
+            .noCollission()
+            .instabreak()
+            .sound(SoundType.SWEET_BERRY_BUSH)
+            .pushReaction(PushReaction.DESTROY)
+    );
+    public static final Supplier<Block> WILDFLOWERS = BLOCKS.register(
+        "wildflowers",
+        PinkPetalsBlock::new,
+        BlockBehaviour.Properties.of()
+            .mapColor(MapColor.PLANT)
+            .noCollission()
+            .sound(SoundType.PINK_PETALS)
+            .pushReaction(PushReaction.DESTROY)
+    );
+    public static final Supplier<Block> LEAF_LITTER = BLOCKS.register(
+        "leaf_litter",
+        LeafLitterBlock::new,
+        BlockBehaviour.Properties.of()
+            .mapColor(MapColor.COLOR_BROWN)
+            .replaceable()
+            .noCollission()
+            .sound(ModSoundTypes.LEAF_LITTER)
+            .pushReaction(PushReaction.DESTROY)
+    );
+    public static final Supplier<Block> CACTUS_FLOWER = BLOCKS.register(
+        "cactus_flower",
+        CactusFlowerBlock::new,
+        BlockBehaviour.Properties.of()
+            .mapColor(MapColor.COLOR_PINK)
+            .noCollission()
+            .instabreak()
+            .ignitedByLava()
+            .sound(ModSoundTypes.CACTUS_FLOWER)
+            .pushReaction(PushReaction.DESTROY)
+    );
+    public static final Supplier<Block> SHORT_DRY_GRASS = BLOCKS.register(
+        "short_dry_grass",
+        ShortDryGrassBlock::new,
+        BlockBehaviour.Properties.of()
+            .mapColor(MapColor.COLOR_YELLOW)
+            .replaceable()
+            .noCollission()
+            .instabreak()
+            .sound(SoundType.GRASS)
+            .ignitedByLava()
+            .offsetType(BlockBehaviour.OffsetType.XYZ)
+            .pushReaction(PushReaction.DESTROY)
+    );
+    public static final Supplier<Block> TALL_DRY_GRASS = BLOCKS.register(
+        "tall_dry_grass",
+        TallDryGrassBlock::new,
+        BlockBehaviour.Properties.of()
+            .mapColor(MapColor.COLOR_YELLOW)
+            .replaceable()
+            .noCollission()
+            .instabreak()
+            .sound(SoundType.GRASS)
+            .ignitedByLava()
+            .offsetType(BlockBehaviour.OffsetType.XYZ)
+            .pushReaction(PushReaction.DESTROY)
+    );
+
     private static BlockBehaviour.Properties logProperties(MapColor topColor, MapColor sideColor, SoundType sound) {
         return BlockBehaviour.Properties.of()
             .mapColor(state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? topColor : sideColor)

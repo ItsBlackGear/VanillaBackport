@@ -22,13 +22,13 @@ public class LeashIntegration implements MobInteraction {
         ItemStack stack = player.getItemInHand(hand);
         if (!entity.level().isClientSide() && player.isSecondaryUseActive() && entity instanceof Leashable leashable && leashable.canBeLeashed() && entity.isAlive()) {
             if (!(entity instanceof LivingEntity living && living.isBaby())) {
-                List<Leashable> nearbyMobs = LeashExtension.leashableInArea(entity, l -> l.getLeashHolder() == player);
+                List<Leashable> nearbyMobs = LeashExtension.vb$leashableInArea(entity, l -> l.getLeashHolder() == player);
 
                 if (!nearbyMobs.isEmpty()) {
                     boolean attachedAny = false;
 
                     for (Leashable target : nearbyMobs) {
-                        if (((LeashExtension) target).canHaveALeashAttachedTo(entity)) {
+                        if (((LeashExtension) target).vb$canHaveALeashAttachedTo(entity)) {
                             target.setLeashedTo(entity, true);
                             attachedAny = true;
                         }
@@ -63,7 +63,7 @@ public class LeashIntegration implements MobInteraction {
 
             // Attach a new leash
             if (stack.is(Items.LEAD) && !(leashable.getLeashHolder() instanceof Player)) {
-                if (!entity.level().isClientSide() && ((LeashExtension) leashable).canHaveALeashAttachedTo(player)) {
+                if (!entity.level().isClientSide() && ((LeashExtension) leashable).vb$canHaveALeashAttachedTo(player)) {
                     if (leashable.isLeashed()) {
                         leashable.dropLeash(true, true);
                     }
@@ -91,7 +91,7 @@ public class LeashIntegration implements MobInteraction {
     }
 
     public static boolean dropAllLeashConnections(Entity entity, @Nullable Player player) {
-        List<Leashable> leashed = LeashExtension.leashableLeashedTo(entity);
+        List<Leashable> leashed = LeashExtension.vb$leashableLeashedTo(entity);
         boolean dropConnections = !leashed.isEmpty();
 
         if (entity instanceof Leashable leashable && leashable.isLeashed()) {

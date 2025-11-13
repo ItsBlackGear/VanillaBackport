@@ -17,6 +17,12 @@ public class EntityTypeTagGenerator extends FabricTagProvider.EntityTypeTagProvi
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
+        this.getOrCreateTagBuilder(EntityTypeTags.FALL_DAMAGE_IMMUNE)
+            .add(ModEntities.HAPPY_GHAST.get());
+
+        this.getOrCreateTagBuilder(EntityTypeTags.DISMOUNTS_UNDERWATER)
+            .add(ModEntities.HAPPY_GHAST.get());
+
         this.getOrCreateTagBuilder(ModEntityTypeTags.FOLLOWABLE_FRIENDLY_MOBS)
             .add(
                 EntityType.BEE,
@@ -44,7 +50,5 @@ public class EntityTypeTagGenerator extends FabricTagProvider.EntityTypeTagProvi
                 EntityType.VILLAGER,
                 EntityType.WOLF
             );
-        this.getOrCreateTagBuilder(EntityTypeTags.FALL_DAMAGE_IMMUNE).add(ModEntities.HAPPY_GHAST.get());
-        this.getOrCreateTagBuilder(EntityTypeTags.DISMOUNTS_UNDERWATER).add(ModEntities.HAPPY_GHAST.get());
     }
 }

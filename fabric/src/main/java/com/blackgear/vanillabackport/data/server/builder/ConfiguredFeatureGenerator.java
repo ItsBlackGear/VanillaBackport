@@ -1,5 +1,6 @@
 package com.blackgear.vanillabackport.data.server.builder;
 
+import com.blackgear.vanillabackport.common.worldgen.features.SpringToLifeFeatures;
 import com.blackgear.vanillabackport.common.worldgen.features.TheGardenAwakensFeatures;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
@@ -17,10 +18,10 @@ public class ConfiguredFeatureGenerator extends FabricDynamicRegistryProvider {
 
     @Override
     protected void configure(HolderLookup.Provider provider, Entries entries) {
+        // The Garden Awakens
         this.add(provider, entries, TheGardenAwakensFeatures.PALE_OAK);
         this.add(provider, entries, TheGardenAwakensFeatures.PALE_OAK_BONEMEAL);
         this.add(provider, entries, TheGardenAwakensFeatures.PALE_OAK_CREAKING);
-        this.add(provider, entries, TheGardenAwakensFeatures.PALE_OAK_CREAKING_BONEMEAL);
 
         this.add(provider, entries, TheGardenAwakensFeatures.FLOWER_PALE_GARDEN);
         this.add(provider, entries, TheGardenAwakensFeatures.PALE_GARDEN_FLOWERS);
@@ -28,6 +29,24 @@ public class ConfiguredFeatureGenerator extends FabricDynamicRegistryProvider {
         this.add(provider, entries, TheGardenAwakensFeatures.PALE_MOSS_VEGETATION);
         this.add(provider, entries, TheGardenAwakensFeatures.PALE_MOSS_PATCH);
         this.add(provider, entries, TheGardenAwakensFeatures.PALE_MOSS_PATCH_BONEMEAL);
+
+        // Spring to Life
+        this.add(provider, entries, SpringToLifeFeatures.PATCH_BUSH);
+        this.add(provider, entries, SpringToLifeFeatures.PATCH_FIREFLY_BUSH);
+
+        this.add(provider, entries, SpringToLifeFeatures.WILDFLOWERS_BIRCH_FOREST);
+        this.add(provider, entries, SpringToLifeFeatures.WILDFLOWERS_MEADOW);
+
+        this.add(provider, entries, SpringToLifeFeatures.PATCH_DRY_GRASS);
+
+        this.add(provider, entries, SpringToLifeFeatures.PATCH_LEAF_LITTER);
+        this.add(provider, entries, SpringToLifeFeatures.LEAF_LITTER);
+
+        this.add(provider, entries, SpringToLifeFeatures.FALLEN_OAK_TREE);
+        this.add(provider, entries, SpringToLifeFeatures.FALLEN_BIRCH_TREE);
+        this.add(provider, entries, SpringToLifeFeatures.FALLEN_SUPER_BIRCH_TREE);
+        this.add(provider, entries, SpringToLifeFeatures.FALLEN_JUNGLE_TREE);
+        this.add(provider, entries, SpringToLifeFeatures.FALLEN_SPRUCE_TREE);
     }
 
     private void add(HolderLookup.Provider provider, Entries entries, ResourceKey<ConfiguredFeature<?, ?>> key) {

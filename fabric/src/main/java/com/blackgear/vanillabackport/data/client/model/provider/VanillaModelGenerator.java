@@ -1,7 +1,5 @@
 package com.blackgear.vanillabackport.data.client.model.provider;
 
-import com.blackgear.vanillabackport.data.client.model.VanillaBlockModels;
-import com.blackgear.vanillabackport.data.client.model.VanillaItemModels;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.gson.JsonElement;

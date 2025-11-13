@@ -36,4 +36,18 @@ public class ModSoundTypes {
         () -> SoundEvents.EMPTY,
         ModSoundEvents.DRIED_GHAST_FALL
     );
+    public static final SoundType LEAF_LITTER = SOUNDS.soundType(
+        ModSoundEvents.LEAF_LITTER_BREAK,
+        ModSoundEvents.LEAF_LITTER_STEP,
+        ModSoundEvents.LEAF_LITTER_PLACE,
+        ModSoundEvents.LEAF_LITTER_HIT,
+        ModSoundEvents.LEAF_LITTER_FALL
+    );
+    public static final SoundType CACTUS_FLOWER = SOUNDS.soundType(
+        ModSoundEvents.CACTUS_FLOWER_BREAK,
+        () -> SoundEvents.EMPTY,
+        ModSoundEvents.CACTUS_FLOWER_PLACE,
+        () -> SoundEvents.EMPTY,
+        () -> SoundEvents.EMPTY
+    );
 }

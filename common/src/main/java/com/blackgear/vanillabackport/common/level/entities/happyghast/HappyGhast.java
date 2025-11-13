@@ -3,6 +3,7 @@ package com.blackgear.vanillabackport.common.level.entities.happyghast;
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
 import com.blackgear.vanillabackport.common.api.leash.LeashExtension;
 import com.blackgear.vanillabackport.common.registries.ModEntities;
+import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.blackgear.vanillabackport.core.data.tags.ModBlockTags;
 import com.blackgear.vanillabackport.core.data.tags.ModItemTags;
 import com.blackgear.vanillabackport.core.mixin.access.LivingEntityAccessor;
@@ -57,7 +58,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.EnumSet;
 import java.util.function.BooleanSupplier;
 
-public class HappyGhast extends Animal implements Saddleable, PlayerRideable, LeashExtension {
+public class HappyGhast extends Animal implements PlayerRideable, LeashExtension {
     public static final Ingredient IS_FOOD = Ingredient.of(ModItemTags.HAPPY_GHAST_FOOD);
     private int leashHolderTime = 0;
     private int serverStillTimeout;
@@ -89,7 +90,7 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable, Le
                 new HappyGhastTemptGoal(
                     this,
                     1.0,
-                    stack -> !this.isSaddled() && !this.isBaby() ? stack.is(ModItemTags.HAPPY_GHAST_TEMPT_ITEMS) : IS_FOOD.test(stack),
+                    stack -> !this.isHarnessed() && !this.isBaby() ? stack.is(ModItemTags.HAPPY_GHAST_TEMPT_ITEMS) : IS_FOOD.test(stack),
                     false,
                     7.0
                 )
@@ -156,7 +157,7 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable, Le
         this.setYya(0.0F);
         this.setSpeed(0.0F);
         this.setDeltaMovement(0.0, 0.0, 0.0);
-        this.resetAngularMomentum();
+        this.vb$resetAngularMomentum();
     }
 
     @Override
@@ -224,11 +225,6 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable, Le
     }
 
     @Override
-    public SoundSource getSoundSource() {
-        return SoundSource.NEUTRAL;
-    }
-
-    @Override
     public int getAmbientSoundInterval() {
         int interval = super.getAmbientSoundInterval();
         return this.isVehicle() ? interval * 6 : interval;
@@ -274,18 +270,15 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable, Le
         return IS_FOOD.test(stack);
     }
 
-    @Override
-    public void equipSaddle(ItemStack stack, @Nullable SoundSource source) {
+    public void equipHarness() {
         this.level().playSound(null, this, ModSoundEvents.HARNESS_EQUIP.get(), SoundSource.NEUTRAL, 0.5F, 1.0F);
     }
 
-    @Override
-    public boolean isSaddleable() {
+    public boolean canBeHarnessed() {
         return this.isAlive() && !this.isBaby();
     }
 
-    @Override
-    public boolean isSaddled() {
+    public boolean isHarnessed() {
         return this.getItemBySlot(EquipmentSlot.CHEST).is(ModItemTags.HARNESSES);
     }
 
@@ -302,8 +295,8 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable, Le
                 }
             }
 
-            if (!stack.is(Items.SHEARS) || this.isVehicle() || !this.isSaddled() && !player.isCreative()) {
-                if (this.isSaddled()) {
+            if (!stack.is(Items.SHEARS) || this.isVehicle() || !this.isHarnessed() && !player.isCreative()) {
+                if (this.isHarnessed()) {
                     if (!this.level().isClientSide()) {
                         player.startRiding(this);
                     }
@@ -366,7 +359,7 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable, Le
 
     @Override @Nullable
     public LivingEntity getControllingPassenger() {
-        return this.isSaddled() && !this.isOnStillTimeout() && this.getFirstPassenger() instanceof Player player
+        return this.isHarnessed() && !this.isOnStillTimeout() && this.getFirstPassenger() instanceof Player player
             ? player
             : super.getControllingPassenger();
     }
@@ -392,7 +385,7 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable, Le
             upward += 0.5F;
         }
 
-        return new Vec3(forward, upward, strafe).scale((double) 3.9F * this.getAttributeValue(Attributes.FLYING_SPEED));
+        return new Vec3(forward, upward, strafe).scale(((double) 3.9F * this.getAttributeValue(Attributes.FLYING_SPEED)) * VanillaBackport.COMMON_CONFIG.happyGhastSpeedModifier.get());
     }
 
     protected Vec2 getRiddenRotation(LivingEntity livingEntity) {
@@ -474,7 +467,7 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable, Le
     }
 
     private int getHappyGhastRestrictionRadius() {
-        return !this.isBaby() && !this.isSaddled() ? 64 : 32;
+        return !this.isBaby() && !this.isHarnessed() ? 64 : 32;
     }
 
     private void checkRestriction() {
@@ -546,13 +539,13 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable, Le
     }
 
     @Override
-    public boolean supportQuadLeashAsHolder() {
+    public boolean vb$supportQuadLeashAsHolder() {
         return true;
     }
 
     @Override
-    public Vec3[] getQuadLeashHolderOffsets() {
-        return LeashExtension.createQuadLeashOffsets(this, -0.03125, 0.4375, 0.46875, 0.03125);
+    public Vec3[] vb$getQuadLeashHolderOffsets() {
+        return LeashExtension.vb$createQuadLeashOffsets(this, -0.03125, 0.4375, 0.46875, 0.03125);
     }
 
     @Override
@@ -561,24 +554,24 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable, Le
     }
 
     @Override
-    public double leashElasticDistance() {
+    public double vb$leashElasticDistance() {
         return 10.0;
     }
 
     @Override
-    public double leashSnapDistance() {
+    public double vb$leashSnapDistance() {
         return 16.0;
     }
 
     @Override
-    public void onElasticLeashPull() {
-        LeashExtension.super.onElasticLeashPull();
+    public void vb$onElasticLeashPull() {
+        LeashExtension.super.vb$onElasticLeashPull();
         this.getMoveControl().operation = MoveControl.Operation.WAIT;
     }
 
     @Override
-    public void notifyLeashHolder(Leashable leashable) {
-        if (((LeashExtension) leashable).supportQuadLeash()) {
+    public void vb$notifyLeashHolder(Leashable leashable) {
+        if (((LeashExtension) leashable).vb$supportQuadLeash()) {
             this.leashHolderTime = 5;
         }
     }
@@ -765,7 +758,7 @@ public class HappyGhast extends Animal implements Saddleable, PlayerRideable, Le
                 currentPos,
                 targetPos,
                 targetBox,
-                (pos, steps) -> CollisionUtils.intersects(entityBox, pos) || this.blockTraversalPossible(this.ghast.level(), currentPos, targetPos, pos, inWater, inLava)
+                (pos, step) -> CollisionUtils.intersects(entityBox, pos) || this.blockTraversalPossible(this.ghast.level(), currentPos, targetPos, pos, inWater, inLava)
             );
         }
 

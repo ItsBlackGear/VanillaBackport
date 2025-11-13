@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "#forge:is_swamp",
+      "required": false
+    },
+    {
+      "id": "#c:swamp",
+      "required": false
+    }
+  ]
+}

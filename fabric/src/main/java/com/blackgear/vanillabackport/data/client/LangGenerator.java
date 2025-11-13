@@ -19,7 +19,7 @@ public class LangGenerator extends FabricLanguageProvider {
         // THE GARDEN AWAKENS
 
         // Biomes
-        builder.add("biome.vanillabackport.pale_garden", "Pale Garden");
+        builder.add("biome.minecraft.pale_garden", "Pale Garden");
 
         // Blocks
         builder.add(ModBlocks.PALE_HANGING_MOSS.get(), "Pale Hanging Moss");
@@ -155,5 +155,56 @@ public class LangGenerator extends FabricLanguageProvider {
         builder.add("subtitles.entity.happy_ghast.harness_goggles_up", "Happy Ghast stops");
         builder.add("subtitles.entity.happy_ghast.unequip", "Harness unequips");
         builder.add("subtitles.entity.happy_ghast.equip", "Harness equips");
+
+        // Spring to Life
+        builder.add(ModBlocks.BUSH.get(), "Bush");
+        builder.add(ModBlocks.FIREFLY_BUSH.get(), "Firefly Bush");
+        builder.add(ModBlocks.WILDFLOWERS.get(), "Wildflowers");
+        builder.add(ModBlocks.CACTUS_FLOWER.get(), "Cactus Flower");
+        builder.add(ModBlocks.SHORT_DRY_GRASS.get(), "Short Dry Grass");
+        builder.add(ModBlocks.TALL_DRY_GRASS.get(), "Tall Dry Grass");
+        builder.add(ModBlocks.LEAF_LITTER.get(), "Leaf Litter");
+
+        builder.add(ModItems.BLUE_EGG.get(), "Blue Egg");
+        builder.add(ModItems.BROWN_EGG.get(), "Brown Egg");
+
+        builder.add("subtitles.block.sand.idle", "Sandy sounds");
+        builder.add("subtitles.block.deadbush.idle", "Dry sounds");
+        builder.add("subtitles.block.dry_grass.ambient", "Windy sounds");
+
+        builder.add("subtitles.entity.wolf.bark", "Wolf barks");
+        builder.add("subtitles.entity.wolf.pant", "Wolf pants");
+        builder.add("subtitles.entity.wolf.whine", "Wolf whines");
+
+        // Bundles of Bravery
+        builder.add("item.minecraft.bundle.empty", "Empty");
+        builder.add("item.minecraft.bundle.empty.description", "Can hold a mixed stack of items");
+        builder.add("item.minecraft.bundle.full", "Full");
+
+        builder.add("subtitles.item.bundle.insert_fail", "Bundle full");
+
+        builder.add(ModItems.BLACK_BUNDLE.get(), "Black Bundle");
+        builder.add(ModItems.WHITE_BUNDLE.get(), "White Bundle");
+        builder.add(ModItems.GRAY_BUNDLE.get(), "Gray Bundle");
+        builder.add(ModItems.LIGHT_GRAY_BUNDLE.get(), "Light Gray Bundle");
+        builder.add(ModItems.LIGHT_BLUE_BUNDLE.get(), "Light Blue Bundle");
+        builder.add(ModItems.BLUE_BUNDLE.get(), "Blue Bundle");
+        builder.add(ModItems.CYAN_BUNDLE.get(), "Cyan Bundle");
+        builder.add(ModItems.YELLOW_BUNDLE.get(), "Yellow Bundle");
+        builder.add(ModItems.RED_BUNDLE.get(), "Red Bundle");
+        builder.add(ModItems.PURPLE_BUNDLE.get(), "Purple Bundle");
+        builder.add(ModItems.MAGENTA_BUNDLE.get(), "Magenta Bundle");
+        builder.add(ModItems.PINK_BUNDLE.get(), "Pink Bundle");
+        builder.add(ModItems.GREEN_BUNDLE.get(), "Green Bundle");
+        builder.add(ModItems.LIME_BUNDLE.get(), "Lime Bundle");
+        builder.add(ModItems.BROWN_BUNDLE.get(), "Brown Bundle");
+        builder.add(ModItems.ORANGE_BUNDLE.get(), "Orange Bundle");
+
+        // Bundled Tabs
+        builder.add("bundled_tab.bundles_of_bravery.title", "Bundles of Bravery");
+        builder.add("bundled_tab.the_garden_awakens.title", "The Garden Awakens");
+        builder.add("bundled_tab.spring_to_life.title", "Spring to Life");
+        builder.add("bundled_tab.chase_the_skies.title", "Chase The Skies");
+        builder.add("bundled_tab.hot_as_lava.title", "Hot as Lava");
     }
 }

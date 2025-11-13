@@ -11,6 +11,7 @@ import com.blackgear.vanillabackport.common.registries.ModBlocks;
 import com.blackgear.vanillabackport.common.registries.ModEntities;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.blackgear.vanillabackport.core.data.tags.ModBlockTags;
+import com.blackgear.vanillabackport.core.util.SpawnExtras;
 import com.mojang.datafixers.util.Either;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
@@ -22,10 +23,8 @@ import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
-import net.minecraft.util.SpawnUtil;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
@@ -91,7 +90,7 @@ public class CreakingHeartBlockEntity extends BlockEntity {
             }
 
             if (heart.ticker-- < 0) {
-                heart.ticksExisted = heart.level == null ? 20 : heart.level.random.nextInt(5) + 20;
+                heart.ticker = heart.level == null ? 20 : heart.level.random.nextInt(5) + 20;
                 BlockState updatedState = updateCreakingState(level, state, pos, heart);
                 if (updatedState != state) {
                     level.setBlock(pos, updatedState, 3);
@@ -120,11 +119,9 @@ public class CreakingHeartBlockEntity extends BlockEntity {
                     Optional<Creaking> protector = heart.getCreakingProtector();
                     if (protector.isPresent()) {
                         Creaking creaking = protector.get();
-                        if (!CreakingHeartBlock.isNaturalNight(level)
-                            && !creaking.isPersistenceRequired()
+                        if (!CreakingHeartBlock.isNaturalNight(level) && !creaking.isPersistenceRequired()
                             || heart.distanceToCreaking() > 34.0
-                            || creaking.playerIsStuckInYou()
-                        ) {
+                            || creaking.playerIsStuckInYou()) {
                             heart.removeProtector(null);
                         }
                     }
@@ -197,28 +194,17 @@ public class CreakingHeartBlockEntity extends BlockEntity {
 
     @Nullable
     private static Creaking spawnProtector(ServerLevel level, CreakingHeartBlockEntity heart) {
-        if (!VanillaBackport.CONFIG.spawnCreakingFromHearts.get()) {
-            return null;
-        }
+        if (!VanillaBackport.COMMON_CONFIG.hasCreaking.get()) return null;
 
         BlockPos pos = heart.getBlockPos();
-        Optional<Creaking> protector = SpawnUtil.trySpawnMob(
-            ModEntities.CREAKING.get(),
-            MobSpawnType.SPAWNER,
-            level,
-            pos,
-            5,
-            16,
-            8,
-            (server, blockPos, blockState, blockPos2, blockState2) -> blockState2.getCollisionShape(server, blockPos2).isEmpty() && !blockState.is(BlockTags.LEAVES) && Block.isFaceFull(blockState.getCollisionShape(server, blockPos), Direction.UP)
-        );
+        Optional<Creaking> protector = SpawnExtras.trySpawnMob(ModEntities.CREAKING.get(), MobSpawnType.SPAWNER, level, pos, 5, 16, 8, SpawnExtras.ON_TOP_OF_COLLIDER_NO_LEAVES, true);
 
         if (protector.isEmpty()) {
             return null;
         } else {
             Creaking creaking = protector.get();
             level.gameEvent(creaking, GameEvent.ENTITY_PLACE, creaking.position());
-            level.broadcastEntityEvent(creaking, (byte) 60); // Poof particles
+            level.broadcastEntityEvent(creaking, (byte) 60);
             creaking.setTransient(pos);
             return creaking;
         }
@@ -240,9 +226,7 @@ public class CreakingHeartBlockEntity extends BlockEntity {
             if (this.level instanceof ServerLevel server) {
                 if (this.emitter <= 0) {
                     this.emitParticles(server, 20, false);
-                    if (this.getBlockState().getValue(CreakingHeartBlock.STATE) == CreakingHeartState.AWAKE
-                        && VanillaBackport.CONFIG.generateResin.get()
-                    ) {
+                    if (this.getBlockState().getValue(CreakingHeartBlock.STATE) == CreakingHeartState.AWAKE && VanillaBackport.COMMON_CONFIG.hasResin.get()) {
                         int i = this.level.getRandom().nextIntBetweenInclusive(2, 3);
 
                         for (int j = 0; j < i; j++) {
@@ -302,7 +286,9 @@ public class CreakingHeartBlockEntity extends BlockEntity {
     private void emitParticles(ServerLevel level, int count, boolean reverseDirection) {
         Creaking creaking = this.getCreakingProtector().orElse(null);
         if (creaking != null) {
-            int color = reverseDirection ? 16545810 : 6250335;
+            int color = reverseDirection
+                ? VanillaBackport.COMMON_CONFIG.creakingParticleReverseColor.get()
+                : VanillaBackport.COMMON_CONFIG.creakingParticleColor.get();
             RandomSource random = level.getRandom();
 
             for (double i = 0.0; i < count; i++) {

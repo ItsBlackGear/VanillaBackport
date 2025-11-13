@@ -4,6 +4,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.*;
+import net.minecraft.core.particles.ColorParticleOption;
 import net.minecraft.core.particles.SimpleParticleType;
 
 @Environment(EnvType.CLIENT)
@@ -94,6 +95,16 @@ public class FallingLeavesParticle extends TextureSheetParticle {
         @Override
         public Particle createParticle(SimpleParticleType type, ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
             return new FallingLeavesParticle(level, x, y, z, this.sprites, 0.07F, 10.0F, true, false, 2.0F, 0.021F);
+        }
+    }
+
+    @Environment(EnvType.CLIENT)
+    public record TintedLeavesProvider(SpriteSet sprites) implements ParticleProvider<ColorParticleOption> {
+        @Override
+        public Particle createParticle(ColorParticleOption type, ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
+            Particle particle = new FallingLeavesParticle(level, x, y, z, this.sprites, 0.07F, 10.0F, true, false, 2.0F, 0.021F);
+            particle.setColor(type.getRed(), type.getGreen(), type.getBlue());
+            return particle;
         }
     }
 }

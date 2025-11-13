@@ -1,5 +1,6 @@
 package com.blackgear.vanillabackport.data.server.recipe;
 
+import com.blackgear.vanillabackport.common.level.crafting.BundleColoring;
 import com.blackgear.vanillabackport.common.registries.ModBlocks;
 import com.blackgear.vanillabackport.common.registries.ModItems;
 import com.blackgear.vanillabackport.core.data.tags.ModItemTags;
@@ -8,10 +9,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.BlockFamily;
-import net.minecraft.data.recipes.RecipeCategory;
-import net.minecraft.data.recipes.RecipeOutput;
-import net.minecraft.data.recipes.ShapedRecipeBuilder;
-import net.minecraft.data.recipes.SimpleCookingRecipeBuilder;
+import net.minecraft.data.recipes.*;
 import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Items;
@@ -93,6 +91,48 @@ public class RecipeGenerator extends FabricRecipeProvider {
             .pattern("  ~")
             .unlockedBy("has_string", has(Items.STRING))
             .save(output);
+
+        oneToOneConversionRecipe(output, Items.PINK_DYE, ModBlocks.CACTUS_FLOWER.get(), "pink_dye");
+
+        shaped(RecipeCategory.DECORATIONS, Blocks.LODESTONE)
+            .define('S', Items.CHISELED_STONE_BRICKS)
+            .define('#', Items.IRON_INGOT)
+            .pattern("SSS")
+            .pattern("S#S")
+            .pattern("SSS")
+            .unlockedBy("has_iron_ingot", has(Items.IRON_INGOT))
+            .unlockedBy("has_lodestone", has(Items.LODESTONE))
+            .save(output);
+
+        shaped(RecipeCategory.TOOLS, Items.BUNDLE)
+            .define('-', Items.STRING)
+            .define('#', Items.LEATHER)
+            .pattern("-")
+            .pattern("#")
+            .unlockedBy("has_string", has(Items.STRING))
+            .save(output);
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, Items.PUMPKIN_PIE)
+            .requires(Blocks.PUMPKIN)
+            .requires(Items.SUGAR)
+            .requires(ModItemTags.EGGS)
+            .unlockedBy("has_carved_pumpkin", has(Blocks.CARVED_PUMPKIN))
+            .unlockedBy("has_pumpkin", has(Blocks.PUMPKIN))
+            .save(output);
+
+        shaped(RecipeCategory.FOOD, Blocks.CAKE)
+            .define('A', Items.MILK_BUCKET)
+            .define('B', Items.SUGAR)
+            .define('C', Items.WHEAT)
+            .define('E', ModItemTags.EGGS)
+            .pattern("AAA")
+            .pattern("BEB")
+            .pattern("CCC")
+            .unlockedBy("has_egg", has(ModItemTags.EGGS))
+            .save(output);
+
+        SpecialRecipeBuilder.special(BundleColoring::new).save(output, "bundle_coloring");
+//        SpecialRecipeBuilder.special(ModRecipeSerializers.BUNDLE_COLORING.get()).save(output, "bundle_coloring");
     }
 
     public static ShapedRecipeBuilder shaped(RecipeCategory category, ItemLike entry) {

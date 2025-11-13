@@ -24,7 +24,7 @@ public class OverworldRegion extends Region {
     public void addBiomes(Registry<Biome> registry, Consumer<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> mapper) {
         VanillaParameterOverlayBuilder builder = new VanillaParameterOverlayBuilder();
 
-        if (VanillaBackport.CONFIG.generatePaleGarden.get()) {
+        if (VanillaBackport.COMMON_CONFIG.hasPaleGarden.get()) {
             addPaleGarden(builder);
             builder.build().forEach(mapper);
         }

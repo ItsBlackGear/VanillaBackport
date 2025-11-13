@@ -41,7 +41,7 @@ public abstract class NetherFossilPieceMixin extends TemplateStructurePiece {
         BlockPos origin,
         CallbackInfo ci
     ) {
-        if (VanillaBackport.CONFIG.generateDriedGhasts.get() && level.dimensionType().ultraWarm() && level.dimensionType().piglinSafe()) { // Check for Nether dimension
+        if (VanillaBackport.COMMON_CONFIG.hasDriedGhasts.get() && level.dimensionType().ultraWarm() && level.dimensionType().piglinSafe()) { // Check for Nether dimension
             BoundingBox template = this.template().getBoundingBox(this.placeSettings(), this.templatePosition());
             RandomSource random = RandomSource.create(level.getSeed()).forkPositional().at(template.getCenter());
             if (random.nextFloat() < 0.5F) {

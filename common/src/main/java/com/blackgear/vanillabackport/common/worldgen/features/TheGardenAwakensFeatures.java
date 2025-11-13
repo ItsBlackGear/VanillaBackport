@@ -41,7 +41,6 @@ public class TheGardenAwakensFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> PALE_OAK = FEATURES.create("pale_oak");
     public static final ResourceKey<ConfiguredFeature<?, ?>> PALE_OAK_BONEMEAL = FEATURES.create("pale_oak_bonemeal");
     public static final ResourceKey<ConfiguredFeature<?, ?>> PALE_OAK_CREAKING = FEATURES.create("pale_oak_creaking");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> PALE_OAK_CREAKING_BONEMEAL = FEATURES.create("pale_oak_creaking_bonemeal");
 
     // VEGETATION FEATURES
     public static final ResourceKey<ConfiguredFeature<?, ?>> FLOWER_PALE_GARDEN = FEATURES.create("flower_pale_garden");
@@ -102,21 +101,6 @@ public class TheGardenAwakensFeatures {
                     new CreakingHeartDecorator(1.0F)
                 )
             )
-            .ignoreVines()
-            .build()
-        );
-        FEATURES.register(
-            context,
-            PALE_OAK_CREAKING_BONEMEAL,
-            Feature.TREE,
-            new TreeConfiguration.TreeConfigurationBuilder(
-                BlockStateProvider.simple(ModBlocks.PALE_OAK_LOG.get()),
-                new DarkOakTrunkPlacer(6, 2, 1),
-                BlockStateProvider.simple(ModBlocks.PALE_OAK_LEAVES.get()),
-                new DarkOakFoliagePlacer(ConstantInt.of(0), ConstantInt.of(0)),
-                new ThreeLayersFeatureSize(1, 1, 0, 1, 2, OptionalInt.empty())
-            )
-            .decorators(ImmutableList.of(new CreakingHeartDecorator(1.0F)))
             .ignoreVines()
             .build()
         );

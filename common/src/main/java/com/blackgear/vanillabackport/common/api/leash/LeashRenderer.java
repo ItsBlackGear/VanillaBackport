@@ -135,7 +135,7 @@ public class LeashRenderer<T extends Entity> {
         Entity leashHolder = leashable.getLeashHolder();
 
         if (leashHolder != null) {
-            float entityRotation = LeashExtension.getPreciseBodyRotation(entity, partialTicks) * ((float) Math.PI / 180);
+            float entityRotation = LeashExtension.vb$getPreciseBodyRotation(entity, partialTicks) * ((float) Math.PI / 180);
             Vec3 leashOffset = entity.getLeashOffset(partialTicks);
 
             BlockPos entityPos = BlockPos.containing(entity.getEyePosition(partialTicks));
@@ -145,8 +145,8 @@ public class LeashRenderer<T extends Entity> {
             int entitySkyLight = entity.level().getBrightness(LightLayer.SKY, entityPos);
             int holderSkyLight = entity.level().getBrightness(LightLayer.SKY, holderPos);
 
-            boolean handleHolderQuadLeash = leashHolder instanceof LeashExtension ext && ext.supportQuadLeashAsHolder();
-            boolean handleQuadLeash = extension.supportQuadLeash();
+            boolean handleHolderQuadLeash = leashHolder instanceof LeashExtension ext && ext.vb$supportQuadLeashAsHolder();
+            boolean handleQuadLeash = extension.vb$supportQuadLeash();
             boolean useQuadLeash = handleHolderQuadLeash && handleQuadLeash;
             int leashCount = useQuadLeash ? 4 : 1;
 
@@ -158,10 +158,10 @@ public class LeashRenderer<T extends Entity> {
             }
 
             if (useQuadLeash) {
-                float holderRotation = LeashExtension.getPreciseBodyRotation(leashHolder, partialTicks) * ((float) Math.PI / 180);
+                float holderRotation = LeashExtension.vb$getPreciseBodyRotation(leashHolder, partialTicks) * ((float) Math.PI / 180);
                 Vec3 holderPosition = leashHolder.getPosition(partialTicks);
-                Vec3[] entityOffsets = extension.getQuadLeashOffsets();
-                Vec3[] holderOffsets = ((LeashExtension) leashHolder).getQuadLeashHolderOffsets();
+                Vec3[] entityOffsets = extension.vb$getQuadLeashOffsets();
+                Vec3[] holderOffsets = ((LeashExtension) leashHolder).vb$getQuadLeashHolderOffsets();
 
                 for (int i = 0; i < leashCount; i++) {
                     LeashState leashState = this.leashStates.get(i);

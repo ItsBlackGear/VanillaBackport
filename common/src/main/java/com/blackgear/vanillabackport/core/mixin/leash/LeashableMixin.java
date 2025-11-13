@@ -32,20 +32,20 @@ public interface LeashableMixin extends LeashExtension {
             Entity holder = entity.getLeashHolder();
             LeashExtension leashed = (LeashExtension) entity;
             if (holder != null && holder.level() == entity.level()) {
-                double distance = leashed.leashDistanceTo(holder);
-                leashed.whenLeashedTo(holder);
-                if (distance > leashed.leashSnapDistance()) {
+                double distance = leashed.vb$leashDistanceTo(holder);
+                leashed.vb$whenLeashedTo(holder);
+                if (distance > leashed.vb$leashSnapDistance()) {
                     entity.level().playSound(null, holder.blockPosition(), SoundEvents.LEASH_KNOT_BREAK, SoundSource.NEUTRAL, 1.0F, 1.0F);
                     entity.leashTooFarBehaviour();
-                } else if (distance > leashed.leashElasticDistance() - holder.getBbWidth() - entity.getBbWidth() && leashed.checkElasticInteractions(holder, data)) {
-                    leashed.onElasticLeashPull();
+                } else if (distance > leashed.vb$leashElasticDistance() - holder.getBbWidth() - entity.getBbWidth() && leashed.vb$checkElasticInteractions(holder, data)) {
+                    leashed.vb$onElasticLeashPull();
                 } else {
                     entity.closeRangeLeashBehaviour(holder);
                 }
 
                 LeashDataExtension leashData = (LeashDataExtension) (Object) data;
                 entity.setYRot((float) (entity.getYRot() - leashData.angularMomentum()));
-                leashData.setAngularMomentum(leashData.angularMomentum() * LeashExtension.angularFriction(entity));
+                leashData.setAngularMomentum(leashData.angularMomentum() * LeashExtension.vb$angularFriction(entity));
             }
         }
 

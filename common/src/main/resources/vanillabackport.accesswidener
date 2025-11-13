@@ -2,10 +2,13 @@ accessWidener   v2  named
 
 extendable method net/minecraft/world/entity/LivingEntity canBreatheUnderwater ()Z
 accessible field net/minecraft/world/entity/Entity dimensions Lnet/minecraft/world/entity/EntityDimensions;
+accessible field net/minecraft/world/entity/animal/Parrot MOB_SOUND_MAP Ljava/util/Map;
 
 accessible class net/minecraft/world/entity/ai/control/MoveControl$Operation
 accessible field net/minecraft/world/entity/ai/control/MoveControl operation Lnet/minecraft/world/entity/ai/control/MoveControl$Operation;
 mutable field net/minecraft/world/entity/ai/control/MoveControl operation Lnet/minecraft/world/entity/ai/control/MoveControl$Operation;
+
+accessible class net/minecraft/world/level/biome/Biome$ClimateSettings
 
 accessible method net/minecraft/world/level/block/SaplingBlock <init> (Lnet/minecraft/world/level/block/grower/TreeGrower;Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V
 accessible method net/minecraft/world/level/block/PressurePlateBlock <init> (Lnet/minecraft/world/level/block/state/properties/BlockSetType;Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V
@@ -13,6 +16,7 @@ accessible method net/minecraft/world/level/block/ButtonBlock <init> (Lnet/minec
 accessible method net/minecraft/world/level/block/TrapDoorBlock <init> (Lnet/minecraft/world/level/block/state/properties/BlockSetType;Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V
 accessible method net/minecraft/world/level/block/DoorBlock <init> (Lnet/minecraft/world/level/block/state/properties/BlockSetType;Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V
 accessible method net/minecraft/world/level/block/StairBlock <init> (Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V
+accessible method net/minecraft/world/level/block/PinkPetalsBlock <init> (Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V
 
 accessible field net/minecraft/world/entity/vehicle/Boat lastYd D
 accessible field net/minecraft/world/entity/vehicle/Boat status Lnet/minecraft/world/entity/vehicle/Boat$Status;
@@ -20,6 +24,10 @@ accessible field net/minecraft/world/entity/vehicle/Boat status Lnet/minecraft/w
 accessible method net/minecraft/client/renderer/entity/EntityRenderer renderLeash (Lnet/minecraft/world/entity/Entity;FLcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;Lnet/minecraft/world/entity/Entity;)V
 
 accessible class net/minecraft/world/entity/npc/VillagerTrades$ItemsForEmeralds
+
+accessible field net/minecraft/client/gui/screens/inventory/AbstractContainerScreen hoveredSlot Lnet/minecraft/world/inventory/Slot;
+accessible field net/minecraft/client/gui/screens/inventory/AbstractContainerScreen leftPos I
+accessible field net/minecraft/client/gui/screens/inventory/AbstractContainerScreen topPos I
 
 accessible field net/minecraft/world/item/CreativeModeTabs BUILDING_BLOCKS Lnet/minecraft/resources/ResourceKey;
 accessible field net/minecraft/world/item/CreativeModeTabs COLORED_BLOCKS Lnet/minecraft/resources/ResourceKey;
