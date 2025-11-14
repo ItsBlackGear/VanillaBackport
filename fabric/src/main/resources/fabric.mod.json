@@ -24,6 +24,9 @@
     ],
     "terrablender": [
       "com.blackgear.vanillabackport.core.fabric.VanillaBackportTerrablender"
+    ],
+    "emi": [
+      "com.blackgear.vanillabackport.compat.emi.VanillaBackportEMI"
     ]
   },
   "mixins": [

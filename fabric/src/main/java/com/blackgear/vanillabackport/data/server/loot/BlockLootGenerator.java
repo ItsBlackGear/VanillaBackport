@@ -9,15 +9,22 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.DecoratedPotBlock;
 import net.minecraft.world.level.block.MultifaceBlock;
+import net.minecraft.world.level.block.entity.DecoratedPotBlockEntity;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.storage.loot.IntRange;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.entries.DynamicLoot;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
+import net.minecraft.world.level.storage.loot.functions.CopyNbtFunction;
 import net.minecraft.world.level.storage.loot.functions.LimitCount;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
+import net.minecraft.world.level.storage.loot.providers.nbt.ContextNbtProvider;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
@@ -91,6 +98,9 @@ public class BlockLootGenerator extends FabricBlockLootTableProvider {
         this.dropSelf(ModBlocks.CACTUS_FLOWER.get());
         this.add(ModBlocks.SHORT_DRY_GRASS.get(), this::createShearsOrSilkTouchOnlyDrop);
         this.add(ModBlocks.TALL_DRY_GRASS.get(), this::createShearsOrSilkTouchOnlyDrop);
+
+        // Bats and Pots
+        this.add(Blocks.DECORATED_POT, this::createDecoratedPotTable);
     }
 
     protected LootTable.Builder createMultifaceBlockDrops(Block block) {
@@ -135,5 +145,26 @@ public class BlockLootGenerator extends FabricBlockLootTableProvider {
     protected LootTable.Builder createShearsOrSilkTouchOnlyDrop(ItemLike itemLike) {
         return LootTable.lootTable()
             .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).when(HAS_SHEARS_OR_SILK_TOUCH).add(LootItem.lootTableItem(itemLike)));
+    }
+
+    protected LootTable.Builder createDecoratedPotTable(Block pBlock) {
+        return LootTable.lootTable()
+                .withPool(
+                        LootPool.lootPool()
+                                .setRolls(ConstantValue.exactly(1.0F))
+                                .add(
+                                        DynamicLoot.dynamicEntry(DecoratedPotBlock.SHERDS_DYNAMIC_DROP_ID)
+                                                .when(
+                                                        LootItemBlockStatePropertyCondition.hasBlockStateProperties(pBlock)
+                                                                .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.CRACKED, true))
+                                                )
+                                                .otherwise(
+                                                        LootItem.lootTableItem(pBlock)
+                                                                .apply(CopyNbtFunction.copyData(ContextNbtProvider.BLOCK_ENTITY)
+                                                                        .copy(DecoratedPotBlockEntity.TAG_SHERDS, "BlockEntityTag.sherds")
+                                                                )
+                                                )
+                                )
+                );
     }
 }

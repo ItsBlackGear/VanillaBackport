@@ -28,6 +28,35 @@ subprojects {
         maven { url "https://maven.parchmentmc.org" }
         maven { url "https://maven.minecraftforge.net" }
         maven { url "https://cursemaven.com" }
+        maven {
+            // location of the maven that hosts JEI files since January 2023
+            name = "Jared's maven"
+            url = "https://maven.blamejared.com/"
+        }
+        maven {
+            // location of a maven mirror for JEI files, as a fallback
+            name = "ModMaven"
+            url = "https://modmaven.dev"
+        }
+        maven { url = "https://maven.tterrag.com/" } // Flywheel on both, Create and Registrate on forge
+
+        // EMI
+        maven {
+            name = "TerraformersMC"
+            url = "https://maven.terraformersmc.com/"
+        }
+
+        // mavens for Create Fabric and dependencies
+        maven { url = "https://mvn.devos.one/releases" } // Porting Lib releases
+        maven { url = "https://mvn.devos.one/snapshots" } // Create and several dependencies
+        maven { url = "https://maven.jamieswhiteshirt.com/libs-release" } // Reach Entity Attributes
+        maven { url = "https://raw.githubusercontent.com/Fuzss/modresources/main/maven" } // Forge Config API Port
+
+        maven { // Fabric ASM for Porting Lib
+            url = "https://jitpack.io/"
+            content { includeGroupAndSubgroups("com.github") }
+        }
+
         flatDir { dirs "/libs" }
     }
 

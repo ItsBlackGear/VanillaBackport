@@ -72,7 +72,9 @@ public interface CreativeTabIntegration {
         ));
     };
 
-    CreativeTabs.Modifier REDSTONE_BLOCKS = (flag, output, operator) -> {};
+    CreativeTabs.Modifier REDSTONE_BLOCKS = (flag, output, operator) -> {
+        output.accept(Items.DECORATED_POT);
+    };
 
     CreativeTabs.Modifier TOOLS_AND_UTILITIES = (flag, output, operator) -> {
         if (flag.contains(FeatureFlags.BUNDLE)) {
@@ -119,7 +121,11 @@ public interface CreativeTabIntegration {
         ));
         output.addAllAfter(Items.MUSIC_DISC_RELIC, List.of(
             ModItems.MUSIC_DISC_TEARS.get(),
-            ModItems.MUSIC_DISC_LAVA_CHICKEN.get()
+            ModItems.MUSIC_DISC_LAVA_CHICKEN.get(),
+
+            ModItems.MUSIC_DISC_PRECIPICE.get(),
+            ModItems.MUSIC_DISC_CREATOR.get(),
+            ModItems.MUSIC_DISC_CREATOR_MUSIC_BOX.get()
         ));
     };
 

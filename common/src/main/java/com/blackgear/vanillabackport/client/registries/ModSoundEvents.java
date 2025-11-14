@@ -61,6 +61,9 @@ public class ModSoundEvents {
     public static final Supplier<SoundEvent> DEAD_BUSH_IDLE = SOUNDS.soundEvent("block.deadbush.idle");
     public static final Supplier<SoundEvent> DRY_GRASS = SOUNDS.soundEvent("block.dry_grass.ambient");
 
+    public static final Supplier<SoundEvent> DECORATED_POT_INSERT = SOUNDS.soundEvent("block.decorated_pot.insert");
+    public static final Supplier<SoundEvent> DECORATED_POT_INSERT_FAIL = SOUNDS.soundEvent("block.decorated_pot.insert_fail");
+
     // ITEMS
     public static final Supplier<SoundEvent> BUNDLE_INSERT_FAIL = SOUNDS.soundEvent("item.bundle.insert_fail");
     public static final Supplier<SoundEvent> ARMOR_EQUIP_WOLF = SOUNDS.soundEvent("item.armor.equip_wolf");
@@ -69,6 +72,8 @@ public class ModSoundEvents {
     public static final Supplier<SoundEvent> WOLF_ARMOR_CRACK = SOUNDS.soundEvent("item.wolf_armor.crack");
     public static final Supplier<SoundEvent> WOLF_ARMOR_DAMAGE = SOUNDS.soundEvent("item.wolf_armor.damage");
     public static final Supplier<SoundEvent> WOLF_ARMOR_REPAIR = SOUNDS.soundEvent("item.wolf_armor.repair");
+
+    public static final Supplier<SoundEvent> OMINOUS_BOTTLE_DISPOSE = SOUNDS.soundEvent("item.ominous_bottle.dispose");
 
     // ENTITIES
     public static final Supplier<SoundEvent> ARMADILLO_EAT = SOUNDS.soundEvent("entity.armadillo.eat");
@@ -159,4 +164,13 @@ public class ModSoundEvents {
     // RECORDS
     public static final Supplier<SoundEvent> MUSIC_DISC_TEARS = SOUNDS.soundEvent("music_disc.tears");
     public static final Supplier<SoundEvent> MUSIC_DISC_LAVA_CHICKEN = SOUNDS.soundEvent("music_disc.lava_chicken");
+
+    public static final Supplier<SoundEvent> MUSIC_DISC_PRECIPICE = SOUNDS.soundEvent("music_disc.precipice");
+    public static final Supplier<SoundEvent> MUSIC_DISC_CREATOR = SOUNDS.soundEvent("music_disc.creator");
+    public static final Supplier<SoundEvent> MUSIC_DISC_CREATOR_MUSIC_BOX = SOUNDS.soundEvent("music_disc.creator_music_box");
+
+    // EFFECTS
+    public static final Supplier<SoundEvent> APPLY_EFFECT_BAD_OMEN = SOUNDS.soundEvent("event.mob_effect.bad_omen");
+    public static final Supplier<SoundEvent> APPLY_EFFECT_TRIAL_OMEN = SOUNDS.soundEvent("event.mob_effect.trial_omen");
+    public static final Supplier<SoundEvent> APPLY_EFFECT_RAID_OMEN = SOUNDS.soundEvent("event.mob_effect.raid_omen");
 }

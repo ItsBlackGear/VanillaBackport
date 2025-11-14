@@ -3,6 +3,7 @@ package com.blackgear.vanillabackport.common.registries;
 import com.blackgear.platform.core.helper.ItemRegistry;
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
 import com.blackgear.vanillabackport.common.level.entities.animal.VariantKeys;
+import com.blackgear.vanillabackport.common.level.items.OminousBottleItem;
 import com.blackgear.vanillabackport.common.level.items.PaleOakBoatItem;
 import com.blackgear.vanillabackport.common.level.items.HarnessItem;
 import com.blackgear.vanillabackport.common.level.items.VariantEggItem;
@@ -10,6 +11,7 @@ import com.blackgear.vanillabackport.common.level.items.WolfArmorItem;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.world.item.*;
+import net.minecraft.world.level.block.Blocks;
 
 import java.util.Map;
 import java.util.function.Supplier;
@@ -179,7 +181,7 @@ public class ModItems {
         "brown_egg",
         properties -> new VariantEggItem(VariantKeys.WARM_CHICKEN, properties),
         new Item.Properties().stacksTo(16));
-
+  
     public static final Supplier<Item> ARMADILLO_SCUTE = ITEMS.register("armadillo_scute");
     public static final Supplier<Item> WOLF_ARMOR = ITEMS.register(
         "wolf_armor",

@@ -1,6 +1,7 @@
 package com.blackgear.vanillabackport.client.registries;
 
 import com.blackgear.vanillabackport.client.api.tabs.BundledTabs;
+import com.blackgear.vanillabackport.common.level.items.OminousBottleItem;
 import com.blackgear.vanillabackport.common.registries.ModBlocks;
 import com.blackgear.vanillabackport.common.registries.ModItems;
 import com.blackgear.vanillabackport.common.registries.ModPaintingVariants;
@@ -15,7 +16,7 @@ import java.util.List;
 
 public class ModBundledTabs {
     private static final List<BundledTabs> FILTERS = new ArrayList<>();
-
+  
     public static final BundledTabs ARMORED_PAWS = register(
         BundledTabs.builder()
             .title(Component.translatable("bundled_tab.armored_paws.title"))

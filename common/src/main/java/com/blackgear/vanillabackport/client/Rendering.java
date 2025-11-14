@@ -10,6 +10,7 @@ import com.blackgear.vanillabackport.client.level.entities.model.cow.ColdCowMode
 import com.blackgear.vanillabackport.client.level.entities.model.cow.WarmCowModel;
 import com.blackgear.vanillabackport.client.level.entities.model.pig.ColdPigModel;
 import com.blackgear.vanillabackport.client.level.entities.renderer.*;
+import com.blackgear.vanillabackport.client.level.particles.DustPlumeParticle;
 import com.blackgear.vanillabackport.client.level.particles.FallingLeavesParticle;
 import com.blackgear.vanillabackport.client.level.particles.FireflyParticle;
 import com.blackgear.vanillabackport.client.level.particles.TrailParticle;
@@ -25,6 +26,7 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.model.BoatModel;
 import net.minecraft.client.model.ChestBoatModel;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
+import net.minecraft.client.particle.SpellParticle;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.RenderType;
@@ -40,6 +42,13 @@ public class Rendering {
         event.register(ModParticles.FIREFLY, FireflyParticle.Provider::new);
         event.register(ModParticles.TINTED_LEAVES, FallingLeavesParticle.TintedLeavesProvider::new);
         event.register(ModParticles.TINTED_NEEDLES, FallingLeavesParticle.TintedLeavesProvider::new);
+
+        // Pots and Bats - Echo2craft.
+        event.register(ModParticles.DUST_PLUME, DustPlumeParticle.Provider::new);
+
+        // Tricky Trails - Echo2craft.
+        event.register(ModParticles.RAID_OMEN, SpellParticle.Provider::new);
+        event.register(ModParticles.TRIAL_OMEN, SpellParticle.Provider::new);
     }
 
     public static void entityRendering(GameRendering.EntityRendererEvent event) {

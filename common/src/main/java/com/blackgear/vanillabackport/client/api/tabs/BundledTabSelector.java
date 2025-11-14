@@ -6,6 +6,7 @@ import com.blackgear.vanillabackport.client.registries.ModBundledTabs;
 import com.blackgear.vanillabackport.client.registries.ModCreativeTabs;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.blackgear.vanillabackport.core.mixin.access.CreativeModeInventoryScreenAccessor;
+import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -17,6 +18,7 @@ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
 import net.minecraft.client.gui.screens.inventory.tooltip.ClientTooltipPositioner;
 import net.minecraft.client.gui.screens.inventory.tooltip.DefaultTooltipPositioner;
+import net.minecraft.client.renderer.Rect2i;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -110,9 +112,13 @@ public class BundledTabSelector {
             Tab tab = new Tab(this.guiLeft - 23, this.guiTop + 7, category, button -> {
                 if (category.isSelected()) {
                     category.deselect();
+                    // Simple check - Echo2craft.
+                    isBundleTabSelected = false;
                 } else {
                     this.bundles.forEach(BundledTabs::deselect);
                     category.select();
+                    // - Echo2craft.
+                    isBundleTabSelected = true;
                 }
                 this.updateItems(screen);
             });
@@ -193,6 +199,11 @@ public class BundledTabSelector {
 
     private boolean isValidTab(CreativeModeTab tab) {
         return tab == ModCreativeTabs.VANILLA_BACKPORT.get();
+    }
+
+    // For JEI compat, in development. - Echo2craft.
+    public List<Rect2i> getExtraAreas() {
+        return extraAreas;
     }
 
     public static class Tab extends Button {

@@ -93,5 +93,16 @@ public class ModelGenerator extends VanillaModelGenerator {
         // Spring to Life
         gen.createFlatItem(ModItems.BLUE_EGG.get());
         gen.createFlatItem(ModItems.BROWN_EGG.get());
+
+        // Tricky Trails
+        gen.createFlatItem(ModItems.TRIAL_KEY.get());
+        gen.createFlatItem(ModItems.OMINOUS_TRIAL_KEY.get());
+        gen.createFlatItem(ModItems.OMINOUS_BOTTLE.get());
+        gen.createFlatItem(ModItems.BREEZE_ROD.get());
+        gen.createFlatItem(ModItems.FLOW_ARMOR_TRIM_SMITHING_TEMPLATE.get());
+        gen.createFlatItem(ModItems.BOLT_ARMOR_TRIM_SMITHING_TEMPLATE.get());
+        gen.createMusicDisc(ModItems.MUSIC_DISC_PRECIPICE.get());
+        gen.createMusicDisc(ModItems.MUSIC_DISC_CREATOR.get());
+        gen.createMusicDisc(ModItems.MUSIC_DISC_CREATOR_MUSIC_BOX.get());
     }
 }
