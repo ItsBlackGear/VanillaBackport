@@ -5,7 +5,6 @@ import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.enchantment.Enchantment;
 
 public class ModItemTags {
     public static final TagRegistry<Item> TAGS = TagRegistry.create(Registries.ITEM, VanillaBackport.NAMESPACE);

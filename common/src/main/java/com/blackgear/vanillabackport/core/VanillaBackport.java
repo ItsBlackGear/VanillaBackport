@@ -55,7 +55,6 @@ public final class VanillaBackport {
         ModEntities.ENTITIES.register();
         ModMemoryModules.REGISTRAR.register();
         ModSensorTypes.SENSOR_TYPES.register();
-        ModMobEffects.MOB_EFFECTS.register();
 
         ModSoundEvents.SOUNDS.register();
         ModSoundTypes.SOUNDS.register();

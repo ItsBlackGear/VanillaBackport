@@ -164,13 +164,4 @@ public class ModSoundEvents {
     // RECORDS
     public static final Supplier<SoundEvent> MUSIC_DISC_TEARS = SOUNDS.soundEvent("music_disc.tears");
     public static final Supplier<SoundEvent> MUSIC_DISC_LAVA_CHICKEN = SOUNDS.soundEvent("music_disc.lava_chicken");
-
-    public static final Supplier<SoundEvent> MUSIC_DISC_PRECIPICE = SOUNDS.soundEvent("music_disc.precipice");
-    public static final Supplier<SoundEvent> MUSIC_DISC_CREATOR = SOUNDS.soundEvent("music_disc.creator");
-    public static final Supplier<SoundEvent> MUSIC_DISC_CREATOR_MUSIC_BOX = SOUNDS.soundEvent("music_disc.creator_music_box");
-
-    // EFFECTS
-    public static final Supplier<SoundEvent> APPLY_EFFECT_BAD_OMEN = SOUNDS.soundEvent("event.mob_effect.bad_omen");
-    public static final Supplier<SoundEvent> APPLY_EFFECT_TRIAL_OMEN = SOUNDS.soundEvent("event.mob_effect.trial_omen");
-    public static final Supplier<SoundEvent> APPLY_EFFECT_RAID_OMEN = SOUNDS.soundEvent("event.mob_effect.raid_omen");
 }

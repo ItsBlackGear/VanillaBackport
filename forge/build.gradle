@@ -43,29 +43,7 @@ dependencies {
     modApi "flatDir:Platform-forge-1.20.1-$rootProject.platform_indev_version"
 //    modApi "curse.maven:platform-997634:$rootProject.platform_forge_version"
 
-    // Mods that I often used for development. Delete mods below if bugs happens. - Echo2craft.
-    modImplementation("curse.maven:nbtedit-reborn-678133:5984630")
-
-    // Create and its dependencies
-    modImplementation("com.simibubi.create:create-$minecraft_version:$create_forge_version:slim") { transitive = false }
-    modImplementation("com.tterrag.registrate:Registrate:$registrate_forge_version")
-    modImplementation("com.jozufozu.flywheel:flywheel-forge-$flywheel_forge_minecraft_version:$flywheel_forge_version")
-//    modImplementation("curse.maven:particle-effects-reforged-1274497:6584238")
-
-    // Emi Forge (see below block as well if you use Forge Gradle)
-    modCompileOnlyApi("dev.emi:emi-forge:${emi_version}:api")
-    modRuntimeOnly("dev.emi:emi-forge:${emi_version}")
-
-    // Jade currently have Mixin Extra bug, not sure if it is a conflict. - Echo2craft
-    // modImplementation("curse.maven:jade-324717:6855440")
-
     modApi("com.github.glitchfiend:TerraBlender-forge:$rootProject.terrablender_version")
-
-    // JEI
-    // compile against the JEI API but do not include it at runtime
-    modCompileOnlyApi("mezz.jei:jei-1.20.1-forge-api:${jei_version}")
-    // at runtime, use the full JEI jar for Forge
-    modRuntimeOnly("mezz.jei:jei-1.20.1-forge:${jei_version}")
 
     common(project(path: ':common', configuration: 'namedElements')) { transitive false }
     shadowBundle project(path: ':common', configuration: 'transformProductionForge')

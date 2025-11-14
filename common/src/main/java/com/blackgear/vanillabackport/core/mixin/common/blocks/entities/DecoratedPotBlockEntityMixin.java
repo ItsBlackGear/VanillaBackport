@@ -1,7 +1,7 @@
 package com.blackgear.vanillabackport.core.mixin.common.blocks.entities;
 
 import com.blackgear.vanillabackport.common.api.block.RandomizableContainer;
-import com.blackgear.vanillabackport.common.api.block.entity.IDecoratedPotBlockEntityHelper;
+import com.blackgear.vanillabackport.common.api.block.entity.DecoratedPot;
 import com.blackgear.vanillabackport.common.level.blockentities.decoratedpot.WobbleStyle;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -13,44 +13,32 @@ import net.minecraft.world.level.block.entity.DecoratedPotBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+// Special thanks to Echo2craft
 @Mixin(DecoratedPotBlockEntity.class)
-public abstract class DecoratedPotBlockEntityMixin extends BlockEntity implements RandomizableContainer, IDecoratedPotBlockEntityHelper {
-    @Shadow
-    @Final
-    public static String TAG_SHERDS = "sherds";
-    @Unique
-    private static final String TAG_ITEM = "item";
-    @Unique
-    private static final int EVENT_POT_WOBBLES = 1;
-    @Unique
-    public long vb$wobbleStartedAtTick;
-    @Unique
-    @Nullable
-    public WobbleStyle vb$lastWobbleStyle;
-    @Unique
-    private ItemStack vb$item = ItemStack.EMPTY;
-    @Unique
-    @Nullable
-    protected ResourceLocation vb$lootTable;
-    @Unique
-    protected long vb$lootTableSeed;
+public abstract class DecoratedPotBlockEntityMixin extends BlockEntity implements RandomizableContainer, DecoratedPot {
+    @Unique private static final String TAG_ITEM = "item";
+    @Unique private static final int EVENT_POT_WOBBLES = 1;
+    @Unique public long vb$wobbleStartedAtTick;
+    @Unique @Nullable public WobbleStyle vb$lastWobbleStyle;
+    @Unique private ItemStack vb$item = ItemStack.EMPTY;
+    @Unique @Nullable protected ResourceLocation vb$lootTable;
+    @Unique protected long vb$lootTableSeed;
+
     public DecoratedPotBlockEntityMixin(BlockEntityType<?> type, BlockPos pos, BlockState blockState) {
         super(type, pos, blockState);
     }
 
     @Inject(
-            method = "load",
-            at = @At("TAIL")
+        method = "load",
+        at = @At("TAIL")
     )
-    public void vb$load(CompoundTag tag, CallbackInfo ci){
+    public void vb$load(CompoundTag tag, CallbackInfo ci) {
         if (!this.tryLoadLootTable(tag) && this.level != null) {
             this.vb$item = ItemStack.of(tag.getCompound(TAG_ITEM));
         } else {
@@ -59,10 +47,10 @@ public abstract class DecoratedPotBlockEntityMixin extends BlockEntity implement
     }
 
     @Inject(
-            method = "saveAdditional",
-            at = @At("TAIL")
+        method = "saveAdditional",
+        at = @At("TAIL")
     )
-    public void vb$saveAdditional(CompoundTag tag, CallbackInfo ci){
+    public void vb$saveAdditional(CompoundTag tag, CallbackInfo ci) {
         if (!this.trySaveLootTable(tag) && !this.vb$item.isEmpty()) {
             CompoundTag itemTag = new CompoundTag();
             this.vb$item.save(itemTag);
@@ -92,9 +80,9 @@ public abstract class DecoratedPotBlockEntityMixin extends BlockEntity implement
     }
 
     @Override
-    public void wobble(WobbleStyle pStyle) {
+    public void wobble(WobbleStyle style) {
         if (this.level != null && !this.level.isClientSide()) {
-            this.level.blockEvent(this.getBlockPos(), this.getBlockState().getBlock(), EVENT_POT_WOBBLES, pStyle.ordinal());
+            this.level.blockEvent(this.getBlockPos(), this.getBlockState().getBlock(), EVENT_POT_WOBBLES, style.ordinal());
         }
     }
 
@@ -109,18 +97,18 @@ public abstract class DecoratedPotBlockEntityMixin extends BlockEntity implement
     }
 
     @Override
-    public void setLootTableSeed(long pSeed) {
-        this.vb$lootTableSeed = pSeed;
+    public void setLootTableSeed(long seed) {
+        this.vb$lootTableSeed = seed;
     }
 
     @Override
-    public void setLootTable(@Nullable ResourceLocation pLootTable) {
-        this.vb$lootTable = pLootTable;
+    public void setLootTable(@Nullable ResourceLocation lootTable) {
+        this.vb$lootTable = lootTable;
     }
 
     @Override
-    public @NotNull ItemStack getItem(int pSlot) {
-        return pSlot == 0 ? this.getFirstItem() : ItemStack.EMPTY;
+    public @NotNull ItemStack getItem(int slot) {
+        return slot == 0 ? this.getFirstItem() : ItemStack.EMPTY;
     }
 
     @Override
@@ -130,38 +118,29 @@ public abstract class DecoratedPotBlockEntityMixin extends BlockEntity implement
     }
 
     @Override
-    public @NotNull ItemStack removeItem(int pSlot, int pAmount) {
-        return pSlot != 0 ? ItemStack.EMPTY : this.splitFirstItem(pAmount);
+    public @NotNull ItemStack removeItem(int slot, int amount) {
+        return slot != 0 ? ItemStack.EMPTY : this.splitFirstItem(amount);
     }
 
     @Override
-    public void setItem(int pSlot, @NotNull ItemStack pStack) {
-        if (pSlot == 0) {
-            this.setFirstItem(pStack);
-        }
+    public void setItem(int slot, @NotNull ItemStack stack) {
+        if (slot == 0) this.setFirstItem(stack);
     }
 
     @Override
-    public void setFirstItem(@NotNull ItemStack pItem) {
+    public void setFirstItem(@NotNull ItemStack stack) {
         this.unpackLootTable(null);
-        this.vb$item = pItem;
+        this.vb$item = stack;
     }
 
-    // From 1.21+ ContainerSingleItem interface.
     @Unique
-    public ItemStack splitFirstItem(int pAmount) {
+    public ItemStack splitFirstItem(int stack) {
         this.unpackLootTable(null);
-        ItemStack itemstack = this.vb$item.split(pAmount);
+        ItemStack itemstack = this.vb$item.split(stack);
         if (this.vb$item.isEmpty()) {
             this.vb$item = ItemStack.EMPTY;
         }
 
         return itemstack;
     }
-
-    // @ExpectPlatform
-    /*public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @javax.annotation.Nullable Direction side) {
-        this.trickytrialsbackport$decoratedPotHandler = this.trickytrialsbackport$decoratedPotHandler != null ? this.trickytrialsbackport$decoratedPotHandler : LazyOptional.of(this::createUnSidedHandler);
-        return cap == ForgeCapabilities.ITEM_HANDLER && !this.remove ? this.trickytrialsbackport$decoratedPotHandler.cast() : super.getCapability(cap, side);
-    }*/
 }

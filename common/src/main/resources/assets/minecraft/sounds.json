@@ -1393,54 +1393,6 @@
     ],
     "subtitle": "subtitles.block.generic.place"
   },
-  "item.ominous_bottle.dispose": {
-    "sounds": [
-      "item/ominous_bottle/dispose"
-    ],
-    "subtitle": "subtitles.item.ominous_bottle.dispose"
-  },
-  "event.mob_effect.bad_omen": {
-    "sounds": [
-      "event/mob_effect/bad_omen"
-    ],
-    "subtitle": "subtitles.event.mob_effect.bad_omen"
-  },
-  "event.mob_effect.raid_omen": {
-    "sounds": [
-      "event/mob_effect/raid_omen"
-    ],
-    "subtitle": "subtitles.event.mob_effect.raid_omen"
-  },
-  "event.mob_effect.trial_omen": {
-    "sounds": [
-      "event/mob_effect/trial_omen"
-    ],
-    "subtitle": "subtitles.event.mob_effect.trial_omen"
-  },
-  "music_disc.creator": {
-    "sounds": [
-      {
-        "name": "records/creator",
-        "stream": true
-      }
-    ]
-  },
-  "music_disc.creator_music_box": {
-    "sounds": [
-      {
-        "name": "records/creator_music_box",
-        "stream": true
-      }
-    ]
-  },
-  "music_disc.precipice": {
-    "sounds": [
-      {
-        "name": "records/precipice",
-        "stream": true
-      }
-    ]
-  },
   "block.decorated_pot.insert": {
     "sounds": [
       {

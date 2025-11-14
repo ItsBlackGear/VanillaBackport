@@ -14,14 +14,6 @@ dependencies {
     modApi "flatDir:Platform-common-1.20.1-$rootProject.platform_indev_version"
 //    modApi "curse.maven:platform-997634:$rootProject.platform_fabric_version"
 
-    // Emi Architectury
-    modCompileOnly "dev.emi:emi-xplat-intermediary:${emi_version}:api"
-
-    // compile against the JEI API but do not include it at runtime
-    modCompileOnlyApi("mezz.jei:jei-1.20.1-common-api:${jei_version}")
-    // at runtime, use the full JEI jar for Forge
-    modRuntimeOnly("mezz.jei:jei-1.20.1-common:${jei_version}")
-
     modCompileOnly "curse.maven:selene-499980:6841406"
 
     modCompileOnly "com.github.glitchfiend:TerraBlender-common:$rootProject.terrablender_version"

@@ -29,32 +29,12 @@ public abstract class SpriteResourceLoaderMixin {
                 if (source instanceof PalettedPermutationsAccessor permutations && permutations.getPaletteKey().equals(new ResourceLocation("trims/color_palettes/trim_palette"))) {
                     ResourceLocation resin = VanillaBackport.vanilla("trims/color_palettes/resin");
 
-                    // Tricky Trials trim patterns. - Echo2craft.
-                    List<ResourceLocation> trimPatternSet = List.of(
-                            VanillaBackport.vanilla("trims/models/armor/bolt"),
-                            VanillaBackport.vanilla("trims/models/armor/bolt_leggings"),
-                            VanillaBackport.vanilla("trims/models/armor/flow"),
-                            VanillaBackport.vanilla("trims/models/armor/flow_leggings")
-                    );
-
                     if (manager.getResource(new ResourceLocation(resin.getNamespace(), "textures/" + resin.getPath() + ".png")).isPresent()) {
                         Map<String, ResourceLocation> map = new HashMap<>(permutations.getPermutations());
                         map.put("resin", resin);
                         permutations.setPermutations(map);
                     } else {
                         VanillaBackport.LOGGER.warn("Resin palette texture not found at: {}", resin);
-                    }
-
-                    // Adding trim patterns. - Echo2craft.
-                    for (ResourceLocation pattern : trimPatternSet){
-                        if (manager.getResource(new ResourceLocation(pattern.getNamespace(), "textures/" + pattern.getPath() + ".png")).isPresent()){
-                            // Cast permutations.getTextures() to a new ArrayList to avoid ImmutableList error.
-                            List<ResourceLocation> textures = new java.util.ArrayList<>(permutations.getTextures().stream().toList());
-                            textures.add(pattern);
-                            permutations.setTextures(textures);
-                        } else {
-                            VanillaBackport.LOGGER.warn("Trim pattern texture not found at: {}", pattern);
-                        }
                     }
                 }
             }
@@ -66,9 +46,7 @@ public abstract class SpriteResourceLoaderMixin {
 
     @Mixin(PalettedPermutations.class)
     private interface PalettedPermutationsAccessor {
-        // Apparently, List<ResourceLocation> textures value is an ImmutableList.
         @Accessor List<ResourceLocation> getTextures();
-        // Apparently, List<ResourceLocation> textures value is an ImmutableList. Cannot be set unless class cast is used.
         @Accessor("textures") @Mutable void setTextures(List<ResourceLocation> textures);
 
         @Accessor Map<String, ResourceLocation> getPermutations();

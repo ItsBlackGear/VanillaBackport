@@ -121,11 +121,7 @@ public interface CreativeTabIntegration {
         ));
         output.addAllAfter(Items.MUSIC_DISC_RELIC, List.of(
             ModItems.MUSIC_DISC_TEARS.get(),
-            ModItems.MUSIC_DISC_LAVA_CHICKEN.get(),
-
-            ModItems.MUSIC_DISC_PRECIPICE.get(),
-            ModItems.MUSIC_DISC_CREATOR.get(),
-            ModItems.MUSIC_DISC_CREATOR_MUSIC_BOX.get()
+            ModItems.MUSIC_DISC_LAVA_CHICKEN.get()
         ));
     };
 

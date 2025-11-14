@@ -41,9 +41,6 @@ public class ModParticles {
         ColorParticleOption::codec
     );
 
-    // Tricky Trails
-    public static final Supplier<SimpleParticleType> RAID_OMEN = PARTICLES.register("raid_omen", true);
-    public static final Supplier<SimpleParticleType> TRIAL_OMEN = PARTICLES.register("trial_omen", true);
     public static final Supplier<SimpleParticleType> DUST_PLUME = PARTICLES.register("dust_plume",false);
 
     public static <T extends ParticleOptions> int sendParticles(ServerLevel level, T particle, double x, double y, double z, int particleCount, double xOffset, double yOffset, double zOffset, double speed) {

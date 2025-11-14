@@ -238,50 +238,8 @@ public class LangGenerator extends FabricLanguageProvider {
         builder.add("bundled_tab.hot_as_lava.title", "Hot as Lava");
 
         // Tricky Trials - Echo2craft.
-        builder.add(getSubtitleOf(ModSoundEvents.DECORATED_POT_INSERT.get()),"Decorated Pot fills");
-        builder.add(getSubtitleOf(ModSoundEvents.DECORATED_POT_INSERT_FAIL.get()),"Decorated Pot wobbles");
+        builder.add("subtitles.block.decorated_pot.insert","Decorated Pot fills");
+        builder.add("subtitles.block.decorated_pot.insert_fail","Decorated Pot wobbles");
 
-        builder.add(ModItems.TRIAL_KEY.get(),"Trial Key");
-        builder.add(ModItems.OMINOUS_TRIAL_KEY.get(),"Ominous Trial Key");
-        builder.add(ModItems.OMINOUS_BOTTLE.get(),"Ominous Bottle");
-        builder.add(ModItems.BREEZE_ROD.get(),"Breeze Rod");
-        builder.add(ModItems.MUSIC_DISC_PRECIPICE.get(), "Music Disc");
-        builder.add(ModItems.MUSIC_DISC_CREATOR.get(), "Music Disc");
-        builder.add(ModItems.MUSIC_DISC_CREATOR_MUSIC_BOX.get(), "Music Disc");
-
-        builder.add(Util.makeDescriptionId("trim_pattern", ModTrimPatterns.FLOW.location()),"Flow Armor Trim");
-        builder.add(Util.makeDescriptionId("trim_pattern", ModTrimPatterns.BOLT.location()),"Bolt Armor Trim");
-
-        builder.add(ModMobEffects.RAID_OMEN.get(),"Raid Omen");
-        builder.add(ModMobEffects.TRIAL_OMEN.get(),"Trial Omen");
-
-        builder.add(getItemDescriptionOf(ModItems.MUSIC_DISC_PRECIPICE.get()), "Aaron Cherof - Precipice");
-        builder.add(getItemDescriptionOf(ModItems.MUSIC_DISC_CREATOR.get()), "Lena Raine - Creator");
-        builder.add(getItemDescriptionOf(ModItems.MUSIC_DISC_CREATOR_MUSIC_BOX.get()), "Lena Raine - Creator (Music Box)");
-        builder.add(getJukeBoxSongNameOf(ModSoundEvents.MUSIC_DISC_PRECIPICE.get()), "Aaron Cherof - Precipice");
-        builder.add(getJukeBoxSongNameOf(ModSoundEvents.MUSIC_DISC_CREATOR.get()),"Lena Raine - Creator");
-        builder.add(getJukeBoxSongNameOf(ModSoundEvents.MUSIC_DISC_CREATOR_MUSIC_BOX.get()),"Lena Raine - Creator (Music Box)");
-
-        builder.add(getSubtitleOf(ModSoundEvents.OMINOUS_BOTTLE_DISPOSE.get()),"Bottle breaks");
-        builder.add(getSubtitleOf(ModSoundEvents.APPLY_EFFECT_BAD_OMEN.get()),"Omen takes hold");
-        builder.add(getSubtitleOf(ModSoundEvents.APPLY_EFFECT_TRIAL_OMEN.get()),"Ominous trial looms nearby");
-        builder.add(getSubtitleOf(ModSoundEvents.APPLY_EFFECT_RAID_OMEN.get()),"Raid looms nearby");
-    }
-
-    // Little helper for subtitles. - Echo2craft.
-    private String getSubtitleOf(SoundEvent pSound){
-        // Either way works.
-        // return pSound.getLocation().withPrefix("subtitles.").getPath();
-        return "subtitles." + pSound.getLocation().getPath();
-    }
-
-    // Little helper for music disc description and banner pattern description. - Echo2craft.
-    private String getItemDescriptionOf(Item key){
-        return key.getDescriptionId() + ".desc";
-    }
-
-    // Little helper for jukebox song name. - Echo2craft.
-    private String getJukeBoxSongNameOf(SoundEvent pSound){
-        return "jukebox_song." + pSound.getLocation().getPath();
     }
 }

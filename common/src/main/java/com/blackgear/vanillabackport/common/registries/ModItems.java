@@ -3,17 +3,13 @@ package com.blackgear.vanillabackport.common.registries;
 import com.blackgear.platform.core.helper.ItemRegistry;
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
 import com.blackgear.vanillabackport.common.level.entities.animal.VariantKeys;
-import com.blackgear.vanillabackport.common.level.items.OminousBottleItem;
 import com.blackgear.vanillabackport.common.level.items.PaleOakBoatItem;
 import com.blackgear.vanillabackport.common.level.items.HarnessItem;
 import com.blackgear.vanillabackport.common.level.items.VariantEggItem;
 import com.blackgear.vanillabackport.common.level.items.WolfArmorItem;
 import com.blackgear.vanillabackport.core.VanillaBackport;
-import com.google.common.collect.ImmutableMap;
 import net.minecraft.world.item.*;
-import net.minecraft.world.level.block.Blocks;
 
-import java.util.Map;
 import java.util.function.Supplier;
 
 public class ModItems {
@@ -188,6 +184,7 @@ public class ModItems {
         WolfArmorItem::new,
         new Item.Properties().durability(64)
     );
+    
     public static final Supplier<Item> ARMADILLO_SPAWN_EGG = ITEMS.spawnEgg("armadillo_spawn_egg", ModEntities.ARMADILLO, 13011076, 7421502, new Item.Properties());
     public static final Supplier<Item> CREAKING_SPAWN_EGG = ITEMS.spawnEgg("creaking_spawn_egg", ModEntities.CREAKING, 6250335, 16545810, new Item.Properties());
     public static final Supplier<Item> HAPPY_GHAST_SPAWN_EGG = ITEMS.spawnEgg("happy_ghast_spawn_egg", ModEntities.HAPPY_GHAST, 16382457, 12369084, new Item.Properties());

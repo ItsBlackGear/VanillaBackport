@@ -26,7 +26,6 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.model.BoatModel;
 import net.minecraft.client.model.ChestBoatModel;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
-import net.minecraft.client.particle.SpellParticle;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.RenderType;
@@ -43,12 +42,7 @@ public class Rendering {
         event.register(ModParticles.TINTED_LEAVES, FallingLeavesParticle.TintedLeavesProvider::new);
         event.register(ModParticles.TINTED_NEEDLES, FallingLeavesParticle.TintedLeavesProvider::new);
 
-        // Pots and Bats - Echo2craft.
         event.register(ModParticles.DUST_PLUME, DustPlumeParticle.Provider::new);
-
-        // Tricky Trails - Echo2craft.
-        event.register(ModParticles.RAID_OMEN, SpellParticle.Provider::new);
-        event.register(ModParticles.TRIAL_OMEN, SpellParticle.Provider::new);
     }
 
     public static void entityRendering(GameRendering.EntityRendererEvent event) {

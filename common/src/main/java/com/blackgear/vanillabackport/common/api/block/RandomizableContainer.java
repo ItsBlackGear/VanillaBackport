@@ -1,17 +1,13 @@
 package com.blackgear.vanillabackport.common.api.block;
 
-import com.blackgear.vanillabackport.core.util.TagUtils;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.util.RandomSource;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -20,97 +16,55 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
-// 1.21+ interface for container, replace ResourceKey<LootTable> with classic ResourceLocation - Echo2craft.
+// Special thanks to Echo2craft
 public interface RandomizableContainer extends Container {
     String LOOT_TABLE_TAG = "LootTable";
     String LOOT_TABLE_SEED_TAG = "LootTableSeed";
 
-    // 1.20.1 does not feature LootTable registry, and we don't need to create one. - Echo2craft.
-    /*@Nullable
-    ResourceKey<LootTable> getLootTable();*/
-
-    @Nullable
-    ResourceLocation getLootTable();
-
-    // 1.20.1 does not feature LootTable registry, and we don't need to create one. - Echo2craft.
-    /*void setLootTable(@Nullable ResourceKey<LootTable> pLootTable);*/
-
-    void setLootTable(@Nullable ResourceLocation pLootTable);
-
-    /*default void setLootTable(ResourceKey<LootTable> pLootTable, long pSeed) {
-        this.setLootTable(pLootTable);
-        this.setLootTableSeed(pSeed);
-    }*/
-
-    default void setLootTable(ResourceLocation pLootTable, long pSeed) {
-        this.setLootTable(pLootTable);
-        this.setLootTableSeed(pSeed);
-    }
+    @Nullable ResourceLocation getLootTable();
+    void setLootTable(@Nullable ResourceLocation lootTable);
 
     long getLootTableSeed();
-
-    void setLootTableSeed(long pSeed);
+    void setLootTableSeed(long seed);
 
     BlockPos getBlockPos();
+    @Nullable Level getLevel();
 
-    @Nullable
-    Level getLevel();
-
-    /*static void setBlockEntityLootTable(BlockGetter pLevel, RandomSource pRandom, BlockPos pPs, ResourceKey<LootTable> pLootTable) {
-        if (pLevel.getBlockEntity(pPs) instanceof RandomizableContainer randomizablecontainer) {
-            randomizablecontainer.setLootTable(pLootTable, pRandom.nextLong());
-        }
-    }*/
-
-    static void setBlockEntityLootTable(BlockGetter pLevel, RandomSource pRandom, BlockPos pPs, ResourceLocation pLootTable) {
-        if (pLevel.getBlockEntity(pPs) instanceof RandomizableContainer randomizablecontainer) {
-            randomizablecontainer.setLootTable(pLootTable, pRandom.nextLong());
-        }
-    }
-
-    default boolean tryLoadLootTable(CompoundTag pTag) {
-        // ResourceKey<LootTable> resourcekey = TagUtils.read(pTag, "LootTable", LootTable.KEY_CODEC).orElse(null);
-        ResourceLocation lootTable = ResourceLocation.tryParse(pTag.getString(LOOT_TABLE_TAG));
+    default boolean tryLoadLootTable(CompoundTag tag) {
+        ResourceLocation lootTable = ResourceLocation.tryParse(tag.getString(LOOT_TABLE_TAG));
         this.setLootTable(lootTable);
-        this.setLootTableSeed(TagUtils.getLongOr(pTag,LOOT_TABLE_SEED_TAG, 0L));
+        this.setLootTableSeed(tag.getLong(LOOT_TABLE_SEED_TAG));
         return lootTable != null;
     }
 
-    default boolean trySaveLootTable(CompoundTag pTag) {
-        // ResourceKey<LootTable> resourcekey = this.getLootTable();
+    default boolean trySaveLootTable(CompoundTag tag) {
         ResourceLocation lootTable = this.getLootTable();
         if (lootTable == null) {
             return false;
         } else {
-            pTag.putString(LOOT_TABLE_TAG,lootTable.toString());
-            // TagUtils.store(pTag,LOOT_TABLE_TAG, LootTable.KEY_CODEC, lootTable);
-            long i = this.getLootTableSeed();
-            if (i != 0L) {
-                pTag.putLong(LOOT_TABLE_SEED_TAG, i);
-            }
+            tag.putString(LOOT_TABLE_TAG,lootTable.toString());
+            long seed = this.getLootTableSeed();
+            if (seed != 0L) tag.putLong(LOOT_TABLE_SEED_TAG, seed);
 
             return true;
         }
     }
 
-    default void unpackLootTable(@Nullable Player pPlayer) {
+    default void unpackLootTable(@Nullable Player player) {
         Level level = this.getLevel();
-        BlockPos blockpos = this.getBlockPos();
-        // ResourceKey<LootTable> resourcekey = this.getLootTable();
+        BlockPos origin = this.getBlockPos();
         ResourceLocation lootTable = this.getLootTable();
         if (lootTable != null && level != null && level.getServer() != null) {
-            LootTable loottable = level.getServer().getLootData().getLootTable(lootTable);
-            if (pPlayer instanceof ServerPlayer) {
-                CriteriaTriggers.GENERATE_LOOT.trigger((ServerPlayer)pPlayer, lootTable);
-            }
+            LootTable loot = level.getServer().getLootData().getLootTable(lootTable);
+            if (player instanceof ServerPlayer sp) CriteriaTriggers.GENERATE_LOOT.trigger(sp, lootTable);
 
             this.setLootTable(null);
-            LootParams.Builder lootparams$builder = new LootParams.Builder((ServerLevel)level).withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(blockpos));
-            if (pPlayer != null) {
-                lootparams$builder.withLuck(pPlayer.getLuck()).withParameter(LootContextParams.THIS_ENTITY, pPlayer);
+            LootParams.Builder builder = new LootParams.Builder((ServerLevel) level).withParameter(LootContextParams.ORIGIN, Vec3.atCenterOf(origin));
+            if (player != null) {
+                builder.withLuck(player.getLuck()).withParameter(LootContextParams.THIS_ENTITY, player);
             }
 
-            loottable.fill(this, lootparams$builder.create(LootContextParamSets.CHEST), this.getLootTableSeed());
+            loot.fill(this, builder.create(LootContextParamSets.CHEST), this.getLootTableSeed());
         }
     }
 }

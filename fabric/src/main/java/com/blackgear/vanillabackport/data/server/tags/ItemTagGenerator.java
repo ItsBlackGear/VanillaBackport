@@ -64,17 +64,11 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
         this.getOrCreateTagBuilder(ItemTags.MUSIC_DISCS)
             .add(
                     ModItems.MUSIC_DISC_TEARS.get(),
-                    ModItems.MUSIC_DISC_LAVA_CHICKEN.get(),
-                    ModItems.MUSIC_DISC_PRECIPICE.get(),
-                    ModItems.MUSIC_DISC_CREATOR.get(),
-                    ModItems.MUSIC_DISC_CREATOR_MUSIC_BOX.get()
+                    ModItems.MUSIC_DISC_LAVA_CHICKEN.get()
             );
 
         this.getOrCreateTagBuilder(ItemTags.TRIM_MATERIALS)
             .add(ModItems.RESIN_BRICK.get());
-
-        this.getOrCreateTagBuilder(ItemTags.TRIM_TEMPLATES)
-            .add(ModItems.FLOW_ARMOR_TRIM_SMITHING_TEMPLATE.get(),ModItems.BOLT_ARMOR_TRIM_SMITHING_TEMPLATE.get());
 
         this.getOrCreateTagBuilder(ModItemTags.HARNESSES)
             .add(
@@ -186,17 +180,8 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
         this.getDualTagBuilder(ForgeItemTags.MUSIC_DISCS, FabricItemTags.MUSIC_DISCS)
             .add(
                     ModItems.MUSIC_DISC_TEARS.get(),
-                    ModItems.MUSIC_DISC_LAVA_CHICKEN.get(),
-                    ModItems.MUSIC_DISC_PRECIPICE.get(),
-                    ModItems.MUSIC_DISC_CREATOR.get(),
-                    ModItems.MUSIC_DISC_CREATOR_MUSIC_BOX.get()
+                    ModItems.MUSIC_DISC_LAVA_CHICKEN.get()
             );
-
-        // some tag ideas, removable - Echo2craft.
-        /*this.getDualTagBuilder(ForgeItemTags.RODS_BREEZE, FabricItemTags.RODS_BREEZE)
-            .add(ModItems.BREEZE_ROD.get());
-        this.getDualTagBuilder(ForgeItemTags.RODS, FabricItemTags.RODS)
-                .addTag(ForgeItemTags.RODS_BREEZE);*/
 
         this.getOrCreateTagBuilder(CreateItemTags.MODDED_STRIPPED_WOOD)
             .add(ModBlocks.STRIPPED_PALE_OAK_WOOD.get().asItem());

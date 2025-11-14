@@ -273,8 +273,4 @@ public class FabricItemTags {
 
     public static final TagKey<Item> STRIPPED_LOGS = TAGS.register("stripped_logs");
     public static final TagKey<Item> STRIPPED_WOOD = TAGS.register("stripped_wood");
-
-    // some tag ideas, removable - Echo2craft.
-//    public static final TagKey<Item> TRIM_TEMPLATES = TAGS.register("trim_templates");
-//    public static final TagKey<Item> RODS_BREEZE = TAGS.register("rods/breeze");
 }

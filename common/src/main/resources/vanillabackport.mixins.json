@@ -46,18 +46,15 @@
     "common.blocks.DecoratedPotBlockMixin",
     "common.blocks.SandBlockMixin",
     "common.blocks.entities.DecoratedPotBlockEntityMixin",
-    "common.effect.BadOmenEffectMixin",
     "common.entities.BatMixin",
     "common.entities.ChickenMixin",
     "common.entities.CowMixin",
-    "common.entities.LivingEntityMixin",
     "common.entities.MobMixin",
     "common.entities.PigMixin",
     "common.entities.ServerEntityMixin",
     "common.entities.SheepMixin",
     "common.entities.TamableAnimalMixin",
     "common.entities.WolfMixin",
-    "common.entities.raids.RaidsMixin",
     "common.items.BundleItemMixin",
     "common.worldgen.feature.SimpleBlockFeatureMixin",
     "common.worldgen.structure.NetherFossilPieceMixin",
@@ -66,8 +63,7 @@
     "leashable.common.entities.BoatMixin",
     "leashable.common.entities.LeashBehaviorMixin",
     "leashable.common.entities.MobMixin",
-    "leashable.common.item.FireworkRocketItemMixin",
-    "server.ServerPlayerMixin"
+    "leashable.common.item.FireworkRocketItemMixin"
   ],
   "injectors": {
     "defaultRequire": 1

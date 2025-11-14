@@ -2,16 +2,13 @@ package com.blackgear.vanillabackport.core.mixin.common.blocks;
 
 import com.blackgear.vanillabackport.client.registries.ModParticles;
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
-import com.blackgear.vanillabackport.common.api.block.entity.IDecoratedPotBlockEntityHelper;
+import com.blackgear.vanillabackport.common.api.block.entity.DecoratedPot;
 import com.blackgear.vanillabackport.common.level.blockentities.decoratedpot.WobbleStyle;
-import com.blackgear.vanillabackport.core.data.tags.ModEnchantmentTags;
-import com.blackgear.vanillabackport.core.util.EnchantmentUtils;
-import com.blackgear.vanillabackport.core.util.ItemStackUtils;
-import com.blackgear.vanillabackport.core.util.LevelUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
+import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.world.Container;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
@@ -29,135 +26,133 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.DecoratedPotBlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.BlockHitResult;
 import org.jetbrains.annotations.NotNull;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.List;
 
+// Special thanks to Echo2craft
 @Mixin(DecoratedPotBlock.class)
 public abstract class DecoratedPotBlockMixin extends BaseEntityBlock {
+    @Shadow @Final private static DirectionProperty HORIZONTAL_FACING;
+
     protected DecoratedPotBlockMixin(Properties properties) {
         super(properties);
     }
 
     @Override
     public @NotNull InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-        ItemStack vStack = player.getItemInHand(hand);
-        if (level.getBlockEntity(pos) instanceof DecoratedPotBlockEntity pDecoPotEntity) {
-            if(pDecoPotEntity instanceof IDecoratedPotBlockEntityHelper advanceBlockEntity){
+        ItemStack stack = player.getItemInHand(hand);
+        if (level.getBlockEntity(pos) instanceof DecoratedPotBlockEntity blockEntity) {
+            if (blockEntity instanceof DecoratedPot pot) {
                 if (!level.isClientSide()) {
-                    ItemStack itemstack1 = advanceBlockEntity.getFirstItem();
-                    if (!vStack.isEmpty()
-                            && (itemstack1.isEmpty() || ItemStack.isSameItemSameTags(itemstack1, vStack) && itemstack1.getCount() < itemstack1.getMaxStackSize())) {
-                        advanceBlockEntity.wobble(WobbleStyle.POSITIVE);
-                        player.awardStat(Stats.ITEM_USED.get(vStack.getItem()));
-                        ItemStack itemstack = ItemStackUtils.consumeAndReturn(vStack, 1, player);
-                        float f;
-                        if (advanceBlockEntity.isEmpty()) {
-                            advanceBlockEntity.setFirstItem(itemstack);
-                            f = (float)itemstack.getCount() / itemstack.getMaxStackSize();
+                    ItemStack item = pot.getFirstItem();
+                    if (!stack.isEmpty() && (item.isEmpty() || ItemStack.isSameItemSameTags(item, stack) && item.getCount() < item.getMaxStackSize())) {
+                        pot.wobble(WobbleStyle.POSITIVE);
+                        player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
+                        ItemStack result = stack.copyWithCount(1);
+                        if (!player.getAbilities().instabuild) stack.shrink(1);
+
+                        float size;
+                        if (pot.isEmpty()) {
+                            pot.setFirstItem(result);
+                            size = (float) result.getCount() / result.getMaxStackSize();
                         } else {
-                            itemstack1.grow(1);
-                            f = (float)itemstack1.getCount() / itemstack1.getMaxStackSize();
+                            item.grow(1);
+                            size = (float) item.getCount() / item.getMaxStackSize();
                         }
 
-                        level.playSound(null, pos, ModSoundEvents.DECORATED_POT_INSERT.get(), SoundSource.BLOCKS, 1.0F, 0.7F + 0.5F * f);
-                        if (level instanceof ServerLevel serverlevel) {
-                            serverlevel.sendParticles(
-                                    ModParticles.DUST_PLUME.get(),
-                                    pos.getX() + 0.5,
-                                    pos.getY() + 1.2,
-                                    pos.getZ() + 0.5,
-                                    7,
-                                    0.0,
-                                    0.0,
-                                    0.0,
-                                    0.0
+                        level.playSound(null, pos, ModSoundEvents.DECORATED_POT_INSERT.get(), SoundSource.BLOCKS, 1.0F, 0.7F + 0.5F * size);
+                        if (level instanceof ServerLevel server) {
+                            server.sendParticles(
+                                ModParticles.DUST_PLUME.get(),
+                                pos.getX() + 0.5,
+                                pos.getY() + 1.2,
+                                pos.getZ() + 0.5,
+                                7,
+                                0.0,
+                                0.0,
+                                0.0,
+                                0.0
                             );
                         }
-                        pDecoPotEntity.setChanged();
+
+                        blockEntity.setChanged();
                     } else {
                         level.playSound(null, pos, ModSoundEvents.DECORATED_POT_INSERT_FAIL.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
-                        advanceBlockEntity.wobble(WobbleStyle.NEGATIVE);
+                        pot.wobble(WobbleStyle.NEGATIVE);
                     }
+
                     level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
                 }
+
                 return InteractionResult.SUCCESS;
             }
         }
+
         return InteractionResult.PASS;
     }
 
     @Inject(
-            method = "getDrops",
-            at = @At(
-                    value = "RETURN"
-            ),
-            cancellable = true
+        method = "getDrops",
+        at = @At("RETURN"),
+        cancellable = true
     )
     public void vb$getDrops(BlockState state, LootParams.Builder params, CallbackInfoReturnable<List<ItemStack>> cir){
-        BlockEntity blockEntity = params.getOptionalParameter(LootContextParams.BLOCK_ENTITY);
-        if (blockEntity instanceof DecoratedPotBlockEntity decoratedPotBlockEntity) {
-            cir.setReturnValue(super.getDrops(decoratedPotBlockEntity.getBlockState(), params));
-        }
-    }
-
-    @Redirect(
-            method = "playerWillDestroy",
-            at = @At(
-                    value = "INVOKE",
-                    target = "Lnet/minecraft/world/item/enchantment/EnchantmentHelper;hasSilkTouch(Lnet/minecraft/world/item/ItemStack;)Z"
-            )
-    )
-    public boolean playerWillDestroyRedirect(ItemStack pStack){
-        return EnchantmentUtils.isItemHasEnchantmentOfTag(pStack, ModEnchantmentTags.PREVENTS_DECORATED_POT_SHATTERING);
-    }
-
-    @Override
-    public void onProjectileHit(@NotNull Level pLevel, @NotNull BlockState pState, BlockHitResult pHit, @NotNull Projectile pProjectile) {
-        BlockPos blockpos = pHit.getBlockPos();
-        if (pLevel instanceof ServerLevel serverlevel && pProjectile.mayInteract(serverlevel, blockpos) && LevelUtils.mayBreak(pProjectile, serverlevel)) {
-            pLevel.setBlock(blockpos, pState.setValue(BlockStateProperties.CRACKED, Boolean.TRUE), 4);
-            pLevel.destroyBlock(blockpos, true, pProjectile);
+        BlockEntity block = params.getOptionalParameter(LootContextParams.BLOCK_ENTITY);
+        if (block instanceof DecoratedPotBlockEntity pot) {
+            cir.setReturnValue(super.getDrops(pot.getBlockState(), params));
         }
     }
 
     @Override
-    public void onRemove(BlockState pState, Level pLevel, BlockPos pPos, BlockState pNewState, boolean pMovedByPiston) {
-        if(!pState.is(pNewState.getBlock())){
-            if(pLevel.getBlockEntity(pPos) instanceof Container container){
-                Containers.dropContents(pLevel, pPos, container);
-                pLevel.updateNeighbourForOutputSignal(pPos, this);
+    public void onProjectileHit(@NotNull Level level, @NotNull BlockState state, BlockHitResult hit, @NotNull Projectile projectile) {
+        BlockPos pos = hit.getBlockPos();
+        if (level instanceof ServerLevel server && projectile.mayInteract(server, pos) && projectile.getType().is(EntityTypeTags.IMPACT_PROJECTILES)) {
+            level.setBlock(pos, state.setValue(BlockStateProperties.CRACKED, Boolean.TRUE), 4);
+            level.destroyBlock(pos, true, projectile);
+        }
+    }
+
+    @Override
+    public void onRemove(BlockState state, Level level, BlockPos pos, BlockState newState, boolean movedByPiston) {
+        if (!state.is(newState.getBlock())) {
+            if (level.getBlockEntity(pos) instanceof Container container) {
+                Containers.dropContents(level, pos, container);
+                level.updateNeighbourForOutputSignal(pos, this);
             }
         }
-        super.onRemove(pState, pLevel, pPos, pNewState, pMovedByPiston);
+
+        super.onRemove(state, level, pos, newState, movedByPiston);
     }
 
     @Override
-    public boolean hasAnalogOutputSignal(@NotNull BlockState pState) {
+    public boolean hasAnalogOutputSignal(@NotNull BlockState state) {
         return true;
     }
 
     @Override
-    public int getAnalogOutputSignal(@NotNull BlockState pState, Level pLevel, @NotNull BlockPos pPos) {
-        return AbstractContainerMenu.getRedstoneSignalFromBlockEntity(pLevel.getBlockEntity(pPos));
+    public int getAnalogOutputSignal(@NotNull BlockState state, Level level, @NotNull BlockPos pos) {
+        return AbstractContainerMenu.getRedstoneSignalFromBlockEntity(level.getBlockEntity(pos));
     }
 
     @Override
-    public BlockState rotate(BlockState pState, Rotation pRotation) {
-        return pState.setValue(BlockStateProperties.HORIZONTAL_FACING, pRotation.rotate(pState.getValue(BlockStateProperties.HORIZONTAL_FACING)));
+    public BlockState rotate(BlockState state, Rotation rotation) {
+        return state.setValue(HORIZONTAL_FACING, rotation.rotate(state.getValue(HORIZONTAL_FACING)));
     }
 
     @Override
-    public BlockState mirror(BlockState pState, Mirror pMirror) {
-        return pState.rotate(pMirror.getRotation(pState.getValue(BlockStateProperties.HORIZONTAL_FACING)));
+    public BlockState mirror(BlockState state, Mirror mirror) {
+        return state.rotate(mirror.getRotation(state.getValue(HORIZONTAL_FACING)));
     }
 }
