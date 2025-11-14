@@ -179,8 +179,8 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
 
         this.getDualTagBuilder(ForgeItemTags.MUSIC_DISCS, FabricItemTags.MUSIC_DISCS)
             .add(
-                    ModItems.MUSIC_DISC_TEARS.get(),
-                    ModItems.MUSIC_DISC_LAVA_CHICKEN.get()
+                ModItems.MUSIC_DISC_TEARS.get(),
+                ModItems.MUSIC_DISC_LAVA_CHICKEN.get()
             );
 
         this.getOrCreateTagBuilder(CreateItemTags.MODDED_STRIPPED_WOOD)
