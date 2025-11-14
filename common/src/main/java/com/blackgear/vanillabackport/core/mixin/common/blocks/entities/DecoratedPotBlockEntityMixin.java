@@ -7,6 +7,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.entity.DecoratedPotBlockEntity;
@@ -142,5 +143,27 @@ public abstract class DecoratedPotBlockEntityMixin extends BlockEntity implement
         }
 
         return itemstack;
+    }
+
+    @Override @Nullable
+    public Level getLevel() {
+        return this.level;
+    }
+
+    @Override
+    public BlockPos getBlockPos() {
+        return this.worldPosition;
+    }
+
+    @Override
+    public BlockEntity getContainerBlockEntity() {
+        return this;
+    }
+
+    @Override
+    public void setChanged() {
+        if (this.level != null) {
+            setChanged(this.level, this.worldPosition, this.getBlockState());
+        }
     }
 }
