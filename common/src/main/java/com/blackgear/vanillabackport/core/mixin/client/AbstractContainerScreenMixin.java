@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.core.mixin.client;
 
-import com.blackgear.vanillabackport.common.api.bundle.BundleContents;
+import com.blackgear.vanillabackport.common.api.bundle.BundleFeatures;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.blackgear.vanillabackport.core.data.tags.ModItemTags;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -14,6 +14,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
@@ -36,14 +37,14 @@ public abstract class AbstractContainerScreenMixin<T extends AbstractContainerMe
     private void vb$renderBundleContents(GuiGraphics graphics, Slot slot, CallbackInfo ci) {
         ItemStack stack = slot.getItem();
         if (stack.is(ModItemTags.BUNDLES)) {
-            ItemStack selectedItem = BundleContents.getSelectedItemStack(stack);
+            ItemStack selectedItem = BundleFeatures.getSelectedItemStack(stack);
 
             if (!selectedItem.isEmpty()) {
                 ResourceLocation backTexture = BUNDLE_OPEN_BACK;
                 ResourceLocation frontTexture = BUNDLE_OPEN_FRONT;
 
                 for (DyeColor color : DyeColor.values()) {
-                    if (stack.is(BundleContents.getByColor(color))) {
+                    if (stack.is(BundleFeatures.getByColor(color)) && !stack.is(Items.BUNDLE)) {
                         backTexture = VanillaBackport.vanilla("textures/item/" + color.getName() + "_bundle_open_back.png");
                         frontTexture = VanillaBackport.vanilla("textures/item/" + color.getName() + "_bundle_open_front.png");
                         break;

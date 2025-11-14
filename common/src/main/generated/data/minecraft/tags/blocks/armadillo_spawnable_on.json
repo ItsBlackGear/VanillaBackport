@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "#minecraft:animals_spawnable_on",
+    "#minecraft:terracotta",
+    "minecraft:red_sand",
+    "minecraft:coarse_dirt"
+  ]
+}

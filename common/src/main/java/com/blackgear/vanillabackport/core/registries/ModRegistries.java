@@ -6,6 +6,7 @@ import com.blackgear.vanillabackport.common.api.wolf.WolfSoundVariant;
 import com.blackgear.vanillabackport.common.level.entities.animal.ChickenVariant;
 import com.blackgear.vanillabackport.common.level.entities.animal.CowVariant;
 import com.blackgear.vanillabackport.common.level.entities.animal.PigVariant;
+import com.blackgear.vanillabackport.common.level.entities.wolf.WolfVariant;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.Registry;
@@ -27,6 +28,9 @@ public class ModRegistries {
 
     public static final ResourceKey<Registry<PigVariant>> PIG_VARIANT_KEY = BUILDER.resource("pig_variant");
     public static final Supplier<Registry<PigVariant>> PIG_VARIANT = BUILDER.registry(PIG_VARIANT_KEY);
+
+    public static final ResourceKey<Registry<WolfVariant>> WOLF_VARIANT_KEY = BUILDER.resource("wolf_variant");
+    public static final Supplier<Registry<WolfVariant>> WOLF_VARIANT = BUILDER.registry(WOLF_VARIANT_KEY);
 
     public static final ResourceKey<Registry<Codec<? extends SpawnCondition>>> SPAWN_CONDITION_TYPE_KEY = BUILDER.resource("spawn_condition_type");
     public static final Supplier<Registry<Codec<? extends SpawnCondition>>> SPAWN_CONDITION_TYPE = BUILDER.registry(SPAWN_CONDITION_TYPE_KEY);

@@ -3,8 +3,13 @@ package com.blackgear.vanillabackport.common;
 import com.blackgear.platform.core.util.config.ConfigBuilder;
 
 public class CommonConfig {
+    // Armored Paws
+    public final ConfigBuilder.ConfigValue<Boolean> hasArmadillos;
+    public final ConfigBuilder.ConfigValue<Boolean> hasWolfVariants;
+    public final ConfigBuilder.ConfigValue<Boolean> updatedWolfSpawns;
+
     // Bundles of Bravery
-    public final ConfigBuilder.ConfigValue<Boolean> hasBundles;
+    public final ConfigBuilder.ConfigValue<Boolean> hasUpdatedBundles;
     public final ConfigBuilder.ConfigValue<Boolean> hasVillageBundles;
 
     // The Garden Awakens
@@ -12,6 +17,8 @@ public class CommonConfig {
     public final ConfigBuilder.ConfigValue<Boolean> hasCreaking;
     public final ConfigBuilder.ConfigValue<Boolean> hasPaleGarden;
     public final ConfigBuilder.ConfigValue<Boolean> hasPaleTrades;
+    public final ConfigBuilder.ConfigValue<Integer> creakingParticleColor;
+    public final ConfigBuilder.ConfigValue<Integer> creakingParticleReverseColor;
 
     // Spring to Life
     public final ConfigBuilder.ConfigValue<Boolean> hasBushes;
@@ -21,6 +28,7 @@ public class CommonConfig {
     public final ConfigBuilder.ConfigValue<Boolean> hasFallenTrees;
     public final ConfigBuilder.ConfigValue<Boolean> hasLeafLitter;
     public final ConfigBuilder.ConfigValue<Boolean> hasFarmAnimalVariants;
+    public final ConfigBuilder.ConfigValue<Boolean> hasWolfSoundVariants;
     public final ConfigBuilder.ConfigValue<Boolean> hasCamelSpawns;
     public final ConfigBuilder.ConfigValue<Boolean> hasSpringTrades;
 
@@ -34,9 +42,18 @@ public class CommonConfig {
     public final ConfigBuilder.ConfigValue<Boolean> hasLavaChickenMusicDisc;
 
     public CommonConfig(ConfigBuilder builder) {
+        builder.push("Armored Paws");
+        this.hasArmadillos = builder.comment("allow armadillos to generate in the overworld")
+            .define("armadillo", true);
+        this.hasWolfVariants = builder.comment("allow variants for wolves to generate")
+            .define("wolf_variants", true);
+        this.updatedWolfSpawns = builder.comment("adds wolves to more biomes for natural spawning")
+            .define("updated_wolf_spawns", true);
+        builder.pop();
+
         builder.push("Bundles of Bravery");
-        this.hasBundles = builder.comment("toggle the updated controls and UI for bundles")
-            .define("bundles", true);
+        this.hasUpdatedBundles = builder.comment("toggle the updated controls and UI for bundles")
+            .define("has_updated_bundles", true);
         this.hasVillageBundles = builder.comment("allow bundles to generate in village chests")
             .define("bundles_on_villages", true);
         builder.pop();
@@ -50,6 +67,10 @@ public class CommonConfig {
             .define("pale_garden", true);
         this.hasPaleTrades = builder.comment("allow features from 'The Garden Awakens' to be obtainable through wandering traders")
             .define("pale_trades", true);
+        this.creakingParticleColor = builder.comment("creaking heart trail particle color (gray by default)")
+            .define("creaking_particle_color", 6250335);
+        this.creakingParticleReverseColor = builder.comment("creaking heart trail particle reverse color (orange by default)")
+            .define("creaking_particle_reverse_color", 16545810);
         builder.pop();
 
         builder.push("Spring to Life");
@@ -57,7 +78,7 @@ public class CommonConfig {
             .define("bushes", true);
         this.hasFireflyBushes = builder.comment("allow firefly bushes to generate in the overworld")
             .define("firefly_bushes", true);
-        this.hasWildflowers = builder.comment("allow firefly bushes to generate in the overworld")
+        this.hasWildflowers = builder.comment("allow wildflowers to generate in the overworld")
             .define("wildflowers", true);
         this.hasDryGrass = builder.comment("allow dry grass to generate in the overworld")
             .define("dry_grass", true);
@@ -67,6 +88,8 @@ public class CommonConfig {
             .define("leaf_litter", true);
         this.hasFarmAnimalVariants = builder.comment("allow variants for pigs, cows and chickens to generate")
             .define("farm_animal_variants", true);
+        this.hasWolfSoundVariants = builder.comment("allow wolfs to have variants for their sounds")
+            .define("wolf_sound_variants", true);
         this.hasSpringTrades = builder.comment("allow features from 'Spring to Life' to be obtainable through wandering traders")
             .define("spring_trades", true);
         this.hasCamelSpawns = builder.comment("allow camels to spawn outside of villages")

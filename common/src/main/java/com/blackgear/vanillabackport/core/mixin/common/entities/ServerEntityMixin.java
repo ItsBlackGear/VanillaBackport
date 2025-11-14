@@ -152,8 +152,8 @@ public abstract class ServerEntityMixin {
 
     @Inject(method = "sendPairingData", at = @At("TAIL"))
     private void onSendPairingData(ServerPlayer player, Consumer<Packet<ClientGamePacketListener>> consumer, CallbackInfo ci) {
-        if (this.entity instanceof Boat boat && boat instanceof Leashable leashable && leashable.isLeashed()) {
-            consumer.accept(new ClientboundSetEntityLinkPacket(boat, leashable.getLeashHolder()));
+        if (this.entity instanceof Boat boat && boat instanceof Leashable leashable && leashable.vb$isLeashed()) {
+            consumer.accept(new ClientboundSetEntityLinkPacket(boat, leashable.vb$getLeashHolder()));
         }
     }
 }

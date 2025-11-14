@@ -16,41 +16,17 @@ import java.util.List;
 
 public class ModBundledTabs {
     private static final List<BundledTabs> FILTERS = new ArrayList<>();
-
-    // This is removable, since the update doesn't really add anything new. - Echo2craft.
-    public static final BundledTabs BATS_AND_POTS = register(
-            BundledTabs.builder()
-                    .title(Component.translatable("bundled_tab.bats_and_pots.title"))
-                    .icon(new ItemStack(Items.DECORATED_POT))
-                    .displayItems((provider, output) -> {
-                        output.accept(Items.DECORATED_POT);
-                        output.accept(Items.BAT_SPAWN_EGG);
-                    })
-                    .build()
-    );
-
-    // Tricky Trails. - Echo2craft.
-    public static final BundledTabs TRICKY_TRIALS = register(
-            BundledTabs.builder()
-                    .title(Component.translatable("bundled_tab.tricky_trials.title"))
-                    .icon(new ItemStack(ModItems.TRIAL_KEY.get()))
-                    .displayItems((provider, output) -> {
-                        output.accept(ModItems.TRIAL_KEY.get());
-                        output.accept(ModItems.OMINOUS_TRIAL_KEY.get());
-                        for(int i = 0; i <= OminousBottleItem.MAX_AMPLIFIER; i++){
-                            ItemStack vStack = new ItemStack(ModItems.OMINOUS_BOTTLE.get());
-                            vStack.getOrCreateTag().putInt(OminousBottleItem.OMINOUS_BOTTLE_AMPLIFIER_TAG_NAME, i);
-                            output.accept(vStack);
-                        }
-                        output.accept(ModItems.BREEZE_ROD.get());
-                        output.accept(ModItems.FLOW_ARMOR_TRIM_SMITHING_TEMPLATE.get());
-                        output.accept(ModItems.BOLT_ARMOR_TRIM_SMITHING_TEMPLATE.get());
-                        output.accept(ModItems.MUSIC_DISC_PRECIPICE.get());
-                        output.accept(ModItems.MUSIC_DISC_CREATOR.get());
-                        output.accept(ModItems.MUSIC_DISC_CREATOR_MUSIC_BOX.get());
-                        // output.accept(ModItems.OMINOUS_BOTTLE.get());
-                    })
-                    .build()
+  
+    public static final BundledTabs ARMORED_PAWS = register(
+        BundledTabs.builder()
+            .title(Component.translatable("bundled_tab.armored_paws.title"))
+            .icon(new ItemStack(ModItems.WOLF_ARMOR.get()))
+            .displayItems((provider, output) -> {
+                output.accept(ModItems.ARMADILLO_SPAWN_EGG.get());
+                output.accept(ModItems.WOLF_ARMOR.get());
+                output.accept(ModItems.ARMADILLO_SCUTE.get());
+            })
+            .build()
     );
 
     public static final BundledTabs BUNDLES_OF_BRAVERY = register(

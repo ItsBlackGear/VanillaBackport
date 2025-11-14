@@ -66,10 +66,30 @@ public class ModSoundEvents {
 
     // ITEMS
     public static final Supplier<SoundEvent> BUNDLE_INSERT_FAIL = SOUNDS.soundEvent("item.bundle.insert_fail");
+    public static final Supplier<SoundEvent> ARMOR_EQUIP_WOLF = SOUNDS.soundEvent("item.armor.equip_wolf");
+    public static final Supplier<SoundEvent> ARMOR_UNEQUIP_WOLF = SOUNDS.soundEvent("item.armor.unequip_wolf");
+    public static final Supplier<SoundEvent> WOLF_ARMOR_BREAK = SOUNDS.soundEvent("item.wolf_armor.break");
+    public static final Supplier<SoundEvent> WOLF_ARMOR_CRACK = SOUNDS.soundEvent("item.wolf_armor.crack");
+    public static final Supplier<SoundEvent> WOLF_ARMOR_DAMAGE = SOUNDS.soundEvent("item.wolf_armor.damage");
+    public static final Supplier<SoundEvent> WOLF_ARMOR_REPAIR = SOUNDS.soundEvent("item.wolf_armor.repair");
 
     public static final Supplier<SoundEvent> OMINOUS_BOTTLE_DISPOSE = SOUNDS.soundEvent("item.ominous_bottle.dispose");
 
     // ENTITIES
+    public static final Supplier<SoundEvent> ARMADILLO_EAT = SOUNDS.soundEvent("entity.armadillo.eat");
+    public static final Supplier<SoundEvent> ARMADILLO_HURT = SOUNDS.soundEvent("entity.armadillo.hurt");
+    public static final Supplier<SoundEvent> ARMADILLO_HURT_REDUCED = SOUNDS.soundEvent("entity.armadillo.hurt_reduced");
+    public static final Supplier<SoundEvent> ARMADILLO_AMBIENT = SOUNDS.soundEvent("entity.armadillo.ambient");
+    public static final Supplier<SoundEvent> ARMADILLO_STEP = SOUNDS.soundEvent("entity.armadillo.step");
+    public static final Supplier<SoundEvent> ARMADILLO_DEATH = SOUNDS.soundEvent("entity.armadillo.death");
+    public static final Supplier<SoundEvent> ARMADILLO_ROLL = SOUNDS.soundEvent("entity.armadillo.roll");
+    public static final Supplier<SoundEvent> ARMADILLO_LAND = SOUNDS.soundEvent("entity.armadillo.land");
+    public static final Supplier<SoundEvent> ARMADILLO_SCUTE_DROP = SOUNDS.soundEvent("entity.armadillo.scute_drop");
+    public static final Supplier<SoundEvent> ARMADILLO_UNROLL_FINISH = SOUNDS.soundEvent("entity.armadillo.unroll_finish");
+    public static final Supplier<SoundEvent> ARMADILLO_PEEK = SOUNDS.soundEvent("entity.armadillo.peek");
+    public static final Supplier<SoundEvent> ARMADILLO_UNROLL_START = SOUNDS.soundEvent("entity.armadillo.unroll_start");
+    public static final Supplier<SoundEvent> ARMADILLO_BRUSH = SOUNDS.soundEvent("entity.armadillo.brush");
+
     public static final Supplier<SoundEvent> CREAKING_AMBIENT = SOUNDS.soundEvent("entity.creaking.ambient");
     public static final Supplier<SoundEvent> CREAKING_ACTIVATE = SOUNDS.soundEvent("entity.creaking.activate");
     public static final Supplier<SoundEvent> CREAKING_DEACTIVATE = SOUNDS.soundEvent("entity.creaking.deactivate");

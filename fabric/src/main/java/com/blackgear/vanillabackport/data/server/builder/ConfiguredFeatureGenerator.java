@@ -40,24 +40,13 @@ public class ConfiguredFeatureGenerator extends FabricDynamicRegistryProvider {
         this.add(provider, entries, SpringToLifeFeatures.PATCH_DRY_GRASS);
 
         this.add(provider, entries, SpringToLifeFeatures.PATCH_LEAF_LITTER);
+        this.add(provider, entries, SpringToLifeFeatures.LEAF_LITTER);
 
         this.add(provider, entries, SpringToLifeFeatures.FALLEN_OAK_TREE);
         this.add(provider, entries, SpringToLifeFeatures.FALLEN_BIRCH_TREE);
         this.add(provider, entries, SpringToLifeFeatures.FALLEN_SUPER_BIRCH_TREE);
         this.add(provider, entries, SpringToLifeFeatures.FALLEN_JUNGLE_TREE);
         this.add(provider, entries, SpringToLifeFeatures.FALLEN_SPRUCE_TREE);
-
-        this.add(provider, entries, SpringToLifeFeatures.OAK_BEES_0002_LEAF_LITTER);
-        this.add(provider, entries, SpringToLifeFeatures.BIRCH_BEES_0002_LEAF_LITTER);
-        this.add(provider, entries, SpringToLifeFeatures.FANCY_OAK_BEES_0002_LEAF_LITTER);
-
-        this.add(provider, entries, SpringToLifeFeatures.OAK_LEAF_LITTER);
-        this.add(provider, entries, SpringToLifeFeatures.DARK_OAK_LEAF_LITTER);
-        this.add(provider, entries, SpringToLifeFeatures.BIRCH_LEAF_LITTER);
-        this.add(provider, entries, SpringToLifeFeatures.FANCY_OAK_LEAF_LITTER);
-
-        this.add(provider, entries, SpringToLifeFeatures.TREES_DARK_FOREST_LEAF_LITTER);
-        this.add(provider, entries, SpringToLifeFeatures.TREES_BIRCH_AND_OAK_LEAF_LITTER);
     }
 
     private void add(HolderLookup.Provider provider, Entries entries, ResourceKey<ConfiguredFeature<?, ?>> key) {

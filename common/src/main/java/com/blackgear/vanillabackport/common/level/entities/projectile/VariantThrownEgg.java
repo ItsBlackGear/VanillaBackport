@@ -64,7 +64,7 @@ public class VariantThrownEgg extends ThrowableItemProjectile {
                     Chicken chicken = EntityType.CHICKEN.create(this.level());
                     if (chicken != null) {
                         ChickenVariant variant = ModBuiltinRegistries.CHICKEN_VARIANTS.getOrThrow(this.variant);
-                        ((VariantHolder<ChickenVariant>) chicken).setVariant(variant);
+                        ((VariantHolder<ChickenVariant>) chicken).vb$setVariant(variant);
                         chicken.setAge(-24000);
                         chicken.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), 0.0F);
                         this.level().addFreshEntity(chicken);

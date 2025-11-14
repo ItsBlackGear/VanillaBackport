@@ -12,6 +12,7 @@ import com.blackgear.vanillabackport.data.client.ModelGenerator;
 import com.blackgear.vanillabackport.data.client.colors.LeafColorGenerator;
 import com.blackgear.vanillabackport.data.server.builder.*;
 import com.blackgear.vanillabackport.data.server.loot.BlockLootGenerator;
+import com.blackgear.vanillabackport.data.server.loot.GiftLootGenerator;
 import com.blackgear.vanillabackport.data.server.recipe.RecipeGenerator;
 import com.blackgear.vanillabackport.data.server.tags.*;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
@@ -30,6 +31,7 @@ public class DataGenerator implements DataGeneratorEntrypoint {
         pack.addProvider(LeafColorGenerator::new);
 
         // SERVER SIDE
+        pack.addProvider(GiftLootGenerator::new);
         pack.addProvider(BlockLootGenerator::new);
 
         pack.addProvider(RecipeGenerator::new);

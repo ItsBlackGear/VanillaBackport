@@ -3,6 +3,7 @@ package com.blackgear.vanillabackport.client;
 import com.blackgear.platform.common.CreativeTabs;
 import com.blackgear.vanillabackport.common.registries.ModBlocks;
 import com.blackgear.vanillabackport.common.registries.ModItems;
+import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Items;
 
@@ -76,25 +77,26 @@ public interface CreativeTabIntegration {
     };
 
     CreativeTabs.Modifier TOOLS_AND_UTILITIES = (flag, output, operator) -> {
-        output.addAllAfter(Items.LEAD, List.of(
-            Items.BUNDLE,
-            ModItems.WHITE_BUNDLE.get(),
-            ModItems.LIGHT_GRAY_BUNDLE.get(),
-            ModItems.GRAY_BUNDLE.get(),
-            ModItems.BLACK_BUNDLE.get(),
-            ModItems.BROWN_BUNDLE.get(),
-            ModItems.RED_BUNDLE.get(),
-            ModItems.ORANGE_BUNDLE.get(),
-            ModItems.YELLOW_BUNDLE.get(),
-            ModItems.LIME_BUNDLE.get(),
-            ModItems.GREEN_BUNDLE.get(),
-            ModItems.CYAN_BUNDLE.get(),
-            ModItems.LIGHT_BLUE_BUNDLE.get(),
-            ModItems.BLUE_BUNDLE.get(),
-            ModItems.PURPLE_BUNDLE.get(),
-            ModItems.MAGENTA_BUNDLE.get(),
-            ModItems.PINK_BUNDLE.get()
-        ));
+        if (flag.contains(FeatureFlags.BUNDLE)) {
+            output.addAllAfter(Items.BUNDLE, List.of(
+                ModItems.WHITE_BUNDLE.get(),
+                ModItems.LIGHT_GRAY_BUNDLE.get(),
+                ModItems.GRAY_BUNDLE.get(),
+                ModItems.BLACK_BUNDLE.get(),
+                ModItems.BROWN_BUNDLE.get(),
+                ModItems.RED_BUNDLE.get(),
+                ModItems.ORANGE_BUNDLE.get(),
+                ModItems.YELLOW_BUNDLE.get(),
+                ModItems.LIME_BUNDLE.get(),
+                ModItems.GREEN_BUNDLE.get(),
+                ModItems.CYAN_BUNDLE.get(),
+                ModItems.LIGHT_BLUE_BUNDLE.get(),
+                ModItems.BLUE_BUNDLE.get(),
+                ModItems.PURPLE_BUNDLE.get(),
+                ModItems.MAGENTA_BUNDLE.get(),
+                ModItems.PINK_BUNDLE.get()
+            ));
+        }
         output.addAllAfter(Items.SADDLE, List.of(
             ModItems.WHITE_HARNESS.get(),
             ModItems.LIGHT_GRAY_HARNESS.get(),
@@ -132,6 +134,7 @@ public interface CreativeTabIntegration {
             ModItems.BROWN_EGG.get(),
             ModItems.BLUE_EGG.get()
         ));
+        output.addAfter(Items.DIAMOND_HORSE_ARMOR, ModItems.WOLF_ARMOR.get());
     };
 
     CreativeTabs.Modifier FOOD_AND_DRINKS = (flag, output, operator) -> {};
@@ -143,10 +146,12 @@ public interface CreativeTabIntegration {
         ));
         output.addAfter(Items.HONEYCOMB, ModBlocks.RESIN_CLUMP.get());
         output.addAfter(Items.NETHER_BRICK, ModItems.RESIN_BRICK.get());
+        output.addAfter(Items.SCUTE, ModItems.ARMADILLO_SCUTE.get());
     };
 
     CreativeTabs.Modifier SPAWN_EGGS = (flag, output, operator) -> {
         output.addAfter(Items.SPAWNER, ModBlocks.CREAKING_HEART.get());
+        output.addAfter(Items.ALLAY_SPAWN_EGG, ModItems.ARMADILLO_SPAWN_EGG.get());
         output.addAfter(Items.COW_SPAWN_EGG, ModItems.CREAKING_SPAWN_EGG.get());
         output.addAfter(Items.GUARDIAN_SPAWN_EGG, ModItems.HAPPY_GHAST_SPAWN_EGG.get());
     };

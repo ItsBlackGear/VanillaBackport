@@ -7,10 +7,13 @@ import com.blackgear.vanillabackport.common.level.items.OminousBottleItem;
 import com.blackgear.vanillabackport.common.level.items.PaleOakBoatItem;
 import com.blackgear.vanillabackport.common.level.items.HarnessItem;
 import com.blackgear.vanillabackport.common.level.items.VariantEggItem;
+import com.blackgear.vanillabackport.common.level.items.WolfArmorItem;
 import com.blackgear.vanillabackport.core.VanillaBackport;
+import com.google.common.collect.ImmutableMap;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Blocks;
 
+import java.util.Map;
 import java.util.function.Supplier;
 
 public class ModItems {
@@ -19,8 +22,6 @@ public class ModItems {
     public static final Supplier<Item> RESIN_BRICK = ITEMS.register("resin_brick");
     public static final Supplier<Item> PALE_OAK_BOAT = ITEMS.register("pale_oak_boat", () -> new PaleOakBoatItem(false, new Item.Properties().stacksTo(1)));
     public static final Supplier<Item> PALE_OAK_CHEST_BOAT = ITEMS.register("pale_oak_chest_boat", () -> new PaleOakBoatItem(true, new Item.Properties().stacksTo(1)));
-    public static final Supplier<Item> CREAKING_SPAWN_EGG = ITEMS.spawnEgg("creaking_spawn_egg", ModEntities.CREAKING, 6250335, 16545810, new Item.Properties());
-    public static final Supplier<Item> HAPPY_GHAST_SPAWN_EGG = ITEMS.spawnEgg("happy_ghast_spawn_egg", ModEntities.HAPPY_GHAST, 16382457, 12369084, new Item.Properties());
 
     public static final Supplier<Item> WHITE_HARNESS = ITEMS.register(
         "white_harness",
@@ -180,43 +181,14 @@ public class ModItems {
         "brown_egg",
         properties -> new VariantEggItem(VariantKeys.WARM_CHICKEN, properties),
         new Item.Properties().stacksTo(16));
-
-    // Tricky Trials - Echo2craft.
-    public static final Supplier<Item> TRIAL_KEY = ITEMS.register(
-      "trial_key",
-            Item::new,
-            new Item.Properties());
-    public static final Supplier<Item> OMINOUS_TRIAL_KEY = ITEMS.register(
-            "ominous_trial_key",
-            Item::new,
-            new Item.Properties());
-    public static final Supplier<Item> OMINOUS_BOTTLE = ITEMS.register(
-            "ominous_bottle",
-            OminousBottleItem::new,
-            new Item.Properties().rarity(Rarity.UNCOMMON));
-    public static final Supplier<Item> BREEZE_ROD = ITEMS.register("breeze_rod");
-    public static final Supplier<Item> FLOW_ARMOR_TRIM_SMITHING_TEMPLATE = ITEMS.register(
-            "flow_armor_trim_smithing_template",
-            () -> SmithingTemplateItem.createArmorTrimTemplate(ModTrimPatterns.FLOW));
-    public static final Supplier<Item> BOLT_ARMOR_TRIM_SMITHING_TEMPLATE = ITEMS.register(
-            "bolt_armor_trim_smithing_template",
-            () -> SmithingTemplateItem.createArmorTrimTemplate(ModTrimPatterns.BOLT));
-    public static final Supplier<Item> MUSIC_DISC_PRECIPICE = ITEMS.register(
-            "music_disc_precipice",
-            properties -> new RecordItem(13, ModSoundEvents.MUSIC_DISC_PRECIPICE.get(), properties, 299),
-            new Item.Properties()
-                    .stacksTo(1)
-                    .rarity(Rarity.UNCOMMON));
-    public static final Supplier<Item> MUSIC_DISC_CREATOR = ITEMS.register(
-            "music_disc_creator",
-            properties -> new RecordItem(12, ModSoundEvents.MUSIC_DISC_CREATOR.get(), properties, 176),
-            new Item.Properties()
-                    .stacksTo(1)
-                    .rarity(Rarity.RARE));
-    public static final Supplier<Item> MUSIC_DISC_CREATOR_MUSIC_BOX = ITEMS.register(
-            "music_disc_creator_music_box",
-            properties -> new RecordItem(11, ModSoundEvents.MUSIC_DISC_CREATOR_MUSIC_BOX.get(), properties, 73),
-            new Item.Properties()
-                    .stacksTo(1)
-                    .rarity(Rarity.UNCOMMON));
+  
+    public static final Supplier<Item> ARMADILLO_SCUTE = ITEMS.register("armadillo_scute");
+    public static final Supplier<Item> WOLF_ARMOR = ITEMS.register(
+        "wolf_armor",
+        WolfArmorItem::new,
+        new Item.Properties().durability(64)
+    );
+    public static final Supplier<Item> ARMADILLO_SPAWN_EGG = ITEMS.spawnEgg("armadillo_spawn_egg", ModEntities.ARMADILLO, 13011076, 7421502, new Item.Properties());
+    public static final Supplier<Item> CREAKING_SPAWN_EGG = ITEMS.spawnEgg("creaking_spawn_egg", ModEntities.CREAKING, 6250335, 16545810, new Item.Properties());
+    public static final Supplier<Item> HAPPY_GHAST_SPAWN_EGG = ITEMS.spawnEgg("happy_ghast_spawn_egg", ModEntities.HAPPY_GHAST, 16382457, 12369084, new Item.Properties());
 }

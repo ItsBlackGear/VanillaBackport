@@ -15,7 +15,6 @@ import net.minecraft.world.entity.animal.horse.AbstractChestedHorse;
 import net.minecraft.world.entity.animal.horse.AbstractHorse;
 import net.minecraft.world.entity.animal.sniffer.Sniffer;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -27,10 +26,10 @@ import java.util.function.Predicate;
 public interface Leashable {
     Map<Predicate<Entity>, Function<Entity, Vec3[]>> QUAD_LEASH_OFFSETS = Util.make(() -> {
         ImmutableMap.Builder<Predicate<Entity>, Function<Entity, Vec3[]>> offsets = new ImmutableMap.Builder<>();
-        offsets.put(entity -> entity instanceof Camel, entity -> Leashable.createQuadLeashOffsets(entity, 0.02, 0.48, 0.25, 0.82));
-        offsets.put(entity -> entity instanceof AbstractHorse, entity -> Leashable.createQuadLeashOffsets(entity, 0.04, 0.52, 0.23, 0.87));
-        offsets.put(entity -> entity instanceof AbstractChestedHorse, entity -> Leashable.createQuadLeashOffsets(entity, 0.04, 0.41, 0.18, 0.73));
-        offsets.put(entity -> entity instanceof Sniffer, entity -> Leashable.createQuadLeashOffsets(entity, -0.01, 0.63, 0.38, 1.15));
+        offsets.put(entity -> entity instanceof Camel, entity -> Leashable.vb$createQuadLeashOffsets(entity, 0.02, 0.48, 0.25, 0.82));
+        offsets.put(entity -> entity instanceof AbstractHorse, entity -> Leashable.vb$createQuadLeashOffsets(entity, 0.04, 0.52, 0.23, 0.87));
+        offsets.put(entity -> entity instanceof AbstractChestedHorse, entity -> Leashable.vb$createQuadLeashOffsets(entity, 0.04, 0.41, 0.18, 0.73));
+        offsets.put(entity -> entity instanceof Sniffer, entity -> Leashable.vb$createQuadLeashOffsets(entity, -0.01, 0.63, 0.38, 1.15));
         return offsets.build();
     });
 
@@ -44,78 +43,78 @@ public interface Leashable {
         new Vec3(0.5, 0.5, 0.5)
     );
 
-    default boolean isLeashed() {
+    default boolean vb$isLeashed() {
         if (this instanceof Mob mob) return mob.isLeashed();
         return false;
     }
 
-    default boolean canHaveALeashAttachedTo(Entity target) {
+    default boolean vb$canHaveALeashAttachedTo(Entity target) {
         if (this == target) {
             return false;
         } else {
-            return this.leashDistanceTo(target) <= this.leashSnapDistance() && this.canBeLeashed(target instanceof Player player ? player : null);
+            return this.vb$leashDistanceTo(target) <= this.vb$leashSnapDistance() && this.vb$canBeLeashed(target instanceof Player player ? player : null);
         }
     }
 
-    default void setLeashedTo(Entity entity, boolean sendAttachPacket) {
+    default void vb$setLeashedTo(Entity entity, boolean sendAttachPacket) {
         if (this instanceof Mob mob) mob.setLeashedTo(entity, sendAttachPacket);
     }
 
-    default double leashDistanceTo(Entity entity) {
+    default double vb$leashDistanceTo(Entity entity) {
         return entity.getBoundingBox().getCenter().distanceTo(((Entity) this).getBoundingBox().getCenter());
     }
 
-    default boolean canBeLeashed(Player entity) {
+    default boolean vb$canBeLeashed(Player entity) {
         if (this instanceof Mob mob) return mob.canBeLeashed(entity);
         return true;
     }
 
-    default void dropLeash(boolean broadcast, boolean dropItem) {
+    default void vb$dropLeash(boolean broadcast, boolean dropItem) {
         if (this instanceof Mob mob) mob.dropLeash(broadcast, dropItem);
     }
 
-    static <E extends Entity & Leashable> void onTickLeash(E entity) {
-        Entity holder = entity.getLeashHolder();
+    static <E extends Entity & Leashable> void vb$onTickLeash(E entity) {
+        Entity holder = entity.vb$getLeashHolder();
         if (holder != null && holder.level() == entity.level()) {
-            double leashDistance = entity.leashDistanceTo(holder);
+            double leashDistance = entity.vb$leashDistanceTo(holder);
 
             if (entity instanceof TamableAnimal pet && pet.isInSittingPose()) {
-                if (leashDistance > entity.leashSnapDistance()) {
-                    entity.dropLeash(true, true);
+                if (leashDistance > entity.vb$leashSnapDistance()) {
+                    entity.vb$dropLeash(true, true);
                 }
 
                 return;
             }
 
-            entity.whenLeashedTo(holder);
-            if (leashDistance > entity.leashSnapDistance()) {
+            entity.vb$whenLeashedTo(holder);
+            if (leashDistance > entity.vb$leashSnapDistance()) {
                 entity.level().playSound(null, holder, SoundEvents.LEASH_KNOT_BREAK, SoundSource.NEUTRAL, 1.0F, 1.0F);
-                entity.leashTooFarBehaviour();
-            } else if (leashDistance > entity.leashElasticDistance() - (double) holder.getBbWidth() - (double) entity.getBbWidth() && entity.checkElasticInteractions(holder)) {
-                entity.onElasticLeashPull(holder);
+                entity.vb$leashTooFarBehaviour();
+            } else if (leashDistance > entity.vb$leashElasticDistance() - (double) holder.getBbWidth() - (double) entity.getBbWidth() && entity.vb$checkElasticInteractions(holder)) {
+                entity.vb$onElasticLeashPull(holder);
             } else {
-                entity.closeRangeLeashBehavior(holder);
+                entity.vb$closeRangeLeashBehavior(holder);
             }
 
-            entity.setYRot((float) (entity.getYRot() - entity.angularMomentum()));
-            entity.setAngularMomentum(entity.angularMomentum() * (double) angularFriction(entity));
+            entity.setYRot((float) (entity.getYRot() - entity.vb$angularMomentum()));
+            entity.vb$setAngularMomentum(entity.vb$angularMomentum() * (double) vb$angularFriction(entity));
         }
     }
 
-    default void onElasticLeashPull(Entity entity) {
+    default void vb$onElasticLeashPull(Entity entity) {
         if (this instanceof PathfinderMob mob) ((PathfinderMobAccessor) this).callOnLeashDistance(mob.distanceTo(entity));
         ((Entity) this).checkSlowFallDistance();
     }
 
-    default double leashSnapDistance() {
+    default double vb$leashSnapDistance() {
         return 12.0;
     }
 
-    default double leashElasticDistance() {
+    default double vb$leashElasticDistance() {
         return 6.0;
     }
 
-    static <E extends Entity & Leashable> float angularFriction(E entity) {
+    static <E extends Entity & Leashable> float vb$angularFriction(E entity) {
         if (entity.onGround()) {
             return entity.level().getBlockState(((EntityAccessor) entity).callGetBlockPosBelowThatAffectsMyMovement()).getBlock().getFriction() * 0.91F;
         } else {
@@ -123,21 +122,21 @@ public interface Leashable {
         }
     }
 
-    default void whenLeashedTo(Entity entity) {
-        if (this instanceof PathfinderMob mob) mob.restrictTo(entity.blockPosition(), (int) this.leashElasticDistance() - 1);
-        if (entity instanceof Leashable ext) ext.notifyLeashHolder(this);
+    default void vb$whenLeashedTo(Entity entity) {
+        if (this instanceof PathfinderMob mob) mob.restrictTo(entity.blockPosition(), (int) this.vb$leashElasticDistance() - 1);
+        if (entity instanceof Leashable ext) ext.vb$notifyLeashHolder(this);
     }
 
-    default void notifyLeashHolder(Leashable entity) {
+    default void vb$notifyLeashHolder(Leashable entity) {
 
     }
 
-    default void leashTooFarBehaviour() {
+    default void vb$leashTooFarBehaviour() {
         if (this instanceof PathfinderMob mob) mob.goalSelector.disableControlFlag(Goal.Flag.MOVE);
-        this.dropLeash(true, true);
+        this.vb$dropLeash(true, true);
     }
 
-    default void closeRangeLeashBehavior(Entity entity) {
+    default void vb$closeRangeLeashBehavior(Entity entity) {
         if (this instanceof PathfinderMob mob) {
             if (((PathfinderMobAccessor) this).callShouldStayCloseToLeashHolder()) {
                 mob.goalSelector.enableControlFlag(Goal.Flag.MOVE);
@@ -148,11 +147,11 @@ public interface Leashable {
         }
     }
 
-    default boolean checkElasticInteractions(Entity entity) {
+    default boolean vb$checkElasticInteractions(Entity entity) {
         if (((Entity) this).getControllingPassenger() instanceof Player) return false;
 
-        boolean supportQuadLeash = entity instanceof Leashable holder && holder.supportQuadLeashAsHolder() && this.supportQuadLeash();
-        List<Wrench> wrenches = computeElasticInteraction(
+        boolean supportQuadLeash = entity instanceof Leashable holder && holder.vb$supportQuadLeashAsHolder() && this.vb$supportQuadLeash();
+        List<Wrench> wrenches = vb$computeElasticInteraction(
             (Entity & Leashable) this,
             entity,
             supportQuadLeash ? SHARED_QUAD_ATTACHMENT_POINTS : ENTITY_ATTACHMENT_POINT,
@@ -163,18 +162,18 @@ public interface Leashable {
             return false;
         } else {
             Wrench wrench = Wrench.accumulate(wrenches).scale(supportQuadLeash ? 0.25 : 1.0);
-            this.setAngularMomentum(this.angularMomentum() + 10.0 * wrench.torque());
-            Vec3 offset = getHolderMovement(entity).subtract(getKnownMovement((Entity) this));
+            this.vb$setAngularMomentum(this.vb$angularMomentum() + 10.0 * wrench.torque());
+            Vec3 offset = vb$getHolderMovement(entity).subtract(vb$getKnownMovement((Entity) this));
             ((Entity) this).addDeltaMovement(wrench.force().multiply(AXIS_SPECIFIC_ELASTICITY).add(offset.scale(0.11)));
             return true;
         }
     }
 
-    static Vec3 getHolderMovement(Entity entity) {
-        return entity instanceof Mob mob && mob.isNoAi() ? Vec3.ZERO : getKnownMovement(entity);
+    static Vec3 vb$getHolderMovement(Entity entity) {
+        return entity instanceof Mob mob && mob.isNoAi() ? Vec3.ZERO : vb$getKnownMovement(entity);
     }
 
-    static Vec3 getKnownMovement(Entity entity) {
+    static Vec3 vb$getKnownMovement(Entity entity) {
         Entity passenger = entity.getControllingPassenger();
         if (passenger instanceof Player player) {
             if (entity.isAlive()) {
@@ -185,9 +184,9 @@ public interface Leashable {
         return entity.getDeltaMovement();
     }
 
-    static <E extends Entity & Leashable> List<Wrench> computeElasticInteraction(E entity, Entity holder, List<Vec3> attachmentPoints, List<Vec3> holderAttachmentPoints) {
-        double elasticDistance = entity.leashElasticDistance();
-        Vec3 entityMovement = getHolderMovement(entity);
+    static <E extends Entity & Leashable> List<Wrench> vb$computeElasticInteraction(E entity, Entity holder, List<Vec3> attachmentPoints, List<Vec3> holderAttachmentPoints) {
+        double elasticDistance = entity.vb$leashElasticDistance();
+        Vec3 entityMovement = vb$getHolderMovement(entity);
         float entityYaw = entity.getYRot() * (float) (Math.PI / 180.0);
         Vec3 entityDimensions = new Vec3(entity.getBbWidth(), entity.getBbHeight(), entity.getBbWidth());
         float holderYaw = holder.getYRot() * (float) (Math.PI / 180.0);
@@ -199,13 +198,13 @@ public interface Leashable {
             Vec3 entityPosition = entity.position().add(entityOffset);
             Vec3 holderOffset = holderAttachmentPoints.get(i).multiply(holderDimensions).yRot(-holderYaw);
             Vec3 holderPosition = holder.position().add(holderOffset);
-            computeDampenedSpringInteraction(holderPosition, entityPosition, elasticDistance, entityMovement, entityOffset).ifPresent(wrenches::add);
+            vb$computeDampenedSpringInteraction(holderPosition, entityPosition, elasticDistance, entityMovement, entityOffset).ifPresent(wrenches::add);
         }
 
         return wrenches;
     }
 
-    private static Optional<Wrench> computeDampenedSpringInteraction(Vec3 holderPos, Vec3 entityPos, double threshold, Vec3 movement, Vec3 offset) {
+    private static Optional<Wrench> vb$computeDampenedSpringInteraction(Vec3 holderPos, Vec3 entityPos, double threshold, Vec3 movement, Vec3 offset) {
         double distance = entityPos.distanceTo(holderPos);
         if (distance < threshold) {
             return Optional.empty();
@@ -221,7 +220,7 @@ public interface Leashable {
         }
     }
 
-    default boolean supportQuadLeash() {
+    default boolean vb$supportQuadLeash() {
         Entity entity = (Entity) this;
         for (Predicate<Entity> filter : QUAD_LEASH_OFFSETS.keySet()) {
             if (filter.test(entity)) {
@@ -232,11 +231,11 @@ public interface Leashable {
         return false;
     }
 
-    default boolean supportQuadLeashAsHolder() {
+    default boolean vb$supportQuadLeashAsHolder() {
         return false;
     }
 
-    default Vec3[] getQuadLeashOffsets() {
+    default Vec3[] vb$getQuadLeashOffsets() {
         Entity entity = (Entity) this;
         for (Predicate<Entity> filter : QUAD_LEASH_OFFSETS.keySet()) {
             if (filter.test(entity)) {
@@ -244,14 +243,14 @@ public interface Leashable {
             }
         }
 
-        return createQuadLeashOffsets((Entity) this, 0.0, 0.5, 0.5, 0.5);
+        return vb$createQuadLeashOffsets((Entity) this, 0.0, 0.5, 0.5, 0.5);
     }
 
-    default Vec3[] getQuadLeashHolderOffsets() {
-        return createQuadLeashOffsets((Entity) this, 0.0, 0.5, 0.5, 0.0);
+    default Vec3[] vb$getQuadLeashHolderOffsets() {
+        return vb$createQuadLeashOffsets((Entity) this, 0.0, 0.5, 0.5, 0.0);
     }
 
-    static Vec3[] createQuadLeashOffsets(Entity entity, double forwardOffset, double sideOffset, double widthOffset, double heightOffset) {
+    static Vec3[] vb$createQuadLeashOffsets(Entity entity, double forwardOffset, double sideOffset, double widthOffset, double heightOffset) {
         float entityWidth = entity.getBbWidth();
         double forward = forwardOffset * (double) entityWidth;
         double side = sideOffset * (double) entityWidth;
@@ -266,20 +265,20 @@ public interface Leashable {
         };
     }
 
-    default Entity getLeashHolder() {
+    default Entity vb$getLeashHolder() {
         if (this instanceof Mob mob) return mob.getLeashHolder();
         return null;
     }
 
-    static List<Leashable> leashableLeashedTo(Entity entity) {
-        return leashableInArea(entity, leashable -> leashable.getLeashHolder() == entity);
+    static List<Leashable> vb$leashableLeashedTo(Entity entity) {
+        return vb$leashableInArea(entity, leashable -> leashable.vb$getLeashHolder() == entity);
     }
 
-    static List<Leashable> leashableInArea(Entity entity, Predicate<Leashable> filter) {
-        return leashableInArea(entity.level(), entity.getBoundingBox().getCenter(), filter);
+    static List<Leashable> vb$leashableInArea(Entity entity, Predicate<Leashable> filter) {
+        return vb$leashableInArea(entity.level(), entity.getBoundingBox().getCenter(), filter);
     }
 
-    static List<Leashable> leashableInArea(Level level, Vec3 pos, Predicate<Leashable> filter) {
+    static List<Leashable> vb$leashableInArea(Level level, Vec3 pos, Predicate<Leashable> filter) {
         AABB area = AABB.ofSize(pos, 32.0, 32.0, 32.0);
         return level.getEntitiesOfClass(Entity.class, area, entity -> entity instanceof Leashable leashable && filter.test(leashable))
             .stream()
@@ -287,16 +286,16 @@ public interface Leashable {
             .toList();
     }
 
-    default void setBoatDelayedLeashHolderId(int leashHolderId) {
+    default void vb$setBoatDelayedLeashHolderId(int leashHolderId) {
     }
 
-    default double angularMomentum() {
+    default double vb$angularMomentum() {
         return 0.0;
     }
 
-    default void setAngularMomentum(double angularMomentum) { }
+    default void vb$setAngularMomentum(double angularMomentum) { }
 
-    static float getPreciseBodyRotation(Entity entity, float partialTicks) {
+    static float vb$getPreciseBodyRotation(Entity entity, float partialTicks) {
         if (entity instanceof LivingEntity living) {
             return Mth.lerp(partialTicks, living.yBodyRotO, living.yBodyRot);
         } else {

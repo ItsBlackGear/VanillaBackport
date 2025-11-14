@@ -3,6 +3,7 @@ package com.blackgear.vanillabackport.client;
 import com.blackgear.platform.client.GameRendering;
 import com.blackgear.vanillabackport.client.api.color.DryFoliageColor;
 import com.blackgear.vanillabackport.client.api.color.LeafColors;
+import com.blackgear.vanillabackport.client.level.entities.layer.WolfArmorLayer;
 import com.blackgear.vanillabackport.client.level.entities.model.*;
 import com.blackgear.vanillabackport.client.level.entities.model.chicken.ColdChickenModel;
 import com.blackgear.vanillabackport.client.level.entities.model.cow.ColdCowModel;
@@ -15,16 +16,21 @@ import com.blackgear.vanillabackport.client.level.particles.FireflyParticle;
 import com.blackgear.vanillabackport.client.level.particles.TrailParticle;
 import com.blackgear.vanillabackport.client.registries.ModModelLayers;
 import com.blackgear.vanillabackport.client.registries.ModParticles;
+import com.blackgear.vanillabackport.common.level.items.WolfArmorItem;
 import com.blackgear.vanillabackport.common.registries.ModBlocks;
 import com.blackgear.vanillabackport.common.registries.ModEntities;
+import com.blackgear.vanillabackport.common.registries.ModItems;
+import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.BoatModel;
 import net.minecraft.client.model.ChestBoatModel;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.particle.SpellParticle;
+import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.GrassColor;
 
 @Environment(EnvType.CLIENT)
@@ -46,6 +52,7 @@ public class Rendering {
     }
 
     public static void entityRendering(GameRendering.EntityRendererEvent event) {
+        event.register(ModEntities.ARMADILLO.get(), ArmadilloRenderer::new);
         event.register(ModEntities.CREAKING.get(), CreakingRenderer::new);
         event.register(ModEntities.HAPPY_GHAST.get(), HappyGhastRenderer::new);
         event.register(ModEntities.PALE_OAK_BOAT.get(), context -> new PaleOakBoatRenderer(context, false));
@@ -53,20 +60,25 @@ public class Rendering {
     }
 
     public static void modelLayers(GameRendering.ModelLayerEvent event) {
+        event.register(ModModelLayers.BAT, BatModel::createBodyLayer);
+
+        event.register(ModModelLayers.ARMADILLO, ArmadilloModel::createBodyLayer);
+        event.register(ModModelLayers.WOLF_ARMOR, () -> LayerDefinition.create(WolfArmorLayer.createMeshDefinition(new CubeDeformation(0.2F)), 64, 32));
+
         event.register(ModModelLayers.CREAKING, CreakingModel::createBodyLayer);
+        event.register(ModModelLayers.PALE_OAK_BOAT, BoatModel::createBodyModel);
+        event.register(ModModelLayers.PALE_OAK_CHEST_BOAT, ChestBoatModel::createBodyModel);
+
         event.register(ModModelLayers.HAPPY_GHAST, () -> HappyGhastModel.createBodyLayer(false, CubeDeformation.NONE));
         event.register(ModModelLayers.HAPPY_GHAST_BABY, () -> HappyGhastModel.createBodyLayer(true, CubeDeformation.NONE));
         event.register(ModModelLayers.HAPPY_GHAST_HARNESS, HappyGhastHarnessModel::createHarnessLayer);
         event.register(ModModelLayers.HAPPY_GHAST_ROPES, () -> HappyGhastModel.createBodyLayer(false, new CubeDeformation(0.2F)));
         event.register(ModModelLayers.HAPPY_GHAST_BABY_ROPES, () -> HappyGhastModel.createBodyLayer(true, new CubeDeformation(0.2F)));
-        event.register(ModModelLayers.PALE_OAK_BOAT, BoatModel::createBodyModel);
-        event.register(ModModelLayers.PALE_OAK_CHEST_BOAT, ChestBoatModel::createBodyModel);
 
         event.register(ModModelLayers.COLD_PIG, ColdPigModel::createBodyLayer);
         event.register(ModModelLayers.COLD_CHICKEN, ColdChickenModel::createBodyLayer);
         event.register(ModModelLayers.COLD_COW, ColdCowModel::createBodyLayer);
         event.register(ModModelLayers.WARM_COW, WarmCowModel::createBodyLayer);
-        event.register(ModModelLayers.BAT, BatModel::createBodyLayer);
     }
 
     public static void blockRendering(GameRendering.BlockRendererEvent event) {
@@ -121,5 +133,18 @@ public class Rendering {
 
     public static void itemColors(GameRendering.ItemColorEvent event) {
         event.register(event::getColor, ModBlocks.BUSH.get());
+        event.register((stack, i) -> i != 1 ? -1 : WolfArmorItem.getColorOrDefault(stack, 0), ModItems.WOLF_ARMOR.get());
+    }
+
+    public static void modelOverrides(GameRendering.ModelOverrideEvent event) {
+        swap(event,"bundle", VanillaBackport.COMMON_CONFIG.hasUpdatedBundles.get());
+
+        for (DyeColor color : DyeColor.values()) {
+            swap(event, color.getName() + "_bundle", VanillaBackport.COMMON_CONFIG.hasUpdatedBundles.get());
+        }
+    }
+
+    public static void swap(GameRendering.ModelOverrideEvent event, String model, boolean condition) {
+        event.register(VanillaBackport.vanilla(model), VanillaBackport.resource(model), condition);
     }
 }

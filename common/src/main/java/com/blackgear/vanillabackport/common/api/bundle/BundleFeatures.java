@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-public final class BundleContents {
+public final class BundleFeatures {
     private static final String TAG_ITEMS = "Items";
     private static final String TAG_SELECTED_ITEM = "SelectedItem";
     public static final int MAX_WEIGHT = 64;
@@ -22,7 +22,7 @@ public final class BundleContents {
     private static final int NO_SELECTED_ITEM = -1;
 
     public static boolean onBundleUpdate() {
-        return VanillaBackport.COMMON_CONFIG.hasBundles.get();
+        return VanillaBackport.COMMON_CONFIG.hasUpdatedBundles.get();
     }
 
     public static boolean canItemBeInBundle(ItemStack stack) {
@@ -250,6 +250,7 @@ public final class BundleContents {
             case RED -> ModItems.RED_BUNDLE.get();
             case BLACK -> ModItems.BLACK_BUNDLE.get();
             case PURPLE -> ModItems.PURPLE_BUNDLE.get();
+            default -> Items.BUNDLE;
         };
     }
 }

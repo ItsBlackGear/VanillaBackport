@@ -200,11 +200,37 @@ public class LangGenerator extends FabricLanguageProvider {
         builder.add(ModItems.BROWN_BUNDLE.get(), "Brown Bundle");
         builder.add(ModItems.ORANGE_BUNDLE.get(), "Orange Bundle");
 
-        // Bundled Tabs
-        // Bats and Pots could be removed if main author of the mod decided to. - Echo2craft.
-        builder.add("bundled_tab.bats_and_pots.title", "Bats and Pots");
-        builder.add("bundled_tab.tricky_trials.title", "Tricky Trials");
+        // Armored Paws
+        builder.add(ModEntities.ARMADILLO.get(), "Armadillo");
 
+        builder.add(ModItems.WOLF_ARMOR.get(), "Wolf Armor");
+        builder.add(ModItems.ARMADILLO_SCUTE.get(), "Armadillo Scute");
+        builder.add(ModItems.ARMADILLO_SPAWN_EGG.get(), "Armadillo Spawn Egg");
+
+        builder.add("subtitles.entity.armadillo.ambient", "Armadillo grunts");
+        builder.add("subtitles.entity.armadillo.brush", "Scute is brushed off");
+        builder.add("subtitles.entity.armadillo.death", "Armadillo dies");
+        builder.add("subtitles.entity.armadillo.eat", "Armadillo eats");
+        builder.add("subtitles.entity.armadillo.hurt", "Armadillo hurts");
+        builder.add("subtitles.entity.armadillo.hurt_reduced", "Armadillo shields itself");
+        builder.add("subtitles.entity.armadillo.land", "Armadillo lands");
+        builder.add("subtitles.entity.armadillo.peek", "Armadillo peeks");
+        builder.add("subtitles.entity.armadillo.roll", "Armadillo rolls up");
+        builder.add("subtitles.entity.armadillo.scute_drop", "Armadillo sheds scute");
+        builder.add("subtitles.entity.armadillo.unroll_finish", "Armadillo unrolls");
+        builder.add("subtitles.entity.armadillo.unroll_start", "Armadillo peeks");
+
+        builder.add("subtitles.item.armor.equip_wolf", "Wolf Armor is fastened");
+        builder.add("subtitles.item.armor.unequip_wolf", "Wolf Armor snips away");
+
+        builder.add("subtitles.item.wolf_armor.break", "Wolf Armor breaks");
+        builder.add("subtitles.item.wolf_armor.crack", "Wolf Armor cracks");
+        builder.add("subtitles.item.wolf_armor.damage", "Wolf Armor takes damage");
+        builder.add("subtitles.item.wolf_armor.repair", "Wolf Armor is repaired");
+
+        // Bundled Tabs
+
+        builder.add("bundled_tab.armored_paws.title", "Armored Paws");
         builder.add("bundled_tab.bundles_of_bravery.title", "Bundles of Bravery");
         builder.add("bundled_tab.the_garden_awakens.title", "The Garden Awakens");
         builder.add("bundled_tab.spring_to_life.title", "Spring to Life");

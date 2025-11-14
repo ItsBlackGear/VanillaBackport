@@ -15,7 +15,6 @@ import net.minecraft.world.entity.animal.Chicken;
 import java.util.Map;
 import java.util.Optional;
 
-@SuppressWarnings("unchecked")
 @Environment(EnvType.CLIENT)
 public class ChickenVariantRenderer {
     protected final Map<ChickenVariant.ModelType, ChickenModel<Chicken>> modelByVariant;
@@ -32,16 +31,12 @@ public class ChickenVariantRenderer {
     }
 
     public ResourceLocation getTexture(Chicken entity) {
-        ChickenVariant variant = ((VariantHolder<ChickenVariant>) entity).getVariant();
-        if (variant != null) {
-            return variant.modelAndTexture().asset().path();
-        }
-
-        return null;
+        ChickenVariant variant = VariantHolder.<ChickenVariant>vb$getVariantHolder(entity).vb$getVariant();
+        return variant != null ? variant.modelAndTexture().asset().path() : null;
     }
 
     public Optional<ChickenModel<Chicken>> getModel(Chicken entity) {
-        ChickenVariant variant = ((VariantHolder<ChickenVariant>) entity).getVariant();
-        return Optional.ofNullable(this.modelByVariant.get(variant.modelAndTexture().model()));
+        ChickenVariant variant = VariantHolder.<ChickenVariant>vb$getVariantHolder(entity).vb$getVariant();
+        return variant != null ? Optional.ofNullable(this.modelByVariant.get(variant.modelAndTexture().model())) : Optional.empty();
     }
 }

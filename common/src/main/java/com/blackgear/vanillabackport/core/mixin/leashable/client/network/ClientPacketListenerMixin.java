@@ -20,7 +20,7 @@ public class ClientPacketListenerMixin {
     private void vb$onEntityLinkPacket(ClientboundSetEntityLinkPacket packet, CallbackInfo ci) {
         Entity entity = this.level.getEntity(packet.getSourceId());
         if (entity instanceof Leashable leashable && entity instanceof Boat) {
-            leashable.setBoatDelayedLeashHolderId(packet.getDestId());
+            leashable.vb$setBoatDelayedLeashHolderId(packet.getDestId());
         }
     }
 }

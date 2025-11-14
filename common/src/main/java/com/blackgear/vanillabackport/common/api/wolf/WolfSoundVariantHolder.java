@@ -11,7 +11,7 @@ public interface WolfSoundVariantHolder {
         return null;
     }
 
-    WolfSoundVariant getSoundVariant();
+    WolfSoundVariant vb$getSoundVariant();
 
-    void setSoundVariant(WolfSoundVariant variant);
+    void vb$setSoundVariant(WolfSoundVariant variant);
 }

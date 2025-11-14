@@ -105,6 +105,9 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
 
         this.getOrCreateTagBuilder(ModItemTags.EGGS)
             .add(Items.EGG, ModItems.BLUE_EGG.get(), ModItems.BROWN_EGG.get());
+
+        this.getOrCreateTagBuilder(ModItemTags.ARMADILLO_FOOD)
+            .add(Items.SPIDER_EYE);
     }
 
     private void handleConventionalTags() {

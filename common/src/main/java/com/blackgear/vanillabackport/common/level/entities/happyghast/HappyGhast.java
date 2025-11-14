@@ -165,7 +165,7 @@ public class HappyGhast extends Animal implements PlayerRideable, Leashable {
         this.setYya(0.0F);
         this.setSpeed(0.0F);
         this.setDeltaMovement(0.0, 0.0, 0.0);
-        this.setAngularMomentum(0.0);
+        this.vb$setAngularMomentum(0.0);
     }
 
     @Override
@@ -557,13 +557,13 @@ public class HappyGhast extends Animal implements PlayerRideable, Leashable {
     }
 
     @Override
-    public boolean supportQuadLeashAsHolder() {
+    public boolean vb$supportQuadLeashAsHolder() {
         return true;
     }
 
     @Override
-    public Vec3[] getQuadLeashHolderOffsets() {
-        return Leashable.createQuadLeashOffsets(this, -0.03125, 0.4375, 0.46875, 0.03125);
+    public Vec3[] vb$getQuadLeashHolderOffsets() {
+        return Leashable.vb$createQuadLeashOffsets(this, -0.03125, 0.4375, 0.46875, 0.03125);
     }
 
     @Override
@@ -572,24 +572,24 @@ public class HappyGhast extends Animal implements PlayerRideable, Leashable {
     }
 
     @Override
-    public double leashElasticDistance() {
+    public double vb$leashElasticDistance() {
         return 10.0;
     }
 
     @Override
-    public double leashSnapDistance() {
+    public double vb$leashSnapDistance() {
         return 16.0;
     }
 
     @Override
-    public void onElasticLeashPull(Entity entity) {
-        Leashable.super.onElasticLeashPull(entity);
+    public void vb$onElasticLeashPull(Entity entity) {
+        Leashable.super.vb$onElasticLeashPull(entity);
         this.getMoveControl().operation = MoveControl.Operation.WAIT;
     }
 
     @Override
-    public void notifyLeashHolder(Leashable entity) {
-        if (entity.supportQuadLeash()) {
+    public void vb$notifyLeashHolder(Leashable entity) {
+        if (entity.vb$supportQuadLeash()) {
             this.leashHolderTime = 5;
         }
     }

@@ -1,7 +1,7 @@
 package com.blackgear.vanillabackport.core.mixin.common.items;
 
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
-import com.blackgear.vanillabackport.common.api.bundle.BundleContents;
+import com.blackgear.vanillabackport.common.api.bundle.BundleFeatures;
 import com.blackgear.vanillabackport.common.api.bundle.BundleSelectionTooltip;
 import com.blackgear.vanillabackport.core.util.ColorUtils;
 import net.minecraft.core.NonNullList;
@@ -42,11 +42,11 @@ public abstract class BundleItemMixin {
         cancellable = true
     )
     private void vb$onOverrideStackedOnOther(ItemStack stack, Slot slot, ClickAction action, Player player, CallbackInfoReturnable<Boolean> cir) {
-        if (!BundleContents.onBundleUpdate()) return;
+        if (!BundleFeatures.onBundleUpdate()) return;
 
         ItemStack itemInSlot = slot.getItem();
         if (action == ClickAction.PRIMARY && !itemInSlot.isEmpty()) {
-            if (BundleContents.tryTransfer(stack, slot, player) > 0) {
+            if (BundleFeatures.tryTransfer(stack, slot, player) > 0) {
                 this.playInsertSound(player);
             } else {
                 this.playInsertFailSound(player);
@@ -55,11 +55,11 @@ public abstract class BundleItemMixin {
             this.broadcastChangesOnContainerMenu(player);
             cir.setReturnValue(true);
         } else if (action == ClickAction.SECONDARY && itemInSlot.isEmpty()) {
-            ItemStack removed = BundleContents.removeOne(stack);
+            ItemStack removed = BundleFeatures.removeOne(stack);
             if (removed != null) {
                 ItemStack inserted = slot.safeInsert(removed);
                 if (inserted.getCount() > 0) {
-                    BundleContents.tryInsert(stack, inserted);
+                    BundleFeatures.tryInsert(stack, inserted);
                 } else {
                     this.playRemoveOneSound(player);
                 }
@@ -78,14 +78,14 @@ public abstract class BundleItemMixin {
         cancellable = true
     )
     private void vb$onOverrideOtherStackedOnMe(ItemStack stack, ItemStack other, Slot slot, ClickAction action, Player player, SlotAccess slotAccess, CallbackInfoReturnable<Boolean> cir) {
-        if (!BundleContents.onBundleUpdate()) return;
+        if (!BundleFeatures.onBundleUpdate()) return;
 
         if (action == ClickAction.PRIMARY && other.isEmpty()) {
-            BundleContents.toggleSelectedItem(stack, -1);
+            BundleFeatures.toggleSelectedItem(stack, -1);
             cir.setReturnValue(false);
         } else {
             if (action == ClickAction.PRIMARY && !other.isEmpty()) {
-                if (slot.allowModification(player) && BundleContents.tryInsert(stack, other) > 0) {
+                if (slot.allowModification(player) && BundleFeatures.tryInsert(stack, other) > 0) {
                     this.playInsertSound(player);
                 } else {
                     this.playInsertFailSound(player);
@@ -95,7 +95,7 @@ public abstract class BundleItemMixin {
                 cir.setReturnValue(true);
             } else if (action == ClickAction.SECONDARY && other.isEmpty()) {
                 if (slot.allowModification(player)) {
-                    ItemStack removed = BundleContents.removeOne(stack);
+                    ItemStack removed = BundleFeatures.removeOne(stack);
                     if (removed != null) {
                         this.playRemoveOneSound(player);
                         slotAccess.set(removed);
@@ -105,7 +105,7 @@ public abstract class BundleItemMixin {
                 this.broadcastChangesOnContainerMenu(player);
                 cir.setReturnValue(true);
             } else {
-                BundleContents.toggleSelectedItem(stack, -1);
+                BundleFeatures.toggleSelectedItem(stack, -1);
                 cir.setReturnValue(false);
             }
         }
@@ -117,7 +117,7 @@ public abstract class BundleItemMixin {
         cancellable = true
     )
     private static void vb$dropContents(ItemStack stack, Player player, CallbackInfoReturnable<Boolean> cir) {
-        if (!BundleContents.onBundleUpdate()) return;
+        if (!BundleFeatures.onBundleUpdate()) return;
 
         Optional<ItemStack> taken = removeOneFromBundle(stack);
         if (taken.isPresent()) {
@@ -130,7 +130,7 @@ public abstract class BundleItemMixin {
 
     @Unique
     private static Optional<ItemStack> removeOneFromBundle(ItemStack stack) {
-        ItemStack removed = BundleContents.removeOne(stack);
+        ItemStack removed = BundleFeatures.removeOne(stack);
         if (removed != null) {
             return Optional.of(removed);
         } else {
@@ -144,9 +144,9 @@ public abstract class BundleItemMixin {
         cancellable = true
     )
     private void vb$onGetBarColor(ItemStack stack, CallbackInfoReturnable<Integer> cir) {
-        if (!BundleContents.onBundleUpdate()) return;
+        if (!BundleFeatures.onBundleUpdate()) return;
 
-        cir.setReturnValue(BundleContents.getContentWeight(stack) >= BundleContents.MAX_WEIGHT ? FULL_BAR_COLOR : BAR_COLOR);
+        cir.setReturnValue(BundleFeatures.getContentWeight(stack) >= BundleFeatures.MAX_WEIGHT ? FULL_BAR_COLOR : BAR_COLOR);
     }
 
     @Inject(
@@ -155,15 +155,15 @@ public abstract class BundleItemMixin {
         cancellable = true
     )
     private void vb$onGetBarWidth(ItemStack stack, CallbackInfoReturnable<Integer> cir) {
-        if (!BundleContents.onBundleUpdate()) return;
+        if (!BundleFeatures.onBundleUpdate()) return;
 
-        int weight = BundleContents.getContentWeight(stack);
-        cir.setReturnValue(Math.min(1 + ((weight * 12) / BundleContents.MAX_WEIGHT), 13));
+        int weight = BundleFeatures.getContentWeight(stack);
+        cir.setReturnValue(Math.min(1 + ((weight * 12) / BundleFeatures.MAX_WEIGHT), 13));
     }
 
     @Inject(method = "appendHoverText", at = @At("HEAD"), cancellable = true)
     private void vb$onAppendHoverText(ItemStack stack, Level level, List<Component> tooltipComponents, TooltipFlag isAdvanced, CallbackInfo ci) {
-        if (!BundleContents.onBundleUpdate()) return;
+        if (!BundleFeatures.onBundleUpdate()) return;
 
         ci.cancel();
     }
@@ -174,11 +174,11 @@ public abstract class BundleItemMixin {
         cancellable = true
     )
     private void vb$onGetTooltipImage(ItemStack stack, CallbackInfoReturnable<Optional<TooltipComponent>> cir) {
-        if (!BundleContents.onBundleUpdate()) return;
+        if (!BundleFeatures.onBundleUpdate()) return;
 
         NonNullList<ItemStack> items = NonNullList.create();
-        BundleContents.getContents(stack).forEach(items::add);
-        cir.setReturnValue(Optional.of(new BundleSelectionTooltip(items, BundleContents.getContentWeight(stack), BundleContents.getSelectedItem(stack))));
+        BundleFeatures.getContents(stack).forEach(items::add);
+        cir.setReturnValue(Optional.of(new BundleSelectionTooltip(items, BundleFeatures.getContentWeight(stack), BundleFeatures.getSelectedItem(stack))));
     }
 
     @Unique
@@ -189,8 +189,6 @@ public abstract class BundleItemMixin {
     @Unique
     private void broadcastChangesOnContainerMenu(Player player) {
         AbstractContainerMenu menu = player.containerMenu;
-        if (menu != null && menu.stillValid(player)) {
-            menu.slotsChanged(player.getInventory());
-        }
+        if (menu.stillValid(player)) menu.slotsChanged(player.getInventory());
     }
 }
