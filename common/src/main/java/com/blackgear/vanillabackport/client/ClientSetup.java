@@ -19,8 +19,8 @@ public class ClientSetup {
             event.register(VanillaBackport.vanilla("leaf_colors"), LeafColorReloadListener.INSTANCE);
         });
 
-        GameRendering.registerParticleFactories(Rendering::particleFactories);
         GameRendering.registerModelLayers(Rendering::modelLayers);
+        GameRendering.registerParticleFactories(Rendering::particleFactories);
         GameRendering.registerEntityRenderers(Rendering::entityRendering);
         GameRendering.registerBlockColors(Rendering::blockColors);
         GameRendering.registerItemColors(Rendering::itemColors);

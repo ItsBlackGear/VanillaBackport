@@ -3,7 +3,10 @@ package com.blackgear.vanillabackport.client.level.entities.variant;
 import com.blackgear.vanillabackport.client.level.entities.model.chicken.ColdChickenModel;
 import com.blackgear.vanillabackport.client.registries.ModModelLayers;
 import com.blackgear.vanillabackport.common.api.variant.VariantHolder;
+import com.blackgear.vanillabackport.common.api.variant.VariantUtils;
 import com.blackgear.vanillabackport.common.level.entities.animal.ChickenVariant;
+import com.blackgear.vanillabackport.common.level.entities.animal.ChickenVariants;
+import com.blackgear.vanillabackport.core.registries.ModBuiltinRegistries;
 import com.google.common.collect.Maps;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -32,11 +35,15 @@ public class ChickenVariantRenderer {
 
     public ResourceLocation getTexture(Chicken entity) {
         ChickenVariant variant = VariantHolder.<ChickenVariant>vb$getVariantHolder(entity).vb$getVariant();
-        return variant != null ? variant.modelAndTexture().asset().path() : null;
+        return variant != null && !VariantUtils.matches(ModBuiltinRegistries.CHICKEN_VARIANTS, variant, ChickenVariants.TEMPERATE)
+            ? variant.modelAndTexture().asset().path()
+            : null;
     }
 
     public Optional<ChickenModel<Chicken>> getModel(Chicken entity) {
         ChickenVariant variant = VariantHolder.<ChickenVariant>vb$getVariantHolder(entity).vb$getVariant();
-        return variant != null ? Optional.ofNullable(this.modelByVariant.get(variant.modelAndTexture().model())) : Optional.empty();
+        return variant != null
+            ? Optional.ofNullable(this.modelByVariant.get(variant.modelAndTexture().model()))
+            : Optional.empty();
     }
 }

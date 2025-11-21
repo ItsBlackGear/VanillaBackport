@@ -29,7 +29,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Pig.class)
 public abstract class PigMixin extends MobMixin implements VariantHolder<PigVariant> {
-    @Unique private static final EntityDataAccessor<String> DATA_VARIANT_ID = SynchedEntityData.defineId(Pig.class, EntityDataSerializers.STRING);
+    @Unique private static EntityDataAccessor<String> DATA_VARIANT_ID;
 
     protected PigMixin(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
@@ -47,8 +47,9 @@ public abstract class PigMixin extends MobMixin implements VariantHolder<PigVari
     }
 
     @Override
-    public PigVariant vb$getVariant() {
-        return VariantUtils.getVariant(ModBuiltinRegistries.PIG_VARIANTS, this.entityData.get(DATA_VARIANT_ID));
+    protected void vb$defineSynchedData(CallbackInfo ci) {
+        if (DATA_VARIANT_ID == null) DATA_VARIANT_ID = SynchedEntityData.defineId(Pig.class, EntityDataSerializers.STRING);
+        this.entityData.define(DATA_VARIANT_ID, VariantUtils.getDefaultID(ModBuiltinRegistries.PIG_VARIANTS, PigVariants.TEMPERATE));
     }
 
     @Override
@@ -57,8 +58,8 @@ public abstract class PigMixin extends MobMixin implements VariantHolder<PigVari
     }
 
     @Override
-    protected void vb$defineSynchedData(CallbackInfo ci) {
-        this.entityData.define(DATA_VARIANT_ID, VariantUtils.getDefaultID(ModBuiltinRegistries.PIG_VARIANTS, PigVariants.TEMPERATE));
+    public PigVariant vb$getVariant() {
+        return VariantUtils.getVariant(ModBuiltinRegistries.PIG_VARIANTS, this.entityData.get(DATA_VARIANT_ID));
     }
 
     @Override

@@ -6,6 +6,7 @@ import com.blackgear.vanillabackport.common.registries.ModBiomes;
 import com.blackgear.vanillabackport.common.worldgen.placements.SpringToLifePlacements;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.blackgear.vanillabackport.core.data.tags.ModBiomeTags;
+import net.minecraft.data.worldgen.placement.VegetationPlacements;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.MobSpawnSettings;
@@ -81,6 +82,12 @@ public class SpringToLifeFeatureManager extends FeatureManager {
 
             this.getOrCreateBiomeBuilder(ModBiomeTags.SPAWNS_LEAF_LITTER)
                 .add(() -> this.addVegetation(SpringToLifePlacements.LEAF_LITTER));
+        });
+
+        this.addIf(VanillaBackport.COMMON_CONFIG.hasCactusFlowers.get(), (context, writer) -> {
+            if (context.hasFeature(VegetationPlacements.PATCH_CACTUS_DECORATED) || context.hasFeature(VegetationPlacements.PATCH_CACTUS_DESERT)) {
+                this.addVegetation(SpringToLifePlacements.CACTUS_FLOWER);
+            }
         });
     }
 }

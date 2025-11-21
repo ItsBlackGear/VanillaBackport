@@ -3,7 +3,10 @@ package com.blackgear.vanillabackport.client.level.entities.variant;
 import com.blackgear.vanillabackport.client.level.entities.model.pig.ColdPigModel;
 import com.blackgear.vanillabackport.client.registries.ModModelLayers;
 import com.blackgear.vanillabackport.common.api.variant.VariantHolder;
+import com.blackgear.vanillabackport.common.api.variant.VariantUtils;
 import com.blackgear.vanillabackport.common.level.entities.animal.PigVariant;
+import com.blackgear.vanillabackport.common.level.entities.animal.PigVariants;
+import com.blackgear.vanillabackport.core.registries.ModBuiltinRegistries;
 import com.google.common.collect.Maps;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -32,11 +35,15 @@ public class PigVariantRenderer {
 
     public ResourceLocation getTexture(Pig entity) {
         PigVariant variant = VariantHolder.<PigVariant>vb$getVariantHolder(entity).vb$getVariant();
-        return variant != null ? variant.modelAndTexture().asset().path() : null;
+        return variant != null && !VariantUtils.matches(ModBuiltinRegistries.PIG_VARIANTS, variant, PigVariants.TEMPERATE)
+            ? variant.modelAndTexture().asset().path()
+            : null;
     }
 
     public Optional<PigModel<Pig>> getModel(Pig entity) {
         PigVariant variant = VariantHolder.<PigVariant>vb$getVariantHolder(entity).vb$getVariant();
-        return variant != null ? Optional.ofNullable(this.modelByVariant.get(variant.modelAndTexture().model())) : Optional.empty();
+        return variant != null
+            ? Optional.ofNullable(this.modelByVariant.get(variant.modelAndTexture().model()))
+            : Optional.empty();
     }
 }

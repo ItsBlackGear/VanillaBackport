@@ -32,7 +32,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Chicken.class)
 public abstract class ChickenMixin extends MobMixin implements VariantHolder<ChickenVariant> {
-    @Unique private static final EntityDataAccessor<String> DATA_VARIANT_ID = SynchedEntityData.defineId(Chicken.class, EntityDataSerializers.STRING);
+    @Unique private static EntityDataAccessor<String> DATA_VARIANT_ID;
 
     protected ChickenMixin(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
@@ -50,8 +50,9 @@ public abstract class ChickenMixin extends MobMixin implements VariantHolder<Chi
     }
 
     @Override
-    public ChickenVariant vb$getVariant() {
-        return VariantUtils.getVariant(ModBuiltinRegistries.CHICKEN_VARIANTS, this.entityData.get(DATA_VARIANT_ID));
+    protected void vb$defineSynchedData(CallbackInfo ci) {
+        if (DATA_VARIANT_ID == null) DATA_VARIANT_ID = SynchedEntityData.defineId(Chicken.class, EntityDataSerializers.STRING);
+        this.entityData.define(DATA_VARIANT_ID, VariantUtils.getDefaultID(ModBuiltinRegistries.CHICKEN_VARIANTS, ChickenVariants.TEMPERATE));
     }
 
     @Override
@@ -60,8 +61,8 @@ public abstract class ChickenMixin extends MobMixin implements VariantHolder<Chi
     }
 
     @Override
-    protected void vb$defineSynchedData(CallbackInfo ci) {
-        this.entityData.define(DATA_VARIANT_ID, VariantUtils.getDefaultID(ModBuiltinRegistries.CHICKEN_VARIANTS, ChickenVariants.TEMPERATE));
+    public ChickenVariant vb$getVariant() {
+        return VariantUtils.getVariant(ModBuiltinRegistries.CHICKEN_VARIANTS, this.entityData.get(DATA_VARIANT_ID));
     }
 
     @Override

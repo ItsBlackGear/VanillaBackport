@@ -9,11 +9,22 @@ import net.minecraft.world.level.biome.Biome;
 public class ModBiomeTags {
     public static final TagRegistry<Biome> TAGS = TagRegistry.create(Registries.BIOME, VanillaBackport.NAMESPACE);
 
+    // Entity Placement Tags
     public static final TagKey<Biome> SPAWNS_WARM_VARIANT_FARM_ANIMALS = TAGS.register("spawns_warm_variant_farm_animals");
     public static final TagKey<Biome> SPAWNS_COLD_VARIANT_FARM_ANIMALS = TAGS.register("spawns_cold_variant_farm_animals");
 
-    // Entity Placement Tags
     public static final TagKey<Biome> SPAWNS_CAMELS = TAGS.register("spawns_camels");
+    public static final TagKey<Biome> SPAWNS_ARMADILLOS_FREQUENTLY = TAGS.register("spawns_armadillos_frequently");
+    public static final TagKey<Biome> SPAWNS_ARMADILLOS = TAGS.register("spawns_armadillos");
+
+    public static final TagKey<Biome> SPAWNS_SPOTTED_WOLVES = TAGS.register("has_wolf/spotted");
+    public static final TagKey<Biome> SPAWNS_SNOWY_WOLVES = TAGS.register("has_wolf/snowy");
+    public static final TagKey<Biome> SPAWNS_BLACK_WOLVES = TAGS.register("has_wolf/black");
+    public static final TagKey<Biome> SPAWNS_ASHEN_WOLVES = TAGS.register("has_wolf/ashen");
+    public static final TagKey<Biome> SPAWNS_RUSTY_WOLVES = TAGS.register("has_wolf/rusty");
+    public static final TagKey<Biome> SPAWNS_WOOD_WOLVES = TAGS.register("has_wolf/woods");
+    public static final TagKey<Biome> SPAWNS_CHESTNUT_WOLVES = TAGS.register("has_wolf/chestnut");
+    public static final TagKey<Biome> SPAWNS_STRIPED_WOLVES = TAGS.register("has_wolf/striped");
 
     // Feature Placement Tags
     public static final TagKey<Biome> SPAWNS_BUSHES = TAGS.register("spawns_bushes");

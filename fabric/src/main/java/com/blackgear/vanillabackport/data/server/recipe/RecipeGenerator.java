@@ -8,6 +8,7 @@ import com.blackgear.vanillabackport.data.client.BlockFamilies;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.minecraft.data.recipes.*;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Items;
@@ -135,6 +136,10 @@ public class RecipeGenerator extends FabricRecipeProvider {
             .pattern("XXX")
             .pattern("X X")
             .unlockedBy("has_armadillo_scute", has(ModItems.ARMADILLO_SCUTE.get()))
+            .save(exporter);
+
+        SimpleCookingRecipeBuilder.smelting(Ingredient.of(ItemTags.LEAVES), RecipeCategory.MISC, ModBlocks.LEAF_LITTER.get(), 0.1F, 200)
+            .unlockedBy("has_leaves", has(ItemTags.LEAVES))
             .save(exporter);
 
         SpecialRecipeBuilder.special(ModRecipeSerializers.BUNDLE_COLORING.get()).save(exporter, "bundle_coloring");

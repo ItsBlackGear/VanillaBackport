@@ -23,7 +23,6 @@ import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.FastColor;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.animal.Wolf;
 import net.minecraft.world.item.ItemStack;
@@ -57,7 +56,7 @@ public class WolfArmorLayer extends RenderLayer<Wolf, WolfModel<Wolf>> {
         float netHeadYaw,
         float headPitch
     ) {
-        if (wolf.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.WOLF_ARMOR.get())) {
+        if (!wolf.getItemBySlot(EquipmentSlot.CHEST).isEmpty() && wolf.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.WOLF_ARMOR.get())) {
             ItemStack stack = wolf.getItemBySlot(EquipmentSlot.CHEST);
             if (stack.getItem() instanceof WolfArmorItem armor) {
                 this.getParentModel().copyPropertiesTo(this.model);
@@ -77,17 +76,12 @@ public class WolfArmorLayer extends RenderLayer<Wolf, WolfModel<Wolf>> {
 
         int color = WolfArmorItem.getColorOrDefault(stack, 0);
 
-        float red;
-        float green;
-        float blue;
+        // if not dyed, do not render the overlay at all
+        if (color == 10511680) return;
 
-        if (color == -1) {
-            red = green = blue = 1.0F;
-        } else {
-            red = (float)(color >> 16 & 0xFF) / 255.0F;
-            green = (float)(color >> 8 & 0xFF) / 255.0F;
-            blue = (float)(color & 0xFF) / 255.0F;
-        }
+        float red = (float)(color >> 16 & 0xFF) / 255.0F;
+        float green = (float)(color >> 8 & 0xFF) / 255.0F;
+        float blue = (float)(color & 0xFF) / 255.0F;
 
         VertexConsumer vertices = buffer.getBuffer(RenderType.entityCutoutNoCull(overlay));
         this.model.renderToBuffer(poseStack, vertices, packedLight, OverlayTexture.NO_OVERLAY, red, green, blue, 1.0F);

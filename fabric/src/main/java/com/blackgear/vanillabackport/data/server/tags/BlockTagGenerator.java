@@ -129,6 +129,9 @@ public class BlockTagGenerator extends FabricTagProvider.BlockTagProvider {
                 Blocks.DARK_OAK_LEAVES
             );
 
+        this.getOrCreateTagBuilder(ModBlockTags.CAMELS_SPAWNABLE_ON)
+            .forceAddTag(BlockTags.SAND);
+
         this.getOrCreateTagBuilder(ModBlockTags.ARMADILLO_SPAWNABLE_ON)
             .forceAddTag(BlockTags.ANIMALS_SPAWNABLE_ON)
             .forceAddTag(BlockTags.TERRACOTTA)

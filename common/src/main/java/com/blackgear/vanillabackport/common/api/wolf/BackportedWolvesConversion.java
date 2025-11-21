@@ -5,6 +5,7 @@ import com.blackgear.vanillabackport.common.api.variant.VariantHolder;
 import com.blackgear.vanillabackport.common.api.variant.VariantUtils;
 import com.blackgear.vanillabackport.common.level.entities.wolf.WolfVariant;
 import com.blackgear.vanillabackport.common.level.entities.wolf.WolfVariants;
+import com.blackgear.vanillabackport.core.ModChecker;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
@@ -14,7 +15,8 @@ public class BackportedWolvesConversion {
     public static final String VANILLA_VARIANT_KEY = "variant";
 
     public static void migrateWolfVariant(VariantHolder<WolfVariant> entity, CompoundTag tag, BuiltInCoreRegistry<WolfVariant> registry) {
-        if (!VanillaBackport.COMMON_CONFIG.hasWolfVariants.get()) return;
+        // Don't apply conversion if backported wolves is loaded or wolf variants are disabled
+        if (ModChecker.BACKPORTED_WOLVES_LOADED || !VanillaBackport.COMMON_CONFIG.hasWolfVariants.get()) return;
 
         if (tag.contains(BW_VARIANT_KEY, Tag.TAG_INT) && !tag.contains(VANILLA_VARIANT_KEY, Tag.TAG_STRING)) {
             int legacyId = tag.getInt(BW_VARIANT_KEY);

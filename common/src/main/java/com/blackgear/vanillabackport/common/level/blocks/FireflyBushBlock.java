@@ -2,20 +2,19 @@ package com.blackgear.vanillabackport.common.level.blocks;
 
 import com.blackgear.vanillabackport.client.registries.ModParticles;
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
+import com.blackgear.vanillabackport.common.api.block.SpreadableBonemealableBlock;
 import com.blackgear.vanillabackport.core.util.LevelUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.BushBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
 
-public class FireflyBushBlock extends BushBlock implements BonemealableBlock {
+public class FireflyBushBlock extends BushBlock implements SpreadableBonemealableBlock {
     private static final double FIREFLY_CHANCE_PER_TICK = 0.7;
     private static final double FIREFLY_HORIZONTAL_RANGE = 10.0;
     private static final double FIREFLY_VERTICAL_RANGE = 5.0;
@@ -44,7 +43,7 @@ public class FireflyBushBlock extends BushBlock implements BonemealableBlock {
 
     @Override
     public boolean isValidBonemealTarget(LevelReader level, BlockPos pos, BlockState state, boolean isClient) {
-        return true;
+        return SpreadableBonemealableBlock.hasSpreadableNeighbourPos(level, pos, state);
     }
 
     @Override
@@ -54,6 +53,7 @@ public class FireflyBushBlock extends BushBlock implements BonemealableBlock {
 
     @Override
     public void performBonemeal(ServerLevel level, RandomSource random, BlockPos pos, BlockState state) {
-        popResource(level, pos, new ItemStack(this));
+        SpreadableBonemealableBlock.findSpreadableNeighbourPos(level, pos, state)
+            .ifPresent(newPos -> level.setBlockAndUpdate(newPos, this.defaultBlockState()));
     }
 }

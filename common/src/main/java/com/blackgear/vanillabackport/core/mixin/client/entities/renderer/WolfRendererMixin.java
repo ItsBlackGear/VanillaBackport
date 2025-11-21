@@ -2,7 +2,10 @@ package com.blackgear.vanillabackport.core.mixin.client.entities.renderer;
 
 import com.blackgear.vanillabackport.client.level.entities.layer.WolfArmorLayer;
 import com.blackgear.vanillabackport.common.api.variant.VariantHolder;
+import com.blackgear.vanillabackport.common.api.variant.VariantUtils;
 import com.blackgear.vanillabackport.common.level.entities.wolf.WolfVariant;
+import com.blackgear.vanillabackport.common.level.entities.wolf.WolfVariants;
+import com.blackgear.vanillabackport.core.registries.ModBuiltinRegistries;
 import net.minecraft.client.model.WolfModel;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.WolfRenderer;
@@ -35,7 +38,7 @@ public abstract class WolfRendererMixin extends MobRendererMixin<Wolf, WolfModel
     )
     private void vb$getTextureLocation(Wolf entity, CallbackInfoReturnable<ResourceLocation> cir) {
         WolfVariant variant = VariantHolder.<WolfVariant>vb$getVariantHolder(entity).vb$getVariant();
-        if (variant != null) {
+        if (variant != null && !VariantUtils.matches(ModBuiltinRegistries.WOLF_VARIANTS, variant, WolfVariants.PALE)) {
             if (entity.isTame()) {
                 cir.setReturnValue(variant.assetInfo().tame().path());
             } else {

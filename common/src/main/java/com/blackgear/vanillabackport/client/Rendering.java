@@ -45,14 +45,6 @@ public class Rendering {
         event.register(ModParticles.DUST_PLUME, DustPlumeParticle.Provider::new);
     }
 
-    public static void entityRendering(GameRendering.EntityRendererEvent event) {
-        event.register(ModEntities.ARMADILLO.get(), ArmadilloRenderer::new);
-        event.register(ModEntities.CREAKING.get(), CreakingRenderer::new);
-        event.register(ModEntities.HAPPY_GHAST.get(), HappyGhastRenderer::new);
-        event.register(ModEntities.PALE_OAK_BOAT.get(), context -> new PaleOakBoatRenderer(context, false));
-        event.register(ModEntities.PALE_OAK_CHEST_BOAT.get(), context -> new PaleOakBoatRenderer(context, true));
-    }
-
     public static void modelLayers(GameRendering.ModelLayerEvent event) {
         event.register(ModModelLayers.BAT, BatModel::createBodyLayer);
 
@@ -73,6 +65,14 @@ public class Rendering {
         event.register(ModModelLayers.COLD_CHICKEN, ColdChickenModel::createBodyLayer);
         event.register(ModModelLayers.COLD_COW, ColdCowModel::createBodyLayer);
         event.register(ModModelLayers.WARM_COW, WarmCowModel::createBodyLayer);
+    }
+
+    public static void entityRendering(GameRendering.EntityRendererEvent event) {
+        event.register(ModEntities.ARMADILLO.get(), ArmadilloRenderer::new);
+        event.register(ModEntities.CREAKING.get(), CreakingRenderer::new);
+        event.register(ModEntities.HAPPY_GHAST.get(), HappyGhastRenderer::new);
+        event.register(ModEntities.PALE_OAK_BOAT.get(), context -> new PaleOakBoatRenderer(context, false));
+        event.register(ModEntities.PALE_OAK_CHEST_BOAT.get(), context -> new PaleOakBoatRenderer(context, true));
     }
 
     public static void blockRendering(GameRendering.BlockRendererEvent event) {

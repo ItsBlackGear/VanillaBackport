@@ -82,6 +82,37 @@ public class BiomeTagGenerator extends FabricTagProvider<Biome> {
         this.getOrCreateTagBuilder(ModBiomeTags.SPAWNS_CAMELS)
             .addOptionalTag(FabricBiomeTags.DESERT)
             .addOptionalTag(ForgeBiomeTags.IS_DESERT);
+
+        this.getOrCreateTagBuilder(ModBiomeTags.SPAWNS_ARMADILLOS_FREQUENTLY)
+            .forceAddTag(BiomeTags.IS_SAVANNA)
+            .addOptionalTag(FabricBiomeTags.SAVANNA);
+
+        this.getOrCreateTagBuilder(ModBiomeTags.SPAWNS_ARMADILLOS)
+            .forceAddTag(BiomeTags.IS_BADLANDS);
+
+        this.getOrCreateTagBuilder(ModBiomeTags.SPAWNS_SPOTTED_WOLVES)
+            .forceAddTag(BiomeTags.IS_SAVANNA);
+
+        this.getOrCreateTagBuilder(ModBiomeTags.SPAWNS_SNOWY_WOLVES)
+            .add(Biomes.GROVE);
+
+        this.getOrCreateTagBuilder(ModBiomeTags.SPAWNS_BLACK_WOLVES)
+            .add(Biomes.OLD_GROWTH_PINE_TAIGA);
+
+        this.getOrCreateTagBuilder(ModBiomeTags.SPAWNS_ASHEN_WOLVES)
+            .add(Biomes.SNOWY_TAIGA);
+
+        this.getOrCreateTagBuilder(ModBiomeTags.SPAWNS_RUSTY_WOLVES)
+            .forceAddTag(BiomeTags.IS_JUNGLE);
+
+        this.getOrCreateTagBuilder(ModBiomeTags.SPAWNS_WOOD_WOLVES)
+            .add(Biomes.FOREST);
+
+        this.getOrCreateTagBuilder(ModBiomeTags.SPAWNS_CHESTNUT_WOLVES)
+            .add(Biomes.OLD_GROWTH_SPRUCE_TAIGA);
+
+        this.getOrCreateTagBuilder(ModBiomeTags.SPAWNS_STRIPED_WOLVES)
+            .forceAddTag(BiomeTags.IS_BADLANDS);
     }
 
     protected void addFeaturePlacementTags(HolderLookup.Provider provider) {

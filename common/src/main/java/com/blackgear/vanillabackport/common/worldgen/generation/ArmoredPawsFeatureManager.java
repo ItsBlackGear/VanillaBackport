@@ -4,6 +4,7 @@ import com.blackgear.platform.common.worldgen.modifier.BiomeContext;
 import com.blackgear.platform.common.worldgen.modifier.BiomeWriter;
 import com.blackgear.vanillabackport.common.registries.ModEntities;
 import com.blackgear.vanillabackport.core.VanillaBackport;
+import com.blackgear.vanillabackport.core.data.tags.ModBiomeTags;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -18,10 +19,10 @@ public class ArmoredPawsFeatureManager extends FeatureManager {
     @Override
     public void bootstrap() {
         this.addIf(VanillaBackport.COMMON_CONFIG.hasArmadillos.get(), (context, writer) -> {
-            this.getOrCreateBiomeBuilder(BiomeTags.IS_SAVANNA)
+            this.getOrCreateBiomeBuilder(ModBiomeTags.SPAWNS_ARMADILLOS_FREQUENTLY)
                 .add(() -> writer.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(ModEntities.ARMADILLO.get(), 10, 2, 3)));
 
-            this.getOrCreateBiomeBuilder(BiomeTags.IS_BADLANDS)
+            this.getOrCreateBiomeBuilder(ModBiomeTags.SPAWNS_ARMADILLOS)
                 .add(() -> writer.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(ModEntities.ARMADILLO.get(), 6, 1, 2)));
         });
 

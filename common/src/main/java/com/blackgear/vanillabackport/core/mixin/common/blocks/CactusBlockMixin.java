@@ -1,6 +1,7 @@
 package com.blackgear.vanillabackport.core.mixin.common.blocks;
 
 import com.blackgear.vanillabackport.common.registries.ModBlocks;
+import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -29,7 +30,7 @@ public abstract class CactusBlockMixin extends Block {
     @Inject(method = "randomTick", at = @At("HEAD"))
     private void vb$growCactusFlower(BlockState state, ServerLevel level, BlockPos pos, RandomSource random, CallbackInfo ci) {
         BlockPos above = pos.above();
-        if (level.isEmptyBlock(above)) {
+        if (VanillaBackport.COMMON_CONFIG.hasCactusFlowers.get() && level.isEmptyBlock(above)) {
             int height = 1;
             int age = state.getValue(AGE);
 

@@ -185,7 +185,7 @@ public class ModItems {
         new Item.Properties().durability(64)
     );
     
-    public static final Supplier<Item> ARMADILLO_SPAWN_EGG = ITEMS.spawnEgg("armadillo_spawn_egg", ModEntities.ARMADILLO, 13011076, 7421502, new Item.Properties());
+    public static final Supplier<Item> ARMADILLO_SPAWN_EGG = ITEMS.spawnEgg("armadillo_spawn_egg", ModEntities.ARMADILLO, 11366765, 8538184, new Item.Properties());
     public static final Supplier<Item> CREAKING_SPAWN_EGG = ITEMS.spawnEgg("creaking_spawn_egg", ModEntities.CREAKING, 6250335, 16545810, new Item.Properties());
     public static final Supplier<Item> HAPPY_GHAST_SPAWN_EGG = ITEMS.spawnEgg("happy_ghast_spawn_egg", ModEntities.HAPPY_GHAST, 16382457, 12369084, new Item.Properties());
 }

@@ -27,6 +27,7 @@ public class CommonConfig {
     public final ConfigBuilder.ConfigValue<Boolean> hasDryGrass;
     public final ConfigBuilder.ConfigValue<Boolean> hasFallenTrees;
     public final ConfigBuilder.ConfigValue<Boolean> hasLeafLitter;
+    public final ConfigBuilder.ConfigValue<Boolean> hasCactusFlowers;
     public final ConfigBuilder.ConfigValue<Boolean> hasFarmAnimalVariants;
     public final ConfigBuilder.ConfigValue<Boolean> hasWolfSoundVariants;
     public final ConfigBuilder.ConfigValue<Boolean> hasCamelSpawns;
@@ -86,6 +87,8 @@ public class CommonConfig {
             .define("fallen_trees", true);
         this.hasLeafLitter = builder.comment("allow leaf litter to generate in the overworld")
             .define("leaf_litter", true);
+        this.hasCactusFlowers = builder.comment("allow cactus flowers to generate")
+            .define("cactus_flowers", true);
         this.hasFarmAnimalVariants = builder.comment("allow variants for pigs, cows and chickens to generate")
             .define("farm_animal_variants", true);
         this.hasWolfSoundVariants = builder.comment("allow wolfs to have variants for their sounds")

@@ -48,8 +48,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Wolf.class)
 public abstract class WolfMixin extends TamableAnimalMixin implements NeutralMob, WolfSoundVariantHolder, VariantHolder<WolfVariant> {
-    @Unique private static final EntityDataAccessor<String> DATA_SOUND_VARIANT_ID = SynchedEntityData.defineId(Wolf.class, EntityDataSerializers.STRING);
-    @Unique private static final EntityDataAccessor<String> DATA_VARIANT_ID = SynchedEntityData.defineId(Wolf.class, EntityDataSerializers.STRING);
+    @Unique private static EntityDataAccessor<String> DATA_SOUND_VARIANT_ID;
+    @Unique private static EntityDataAccessor<String> DATA_VARIANT_ID;
     @Shadow public abstract DyeColor getCollarColor();
 
     protected WolfMixin(EntityType<? extends LivingEntity> entityType, Level level) {
@@ -74,6 +74,14 @@ public abstract class WolfMixin extends TamableAnimalMixin implements NeutralMob
     }
 
     @Override
+    protected void vb$defineSynchedData(CallbackInfo ci) {
+        if (DATA_VARIANT_ID == null) DATA_VARIANT_ID = SynchedEntityData.defineId(Wolf.class, EntityDataSerializers.STRING);
+        if (DATA_SOUND_VARIANT_ID == null) DATA_SOUND_VARIANT_ID = SynchedEntityData.defineId(Wolf.class, EntityDataSerializers.STRING);
+        this.entityData.define(DATA_SOUND_VARIANT_ID, VariantUtils.getDefaultID(ModBuiltinRegistries.WOLF_SOUND_VARIANTS, WolfSoundVariants.CLASSIC));
+        this.entityData.define(DATA_VARIANT_ID, VariantUtils.getDefaultID(ModBuiltinRegistries.WOLF_VARIANTS, WolfVariants.PALE));
+    }
+
+    @Override
     public WolfVariant vb$getVariant() {
         return VariantUtils.getVariant(ModBuiltinRegistries.WOLF_VARIANTS, this.entityData.get(DATA_VARIANT_ID));
     }
@@ -91,12 +99,6 @@ public abstract class WolfMixin extends TamableAnimalMixin implements NeutralMob
     @Override
     public void vb$setSoundVariant(WolfSoundVariant variant) {
         this.entityData.set(DATA_SOUND_VARIANT_ID, VariantUtils.getID(ModBuiltinRegistries.WOLF_SOUND_VARIANTS, variant));
-    }
-
-    @Override
-    protected void vb$defineSynchedData(CallbackInfo ci) {
-        this.entityData.define(DATA_SOUND_VARIANT_ID, VariantUtils.getDefaultID(ModBuiltinRegistries.WOLF_SOUND_VARIANTS, WolfSoundVariants.CLASSIC));
-        this.entityData.define(DATA_VARIANT_ID, VariantUtils.getDefaultID(ModBuiltinRegistries.WOLF_VARIANTS, WolfVariants.PALE));
     }
 
     @Override
@@ -149,10 +151,12 @@ public abstract class WolfMixin extends TamableAnimalMixin implements NeutralMob
             super.actuallyHurt(damageSource, damageAmount);
         } else {
             ItemStack stack = this.getItemBySlot(EquipmentSlot.CHEST);
-            int i = stack.getDamageValue();
-            int j = stack.getMaxDamage();
+            int prevDamage = stack.getDamageValue();
+            int max = stack.getMaxDamage();
+            // apply damage to armor instead of the wolf
             stack.hurtAndBreak(Mth.ceil(damageAmount), this, wolf -> wolf.broadcastBreakEvent(EquipmentSlot.CHEST));
-            if (ModCrackiness.WOLF_ARMOR.byDamage(i, j) != ModCrackiness.WOLF_ARMOR.byDamage(this.getItemBySlot(EquipmentSlot.CHEST))) {
+            // crackiness change sound & particles
+            if (!stack.isEmpty() && ModCrackiness.WOLF_ARMOR.byDamage(prevDamage, max) != ModCrackiness.WOLF_ARMOR.byDamage(stack)) {
                 this.playSound(ModSoundEvents.WOLF_ARMOR_CRACK.get());
                 if (this.level() instanceof ServerLevel level) {
                     level.sendParticles(
@@ -167,6 +171,11 @@ public abstract class WolfMixin extends TamableAnimalMixin implements NeutralMob
                         0.1
                     );
                 }
+            }
+            // if it broke, remove from slot & play break sound (stack may now be empty)
+            if (stack.isEmpty()) {
+                this.playSound(ModSoundEvents.WOLF_ARMOR_BREAK.get());
+                this.setItemSlot(EquipmentSlot.CHEST, ItemStack.EMPTY);
             }
         }
     }
@@ -184,6 +193,10 @@ public abstract class WolfMixin extends TamableAnimalMixin implements NeutralMob
             ItemStack stack = this.getItemBySlot(EquipmentSlot.CHEST);
             if (stack.getItem() instanceof WolfArmorItem) {
                 stack.hurtAndBreak(i, this, wolf -> wolf.broadcastBreakEvent(EquipmentSlot.CHEST));
+                if (stack.isEmpty()) {
+                    this.playSound(ModSoundEvents.WOLF_ARMOR_BREAK.get());
+                    this.setItemSlot(EquipmentSlot.CHEST, ItemStack.EMPTY);
+                }
             }
         }
     }
@@ -236,6 +249,8 @@ public abstract class WolfMixin extends TamableAnimalMixin implements NeutralMob
 
     @Unique
     private boolean hasArmor() {
-        return this.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.WOLF_ARMOR.get());
+        ItemStack stack = this.getItemBySlot(EquipmentSlot.CHEST);
+        return !stack.isEmpty() && stack.is(ModItems.WOLF_ARMOR.get());
     }
 }
+

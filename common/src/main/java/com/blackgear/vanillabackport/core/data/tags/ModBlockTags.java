@@ -20,5 +20,6 @@ public class ModBlockTags {
     public static final TagKey<Block> SPAWN_FALLING_LEAVES = TAGS.register("spawn_falling_leaves");
     public static final TagKey<Block> SPAWN_FALLING_NEEDLES = TAGS.register("spawn_falling_needles");
 
+    public static final TagKey<Block> CAMELS_SPAWNABLE_ON = TAGS.register("camel_spawnable_on");
     public static final TagKey<Block> ARMADILLO_SPAWNABLE_ON = TAGS.register("armadillo_spawnable_on");
 }

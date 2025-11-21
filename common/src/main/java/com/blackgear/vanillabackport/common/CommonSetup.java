@@ -7,18 +7,13 @@ import com.blackgear.platform.common.integration.TradeIntegration;
 import com.blackgear.platform.common.worldgen.modifier.BiomeManager;
 import com.blackgear.platform.common.worldgen.placement.BiomePlacement;
 import com.blackgear.platform.core.ParallelDispatch;
+import com.blackgear.platform.core.events.DataLifecycleEvents;
 import com.blackgear.platform.core.events.ResourceReloadManager;
-import com.blackgear.platform.core.events.ServerLifecycleEvents;
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
 import com.blackgear.vanillabackport.common.api.leash.LeashIntegration;
 import com.blackgear.vanillabackport.common.resource.*;
-import com.blackgear.vanillabackport.common.api.wolf.WolfSoundVariants;
 import com.blackgear.vanillabackport.common.level.dispenser.PaleOakBoatDispenseBehavior;
-import com.blackgear.vanillabackport.common.level.entities.animal.ChickenVariants;
-import com.blackgear.vanillabackport.common.level.entities.animal.CowVariants;
-import com.blackgear.vanillabackport.common.level.entities.animal.PigVariants;
 import com.blackgear.vanillabackport.common.level.entities.armadillo.Armadillo;
-import com.blackgear.vanillabackport.common.level.entities.wolf.WolfVariants;
 import com.blackgear.vanillabackport.common.level.entities.creaking.Creaking;
 import com.blackgear.vanillabackport.common.level.entities.happyghast.HappyGhast;
 import com.blackgear.vanillabackport.common.registries.ModBlocks;
@@ -27,16 +22,21 @@ import com.blackgear.vanillabackport.common.registries.ModItems;
 import com.blackgear.vanillabackport.common.worldgen.BiomeGeneration;
 import com.blackgear.vanillabackport.common.worldgen.WorldGeneration;
 import com.blackgear.vanillabackport.core.VanillaBackport;
+import com.blackgear.vanillabackport.core.data.tags.ModBlockTags;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.animal.Parrot;
 import net.minecraft.world.entity.monster.Spider;
 import net.minecraft.world.entity.npc.VillagerTrades.ItemsForEmeralds;
+import net.minecraft.world.level.levelgen.Heightmap;
 
 public class CommonSetup {
     public static void setup() {
+        DataLifecycleEvents.DATA_RELOAD.register(VanillaBackport::onDataReload);
+
         ResourceReloadManager.registerServer(event -> {
             event.register(VanillaBackport.resource("wolf_sound_variants"), WolfSoundVariantReloadListener.INSTANCE);
             event.register(VanillaBackport.resource("wolf_variants"), new WolfVariantReloadListener());
@@ -57,20 +57,14 @@ public class CommonSetup {
             Parrot.MOB_SOUND_MAP.put(ModEntities.CREAKING.get(), ModSoundEvents.PARROT_IMITATE_CREAKING.get());
         });
 
+        MobIntegration.registerIntegrations(CommonSetup::mobPlacements);
         LootModifier.modify(new LootIntegrations());
-
-        ServerLifecycleEvents.STARTING.register(server -> {
-            WolfSoundVariants.bootstrap();
-            WolfVariants.bootstrap(server.registryAccess());
-            PigVariants.bootstrap(server.registryAccess());
-            CowVariants.bootstrap(server.registryAccess());
-            ChickenVariants.bootstrap(server.registryAccess());
-        });
     }
 
     public static void blockIntegrations(BlockIntegration.Event event) {
         event.registerFuelItem(ModBlocks.SHORT_DRY_GRASS.get(), 100);
         event.registerFuelItem(ModBlocks.TALL_DRY_GRASS.get(), 100);
+        event.registerFuelItem(ModBlocks.LEAF_LITTER.get(), 100);
 
         event.registerFlammableBlock(ModBlocks.PALE_OAK_PLANKS.get(), 5, 20);
         event.registerFlammableBlock(ModBlocks.PALE_OAK_SLAB.get(), 5, 20);
@@ -93,6 +87,7 @@ public class CommonSetup {
         event.registerFlammableBlock(ModBlocks.CACTUS_FLOWER.get(), 60, 100);
         event.registerFlammableBlock(ModBlocks.SHORT_DRY_GRASS.get(), 60, 100);
         event.registerFlammableBlock(ModBlocks.TALL_DRY_GRASS.get(), 60, 100);
+        event.registerFlammableBlock(ModBlocks.LEAF_LITTER.get(), 60, 100);
 
         event.registerCompostableItem(ModBlocks.PALE_OAK_LEAVES.get(), 0.3F);
         event.registerCompostableItem(ModBlocks.PALE_OAK_SAPLING.get(), 0.3F);
@@ -100,6 +95,7 @@ public class CommonSetup {
         event.registerCompostableItem(ModBlocks.PALE_HANGING_MOSS.get(), 0.3F);
         event.registerCompostableItem(ModBlocks.PALE_MOSS_BLOCK.get(), 0.3F);
         event.registerCompostableItem(ModBlocks.BUSH.get(), 0.3F);
+        event.registerCompostableItem(ModBlocks.LEAF_LITTER.get(), 0.3F);
         event.registerCompostableItem(ModBlocks.FIREFLY_BUSH.get(), 0.3F);
         event.registerCompostableItem(ModBlocks.WILDFLOWERS.get(), 0.3F);
         event.registerCompostableItem(ModBlocks.CACTUS_FLOWER.get(), 0.3F);
@@ -155,5 +151,10 @@ public class CommonSetup {
         event.registerGoal(EntityType.EVOKER, 3, mob -> new AvoidEntityGoal<>((PathfinderMob) mob, Creaking.class, 8.0F, 0.6, 1.2));
 
         event.registerGoal(mob -> mob instanceof Spider, 2, mob -> new AvoidEntityGoal<>((PathfinderMob) mob, Armadillo.class, 6.0F, 1.0, 1.2, entity -> !((Armadillo) entity).isScared()));
+    }
+
+    public static void mobPlacements(MobIntegration.Event event) {
+        event.registerPlacement(ModEntities.ARMADILLO, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Armadillo::checkArmadilloSpawnRules);
+        event.registerPlacement(() -> EntityType.CAMEL, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (type, level, reason, pos, random) -> level.getBlockState(pos.below()).is(ModBlockTags.CAMELS_SPAWNABLE_ON) && level.getRawBrightness(pos, 0) > 8);
     }
 }

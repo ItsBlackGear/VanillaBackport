@@ -56,7 +56,7 @@ public class VariantUtils {
     }
 
     public static <T extends PriorityProvider<SpawnContext, ?>> Optional<T> selectWolfVariantToSpawn(SpawnContext context, BuiltInCoreRegistry<T> registry, ResourceKey<T> fallback) {
-        if (!VanillaBackport.COMMON_CONFIG.hasWolfVariants.get()) return Optional.of(registry.getOrThrow(fallback));
+        if (ModChecker.BACKPORTED_WOLVES_LOADED || !VanillaBackport.COMMON_CONFIG.hasWolfVariants.get()) return Optional.of(registry.getOrThrow(fallback));
 
         return selectVariantToSpawn(context, registry);
     }

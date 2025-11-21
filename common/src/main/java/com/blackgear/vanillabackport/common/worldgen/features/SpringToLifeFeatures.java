@@ -42,6 +42,7 @@ public class SpringToLifeFeatures {
     public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_DRY_GRASS = FEATURES.create("patch_dry_grass");
     public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_LEAF_LITTER = FEATURES.create("patch_leaf_litter");
     public static final ResourceKey<ConfiguredFeature<?, ?>> LEAF_LITTER = FEATURES.create("leaf_litter");
+    public static final ResourceKey<ConfiguredFeature<?, ?>> CACTUS_FLOWER = FEATURES.create("cactus_flower");
 
     // TREE FEATURES
     public static final ResourceKey<ConfiguredFeature<?, ?>> FALLEN_OAK_TREE = FEATURES.create("fallen_oak_tree");
@@ -181,6 +182,13 @@ public class SpringToLifeFeatures {
             context,
             LEAF_LITTER,
             ModFeatures.LEAF_LITTER.get(),
+            FeatureConfiguration.NONE
+        );
+
+        FEATURES.register(
+            context,
+            CACTUS_FLOWER,
+            ModFeatures.CACTUS_FLOWER.get(),
             FeatureConfiguration.NONE
         );
     }

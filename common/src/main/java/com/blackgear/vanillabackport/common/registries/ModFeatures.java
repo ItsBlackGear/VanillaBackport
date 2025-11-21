@@ -1,6 +1,7 @@
 package com.blackgear.vanillabackport.common.registries;
 
 import com.blackgear.platform.core.CoreRegistry;
+import com.blackgear.vanillabackport.common.level.features.CactusFlowerFeature;
 import com.blackgear.vanillabackport.common.level.features.FallenTreeConfiguration;
 import com.blackgear.vanillabackport.common.level.features.FallenTreeFeature;
 import com.blackgear.vanillabackport.common.level.features.LeafLitterFeature;
@@ -21,5 +22,9 @@ public class ModFeatures {
     public static final Supplier<Feature<NoneFeatureConfiguration>> LEAF_LITTER = FEATURES.register(
         "leaf_litter",
         () -> new LeafLitterFeature(NoneFeatureConfiguration.CODEC)
+    );
+    public static final Supplier<Feature<NoneFeatureConfiguration>> CACTUS_FLOWER = FEATURES.register(
+        "cactus_flower",
+        () -> new CactusFlowerFeature(NoneFeatureConfiguration.CODEC)
     );
 }
