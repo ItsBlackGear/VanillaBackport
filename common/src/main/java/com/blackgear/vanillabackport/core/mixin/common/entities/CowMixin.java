@@ -29,7 +29,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Cow.class)
 public abstract class CowMixin extends MobMixin implements VariantHolder<CowVariant> {
-    @Unique private static EntityDataAccessor<String> DATA_VARIANT_ID;
+    @Unique
+    private static final EntityDataAccessor<String> DATA_VARIANT_ID = SynchedEntityData.defineId(Cow.class, EntityDataSerializers.STRING);
 
     protected CowMixin(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
@@ -48,7 +49,6 @@ public abstract class CowMixin extends MobMixin implements VariantHolder<CowVari
 
     @Override
     protected void vb$defineSynchedData(CallbackInfo ci) {
-        if (DATA_VARIANT_ID == null) DATA_VARIANT_ID = SynchedEntityData.defineId(Cow.class, EntityDataSerializers.STRING);
         this.entityData.define(DATA_VARIANT_ID, VariantUtils.getDefaultID(ModBuiltinRegistries.COW_VARIANTS, CowVariants.TEMPERATE));
     }
 

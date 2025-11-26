@@ -44,7 +44,10 @@ public abstract class MusicManagerMixin {
 
     @Inject(
         method = "startPlaying",
-        at = @At(value = "INVOKE", target = "Lnet/minecraft/client/sounds/SoundManager;play(Lnet/minecraft/client/resources/sounds/SoundInstance;)V")
+        at = @At(
+            value = "INVOKE",
+            target = "Lnet/minecraft/client/sounds/SoundManager;play(Lnet/minecraft/client/resources/sounds/SoundInstance;)V"
+        )
     )
     private void updateVolume(Music selector, CallbackInfo ci) {
         this.getFadeManager().updateVolume(this.currentMusic);

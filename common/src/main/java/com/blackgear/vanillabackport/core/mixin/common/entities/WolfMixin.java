@@ -48,8 +48,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Wolf.class)
 public abstract class WolfMixin extends TamableAnimalMixin implements NeutralMob, WolfSoundVariantHolder, VariantHolder<WolfVariant> {
-    @Unique private static EntityDataAccessor<String> DATA_SOUND_VARIANT_ID;
-    @Unique private static EntityDataAccessor<String> DATA_VARIANT_ID;
+    @Unique
+    private static final EntityDataAccessor<String> DATA_SOUND_VARIANT_ID = SynchedEntityData.defineId(Wolf.class, EntityDataSerializers.STRING);
+    @Unique
+    private static final EntityDataAccessor<String> DATA_VARIANT_ID = SynchedEntityData.defineId(Wolf.class, EntityDataSerializers.STRING);
     @Shadow public abstract DyeColor getCollarColor();
 
     protected WolfMixin(EntityType<? extends LivingEntity> entityType, Level level) {
@@ -75,8 +77,6 @@ public abstract class WolfMixin extends TamableAnimalMixin implements NeutralMob
 
     @Override
     protected void vb$defineSynchedData(CallbackInfo ci) {
-        if (DATA_VARIANT_ID == null) DATA_VARIANT_ID = SynchedEntityData.defineId(Wolf.class, EntityDataSerializers.STRING);
-        if (DATA_SOUND_VARIANT_ID == null) DATA_SOUND_VARIANT_ID = SynchedEntityData.defineId(Wolf.class, EntityDataSerializers.STRING);
         this.entityData.define(DATA_SOUND_VARIANT_ID, VariantUtils.getDefaultID(ModBuiltinRegistries.WOLF_SOUND_VARIANTS, WolfSoundVariants.CLASSIC));
         this.entityData.define(DATA_VARIANT_ID, VariantUtils.getDefaultID(ModBuiltinRegistries.WOLF_VARIANTS, WolfVariants.PALE));
     }
@@ -253,4 +253,3 @@ public abstract class WolfMixin extends TamableAnimalMixin implements NeutralMob
         return !stack.isEmpty() && stack.is(ModItems.WOLF_ARMOR.get());
     }
 }
-

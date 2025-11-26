@@ -3,7 +3,6 @@ package com.blackgear.vanillabackport.client;
 import com.blackgear.platform.client.GameRendering;
 import com.blackgear.vanillabackport.client.api.color.DryFoliageColor;
 import com.blackgear.vanillabackport.client.api.color.LeafColors;
-import com.blackgear.vanillabackport.client.level.entities.layer.WolfArmorLayer;
 import com.blackgear.vanillabackport.client.level.entities.model.*;
 import com.blackgear.vanillabackport.client.level.entities.model.chicken.ColdChickenModel;
 import com.blackgear.vanillabackport.client.level.entities.model.cow.ColdCowModel;
@@ -49,7 +48,7 @@ public class Rendering {
         event.register(ModModelLayers.BAT, BatModel::createBodyLayer);
 
         event.register(ModModelLayers.ARMADILLO, ArmadilloModel::createBodyLayer);
-        event.register(ModModelLayers.WOLF_ARMOR, () -> LayerDefinition.create(WolfArmorLayer.createMeshDefinition(new CubeDeformation(0.2F)), 64, 32));
+        event.register(ModModelLayers.WOLF_ARMOR, () -> LayerDefinition.create(WolfArmorModel.createMeshDefinition(new CubeDeformation(0.2F)), 64, 32));
 
         event.register(ModModelLayers.CREAKING, CreakingModel::createBodyLayer);
         event.register(ModModelLayers.PALE_OAK_BOAT, BoatModel::createBodyModel);
