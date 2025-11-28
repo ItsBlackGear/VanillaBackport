@@ -17,6 +17,7 @@ public class ModModelLayers {
     public static final ModelLayerLocation COLD_CHICKEN = register("cold_chicken");
     public static final ModelLayerLocation COLD_COW = register("cold_cow");
     public static final ModelLayerLocation WARM_COW = register("warm_cow");
+    public static final ModelLayerLocation SHEEP_WOOL_UNDERCOAT = register("sheep_wool_undercoat");
 
     private static ModelLayerLocation register(String name) {
         return register(name, "main");

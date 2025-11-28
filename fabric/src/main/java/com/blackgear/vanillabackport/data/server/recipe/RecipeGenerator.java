@@ -10,6 +10,7 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.BlockFamily;
 import net.minecraft.data.recipes.*;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Items;
@@ -131,8 +132,11 @@ public class RecipeGenerator extends FabricRecipeProvider {
             .unlockedBy("has_egg", has(ModItemTags.EGGS))
             .save(output);
 
+        SimpleCookingRecipeBuilder.smelting(Ingredient.of(ItemTags.LEAVES), RecipeCategory.MISC, ModBlocks.LEAF_LITTER.get(), 0.1F, 200)
+            .unlockedBy("has_leaves", has(ItemTags.LEAVES))
+            .save(output);
+
         SpecialRecipeBuilder.special(BundleColoring::new).save(output, "bundle_coloring");
-//        SpecialRecipeBuilder.special(ModRecipeSerializers.BUNDLE_COLORING.get()).save(output, "bundle_coloring");
     }
 
     public static ShapedRecipeBuilder shaped(RecipeCategory category, ItemLike entry) {

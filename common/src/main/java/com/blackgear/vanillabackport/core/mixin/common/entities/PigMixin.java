@@ -32,6 +32,11 @@ public abstract class PigMixin extends MobMixin implements VariantHolder<PigVari
         super(entityType, level);
     }
 
+//    @Inject(method = "<clinit>", at = @At("TAIL"))
+//    private static void vb$registerAccessor(CallbackInfo ci) {
+//        DATA_VARIANT_ID = SynchedEntityData.defineId(Pig.class, EntityDataSerializers.STRING);
+//    }
+
     @Inject(
         method = "getBreedOffspring(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/AgeableMob;)Lnet/minecraft/world/entity/animal/Pig;",
         at = @At("RETURN")
@@ -44,8 +49,8 @@ public abstract class PigMixin extends MobMixin implements VariantHolder<PigVari
     }
 
     @Override
-    public PigVariant vb$getVariant() {
-        return VariantUtils.getVariant(ModBuiltinRegistries.PIG_VARIANTS, this.entityData.get(DATA_VARIANT_ID));
+    protected void vb$defineSynchedData(SynchedEntityData.Builder builder, CallbackInfo ci) {
+        builder.define(DATA_VARIANT_ID, VariantUtils.getDefaultID(ModBuiltinRegistries.PIG_VARIANTS, PigVariants.TEMPERATE));
     }
 
     @Override
@@ -54,8 +59,8 @@ public abstract class PigMixin extends MobMixin implements VariantHolder<PigVari
     }
 
     @Override
-    protected void vb$defineSynchedData(SynchedEntityData.Builder builder, CallbackInfo ci) {
-        builder.define(DATA_VARIANT_ID, VariantUtils.getDefaultID(ModBuiltinRegistries.PIG_VARIANTS, PigVariants.TEMPERATE));
+    public PigVariant vb$getVariant() {
+        return VariantUtils.getVariant(ModBuiltinRegistries.PIG_VARIANTS, this.entityData.get(DATA_VARIANT_ID));
     }
 
     @Override

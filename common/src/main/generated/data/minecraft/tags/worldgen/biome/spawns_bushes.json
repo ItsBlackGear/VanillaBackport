@@ -6,7 +6,7 @@
     "minecraft:birch_forest",
     "minecraft:old_growth_birch_forest",
     {
-      "id": "#forge:is_plains",
+      "id": "#c:is_plains",
       "required": false
     },
     {

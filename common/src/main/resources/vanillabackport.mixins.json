@@ -20,6 +20,7 @@
     "client.entities.renderer.CowRendererMixin",
     "client.entities.renderer.MobRendererMixin",
     "client.entities.renderer.PigRendererMixin",
+    "client.entities.renderer.SheepRendererMixin",
     "common.blocks.LeavesBlockMixin",
     "leash.EntityRendererMixin"
   ],

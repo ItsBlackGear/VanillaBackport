@@ -28,12 +28,15 @@ import com.blackgear.vanillabackport.common.resource.PigVariantReloadListener;
 import com.blackgear.vanillabackport.common.worldgen.BiomeGeneration;
 import com.blackgear.vanillabackport.common.worldgen.WorldGeneration;
 import com.blackgear.vanillabackport.core.VanillaBackport;
+import com.blackgear.vanillabackport.core.data.tags.ModBlockTags;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.entity.SpawnPlacementTypes;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.animal.Parrot;
 import net.minecraft.world.entity.npc.VillagerTrades.ItemsForEmeralds;
+import net.minecraft.world.level.levelgen.Heightmap;
 
 public class CommonSetup {
     public static void setup() {
@@ -56,6 +59,7 @@ public class CommonSetup {
             Parrot.MOB_SOUND_MAP.put(ModEntities.CREAKING.get(), ModSoundEvents.PARROT_IMITATE_CREAKING.get());
         });
 
+        MobIntegration.registerIntegrations(CommonSetup::mobPlacements);
         LootModifier.modify(new LootIntegrations());
 
         ServerLifecycleEvents.STARTING.register(server -> {
@@ -69,6 +73,7 @@ public class CommonSetup {
     public static void blockIntegrations(BlockIntegration.Event event) {
         event.registerFuelItem(ModBlocks.SHORT_DRY_GRASS.get(), 100);
         event.registerFuelItem(ModBlocks.TALL_DRY_GRASS.get(), 100);
+        event.registerFuelItem(ModBlocks.LEAF_LITTER.get(), 100);
 
         event.registerFlammableBlock(ModBlocks.PALE_OAK_PLANKS.get(), 5, 20);
         event.registerFlammableBlock(ModBlocks.PALE_OAK_SLAB.get(), 5, 20);
@@ -91,6 +96,7 @@ public class CommonSetup {
         event.registerFlammableBlock(ModBlocks.CACTUS_FLOWER.get(), 60, 100);
         event.registerFlammableBlock(ModBlocks.SHORT_DRY_GRASS.get(), 60, 100);
         event.registerFlammableBlock(ModBlocks.TALL_DRY_GRASS.get(), 60, 100);
+        event.registerFlammableBlock(ModBlocks.LEAF_LITTER.get(), 60, 100);
 
         event.registerCompostableItem(ModBlocks.PALE_OAK_LEAVES.get(), 0.3F);
         event.registerCompostableItem(ModBlocks.PALE_OAK_SAPLING.get(), 0.3F);
@@ -98,6 +104,7 @@ public class CommonSetup {
         event.registerCompostableItem(ModBlocks.PALE_HANGING_MOSS.get(), 0.3F);
         event.registerCompostableItem(ModBlocks.PALE_MOSS_BLOCK.get(), 0.3F);
         event.registerCompostableItem(ModBlocks.BUSH.get(), 0.3F);
+        event.registerCompostableItem(ModBlocks.LEAF_LITTER.get(), 0.3F);
         event.registerCompostableItem(ModBlocks.FIREFLY_BUSH.get(), 0.3F);
         event.registerCompostableItem(ModBlocks.WILDFLOWERS.get(), 0.3F);
         event.registerCompostableItem(ModBlocks.CACTUS_FLOWER.get(), 0.3F);
@@ -150,5 +157,9 @@ public class CommonSetup {
         event.registerGoal(EntityType.PILLAGER, 1, mob -> new AvoidEntityGoal<>((PathfinderMob) mob, Creaking.class, 8.0F, 0.6, 1.2));
         event.registerGoal(EntityType.ILLUSIONER, 3, mob -> new AvoidEntityGoal<>((PathfinderMob) mob, Creaking.class, 8.0F, 0.6, 1.2));
         event.registerGoal(EntityType.EVOKER, 3, mob -> new AvoidEntityGoal<>((PathfinderMob) mob, Creaking.class, 8.0F, 0.6, 1.2));
+    }
+
+    public static void mobPlacements(MobIntegration.Event event) {
+        event.registerPlacement(() -> EntityType.CAMEL, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (type, level, reason, pos, random) -> level.getBlockState(pos.below()).is(ModBlockTags.CAMELS_SPAWNABLE_ON) && level.getRawBrightness(pos, 0) > 8);
     }
 }

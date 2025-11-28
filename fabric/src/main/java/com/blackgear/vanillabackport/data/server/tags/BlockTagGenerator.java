@@ -128,6 +128,9 @@ public class BlockTagGenerator extends FabricTagProvider.BlockTagProvider {
                 Blocks.BIRCH_LEAVES,
                 Blocks.DARK_OAK_LEAVES
             );
+
+        this.getOrCreateTagBuilder(ModBlockTags.CAMELS_SPAWNABLE_ON)
+            .forceAddTag(BlockTags.SAND);
     }
 
     protected DualTagHolder getDualTagBuilder(TagKey<Block> forge, TagKey<Block> fabric) {

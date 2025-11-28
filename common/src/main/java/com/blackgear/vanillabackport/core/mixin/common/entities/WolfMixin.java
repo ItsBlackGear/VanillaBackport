@@ -17,6 +17,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.animal.Cow;
 import net.minecraft.world.entity.animal.Wolf;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.Level;
@@ -31,11 +32,16 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Wolf.class)
 public abstract class WolfMixin extends TamableAnimalMixin implements NeutralMob, WolfSoundVariantHolder {
-    @Unique private static final EntityDataAccessor<String> DATA_VARIANT_ID = SynchedEntityData.defineId(Wolf.class, EntityDataSerializers.STRING);
+    @Unique private static EntityDataAccessor<String> DATA_SOUND_VARIANT_ID;
     @Shadow public abstract DyeColor getCollarColor();
 
     protected WolfMixin(EntityType<? extends LivingEntity> entityType, Level level) {
         super(entityType, level);
+    }
+
+    @Inject(method = "<clinit>", at = @At("TAIL"))
+    private static void vb$registerAccessor(CallbackInfo ci) {
+        DATA_SOUND_VARIANT_ID = SynchedEntityData.defineId(Wolf.class, EntityDataSerializers.STRING);
     }
 
     @Override
@@ -51,17 +57,17 @@ public abstract class WolfMixin extends TamableAnimalMixin implements NeutralMob
 
     @Override
     protected void vb$defineSynchedData(SynchedEntityData.Builder builder, CallbackInfo ci) {
-        builder.define(DATA_VARIANT_ID, VariantUtils.getDefaultID(ModBuiltinRegistries.WOLF_SOUND_VARIANTS, WolfSoundVariants.CLASSIC));
+        builder.define(DATA_SOUND_VARIANT_ID, VariantUtils.getDefaultID(ModBuiltinRegistries.WOLF_SOUND_VARIANTS, WolfSoundVariants.CLASSIC));
     }
 
     @Override
     public WolfSoundVariant getSoundVariant() {
-        return VariantUtils.getVariant(ModBuiltinRegistries.WOLF_SOUND_VARIANTS, this.entityData.get(DATA_VARIANT_ID));
+        return VariantUtils.getVariant(ModBuiltinRegistries.WOLF_SOUND_VARIANTS, this.entityData.get(DATA_SOUND_VARIANT_ID));
     }
 
     @Override
     public void setSoundVariant(WolfSoundVariant variant) {
-        this.entityData.set(DATA_VARIANT_ID, VariantUtils.getID(ModBuiltinRegistries.WOLF_SOUND_VARIANTS, variant));
+        this.entityData.set(DATA_SOUND_VARIANT_ID, VariantUtils.getID(ModBuiltinRegistries.WOLF_SOUND_VARIANTS, variant));
     }
 
     @Inject(method = "getAmbientSound", at = @At("HEAD"), cancellable = true)

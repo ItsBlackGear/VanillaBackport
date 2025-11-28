@@ -1,7 +1,6 @@
 package com.blackgear.vanillabackport.client.api.music;
 
 import com.blackgear.vanillabackport.common.registries.ModBiomes;
-import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.blackgear.vanillabackport.core.mixin.access.SoundEngineAccessor;
 import com.blackgear.vanillabackport.core.mixin.access.SoundManagerAccessor;
 import net.minecraft.client.Minecraft;
@@ -31,7 +30,7 @@ public class MusicFadeManager {
     }
 
     public static boolean isFeatureEnabled() {
-        return VanillaBackport.CLIENT_CONFIG.musicFadesOnPaleGarden.get();
+        return true;
     }
 
     public boolean onTick(@Nullable SoundInstance currentMusic) {

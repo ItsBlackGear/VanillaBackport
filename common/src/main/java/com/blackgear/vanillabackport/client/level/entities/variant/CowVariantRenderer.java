@@ -4,7 +4,10 @@ import com.blackgear.vanillabackport.client.level.entities.model.cow.ColdCowMode
 import com.blackgear.vanillabackport.client.level.entities.model.cow.WarmCowModel;
 import com.blackgear.vanillabackport.client.registries.ModModelLayers;
 import com.blackgear.vanillabackport.common.api.variant.VariantHolder;
+import com.blackgear.vanillabackport.common.api.variant.VariantUtils;
 import com.blackgear.vanillabackport.common.level.entities.animal.CowVariant;
+import com.blackgear.vanillabackport.common.level.entities.animal.CowVariants;
+import com.blackgear.vanillabackport.core.registries.ModBuiltinRegistries;
 import com.google.common.collect.Maps;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -34,11 +37,15 @@ public class CowVariantRenderer {
 
     public ResourceLocation getTexture(Cow entity) {
         CowVariant variant = VariantHolder.<CowVariant>vb$getVariantHolder(entity).vb$getVariant();
-        return variant != null ? variant.modelAndTexture().asset().path() : null;
+        return variant != null && !VariantUtils.matches(ModBuiltinRegistries.COW_VARIANTS, variant, CowVariants.TEMPERATE)
+            ? variant.modelAndTexture().asset().path()
+            : null;
     }
 
     public Optional<CowModel<Cow>> getModel(Cow entity) {
         CowVariant variant = VariantHolder.<CowVariant>vb$getVariantHolder(entity).vb$getVariant();
-        return variant != null ? Optional.ofNullable(this.modelByVariant.get(variant.modelAndTexture().model())) : Optional.empty();
+        return variant != null
+            ? Optional.ofNullable(this.modelByVariant.get(variant.modelAndTexture().model()))
+            : Optional.empty();
     }
 }

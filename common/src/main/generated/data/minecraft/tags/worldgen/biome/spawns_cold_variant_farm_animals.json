@@ -22,11 +22,11 @@
     "minecraft:stony_peaks",
     "#minecraft:is_end",
     {
-      "id": "#forge:is_cold",
+      "id": "#c:is_cold",
       "required": false
     },
     {
-      "id": "#forge:is_snowy",
+      "id": "#c:is_snowy",
       "required": false
     },
     {

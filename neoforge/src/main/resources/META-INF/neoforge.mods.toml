@@ -28,7 +28,7 @@ side = "BOTH"
 [[dependencies.vanillabackport]]
 modId = "platform"
 type = "required"
-versionRange = "[1.2.10.1,)"
+versionRange = "[1.2.11,)"
 ordering = "NONE"
 side = "BOTH"
 

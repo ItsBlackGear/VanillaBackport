@@ -3,6 +3,7 @@ package com.blackgear.vanillabackport.core;
 import com.blackgear.platform.core.Environment;
 import com.blackgear.platform.core.ModInstance;
 import com.blackgear.platform.core.networking.Networking;
+import com.blackgear.platform.core.util.config.ConfigLoader;
 import com.blackgear.platform.core.util.config.ModConfig;
 import com.blackgear.vanillabackport.client.ClientConfig;
 import com.blackgear.vanillabackport.client.ClientSetup;
@@ -44,6 +45,7 @@ public final class VanillaBackport {
 
     public static void bootstrap() {
         INSTANCE.bootstrap();
+        ConfigLoader.bootstrap();
 
         ModBlockTags.TAGS.register();
         ModItemTags.TAGS.register();

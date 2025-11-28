@@ -10,7 +10,7 @@
     "#minecraft:is_jungle",
     "#minecraft:is_badlands",
     {
-      "id": "#forge:is_hot",
+      "id": "#c:is_hot",
       "required": false
     },
     {

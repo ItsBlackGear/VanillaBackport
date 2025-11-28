@@ -32,6 +32,11 @@ public abstract class CowMixin extends MobMixin implements VariantHolder<CowVari
         super(entityType, level);
     }
 
+//    @Inject(method = "<clinit>", at = @At("TAIL"))
+//    private static void vb$registerAccessor(CallbackInfo ci) {
+//        DATA_VARIANT_ID =
+//    }
+
     @Inject(
         method = "getBreedOffspring(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/AgeableMob;)Lnet/minecraft/world/entity/animal/Cow;",
         at = @At("RETURN")
@@ -44,8 +49,8 @@ public abstract class CowMixin extends MobMixin implements VariantHolder<CowVari
     }
 
     @Override
-    public CowVariant vb$getVariant() {
-        return VariantUtils.getVariant(ModBuiltinRegistries.COW_VARIANTS, this.entityData.get(DATA_VARIANT_ID));
+    protected void vb$defineSynchedData(SynchedEntityData.Builder builder, CallbackInfo ci) {
+        builder.define(DATA_VARIANT_ID, VariantUtils.getDefaultID(ModBuiltinRegistries.COW_VARIANTS, CowVariants.TEMPERATE));
     }
 
     @Override
@@ -54,8 +59,8 @@ public abstract class CowMixin extends MobMixin implements VariantHolder<CowVari
     }
 
     @Override
-    protected void vb$defineSynchedData(SynchedEntityData.Builder builder, CallbackInfo ci) {
-        builder.define(DATA_VARIANT_ID, VariantUtils.getDefaultID(ModBuiltinRegistries.COW_VARIANTS, CowVariants.TEMPERATE));
+    public CowVariant vb$getVariant() {
+        return VariantUtils.getVariant(ModBuiltinRegistries.COW_VARIANTS, this.entityData.get(DATA_VARIANT_ID));
     }
 
     @Override

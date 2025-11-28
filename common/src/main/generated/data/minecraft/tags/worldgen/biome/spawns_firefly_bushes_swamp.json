@@ -1,7 +1,7 @@
 {
   "values": [
     {
-      "id": "#forge:is_swamp",
+      "id": "#c:is_swamp",
       "required": false
     },
     {

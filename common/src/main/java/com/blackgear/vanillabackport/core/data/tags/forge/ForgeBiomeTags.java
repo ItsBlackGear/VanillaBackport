@@ -6,7 +6,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
 
 public class ForgeBiomeTags {
-    public static final TagRegistry<Biome> TAGS = TagRegistry.create(Registries.BIOME, "forge");
+    public static final TagRegistry<Biome> TAGS = TagRegistry.create(Registries.BIOME, "c");
 
     public static final TagKey<Biome> IS_HOT = TAGS.register("is_hot");
     public static final TagKey<Biome> IS_HOT_OVERWORLD = TAGS.register("is_hot/overworld");

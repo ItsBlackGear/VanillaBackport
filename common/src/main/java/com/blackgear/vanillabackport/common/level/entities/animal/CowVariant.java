@@ -14,11 +14,6 @@ import java.util.List;
 
 public record CowVariant(ModelAndTexture<ModelType> modelAndTexture, SpawnPrioritySelectors spawnConditions) implements PriorityProvider<SpawnContext, SpawnCondition> {
     public static final StreamCodec<RegistryFriendlyByteBuf, CowVariant> STREAM_CODEC = ByteBufCodecs.registry(ModRegistries.COW_VARIANT_KEY);
-//    public static final StreamCodec<RegistryFriendlyByteBuf, CowVariant> STREAM_CODEC = StreamCodec.composite(
-//        ModelAndTexture.streamCodec(ModelType.STREAM_CODEC), CowVariant::modelAndTexture,
-//        SpawnPrioritySelectors.STREAM_CODEC, CowVariant::spawnConditions,
-//        CowVariant::new
-//    );
 
     public static final Codec<CowVariant> CODEC = RecordCodecBuilder.create(instance -> instance.group(
         ModelAndTexture.codec(ModelType.CODEC, ModelType.NORMAL).forGetter(CowVariant::modelAndTexture),
@@ -40,7 +35,6 @@ public record CowVariant(ModelAndTexture<ModelType> modelAndTexture, SpawnPriori
         WARM("warm");
 
         public static final Codec<ModelType> CODEC = StringRepresentable.fromEnum(ModelType::values);
-//        public static final StreamCodec<RegistryFriendlyByteBuf, ModelType> STREAM_CODEC = ByteBufCodecs.fromCodec(CODEC);
         private final String name;
 
         ModelType(String name) {

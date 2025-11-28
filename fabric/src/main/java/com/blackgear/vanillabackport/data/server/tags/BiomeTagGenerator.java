@@ -165,7 +165,6 @@ public class BiomeTagGenerator extends FabricTagProvider<Biome> {
         this.getOrCreateTagBuilder(ModBiomeTags.SPAWNS_LEAF_LITTER)
             .add(
                 Biomes.FOREST,
-                Biomes.FLOWER_FOREST,
                 Biomes.DARK_FOREST,
                 Biomes.WOODED_BADLANDS
             );

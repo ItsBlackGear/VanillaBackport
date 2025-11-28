@@ -47,8 +47,8 @@ public abstract class ChickenMixin extends MobMixin implements VariantHolder<Chi
     }
 
     @Override
-    public ChickenVariant vb$getVariant() {
-        return VariantUtils.getVariant(ModBuiltinRegistries.CHICKEN_VARIANTS, this.entityData.get(DATA_VARIANT_ID));
+    protected void vb$defineSynchedData(SynchedEntityData.Builder builder, CallbackInfo ci) {
+        builder.define(DATA_VARIANT_ID, VariantUtils.getDefaultID(ModBuiltinRegistries.CHICKEN_VARIANTS, ChickenVariants.TEMPERATE));
     }
 
     @Override
@@ -57,8 +57,8 @@ public abstract class ChickenMixin extends MobMixin implements VariantHolder<Chi
     }
 
     @Override
-    protected void vb$defineSynchedData(SynchedEntityData.Builder builder, CallbackInfo ci) {
-        builder.define(DATA_VARIANT_ID, VariantUtils.getDefaultID(ModBuiltinRegistries.CHICKEN_VARIANTS, ChickenVariants.TEMPERATE));
+    public ChickenVariant vb$getVariant() {
+        return VariantUtils.getVariant(ModBuiltinRegistries.CHICKEN_VARIANTS, this.entityData.get(DATA_VARIANT_ID));
     }
 
     @Override

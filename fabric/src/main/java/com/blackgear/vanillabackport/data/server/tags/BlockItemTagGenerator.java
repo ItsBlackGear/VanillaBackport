@@ -5,8 +5,6 @@ import com.blackgear.vanillabackport.core.data.tags.ModBlockTags;
 import com.blackgear.vanillabackport.core.data.tags.ModItemTags;
 import com.blackgear.vanillabackport.core.data.tags.fabric.FabricBlockTags;
 import com.blackgear.vanillabackport.core.data.tags.fabric.FabricItemTags;
-import com.blackgear.vanillabackport.core.data.tags.forge.ForgeBlockTags;
-import com.blackgear.vanillabackport.core.data.tags.forge.ForgeItemTags;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
@@ -85,14 +83,8 @@ public abstract class BlockItemTagGenerator {
     }
 
     private void handleConventionalTags() {
-        this.tag(ForgeBlockTags.STRIPPED_LOGS, ForgeItemTags.STRIPPED_LOGS)
-            .add(ModBlocks.STRIPPED_PALE_OAK_LOG.get());
-
         this.tag(FabricBlockTags.STRIPPED_LOGS, FabricItemTags.STRIPPED_LOGS)
             .add(ModBlocks.STRIPPED_PALE_OAK_LOG.get());
-
-        this.tag(ForgeBlockTags.STRIPPED_WOOD, ForgeItemTags.STRIPPED_WOOD)
-            .add(ModBlocks.STRIPPED_PALE_OAK_WOOD.get());
 
         this.tag(FabricBlockTags.STRIPPED_WOOD, FabricItemTags.STRIPPED_WOOD)
             .add(ModBlocks.STRIPPED_PALE_OAK_WOOD.get());

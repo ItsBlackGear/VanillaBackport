@@ -34,6 +34,7 @@ public class SpringToLifePlacements {
     public static final ResourceKey<PlacedFeature> PATCH_DRY_GRASS_DESERT = FEATURES.create("patch_dry_grass_desert");
     public static final ResourceKey<PlacedFeature> PATCH_LEAF_LITTER = FEATURES.create("patch_leaf_litter");
     public static final ResourceKey<PlacedFeature> LEAF_LITTER = FEATURES.create("leaf_litter");
+    public static final ResourceKey<PlacedFeature> CACTUS_FLOWER = FEATURES.create("cactus_flower");
 
     // TREE PLACEMENTS
     public static final ResourceKey<PlacedFeature> FALLEN_OAK_TREE = FEATURES.create("fallen_oak_tree");
@@ -175,6 +176,13 @@ public class SpringToLifePlacements {
             context,
             LEAF_LITTER,
             features.getOrThrow(SpringToLifeFeatures.LEAF_LITTER),
+            VegetationPlacements.treePlacement(PlacementUtils.countExtra(16, 0.1F, 1))
+        );
+
+        FEATURES.register(
+            context,
+            CACTUS_FLOWER,
+            features.getOrThrow(SpringToLifeFeatures.CACTUS_FLOWER),
             VegetationPlacements.treePlacement(PlacementUtils.countExtra(16, 0.1F, 1))
         );
 
