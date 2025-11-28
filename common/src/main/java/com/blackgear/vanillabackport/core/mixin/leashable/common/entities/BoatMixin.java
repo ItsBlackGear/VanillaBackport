@@ -184,7 +184,7 @@ public abstract class BoatMixin extends Entity implements Leashable {
     }
 
     @Override
-    protected void removeAfterChangingDimensions() {
+    public void removeAfterChangingDimensions() {
         super.removeAfterChangingDimensions();
         this.vb$dropLeash(true, false);
     }

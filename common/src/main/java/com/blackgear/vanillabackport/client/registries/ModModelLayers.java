@@ -21,6 +21,7 @@ public class ModModelLayers {
     public static final ModelLayerLocation COLD_CHICKEN = register("cold_chicken");
     public static final ModelLayerLocation COLD_COW = register("cold_cow");
     public static final ModelLayerLocation WARM_COW = register("warm_cow");
+    public static final ModelLayerLocation SHEEP_WOOL_UNDERCOAT = register("sheep_wool_undercoat");
 
     // CHASE THE SKIES
     public static final ModelLayerLocation HAPPY_GHAST = register("happy_ghast");

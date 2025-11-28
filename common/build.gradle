@@ -17,5 +17,7 @@ dependencies {
     modCompileOnly "curse.maven:selene-499980:6841406"
     modCompileOnly "curse.maven:emi-580555:6420944"
 
+    modCompileOnly "curse.maven:jei-238222:7253589"
+    modCompileOnly "curse.maven:just-enough-resources-jer-240630:5057223"
     modCompileOnly "com.github.glitchfiend:TerraBlender-common:$rootProject.terrablender_version"
 }

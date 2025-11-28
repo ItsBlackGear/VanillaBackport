@@ -32,42 +32,30 @@ public final class BundleFeatures {
     @Nullable
     public static ItemStack removeOne(ItemStack bundle) {
         CompoundTag tag = bundle.getOrCreateTag();
-        if (!tag.contains(TAG_ITEMS)) {
-            return null;
-        }
+        if (tag.contains(TAG_ITEMS)) {
+            ListTag items = tag.getList(TAG_ITEMS, 10);
+            if (!items.isEmpty()) {
+                int selectedItem = tag.getInt(TAG_SELECTED_ITEM);
+                int index = isValidIndex(selectedItem, items.size()) ? selectedItem : 0;
 
-        ListTag items = tag.getList(TAG_ITEMS, 10);
-        if (items.isEmpty()) {
-            return null;
-        }
+                if (!isValidIndex(index, items.size())) {
+                    return null;
+                }
 
-        int selectedItem = tag.getInt(TAG_SELECTED_ITEM);
-        int index = isValidIndex(selectedItem, items.size()) ? selectedItem : 0;
-        if (!isValidIndex(index, items.size())) {
-            return null;
-        }
+                CompoundTag itemTag = items.getCompound(index);
+                ItemStack removedItem = ItemStack.of(itemTag);
+                items.remove(index);
 
-        CompoundTag itemTag = items.getCompound(index);
-        ItemStack stored = ItemStack.of(itemTag);
+                if (items.isEmpty()) {
+                    bundle.removeTagKey(TAG_ITEMS);
+                }
 
-        // Split exactly one item out
-        ItemStack one = stored.split(1);
-
-        if (stored.isEmpty()) {
-            // Remove entry if it reached 0
-            items.remove(index);
-            if (items.isEmpty()) {
-                bundle.removeTagKey(TAG_ITEMS);
+                setSelectedItem(bundle, NO_SELECTED_ITEM);
+                return removedItem;
             }
-        } else {
-            // Persist the updated remaining count at the same index
-            CompoundTag updated = new CompoundTag();
-            stored.save(updated);
-            items.set(index, updated);
         }
 
-        setSelectedItem(bundle, NO_SELECTED_ITEM);
-        return one.isEmpty() ? null : one;
+        return null;
     }
 
     public static Stream<ItemStack> getContents(ItemStack bundle) {
@@ -87,11 +75,20 @@ public final class BundleFeatures {
             return BUNDLE_IN_BUNDLE_WEIGHT + getContentWeight(stack);
         }
 
-        int max = stack.getMaxStackSize();
-        if (max <= 0) return 1; // Fallback safety
+        CompoundTag tag = stack.getTag();
+        if (tag != null && tag.contains("BlockEntityTag", 10)) {
+            CompoundTag blockEntityTag = tag.getCompound("BlockEntityTag");
+            if (blockEntityTag.contains("Bees", 9)) {
+                ListTag bees = blockEntityTag.getList("Bees", 10);
+                if (!bees.isEmpty()) return MAX_WEIGHT;
+            }
+        }
 
-        int weight = MAX_WEIGHT / max;
-        return Math.max(1, weight); // Prevent zero which causes division errors
+        int maxStackSize = stack.getMaxStackSize();
+        if (maxStackSize <= 0) return MAX_WEIGHT;
+
+        int weight = MAX_WEIGHT / maxStackSize;
+        return weight == 0 ? 1 : weight;
     }
 
     public static int getContentWeight(ItemStack bundle) {
@@ -100,21 +97,16 @@ public final class BundleFeatures {
             .sum();
     }
 
-    // Never match non-stackable items (e.g., bundles) to avoid merging them
     private static Optional<CompoundTag> getMatchingItem(ItemStack stack, ListTag items) {
-        if (stack.getMaxStackSize() == 1) {
-            return Optional.empty();
-        }
+        if (!stack.isStackable()) return Optional.empty();
 
         return items.stream()
             .filter(CompoundTag.class::isInstance)
             .map(CompoundTag.class::cast)
-            .filter(tag -> {
-                ItemStack existing = ItemStack.of(tag);
-                return existing.getMaxStackSize() > 1 && ItemStack.isSameItemSameTags(existing, stack);
-            })
+            .filter(tag -> ItemStack.isSameItemSameTags(ItemStack.of(tag), stack))
             .findFirst();
     }
+
 
     public static void setSelectedItem(ItemStack bundle, int index) {
         CompoundTag tag = bundle.getOrCreateTag();
@@ -137,6 +129,16 @@ public final class BundleFeatures {
         return selectedItem;
     }
 
+    private static int getMaxAmountToAdd(ItemStack bundle, ItemStack item) {
+        int itemWeight = getWeight(item);
+        if (itemWeight <= 0) return 0;
+
+        int remaining = MAX_WEIGHT - getContentWeight(bundle);
+        if (remaining <= 0) return 0;
+
+        return Math.max(remaining / itemWeight, 0);
+    }
+
     public static int tryInsert(ItemStack bundle, ItemStack item) {
         if (!canItemBeInBundle(item)) return 0;
 
@@ -146,36 +148,18 @@ public final class BundleFeatures {
         }
 
         ListTag items = tag.getList(TAG_ITEMS, 10);
-        int currentWeight = getContentWeight(bundle);
-        int itemWeight = getWeight(item);
-        if (itemWeight <= 0) return 0; // Defensive; should not occur after clamping
 
-        int remainingCapacity = MAX_WEIGHT - currentWeight;
-        if (remainingCapacity <= 0) return 0;
-
-        int maxToAdd = Math.min(item.getCount(), remainingCapacity / itemWeight);
+        int maxToAdd = Math.min(item.getCount(), getMaxAmountToAdd(bundle, item));
         if (maxToAdd <= 0) return 0;
-
-        if (item.getMaxStackSize() == 1) {
-            for (int i = 0; i < maxToAdd; i++) {
-                ItemStack one = item.copyWithCount(1);
-                CompoundTag newTag = new CompoundTag();
-                one.save(newTag);
-                items.add(0, newTag);
-            }
-            item.shrink(maxToAdd);
-            return maxToAdd;
-        }
 
         Optional<CompoundTag> matchingItem = getMatchingItem(item, items);
         if (matchingItem.isPresent()) {
             CompoundTag itemTag = matchingItem.get();
             ItemStack existingStack = ItemStack.of(itemTag);
             existingStack.grow(maxToAdd);
-            CompoundTag updated = new CompoundTag();
-            existingStack.save(updated);
+            existingStack.save(itemTag);
             items.remove(itemTag);
-            items.add(0, updated);
+            items.add(0, itemTag);
         } else {
             ItemStack newStack = item.copyWithCount(maxToAdd);
             CompoundTag newTag = new CompoundTag();
@@ -191,19 +175,10 @@ public final class BundleFeatures {
         ItemStack slotStack = slot.getItem();
         if (!canItemBeInBundle(slotStack)) return 0;
 
-        int currentWeight = getContentWeight(bundle);
-        int itemWeight = getWeight(slotStack);
-        if (itemWeight <= 0) return 0; // Prevent division by zero
-
-        int remainingCapacity = MAX_WEIGHT - currentWeight;
-        if (remainingCapacity <= 0) return 0;
-
-        int maxToAdd = Math.min(slotStack.getCount(), remainingCapacity / itemWeight);
+        int maxToAdd = Math.min(slotStack.getCount(), getMaxAmountToAdd(bundle, slotStack));
         if (maxToAdd <= 0) return 0;
 
         ItemStack takenStack = slot.safeTake(slotStack.getCount(), maxToAdd, player);
-        if (takenStack.isEmpty()) return 0;
-
         return tryInsert(bundle, takenStack);
     }
 
@@ -224,7 +199,6 @@ public final class BundleFeatures {
         }
 
         boolean outsideBounds = index < 0 || index >= items.size();
-
         int selected = selected0 != index && !outsideBounds ? index : NO_SELECTED_ITEM;
         setSelectedItem(bundle, selected);
     }

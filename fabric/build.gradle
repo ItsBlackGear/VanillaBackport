@@ -52,6 +52,8 @@ dependencies {
 //    modApi "curse.maven:platform-997634:$rootProject.platform_fabric_version"
 
     modCompileOnly "curse.maven:emi-580555:6420944"
+    modCompileOnly "curse.maven:jei-238222:7253589"
+    modCompileOnly "curse.maven:just-enough-resources-jer-240630:5057223"
     modApi("com.github.glitchfiend:TerraBlender-fabric:$rootProject.terrablender_version")
 0
     common(project(path: ':common', configuration: 'namedElements')) { transitive false }

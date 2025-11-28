@@ -24,6 +24,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.BoatModel;
 import net.minecraft.client.model.ChestBoatModel;
+import net.minecraft.client.model.SheepModel;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.renderer.BiomeColors;
@@ -64,6 +65,7 @@ public class Rendering {
         event.register(ModModelLayers.COLD_CHICKEN, ColdChickenModel::createBodyLayer);
         event.register(ModModelLayers.COLD_COW, ColdCowModel::createBodyLayer);
         event.register(ModModelLayers.WARM_COW, WarmCowModel::createBodyLayer);
+        event.register(ModModelLayers.SHEEP_WOOL_UNDERCOAT, SheepModel::createBodyLayer);
     }
 
     public static void entityRendering(GameRendering.EntityRendererEvent event) {

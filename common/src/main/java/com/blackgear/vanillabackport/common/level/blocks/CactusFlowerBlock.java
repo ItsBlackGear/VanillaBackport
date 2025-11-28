@@ -6,6 +6,7 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.BushBlock;
+import net.minecraft.world.level.block.SupportType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
@@ -25,6 +26,6 @@ public class CactusFlowerBlock extends BushBlock {
     @Override
     protected boolean mayPlaceOn(BlockState state, BlockGetter level, BlockPos pos) {
         BlockState below = level.getBlockState(pos);
-        return below.is(Blocks.CACTUS) || below.is(Blocks.FARMLAND) || below.isFaceSturdy(level, pos, Direction.UP);
+        return below.is(Blocks.CACTUS) || below.is(Blocks.FARMLAND) || below.isFaceSturdy(level, pos, Direction.UP, SupportType.CENTER);
     }
 }
