@@ -101,7 +101,7 @@ public class LangGenerator extends FabricLanguageProvider {
 
         builder.add("subtitles.entity.parrot.imitate.creaking", "Parrot creaks");
 
-        // SUMMER DROP
+        // Chase the Skies
         builder.add(ModBlocks.DRIED_GHAST.get(), "Dried Ghast");
 
         builder.add(ModItems.HAPPY_GHAST_SPAWN_EGG.get(), "Happy Ghast Spawn Egg");
@@ -167,6 +167,8 @@ public class LangGenerator extends FabricLanguageProvider {
 
         builder.add(ModItems.BLUE_EGG.get(), "Blue Egg");
         builder.add(ModItems.BROWN_EGG.get(), "Brown Egg");
+
+        builder.add("subtitles.block.firefly_bush.idle", "Fireflies buzz");
 
         builder.add("subtitles.block.sand.idle", "Sandy sounds");
         builder.add("subtitles.block.deadbush.idle", "Dry sounds");

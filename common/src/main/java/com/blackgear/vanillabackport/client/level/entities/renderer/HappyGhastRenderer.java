@@ -10,19 +10,31 @@ import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 
 @Environment(EnvType.CLIENT)
-public class HappyGhastRenderer extends AgeableMobRenderer<HappyGhast, HappyGhastModel<HappyGhast>> {
+public class HappyGhastRenderer extends MobRenderer<HappyGhast, HappyGhastModel<HappyGhast>> {
     private static final ResourceLocation GHAST_LOCATION = VanillaBackport.vanilla("textures/entity/ghast/happy_ghast.png");
     private static final ResourceLocation GHAST_BABY_LOCATION = VanillaBackport.vanilla("textures/entity/ghast/happy_ghast_baby.png");
     private static final ResourceLocation GHAST_ROPES = VanillaBackport.vanilla("textures/entity/ghast/happy_ghast_ropes.png");
+    private final HappyGhastModel<HappyGhast> adultModel;
+    private final HappyGhastModel<HappyGhast> babyModel;
 
     public HappyGhastRenderer(EntityRendererProvider.Context context) {
-        super(context, new HappyGhastModel<>(context.bakeLayer(ModModelLayers.HAPPY_GHAST)), new HappyGhastModel<>(context.bakeLayer(ModModelLayers.HAPPY_GHAST_BABY)), 1.5F);
+        super(context, new HappyGhastModel<>(context.bakeLayer(ModModelLayers.HAPPY_GHAST)), 1.5F);
         this.addLayer(new GhastHarnessLayer<>(this, new HappyGhastHarnessModel<>(context.bakeLayer(ModModelLayers.HAPPY_GHAST_HARNESS))));
         this.addLayer(new RopesLayer<>(this, context.getModelSet(), GHAST_ROPES));
+        this.adultModel = new HappyGhastModel<>(context.bakeLayer(ModModelLayers.HAPPY_GHAST));
+        this.babyModel = new HappyGhastModel<>(context.bakeLayer(ModModelLayers.HAPPY_GHAST_BABY));
+    }
+
+    @Override
+    public void render(HappyGhast entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource buffer, int packedLight) {
+        this.model = entity.isBaby() ? this.babyModel : this.adultModel;
+        super.render(entity, entityYaw, partialTicks, poseStack, buffer, packedLight);
     }
 
     @Override

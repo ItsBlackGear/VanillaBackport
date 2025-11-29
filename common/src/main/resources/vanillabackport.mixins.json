@@ -53,6 +53,7 @@
     "common.item.MutableBundleContentsMixin",
     "common.worldgen.feature.SimpleBlockFeatureMixin",
     "common.worldgen.structure.NetherFossilPieceMixin",
+    "compat.BiomeHelperMixin",
     "leash.BoatMixin",
     "leash.FireworkRocketItemMixin",
     "leash.LeashableMixin",
