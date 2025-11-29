@@ -168,6 +168,8 @@ public class LangGenerator extends FabricLanguageProvider {
         builder.add(ModItems.BLUE_EGG.get(), "Blue Egg");
         builder.add(ModItems.BROWN_EGG.get(), "Brown Egg");
 
+        builder.add("subtitles.block.firefly_bush.idle", "Fireflies buzz");
+
         builder.add("subtitles.block.sand.idle", "Sandy sounds");
         builder.add("subtitles.block.deadbush.idle", "Dry sounds");
         builder.add("subtitles.block.dry_grass.ambient", "Windy sounds");

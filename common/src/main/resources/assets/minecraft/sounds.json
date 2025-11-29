@@ -649,8 +649,7 @@
   "block.creaking_heart.fall": {
     "sounds": [
       "block/creaking_heart/fall/creaking_heart_fall"
-    ],
-    "subtitle": "subtitles.block.generic.fall"
+    ]
   },
   "block.creaking_heart.hit": {
     "sounds": [
@@ -723,8 +722,7 @@
   "block.resin.fall": {
     "sounds": [
       "block/resin/resin_fall"
-    ],
-    "subtitle": "subtitles.block.generic.fall"
+    ]
   },
   "block.resin.place": {
     "sounds": [
@@ -754,8 +752,7 @@
   "block.resin_bricks.fall": {
     "sounds": [
       "block/resin_bricks/resin_brick_fall"
-    ],
-    "subtitle": "subtitles.block.generic.fall"
+    ]
   },
   "block.resin_bricks.hit": {
     "sounds": [
@@ -913,8 +910,7 @@
       "block/dried_ghast/step4",
       "block/dried_ghast/step5",
       "block/dried_ghast/step6"
-    ],
-    "subtitle": "subtitles.block.generic.fall"
+    ]
   },
   "block.dried_ghast.place": {
     "sounds": [
@@ -1332,8 +1328,7 @@
       "block/leaf_litter/step4",
       "block/leaf_litter/step5",
       "block/leaf_litter/step6"
-    ],
-    "subtitle": "subtitles.block.generic.fall"
+    ]
   },
   "block.leaf_litter.hit": {
     "sounds": [
