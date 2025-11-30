@@ -43,9 +43,10 @@ dependencies {
     modApi "flatDir:Platform-forge-1.20.1-$rootProject.platform_indev_version"
 //    modApi "curse.maven:platform-997634:$rootProject.platform_forge_version"
 
-    compileOnly("curse.maven:emi-580555:6420945")
+    compileOnly("curse.maven:mouse-tweaks-60089:5338457")
     compileOnly("curse.maven:jei-238222:7253590")
     compileOnly("curse.maven:just-enough-resources-jer-240630:5057220")
+
     modApi("com.github.glitchfiend:TerraBlender-forge:$rootProject.terrablender_version")
 
     common(project(path: ':common', configuration: 'namedElements')) { transitive false }

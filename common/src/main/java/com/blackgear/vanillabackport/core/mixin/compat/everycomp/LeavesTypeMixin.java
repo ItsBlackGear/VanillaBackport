@@ -1,4 +1,4 @@
-package com.blackgear.vanillabackport.core.mixin.compat;
+package com.blackgear.vanillabackport.core.mixin.compat.everycomp;
 
 import net.mehvahdjukaar.moonlight.api.set.BlockType;
 import net.mehvahdjukaar.moonlight.api.set.leaves.LeavesType;

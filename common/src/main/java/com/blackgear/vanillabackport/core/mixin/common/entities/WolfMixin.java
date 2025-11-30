@@ -32,6 +32,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.Wolf;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
@@ -60,7 +61,8 @@ public abstract class WolfMixin extends TamableAnimalMixin implements NeutralMob
 
     @Inject(
         method = "getBreedOffspring(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/AgeableMob;)Lnet/minecraft/world/entity/animal/Wolf;",
-        at = @At("RETURN"))
+        at = @At("RETURN")
+    )
     private void vb$getBreedOffspring(ServerLevel level, AgeableMob otherParent, CallbackInfoReturnable<Wolf> cir) {
         Wolf child = cir.getReturnValue();
         if (child != null && otherParent instanceof Wolf mate) {
@@ -153,29 +155,12 @@ public abstract class WolfMixin extends TamableAnimalMixin implements NeutralMob
             ItemStack stack = this.getItemBySlot(EquipmentSlot.CHEST);
             int prevDamage = stack.getDamageValue();
             int max = stack.getMaxDamage();
-            // apply damage to armor instead of the wolf
             stack.hurtAndBreak(Mth.ceil(damageAmount), this, wolf -> wolf.broadcastBreakEvent(EquipmentSlot.CHEST));
-            // crackiness change sound & particles
-            if (!stack.isEmpty() && ModCrackiness.WOLF_ARMOR.byDamage(prevDamage, max) != ModCrackiness.WOLF_ARMOR.byDamage(stack)) {
+            if (ModCrackiness.WOLF_ARMOR.byDamage(prevDamage, max) != ModCrackiness.WOLF_ARMOR.byDamage(stack)) {
                 this.playSound(ModSoundEvents.WOLF_ARMOR_CRACK.get());
                 if (this.level() instanceof ServerLevel level) {
-                    level.sendParticles(
-                        new ItemParticleOption(ParticleTypes.ITEM, ModItems.ARMADILLO_SCUTE.get().getDefaultInstance()),
-                        this.getX(),
-                        this.getY() + 1.0,
-                        this.getZ(),
-                        20,
-                        0.2,
-                        0.1,
-                        0.2,
-                        0.1
-                    );
+                    level.sendParticles(new ItemParticleOption(ParticleTypes.ITEM, ModItems.ARMADILLO_SCUTE.get().getDefaultInstance()), this.getX(), this.getY() + 1.0, this.getZ(), 20, 0.2, 0.1, 0.2, 0.1);
                 }
-            }
-            // if it broke, remove from slot & play break sound (stack may now be empty)
-            if (stack.isEmpty()) {
-                this.playSound(ModSoundEvents.WOLF_ARMOR_BREAK.get());
-                this.setItemSlot(EquipmentSlot.CHEST, ItemStack.EMPTY);
             }
         }
     }
@@ -183,6 +168,16 @@ public abstract class WolfMixin extends TamableAnimalMixin implements NeutralMob
     @Unique
     private boolean canArmorAbsorb(DamageSource source) {
         return this.hasArmor() && !source.is(DamageTypeTags.BYPASSES_ARMOR);
+    }
+
+    @Override
+    protected void applyTamingSideEffects() {
+        if (this.isTame()) {
+            this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(40.0);
+            this.setHealth(40.0F);
+        } else {
+            this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(8.0);
+        }
     }
 
     @Override

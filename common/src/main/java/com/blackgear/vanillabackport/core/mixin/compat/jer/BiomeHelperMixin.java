@@ -1,4 +1,4 @@
-package com.blackgear.vanillabackport.core.mixin.compat;
+package com.blackgear.vanillabackport.core.mixin.compat.jer;
 
 import jeresources.api.util.BiomeHelper;
 import net.minecraft.client.Minecraft;
