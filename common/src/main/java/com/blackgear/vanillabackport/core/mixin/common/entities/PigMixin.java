@@ -32,11 +32,6 @@ public abstract class PigMixin extends MobMixin implements VariantHolder<PigVari
         super(entityType, level);
     }
 
-//    @Inject(method = "<clinit>", at = @At("TAIL"))
-//    private static void vb$registerAccessor(CallbackInfo ci) {
-//        DATA_VARIANT_ID = SynchedEntityData.defineId(Pig.class, EntityDataSerializers.STRING);
-//    }
-
     @Inject(
         method = "getBreedOffspring(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/AgeableMob;)Lnet/minecraft/world/entity/animal/Pig;",
         at = @At("RETURN")

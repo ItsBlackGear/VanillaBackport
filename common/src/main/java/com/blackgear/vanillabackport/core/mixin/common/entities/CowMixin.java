@@ -32,11 +32,6 @@ public abstract class CowMixin extends MobMixin implements VariantHolder<CowVari
         super(entityType, level);
     }
 
-//    @Inject(method = "<clinit>", at = @At("TAIL"))
-//    private static void vb$registerAccessor(CallbackInfo ci) {
-//        DATA_VARIANT_ID =
-//    }
-
     @Inject(
         method = "getBreedOffspring(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/AgeableMob;)Lnet/minecraft/world/entity/animal/Cow;",
         at = @At("RETURN")

@@ -27,8 +27,6 @@ public class ClientSetup {
         GameRendering.registerEntityRenderers(Rendering::entityRendering);
         GameRendering.registerBlockColors(Rendering::blockColors);
         GameRendering.registerItemColors(Rendering::itemColors);
-
-        BundleMouseActions.bootstrap();
     }
 
     public static void asyncSetup(ParallelDispatch dispatch) {
@@ -43,6 +41,8 @@ public class ClientSetup {
 
             GameRendering.registerModelOverrides(Rendering::modelOverrides);
         });
+
+        BundleMouseActions.bootstrap();
 
         GameRendering.registerBlockRenderers(Rendering::blockRendering);
         WoodTypeRegistry.registerWoodType(ModWoodTypes.PALE_OAK);

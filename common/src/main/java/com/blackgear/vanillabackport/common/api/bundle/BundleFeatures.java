@@ -2,6 +2,7 @@ package com.blackgear.vanillabackport.common.api.bundle;
 
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
 import com.blackgear.vanillabackport.common.registries.ModItems;
+import com.blackgear.vanillabackport.core.ModChecker;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.sounds.SoundEvents;
@@ -15,7 +16,7 @@ import java.util.Optional;
 
 public class BundleFeatures {
     public static boolean onBundleUpdate() {
-        return VanillaBackport.COMMON_CONFIG.hasUpdatedBundles.get();
+        return VanillaBackport.COMMON_CONFIG.hasUpdatedBundles.get() && !ModChecker.BEST_BUNDLES_LOADED;
     }
 
     public static boolean canItemBeInBundle(ItemStack stack) {

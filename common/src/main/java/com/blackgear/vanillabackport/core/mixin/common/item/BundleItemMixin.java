@@ -51,7 +51,7 @@ public abstract class BundleItemMixin {
                     BundleFeatures.playInsertFailSound(player);
                 }
 
-                stack.set(DataComponents.BUNDLE_CONTENTS, mutable.toImmutable()); // ✅ FIXED!
+                stack.set(DataComponents.BUNDLE_CONTENTS, mutable.toImmutable());
                 BundleFeatures.broadcastChangesOnContainerMenu(player);
                 cir.setReturnValue(true);
             } else if (action == ClickAction.SECONDARY && itemInSlot.isEmpty()) {

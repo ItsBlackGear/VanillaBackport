@@ -42,8 +42,10 @@ dependencies {
     modApi "flatDir:Platform-neoforge-1.21.1-$rootProject.platform_indev_version"
 //    modApi "curse.maven:platform-997634:$rootProject.platform_neoforge_version"
 
+    compileOnly("curse.maven:mouse-tweaks-60089:5637846")
     compileOnly("curse.maven:jei-238222:7270455")
     compileOnly("curse.maven:just-enough-resources-jer-240630:5057220")
+
     modApi("com.github.glitchfiend:TerraBlender-neoforge:$rootProject.terrablender_version")
 
     common(project(path: ':common', configuration: 'namedElements')) { transitive false }
