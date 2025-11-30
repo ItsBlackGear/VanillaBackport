@@ -25,6 +25,8 @@ public class BundleMouseActions implements ItemSlotMouseAction {
 
     public static void bootstrap() {
         HudInteractions.SCROLLING_PRE.register((minecraft, screen, mouseX, mouseY, scrollDelta) -> {
+            if (!BundleFeatures.onBundleUpdate()) return CancellableResult.PASS;
+
             if (screen instanceof AbstractContainerScreen<?> container) {
                 Slot slot = container.hoveredSlot;
                 if (slot != null && slot.hasItem()) {
