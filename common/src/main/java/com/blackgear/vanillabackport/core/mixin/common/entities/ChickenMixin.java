@@ -1,12 +1,13 @@
 package com.blackgear.vanillabackport.core.mixin.common.entities;
 
-import com.blackgear.vanillabackport.common.api.variant.SpawnContext;
+import com.blackgear.vanillabackport.common.api.variant.spawn.SpawnContext;
 import com.blackgear.vanillabackport.common.api.variant.VariantHolder;
 import com.blackgear.vanillabackport.common.api.variant.VariantUtils;
 import com.blackgear.vanillabackport.common.level.entities.animal.ChickenVariant;
 import com.blackgear.vanillabackport.common.level.entities.animal.ChickenVariants;
-import com.blackgear.vanillabackport.common.registries.ModItems;
+import com.blackgear.vanillabackport.core.registries.ModBuiltInLootTables;
 import com.blackgear.vanillabackport.core.registries.ModBuiltinRegistries;
+import com.blackgear.vanillabackport.core.util.LootUtils;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -16,6 +17,7 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Chicken;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -48,7 +50,7 @@ public abstract class ChickenMixin extends MobMixin implements VariantHolder<Chi
 
     @Override
     protected void vb$defineSynchedData(SynchedEntityData.Builder builder, CallbackInfo ci) {
-        builder.define(DATA_VARIANT_ID, VariantUtils.getDefaultID(ModBuiltinRegistries.CHICKEN_VARIANTS, ChickenVariants.TEMPERATE));
+        builder.define(DATA_VARIANT_ID, "minecraft:temperate");
     }
 
     @Override
@@ -58,7 +60,7 @@ public abstract class ChickenMixin extends MobMixin implements VariantHolder<Chi
 
     @Override
     public ChickenVariant vb$getVariant() {
-        return VariantUtils.getVariant(ModBuiltinRegistries.CHICKEN_VARIANTS, this.entityData.get(DATA_VARIANT_ID));
+        return VariantUtils.getOrDefault(ModBuiltinRegistries.CHICKEN_VARIANTS, this.entityData.get(DATA_VARIANT_ID), ChickenVariants.TEMPERATE);
     }
 
     @Override
@@ -73,7 +75,7 @@ public abstract class ChickenMixin extends MobMixin implements VariantHolder<Chi
 
     @Override
     protected void vb$finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, SpawnGroupData spawnData, CallbackInfoReturnable<SpawnGroupData> cir) {
-        VariantUtils.selectVariantToSpawn(SpawnContext.create(level, this.blockPosition()), ModBuiltinRegistries.CHICKEN_VARIANTS, ChickenVariants.TEMPERATE)
+        VariantUtils.selectFarmAnimalVariantToSpawn(SpawnContext.create(level, this.blockPosition()), ModBuiltinRegistries.CHICKEN_VARIANTS, ChickenVariants.TEMPERATE)
             .ifPresent(this::vb$setVariant);
     }
 
@@ -83,16 +85,11 @@ public abstract class ChickenMixin extends MobMixin implements VariantHolder<Chi
         index = 0
     )
     private ItemLike vb$modifyEggDrop(ItemLike originalItem) {
-        Chicken chicken = (Chicken) (Object) this;
-        if (chicken instanceof VariantHolder<?> holder) {
-            if (holder.vb$getVariant() instanceof ChickenVariant variant) {
-                if (VariantUtils.matches(ModBuiltinRegistries.CHICKEN_VARIANTS, variant, ChickenVariants.COLD)) {
-                    return ModItems.BLUE_EGG.get();
-                }
+        ChickenVariant variant = this.vb$getVariant();
 
-                if (VariantUtils.matches(ModBuiltinRegistries.CHICKEN_VARIANTS, variant, ChickenVariants.WARM)) {
-                    return ModItems.BROWN_EGG.get();
-                }
+        if (variant != null && !VariantUtils.matches(ModBuiltinRegistries.CHICKEN_VARIANTS, variant, ChickenVariants.TEMPERATE)) {
+            if (LootUtils.dropFromGiftLootTable(this, (ServerLevel) this.level(), ModBuiltInLootTables.CHICKEN_LAY, (level, stack) -> this.spawnAtLocation(stack))) {
+                return Items.AIR;
             }
         }
 

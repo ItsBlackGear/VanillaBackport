@@ -85,7 +85,9 @@ public class Rendering {
             ModBlocks.LEAF_LITTER.get(),
             ModBlocks.CACTUS_FLOWER.get(),
             ModBlocks.SHORT_DRY_GRASS.get(),
-            ModBlocks.TALL_DRY_GRASS.get()
+            ModBlocks.TALL_DRY_GRASS.get(),
+            ModBlocks.PALE_OAK_DOOR.get(),
+            ModBlocks.PALE_OAK_TRAPDOOR.get()
         );
     }
 

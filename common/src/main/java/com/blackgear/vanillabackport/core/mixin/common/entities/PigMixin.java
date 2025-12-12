@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.core.mixin.common.entities;
 
-import com.blackgear.vanillabackport.common.api.variant.SpawnContext;
+import com.blackgear.vanillabackport.common.api.variant.spawn.SpawnContext;
 import com.blackgear.vanillabackport.common.api.variant.VariantHolder;
 import com.blackgear.vanillabackport.common.api.variant.VariantUtils;
 import com.blackgear.vanillabackport.common.level.entities.animal.PigVariant;
@@ -45,7 +45,7 @@ public abstract class PigMixin extends MobMixin implements VariantHolder<PigVari
 
     @Override
     protected void vb$defineSynchedData(SynchedEntityData.Builder builder, CallbackInfo ci) {
-        builder.define(DATA_VARIANT_ID, VariantUtils.getDefaultID(ModBuiltinRegistries.PIG_VARIANTS, PigVariants.TEMPERATE));
+        builder.define(DATA_VARIANT_ID, "minecraft:temperate");
     }
 
     @Override
@@ -55,7 +55,7 @@ public abstract class PigMixin extends MobMixin implements VariantHolder<PigVari
 
     @Override
     public PigVariant vb$getVariant() {
-        return VariantUtils.getVariant(ModBuiltinRegistries.PIG_VARIANTS, this.entityData.get(DATA_VARIANT_ID));
+        return VariantUtils.getOrDefault(ModBuiltinRegistries.PIG_VARIANTS, this.entityData.get(DATA_VARIANT_ID), PigVariants.TEMPERATE);
     }
 
     @Override
@@ -70,7 +70,7 @@ public abstract class PigMixin extends MobMixin implements VariantHolder<PigVari
 
     @Override
     protected void vb$finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, SpawnGroupData spawnData, CallbackInfoReturnable<SpawnGroupData> cir) {
-        VariantUtils.selectVariantToSpawn(SpawnContext.create(level, this.blockPosition()), ModBuiltinRegistries.PIG_VARIANTS, PigVariants.TEMPERATE)
+        VariantUtils.selectFarmAnimalVariantToSpawn(SpawnContext.create(level, this.blockPosition()), ModBuiltinRegistries.PIG_VARIANTS, PigVariants.TEMPERATE)
             .ifPresent(this::vb$setVariant);
     }
 }

@@ -1,13 +1,10 @@
 package com.blackgear.vanillabackport.core.registries;
 
 import com.blackgear.platform.core.RegistryBuilder;
-import com.blackgear.vanillabackport.common.api.variant.SpawnCondition;
+import com.blackgear.vanillabackport.common.api.variant.spawn.SpawnCondition;
 import com.blackgear.vanillabackport.common.api.wolf.WolfSoundVariant;
-import com.blackgear.vanillabackport.common.level.entities.animal.ChickenVariant;
-import com.blackgear.vanillabackport.common.level.entities.animal.CowVariant;
-import com.blackgear.vanillabackport.common.level.entities.animal.PigVariant;
+import com.blackgear.vanillabackport.common.level.entities.animal.*;
 import com.blackgear.vanillabackport.core.VanillaBackport;
-import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
@@ -16,6 +13,7 @@ import java.util.function.Supplier;
 
 public class ModRegistries {
     public static final RegistryBuilder BUILDER = RegistryBuilder.create(VanillaBackport.NAMESPACE);
+    public static final RegistryBuilder INTERNAL = RegistryBuilder.create(VanillaBackport.MOD_ID);
 
     public static final ResourceKey<Registry<WolfSoundVariant>> WOLF_SOUND_VARIANT_KEY = BUILDER.resource("wolf_sound_variant");
     public static final Supplier<Registry<WolfSoundVariant>> WOLF_SOUND_VARIANT = BUILDER.registry(WOLF_SOUND_VARIANT_KEY);
@@ -28,6 +26,15 @@ public class ModRegistries {
 
     public static final ResourceKey<Registry<PigVariant>> PIG_VARIANT_KEY = BUILDER.resource("pig_variant");
     public static final Supplier<Registry<PigVariant>> PIG_VARIANT = BUILDER.registry(PIG_VARIANT_KEY);
+
+    public static final ResourceKey<Registry<EnhancedFrogVariant>> FROG_VARIANT_KEY = INTERNAL.resource("frog_variant");
+    public static final Supplier<Registry<EnhancedFrogVariant>> FROG_VARIANT = INTERNAL.registry(FROG_VARIANT_KEY);
+
+    public static final ResourceKey<Registry<EnhancedWolfVariant>> WOLF_VARIANT_KEY = INTERNAL.resource("wolf_variant");
+    public static final Supplier<Registry<EnhancedWolfVariant>> WOLF_VARIANT = INTERNAL.registry(WOLF_VARIANT_KEY);
+
+    public static final ResourceKey<Registry<EnhancedCatVariant>> CAT_VARIANT_KEY = INTERNAL.resource("cat_variant");
+    public static final Supplier<Registry<EnhancedCatVariant>> CAT_VARIANT = INTERNAL.registry(CAT_VARIANT_KEY);
 
     public static final ResourceKey<Registry<MapCodec<? extends SpawnCondition>>> SPAWN_CONDITION_TYPE_KEY = BUILDER.resource("spawn_condition_type");
     public static final Supplier<Registry<MapCodec<? extends SpawnCondition>>> SPAWN_CONDITION_TYPE = BUILDER.registry(SPAWN_CONDITION_TYPE_KEY);

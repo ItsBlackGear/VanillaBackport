@@ -1,13 +1,13 @@
 package com.blackgear.vanillabackport.common.registries;
 
 import com.blackgear.platform.core.helper.ItemRegistry;
-import com.blackgear.vanillabackport.common.level.entities.animal.VariantKeys;
+import com.blackgear.vanillabackport.common.level.entities.animal.ChickenVariants;
 import com.blackgear.vanillabackport.common.level.items.HarnessItem;
 import com.blackgear.vanillabackport.common.level.items.PaleOakBoatItem;
-import com.blackgear.vanillabackport.common.level.items.VariantEggItem;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.BundleItem;
+import net.minecraft.world.item.EggItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.component.BundleContents;
@@ -170,10 +170,10 @@ public class ModItems {
 
     public static final Supplier<Item> BLUE_EGG = ITEMS.register(
         "blue_egg",
-        properties -> new VariantEggItem(VariantKeys.COLD_CHICKEN, properties),
-        new Item.Properties().stacksTo(16));
+        () -> new EggItem(new Item.Properties().stacksTo(16).component(ModDataComponents.CHICKEN_VARIANT.get(), ChickenVariants.COLD))
+    );
     public static final Supplier<Item> BROWN_EGG = ITEMS.register(
         "brown_egg",
-        properties -> new VariantEggItem(VariantKeys.WARM_CHICKEN, properties),
-        new Item.Properties().stacksTo(16));
+        () -> new EggItem(new Item.Properties().stacksTo(16).component(ModDataComponents.CHICKEN_VARIANT.get(), ChickenVariants.WARM))
+    );
 }

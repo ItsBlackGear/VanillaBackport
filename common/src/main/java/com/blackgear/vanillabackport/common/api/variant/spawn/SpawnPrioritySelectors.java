@@ -1,8 +1,7 @@
-package com.blackgear.vanillabackport.common.api.variant;
+package com.blackgear.vanillabackport.common.api.variant.spawn;
 
 import com.mojang.serialization.Codec;
 import io.netty.buffer.ByteBuf;
-import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 

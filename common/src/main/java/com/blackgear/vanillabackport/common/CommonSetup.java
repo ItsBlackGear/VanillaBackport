@@ -8,23 +8,16 @@ import com.blackgear.platform.common.worldgen.modifier.BiomeManager;
 import com.blackgear.platform.common.worldgen.placement.BiomePlacement;
 import com.blackgear.platform.core.ParallelDispatch;
 import com.blackgear.platform.core.events.ResourceReloadManager;
-import com.blackgear.platform.core.events.ServerLifecycleEvents;
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
 import com.blackgear.vanillabackport.common.api.leash.LeashIntegration;
 import com.blackgear.vanillabackport.common.api.wolf.WolfSoundVariantReloadListener;
-import com.blackgear.vanillabackport.common.api.wolf.WolfSoundVariants;
 import com.blackgear.vanillabackport.common.level.dispenser.PaleOakBoatDispenseBehavior;
-import com.blackgear.vanillabackport.common.level.entities.animal.ChickenVariants;
-import com.blackgear.vanillabackport.common.level.entities.animal.CowVariants;
-import com.blackgear.vanillabackport.common.level.entities.animal.PigVariants;
 import com.blackgear.vanillabackport.common.level.entities.creaking.Creaking;
 import com.blackgear.vanillabackport.common.level.entities.happyghast.HappyGhast;
 import com.blackgear.vanillabackport.common.registries.ModBlocks;
 import com.blackgear.vanillabackport.common.registries.ModEntities;
 import com.blackgear.vanillabackport.common.registries.ModItems;
-import com.blackgear.vanillabackport.common.resource.ChickenVariantReloadListener;
-import com.blackgear.vanillabackport.common.resource.CowVariantReloadListener;
-import com.blackgear.vanillabackport.common.resource.PigVariantReloadListener;
+import com.blackgear.vanillabackport.common.resource.*;
 import com.blackgear.vanillabackport.common.worldgen.BiomeGeneration;
 import com.blackgear.vanillabackport.common.worldgen.WorldGeneration;
 import com.blackgear.vanillabackport.core.VanillaBackport;
@@ -45,6 +38,9 @@ public class CommonSetup {
             event.register(VanillaBackport.resource("cow_variants"), new CowVariantReloadListener());
             event.register(VanillaBackport.resource("chicken_variants"), new ChickenVariantReloadListener());
             event.register(VanillaBackport.resource("pig_variants"), new PigVariantReloadListener());
+            event.register(VanillaBackport.resource("frog_variants"), new FrogVariantReloadListener());
+            event.register(VanillaBackport.resource("cat_variants"), new CatVariantReloadListener());
+            event.register(VanillaBackport.resource("wolf_variants"), new WolfVariantReloadListener());
         });
 
         MobIntegration.registerIntegrations(CommonSetup::mobIntegrations);
@@ -56,18 +52,11 @@ public class CommonSetup {
             BiomePlacement.registerBiomePlacements(BiomeGeneration::bootstrap);
             BlockIntegration.registerIntegrations(CommonSetup::blockIntegrations);
             TradeIntegration.registerVillagerTrades(CommonSetup::tradeIntegrations);
+            MobIntegration.registerIntegrations(CommonSetup::mobPlacements);
             Parrot.MOB_SOUND_MAP.put(ModEntities.CREAKING.get(), ModSoundEvents.PARROT_IMITATE_CREAKING.get());
         });
 
-        MobIntegration.registerIntegrations(CommonSetup::mobPlacements);
         LootModifier.modify(new LootIntegrations());
-
-        ServerLifecycleEvents.STARTING.register(server -> {
-            WolfSoundVariants.bootstrap();
-            PigVariants.bootstrap(server.registryAccess());
-            CowVariants.bootstrap(server.registryAccess());
-            ChickenVariants.bootstrap(server.registryAccess());
-        });
     }
 
     public static void blockIntegrations(BlockIntegration.Event event) {

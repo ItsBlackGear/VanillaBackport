@@ -1,6 +1,8 @@
 package com.blackgear.vanillabackport.common.api.variant;
 
 import com.blackgear.platform.core.BuiltInCoreRegistry;
+import com.blackgear.vanillabackport.common.api.variant.spawn.PriorityProvider;
+import com.blackgear.vanillabackport.common.api.variant.spawn.SpawnContext;
 import com.blackgear.vanillabackport.core.ModChecker;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.nbt.CompoundTag;
@@ -12,6 +14,11 @@ import java.util.Optional;
 
 public class VariantUtils {
     public static final String VARIANT_KEY = "variant";
+
+    public static <T> T getOrDefault(BuiltInCoreRegistry<T> registry, String id, ResourceKey<T> fallback) {
+        T variant = registry.get(ResourceLocation.tryParse(id));
+        return variant == null ? getDefault(registry, fallback) : variant;
+    }
 
     public static <T> T getDefault(BuiltInCoreRegistry<T> registry, ResourceKey<T> key) {
         return registry.getOrThrow(key);
@@ -42,7 +49,12 @@ public class VariantUtils {
         if (variant != null) entity.vb$setVariant(variant);
     }
 
-    public static <T extends PriorityProvider<SpawnContext, ?>> Optional<T> selectVariantToSpawn(SpawnContext context, BuiltInCoreRegistry<T> registry, ResourceKey<T> fallback) {
+    public static <T extends PriorityProvider<SpawnContext, ?>> Optional<T> selectVariantToSpawn(SpawnContext context, BuiltInCoreRegistry<T> registry) {
+        ServerLevelAccessor level = context.level();
+        return PriorityProvider.pick(registry.values().stream(), entry -> entry, level.getRandom(), context);
+    }
+
+    public static <T extends PriorityProvider<SpawnContext, ?>> Optional<T> selectFarmAnimalVariantToSpawn(SpawnContext context, BuiltInCoreRegistry<T> registry, ResourceKey<T> fallback) {
         if (!VanillaBackport.COMMON_CONFIG.hasFarmAnimalVariants.get() || ModChecker.MIXED_LITTER_LOADED) return Optional.of(registry.getOrThrow(fallback));
 
         ServerLevelAccessor level = context.level();

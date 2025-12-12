@@ -13,7 +13,7 @@ import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
 import com.blackgear.vanillabackport.client.registries.ModSoundTypes;
 import com.blackgear.vanillabackport.common.CommonConfig;
 import com.blackgear.vanillabackport.common.CommonSetup;
-import com.blackgear.vanillabackport.common.api.variant.SpawnConditions;
+import com.blackgear.vanillabackport.common.api.variant.spawn.SpawnConditions;
 import com.blackgear.vanillabackport.common.registries.*;
 import com.blackgear.vanillabackport.common.worldgen.features.SpringToLifeFeatures;
 import com.blackgear.vanillabackport.common.worldgen.features.TheGardenAwakensFeatures;
@@ -54,6 +54,7 @@ public final class VanillaBackport {
 
         ModParticles.PARTICLES.register();
 
+        ModDataComponents.COMPONENTS.register();
         ModBlocks.BLOCKS.register();
         ModItems.ITEMS.register();
         ModBlockEntities.BLOCK_ENTITIES.register();
@@ -70,6 +71,7 @@ public final class VanillaBackport {
         ModBuiltinRegistries.CHICKEN_VARIANTS.register();
         ModBuiltinRegistries.PIG_VARIANTS.register();
         SpawnConditions.CONDITIONS.register();
+        SpawnConditions.MINECRAFT_CONDITIONS.register();
 
         ModBiomes.BIOMES.register();
         ModFeatures.FEATURES.register();

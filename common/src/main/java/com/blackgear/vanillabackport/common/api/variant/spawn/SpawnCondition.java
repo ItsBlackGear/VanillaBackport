@@ -1,4 +1,4 @@
-package com.blackgear.vanillabackport.common.api.variant;
+package com.blackgear.vanillabackport.common.api.variant.spawn;
 
 import com.blackgear.vanillabackport.core.registries.ModRegistries;
 import com.mojang.serialization.Codec;

@@ -56,6 +56,8 @@ public class DataTransformation {
         "creaking_spawn_egg",
         "happy_ghast_spawn_egg",
         "white_harness",
+        "red_harness",
+        "green_harness",
         "orange_harness",
         "magenta_harness",
         "light_blue_harness",

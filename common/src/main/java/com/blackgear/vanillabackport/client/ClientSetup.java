@@ -9,9 +9,6 @@ import com.blackgear.vanillabackport.client.api.bundle.BundleMouseActions;
 import com.blackgear.vanillabackport.client.api.tabs.BundledTabSelector;
 import com.blackgear.vanillabackport.client.resources.DryFoliageColorReloadListener;
 import com.blackgear.vanillabackport.client.resources.LeafColorReloadListener;
-import com.blackgear.vanillabackport.common.level.entities.animal.ChickenVariants;
-import com.blackgear.vanillabackport.common.level.entities.animal.CowVariants;
-import com.blackgear.vanillabackport.common.level.entities.animal.PigVariants;
 import com.blackgear.vanillabackport.common.registries.ModWoodTypes;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 
@@ -31,13 +28,7 @@ public class ClientSetup {
 
     public static void asyncSetup(ParallelDispatch dispatch) {
         dispatch.enqueueWork(() -> {
-            LocalPlayerEvents.ON_LOGIN.register(player -> {
-                PigVariants.bootstrap(player.registryAccess());
-                CowVariants.bootstrap(player.registryAccess());
-                ChickenVariants.bootstrap(player.registryAccess());
-
-                BundledTabSelector.bootstrap();
-            });
+            LocalPlayerEvents.ON_LOGIN.register(player -> BundledTabSelector.bootstrap());
 
             GameRendering.registerModelOverrides(Rendering::modelOverrides);
         });

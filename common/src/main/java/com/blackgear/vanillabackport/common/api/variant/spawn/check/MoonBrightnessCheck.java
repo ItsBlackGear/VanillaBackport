@@ -1,5 +1,7 @@
-package com.blackgear.vanillabackport.common.api.variant;
+package com.blackgear.vanillabackport.common.api.variant.spawn.check;
 
+import com.blackgear.vanillabackport.common.api.variant.spawn.SpawnCondition;
+import com.blackgear.vanillabackport.common.api.variant.spawn.SpawnContext;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.advancements.critereon.MinMaxBounds;

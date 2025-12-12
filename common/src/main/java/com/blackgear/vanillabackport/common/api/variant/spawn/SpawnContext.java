@@ -1,4 +1,4 @@
-package com.blackgear.vanillabackport.common.api.variant;
+package com.blackgear.vanillabackport.common.api.variant.spawn;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;

@@ -1,4 +1,4 @@
-package com.blackgear.vanillabackport.common.api.variant;
+package com.blackgear.vanillabackport.common.api.variant.spawn;
 
 import com.mojang.datafixers.DataFixUtils;
 import com.mojang.serialization.Codec;

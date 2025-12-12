@@ -1,10 +1,13 @@
 package com.blackgear.vanillabackport.common.level.entities.animal;
 
 import com.blackgear.vanillabackport.common.api.variant.*;
+import com.blackgear.vanillabackport.common.api.variant.spawn.PriorityProvider;
+import com.blackgear.vanillabackport.common.api.variant.spawn.SpawnCondition;
+import com.blackgear.vanillabackport.common.api.variant.spawn.SpawnContext;
+import com.blackgear.vanillabackport.common.api.variant.spawn.SpawnPrioritySelectors;
 import com.blackgear.vanillabackport.core.registries.ModRegistries;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import io.netty.buffer.ByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;

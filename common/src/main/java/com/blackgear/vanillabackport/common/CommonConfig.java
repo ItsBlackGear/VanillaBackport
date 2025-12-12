@@ -5,10 +5,11 @@ import com.blackgear.platform.core.util.config.ConfigBuilder;
 public class CommonConfig {
     // Bundles of Bravery
     public final ConfigBuilder.ConfigValue<Boolean> hasUpdatedBundles;
-    public final ConfigBuilder.ConfigValue<Boolean> hasVillageBundles;
+    public final ConfigBuilder.ConfigValue<Boolean> hadBundleLoot;
 
     // The Garden Awakens
     public final ConfigBuilder.ConfigValue<Boolean> hasResin;
+    public final ConfigBuilder.ConfigValue<Boolean> hasResinLoot;
     public final ConfigBuilder.ConfigValue<Boolean> hasCreaking;
     public final ConfigBuilder.ConfigValue<Boolean> hasPaleGarden;
     public final ConfigBuilder.ConfigValue<Boolean> hasPaleTrades;
@@ -27,6 +28,7 @@ public class CommonConfig {
     public final ConfigBuilder.ConfigValue<Boolean> hasWolfSoundVariants;
     public final ConfigBuilder.ConfigValue<Boolean> hasCamelSpawns;
     public final ConfigBuilder.ConfigValue<Boolean> hasSpringTrades;
+    public final ConfigBuilder.ConfigValue<Boolean> hasLodestoneLoot;
 
     // Chase the Skies
     public final ConfigBuilder.ConfigValue<Boolean> hasDriedGhasts;
@@ -41,13 +43,15 @@ public class CommonConfig {
         builder.push("Bundles of Bravery");
         this.hasUpdatedBundles = builder.comment("toggle the updated controls and UI for bundles")
             .define("has_updated_bundles", true);
-        this.hasVillageBundles = builder.comment("allow bundles to generate in village chests")
-            .define("bundles_on_villages", true);
+        this.hadBundleLoot = builder.comment("allow bundles to appear on chests at villages")
+            .define("bundle_loot", true);
         builder.pop();
 
         builder.push("The Garden Awakens");
-        this.hasResin = builder.comment("allow resin to be obtainable from creaking hearts and woodland mansions")
+        this.hasResin = builder.comment("allow resin to be obtainable from creaking hearts")
             .define("resin", true);
+        this.hasResinLoot = builder.comment("allow resin to appear on chests at woodland mansions")
+            .define("resin_loot", true);
         this.hasCreaking = builder.comment("allow creakings to spawn from creaking hearts")
             .define("creaking", true);
         this.hasPaleGarden = builder.comment("allow the pale garden to generate in the overworld")
@@ -83,6 +87,8 @@ public class CommonConfig {
             .define("spring_trades", true);
         this.hasCamelSpawns = builder.comment("allow camels to spawn outside of villages")
             .define("camel_spawns", true);
+        this.hasLodestoneLoot = builder.comment("allow lodestones to appear on chests at ruined portals")
+            .define("lodestone_loot", true);
         builder.pop();
 
         builder.push("Chase the Skies");
