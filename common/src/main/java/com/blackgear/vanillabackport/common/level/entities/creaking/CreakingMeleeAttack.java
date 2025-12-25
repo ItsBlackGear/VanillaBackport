@@ -14,7 +14,7 @@ import net.minecraft.world.item.ProjectileWeaponItem;
 import java.util.function.Predicate;
 
 public class CreakingMeleeAttack {
-    public static <T extends Mob> OneShot<T> create(Predicate<T> predicate, int cooldownBetweenAttacks) {
+    public static <T extends Mob> OneShot<T> create(Predicate<T> canAttackPredicate, int cooldownBetweenAttacks) {
         return BehaviorBuilder.create(
             instance -> instance.group(
                     instance.registered(MemoryModuleType.LOOK_TARGET),
@@ -24,15 +24,15 @@ public class CreakingMeleeAttack {
                 )
                 .apply(
                     instance,
-                    (lookTarget, attackTarget, attackCoolingDown, nearestVisibleLivingEntities) -> (serverLevel, mob, l) -> {
+                    (lookTarget, attackTarget, attackCoolingDown, nearestVisibleLivingEntities) -> (level, body, timestamp) -> {
                         LivingEntity target = instance.get(attackTarget);
-                        if (predicate.test(mob)
-                            && !isHoldingUsableProjectileWeapon(mob)
-                            && mob.isWithinMeleeAttackRange(target)
+                        if (canAttackPredicate.test(body)
+                            && !isHoldingUsableProjectileWeapon(body)
+                            && body.isWithinMeleeAttackRange(target)
                             && instance.<NearestVisibleLivingEntities>get(nearestVisibleLivingEntities).contains(target)) {
                             lookTarget.set(new EntityTracker(target, true));
-                            mob.swing(InteractionHand.MAIN_HAND);
-                            mob.doHurtTarget(target);
+                            body.swing(InteractionHand.MAIN_HAND);
+                            body.doHurtTarget(target);
                             attackCoolingDown.setWithExpiry(true, cooldownBetweenAttacks);
                             return true;
                         } else {
@@ -43,10 +43,10 @@ public class CreakingMeleeAttack {
         );
     }
 
-    private static boolean isHoldingUsableProjectileWeapon(Mob mob) {
-        return mob.isHolding(stack -> {
+    private static boolean isHoldingUsableProjectileWeapon(Mob body) {
+        return body.isHolding(stack -> {
             Item item = stack.getItem();
-            return item instanceof ProjectileWeaponItem projectile && mob.canFireProjectileWeapon(projectile);
+            return item instanceof ProjectileWeaponItem projectile && body.canFireProjectileWeapon(projectile);
         });
     }
 }

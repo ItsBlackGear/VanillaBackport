@@ -6,7 +6,7 @@ import com.blackgear.vanillabackport.common.registries.ModBlocks;
 import com.blackgear.vanillabackport.common.registries.ModTreeDecorators;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
-import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.tags.BlockTags;
@@ -15,14 +15,13 @@ import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 public class CreakingHeartDecorator extends TreeDecorator {
-    public static final MapCodec<CreakingHeartDecorator> CODEC = RecordCodecBuilder.mapCodec(instance ->
-        instance.group(Codec.floatRange(0.0F, 1.0F).fieldOf("probability").forGetter(decorator -> decorator.probability))
-            .apply(instance, CreakingHeartDecorator::new));
+    public static final MapCodec<CreakingHeartDecorator> CODEC = Codec.floatRange(0.0F, 1.0F)
+        .fieldOf("probability")
+        .xmap(CreakingHeartDecorator::new, decorator -> decorator.probability);
 
     private final float probability;
 
@@ -41,20 +40,18 @@ public class CreakingHeartDecorator extends TreeDecorator {
         List<BlockPos> logs = context.logs();
         if (!logs.isEmpty()) {
             if (random.nextFloat() < this.probability) {
-                List<BlockPos> validPositions = new ArrayList<>(context.logs());
-                Collections.shuffle(validPositions);
-
-                Optional<BlockPos> validPosition = validPositions.stream().filter(pos -> {
-                    for (Direction direction : Direction.values()) {
-                        if (!context.level().isStateAtPosition(pos.relative(direction), state -> state.is(BlockTags.LOGS))) {
+                List<BlockPos> heartPlacements = new ArrayList<>(context.logs());
+                Util.shuffle(heartPlacements, random);
+                Optional<BlockPos> targetPos = heartPlacements.stream().filter(pos -> {
+                    for (Direction dir : Direction.values()) {
+                        if (!context.level().isStateAtPosition(pos.relative(dir), state -> state.is(BlockTags.LOGS))) {
                             return false;
                         }
                     }
 
                     return true;
                 }).findFirst();
-
-                validPosition.ifPresent(pos ->
+                targetPos.ifPresent(pos ->
                     context.setBlock(
                         pos,
                         ModBlocks.CREAKING_HEART.get().defaultBlockState()

@@ -13,6 +13,7 @@ import com.mojang.serialization.Dynamic;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.protocol.game.ClientboundTeleportEntityPacket;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -73,6 +74,11 @@ public class HappyGhast extends Animal implements PlayerRideable, LeashExtension
     }
 
     private void setServerStillTimeout(int timeout) {
+        if (this.serverStillTimeout <= 0 && timeout > 0 && this.level() instanceof ServerLevel level) {
+            this.syncPacketPositionCodec(this.getX(), this.getY(), this.getZ());
+            level.getChunkSource().chunkMap.broadcast(this, new ClientboundTeleportEntityPacket(this));
+        }
+
         this.serverStillTimeout = timeout;
         this.syncStayStillFlag();
     }
@@ -297,9 +303,7 @@ public class HappyGhast extends Animal implements PlayerRideable, LeashExtension
 
             if (!stack.is(Items.SHEARS) || this.isVehicle() || !this.isHarnessed() && !player.isCreative()) {
                 if (this.isHarnessed()) {
-                    if (!this.level().isClientSide()) {
-                        player.startRiding(this);
-                    }
+                    if (!this.level().isClientSide()) player.startRiding(this);
 
                     return InteractionResult.sidedSuccess(this.level().isClientSide());
                 } else {
@@ -388,18 +392,18 @@ public class HappyGhast extends Animal implements PlayerRideable, LeashExtension
         return new Vec3(forward, upward, strafe).scale(((double) 3.9F * this.getAttributeValue(Attributes.FLYING_SPEED)) * VanillaBackport.COMMON_CONFIG.happyGhastSpeedModifier.get());
     }
 
-    protected Vec2 getRiddenRotation(LivingEntity livingEntity) {
-        return new Vec2(livingEntity.getXRot() * 0.5F, livingEntity.getYRot());
+    protected Vec2 getRiddenRotation(LivingEntity controller) {
+        return new Vec2(controller.getXRot() * 0.5F, controller.getYRot());
     }
 
     @Override
-    protected void tickRidden(Player player, Vec3 vec3) {
-        super.tickRidden(player, vec3);
-        Vec2 riddenRotation = this.getRiddenRotation(player);
+    protected void tickRidden(Player controller, Vec3 riddenInput) {
+        super.tickRidden(controller, riddenInput);
+        Vec2 rotation = this.getRiddenRotation(controller);
         float yRot = this.getYRot();
-        float degrees = Mth.wrapDegrees(riddenRotation.y - yRot);
-        yRot += degrees * 0.08F;
-        this.setRot(yRot, riddenRotation.x);
+        float diff = Mth.wrapDegrees(rotation.y - yRot);
+        yRot += diff * 0.08F;
+        this.setRot(yRot, rotation.x);
         this.yRotO = this.yBodyRot = this.yHeadRot = yRot;
     }
 
@@ -472,17 +476,17 @@ public class HappyGhast extends Animal implements PlayerRideable, LeashExtension
 
     private void checkRestriction() {
         if (!this.isLeashed() && !this.isVehicle()) {
-            int i = this.getHappyGhastRestrictionRadius();
-            if (!this.hasRestriction() || !this.getRestrictCenter().closerThan(this.blockPosition(), i + 16) || i != this.getRestrictRadius()) {
-                this.restrictTo(this.blockPosition(), i);
+            int radius = this.getHappyGhastRestrictionRadius();
+            if (!this.hasRestriction() || !this.getRestrictCenter().closerThan(this.blockPosition(), radius + 16) || radius != this.getRestrictRadius()) {
+                this.restrictTo(this.blockPosition(), radius);
             }
         }
     }
 
     private void continuousHeal() {
         if (this.level() instanceof ServerLevel server && this.isAlive() && this.deathTime == 0 && this.getMaxHealth() != this.getHealth()) {
-            boolean canHeal = server.dimensionType().natural() && (this.isInClouds() || this.precipitationAt(this.blockPosition()) != Biome.Precipitation.NONE);
-            if (this.tickCount % (canHeal ? 20 : 600) == 0) {
+            boolean isFastHealing = server.dimensionType().natural() && (this.isInClouds() || this.precipitationAt(this.blockPosition()) != Biome.Precipitation.NONE);
+            if (this.tickCount % (isFastHealing ? 20 : 600) == 0) {
                 this.heal(1.0F);
             }
         }
@@ -593,13 +597,13 @@ public class HappyGhast extends Animal implements PlayerRideable, LeashExtension
     }
 
     private boolean scanPlayerAboveGhast() {
-        AABB box = this.getBoundingBox();
-        AABB topSurface = new AABB(box.minX - 1.0, box.maxY, box.minZ - 1.0, box.maxX + 1.0, box.maxY + box.getYsize() / 2.0, box.maxZ + 1.0);
+        AABB bb = this.getBoundingBox();
+        AABB ghastDetectionBox = new AABB(bb.minX - 1.0, bb.maxY - 1.0E-5F, bb.minZ - 1.0, bb.maxX + 1.0, bb.maxY + bb.getYsize() / 2.0, bb.maxZ + 1.0);
 
         for (Player player : this.level().players()) {
             if (!player.isSpectator()) {
-                Entity entity = player.getRootVehicle();
-                if (!(entity instanceof HappyGhast) && topSurface.contains(player.position())) {
+                Entity rootVehicle = player.getRootVehicle();
+                if (!(rootVehicle instanceof HappyGhast) && ghastDetectionBox.contains(rootVehicle.position())) {
                     return true;
                 }
             }
@@ -675,14 +679,14 @@ public class HappyGhast extends Animal implements PlayerRideable, LeashExtension
         @Override
         public void tick() {
             if (HappyGhast.this.isOnStillTimeout()) {
-                float degrees = wrapDegrees90(HappyGhast.this.getYRot());
-                HappyGhast.this.setYRot(HappyGhast.this.getYRot() - degrees);
+                float closeAngle = wrapDegrees90(HappyGhast.this.getYRot());
+                HappyGhast.this.setYRot(HappyGhast.this.getYRot() - closeAngle);
                 HappyGhast.this.setYHeadRot(HappyGhast.this.getYRot());
             } else if (this.lookAtCooldown > 0) {
                 this.lookAtCooldown--;
-                double x = this.wantedX - HappyGhast.this.getX();
-                double z = this.wantedZ - HappyGhast.this.getZ();
-                HappyGhast.this.setYRot(-((float) Mth.atan2(x, z)) * (180.0F / (float) Math.PI));
+                double xd = this.wantedX - HappyGhast.this.getX();
+                double zd = this.wantedZ - HappyGhast.this.getZ();
+                HappyGhast.this.setYRot(-((float) Mth.atan2(xd, zd)) * (180.0F / (float) Math.PI));
                 HappyGhast.this.yBodyRot = HappyGhast.this.getYRot();
                 HappyGhast.this.yHeadRot = HappyGhast.this.yBodyRot;
             } else {
@@ -690,8 +694,8 @@ public class HappyGhast extends Animal implements PlayerRideable, LeashExtension
                     return;
                 }
 
-                Vec3 motion = this.mob.getDeltaMovement();
-                this.mob.setYRot(-((float) Mth.atan2(motion.x, motion.z)) * (180F / (float) Math.PI));
+                Vec3 movement = this.mob.getDeltaMovement();
+                this.mob.setYRot(-((float) Mth.atan2(movement.x, movement.z)) * (180F / (float) Math.PI));
                 this.mob.yBodyRot = this.mob.getYRot();
             }
         }

@@ -74,16 +74,6 @@ public class GiftLootGenerator extends SimpleFabricLootTableProvider {
                                                 .nbt(variantNbt(ChickenVariants.COLD.location()))
                                         )
                                     )
-//                                LootItem.lootTableItem(ModItems.BROWN_EGG.get())
-//                                    .apply(SetComponentsFunction.setComponent(DataComponents.ITEM_NAME, Component.translatableWithFallback("clifftree.item.gray_egg","Gray Egg").withStyle(ChatFormatting.WHITE)))
-//                                    .apply(SetComponentsFunction.setComponent(ModDataComponents.CHICKEN_VARIANT.get(), ChickenVariants.MARSH))
-//                                    .when(
-//                                        LootItemEntityPropertyCondition.hasProperties(
-//                                            LootContext.EntityTarget.THIS,
-//                                            EntityPredicate.Builder.entity()
-//                                                .nbt(variantNbt(ChickenVariants.MARSH.location()))
-//                                        )
-//                                    )
                             )
                         )
                 )

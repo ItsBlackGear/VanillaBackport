@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.core.mixin.leash;
 
-import com.blackgear.vanillabackport.common.api.leash.LeashRenderer;
+import com.blackgear.vanillabackport.common.api.leash.LeashFeatureRenderer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.culling.Frustum;
@@ -19,13 +19,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(EntityRenderer.class)
 public class EntityRendererMixin<T extends Entity> {
-    @Unique private LeashRenderer<T> leashRenderer;
+    @Unique private LeashFeatureRenderer<T> leashFeatureRenderer;
 
     @Shadow @Final protected EntityRenderDispatcher entityRenderDispatcher;
 
     @Inject(method = "<init>", at = @At("TAIL"))
     private void vb$init(EntityRendererProvider.Context context, CallbackInfo ci) {
-        this.leashRenderer = new LeashRenderer<>(this.entityRenderDispatcher);
+        this.leashFeatureRenderer = new LeashFeatureRenderer<>(this.entityRenderDispatcher);
     }
 
     @Inject(
@@ -38,11 +38,11 @@ public class EntityRendererMixin<T extends Entity> {
     )
     private void vb$renderLeash(T entity, float entityYaw, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, CallbackInfo ci) {
         ci.cancel();
-        this.leashRenderer.render(entity, partialTick, poseStack, bufferSource);
+        this.leashFeatureRenderer.render(entity, partialTick, poseStack, bufferSource);
     }
 
     @Inject(method = "shouldRender", at = @At("TAIL"), cancellable = true)
     private void vb$shouldRender(T entity, Frustum camera, double camX, double camY, double camZ, CallbackInfoReturnable<Boolean> cir) {
-        cir.setReturnValue(this.leashRenderer.shouldRender(entity, camera, cir.getReturnValue()));
+        cir.setReturnValue(this.leashFeatureRenderer.shouldRender(entity, camera, cir.getReturnValue()));
     }
 }

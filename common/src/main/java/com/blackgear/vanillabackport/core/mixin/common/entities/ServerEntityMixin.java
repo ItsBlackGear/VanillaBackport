@@ -8,7 +8,6 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -61,67 +60,58 @@ public abstract class ServerEntityMixin {
             }
 
             if (this.tickCount % this.updateInterval == 0 || this.entity.hasImpulse || this.entity.getEntityData().isDirty()) {
+                byte yRot = (byte) Mth.floor(this.entity.getYRot() * 256.0F / 360.0F);
+                byte xRot = (byte) Mth.floor(this.entity.getXRot() * 256.0F / 360.0F);
+                boolean shouldSendRotation = Math.abs(yRot - this.lastSentYRot) >= 1 || Math.abs(xRot - this.lastSentXRot) >= 1;
+
                 if (!this.entity.isPassenger()) {
                     this.teleportDelay++;
-                    int yRot = Mth.floor(this.entity.getYRot() * 256.0F / 360.0F);
-                    int xRot = Mth.floor(this.entity.getXRot() * 256.0F / 360.0F);
-                    Vec3 position = this.entity.trackingPosition();
-                    boolean positionChanged = this.positionCodec.delta(position).lengthSqr() >= 7.6293945E-6F;
+                    Vec3 currentPosition = this.entity.trackingPosition();
+                    boolean positionChanged = this.positionCodec.delta(currentPosition).lengthSqr() >= 7.6293945E-6F;
+                    Packet<ClientGamePacketListener> packet = null;
+                    boolean pos = positionChanged || this.tickCount % 60 == 0;
+                    boolean sendPosition = false;
+                    boolean sendRotation = false;
+                    long x = this.positionCodec.encodeX(currentPosition);
+                    long y = this.positionCodec.encodeY(currentPosition);
+                    long z = this.positionCodec.encodeZ(currentPosition);
+                    boolean deltaTooBig = x < -32768L || x > 32767L || y < -32768L || y > 32767L || z < -32768L || z > 32767L;
 
-                    boolean shouldUpdatePosition = positionChanged || this.tickCount % 60 == 0;
-                    boolean shouldUpdateRotation = Math.abs(yRot - this.lastSentYRot) >= 1 || Math.abs(xRot - this.lastSentXRot) >= 1;
-
-                    Packet<?> packet = null;
-                    boolean positionUpdated = false;
-                    boolean rotationUpdated = false;
-
-                    if (this.tickCount > 0 || this.entity instanceof AbstractArrow) {
-                        long x = this.positionCodec.encodeX(position);
-                        long y = this.positionCodec.encodeY(position);
-                        long z = this.positionCodec.encodeZ(position);
-                        boolean isOutOfRange = x < -32768L || x > 32767L || y < -32768L || y > 32767L || z < -32768L || z > 32767L;
-                        if (ghast.getRequiresPrecisePosition() || isOutOfRange || this.teleportDelay > 400 || this.wasRiding || this.wasOnGround != this.entity.onGround()) {
-                            this.wasOnGround = this.entity.onGround();
-                            this.teleportDelay = 0;
-                            packet = new ClientboundTeleportEntityPacket(this.entity);
-                            positionUpdated = true;
-                            rotationUpdated = true;
-                        } else if ((!shouldUpdatePosition || !shouldUpdateRotation) && !(this.entity instanceof AbstractArrow)) {
-                            if (shouldUpdatePosition) {
-                                packet = new ClientboundMoveEntityPacket.Pos(this.entity.getId(), (short) ((int) x), (short) ((int) y), (short) ((int) z), this.entity.onGround());
-                                positionUpdated = true;
-                            } else if (shouldUpdateRotation) {
-                                packet = new ClientboundMoveEntityPacket.Rot(this.entity.getId(), (byte) yRot, (byte) xRot, this.entity.onGround());
-                                rotationUpdated = true;
-                            }
-                        } else {
-                            packet = new ClientboundMoveEntityPacket.PosRot(this.entity.getId(), (short) ((int) x), (short) ((int) y), (short) ((int) z), (byte) yRot, (byte) xRot, this.entity.onGround());
-                            positionUpdated = true;
-                            rotationUpdated = true;
-                            ghast.setRequiresPrecisePosition(false);
+                    if (ghast.getRequiresPrecisePosition() || deltaTooBig || this.teleportDelay > 400 || this.wasRiding || this.wasOnGround != this.entity.onGround()) {
+                        this.wasOnGround = this.entity.onGround();
+                        this.teleportDelay = 0;
+                        packet = new ClientboundTeleportEntityPacket(this.entity);
+                        sendPosition = true;
+                        sendRotation = true;
+                    } else if (!pos || !shouldSendRotation) {
+                        if (pos) {
+                            packet = new ClientboundMoveEntityPacket.Pos(this.entity.getId(), (short) x, (short) y, (short) z, this.entity.onGround());
+                            sendPosition = true;
+                        } else if (shouldSendRotation) {
+                            packet = new ClientboundMoveEntityPacket.Rot(this.entity.getId(), yRot, xRot, this.entity.onGround());
+                            sendRotation = true;
                         }
+                    } else {
+                        packet = new ClientboundMoveEntityPacket.PosRot(this.entity.getId(), (short) x, (short) y, (short) z, yRot, xRot, this.entity.onGround());
+                        sendPosition = true;
+                        sendRotation = true;
                     }
 
-                    if ((this.trackDelta || this.entity.hasImpulse || this.entity instanceof LivingEntity && ((LivingEntity)this.entity).isFallFlying()) && this.tickCount > 0) {
+                    if (this.trackDelta || this.entity.hasImpulse || this.entity instanceof LivingEntity living && living.isFallFlying()) {
                         Vec3 movement = this.entity.getDeltaMovement();
-                        double distance = movement.distanceToSqr(this.lastSentMovement);
-
-                        if (distance > 1.0E-7 || distance > 0.0 && movement.lengthSqr() == 0.0) {
+                        double diff = movement.distanceToSqr(this.lastSentMovement);
+                        if (diff > 1.0E-7 || diff > 0.0 && movement.lengthSqr() == 0.0) {
                             this.lastSentMovement = movement;
                             this.broadcast.accept(new ClientboundSetEntityMotionPacket(this.entity.getId(), this.lastSentMovement));
                         }
                     }
 
-                    if (packet != null) {
-                        this.broadcast.accept(packet);
-                    }
+                    if (packet != null) this.broadcast.accept(packet);
 
                     this.sendDirtyEntityData();
-                    if (positionUpdated) {
-                        this.positionCodec.setBase(position);
-                    }
+                    if (sendPosition) this.positionCodec.setBase(currentPosition);
 
-                    if (rotationUpdated) {
+                    if (sendRotation) {
                         this.lastSentYRot = yRot;
                         this.lastSentXRot = xRot;
                     }
@@ -129,10 +119,10 @@ public abstract class ServerEntityMixin {
                     this.wasRiding = false;
                 }
 
-                int headYaw = Mth.floor(this.entity.getYHeadRot() * 256.0F / 360.0F);
-                if (Math.abs(headYaw - this.lastSentYHeadRot) >= 1) {
-                    this.broadcast.accept(new ClientboundRotateHeadPacket(this.entity, (byte) headYaw));
-                    this.lastSentYHeadRot = headYaw;
+                byte yHeadRot = (byte) Mth.floor(this.entity.getYHeadRot() * 256.0F / 360.0F);
+                if (Math.abs(yHeadRot - this.lastSentYHeadRot) >= 1) {
+                    this.broadcast.accept(new ClientboundRotateHeadPacket(this.entity, yHeadRot));
+                    this.lastSentYHeadRot = yHeadRot;
                 }
 
                 this.entity.hasImpulse = false;

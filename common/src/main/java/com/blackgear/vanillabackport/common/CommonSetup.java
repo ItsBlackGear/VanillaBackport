@@ -38,9 +38,9 @@ public class CommonSetup {
             event.register(VanillaBackport.resource("cow_variants"), new CowVariantReloadListener());
             event.register(VanillaBackport.resource("chicken_variants"), new ChickenVariantReloadListener());
             event.register(VanillaBackport.resource("pig_variants"), new PigVariantReloadListener());
+            event.register(VanillaBackport.resource("wolf_variants"), new WolfVariantReloadListener());
             event.register(VanillaBackport.resource("frog_variants"), new FrogVariantReloadListener());
             event.register(VanillaBackport.resource("cat_variants"), new CatVariantReloadListener());
-            event.register(VanillaBackport.resource("wolf_variants"), new WolfVariantReloadListener());
         });
 
         MobIntegration.registerIntegrations(CommonSetup::mobIntegrations);
