@@ -2,7 +2,6 @@ package com.blackgear.vanillabackport.client.level.entities.model;
 
 import com.blackgear.vanillabackport.client.level.entities.animation.CreakingAnimation;
 import com.blackgear.vanillabackport.common.level.entities.creaking.Creaking;
-import com.blackgear.vanillabackport.core.util.MthUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.HierarchicalModel;
@@ -12,23 +11,17 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
-
-import java.util.List;
+import net.minecraft.util.Mth;
 
 @Environment(EnvType.CLIENT)
 public class CreakingModel<T extends Creaking> extends HierarchicalModel<T> {
-    public static final List<ModelPart> NO_PARTS = List.of();
     private final ModelPart root;
     private final ModelPart head;
-    private final List<ModelPart> headParts;
-
-    private boolean eyesGlowing;
 
     public CreakingModel(ModelPart root) {
         this.root = root.getChild("root");
         ModelPart upperBody = this.root.getChild("upper_body");
         this.head = upperBody.getChild("head");
-        this.headParts = List.of(this.head);
     }
 
     private static MeshDefinition createMesh() {
@@ -112,19 +105,10 @@ public class CreakingModel<T extends Creaking> extends HierarchicalModel<T> {
     }
 
     @Override
-    public void prepareMobModel(T entity, float limbSwing, float limbSwingAmount, float partialTick) {
-        if (entity.isTearingDown()) {
-            this.eyesGlowing = entity.hasGlowingEyes();
-        } else {
-            this.eyesGlowing = entity.isActive();
-        }
-    }
-
-    @Override
     public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
-        this.head.xRot = headPitch * MthUtils.TO_DEGREES;
-        this.head.yRot = netHeadYaw * MthUtils.TO_DEGREES;
+        this.head.xRot = headPitch * Mth.DEG_TO_RAD;
+        this.head.yRot = netHeadYaw * Mth.DEG_TO_RAD;
 
         if (entity.canMove()) {
             this.animateWalk(CreakingAnimation.CREAKING_WALK, limbSwing, limbSwingAmount, 1.0F, 1.0F);
@@ -133,9 +117,5 @@ public class CreakingModel<T extends Creaking> extends HierarchicalModel<T> {
         this.animate(entity.attackAnimationState, CreakingAnimation.CREAKING_ATTACK, ageInTicks);
         this.animate(entity.invulnerabilityAnimationState, CreakingAnimation.CREAKING_INVULNERABLE, ageInTicks);
         this.animate(entity.deathAnimationState, CreakingAnimation.CREAKING_DEATH, ageInTicks);
-    }
-
-    public List<ModelPart> getHeadParts() {
-        return !this.eyesGlowing ? NO_PARTS : this.headParts;
     }
 }

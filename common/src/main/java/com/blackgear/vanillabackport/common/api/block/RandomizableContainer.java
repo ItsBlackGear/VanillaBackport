@@ -3,6 +3,7 @@ package com.blackgear.vanillabackport.common.api.block;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -31,10 +32,18 @@ public interface RandomizableContainer extends Container {
     @Nullable Level getLevel();
 
     default boolean tryLoadLootTable(CompoundTag tag) {
-        ResourceLocation lootTable = ResourceLocation.tryParse(tag.getString(LOOT_TABLE_TAG));
-        this.setLootTable(lootTable);
-        this.setLootTableSeed(tag.getLong(LOOT_TABLE_SEED_TAG));
-        return lootTable != null;
+        if (tag.contains(LOOT_TABLE_TAG, Tag.TAG_STRING)) {
+            this.setLootTable(ResourceLocation.tryParse(tag.getString(LOOT_TABLE_TAG)));
+            if (tag.contains(LOOT_TABLE_SEED_TAG, Tag.TAG_LONG)) {
+                this.setLootTableSeed(tag.getLong(LOOT_TABLE_SEED_TAG));
+            } else {
+                this.setLootTableSeed(0L);
+            }
+
+            return true;
+        } else {
+            return false;
+        }
     }
 
     default boolean trySaveLootTable(CompoundTag tag) {
@@ -42,7 +51,7 @@ public interface RandomizableContainer extends Container {
         if (lootTable == null) {
             return false;
         } else {
-            tag.putString(LOOT_TABLE_TAG,lootTable.toString());
+            tag.putString(LOOT_TABLE_TAG, lootTable.toString());
             long seed = this.getLootTableSeed();
             if (seed != 0L) tag.putLong(LOOT_TABLE_SEED_TAG, seed);
 

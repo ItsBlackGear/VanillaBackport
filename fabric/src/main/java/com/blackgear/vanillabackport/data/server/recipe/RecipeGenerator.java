@@ -38,6 +38,7 @@ public class RecipeGenerator extends FabricRecipeProvider {
 
         oneToOneConversionRecipe(exporter, Items.ORANGE_DYE, ModBlocks.OPEN_EYEBLOSSOM.get(), "orange_dye");
         oneToOneConversionRecipe(exporter, Items.GRAY_DYE, ModBlocks.CLOSED_EYEBLOSSOM.get(), "gray_dye");
+        oneToOneConversionRecipe(exporter, Items.YELLOW_DYE, ModBlocks.WILDFLOWERS.get(), "yellow_dye");
 
         twoByTwoPacker(exporter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.RESIN_BRICKS.get(), ModItems.RESIN_BRICK.get());
         nineBlockStorageRecipes(exporter, RecipeCategory.MISC, ModBlocks.RESIN_CLUMP.get(), RecipeCategory.BUILDING_BLOCKS, ModBlocks.RESIN_BLOCK.get());

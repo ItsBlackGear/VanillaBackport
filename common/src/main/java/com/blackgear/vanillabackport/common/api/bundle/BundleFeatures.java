@@ -25,6 +25,10 @@ public final class BundleFeatures {
         return VanillaBackport.COMMON_CONFIG.hasUpdatedBundles.get();
     }
 
+    public static boolean isBundle(ItemStack stack) {
+        return stack.is(ModItemTags.BUNDLES);
+    }
+
     public static boolean canItemBeInBundle(ItemStack stack) {
         return !stack.isEmpty() && stack.getItem().canFitInsideContainerItems();
     }
@@ -36,11 +40,7 @@ public final class BundleFeatures {
             ListTag items = tag.getList(TAG_ITEMS, 10);
             if (!items.isEmpty()) {
                 int selectedItem = tag.getInt(TAG_SELECTED_ITEM);
-                int index = isValidIndex(selectedItem, items.size()) ? selectedItem : 0;
-
-                if (!isValidIndex(index, items.size())) {
-                    return null;
-                }
+                int index = indexIsOutsideAllowedBounds(selectedItem, items.size()) ? 0 : selectedItem;
 
                 CompoundTag itemTag = items.getCompound(index);
                 ItemStack removedItem = ItemStack.of(itemTag);
@@ -50,7 +50,7 @@ public final class BundleFeatures {
                     bundle.removeTagKey(TAG_ITEMS);
                 }
 
-                setSelectedItem(bundle, NO_SELECTED_ITEM);
+                toggleSelectedItem(bundle, NO_SELECTED_ITEM);
                 return removedItem;
             }
         }
@@ -110,7 +110,11 @@ public final class BundleFeatures {
 
     public static void setSelectedItem(ItemStack bundle, int index) {
         CompoundTag tag = bundle.getOrCreateTag();
-        tag.putInt(TAG_SELECTED_ITEM, index);
+        if (index == NO_SELECTED_ITEM) {
+            tag.remove(TAG_SELECTED_ITEM);
+        } else {
+            tag.putInt(TAG_SELECTED_ITEM, index);
+        }
     }
 
     public static int getSelectedItem(ItemStack bundle) {
@@ -183,28 +187,29 @@ public final class BundleFeatures {
     }
 
     public static void toggleSelectedItem(ItemStack bundle, int index) {
+        if (!isBundle(bundle)) return;
         CompoundTag tag = bundle.getOrCreateTag();
         int selected0 = tag.getInt(TAG_SELECTED_ITEM);
 
         if (!tag.contains(TAG_ITEMS)) {
-            setSelectedItem(bundle, NO_SELECTED_ITEM);
-            return;
+             if (selected0 != NO_SELECTED_ITEM) setSelectedItem(bundle, NO_SELECTED_ITEM);
+             return;
         }
 
         ListTag items = tag.getList(TAG_ITEMS, 10);
 
-        if (!isValidIndex(index, items.size())) {
-            setSelectedItem(bundle, NO_SELECTED_ITEM);
-            return;
+        int selected = (selected0 != index && !indexIsOutsideAllowedBounds(index, items.size())) ? index : NO_SELECTED_ITEM;
+        if (selected != selected0) {
+            setSelectedItem(bundle, selected);
         }
-
-        boolean outsideBounds = index < 0 || index >= items.size();
-        int selected = selected0 != index && !outsideBounds ? index : NO_SELECTED_ITEM;
-        setSelectedItem(bundle, selected);
     }
 
     private static boolean isValidIndex(int index, int size) {
         return index >= 0 && index < size;
+    }
+
+    private static boolean indexIsOutsideAllowedBounds(int item, int size) {
+        return item < 0 || item >= size;
     }
 
     public static int getNumberOfItemsToShow(ItemStack bundle) {

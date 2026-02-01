@@ -5,6 +5,7 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -24,6 +25,11 @@ public abstract class MobMixin extends LivingEntity {
 
     protected MobMixin(EntityType<? extends LivingEntity> entityType, Level level) {
         super(entityType, level);
+    }
+
+    @Inject(method = "canBeLeashed", at = @At("HEAD"), cancellable = true)
+    private void vb$canBeLeashed(Player player, CallbackInfoReturnable<Boolean> cir) {
+        cir.setReturnValue(!(this instanceof Enemy));
     }
 
     @Inject(
@@ -52,7 +58,7 @@ public abstract class MobMixin extends LivingEntity {
 
     @Inject(
         method = "finalizeSpawn",
-        at = @At("RETURN")
+        at = @At("HEAD")
     )
     protected void vb$finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, SpawnGroupData spawnData, CompoundTag dataTag, CallbackInfoReturnable<SpawnGroupData> cir) {
 

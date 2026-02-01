@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "#minecraft:has_wolf/black",
+      "required": false
+    },
+    "minecraft:old_growth_pine_taiga"
+  ]
+}

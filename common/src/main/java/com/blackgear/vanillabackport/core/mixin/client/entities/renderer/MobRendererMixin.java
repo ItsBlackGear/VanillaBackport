@@ -1,6 +1,8 @@
 package com.blackgear.vanillabackport.core.mixin.client.entities.renderer;
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.MobRenderer;
@@ -24,5 +26,17 @@ public abstract class MobRendererMixin<T extends Mob, M extends EntityModel<T>> 
     private void vb$init(EntityRendererProvider.Context context, M model, float shadowRadius, CallbackInfo ci) {
         this.context = context;
         this.defaultModel = model;
+    }
+
+    @Inject(
+        method = "render(Lnet/minecraft/world/entity/Mob;FFLcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;I)V",
+        at = @At(
+            value = "INVOKE",
+            target = "Lnet/minecraft/client/renderer/entity/MobRenderer;renderLeash(Lnet/minecraft/world/entity/Mob;FLcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;Lnet/minecraft/world/entity/Entity;)V"
+        ),
+        cancellable = true
+    )
+    private void onRenderLeash(T entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource buffer, int packedLight, CallbackInfo ci) {
+        ci.cancel();
     }
 }

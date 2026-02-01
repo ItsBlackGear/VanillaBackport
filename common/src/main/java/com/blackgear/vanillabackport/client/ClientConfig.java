@@ -9,6 +9,7 @@ public class ClientConfig {
     // Spring to Life
     public final ConfigBuilder.ConfigValue<Boolean> hasFallingLeaves;
     public final ConfigBuilder.ConfigValue<Double> fallingLeavesFrequency;
+    public final ConfigBuilder.ConfigValue<Boolean> useLegacySpawnEggs;
 
     public ClientConfig(ConfigBuilder builder) {
         builder.push("Bats and Pots");
@@ -21,6 +22,8 @@ public class ClientConfig {
             .define("falling_leaves", true);
         this.fallingLeavesFrequency = builder.comment("how often should falling leaves particles generate")
             .defineInRange("falling_leaves_frequency", 0.01, 0.0, 1.0);
+        this.useLegacySpawnEggs = builder.comment("Use the legacy spawn egg textures")
+            .define("use_legacy_spawn_eggs", false);
         builder.pop();
     }
 }

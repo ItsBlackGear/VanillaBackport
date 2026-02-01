@@ -2,7 +2,6 @@ package com.blackgear.vanillabackport.core.mixin.client;
 
 import com.blackgear.vanillabackport.common.api.bundle.BundleFeatures;
 import com.blackgear.vanillabackport.common.api.bundle.BundleSelectionTooltip;
-import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.Font;
@@ -29,10 +28,10 @@ import java.util.List;
 
 @Mixin(ClientBundleTooltip.class)
 public class ClientBundleTooltipMixin implements ClientTooltipComponent {
-    @Unique private static final ResourceLocation BUNDLE_PROGRESS_BAR_TEXTURE = VanillaBackport.vanilla("textures/container/bundle/bundle_progressbar.png");
-    @Unique private static final ResourceLocation BUNDLE_SLOT_HIGHLIGHT_BACK_TEXTURE = VanillaBackport.vanilla("textures/container/bundle/slot_highlight_back.png");
-    @Unique private static final ResourceLocation BUNDLE_SLOT_HIGHLIGHT_FRONT_TEXTURE = VanillaBackport.vanilla("textures/container/bundle/slot_highlight_front.png");
-    @Unique private static final ResourceLocation BUNDLE_SLOT_BACKGROUND_TEXTURE = VanillaBackport.vanilla("textures/container/bundle/slot_background.png");
+    @Unique private static final ResourceLocation BUNDLE_PROGRESS_BAR_TEXTURE = new ResourceLocation("textures/container/bundle/bundle_progressbar.png");
+    @Unique private static final ResourceLocation BUNDLE_SLOT_HIGHLIGHT_BACK_TEXTURE = new ResourceLocation("textures/container/bundle/slot_highlight_back.png");
+    @Unique private static final ResourceLocation BUNDLE_SLOT_HIGHLIGHT_FRONT_TEXTURE = new ResourceLocation("textures/container/bundle/slot_highlight_front.png");
+    @Unique private static final ResourceLocation BUNDLE_SLOT_BACKGROUND_TEXTURE = new ResourceLocation("textures/container/bundle/slot_background.png");
     @Unique private static final Component BUNDLE_EMPTY_DESCRIPTION = Component.translatable("item.minecraft.bundle.empty.description");
     @Unique private static final Component BUNDLE_FULL = Component.translatable("item.minecraft.bundle.full");
     @Unique private static final Component BUNDLE_EMPTY = Component.translatable("item.minecraft.bundle.empty");

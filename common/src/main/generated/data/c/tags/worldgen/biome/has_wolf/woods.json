@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "#minecraft:has_wolf/woods",
+      "required": false
+    },
+    "minecraft:forest"
+  ]
+}

@@ -5,6 +5,7 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.animal.Cow;
 
 @Environment(EnvType.CLIENT)
@@ -25,7 +26,7 @@ public class ColdCowModel<T extends Cow> extends CowVariantModel<T> {
                 .addBox(-6.0F, -10.0F, -7.0F, 12.0F, 18.0F, 10.0F)
                 .texOffs(52, 0)
                 .addBox(-2.0F, 2.0F, -8.0F, 4.0F, 6.0F, 1.0F),
-            PartPose.offsetAndRotation(0.0F, 5.0F, 2.0F, ((float) Math.PI / 2F), 0.0F, 0.0F)
+            PartPose.offsetAndRotation(0.0F, 5.0F, 2.0F, Mth.HALF_PI, 0.0F, 0.0F)
         );
         PartDefinition head = root.addOrReplaceChild(
             "head",

@@ -4,7 +4,9 @@ import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
 import com.blackgear.vanillabackport.common.registries.*;
 import com.blackgear.vanillabackport.core.data.tags.ModBlockTags;
 import com.blackgear.vanillabackport.core.data.tags.ModItemTags;
+import com.blackgear.vanillabackport.core.registries.ModBuiltInLootTables;
 import com.blackgear.vanillabackport.core.util.AnimationUtils;
+import com.blackgear.vanillabackport.core.util.LootUtils;
 import com.blackgear.vanillabackport.core.util.MobUtils;
 import com.blackgear.vanillabackport.core.util.TimeUtils;
 import com.mojang.serialization.Dynamic;
@@ -12,7 +14,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
@@ -35,18 +36,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraft.world.level.storage.loot.LootParams;
-import net.minecraft.world.level.storage.loot.LootTable;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
-import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
-import java.util.function.BiConsumer;
-import java.util.function.Function;
-
 public class Armadillo extends Animal {
-    public static final EntityDataAccessor<ArmadilloState> ARMADILLO_STATE = SynchedEntityData.defineId(Armadillo.class, ModEntityDataSerializers.ARMADILLO_STATE);
+    public static final EntityDataAccessor<ArmadilloState> ARMADILLO_STATE = SynchedEntityData.defineId(Armadillo.class, ModEntityDataSerializers.ARMADILLO_STATE.get());
     public static final Ingredient IS_FOOD = Ingredient.of(ModItemTags.ARMADILLO_FOOD);
     private long inStateTicks = 0L;
     public final AnimationState rollOutAnimationState = new AnimationState();
@@ -133,7 +126,7 @@ public class Armadillo extends Animal {
         profiler.pop();
 
         if (this.isAlive() && !this.isBaby() && --this.scuteTime <= 0) {
-            if (this.dropFromGiftLootTable(level, ModBuiltInLootTables.ARMADILLO_SHED, (serverLevel, stack) -> this.spawnAtLocation(stack))) {
+            if (LootUtils.dropFromGiftLootTable(this, level, ModBuiltInLootTables.ARMADILLO_SHED, (serverLevel, stack) -> this.spawnAtLocation(stack))) {
                 this.playSound(ModSoundEvents.ARMADILLO_SCUTE_DROP.get(), 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
                 this.gameEvent(GameEvent.ENTITY_PLACE);
             }
@@ -369,38 +362,6 @@ public class Armadillo extends Animal {
         this.setXxa(0.0F);
         this.setYya(0.0F);
         this.setSpeed(0.0F);
-    }
-
-    private boolean dropFromGiftLootTable(
-        ServerLevel level,
-        ResourceLocation key,
-        BiConsumer<ServerLevel, ItemStack> consumer
-    ) {
-        return this.dropFromLootTable(
-            level,
-            key,
-            builder -> builder.withParameter(LootContextParams.ORIGIN, this.position())
-                .withParameter(LootContextParams.THIS_ENTITY, this)
-                .create(LootContextParamSets.GIFT),
-            consumer
-        );
-    }
-
-    private boolean dropFromLootTable(
-        ServerLevel level,
-        ResourceLocation key,
-        Function<LootParams.Builder, LootParams> function,
-        BiConsumer<ServerLevel, ItemStack> consumer
-    ) {
-        LootTable lootTable = level.getServer().getLootData().getLootTable(key);
-        LootParams lootParams = function.apply(new LootParams.Builder(level));
-        List<ItemStack> list = lootTable.getRandomItems(lootParams);
-        if (!list.isEmpty()) {
-            list.forEach(stack -> consumer.accept(level, stack));
-            return true;
-        } else {
-            return false;
-        }
     }
 
     @Override

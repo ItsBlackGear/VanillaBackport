@@ -7,7 +7,6 @@ import com.blackgear.platform.common.integration.TradeIntegration;
 import com.blackgear.platform.common.worldgen.modifier.BiomeManager;
 import com.blackgear.platform.common.worldgen.placement.BiomePlacement;
 import com.blackgear.platform.core.ParallelDispatch;
-import com.blackgear.platform.core.events.DataLifecycleEvents;
 import com.blackgear.platform.core.events.ResourceReloadManager;
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
 import com.blackgear.vanillabackport.common.api.leash.LeashIntegration;
@@ -35,14 +34,14 @@ import net.minecraft.world.level.levelgen.Heightmap;
 
 public class CommonSetup {
     public static void setup() {
-        DataLifecycleEvents.DATA_RELOAD.register(VanillaBackport::onDataReload);
-
         ResourceReloadManager.registerServer(event -> {
             event.register(VanillaBackport.resource("wolf_sound_variants"), WolfSoundVariantReloadListener.INSTANCE);
-            event.register(VanillaBackport.resource("wolf_variants"), new WolfVariantReloadListener());
             event.register(VanillaBackport.resource("cow_variants"), new CowVariantReloadListener());
             event.register(VanillaBackport.resource("chicken_variants"), new ChickenVariantReloadListener());
             event.register(VanillaBackport.resource("pig_variants"), new PigVariantReloadListener());
+            event.register(VanillaBackport.resource("wolf_variants"), new WolfVariantReloadListener());
+            event.register(VanillaBackport.resource("frog_variants"), new FrogVariantReloadListener());
+            event.register(VanillaBackport.resource("cat_variants"), new CatVariantReloadListener());
         });
 
         MobIntegration.registerIntegrations(CommonSetup::mobIntegrations);
@@ -54,10 +53,10 @@ public class CommonSetup {
             BiomePlacement.registerBiomePlacements(BiomeGeneration::bootstrap);
             BlockIntegration.registerIntegrations(CommonSetup::blockIntegrations);
             TradeIntegration.registerVillagerTrades(CommonSetup::tradeIntegrations);
+            MobIntegration.registerIntegrations(CommonSetup::mobPlacements);
             Parrot.MOB_SOUND_MAP.put(ModEntities.CREAKING.get(), ModSoundEvents.PARROT_IMITATE_CREAKING.get());
         });
 
-        MobIntegration.registerIntegrations(CommonSetup::mobPlacements);
         LootModifier.modify(new LootIntegrations());
     }
 

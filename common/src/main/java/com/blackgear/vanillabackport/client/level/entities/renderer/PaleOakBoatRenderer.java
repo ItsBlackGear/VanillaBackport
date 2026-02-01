@@ -22,7 +22,14 @@ public class PaleOakBoatRenderer extends BoatRenderer implements CustomBoatModel
 
     public PaleOakBoatRenderer(EntityRendererProvider.Context context, boolean chestBoat) {
         super(context, chestBoat);
-        this.boatResource = Pair.of(chestBoat ? PALE_OAK_CHEST_BOAT : PALE_OAK_BOAT, chestBoat ? new ChestBoatModel(context.bakeLayer(ModModelLayers.PALE_OAK_CHEST_BOAT)) : new BoatModel(context.bakeLayer(ModModelLayers.PALE_OAK_BOAT)));
+        this.boatResource = Pair.of(
+            chestBoat
+                ? PALE_OAK_CHEST_BOAT
+                : PALE_OAK_BOAT,
+            chestBoat
+                ? new ChestBoatModel(context.bakeLayer(ModModelLayers.PALE_OAK_CHEST_BOAT))
+                : new BoatModel(context.bakeLayer(ModModelLayers.PALE_OAK_BOAT))
+        );
     }
 
     public Pair<ResourceLocation, ListModel<Boat>> getModelWithLocation(Boat boat) {

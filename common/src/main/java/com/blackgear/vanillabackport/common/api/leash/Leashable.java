@@ -52,7 +52,7 @@ public interface Leashable {
         if (this == target) {
             return false;
         } else {
-            return this.vb$leashDistanceTo(target) <= this.vb$leashSnapDistance() && this.vb$canBeLeashed(target instanceof Player player ? player : null);
+            return this.vb$leashDistanceTo(target) <= this.vb$leashSnapDistance() && this.vb$canBeLeashed(target);
         }
     }
 
@@ -64,8 +64,8 @@ public interface Leashable {
         return entity.getBoundingBox().getCenter().distanceTo(((Entity) this).getBoundingBox().getCenter());
     }
 
-    default boolean vb$canBeLeashed(Player entity) {
-        if (this instanceof Mob mob) return mob.canBeLeashed(entity);
+    default boolean vb$canBeLeashed(Entity entity) {
+        if (this instanceof Mob mob) return mob.canBeLeashed(entity instanceof Player player ? player : null);
         return true;
     }
 
@@ -73,31 +73,35 @@ public interface Leashable {
         if (this instanceof Mob mob) mob.dropLeash(broadcast, dropItem);
     }
 
+    default void vb$dropLeash() {
+        this.vb$dropLeash(true, true);
+    }
+
     static <E extends Entity & Leashable> void vb$onTickLeash(E entity) {
-        Entity holder = entity.vb$getLeashHolder();
-        if (holder != null && holder.level() == entity.level()) {
-            double leashDistance = entity.vb$leashDistanceTo(holder);
+        Entity leashHolder = entity.vb$getLeashHolder();
+        if (leashHolder != null && leashHolder.level() == entity.level()) {
+            double distanceTo = entity.vb$leashDistanceTo(leashHolder);
 
             if (entity instanceof TamableAnimal pet && pet.isInSittingPose()) {
-                if (leashDistance > entity.vb$leashSnapDistance()) {
+                if (distanceTo > entity.vb$leashSnapDistance()) {
                     entity.vb$dropLeash(true, true);
                 }
 
                 return;
             }
 
-            entity.vb$whenLeashedTo(holder);
-            if (leashDistance > entity.vb$leashSnapDistance()) {
-                entity.level().playSound(null, holder, SoundEvents.LEASH_KNOT_BREAK, SoundSource.NEUTRAL, 1.0F, 1.0F);
+            entity.vb$whenLeashedTo(leashHolder);
+            if (distanceTo > entity.vb$leashSnapDistance()) {
+                entity.level().playSound(null, leashHolder.getX(), leashHolder.getY(), leashHolder.getZ(), SoundEvents.LEASH_KNOT_BREAK, SoundSource.NEUTRAL, 1.0F, 1.0F);
                 entity.vb$leashTooFarBehaviour();
-            } else if (leashDistance > entity.vb$leashElasticDistance() - (double) holder.getBbWidth() - (double) entity.getBbWidth() && entity.vb$checkElasticInteractions(holder)) {
-                entity.vb$onElasticLeashPull(holder);
+            } else if (distanceTo > entity.vb$leashElasticDistance() - leashHolder.getBbWidth() - entity.getBbWidth() && entity.vb$checkElasticInteractions(leashHolder)) {
+                entity.vb$onElasticLeashPull(leashHolder);
             } else {
-                entity.vb$closeRangeLeashBehavior(holder);
+                entity.vb$closeRangeLeashBehavior(leashHolder);
             }
 
             entity.setYRot((float) (entity.getYRot() - entity.vb$angularMomentum()));
-            entity.vb$setAngularMomentum(entity.vb$angularMomentum() * (double) vb$angularFriction(entity));
+            entity.vb$setAngularMomentum(entity.vb$angularMomentum() * vb$angularFriction(entity));
         }
     }
 
@@ -150,21 +154,21 @@ public interface Leashable {
     default boolean vb$checkElasticInteractions(Entity entity) {
         if (((Entity) this).getControllingPassenger() instanceof Player) return false;
 
-        boolean supportQuadLeash = entity instanceof Leashable holder && holder.vb$supportQuadLeashAsHolder() && this.vb$supportQuadLeash();
+        boolean quadConnection = entity instanceof Leashable holder && holder.vb$supportQuadLeashAsHolder() && this.vb$supportQuadLeash();
         List<Wrench> wrenches = vb$computeElasticInteraction(
             (Entity & Leashable) this,
             entity,
-            supportQuadLeash ? SHARED_QUAD_ATTACHMENT_POINTS : ENTITY_ATTACHMENT_POINT,
-            supportQuadLeash ? SHARED_QUAD_ATTACHMENT_POINTS : LEASHER_ATTACHMENT_POINT
+            quadConnection ? SHARED_QUAD_ATTACHMENT_POINTS : ENTITY_ATTACHMENT_POINT,
+            quadConnection ? SHARED_QUAD_ATTACHMENT_POINTS : LEASHER_ATTACHMENT_POINT
         );
 
         if (wrenches.isEmpty()) {
             return false;
         } else {
-            Wrench wrench = Wrench.accumulate(wrenches).scale(supportQuadLeash ? 0.25 : 1.0);
-            this.vb$setAngularMomentum(this.vb$angularMomentum() + 10.0 * wrench.torque());
+            Wrench result = Wrench.accumulate(wrenches).scale(quadConnection ? 0.25 : 1.0);
+            this.vb$setAngularMomentum(this.vb$angularMomentum() + 10.0 * result.torque());
             Vec3 offset = vb$getHolderMovement(entity).subtract(vb$getKnownMovement((Entity) this));
-            ((Entity) this).addDeltaMovement(wrench.force().multiply(AXIS_SPECIFIC_ELASTICITY).add(offset.scale(0.11)));
+            ((Entity) this).addDeltaMovement(result.force().multiply(AXIS_SPECIFIC_ELASTICITY).add(offset.scale(0.11)));
             return true;
         }
     }
@@ -185,38 +189,38 @@ public interface Leashable {
     }
 
     static <E extends Entity & Leashable> List<Wrench> vb$computeElasticInteraction(E entity, Entity holder, List<Vec3> attachmentPoints, List<Vec3> holderAttachmentPoints) {
-        double elasticDistance = entity.vb$leashElasticDistance();
-        Vec3 entityMovement = vb$getHolderMovement(entity);
-        float entityYaw = entity.getYRot() * (float) (Math.PI / 180.0);
+        double slackDistance = entity.vb$leashElasticDistance();
+        Vec3 currentMovement = vb$getHolderMovement(entity);
+        float entityYRot = entity.getYRot() * Mth.DEG_TO_RAD;
         Vec3 entityDimensions = new Vec3(entity.getBbWidth(), entity.getBbHeight(), entity.getBbWidth());
-        float holderYaw = holder.getYRot() * (float) (Math.PI / 180.0);
-        Vec3 holderDimensions = new Vec3(holder.getBbWidth(), holder.getBbHeight(), holder.getBbWidth());
+        float leashHolderYRot = holder.getYRot() * Mth.DEG_TO_RAD;
+        Vec3 leasherDimensions = new Vec3(holder.getBbWidth(), holder.getBbHeight(), holder.getBbWidth());
         List<Wrench> wrenches = new ArrayList<>();
 
         for (int i = 0; i < attachmentPoints.size(); i++) {
-            Vec3 entityOffset = attachmentPoints.get(i).multiply(entityDimensions).yRot(-entityYaw);
-            Vec3 entityPosition = entity.position().add(entityOffset);
-            Vec3 holderOffset = holderAttachmentPoints.get(i).multiply(holderDimensions).yRot(-holderYaw);
-            Vec3 holderPosition = holder.position().add(holderOffset);
-            vb$computeDampenedSpringInteraction(holderPosition, entityPosition, elasticDistance, entityMovement, entityOffset).ifPresent(wrenches::add);
+            Vec3 entityAttachVector = attachmentPoints.get(i).multiply(entityDimensions).yRot(-entityYRot);
+            Vec3 entityAttachPos = entity.position().add(entityAttachVector);
+            Vec3 leasherAttachVector = holderAttachmentPoints.get(i).multiply(leasherDimensions).yRot(-leashHolderYRot);
+            Vec3 leasherAttachPos = holder.position().add(leasherAttachVector);
+            vb$computeDampenedSpringInteraction(leasherAttachPos, entityAttachPos, slackDistance, currentMovement, entityAttachVector).ifPresent(wrenches::add);
         }
 
         return wrenches;
     }
 
-    private static Optional<Wrench> vb$computeDampenedSpringInteraction(Vec3 holderPos, Vec3 entityPos, double threshold, Vec3 movement, Vec3 offset) {
-        double distance = entityPos.distanceTo(holderPos);
-        if (distance < threshold) {
+    private static Optional<Wrench> vb$computeDampenedSpringInteraction(Vec3 pivotPoint, Vec3 objectPosition, double springSlack, Vec3 movement, Vec3 offset) {
+        double distance = objectPosition.distanceTo(pivotPoint);
+        if (distance < springSlack) {
             return Optional.empty();
         } else {
-            Vec3 force = holderPos.subtract(entityPos).normalize().scale(distance - threshold);
-            double torque = Wrench.torqueFromForce(offset, force);
-            boolean movingWithForce = movement.dot(force) >= 0.0;
-            if (movingWithForce) {
-                force = force.scale(0.3F);
+            Vec3 displacement = pivotPoint.subtract(objectPosition).normalize().scale(distance - springSlack);
+            double torque = Wrench.torqueFromForce(offset, displacement);
+            boolean sameDirectionToMovement = movement.dot(displacement) >= 0.0;
+            if (sameDirectionToMovement) {
+                displacement = displacement.scale(0.3F);
             }
 
-            return Optional.of(new Wrench(force, torque));
+            return Optional.of(new Wrench(displacement, torque));
         }
     }
 
@@ -250,18 +254,18 @@ public interface Leashable {
         return vb$createQuadLeashOffsets((Entity) this, 0.0, 0.5, 0.5, 0.0);
     }
 
-    static Vec3[] vb$createQuadLeashOffsets(Entity entity, double forwardOffset, double sideOffset, double widthOffset, double heightOffset) {
-        float entityWidth = entity.getBbWidth();
-        double forward = forwardOffset * (double) entityWidth;
-        double side = sideOffset * (double) entityWidth;
-        double width = widthOffset * (double) entityWidth;
-        double height = heightOffset * (double) entity.getBbHeight();
+    static Vec3[] vb$createQuadLeashOffsets(Entity entity, double frontOffset, double frontBack, double leftRight, double height) {
+        float width = entity.getBbWidth();
+        double frontOffsetScaled = frontOffset * width;
+        double frontBackScaled = frontBack * width;
+        double leftRightScaled = leftRight * width;
+        double heightScaled = height * entity.getBbHeight();
 
         return new Vec3[] {
-            new Vec3(-width, height, side + forward),
-            new Vec3(-width, height, -side + forward),
-            new Vec3(width, height, -side + forward),
-            new Vec3(width, height, side + forward)
+            new Vec3(-leftRightScaled, heightScaled, frontBackScaled + frontOffsetScaled),
+            new Vec3(-leftRightScaled, heightScaled, -frontBackScaled + frontOffsetScaled),
+            new Vec3(leftRightScaled, heightScaled, -frontBackScaled + frontOffsetScaled),
+            new Vec3(leftRightScaled, heightScaled, frontBackScaled + frontOffsetScaled)
         };
     }
 
@@ -295,6 +299,10 @@ public interface Leashable {
 
     default void vb$setAngularMomentum(double angularMomentum) { }
 
+    default void vb$resetAngularMomentum() {
+        this.vb$setAngularMomentum(0.0);
+    }
+
     static float vb$getPreciseBodyRotation(Entity entity, float partialTicks) {
         if (entity instanceof LivingEntity living) {
             return Mth.lerp(partialTicks, living.yBodyRotO, living.yBodyRot);
@@ -306,37 +314,28 @@ public interface Leashable {
     record Wrench(Vec3 force, double torque) {
         static final Wrench ZERO = new Wrench(Vec3.ZERO, 0.0);
 
-        /**
-         * Calculates torque from two vectors.
-         */
         static double torqueFromForce(Vec3 position, Vec3 force) {
             return position.z * force.x - position.x * force.z;
         }
 
-        /**
-         * Combines multiple wrenches into a single resultant wrench.
-         */
         public static Wrench accumulate(List<Wrench> wrenches) {
-            if (wrenches.isEmpty()) return ZERO;
+            if (wrenches.isEmpty()) {
+                return ZERO;
+            } else {
+                double x = 0.0, y = 0.0, z = 0.0, t = 0.0;
 
-            double x = 0.0;
-            double y = 0.0;
-            double z = 0.0;
-            double torque = 0.0;
+                for (Wrench wrench : wrenches) {
+                    Vec3 force = wrench.force;
+                    x += force.x;
+                    y += force.y;
+                    z += force.z;
+                    t += wrench.torque;
+                }
 
-            for (Wrench wrench : wrenches) {
-                Vec3 force = wrench.force;
-                x += force.x;
-                y += force.y;
-                z += force.z;
-                torque += wrench.torque;
+                return new Wrench(new Vec3(x, y, z), t);
             }
-            return new Wrench(new Vec3(x, y, z), torque);
         }
 
-        /**
-         * Creates a new wrench by scaling the current one by the given factor.
-         */
         public Wrench scale(double factor) {
             return new Wrench(this.force.scale(factor), this.torque * factor);
         }

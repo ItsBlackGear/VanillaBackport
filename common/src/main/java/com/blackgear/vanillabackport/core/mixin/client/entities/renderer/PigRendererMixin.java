@@ -1,7 +1,7 @@
 package com.blackgear.vanillabackport.core.mixin.client.entities.renderer;
 
-import com.blackgear.vanillabackport.client.level.entities.variant.PigVariantRenderer;
-import com.blackgear.vanillabackport.core.ModChecker;
+import com.blackgear.vanillabackport.client.level.entities.renderer.variant.AbstractVariantRenderer;
+import com.blackgear.vanillabackport.client.level.entities.renderer.variant.PigVariantRenderer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.PigModel;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -13,23 +13,22 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import java.util.function.Supplier;
 
 @Mixin(PigRenderer.class)
 public abstract class PigRendererMixin extends MobRendererMixin<Pig, PigModel<Pig>> {
-    @Unique private PigVariantRenderer renderer;
+    @Unique private Supplier<PigVariantRenderer> renderer;
 
     public PigRendererMixin(EntityRendererProvider.Context context, PigModel<Pig> model, float shadowRadius) {
         super(context, model, shadowRadius);
     }
 
-    @Unique
-    private PigVariantRenderer renderer() {
-        if (this.renderer == null) {
-            this.renderer = new PigVariantRenderer(this.context);
-        }
-
-        return this.renderer;
+    @Inject(method = "<init>", at = @At("TAIL"))
+    private void onInit(EntityRendererProvider.Context context, CallbackInfo ci) {
+        this.renderer = AbstractVariantRenderer.create(context, PigVariantRenderer::new);
     }
 
     @Inject(
@@ -38,14 +37,12 @@ public abstract class PigRendererMixin extends MobRendererMixin<Pig, PigModel<Pi
         cancellable = true
     )
     private void vb$getTextureLocation(Pig entity, CallbackInfoReturnable<ResourceLocation> cir) {
-        if (this.renderer().getTexture(entity) != null) {
-            cir.setReturnValue(this.renderer().getTexture(entity));
-        }
+        this.renderer.get().getTexture(entity).ifPresent(cir::setReturnValue);
     }
 
     @Override
     public void render(Pig entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource buffer, int packedLight) {
-        if (!ModChecker.MIXED_LITTER_LOADED) this.model = this.renderer().getModel(entity).orElseGet(() -> this.defaultModel);
+        this.model = this.renderer.get().getModel(entity).orElseGet(() -> this.defaultModel);
         super.render(entity, entityYaw, partialTicks, poseStack, buffer, packedLight);
     }
 }

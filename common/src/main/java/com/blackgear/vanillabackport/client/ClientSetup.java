@@ -4,6 +4,7 @@ import com.blackgear.platform.client.GameRendering;
 import com.blackgear.platform.client.event.LocalPlayerEvents;
 import com.blackgear.platform.common.block.WoodTypeRegistry;
 import com.blackgear.platform.core.ParallelDispatch;
+import com.blackgear.platform.core.events.ResourcePackManager;
 import com.blackgear.platform.core.events.ResourceReloadManager;
 import com.blackgear.vanillabackport.client.api.bundle.BundleMouseActions;
 import com.blackgear.vanillabackport.client.api.tabs.BundledTabSelector;
@@ -14,6 +15,11 @@ import com.blackgear.vanillabackport.core.VanillaBackport;
 
 public class ClientSetup {
     public static void setup() {
+        ResourcePackManager.registerBuiltResourcePack(
+            VanillaBackport.resource("vb_freshly_animated"),
+            VanillaBackport.MOD_ID,
+            "VB - Freshly Animated"
+        );
         ResourceReloadManager.registerClient(event -> {
             event.register(VanillaBackport.vanilla("dry_foliage"), DryFoliageColorReloadListener.INSTANCE);
             event.register(VanillaBackport.vanilla("leaf_colors"), LeafColorReloadListener.INSTANCE);
@@ -21,20 +27,14 @@ public class ClientSetup {
 
         GameRendering.registerModelLayers(Rendering::modelLayers);
         GameRendering.registerParticleFactories(Rendering::particleFactories);
-        GameRendering.registerEntityRenderers(Rendering::entityRendering);
         GameRendering.registerBlockColors(Rendering::blockColors);
         GameRendering.registerItemColors(Rendering::itemColors);
+        GameRendering.registerEntityRenderers(Rendering::entityRendering);
+        GameRendering.registerSpecialModels(Rendering::specialModels);
     }
 
     public static void asyncSetup(ParallelDispatch dispatch) {
-        dispatch.enqueueWork(() -> {
-            LocalPlayerEvents.ON_LOGIN.register(player -> {
-                BundledTabSelector.bootstrap();
-            });
-
-            GameRendering.registerModelOverrides(Rendering::modelOverrides);
-        });
-
+        dispatch.enqueueWork(() -> LocalPlayerEvents.ON_LOGIN.register(player -> BundledTabSelector.bootstrap()));
         BundleMouseActions.bootstrap();
 
         GameRendering.registerBlockRenderers(Rendering::blockRendering);

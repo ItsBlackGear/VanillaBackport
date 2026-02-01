@@ -1,12 +1,14 @@
 package com.blackgear.vanillabackport.core.mixin.common.entities;
 
-import com.blackgear.vanillabackport.common.api.variant.SpawnContext;
-import com.blackgear.vanillabackport.common.api.variant.VariantHolder;
+import com.blackgear.vanillabackport.common.api.variant.VariantSpawner;
+import com.blackgear.vanillabackport.common.api.variant.spawn.SpawnContext;
+import com.blackgear.vanillabackport.common.api.variant.VariantDataHolder;
 import com.blackgear.vanillabackport.common.api.variant.VariantUtils;
 import com.blackgear.vanillabackport.common.level.entities.animal.ChickenVariant;
 import com.blackgear.vanillabackport.common.level.entities.animal.ChickenVariants;
-import com.blackgear.vanillabackport.common.registries.ModItems;
+import com.blackgear.vanillabackport.core.registries.ModBuiltInLootTables;
 import com.blackgear.vanillabackport.core.registries.ModBuiltinRegistries;
+import com.blackgear.vanillabackport.core.util.LootUtils;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -19,6 +21,7 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Chicken;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -30,10 +33,11 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.util.Optional;
+
 @Mixin(Chicken.class)
-public abstract class ChickenMixin extends MobMixin implements VariantHolder<ChickenVariant> {
-    @Unique
-    private static final EntityDataAccessor<String> DATA_VARIANT_ID = SynchedEntityData.defineId(Chicken.class, EntityDataSerializers.STRING);
+public abstract class ChickenMixin extends MobMixin implements VariantDataHolder<ChickenVariant> {
+    @Unique private static final EntityDataAccessor<String> DATA_VARIANT_ID = SynchedEntityData.defineId(Chicken.class, EntityDataSerializers.STRING);
 
     protected ChickenMixin(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
@@ -46,23 +50,23 @@ public abstract class ChickenMixin extends MobMixin implements VariantHolder<Chi
     private void vb$getBreedOffspring(ServerLevel level, AgeableMob otherParent, CallbackInfoReturnable<Chicken> cir) {
         Chicken child = cir.getReturnValue();
         if (child != null && otherParent instanceof Chicken mate) {
-            VariantHolder.vb$trySetOffspringVariant(child, this, mate);
+            VariantDataHolder.trySetOffspringVariant(child, this, mate);
         }
     }
 
     @Override
     protected void vb$defineSynchedData(CallbackInfo ci) {
-        this.entityData.define(DATA_VARIANT_ID, VariantUtils.getDefaultID(ModBuiltinRegistries.CHICKEN_VARIANTS, ChickenVariants.TEMPERATE));
+        this.entityData.define(DATA_VARIANT_ID, "minecraft:temperate");
     }
 
     @Override
-    public void vb$setVariant(ChickenVariant variant) {
+    public void setVariantData(ChickenVariant variant) {
         this.entityData.set(DATA_VARIANT_ID, VariantUtils.getID(ModBuiltinRegistries.CHICKEN_VARIANTS, variant));
     }
 
     @Override
-    public ChickenVariant vb$getVariant() {
-        return VariantUtils.getVariant(ModBuiltinRegistries.CHICKEN_VARIANTS, this.entityData.get(DATA_VARIANT_ID));
+    public Optional<ChickenVariant> getVariantData() {
+        return VariantUtils.getOrDefault(ModBuiltinRegistries.CHICKEN_VARIANTS, this.entityData.get(DATA_VARIANT_ID));
     }
 
     @Override
@@ -77,8 +81,8 @@ public abstract class ChickenMixin extends MobMixin implements VariantHolder<Chi
 
     @Override
     protected void vb$finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, SpawnGroupData spawnData, CompoundTag dataTag, CallbackInfoReturnable<SpawnGroupData> cir) {
-        VariantUtils.selectFarmAnimalVariantToSpawn(SpawnContext.create(level, this.blockPosition()), ModBuiltinRegistries.CHICKEN_VARIANTS, ChickenVariants.TEMPERATE)
-            .ifPresent(this::vb$setVariant);
+        VariantUtils.selectVariantToSpawn(SpawnContext.create(level, this.blockPosition()), ModBuiltinRegistries.CHICKEN_VARIANTS, VariantSpawner.FARM_ANIMALS)
+            .ifPresent(this::setVariantData);
     }
 
     @ModifyArg(
@@ -87,16 +91,11 @@ public abstract class ChickenMixin extends MobMixin implements VariantHolder<Chi
         index = 0
     )
     private ItemLike vb$modifyEggDrop(ItemLike originalItem) {
-        Chicken chicken = (Chicken) (Object) this;
-        if (chicken instanceof VariantHolder<?> holder) {
-            if (holder.vb$getVariant() instanceof ChickenVariant variant) {
-                if (VariantUtils.matches(ModBuiltinRegistries.CHICKEN_VARIANTS, variant, ChickenVariants.COLD)) {
-                    return ModItems.BLUE_EGG.get();
-                }
+        Optional<ChickenVariant> variant = this.getVariantData();
 
-                if (VariantUtils.matches(ModBuiltinRegistries.CHICKEN_VARIANTS, variant, ChickenVariants.WARM)) {
-                    return ModItems.BROWN_EGG.get();
-                }
+        if (variant.isPresent() && !VariantUtils.matches(ModBuiltinRegistries.CHICKEN_VARIANTS, variant.get(), ChickenVariants.TEMPERATE)) {
+            if (LootUtils.dropFromGiftLootTable(this, (ServerLevel) this.level(), ModBuiltInLootTables.CHICKEN_LAY, (level, stack) -> this.spawnAtLocation(stack))) {
+                return Items.AIR;
             }
         }
 

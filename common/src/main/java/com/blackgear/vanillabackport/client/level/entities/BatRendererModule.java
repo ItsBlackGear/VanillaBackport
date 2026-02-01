@@ -14,6 +14,7 @@ import java.util.Optional;
 
 @Environment(EnvType.CLIENT)
 public class BatRendererModule<T extends Entity, M extends EntityModel<T>> {
+    private static final ResourceLocation TEXTURE = VanillaBackport.resource("textures/entity/bat.png");
     private final M model;
 
     public BatRendererModule(EntityRendererProvider.Context context) {
@@ -21,7 +22,7 @@ public class BatRendererModule<T extends Entity, M extends EntityModel<T>> {
     }
 
     public ResourceLocation getTexture() {
-        return VanillaBackport.resource("textures/entity/bat.png");
+        return TEXTURE;
     }
 
     public boolean enabled() {

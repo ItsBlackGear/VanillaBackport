@@ -31,13 +31,13 @@ public class DecoratedPotRendererMixin {
                 if (progress >= 0.0F && progress <= 1.0F) {
                     if (wobbleStyle == WobbleStyle.POSITIVE) {
                         float intensity = 0.015625F;
-                        float angle = progress * (float) (Math.PI * 2);
+                        float angle = progress * Mth.TWO_PI;
                         float xRot = -1.5F * (Mth.cos(angle) + 0.5F) * Mth.sin(angle / 2.0F);
                         poseStack.rotateAround(Axis.XP.rotation(xRot * intensity), 0.5F, 0.0F, 0.5F);
                         float zRot = Mth.sin(angle);
                         poseStack.rotateAround(Axis.ZP.rotation(zRot * intensity), 0.5F, 0.0F, 0.5F);
                     } else {
-                        float yaw = Mth.sin(-progress * 3.0F * (float) Math.PI) * 0.125F;
+                        float yaw = Mth.sin(-progress * 3.0F * Mth.PI) * 0.125F;
                         float damp = 1.0F - progress;
                         poseStack.rotateAround(Axis.YP.rotation(yaw * damp), 0.5F, 0.0F, 0.5F);
                     }

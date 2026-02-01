@@ -1,7 +1,7 @@
 package com.blackgear.vanillabackport.common.api.wolf;
 
 import com.blackgear.platform.core.BuiltInCoreRegistry;
-import com.blackgear.vanillabackport.common.api.variant.VariantHolder;
+import com.blackgear.vanillabackport.common.api.variant.VariantDataHolder;
 import com.blackgear.vanillabackport.common.api.variant.VariantUtils;
 import com.blackgear.vanillabackport.common.level.entities.wolf.WolfVariant;
 import com.blackgear.vanillabackport.common.level.entities.wolf.WolfVariants;
@@ -14,9 +14,9 @@ public class BackportedWolvesConversion {
     public static final String BW_VARIANT_KEY = "Variant";
     public static final String VANILLA_VARIANT_KEY = "variant";
 
-    public static void migrateWolfVariant(VariantHolder<WolfVariant> entity, CompoundTag tag, BuiltInCoreRegistry<WolfVariant> registry) {
+    public static void migrateWolfVariant(VariantDataHolder<WolfVariant> entity, CompoundTag tag, BuiltInCoreRegistry<WolfVariant> registry) {
         // Don't apply conversion if backported wolves is loaded or wolf variants are disabled
-        if (ModChecker.BACKPORTED_WOLVES_LOADED || !VanillaBackport.COMMON_CONFIG.hasWolfVariants.get()) return;
+        if (ModChecker.BACKPORTED_WOLVES_LOADED.get() || !VanillaBackport.COMMON_CONFIG.hasWolfVariants.get()) return;
 
         if (tag.contains(BW_VARIANT_KEY, Tag.TAG_INT) && !tag.contains(VANILLA_VARIANT_KEY, Tag.TAG_STRING)) {
             int legacyId = tag.getInt(BW_VARIANT_KEY);
@@ -33,7 +33,7 @@ public class BackportedWolvesConversion {
                 default -> registry.getOrThrow(WolfVariants.PALE); // safe fallback
             };
 
-            entity.vb$setVariant(mapped);
+            entity.setVariantData(mapped);
             VariantUtils.addVariantSaveData(entity, tag, registry);
             tag.remove(BW_VARIANT_KEY);
         }

@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "#minecraft:has_wolf/snowy",
+      "required": false
+    },
+    "minecraft:grove"
+  ]
+}

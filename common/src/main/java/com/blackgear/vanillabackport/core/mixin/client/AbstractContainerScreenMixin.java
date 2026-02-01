@@ -1,7 +1,6 @@
 package com.blackgear.vanillabackport.core.mixin.client;
 
 import com.blackgear.vanillabackport.common.api.bundle.BundleFeatures;
-import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.blackgear.vanillabackport.core.data.tags.ModItemTags;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.GuiGraphics;
@@ -26,8 +25,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class AbstractContainerScreenMixin<T extends AbstractContainerMenu> extends Screen implements MenuAccess<T> {
     @Shadow protected int imageWidth;
 
-    @Unique private static final ResourceLocation BUNDLE_OPEN_BACK = VanillaBackport.vanilla("textures/item/bundle_open_back.png");
-    @Unique private static final ResourceLocation BUNDLE_OPEN_FRONT = VanillaBackport.vanilla("textures/item/bundle_open_front.png");
+    @Unique private static final ResourceLocation BUNDLE_OPEN_BACK = new ResourceLocation("textures/item/bundle_open_back.png");
+    @Unique private static final ResourceLocation BUNDLE_OPEN_FRONT = new ResourceLocation("textures/item/bundle_open_front.png");
 
     protected AbstractContainerScreenMixin(Component title) {
         super(title);
@@ -45,8 +44,8 @@ public abstract class AbstractContainerScreenMixin<T extends AbstractContainerMe
 
                 for (DyeColor color : DyeColor.values()) {
                     if (stack.is(BundleFeatures.getByColor(color)) && !stack.is(Items.BUNDLE)) {
-                        backTexture = VanillaBackport.vanilla("textures/item/" + color.getName() + "_bundle_open_back.png");
-                        frontTexture = VanillaBackport.vanilla("textures/item/" + color.getName() + "_bundle_open_front.png");
+                        backTexture = new ResourceLocation("textures/item/" + color.getName() + "_bundle_open_back.png");
+                        frontTexture = new ResourceLocation("textures/item/" + color.getName() + "_bundle_open_front.png");
                         break;
                     }
                 }

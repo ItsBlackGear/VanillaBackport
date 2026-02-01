@@ -1,6 +1,7 @@
 package com.blackgear.vanillabackport.client.level.entities.layer;
 
 import com.blackgear.vanillabackport.client.registries.ModModelLayers;
+import com.blackgear.vanillabackport.client.util.LazyModel;
 import com.blackgear.vanillabackport.common.level.entities.wolf.ModCrackiness;
 import com.blackgear.vanillabackport.common.level.entities.wolf.ModCrackiness.Level;
 import com.blackgear.vanillabackport.common.level.items.WolfArmorItem;
@@ -26,16 +27,16 @@ import java.util.Map;
 
 @Environment(EnvType.CLIENT)
 public class WolfArmorLayer extends RenderLayer<Wolf, WolfModel<Wolf>> {
-    private final WolfModel<Wolf> model;
     private static final Map<Level, ResourceLocation> ARMOR_CRACK_LOCATIONS = Map.of(
         Level.LOW, VanillaBackport.vanilla("textures/entity/wolf/wolf_armor_crackiness_low.png"),
         Level.MEDIUM, VanillaBackport.vanilla("textures/entity/wolf/wolf_armor_crackiness_medium.png"),
         Level.HIGH, VanillaBackport.vanilla("textures/entity/wolf/wolf_armor_crackiness_high.png")
     );
+    private final LazyModel<Wolf, WolfModel<Wolf>> model;
 
     public WolfArmorLayer(RenderLayerParent<Wolf, WolfModel<Wolf>> renderer, EntityModelSet models) {
         super(renderer);
-        this.model = new WolfModel<>(models.bakeLayer(ModModelLayers.WOLF_ARMOR));
+        this.model = LazyModel.of(models, ModModelLayers.WOLF_ARMOR, WolfModel::new);
     }
 
     @Override
@@ -54,11 +55,11 @@ public class WolfArmorLayer extends RenderLayer<Wolf, WolfModel<Wolf>> {
         if (!wolf.getItemBySlot(EquipmentSlot.CHEST).isEmpty() && wolf.getItemBySlot(EquipmentSlot.CHEST).is(ModItems.WOLF_ARMOR.get())) {
             ItemStack stack = wolf.getItemBySlot(EquipmentSlot.CHEST);
             if (stack.getItem() instanceof WolfArmorItem armor) {
-                this.getParentModel().copyPropertiesTo(this.model);
-                this.model.prepareMobModel(wolf, limbSwing, limbSwingAmount, partialTick);
-                this.model.setupAnim(wolf, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+                this.getParentModel().copyPropertiesTo(this.model.get());
+                this.model.get().prepareMobModel(wolf, limbSwing, limbSwingAmount, partialTick);
+                this.model.get().setupAnim(wolf, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
                 VertexConsumer vertices = buffer.getBuffer(RenderType.entityCutoutNoCull(armor.getTexture()));
-                this.model.renderToBuffer(poseStack, vertices, packedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+                this.model.get().renderToBuffer(poseStack, vertices, packedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
                 this.maybeRenderColoredLayer(poseStack, buffer, packedLight, stack, armor);
                 this.maybeRenderCracks(poseStack, buffer, packedLight, stack);
             }
@@ -79,7 +80,7 @@ public class WolfArmorLayer extends RenderLayer<Wolf, WolfModel<Wolf>> {
         float blue = (float)(color & 0xFF) / 255.0F;
 
         VertexConsumer vertices = buffer.getBuffer(RenderType.entityCutoutNoCull(overlay));
-        this.model.renderToBuffer(poseStack, vertices, packedLight, OverlayTexture.NO_OVERLAY, red, green, blue, 1.0F);
+        this.model.get().renderToBuffer(poseStack, vertices, packedLight, OverlayTexture.NO_OVERLAY, red, green, blue, 1.0F);
     }
 
     private void maybeRenderCracks(PoseStack poseStack, MultiBufferSource buffer, int packedLight, ItemStack stack) {
@@ -87,7 +88,7 @@ public class WolfArmorLayer extends RenderLayer<Wolf, WolfModel<Wolf>> {
         if (level != Level.NONE) {
             ResourceLocation texture = ARMOR_CRACK_LOCATIONS.get(level);
             VertexConsumer vertices = buffer.getBuffer(RenderType.entityTranslucent(texture));
-            this.model.renderToBuffer(poseStack, vertices, packedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
+            this.model.get().renderToBuffer(poseStack, vertices, packedLight, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
         }
     }
 }

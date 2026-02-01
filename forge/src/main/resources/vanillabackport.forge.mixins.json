@@ -5,6 +5,7 @@
   "minVersion": "0.8",
   "client": [],
   "mixins": [
+    "common.blocks.entities.DecoratedPotBlockEntityMixin"
   ],
   "injectors": {
     "defaultRequire": 1

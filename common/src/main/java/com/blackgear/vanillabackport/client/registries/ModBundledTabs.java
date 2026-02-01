@@ -1,7 +1,6 @@
 package com.blackgear.vanillabackport.client.registries;
 
 import com.blackgear.vanillabackport.client.api.tabs.BundledTabs;
-import com.blackgear.vanillabackport.common.level.items.OminousBottleItem;
 import com.blackgear.vanillabackport.common.registries.ModBlocks;
 import com.blackgear.vanillabackport.common.registries.ModItems;
 import com.blackgear.vanillabackport.common.registries.ModPaintingVariants;

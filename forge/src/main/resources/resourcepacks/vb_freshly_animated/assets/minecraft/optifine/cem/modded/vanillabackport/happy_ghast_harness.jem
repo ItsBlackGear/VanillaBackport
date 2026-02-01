@@ -1,0 +1,44 @@
+{
+	"credit": "Created by FreshLX for Fresh Animations",
+	"textureSize": [64, 64],
+	"models": [
+		{
+			"part":"root",
+			"id":"root",
+			"model":"happy_ghast_harness_animations.jpm",
+			"attach":"true"
+		},
+		{
+			"part": "goggles",
+			"id": "goggles",
+			"invertAxis": "xy",
+			"translate": [0, 0, 0],
+			"submodels": [
+				{
+					"id": "Created_by_FreshLX_for_Fresh_Animations",
+					"invertAxis": "xy",
+					"translate": [0, 0, 0]
+				}
+			]
+		},
+		{
+			"part": "harness",
+			"id": "harness",
+			"invertAxis": "xy",
+			"translate": [0, -4, 0],
+			"boxes": [
+				{"coordinates": [-8, 0, -8, 16, 16, 16], "textureOffset": [0, 0], "sizeAdd": 0.5}
+			],
+			"submodels": [
+				{
+					"id": "goggles2",
+					"invertAxis": "xy",
+					"translate": [0, 10, -5.5],
+					"boxes": [
+						{"coordinates": [-8, -2.5, -2.5, 16, 5, 5], "textureOffset": [0, 32], "sizeAdd": 0.7}
+					]
+				}
+			]
+		}
+	]
+}

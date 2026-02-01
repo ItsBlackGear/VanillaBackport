@@ -12,7 +12,9 @@ import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
 import com.blackgear.vanillabackport.client.registries.ModSoundTypes;
 import com.blackgear.vanillabackport.common.CommonConfig;
 import com.blackgear.vanillabackport.common.CommonSetup;
-import com.blackgear.vanillabackport.common.api.variant.SpawnConditions;
+import com.blackgear.vanillabackport.common.api.variant.spawn.SpawnConditions;
+import com.blackgear.vanillabackport.common.level.entities.animal.*;
+import com.blackgear.vanillabackport.common.level.entities.wolf.WolfVariants;
 import com.blackgear.vanillabackport.common.registries.*;
 import com.blackgear.vanillabackport.common.worldgen.features.SpringToLifeFeatures;
 import com.blackgear.vanillabackport.common.worldgen.features.TheGardenAwakensFeatures;
@@ -23,17 +25,13 @@ import com.blackgear.vanillabackport.core.data.tags.*;
 import com.blackgear.vanillabackport.core.network.NetworkHandler;
 import com.blackgear.vanillabackport.core.registries.ModBuiltinRegistries;
 import com.mojang.logging.LogUtils;
-import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import org.slf4j.Logger;
-
-import java.lang.ref.WeakReference;
 
 public final class VanillaBackport {
     public static final String MOD_ID = "vanillabackport";
     public static final String NAMESPACE = "minecraft";
     public static final Logger LOGGER = LogUtils.getLogger();
-    public static final ThreadLocal<WeakReference<RegistryAccess>> EARLY_REGISTRY_ACCESS = new ThreadLocal<>();
     public static final ClientConfig CLIENT_CONFIG = Environment.registerSafeConfig(MOD_ID, ModConfig.Type.CLIENT, ClientConfig::new);
     public static final CommonConfig COMMON_CONFIG = Environment.registerSafeConfig(MOD_ID, ModConfig.Type.COMMON, CommonConfig::new);
     public static final ModInstance INSTANCE = ModInstance.create(MOD_ID)
@@ -52,6 +50,7 @@ public final class VanillaBackport {
         ModBlockTags.TAGS.register();
         ModItemTags.TAGS.register();
         ModBiomeTags.TAGS.register();
+        ModBiomeTags.CONVENTIONAL.register();
         ModEntityTypeTags.TAGS.register();
 
         ModParticles.PARTICLES.register();
@@ -71,9 +70,12 @@ public final class VanillaBackport {
         ModCreativeTabs.TABS.register();
         ModPaintingVariants.VARIANTS.register();
         ModBuiltinRegistries.WOLF_SOUND_VARIANTS.register();
-        ModBuiltinRegistries.COW_VARIANTS.register();
-        ModBuiltinRegistries.CHICKEN_VARIANTS.register();
-        ModBuiltinRegistries.PIG_VARIANTS.register();
+        WolfVariants.REGISTRY.register();
+        CowVariants.REGISTRY.register();
+        ChickenVariants.REGISTRY.register();
+        PigVariants.REGISTRY.register();
+        FrogDataVariants.REGISTRY.register();
+        CatDataVariants.REGISTRY.register();
         SpawnConditions.CONDITIONS.register();
 
         ModBiomes.BIOMES.register();
@@ -93,10 +95,7 @@ public final class VanillaBackport {
     }
 
     public static ResourceLocation vanilla(String path) {
-        return new ResourceLocation(NAMESPACE, path);
+        return new ResourceLocation(path);
     }
 
-    public static void onDataReload(RegistryAccess registryAccess, boolean client) {
-        EARLY_REGISTRY_ACCESS.set(new WeakReference<>(registryAccess));
-    }
 }

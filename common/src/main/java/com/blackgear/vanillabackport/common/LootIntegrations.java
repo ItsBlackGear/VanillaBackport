@@ -83,8 +83,8 @@ public class LootIntegrations implements LootModifier.LootTableModifier {
             );
         }
 
-        // RESIN ON WOODLAND MANSION CHESTS
-        if (path.equals(BuiltInLootTables.WOODLAND_MANSION) && VanillaBackport.COMMON_CONFIG.hasResin.get()) {
+        // GENERATE RESIN CLUMPS IN WOODLAND MANSION CHESTS
+        if (path.equals(BuiltInLootTables.WOODLAND_MANSION) && VanillaBackport.COMMON_CONFIG.hasResinLoot.get()) {
             context.addToPool(
                 1,
                 LootItem.lootTableItem(ModBlocks.RESIN_CLUMP.get())
@@ -94,13 +94,23 @@ public class LootIntegrations implements LootModifier.LootTableModifier {
             );
         }
 
-        // VILLAGES GENERATE BUNDLES
-        if (CONTAIN_BUNDLE.contains(path) && VanillaBackport.COMMON_CONFIG.hasVillageBundles.get()) {
+        // GENERATE BUNDLES IN VILLAGE CHESTS
+        if (CONTAIN_BUNDLE.contains(path) && VanillaBackport.COMMON_CONFIG.hasBundleLoot.get()) {
             context.addPool(
                 LootPool.lootPool()
                     .setRolls(ConstantValue.exactly(1.0F))
                     .add(LootItem.lootTableItem(Items.BUNDLE).setWeight(1).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F))))
                     .add(EmptyLootItem.emptyItem().setWeight(2))
+            );
+        }
+
+        // GENERATE LODESTONE IN RUINED PORTAL CHESTS
+        if (path.equals(BuiltInLootTables.RUINED_PORTAL) && VanillaBackport.COMMON_CONFIG.hasLodestoneLoot.get()) {
+            context.addPool(
+                LootPool.lootPool()
+                    .setRolls(ConstantValue.exactly(1.0F))
+                    .add(LootItem.lootTableItem(Items.LODESTONE).setWeight(2).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F))))
+                    .add(EmptyLootItem.emptyItem().setWeight(1))
             );
         }
     }

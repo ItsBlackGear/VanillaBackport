@@ -189,6 +189,7 @@ public abstract class BundleItemMixin {
     @Unique
     private void broadcastChangesOnContainerMenu(Player player) {
         AbstractContainerMenu menu = player.containerMenu;
-        if (menu.stillValid(player)) menu.slotsChanged(player.getInventory());
+        if (menu != null) menu.slotsChanged(player.getInventory());
     }
 }
+

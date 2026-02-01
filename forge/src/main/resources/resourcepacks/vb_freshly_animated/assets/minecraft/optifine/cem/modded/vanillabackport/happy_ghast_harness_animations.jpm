@@ -1,0 +1,57 @@
+{
+	"credit": "Created by FreshLX for Fresh Animations",
+	"animations": [
+		{
+			"varb.pfc": "frame_counter == var.pre_frame_counter",
+			"var.hy": "if( varb.pfc, var.hy, clamp(head_yaw,-90,90)*if(is_child,1,0)*min(1,frame_time*if(is_ridden,32,is_child,4,1)) +var.hy*max(0,1-frame_time*if(is_ridden,32,is_child,4,1)) )",
+			"var.id": "random(id)*pi*4",
+			"var.Bt": "var.id +age/if( is_child, 1.7, 2.5 )",
+			"var.Ut": "var.id +age/if( is_child, 4, 7   ) +pos_y/1.5",
+			"var.Tt": "var.id +( limb_swing/3 +pos_y/4 )*if( is_child, 1.5, 1 )",
+			"var.Et": "age*if( is_child, 2, 1.5 )",
+			"var.lsg": "var.id +limb_swing/2 +var.rotation*3",
+			"var.up": "cos(var.Ut-sin(var.Ut)/2)",
+			"var.yrot_offset": "if( varb.pfc, var.yrot_offset, var.yrot_offset +if( between( var.pre_roty-rot_y, -pi*2, -pi*2+0.2 ), -pi*2, between( var.pre_roty-rot_y, pi*2-0.2, pi*2 ), pi*2, 0 ) )",
+			"var.roty": "rot_y +var.yrot_offset",
+			"var.rotation": "if( varb.pfc, var.rotation, !equals(var.roty,var.pre_Oroty,1), var.roty, var.roty*min(1,frame_time*if(is_ridden,32,is_child,4,1)) +var.rotation*max(0,1-frame_time*if(is_ridden,32,is_child,4,1)) )",
+			"var.speed": "if( varb.pfc, var.speed, age<9, 0, limb_speed*min(1,frame_time*4) +var.speed*max(0,1-frame_time*4) )",
+			"var.moveA": "min(1, 0.3 +limb_speed*4 )",
+			"var.moveB": "(0.3+0.7*limb_speed)*(1-0.5*var.mount)",
+			"var.hurt": "(hurt_time/10)*(hurt_time/10)*max(0, (1-hurt_time/10)*8 )*if(is_child,1,0.1)",
+			"var.scared": "clamp( if( varb.pfc, var.scared, is_hurt, var.scared +frame_time, var.scared -frame_time/8 ), 0, 1 )",
+			"var.grounded": "if( varb.pfc, var.grounded, is_on_ground, 1, pos_y==var.pre_posy, var.grounded, 0 )",
+			"var.Aground": "clamp( if( varb.pfc, var.Aground, var.grounded==1, var.Aground + frame_time*2, var.Aground - frame_time ), 0, 1 )",
+			"var.Amount": "clamp( if( varb.pfc, var.Amount, ( between(player_pos_y-pos_y, 4, 6) && equals(player_pos_x, pos_x, 2.3) && equals(player_pos_z, pos_z, 2.3) ) || is_ridden, var.Amount + frame_time, var.Amount - frame_time/4 ), 0, 1 )",
+			"var.ground": "(0.5-0.5*cos( var.Aground*pi ) )",
+			"var.mount": "(0.5-0.5*cos( var.Amount*pi ) )",
+			"var.Athrust": "clamp( if( varb.pfc, var.Athrust,                     is_in_water || pos_y-var.pre_posy>0.02 || ( is_child && sin(var.id+age/97 )>0.9)  , var.Athrust + frame_time                 , var.Athrust - frame_time   ), 0, 1-var.ground )",
+			"var.ANtwist": "clamp( if( varb.pfc, var.ANtwist, limb_speed<0.3 && ( (is_child && sin(var.id+age/177)>0.95) || (!is_child && sin(var.id+age/237)>0.9) ), var.ANtwist + frame_time/if(is_child,1,2), var.ANtwist - frame_time/6 ), 0, max(0, 1-var.ground-var.scared*4) )",
+			"var.thrust": "(0.5-0.5*cos( var.Athrust*pi ))",
+			"var.Ntwist": "(0.5-0.5*cos( var.ANtwist*pi ))/if(is_child,1,2+4*var.mount)",
+			"var.h_offset": "1",
+			"var.harness": "clamp( if( varb.pfc, var.harness, ( between(player_pos_y-pos_y, 4, 4.2) && equals(player_pos_x, pos_x, 2.3) && equals(player_pos_z, pos_z, 2.3) ) || is_ridden, var.harness + frame_time*7, var.harness - frame_time   ), 0, 1 )",
+			"var.Aequip": "clamp( if( is_ridden, var.Aequip + frame_time*3, var.Aequip - frame_time*3 ), 0, 1 )",
+			"var.equip": "(0.5+0.5*cos( pow( 1-var.Aequip, 1.5 )*pi ) )",
+			"var.Created_by_FreshLX_for_Fresh_Animations": "1"
+		},
+		{
+			"root.ry": "var.rotation-rot_y",
+			"harness.rx": "-sin(var.Bt/6)/12*if(is_child,2,1)*var.moveB +torad( head_pitch*if(is_child,1-var.move,0) +15*var.speed*(1-2*var.ground) )*(1-var.mount)  +torad( -3*sin(var.lsg/1.5)*1.3*var.moveA )*if(is_riding,1,var.ground)*(1-0.8*var.mount)  +torad(-9-20*sin(limb_swing/4) )*var.hurt  +if(is_child && age<6, 0.5+sin( clamp(age/6, 0, 1)*pi*1.5 )/2, 0)/4",
+			"harness.rz": " sin(var.Bt/5)/22*if(is_child,2,1)*var.moveB +torad( var.hy/6  *(1-if(is_riding,1,var.ground))                           )                +torad(  2*cos(var.lsg    )*1.3*var.moveA )*if(is_riding,1,var.ground)*(1-0.8*var.mount)  +torad(   30*cos(limb_swing/6) )*var.hurt  +torad( 15*( cos(var.Bt/3)*var.Ntwist ) )/if(is_child,1,2+2*var.mount)  +clamp( (var.rotation-var.roty)/2, -1, 1 )/3*min(1,var.speed*4)*(1-var.ground)",
+			"harness.ry": "                                              torad( var.hy/1.5*(1-if(is_riding,1,var.ground))                           )                +torad( -5*sin(var.lsg    )*1.3*var.moveA )*if(is_riding,1,var.ground)*(1-0.8*var.mount)  +torad(   -8*sin(limb_swing/8) )*var.hurt  +torad( 30*( sin(var.Bt/3)*var.Ntwist ) )/if(is_child,1,2+2*var.mount)",
+			"harness.tx": "    ( (                                                                                   -sin(harness.rz)*12 )*var.mount +( -cos(var.Bt/5)/2*if(is_child,2,1)*var.moveB                )*(1-var.mount) )*(1-if(is_riding,1,var.ground))",
+			"harness.tz": "    ( (                                                             sin(harness.rx)*12                        )*var.mount +( -cos(var.Bt/6)  *if(is_child,2,1)*var.moveB +1.5*var.speed )*(1-var.mount) )*(1-if(is_riding,1,var.ground))",
+			"harness.ty": "20 +( (-sin(var.Ut+cos(var.Ut)/2)/6*var.thrust*(1-var.h_offset) -12+cos(harness.rx)*12 -12+cos(harness.rz)*12 )*var.mount +( -cos(var.Ut/2)/if(is_child,1,2)  -var.up*2*var.thrust      )*(1-var.mount) )*(1-if(is_riding,1,var.ground)) +(0.1+0.2*var.h_offset)*(0.5-0.5*cos(pow(var.harness,2)*pi)) +if(is_child && age<5, 6-sin( clamp(age/5, 0, 1)*pi/2 )*6, 0)"
+		},
+		{
+			"goggles2.rx": "torad(-45 +( 45 -70*(1-var.Aequip*2)*(1-var.Aequip) )*var.equip  )",
+			"goggles2.ty": "-15  +( 5 -3-3*sin(var.Aequip*pi*1.5) )*var.equip",
+			"goggles2.tz": "-5.5 +( -2*sin(pow(var.Aequip,2)*pi) )"
+		},
+		{
+			"var.pre_twist": "var.ANtwist",
+			"var.pre_posy": "pos_y",
+			"var.pre_frame_counter": "frame_counter"
+		}
+	]
+}

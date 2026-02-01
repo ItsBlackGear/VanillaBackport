@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "#minecraft:has_wolf/rusty",
+      "required": false
+    },
+    "#minecraft:is_jungle"
+  ]
+}

@@ -8,6 +8,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BiomeTags;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
@@ -91,27 +92,35 @@ public class BiomeTagGenerator extends FabricTagProvider<Biome> {
             .forceAddTag(BiomeTags.IS_BADLANDS);
 
         this.getOrCreateTagBuilder(ModBiomeTags.SPAWNS_SPOTTED_WOLVES)
+            .addOptionalTag(new ResourceLocation("has_wolf/spotted"))
             .forceAddTag(BiomeTags.IS_SAVANNA);
 
         this.getOrCreateTagBuilder(ModBiomeTags.SPAWNS_SNOWY_WOLVES)
+            .addOptionalTag(new ResourceLocation("has_wolf/snowy"))
             .add(Biomes.GROVE);
 
         this.getOrCreateTagBuilder(ModBiomeTags.SPAWNS_BLACK_WOLVES)
+            .addOptionalTag(new ResourceLocation("has_wolf/black"))
             .add(Biomes.OLD_GROWTH_PINE_TAIGA);
 
         this.getOrCreateTagBuilder(ModBiomeTags.SPAWNS_ASHEN_WOLVES)
+            .addOptionalTag(new ResourceLocation("has_wolf/ashen"))
             .add(Biomes.SNOWY_TAIGA);
 
         this.getOrCreateTagBuilder(ModBiomeTags.SPAWNS_RUSTY_WOLVES)
+            .addOptionalTag(new ResourceLocation("has_wolf/rusty"))
             .forceAddTag(BiomeTags.IS_JUNGLE);
 
         this.getOrCreateTagBuilder(ModBiomeTags.SPAWNS_WOOD_WOLVES)
+            .addOptionalTag(new ResourceLocation("has_wolf/woods"))
             .add(Biomes.FOREST);
 
         this.getOrCreateTagBuilder(ModBiomeTags.SPAWNS_CHESTNUT_WOLVES)
+            .addOptionalTag(new ResourceLocation("has_wolf/chestnut"))
             .add(Biomes.OLD_GROWTH_SPRUCE_TAIGA);
 
         this.getOrCreateTagBuilder(ModBiomeTags.SPAWNS_STRIPED_WOLVES)
+            .addOptionalTag(new ResourceLocation("has_wolf/striped"))
             .forceAddTag(BiomeTags.IS_BADLANDS);
     }
 

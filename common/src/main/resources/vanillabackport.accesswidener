@@ -1,5 +1,16 @@
 accessWidener   v2  named
 
+accessible field net/minecraft/client/model/WolfModel head Lnet/minecraft/client/model/geom/ModelPart;
+accessible field net/minecraft/client/model/WolfModel realHead Lnet/minecraft/client/model/geom/ModelPart;
+accessible field net/minecraft/client/model/WolfModel body Lnet/minecraft/client/model/geom/ModelPart;
+accessible field net/minecraft/client/model/WolfModel rightHindLeg Lnet/minecraft/client/model/geom/ModelPart;
+accessible field net/minecraft/client/model/WolfModel leftHindLeg Lnet/minecraft/client/model/geom/ModelPart;
+accessible field net/minecraft/client/model/WolfModel rightFrontLeg Lnet/minecraft/client/model/geom/ModelPart;
+accessible field net/minecraft/client/model/WolfModel leftFrontLeg Lnet/minecraft/client/model/geom/ModelPart;
+accessible field net/minecraft/client/model/WolfModel tail Lnet/minecraft/client/model/geom/ModelPart;
+accessible field net/minecraft/client/model/WolfModel realTail Lnet/minecraft/client/model/geom/ModelPart;
+accessible field net/minecraft/client/model/WolfModel upperBody Lnet/minecraft/client/model/geom/ModelPart;
+
 accessible field net/minecraft/world/entity/Mob goalSelector Lnet/minecraft/world/entity/ai/goal/GoalSelector;
 accessible field net/minecraft/world/entity/Entity dimensions Lnet/minecraft/world/entity/EntityDimensions;
 accessible field net/minecraft/world/entity/Mob leashInfoTag Lnet/minecraft/nbt/CompoundTag;
@@ -13,6 +24,7 @@ accessible class net/minecraft/world/entity/ai/control/MoveControl$Operation
 accessible field net/minecraft/world/entity/ai/control/MoveControl operation Lnet/minecraft/world/entity/ai/control/MoveControl$Operation;
 mutable field net/minecraft/world/entity/ai/control/MoveControl operation Lnet/minecraft/world/entity/ai/control/MoveControl$Operation;
 
+accessible class net/minecraft/client/renderer/FogRenderer$FogData
 accessible class net/minecraft/world/level/biome/Biome$ClimateSettings
 
 accessible method net/minecraft/world/level/block/PinkPetalsBlock <init> (Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V

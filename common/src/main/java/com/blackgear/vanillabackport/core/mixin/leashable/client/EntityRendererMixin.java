@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.core.mixin.leashable.client;
 
-import com.blackgear.vanillabackport.common.api.leash.LeashRenderer;
+import com.blackgear.vanillabackport.common.api.leash.LeashFeatureRenderer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.culling.Frustum;
@@ -19,13 +19,13 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(EntityRenderer.class)
 public abstract class EntityRendererMixin<T extends Entity> {
-    @Unique private LeashRenderer<T> leashRenderer;
+    @Unique private LeashFeatureRenderer<T> leashRenderer;
 
     @Shadow @Final protected EntityRenderDispatcher entityRenderDispatcher;
 
     @Inject(method = "<init>", at = @At("TAIL"))
     private void vb$init(EntityRendererProvider.Context context, CallbackInfo ci) {
-        this.leashRenderer = new LeashRenderer<>(this.entityRenderDispatcher);
+        this.leashRenderer = new LeashFeatureRenderer<>(this.entityRenderDispatcher);
     }
 
     @Inject(method = "render", at = @At("HEAD"))

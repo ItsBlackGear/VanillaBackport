@@ -12,32 +12,34 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import java.util.function.Supplier;
+
 @Mixin(MusicManager.class)
 public abstract class MusicManagerMixin {
     @Shadow
     private @Nullable SoundInstance currentMusic;
 
     @Unique
-    private MusicFadeManager fadeManager;
+    private Supplier<MusicFadeManager> fadeManager;
 
     @Unique
-    private MusicFadeManager getFadeManager() {
+    private Supplier<MusicFadeManager> getFadeManager() {
         if (this.fadeManager == null) {
-            this.fadeManager = new MusicFadeManager((MusicManager) (Object) this);
+            this.fadeManager = () -> new MusicFadeManager((MusicManager) (Object) this);
         }
         return this.fadeManager;
     }
 
     @Inject(method = "tick", at = @At("HEAD"), cancellable = true)
     private void onTick(CallbackInfo ci) {
-        if (this.getFadeManager().onTick(this.currentMusic)) {
+        if (this.getFadeManager().get().onTick(this.currentMusic)) {
             ci.cancel();
         }
     }
 
     @Inject(method = "startPlaying", at = @At("HEAD"), cancellable = true)
     private void preventPlayingInPaleGarden(Music selector, CallbackInfo ci) {
-        if (this.getFadeManager().preventPlayingInPaleGarden()) {
+        if (this.getFadeManager().get().preventPlayingInPaleGarden()) {
             ci.cancel();
         }
     }
@@ -50,11 +52,11 @@ public abstract class MusicManagerMixin {
         )
     )
     private void updateVolume(Music selector, CallbackInfo ci) {
-        this.getFadeManager().updateVolume(this.currentMusic);
+        this.getFadeManager().get().updateVolume(this.currentMusic);
     }
 
     @Inject(method = "startPlaying", at = @At("TAIL"))
     private void onStartPlaying(Music selector, CallbackInfo ci) {
-        this.getFadeManager().onStartPlaying();
+        this.getFadeManager().get().onStartPlaying();
     }
 }

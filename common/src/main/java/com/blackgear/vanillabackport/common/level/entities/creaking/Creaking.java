@@ -438,6 +438,10 @@ public class Creaking extends Monster {
         return this.eyesGlowing;
     }
 
+    public boolean shouldEyesGlow() {
+        return this.isTearingDown() ? this.hasGlowingEyes() : this.isActive();
+    }
+
     public void checkEyeBlink() {
         if (this.creakingDeathTime > this.nextFlickerTime) {
             this.nextFlickerTime = this.creakingDeathTime + this.getRandom().nextIntBetweenInclusive(this.eyesGlowing ? 2 : this.creakingDeathTime / 4, this.eyesGlowing ? 8 : this.creakingDeathTime / 2);

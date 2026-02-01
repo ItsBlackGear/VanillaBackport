@@ -114,8 +114,8 @@ public class ArmadilloModel extends AgeableHierarchicalModel<Armadillo> {
 			this.rightHindLeg.visible = true;
 			this.tail.visible = true;
 			this.cube.visible = false;
-			this.head.xRot = Mth.clamp(headPitch, -22.5F, 25.0F) * (float) (Math.PI / 180.0);
-			this.head.yRot = Mth.clamp(netHeadYaw, -32.5F, 32.5F) * (float) (Math.PI / 180.0);
+			this.head.xRot = Mth.clamp(headPitch, -22.5F, 25.0F) * Mth.DEG_TO_RAD;
+			this.head.yRot = Mth.clamp(netHeadYaw, -32.5F, 32.5F) * Mth.DEG_TO_RAD;
 		}
 
 		this.animateWalk(ArmadilloAnimation.ARMADILLO_WALK, limbSwing, limbSwingAmount, 16.5F, 2.5F);

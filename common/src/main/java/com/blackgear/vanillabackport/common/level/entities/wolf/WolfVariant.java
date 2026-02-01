@@ -1,6 +1,10 @@
 package com.blackgear.vanillabackport.common.level.entities.wolf;
 
 import com.blackgear.vanillabackport.common.api.variant.*;
+import com.blackgear.vanillabackport.common.api.variant.spawn.PriorityProvider;
+import com.blackgear.vanillabackport.common.api.variant.spawn.SpawnCondition;
+import com.blackgear.vanillabackport.common.api.variant.spawn.SpawnContext;
+import com.blackgear.vanillabackport.common.api.variant.spawn.SpawnPrioritySelectors;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 

@@ -2,7 +2,7 @@ package com.blackgear.vanillabackport.common.registries;
 
 import com.blackgear.platform.core.helper.ItemRegistry;
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
-import com.blackgear.vanillabackport.common.level.entities.animal.VariantKeys;
+import com.blackgear.vanillabackport.common.level.entities.animal.ChickenVariants;
 import com.blackgear.vanillabackport.common.level.items.PaleOakBoatItem;
 import com.blackgear.vanillabackport.common.level.items.HarnessItem;
 import com.blackgear.vanillabackport.common.level.items.VariantEggItem;
@@ -14,6 +14,10 @@ import java.util.function.Supplier;
 
 public class ModItems {
     public static final ItemRegistry ITEMS = ItemRegistry.create(VanillaBackport.NAMESPACE);
+
+    public static final Supplier<Item> ARMADILLO_SPAWN_EGG = ITEMS.spawnEgg("armadillo_spawn_egg", ModEntities.ARMADILLO, 11366765, 8538184, new Item.Properties());
+    public static final Supplier<Item> CREAKING_SPAWN_EGG = ITEMS.spawnEgg("creaking_spawn_egg", ModEntities.CREAKING, 6250335, 16545810, new Item.Properties());
+    public static final Supplier<Item> HAPPY_GHAST_SPAWN_EGG = ITEMS.spawnEgg("happy_ghast_spawn_egg", ModEntities.HAPPY_GHAST, 16382457, 12369084, new Item.Properties());
 
     public static final Supplier<Item> RESIN_BRICK = ITEMS.register("resin_brick");
     public static final Supplier<Item> PALE_OAK_BOAT = ITEMS.register("pale_oak_boat", () -> new PaleOakBoatItem(false, new Item.Properties().stacksTo(1)));
@@ -171,11 +175,11 @@ public class ModItems {
 
     public static final Supplier<Item> BLUE_EGG = ITEMS.register(
         "blue_egg",
-        properties -> new VariantEggItem(VariantKeys.COLD_CHICKEN, properties),
+        properties -> new VariantEggItem(ChickenVariants.COLD, properties),
         new Item.Properties().stacksTo(16));
     public static final Supplier<Item> BROWN_EGG = ITEMS.register(
         "brown_egg",
-        properties -> new VariantEggItem(VariantKeys.WARM_CHICKEN, properties),
+        properties -> new VariantEggItem(ChickenVariants.WARM, properties),
         new Item.Properties().stacksTo(16));
   
     public static final Supplier<Item> ARMADILLO_SCUTE = ITEMS.register("armadillo_scute");
@@ -184,8 +188,4 @@ public class ModItems {
         WolfArmorItem::new,
         new Item.Properties().durability(64)
     );
-    
-    public static final Supplier<Item> ARMADILLO_SPAWN_EGG = ITEMS.spawnEgg("armadillo_spawn_egg", ModEntities.ARMADILLO, 11366765, 8538184, new Item.Properties());
-    public static final Supplier<Item> CREAKING_SPAWN_EGG = ITEMS.spawnEgg("creaking_spawn_egg", ModEntities.CREAKING, 6250335, 16545810, new Item.Properties());
-    public static final Supplier<Item> HAPPY_GHAST_SPAWN_EGG = ITEMS.spawnEgg("happy_ghast_spawn_egg", ModEntities.HAPPY_GHAST, 16382457, 12369084, new Item.Properties());
 }

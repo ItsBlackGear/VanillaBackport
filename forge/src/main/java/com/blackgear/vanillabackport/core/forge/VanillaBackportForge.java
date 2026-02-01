@@ -2,8 +2,6 @@ package com.blackgear.vanillabackport.core.forge;
 
 import com.blackgear.platform.core.Environment;
 import com.blackgear.vanillabackport.core.VanillaBackport;
-import dev.emi.emi.api.EmiEntrypoint;
-import dev.emi.emi.api.EmiPlugin;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;

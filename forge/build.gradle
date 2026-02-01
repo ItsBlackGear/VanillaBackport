@@ -40,14 +40,14 @@ configurations {
 
 dependencies {
     forge "net.minecraftforge:forge:$rootProject.forge_version"
-    modApi "flatDir:Platform-forge-1.20.1-$rootProject.platform_indev_version"
-//    modApi "curse.maven:platform-997634:$rootProject.platform_forge_version"
+    modImplementation "com.blackgear:Platform-forge:$rootProject.platform_indev_version"
+//    modImplementation "curse.maven:platform-997634:$rootProject.platform_forge_version"
 
     compileOnly("curse.maven:mouse-tweaks-60089:5338457")
     compileOnly("curse.maven:jei-238222:7253590")
     compileOnly("curse.maven:just-enough-resources-jer-240630:5057220")
 
-    modApi("com.github.glitchfiend:TerraBlender-forge:$rootProject.terrablender_version")
+    modImplementation("com.github.glitchfiend:TerraBlender-forge:$rootProject.terrablender_version")
 
     common(project(path: ':common', configuration: 'namedElements')) { transitive false }
     shadowBundle project(path: ':common', configuration: 'transformProductionForge')
@@ -62,6 +62,9 @@ processResources {
 }
 
 shadowJar {
+    exclude "architectury.common.json"
+    exclude "fabric.mod.json"
+
     configurations = [project.configurations.shadowBundle]
     archiveClassifier = 'dev-shadow'
 }

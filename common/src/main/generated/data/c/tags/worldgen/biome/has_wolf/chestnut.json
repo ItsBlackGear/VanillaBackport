@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "#minecraft:has_wolf/chestnut",
+      "required": false
+    },
+    "minecraft:old_growth_spruce_taiga"
+  ]
+}

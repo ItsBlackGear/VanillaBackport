@@ -26,10 +26,12 @@ subprojects {
     repositories {
         mavenCentral()
         maven { url "https://maven.parchmentmc.org" }
-        maven { url "https://maven.minecraftforge.net" }
+        maven { url "https://maven.bawnorton.com/releases" }
+        maven { url "https://jitpack.io" }
         maven { url "https://cursemaven.com" }
-
-        flatDir { dirs "/libs" }
+        maven { url "https://maven.minecraftforge.net" }
+        maven { url = uri("E:/Modding/Platform/Platform-1.20.1/build/local-repo")}
+//        flatDir { dirs "/libs" }
     }
 
     loom {
@@ -49,7 +51,7 @@ subprojects {
         // Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
         // if it is present.
         // If you remove this line, sources will not be generated.
-        withSourcesJar()
+//        withSourcesJar()
 
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17

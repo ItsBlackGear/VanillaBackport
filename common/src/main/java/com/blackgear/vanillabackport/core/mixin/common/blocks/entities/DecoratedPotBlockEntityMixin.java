@@ -35,27 +35,21 @@ public abstract class DecoratedPotBlockEntityMixin extends BlockEntity implement
         super(type, pos, blockState);
     }
 
-    @Inject(
-        method = "load",
-        at = @At("TAIL")
-    )
-    public void vb$load(CompoundTag tag, CallbackInfo ci) {
-        if (!this.tryLoadLootTable(tag) && this.level != null) {
-            this.vb$item = ItemStack.of(tag.getCompound(TAG_ITEM));
-        } else {
-            this.vb$item = ItemStack.EMPTY;
+    @Inject(method = "saveAdditional", at = @At("TAIL"))
+    public void vb$saveAdditional(CompoundTag tag, CallbackInfo ci) {
+        if (!this.trySaveLootTable(tag) && !this.vb$item.isEmpty()) {
+            tag.put(TAG_ITEM, this.vb$item.save(new CompoundTag()));
         }
     }
 
-    @Inject(
-        method = "saveAdditional",
-        at = @At("TAIL")
-    )
-    public void vb$saveAdditional(CompoundTag tag, CallbackInfo ci) {
-        if (!this.trySaveLootTable(tag) && !this.vb$item.isEmpty()) {
-            CompoundTag itemTag = new CompoundTag();
-            this.vb$item.save(itemTag);
-            tag.put(TAG_ITEM,itemTag);
+    @Inject(method = "load", at = @At("TAIL"))
+    public void vb$load(CompoundTag tag, CallbackInfo ci) {
+        if (!this.tryLoadLootTable(tag)) {
+            if (tag.contains(TAG_ITEM, 10)) {
+                this.vb$item = ItemStack.of(tag.getCompound(TAG_ITEM));
+            } else {
+                this.vb$item = ItemStack.EMPTY;
+            }
         }
     }
 
