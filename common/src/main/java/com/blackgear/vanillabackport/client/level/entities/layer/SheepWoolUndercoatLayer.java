@@ -1,12 +1,13 @@
 package com.blackgear.vanillabackport.client.level.entities.layer;
 
-import com.blackgear.vanillabackport.client.registries.ModModelLayers;
+import com.blackgear.vanillabackport.client.util.LazyModel;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.SheepFurModel;
 import net.minecraft.client.model.SheepModel;
 import net.minecraft.client.model.geom.EntityModelSet;
+import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
@@ -17,11 +18,11 @@ import net.minecraft.world.item.DyeColor;
 
 public class SheepWoolUndercoatLayer extends RenderLayer<Sheep, SheepModel<Sheep>> {
     private static final ResourceLocation SHEEP_WOOL_UNDERCOAT_TEXTURE = VanillaBackport.vanilla("textures/entity/sheep/sheep_wool_undercoat.png");
-    private final EntityModel<Sheep> model;
+    private final LazyModel<Sheep, EntityModel<Sheep>> model;
 
-    public SheepWoolUndercoatLayer(RenderLayerParent<Sheep, SheepModel<Sheep>> renderer, EntityModelSet modelSet) {
+    public SheepWoolUndercoatLayer(RenderLayerParent<Sheep, SheepModel<Sheep>> renderer, EntityModelSet models) {
         super(renderer);
-        this.model = new SheepFurModel<>(modelSet.bakeLayer(ModModelLayers.SHEEP_WOOL_UNDERCOAT));
+        this.model = LazyModel.of(models, ModelLayers.SHEEP, SheepFurModel::new);
     }
 
     @Override
@@ -41,7 +42,7 @@ public class SheepWoolUndercoatLayer extends RenderLayer<Sheep, SheepModel<Sheep
                 color = Sheep.getColor(sheep.getColor());
             }
 
-            coloredCutoutModelCopyLayerRender(this.getParentModel(), this.model, SHEEP_WOOL_UNDERCOAT_TEXTURE, poseStack, buffer, packedLight, sheep, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, partialTick, color);
+            coloredCutoutModelCopyLayerRender(this.getParentModel(), this.model.get(), SHEEP_WOOL_UNDERCOAT_TEXTURE, poseStack, buffer, packedLight, sheep, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, partialTick, color);
         }
     }
 }

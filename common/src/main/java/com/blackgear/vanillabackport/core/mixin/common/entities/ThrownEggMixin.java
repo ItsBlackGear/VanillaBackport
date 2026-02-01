@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.core.mixin.common.entities;
 
-import com.blackgear.vanillabackport.common.api.variant.VariantHolder;
+import com.blackgear.vanillabackport.common.api.variant.VariantDataHolder;
 import com.blackgear.vanillabackport.common.api.variant.VariantUtils;
 import com.blackgear.vanillabackport.common.level.entities.animal.ChickenVariant;
 import com.blackgear.vanillabackport.common.registries.ModDataComponents;
@@ -36,6 +36,6 @@ public abstract class ThrownEggMixin extends ThrowableItemProjectile {
     private void setChickenVariant(HitResult result, CallbackInfo ci, @Local Chicken chicken) {
         Optional.ofNullable(this.getItem().get(ModDataComponents.CHICKEN_VARIANT.get()))
             .map(key -> VariantUtils.getDefault(ModBuiltinRegistries.CHICKEN_VARIANTS, key))
-            .ifPresent(variant -> VariantHolder.<ChickenVariant>vb$getVariantHolder(chicken).vb$setVariant(variant));
+            .ifPresent(variant -> VariantDataHolder.<ChickenVariant>getHolder(chicken).setVariantData(variant));
     }
 }

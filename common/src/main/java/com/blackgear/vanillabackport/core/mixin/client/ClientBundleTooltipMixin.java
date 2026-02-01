@@ -2,7 +2,6 @@ package com.blackgear.vanillabackport.core.mixin.client;
 
 import com.blackgear.vanillabackport.common.api.bundle.BundleFeatures;
 import com.blackgear.vanillabackport.common.api.bundle.IBundle;
-import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.Font;
@@ -32,12 +31,12 @@ import java.util.List;
 public abstract class ClientBundleTooltipMixin implements ClientTooltipComponent {
     @Shadow @Final private BundleContents contents;
 
-    @Unique private static final ResourceLocation PROGRESSBAR_BORDER_SPRITE = VanillaBackport.vanilla("container/bundle/bundle_progressbar_border");
-    @Unique private static final ResourceLocation PROGRESSBAR_FILL_SPRITE = VanillaBackport.vanilla("container/bundle/bundle_progressbar_fill");
-    @Unique private static final ResourceLocation PROGRESSBAR_FULL_SPRITE = VanillaBackport.vanilla("container/bundle/bundle_progressbar_full");
-    @Unique private static final ResourceLocation BUNDLE_SLOT_HIGHLIGHT_BACK_TEXTURE = VanillaBackport.vanilla("textures/container/bundle/slot_highlight_back.png");
-    @Unique private static final ResourceLocation BUNDLE_SLOT_HIGHLIGHT_FRONT_TEXTURE = VanillaBackport.vanilla("textures/container/bundle/slot_highlight_front.png");
-    @Unique private static final ResourceLocation BUNDLE_SLOT_BACKGROUND_TEXTURE = VanillaBackport.vanilla("textures/container/bundle/slot_background.png");
+    @Unique private static final ResourceLocation PROGRESSBAR_BORDER_SPRITE = ResourceLocation.withDefaultNamespace("container/bundle/bundle_progressbar_border");
+    @Unique private static final ResourceLocation PROGRESSBAR_FILL_SPRITE = ResourceLocation.withDefaultNamespace("container/bundle/bundle_progressbar_fill");
+    @Unique private static final ResourceLocation PROGRESSBAR_FULL_SPRITE = ResourceLocation.withDefaultNamespace("container/bundle/bundle_progressbar_full");
+    @Unique private static final ResourceLocation BUNDLE_SLOT_HIGHLIGHT_BACK_TEXTURE = ResourceLocation.withDefaultNamespace("textures/container/bundle/slot_highlight_back.png");
+    @Unique private static final ResourceLocation BUNDLE_SLOT_HIGHLIGHT_FRONT_TEXTURE = ResourceLocation.withDefaultNamespace("textures/container/bundle/slot_highlight_front.png");
+    @Unique private static final ResourceLocation BUNDLE_SLOT_BACKGROUND_TEXTURE = ResourceLocation.withDefaultNamespace("textures/container/bundle/slot_background.png");
     @Unique private static final Component BUNDLE_EMPTY_DESCRIPTION = Component.translatable("item.minecraft.bundle.empty.description");
     @Unique private static final Component BUNDLE_FULL = Component.translatable("item.minecraft.bundle.full");
     @Unique private static final Component BUNDLE_EMPTY = Component.translatable("item.minecraft.bundle.empty");

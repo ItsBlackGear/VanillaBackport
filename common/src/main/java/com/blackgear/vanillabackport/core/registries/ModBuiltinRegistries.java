@@ -10,7 +10,7 @@ public class ModBuiltinRegistries {
     public static final BuiltInCoreRegistry<CowVariant> COW_VARIANTS = new BuiltInCoreRegistry<>(ModRegistries.COW_VARIANT.get(), VanillaBackport.NAMESPACE);
     public static final BuiltInCoreRegistry<ChickenVariant> CHICKEN_VARIANTS = new BuiltInCoreRegistry<>(ModRegistries.CHICKEN_VARIANT.get(), VanillaBackport.NAMESPACE);
     public static final BuiltInCoreRegistry<PigVariant> PIG_VARIANTS = new BuiltInCoreRegistry<>(ModRegistries.PIG_VARIANT.get(), VanillaBackport.NAMESPACE);
-    public static final BuiltInCoreRegistry<EnhancedFrogVariant> FROG_VARIANTS = new BuiltInCoreRegistry<>(ModRegistries.FROG_VARIANT.get(), VanillaBackport.NAMESPACE);
-    public static final BuiltInCoreRegistry<EnhancedWolfVariant> WOLF_VARIANTS = new BuiltInCoreRegistry<>(ModRegistries.WOLF_VARIANT.get(), VanillaBackport.NAMESPACE);
-    public static final BuiltInCoreRegistry<EnhancedCatVariant> CAT_VARIANTS = new BuiltInCoreRegistry<>(ModRegistries.CAT_VARIANT.get(), VanillaBackport.NAMESPACE);
+    public static final BuiltInCoreRegistry<FrogDataVariant> FROG_VARIANTS = new BuiltInCoreRegistry<>(ModRegistries.FROG_VARIANT.get(), VanillaBackport.NAMESPACE);
+    public static final BuiltInCoreRegistry<WolfDataVariant> WOLF_VARIANTS = new BuiltInCoreRegistry<>(ModRegistries.WOLF_VARIANT.get(), VanillaBackport.NAMESPACE);
+    public static final BuiltInCoreRegistry<CatDataVariant> CAT_VARIANTS = new BuiltInCoreRegistry<>(ModRegistries.CAT_VARIANT.get(), VanillaBackport.NAMESPACE);
 }

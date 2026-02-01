@@ -19,30 +19,22 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(EntityRenderer.class)
 public class EntityRendererMixin<T extends Entity> {
-    @Unique private LeashFeatureRenderer<T> leashFeatureRenderer;
+    @Unique private LeashFeatureRenderer<T> leashRenderer;
 
     @Shadow @Final protected EntityRenderDispatcher entityRenderDispatcher;
 
     @Inject(method = "<init>", at = @At("TAIL"))
     private void vb$init(EntityRendererProvider.Context context, CallbackInfo ci) {
-        this.leashFeatureRenderer = new LeashFeatureRenderer<>(this.entityRenderDispatcher);
+        this.leashRenderer = new LeashFeatureRenderer<>(this.entityRenderDispatcher);
     }
 
-    @Inject(
-        method = "render",
-        at = @At(
-            value = "INVOKE",
-            target = "Lnet/minecraft/client/renderer/entity/EntityRenderer;renderLeash(Lnet/minecraft/world/entity/Entity;FLcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;Lnet/minecraft/world/entity/Entity;)V"
-        ),
-        cancellable = true
-    )
-    private void vb$renderLeash(T entity, float entityYaw, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, CallbackInfo ci) {
-        ci.cancel();
-        this.leashFeatureRenderer.render(entity, partialTick, poseStack, bufferSource);
+    @Inject(method = "render", at = @At("HEAD"))
+    private void renderAdditional(T entity, float entityYaw, float partialTick, PoseStack poseStack, MultiBufferSource buffer, int packedLight, CallbackInfo ci) {
+        this.leashRenderer.render(entity, partialTick, poseStack, buffer);
     }
 
     @Inject(method = "shouldRender", at = @At("TAIL"), cancellable = true)
     private void vb$shouldRender(T entity, Frustum camera, double camX, double camY, double camZ, CallbackInfoReturnable<Boolean> cir) {
-        cir.setReturnValue(this.leashFeatureRenderer.shouldRender(entity, camera, cir.getReturnValue()));
+        cir.setReturnValue(this.leashRenderer.shouldRender(entity, camera, cir.getReturnValue()));
     }
 }

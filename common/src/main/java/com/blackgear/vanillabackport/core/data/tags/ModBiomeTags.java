@@ -15,15 +15,6 @@ public class ModBiomeTags {
     // Entity Placement Tags
     public static final TagKey<Biome> SPAWNS_CAMELS = TAGS.register("spawns_camels");
 
-    public static final TagKey<Biome> SPAWNS_SPOTTED_WOLVES = TAGS.register("has_wolf/spotted");
-    public static final TagKey<Biome> SPAWNS_SNOWY_WOLVES = TAGS.register("has_wolf/snowy");
-    public static final TagKey<Biome> SPAWNS_BLACK_WOLVES = TAGS.register("has_wolf/black");
-    public static final TagKey<Biome> SPAWNS_ASHEN_WOLVES = TAGS.register("has_wolf/ashen");
-    public static final TagKey<Biome> SPAWNS_RUSTY_WOLVES = TAGS.register("has_wolf/rusty");
-    public static final TagKey<Biome> SPAWNS_WOOD_WOLVES = TAGS.register("has_wolf/woods");
-    public static final TagKey<Biome> SPAWNS_CHESTNUT_WOLVES = TAGS.register("has_wolf/chestnut");
-    public static final TagKey<Biome> SPAWNS_STRIPED_WOLVES = TAGS.register("has_wolf/striped");
-
     // Feature Placement Tags
     public static final TagKey<Biome> SPAWNS_BUSHES = TAGS.register("spawns_bushes");
 

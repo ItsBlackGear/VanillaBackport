@@ -1,7 +1,7 @@
 package com.blackgear.vanillabackport.common.resource;
 
 import com.blackgear.platform.common.resource.RegistryAwareJsonReloadListener;
-import com.blackgear.vanillabackport.common.level.entities.animal.EnhancedFrogVariant;
+import com.blackgear.vanillabackport.common.level.entities.animal.FrogDataVariant;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.blackgear.vanillabackport.core.registries.ModBuiltinRegistries;
 import com.google.gson.Gson;
@@ -38,7 +38,7 @@ public class FrogVariantReloadListener extends RegistryAwareJsonReloadListener {
             JsonElement element = entry.getValue();
 
             try {
-                EnhancedFrogVariant.CODEC.parse(ops, element)
+                FrogDataVariant.CODEC.parse(ops, element)
                     .resultOrPartial(error -> VanillaBackport.LOGGER.error("Failed to parse frog variant {}: {}", name, error))
                     .ifPresent(variant -> ModBuiltinRegistries.FROG_VARIANTS.registerDataDriven(name, variant));
             } catch (JsonParseException exception) {

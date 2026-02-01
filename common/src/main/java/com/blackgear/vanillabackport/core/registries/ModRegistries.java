@@ -27,14 +27,14 @@ public class ModRegistries {
     public static final ResourceKey<Registry<PigVariant>> PIG_VARIANT_KEY = BUILDER.resource("pig_variant");
     public static final Supplier<Registry<PigVariant>> PIG_VARIANT = BUILDER.registry(PIG_VARIANT_KEY);
 
-    public static final ResourceKey<Registry<EnhancedFrogVariant>> FROG_VARIANT_KEY = INTERNAL.resource("frog_variant");
-    public static final Supplier<Registry<EnhancedFrogVariant>> FROG_VARIANT = INTERNAL.registry(FROG_VARIANT_KEY);
+    public static final ResourceKey<Registry<FrogDataVariant>> FROG_VARIANT_KEY = INTERNAL.resource("frog_variant");
+    public static final Supplier<Registry<FrogDataVariant>> FROG_VARIANT = INTERNAL.registry(FROG_VARIANT_KEY);
 
-    public static final ResourceKey<Registry<EnhancedWolfVariant>> WOLF_VARIANT_KEY = INTERNAL.resource("wolf_variant");
-    public static final Supplier<Registry<EnhancedWolfVariant>> WOLF_VARIANT = INTERNAL.registry(WOLF_VARIANT_KEY);
+    public static final ResourceKey<Registry<WolfDataVariant>> WOLF_VARIANT_KEY = INTERNAL.resource("wolf_variant");
+    public static final Supplier<Registry<WolfDataVariant>> WOLF_VARIANT = INTERNAL.registry(WOLF_VARIANT_KEY);
 
-    public static final ResourceKey<Registry<EnhancedCatVariant>> CAT_VARIANT_KEY = INTERNAL.resource("cat_variant");
-    public static final Supplier<Registry<EnhancedCatVariant>> CAT_VARIANT = INTERNAL.registry(CAT_VARIANT_KEY);
+    public static final ResourceKey<Registry<CatDataVariant>> CAT_VARIANT_KEY = INTERNAL.resource("cat_variant");
+    public static final Supplier<Registry<CatDataVariant>> CAT_VARIANT = INTERNAL.registry(CAT_VARIANT_KEY);
 
     public static final ResourceKey<Registry<MapCodec<? extends SpawnCondition>>> SPAWN_CONDITION_TYPE_KEY = BUILDER.resource("spawn_condition_type");
     public static final Supplier<Registry<MapCodec<? extends SpawnCondition>>> SPAWN_CONDITION_TYPE = BUILDER.registry(SPAWN_CONDITION_TYPE_KEY);

@@ -14,11 +14,13 @@ import net.minecraft.world.entity.EquipmentSlot;
 public class HappyGhastModel<T extends HappyGhast> extends HierarchicalModel<T> {
     private final ModelPart root;
     private final ModelPart body;
+    private final ModelPart inner_body;
     private final ModelPart[] tentacles = new ModelPart[9];
 
     public HappyGhastModel(ModelPart root) {
         this.root = root;
         this.body = root.getChild("body");
+        this.inner_body = this.body.getChild("inner_body");
         
         for (int i = 0; i < this.tentacles.length; i++) {
             this.tentacles[i] = this.body.getChild(createTentacleName(i));
@@ -29,7 +31,7 @@ public class HappyGhastModel<T extends HappyGhast> extends HierarchicalModel<T> 
         return "tentacle" + index;
     }
 
-    public static LayerDefinition createBodyLayer(boolean isBaby, CubeDeformation deformation) {
+    public static LayerDefinition createBodyLayer(CubeDeformation deformation) {
         MeshDefinition mesh = new MeshDefinition();
         PartDefinition root = mesh.getRoot();
         PartDefinition body = root.addOrReplaceChild(
@@ -38,13 +40,11 @@ public class HappyGhastModel<T extends HappyGhast> extends HierarchicalModel<T> 
             PartPose.offset(0.0F, 16.0F, 0.0F)
         );
 
-        if (isBaby) {
-            body.addOrReplaceChild(
-                "inner_body",
-                CubeListBuilder.create().texOffs(0, 32).addBox(-8.0F, -16.0F, -8.0F, 16.0F, 16.0F, 16.0F, deformation.extend(-0.5F)),
-                PartPose.offset(0.0F, 8.0F, 0.0F)
-            );
-        }
+        body.addOrReplaceChild(
+            "inner_body",
+            CubeListBuilder.create().texOffs(0, 32).addBox(-8.0F, -16.0F, -8.0F, 16.0F, 16.0F, 16.0F, deformation.extend(-0.5F)),
+            PartPose.offset(0.0F, 8.0F, 0.0F)
+        );
 
         body.addOrReplaceChild(
             createTentacleName(0),
@@ -115,6 +115,8 @@ public class HappyGhastModel<T extends HappyGhast> extends HierarchicalModel<T> 
 
     @Override
     public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+        this.inner_body.visible = entity.isBaby();
+
         if (entity.hasItemInSlot(EquipmentSlot.CHEST)) {
             this.body.xScale = 0.9375F;
             this.body.yScale = 0.9375F;

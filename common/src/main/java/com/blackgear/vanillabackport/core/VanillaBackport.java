@@ -14,6 +14,7 @@ import com.blackgear.vanillabackport.client.registries.ModSoundTypes;
 import com.blackgear.vanillabackport.common.CommonConfig;
 import com.blackgear.vanillabackport.common.CommonSetup;
 import com.blackgear.vanillabackport.common.api.variant.spawn.SpawnConditions;
+import com.blackgear.vanillabackport.common.level.entities.animal.*;
 import com.blackgear.vanillabackport.common.registries.*;
 import com.blackgear.vanillabackport.common.worldgen.features.SpringToLifeFeatures;
 import com.blackgear.vanillabackport.common.worldgen.features.TheGardenAwakensFeatures;
@@ -67,11 +68,13 @@ public final class VanillaBackport {
         ModRecipeSerializers.SERIALIZERS.register();
         ModCreativeTabs.TABS.register();
         ModBuiltinRegistries.WOLF_SOUND_VARIANTS.register();
-        ModBuiltinRegistries.COW_VARIANTS.register();
-        ModBuiltinRegistries.CHICKEN_VARIANTS.register();
-        ModBuiltinRegistries.PIG_VARIANTS.register();
+        CowVariants.REGISTRY.register();
+        ChickenVariants.REGISTRY.register();
+        PigVariants.REGISTRY.register();
+        WolfDataVariants.REGISTRY.register();
+        CatDataVariants.REGISTRY.register();
+        FrogDataVariants.REGISTRY.register();
         SpawnConditions.CONDITIONS.register();
-        SpawnConditions.MINECRAFT_CONDITIONS.register();
 
         ModBiomes.BIOMES.register();
         ModFeatures.FEATURES.register();

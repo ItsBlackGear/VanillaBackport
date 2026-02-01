@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.client.level.entities.renderer;
 
-import com.blackgear.vanillabackport.client.level.entities.layer.CreakingEmissiveLayer;
+import com.blackgear.vanillabackport.client.level.entities.layer.LivingEntityEmissiveLayer;
 import com.blackgear.vanillabackport.client.level.entities.model.CreakingModel;
 import com.blackgear.vanillabackport.client.registries.ModModelLayers;
 import com.blackgear.vanillabackport.common.level.entities.creaking.Creaking;
@@ -19,7 +19,14 @@ public class CreakingRenderer<T extends Creaking> extends MobRenderer<T, Creakin
 
     public CreakingRenderer(EntityRendererProvider.Context context) {
         super(context, new CreakingModel<>(context.bakeLayer(ModModelLayers.CREAKING)), 0.7F);
-        this.addLayer(new CreakingEmissiveLayer<>(this, EYES_TEXTURE_LOCATION, (creaking, partialTick, ageInTicks) -> 1.0F, CreakingModel::getHeadParts, RenderType::eyes));
+        this.addLayer(new LivingEntityEmissiveLayer<>(
+            this,
+            creaking -> EYES_TEXTURE_LOCATION,
+            (creaking, ageInTicks) -> creaking.shouldEyesGlow() ? 1.0F : 0.0F,
+            new CreakingModel<>(context.bakeLayer(ModModelLayers.CREAKING)),
+            RenderType::eyes,
+            true
+        ));
     }
 
     @Override

@@ -16,6 +16,7 @@
     "client.MusicManagerMixin",
     "client.SpriteSourceListMixin",
     "client.SpriteSourceListMixin$PalettedPermutationsAccessor",
+    "client.entities.renderer.CatRendererMixin",
     "client.entities.renderer.ChickenRendererMixin",
     "client.entities.renderer.CowRendererMixin",
     "client.entities.renderer.FrogRendererMixin",

@@ -1,21 +1,17 @@
 package com.blackgear.vanillabackport.core.mixin.common.entities;
 
-import com.blackgear.vanillabackport.common.api.variant.EnhancedVariants;
-import com.blackgear.vanillabackport.common.api.variant.VariantHolder;
+import com.blackgear.vanillabackport.common.api.variant.VariantDataHolder;
 import com.blackgear.vanillabackport.common.api.variant.VariantUtils;
 import com.blackgear.vanillabackport.common.api.variant.spawn.SpawnContext;
 import com.blackgear.vanillabackport.common.api.wolf.WolfSoundVariant;
 import com.blackgear.vanillabackport.common.api.wolf.WolfSoundVariantHolder;
 import com.blackgear.vanillabackport.common.api.wolf.WolfSoundVariants;
-import com.blackgear.vanillabackport.common.level.entities.animal.EnhancedWolfVariant;
-import com.blackgear.vanillabackport.common.level.entities.animal.EnhancedWolfVariants;
+import com.blackgear.vanillabackport.common.level.entities.animal.WolfDataVariant;
 import com.blackgear.vanillabackport.common.level.entities.animal.modules.WolfSoundVariantsModule;
 import com.blackgear.vanillabackport.core.mixin.access.WolfAccessor;
 import com.blackgear.vanillabackport.core.registries.ModBuiltinRegistries;
 import com.blackgear.vanillabackport.core.util.ColorUtils;
 import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -38,8 +34,10 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.util.Optional;
+
 @Mixin(Wolf.class)
-public abstract class WolfMixin extends TamableAnimalMixin implements NeutralMob, WolfSoundVariantHolder, VariantHolder<EnhancedWolfVariant> {
+public abstract class WolfMixin extends TamableAnimalMixin implements NeutralMob, WolfSoundVariantHolder, VariantDataHolder<WolfDataVariant> {
     @Unique private static EntityDataAccessor<String> DATA_SOUND_VARIANT_ID;
     @Unique private static EntityDataAccessor<String> DATA_VARIANT_ID;
     @Shadow public abstract DyeColor getCollarColor();
@@ -64,20 +62,20 @@ public abstract class WolfMixin extends TamableAnimalMixin implements NeutralMob
 
     @Inject(method = "addAdditionalSaveData", at = @At("RETURN"))
     private void vb$addAdditionalData(CompoundTag tag, CallbackInfo ci) {
-        EnhancedVariants.addVariantSaveData(this, tag, ModBuiltinRegistries.WOLF_VARIANTS);
+        VariantUtils.addVariantSaveData(this, tag, ModBuiltinRegistries.WOLF_VARIANTS);
         tag.putString("sound_variant", ModBuiltinRegistries.WOLF_SOUND_VARIANTS.getKey(this.getSoundVariant()).toString());
     }
 
     @Inject(method = "readAdditionalSaveData", at = @At("HEAD"))
     private void vb$readAdditionalData(CompoundTag tag, CallbackInfo ci) {
-        EnhancedVariants.readVariantSaveData(this, tag, ModBuiltinRegistries.WOLF_VARIANTS);
+        VariantUtils.readVariantSaveData(this, tag, ModBuiltinRegistries.WOLF_VARIANTS);
         WolfSoundVariant soundVariant = ModBuiltinRegistries.WOLF_SOUND_VARIANTS.get(ResourceLocation.tryParse(tag.getString("sound_variant")));
         if (soundVariant != null) this.setSoundVariant(soundVariant);
     }
 
     @Override
     public WolfSoundVariant getSoundVariant() {
-        return VariantUtils.getOrDefault(ModBuiltinRegistries.WOLF_SOUND_VARIANTS, this.entityData.get(DATA_SOUND_VARIANT_ID), WolfSoundVariants.CLASSIC);
+        return VariantUtils.getVariant(ModBuiltinRegistries.WOLF_SOUND_VARIANTS, this.entityData.get(DATA_SOUND_VARIANT_ID));
     }
 
     @Override
@@ -86,12 +84,12 @@ public abstract class WolfMixin extends TamableAnimalMixin implements NeutralMob
     }
 
     @Override
-    public EnhancedWolfVariant vb$getVariant() {
-        return VariantUtils.getOrDefault(ModBuiltinRegistries.WOLF_VARIANTS, this.entityData.get(DATA_VARIANT_ID), EnhancedWolfVariants.PALE);
+    public Optional<WolfDataVariant> getVariantData() {
+        return VariantUtils.getOrDefault(ModBuiltinRegistries.WOLF_VARIANTS, this.entityData.get(DATA_VARIANT_ID));
     }
 
     @Override
-    public void vb$setVariant(EnhancedWolfVariant variant) {
+    public void setVariantData(WolfDataVariant variant) {
         this.entityData.set(DATA_VARIANT_ID, VariantUtils.getID(ModBuiltinRegistries.WOLF_VARIANTS, variant));
     }
 
@@ -116,12 +114,9 @@ public abstract class WolfMixin extends TamableAnimalMixin implements NeutralMob
     @Override
     protected void vb$finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, SpawnGroupData spawnData, CallbackInfoReturnable<SpawnGroupData> cir) {
         this.setSoundVariant(ModBuiltinRegistries.WOLF_SOUND_VARIANTS.getRandomElement(level.getRandom()));
-        Registry<WolfVariant> registry = level.registryAccess().registryOrThrow(Registries.WOLF_VARIANT);
 
-        if (EnhancedVariants.hasVariantInclusive(registry, this.getVariant().value(), ModBuiltinRegistries.WOLF_VARIANTS)) {
-            VariantUtils.selectVariantToSpawn(SpawnContext.create(level, this.blockPosition()), ModBuiltinRegistries.WOLF_VARIANTS)
-                .ifPresent(this::vb$setVariant);
-        }
+        VariantUtils.selectVariantToSpawn(SpawnContext.create(level, this.blockPosition()), ModBuiltinRegistries.WOLF_VARIANTS)
+            .ifPresent(this::setVariantData);
     }
 
     @Inject(
@@ -138,11 +133,7 @@ public abstract class WolfMixin extends TamableAnimalMixin implements NeutralMob
 
             WolfSoundVariantHolder.of(child).setSoundVariant(ModBuiltinRegistries.WOLF_SOUND_VARIANTS.getRandomElement(this.getRandom()));
 
-            Registry<WolfVariant> registry = level.registryAccess().registryOrThrow(Registries.WOLF_VARIANT);
-            if (EnhancedVariants.hasVariantInclusive(registry, this.getVariant().value(), ModBuiltinRegistries.WOLF_VARIANTS)
-                && EnhancedVariants.hasVariantInclusive(registry, mate.getVariant().value(), ModBuiltinRegistries.WOLF_VARIANTS)) {
-                VariantHolder.vb$trySetOffspringVariant(child, this, mate);
-            }
+            VariantDataHolder.trySetOffspringVariant(child, this, mate);
         }
     }
 }

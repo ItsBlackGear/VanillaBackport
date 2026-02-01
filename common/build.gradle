@@ -11,7 +11,8 @@ dependencies {
     // which get remapped to the correct annotations on each platform.
     // Do NOT use other classes from Fabric Loader.
     modImplementation "net.fabricmc:fabric-loader:$rootProject.fabric_loader_version"
-    modApi "flatDir:Platform-common-1.21.1-$rootProject.platform_indev_version"
+    modImplementation "com.blackgear:Platform-common-1.21.1:$rootProject.platform_indev_version"
+//    modApi "flatDir:Platform-common-1.21.1-$rootProject.platform_indev_version"
 //    modApi "curse.maven:platform-997634:$rootProject.platform_fabric_version"
 
     modCompileOnly "curse.maven:mouse-tweaks-60089:5437294"

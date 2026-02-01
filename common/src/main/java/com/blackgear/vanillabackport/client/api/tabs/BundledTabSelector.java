@@ -32,10 +32,7 @@ public class BundledTabSelector {
     private static BundledTabSelector instance;
 
     public static BundledTabSelector bootstrap() {
-        if (instance == null) {
-            instance = new BundledTabSelector();
-        }
-
+        if (instance == null) instance = new BundledTabSelector();
         return instance;
     }
 
@@ -211,7 +208,7 @@ public class BundledTabSelector {
         @Override
         protected void renderWidget(GuiGraphics graphics, int mouseX, int mouseY, float partialTick) {
             graphics.pose().pushPose();
-            graphics.pose().translate(0.0, 0.0, 200.0);
+            graphics.pose().translate(0.0, 0.0, 20.0);
             this.renderSelected(graphics);
             graphics.renderItem(this.bundle.getIcon(), this.getX(), this.getY());
             graphics.pose().popPose();
@@ -227,7 +224,7 @@ public class BundledTabSelector {
         private void renderHighlight(GuiGraphics graphics) {
             if (this.isHovered() && !this.bundle.isSelected()) {
                 graphics.pose().pushPose();
-                graphics.pose().translate(0.0, 0.0, 200.0);
+                graphics.pose().translate(0.0, 0.0, 20.0);
                 RenderSystem.enableBlend();
                 RenderSystem.defaultBlendFunc();
                 graphics.blit(SELECTOR_BAR, this.getX(), this.getY(), 32, 44, 16, 16);
@@ -248,7 +245,10 @@ public class BundledTabSelector {
         @Override
         public void renderWidget(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
             int textureY = this.isHovered ? 12 : 0;
+            graphics.pose().pushPose();
+            graphics.pose().translate(0.0, 0.0, 20.0);
             graphics.blit(SELECTOR_BAR, this.getX(), this.getY(), this.uOffset, textureY, 18, 11);
+            graphics.pose().popPose();
         }
     }
 }

@@ -1,10 +1,10 @@
 package com.blackgear.vanillabackport.core.mixin.common.entities;
 
+import com.blackgear.vanillabackport.common.api.variant.VariantSpawner;
 import com.blackgear.vanillabackport.common.api.variant.spawn.SpawnContext;
-import com.blackgear.vanillabackport.common.api.variant.VariantHolder;
+import com.blackgear.vanillabackport.common.api.variant.VariantDataHolder;
 import com.blackgear.vanillabackport.common.api.variant.VariantUtils;
 import com.blackgear.vanillabackport.common.level.entities.animal.PigVariant;
-import com.blackgear.vanillabackport.common.level.entities.animal.PigVariants;
 import com.blackgear.vanillabackport.core.registries.ModBuiltinRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -24,8 +24,10 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.util.Optional;
+
 @Mixin(Pig.class)
-public abstract class PigMixin extends MobMixin implements VariantHolder<PigVariant> {
+public abstract class PigMixin extends MobMixin implements VariantDataHolder<PigVariant> {
     @Unique private static final EntityDataAccessor<String> DATA_VARIANT_ID = SynchedEntityData.defineId(Pig.class, EntityDataSerializers.STRING);
 
     protected PigMixin(EntityType<? extends Animal> entityType, Level level) {
@@ -39,7 +41,7 @@ public abstract class PigMixin extends MobMixin implements VariantHolder<PigVari
     private void vb$getBreedOffspring(ServerLevel level, AgeableMob otherParent, CallbackInfoReturnable<Pig> cir) {
         Pig child = cir.getReturnValue();
         if (child != null && otherParent instanceof Pig mate) {
-            VariantHolder.vb$trySetOffspringVariant(child, this, mate);
+            VariantDataHolder.trySetOffspringVariant(child, this, mate);
         }
     }
 
@@ -49,13 +51,13 @@ public abstract class PigMixin extends MobMixin implements VariantHolder<PigVari
     }
 
     @Override
-    public void vb$setVariant(PigVariant variant) {
+    public void setVariantData(PigVariant variant) {
         this.entityData.set(DATA_VARIANT_ID, VariantUtils.getID(ModBuiltinRegistries.PIG_VARIANTS, variant));
     }
 
     @Override
-    public PigVariant vb$getVariant() {
-        return VariantUtils.getOrDefault(ModBuiltinRegistries.PIG_VARIANTS, this.entityData.get(DATA_VARIANT_ID), PigVariants.TEMPERATE);
+    public Optional<PigVariant> getVariantData() {
+        return VariantUtils.getOrDefault(ModBuiltinRegistries.PIG_VARIANTS, this.entityData.get(DATA_VARIANT_ID));
     }
 
     @Override
@@ -70,7 +72,7 @@ public abstract class PigMixin extends MobMixin implements VariantHolder<PigVari
 
     @Override
     protected void vb$finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, SpawnGroupData spawnData, CallbackInfoReturnable<SpawnGroupData> cir) {
-        VariantUtils.selectFarmAnimalVariantToSpawn(SpawnContext.create(level, this.blockPosition()), ModBuiltinRegistries.PIG_VARIANTS, PigVariants.TEMPERATE)
-            .ifPresent(this::vb$setVariant);
+        VariantUtils.selectVariantToSpawn(SpawnContext.create(level, this.blockPosition()), ModBuiltinRegistries.PIG_VARIANTS, VariantSpawner.FARM_ANIMALS)
+            .ifPresent(this::setVariantData);
     }
 }

@@ -1,14 +1,11 @@
 package com.blackgear.vanillabackport.core.mixin.common.entities;
 
-import com.blackgear.vanillabackport.common.api.variant.EnhancedVariants;
 import com.blackgear.vanillabackport.common.api.variant.spawn.SpawnContext;
-import com.blackgear.vanillabackport.common.api.variant.VariantHolder;
+import com.blackgear.vanillabackport.common.api.variant.VariantDataHolder;
 import com.blackgear.vanillabackport.common.api.variant.VariantUtils;
-import com.blackgear.vanillabackport.common.level.entities.animal.EnhancedFrogVariant;
-import com.blackgear.vanillabackport.common.level.entities.animal.EnhancedFrogVariants;
+import com.blackgear.vanillabackport.common.level.entities.animal.FrogDataVariant;
 import com.blackgear.vanillabackport.core.registries.ModBuiltinRegistries;
 import net.minecraft.core.Holder;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -30,8 +27,10 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.util.Optional;
+
 @Mixin(Frog.class)
-public abstract class FrogMixin extends MobMixin implements VariantHolder<EnhancedFrogVariant> {
+public abstract class FrogMixin extends MobMixin implements VariantDataHolder<FrogDataVariant> {
     @Unique private static final EntityDataAccessor<String> DATA_VARIANT_ID = SynchedEntityData.defineId(Frog.class, EntityDataSerializers.STRING);
 
     @Shadow public abstract Holder<FrogVariant> getVariant();
@@ -46,30 +45,28 @@ public abstract class FrogMixin extends MobMixin implements VariantHolder<Enhanc
     }
 
     @Override
-    public void vb$setVariant(EnhancedFrogVariant variant) {
+    public void setVariantData(FrogDataVariant variant) {
         this.entityData.set(DATA_VARIANT_ID, VariantUtils.getID(ModBuiltinRegistries.FROG_VARIANTS, variant));
     }
 
     @Override
-    public EnhancedFrogVariant vb$getVariant() {
-        return VariantUtils.getOrDefault(ModBuiltinRegistries.FROG_VARIANTS, this.entityData.get(DATA_VARIANT_ID), EnhancedFrogVariants.TEMPERATE);
+    public Optional<FrogDataVariant> getVariantData() {
+        return VariantUtils.getOrDefault(ModBuiltinRegistries.FROG_VARIANTS, this.entityData.get(DATA_VARIANT_ID));
     }
 
     @Inject(method = "addAdditionalSaveData", at = @At("RETURN"))
     private void vb$addAdditionalData(CompoundTag tag, CallbackInfo ci) {
-        EnhancedVariants.addVariantSaveData(this, tag, ModBuiltinRegistries.FROG_VARIANTS);
+        VariantUtils.addVariantSaveData(this, tag, ModBuiltinRegistries.FROG_VARIANTS);
     }
 
     @Inject(method = "readAdditionalSaveData", at = @At("HEAD"))
     private void vb$readAdditionalData(CompoundTag tag, CallbackInfo ci) {
-        EnhancedVariants.readVariantSaveData(this, tag, ModBuiltinRegistries.FROG_VARIANTS);
+        VariantUtils.readVariantSaveData(this, tag, ModBuiltinRegistries.FROG_VARIANTS);
     }
 
     @Override
     protected void vb$finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, SpawnGroupData spawnData, CallbackInfoReturnable<SpawnGroupData> cir) {
-        if (EnhancedVariants.hasVariantInclusive(BuiltInRegistries.FROG_VARIANT, this.getVariant().value(), ModBuiltinRegistries.FROG_VARIANTS)) {
-            VariantUtils.selectVariantToSpawn(SpawnContext.create(level, this.blockPosition()), ModBuiltinRegistries.FROG_VARIANTS)
-                .ifPresent(this::vb$setVariant);
-        }
+        VariantUtils.selectVariantToSpawn(SpawnContext.create(level, this.blockPosition()), ModBuiltinRegistries.FROG_VARIANTS)
+            .ifPresent(this::setVariantData);
     }
 }

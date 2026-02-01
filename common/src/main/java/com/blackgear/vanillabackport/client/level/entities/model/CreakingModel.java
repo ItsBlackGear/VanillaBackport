@@ -12,22 +12,15 @@ import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 
-import java.util.List;
-
 @Environment(EnvType.CLIENT)
 public class CreakingModel<T extends Creaking> extends HierarchicalModel<T> {
-    public static final List<ModelPart> NO_PARTS = List.of();
     private final ModelPart root;
     private final ModelPart head;
-    private final List<ModelPart> headParts;
-
-    private boolean eyesGlowing;
 
     public CreakingModel(ModelPart root) {
         this.root = root.getChild("root");
         ModelPart upperBody = this.root.getChild("upper_body");
         this.head = upperBody.getChild("head");
-        this.headParts = List.of(this.head);
     }
 
     private static MeshDefinition createMesh() {
@@ -111,15 +104,6 @@ public class CreakingModel<T extends Creaking> extends HierarchicalModel<T> {
     }
 
     @Override
-    public void prepareMobModel(T entity, float limbSwing, float limbSwingAmount, float partialTick) {
-        if (entity.isTearingDown()) {
-            this.eyesGlowing = entity.hasGlowingEyes();
-        } else {
-            this.eyesGlowing = entity.isActive();
-        }
-    }
-
-    @Override
     public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
         this.head.xRot = headPitch * ((float) Math.PI / 180F);
@@ -134,7 +118,4 @@ public class CreakingModel<T extends Creaking> extends HierarchicalModel<T> {
         this.animate(entity.deathAnimationState, CreakingAnimation.CREAKING_DEATH, ageInTicks);
     }
 
-    public List<ModelPart> getHeadParts() {
-        return !this.eyesGlowing ? NO_PARTS : this.headParts;
-    }
 }

@@ -1,7 +1,8 @@
 package com.blackgear.vanillabackport.core.mixin.common.entities;
 
+import com.blackgear.vanillabackport.common.api.variant.VariantSpawner;
 import com.blackgear.vanillabackport.common.api.variant.spawn.SpawnContext;
-import com.blackgear.vanillabackport.common.api.variant.VariantHolder;
+import com.blackgear.vanillabackport.common.api.variant.VariantDataHolder;
 import com.blackgear.vanillabackport.common.api.variant.VariantUtils;
 import com.blackgear.vanillabackport.common.level.entities.animal.ChickenVariant;
 import com.blackgear.vanillabackport.common.level.entities.animal.ChickenVariants;
@@ -29,8 +30,10 @@ import org.spongepowered.asm.mixin.injection.ModifyArg;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.util.Optional;
+
 @Mixin(Chicken.class)
-public abstract class ChickenMixin extends MobMixin implements VariantHolder<ChickenVariant> {
+public abstract class ChickenMixin extends MobMixin implements VariantDataHolder<ChickenVariant> {
     @Unique private static final EntityDataAccessor<String> DATA_VARIANT_ID = SynchedEntityData.defineId(Chicken.class, EntityDataSerializers.STRING);
 
     protected ChickenMixin(EntityType<? extends Animal> entityType, Level level) {
@@ -44,7 +47,7 @@ public abstract class ChickenMixin extends MobMixin implements VariantHolder<Chi
     private void vb$getBreedOffspring(ServerLevel level, AgeableMob otherParent, CallbackInfoReturnable<Chicken> cir) {
         Chicken child = cir.getReturnValue();
         if (child != null && otherParent instanceof Chicken mate) {
-            VariantHolder.vb$trySetOffspringVariant(child, this, mate);
+            VariantDataHolder.trySetOffspringVariant(child, this, mate);
         }
     }
 
@@ -54,13 +57,13 @@ public abstract class ChickenMixin extends MobMixin implements VariantHolder<Chi
     }
 
     @Override
-    public void vb$setVariant(ChickenVariant variant) {
+    public void setVariantData(ChickenVariant variant) {
         this.entityData.set(DATA_VARIANT_ID, VariantUtils.getID(ModBuiltinRegistries.CHICKEN_VARIANTS, variant));
     }
 
     @Override
-    public ChickenVariant vb$getVariant() {
-        return VariantUtils.getOrDefault(ModBuiltinRegistries.CHICKEN_VARIANTS, this.entityData.get(DATA_VARIANT_ID), ChickenVariants.TEMPERATE);
+    public Optional<ChickenVariant> getVariantData() {
+        return VariantUtils.getOrDefault(ModBuiltinRegistries.CHICKEN_VARIANTS, this.entityData.get(DATA_VARIANT_ID));
     }
 
     @Override
@@ -75,8 +78,8 @@ public abstract class ChickenMixin extends MobMixin implements VariantHolder<Chi
 
     @Override
     protected void vb$finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, SpawnGroupData spawnData, CallbackInfoReturnable<SpawnGroupData> cir) {
-        VariantUtils.selectFarmAnimalVariantToSpawn(SpawnContext.create(level, this.blockPosition()), ModBuiltinRegistries.CHICKEN_VARIANTS, ChickenVariants.TEMPERATE)
-            .ifPresent(this::vb$setVariant);
+        VariantUtils.selectVariantToSpawn(SpawnContext.create(level, this.blockPosition()), ModBuiltinRegistries.CHICKEN_VARIANTS, VariantSpawner.FARM_ANIMALS)
+            .ifPresent(this::setVariantData);
     }
 
     @ModifyArg(
@@ -85,9 +88,9 @@ public abstract class ChickenMixin extends MobMixin implements VariantHolder<Chi
         index = 0
     )
     private ItemLike vb$modifyEggDrop(ItemLike originalItem) {
-        ChickenVariant variant = this.vb$getVariant();
+        Optional<ChickenVariant> variant = this.getVariantData();
 
-        if (variant != null && !VariantUtils.matches(ModBuiltinRegistries.CHICKEN_VARIANTS, variant, ChickenVariants.TEMPERATE)) {
+        if (variant.isPresent() && !VariantUtils.matches(ModBuiltinRegistries.CHICKEN_VARIANTS, variant.get(), ChickenVariants.TEMPERATE)) {
             if (LootUtils.dropFromGiftLootTable(this, (ServerLevel) this.level(), ModBuiltInLootTables.CHICKEN_LAY, (level, stack) -> this.spawnAtLocation(stack))) {
                 return Items.AIR;
             }

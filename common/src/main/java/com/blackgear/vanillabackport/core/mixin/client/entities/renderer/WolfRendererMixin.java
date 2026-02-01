@@ -1,17 +1,12 @@
 package com.blackgear.vanillabackport.core.mixin.client.entities.renderer;
 
-import com.blackgear.vanillabackport.common.api.variant.EnhancedVariants;
-import com.blackgear.vanillabackport.common.api.variant.VariantHolder;
-import com.blackgear.vanillabackport.common.level.entities.animal.EnhancedWolfVariant;
-import com.blackgear.vanillabackport.core.registries.ModBuiltinRegistries;
+import com.blackgear.vanillabackport.common.api.variant.VariantDataHolder;
+import com.blackgear.vanillabackport.common.level.entities.animal.WolfDataVariant;
 import net.minecraft.client.model.WolfModel;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.WolfRenderer;
-import net.minecraft.core.Registry;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.animal.Wolf;
-import net.minecraft.world.entity.animal.WolfVariant;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -29,15 +24,12 @@ public abstract class WolfRendererMixin extends MobRendererMixin<Wolf, WolfModel
         cancellable = true
     )
     private void vb$getTextureLocation(Wolf entity, CallbackInfoReturnable<ResourceLocation> cir) {
-        EnhancedWolfVariant variant = VariantHolder.<EnhancedWolfVariant>vb$getVariantHolder(entity).vb$getVariant();
-        Registry<WolfVariant> registry = entity.level().registryAccess().registryOrThrow(Registries.WOLF_VARIANT);
-
-        if (EnhancedVariants.hasVariantExclusive(ModBuiltinRegistries.WOLF_VARIANTS, variant, registry)) {
+        VariantDataHolder.<WolfDataVariant>getHolder(entity).getVariantData().ifPresent(variant -> {
             if (entity.isTame()) {
                 cir.setReturnValue(variant.assetInfo().tame().path());
             } else {
                 cir.setReturnValue(entity.isAngry() ? variant.assetInfo().angry().path() : variant.assetInfo().wild().path());
             }
-        }
+        });
     }
 }

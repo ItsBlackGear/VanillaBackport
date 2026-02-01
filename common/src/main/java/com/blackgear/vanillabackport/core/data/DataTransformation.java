@@ -53,8 +53,6 @@ public class DataTransformation {
         "resin_brick",
         "pale_oak_boat",
         "pale_oak_chest_boat",
-        "creaking_spawn_egg",
-        "happy_ghast_spawn_egg",
         "white_harness",
         "red_harness",
         "green_harness",

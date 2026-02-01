@@ -1,6 +1,8 @@
 package com.blackgear.vanillabackport.client;
 
 import com.blackgear.platform.client.GameRendering;
+import com.blackgear.platform.client.v2.render.DynamicItemRenderer;
+import com.blackgear.platform.client.v2.render.ItemRendererRegistry;
 import com.blackgear.vanillabackport.client.api.color.DryFoliageColor;
 import com.blackgear.vanillabackport.client.api.color.LeafColors;
 import com.blackgear.vanillabackport.client.level.entities.model.*;
@@ -9,6 +11,8 @@ import com.blackgear.vanillabackport.client.level.entities.model.cow.ColdCowMode
 import com.blackgear.vanillabackport.client.level.entities.model.cow.WarmCowModel;
 import com.blackgear.vanillabackport.client.level.entities.model.pig.ColdPigModel;
 import com.blackgear.vanillabackport.client.level.entities.renderer.*;
+import com.blackgear.vanillabackport.client.level.item.BundleRenderer;
+import com.blackgear.vanillabackport.client.level.item.SpawnEggRenderer;
 import com.blackgear.vanillabackport.client.level.particles.FallingLeavesParticle;
 import com.blackgear.vanillabackport.client.level.particles.FireflyParticle;
 import com.blackgear.vanillabackport.client.level.particles.TrailParticle;
@@ -16,16 +20,13 @@ import com.blackgear.vanillabackport.client.registries.ModModelLayers;
 import com.blackgear.vanillabackport.client.registries.ModParticles;
 import com.blackgear.vanillabackport.common.registries.ModBlocks;
 import com.blackgear.vanillabackport.common.registries.ModEntities;
-import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.BoatModel;
 import net.minecraft.client.model.ChestBoatModel;
-import net.minecraft.client.model.SheepModel;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.renderer.BiomeColors;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.GrassColor;
 
 @Environment(EnvType.CLIENT)
@@ -48,19 +49,22 @@ public class Rendering {
 
     public static void modelLayers(GameRendering.ModelLayerEvent event) {
         event.register(ModModelLayers.CREAKING, CreakingModel::createBodyLayer);
-        event.register(ModModelLayers.HAPPY_GHAST, () -> HappyGhastModel.createBodyLayer(false, CubeDeformation.NONE));
-        event.register(ModModelLayers.HAPPY_GHAST_BABY, () -> HappyGhastModel.createBodyLayer(true, CubeDeformation.NONE));
-        event.register(ModModelLayers.HAPPY_GHAST_HARNESS, HappyGhastHarnessModel::createHarnessLayer);
-        event.register(ModModelLayers.HAPPY_GHAST_ROPES, () -> HappyGhastModel.createBodyLayer(false, new CubeDeformation(0.2F)));
-        event.register(ModModelLayers.HAPPY_GHAST_BABY_ROPES, () -> HappyGhastModel.createBodyLayer(true, new CubeDeformation(0.2F)));
         event.register(ModModelLayers.PALE_OAK_BOAT, BoatModel::createBodyModel);
         event.register(ModModelLayers.PALE_OAK_CHEST_BOAT, ChestBoatModel::createBodyModel);
+
+        event.register(ModModelLayers.HAPPY_GHAST, () -> HappyGhastModel.createBodyLayer(CubeDeformation.NONE));
+        event.register(ModModelLayers.HAPPY_GHAST_HARNESS, HappyGhastHarnessModel::createHarnessLayer);
+        event.register(ModModelLayers.HAPPY_GHAST_ROPES, () -> HappyGhastModel.createBodyLayer(new CubeDeformation(0.2F)));
 
         event.register(ModModelLayers.COLD_PIG, ColdPigModel::createBodyLayer);
         event.register(ModModelLayers.COLD_CHICKEN, ColdChickenModel::createBodyLayer);
         event.register(ModModelLayers.COLD_COW, ColdCowModel::createBodyLayer);
         event.register(ModModelLayers.WARM_COW, WarmCowModel::createBodyLayer);
-        event.register(ModModelLayers.SHEEP_WOOL_UNDERCOAT, SheepModel::createBodyLayer);
+    }
+
+    public static void specialModels(GameRendering.SpecialModelEvent event) {
+        BundleRenderer.BUNDLES.forEach(item -> ItemRendererRegistry.INSTANCE.get().register(item, new BundleRenderer()));
+        SpawnEggRenderer.SPAWN_EGGS.forEach(item -> DynamicItemRenderer.INSTANCE.get().register(item, new SpawnEggRenderer()));
     }
 
     public static void blockRendering(GameRendering.BlockRendererEvent event) {
@@ -117,21 +121,5 @@ public class Rendering {
 
     public static void itemColors(GameRendering.ItemColorEvent event) {
         event.register(event::getColor, ModBlocks.BUSH.get());
-    }
-
-    public static void modelOverrides(GameRendering.ModelOverrideEvent event) {
-        event.register(
-            VanillaBackport.vanilla("bundle"),
-            VanillaBackport.resource("bundle"),
-            VanillaBackport.COMMON_CONFIG.hasUpdatedBundles.get()
-        );
-
-        for (DyeColor color : DyeColor.values()) {
-            event.register(
-                VanillaBackport.vanilla(color.getName() + "_bundle"),
-                VanillaBackport.resource(color.getName() + "_bundle"),
-                VanillaBackport.COMMON_CONFIG.hasUpdatedBundles.get()
-            );
-        }
     }
 }

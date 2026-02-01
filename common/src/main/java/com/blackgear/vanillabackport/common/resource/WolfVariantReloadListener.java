@@ -1,7 +1,7 @@
 package com.blackgear.vanillabackport.common.resource;
 
 import com.blackgear.platform.common.resource.RegistryAwareJsonReloadListener;
-import com.blackgear.vanillabackport.common.level.entities.animal.EnhancedWolfVariant;
+import com.blackgear.vanillabackport.common.level.entities.animal.WolfDataVariant;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.blackgear.vanillabackport.core.registries.ModBuiltinRegistries;
 import com.google.gson.Gson;
@@ -38,7 +38,7 @@ public class WolfVariantReloadListener extends RegistryAwareJsonReloadListener {
             JsonElement element = entry.getValue();
 
             try {
-                EnhancedWolfVariant.CODEC.parse(ops, element)
+                WolfDataVariant.CODEC.parse(ops, element)
                     .resultOrPartial(error -> VanillaBackport.LOGGER.error("Failed to parse wolf variant {}: {}", name, error))
                     .ifPresent(variant -> ModBuiltinRegistries.WOLF_VARIANTS.registerDataDriven(name, variant));
             } catch (JsonParseException exception) {

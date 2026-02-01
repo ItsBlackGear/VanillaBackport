@@ -1,13 +1,10 @@
 package com.blackgear.vanillabackport.core.mixin.client.entities.renderer;
 
-import com.blackgear.vanillabackport.common.api.variant.EnhancedVariants;
-import com.blackgear.vanillabackport.common.api.variant.VariantHolder;
-import com.blackgear.vanillabackport.common.level.entities.animal.EnhancedFrogVariant;
-import com.blackgear.vanillabackport.core.registries.ModBuiltinRegistries;
+import com.blackgear.vanillabackport.common.api.variant.VariantDataHolder;
+import com.blackgear.vanillabackport.common.level.entities.animal.FrogDataVariant;
 import net.minecraft.client.model.FrogModel;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.FrogRenderer;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.animal.frog.Frog;
 import org.spongepowered.asm.mixin.Mixin;
@@ -27,10 +24,6 @@ public abstract class FrogRendererMixin extends MobRendererMixin<Frog, FrogModel
         cancellable = true
     )
     private void vb$getTextureLocation(Frog entity, CallbackInfoReturnable<ResourceLocation> cir) {
-        EnhancedFrogVariant variant = VariantHolder.<EnhancedFrogVariant>vb$getVariantHolder(entity).vb$getVariant();
-
-        if (EnhancedVariants.hasVariantExclusive(ModBuiltinRegistries.FROG_VARIANTS, variant, BuiltInRegistries.FROG_VARIANT)) {
-            cir.setReturnValue(variant.assetInfo().path());
-        }
+        VariantDataHolder.<FrogDataVariant>getHolder(entity).getVariantData().ifPresent(variant -> cir.setReturnValue(variant.assetInfo().path()));
     }
 }

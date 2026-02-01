@@ -684,9 +684,9 @@ public class HappyGhast extends Animal implements PlayerRideable, LeashExtension
                 HappyGhast.this.setYHeadRot(HappyGhast.this.getYRot());
             } else if (this.lookAtCooldown > 0) {
                 this.lookAtCooldown--;
-                double xd = this.wantedX - HappyGhast.this.getX();
-                double zd = this.wantedZ - HappyGhast.this.getZ();
-                HappyGhast.this.setYRot(-((float) Mth.atan2(xd, zd)) * (180.0F / (float) Math.PI));
+                double x = this.wantedX - HappyGhast.this.getX();
+                double z = this.wantedZ - HappyGhast.this.getZ();
+                HappyGhast.this.setYRot(-((float) Mth.atan2(x, z)) * Mth.RAD_TO_DEG);
                 HappyGhast.this.yBodyRot = HappyGhast.this.getYRot();
                 HappyGhast.this.yHeadRot = HappyGhast.this.yBodyRot;
             } else {
@@ -695,7 +695,7 @@ public class HappyGhast extends Animal implements PlayerRideable, LeashExtension
                 }
 
                 Vec3 movement = this.mob.getDeltaMovement();
-                this.mob.setYRot(-((float) Mth.atan2(movement.x, movement.z)) * (180F / (float) Math.PI));
+                this.mob.setYRot(-((float) Mth.atan2(movement.x, movement.z)) * Mth.RAD_TO_DEG);
                 this.mob.yBodyRot = this.mob.getYRot();
             }
         }
