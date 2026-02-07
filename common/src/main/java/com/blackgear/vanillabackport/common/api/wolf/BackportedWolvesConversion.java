@@ -16,7 +16,7 @@ public class BackportedWolvesConversion {
 
     public static void migrateWolfVariant(VariantDataHolder<WolfVariant> entity, CompoundTag tag, BuiltInCoreRegistry<WolfVariant> registry) {
         // Don't apply conversion if backported wolves is loaded or wolf variants are disabled
-        if (ModChecker.BACKPORTED_WOLVES_LOADED.get() || !VanillaBackport.COMMON_CONFIG.hasWolfVariants.get()) return;
+        if (ModChecker.BACKPORTED_WOLVES_LOADED || !VanillaBackport.COMMON_CONFIG.hasWolfVariants.get()) return;
 
         if (tag.contains(BW_VARIANT_KEY, Tag.TAG_INT) && !tag.contains(VANILLA_VARIANT_KEY, Tag.TAG_STRING)) {
             int legacyId = tag.getInt(BW_VARIANT_KEY);

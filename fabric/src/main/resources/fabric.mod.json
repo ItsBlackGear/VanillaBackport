@@ -16,6 +16,9 @@
   "icon": "icon.png",
   "environment": "*",
   "entrypoints": {
+    "client": [
+      "com.blackgear.vanillabackport.core.fabric.emissive.EmissiveModelHandler"
+    ],
     "main": [
       "com.blackgear.vanillabackport.core.fabric.VanillaBackportFabric"
     ],

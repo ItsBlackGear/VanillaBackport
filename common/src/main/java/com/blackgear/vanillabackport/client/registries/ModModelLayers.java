@@ -2,10 +2,11 @@ package com.blackgear.vanillabackport.client.registries;
 
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.client.model.geom.ModelLayerLocation;
+import net.minecraft.resources.ResourceLocation;
 
 public class ModModelLayers {
     // BATS & POTS
-    public static final ModelLayerLocation BAT = register("bat");
+    public static final ModelLayerLocation BAT = registerBuiltIn("bat");
 
     // ARMORED PAWS
     public static final ModelLayerLocation WOLF_ARMOR = register("wolf_armor");
@@ -27,21 +28,19 @@ public class ModModelLayers {
     public static final ModelLayerLocation HAPPY_GHAST_HARNESS = register("happy_ghast", "harness");
     public static final ModelLayerLocation HAPPY_GHAST_ROPES = register("happy_ghast", "ropes");
 
-    // EXPERIMENTAL
-    public static final ModelLayerLocation CHICKEN_BABY = register("chicken_baby");
-    public static final ModelLayerLocation PIG_BABY = register("pig_baby");
-    public static final ModelLayerLocation COW_BABY = register("cow_baby");
-    public static final ModelLayerLocation COLD_COW_BABY = register("cold_cow_baby");
-    public static final ModelLayerLocation WARM_COW_BABY = register("warm_cow_baby");
-    public static final ModelLayerLocation MOOSHROOM_BABY = register("mooshroom_baby");
-    public static final ModelLayerLocation WOLF_BABY = register("wolf_baby");
-    public static final ModelLayerLocation SHEEP_BABY = register("sheep_baby");
-
     private static ModelLayerLocation register(String name) {
         return register(name, "main");
     }
 
     private static ModelLayerLocation register(String name, String layer) {
+        return new ModelLayerLocation(new ResourceLocation(name), layer);
+    }
+
+    private static ModelLayerLocation registerBuiltIn(String name) {
+        return registerBuiltIn(name, "main");
+    }
+
+    private static ModelLayerLocation registerBuiltIn(String name, String layer) {
         return new ModelLayerLocation(VanillaBackport.resource(name), layer);
     }
 }

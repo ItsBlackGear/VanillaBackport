@@ -1,12 +1,12 @@
 package com.blackgear.vanillabackport.common.registries;
 
-import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.Util;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstapContext;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ArmorMaterials;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.armortrim.TrimMaterial;
@@ -43,6 +43,6 @@ public class ModTrimMaterials {
     }
 
     private static ResourceKey<TrimMaterial> registryKey(String name) {
-        return ResourceKey.create(Registries.TRIM_MATERIAL, VanillaBackport.vanilla(name));
+        return ResourceKey.create(Registries.TRIM_MATERIAL, new ResourceLocation(name));
     }
 }

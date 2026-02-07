@@ -107,9 +107,8 @@ public class CreakingHeartBlock extends BaseEntityBlock {
         for (Direction direction : directions(axis)) {
             BlockPos neighborPos = pos.relative(direction);
             BlockState neighborState = level.getBlockState(neighborPos);
-            if (!neighborState.is(ModBlockTags.PALE_OAK_LOGS) || neighborState.getValue(AXIS) != axis) {
-                return false;
-            }
+            if (!neighborState.is(ModBlockTags.CREAKING_HEART_HOLDERS)) return false;
+            if (neighborState.hasProperty(AXIS) && neighborState.getValue(AXIS) != axis) return false;
         }
 
         return true;
@@ -127,7 +126,7 @@ public class CreakingHeartBlock extends BaseEntityBlock {
         for (Direction direction : Direction.values()) {
             BlockPos neighborPos = pos.relative(direction);
             BlockState neighborState = level.getBlockState(neighborPos);
-            if (!neighborState.is(ModBlockTags.PALE_OAK_LOGS)) {
+            if (!neighborState.is(ModBlockTags.CREAKING_HEART_HOLDERS)) {
                 return false;
             }
         }

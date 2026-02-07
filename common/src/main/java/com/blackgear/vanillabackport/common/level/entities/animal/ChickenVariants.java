@@ -4,7 +4,6 @@ import com.blackgear.platform.core.BuiltInCoreRegistry;
 import com.blackgear.vanillabackport.common.api.variant.spawn.check.raw.RawBiomeCheck;
 import com.blackgear.vanillabackport.common.api.variant.ModelAndTexture;
 import com.blackgear.vanillabackport.common.api.variant.spawn.SpawnPrioritySelectors;
-import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.blackgear.vanillabackport.core.data.tags.ModBiomeTags;
 import com.blackgear.vanillabackport.core.registries.ModBuiltinRegistries;
 import net.minecraft.resources.ResourceKey;
@@ -18,7 +17,7 @@ public class ChickenVariants {
     public static final ResourceKey<ChickenVariant> TEMPERATE = register(
         "temperate",
         ChickenVariant.ModelType.NORMAL,
-        VanillaBackport.vanilla("entity/chicken"),
+        new ResourceLocation("entity/chicken"),
         SpawnPrioritySelectors.fallback(0)
     );
     public static final ResourceKey<ChickenVariant> WARM = register(
@@ -35,7 +34,7 @@ public class ChickenVariants {
     );
 
     private static ResourceKey<ChickenVariant> register(String key, ChickenVariant.ModelType type, String adultAssetId, TagKey<Biome> biome) {
-        ResourceLocation adultTexture = VanillaBackport.vanilla("entity/chicken/" + adultAssetId);
+        ResourceLocation adultTexture = new ResourceLocation("entity/chicken/" + adultAssetId);
         return register(key, type, adultTexture, SpawnPrioritySelectors.single(new RawBiomeCheck(biome), 1));
     }
 

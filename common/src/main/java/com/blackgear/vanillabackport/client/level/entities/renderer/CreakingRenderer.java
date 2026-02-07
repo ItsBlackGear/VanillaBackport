@@ -4,7 +4,6 @@ import com.blackgear.vanillabackport.client.level.entities.layer.LivingEntityEmi
 import com.blackgear.vanillabackport.client.level.entities.model.CreakingModel;
 import com.blackgear.vanillabackport.client.registries.ModModelLayers;
 import com.blackgear.vanillabackport.common.level.entities.creaking.Creaking;
-import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.renderer.RenderType;
@@ -14,8 +13,8 @@ import net.minecraft.resources.ResourceLocation;
 
 @Environment(EnvType.CLIENT)
 public class CreakingRenderer<T extends Creaking> extends MobRenderer<T, CreakingModel<T>> {
-    private static final ResourceLocation TEXTURE_LOCATION = VanillaBackport.vanilla("textures/entity/creaking/creaking.png");
-    private static final ResourceLocation EYES_TEXTURE_LOCATION = VanillaBackport.vanilla("textures/entity/creaking/creaking_eyes.png");
+    private static final ResourceLocation TEXTURE_LOCATION = new ResourceLocation("textures/entity/creaking/creaking.png");
+    private static final ResourceLocation EYES_TEXTURE_LOCATION = new ResourceLocation("textures/entity/creaking/creaking_eyes.png");
 
     public CreakingRenderer(EntityRendererProvider.Context context) {
         super(context, new CreakingModel<>(context.bakeLayer(ModModelLayers.CREAKING)), 0.7F);

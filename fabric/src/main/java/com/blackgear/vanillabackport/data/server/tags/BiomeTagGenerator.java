@@ -208,5 +208,15 @@ public class BiomeTagGenerator extends FabricTagProvider<Biome> {
                 Biomes.DARK_FOREST,
                 Biomes.WOODED_BADLANDS
             );
+
+        this.getOrCreateTagBuilder(ModBiomeTags.HAS_DARK_LEAF_LITTER)
+            .add(
+                Biomes.DARK_FOREST,
+                Biomes.SWAMP,
+                Biomes.MANGROVE_SWAMP
+            );
+
+        this.getOrCreateTagBuilder(ModBiomeTags.HAS_PALE_LEAF_LITTER)
+            .add(ModBiomes.PALE_GARDEN);
     }
 }

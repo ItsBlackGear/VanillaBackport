@@ -60,8 +60,7 @@ public abstract class ThrownEggMixin extends ThrowableItemProjectileMixin implem
         method = "onHit",
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/world/entity/animal/Chicken;moveTo(DDDFF)V",
-            shift = At.Shift.AFTER
+            target = "Lnet/minecraft/world/level/Level;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z"
         ),
         locals = LocalCapture.CAPTURE_FAILHARD
     )

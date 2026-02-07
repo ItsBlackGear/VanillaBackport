@@ -87,7 +87,10 @@ public abstract class ChickenMixin extends MobMixin implements VariantDataHolder
 
     @ModifyArg(
         method = "aiStep",
-        at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/animal/Chicken;spawnAtLocation(Lnet/minecraft/world/level/ItemLike;)Lnet/minecraft/world/entity/item/ItemEntity;"),
+        at = @At(
+            value = "INVOKE",
+            target = "Lnet/minecraft/world/entity/animal/Chicken;spawnAtLocation(Lnet/minecraft/world/level/ItemLike;)Lnet/minecraft/world/entity/item/ItemEntity;"
+        ),
         index = 0
     )
     private ItemLike vb$modifyEggDrop(ItemLike originalItem) {

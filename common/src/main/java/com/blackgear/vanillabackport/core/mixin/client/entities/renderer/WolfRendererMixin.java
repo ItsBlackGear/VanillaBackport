@@ -1,36 +1,30 @@
 package com.blackgear.vanillabackport.core.mixin.client.entities.renderer;
 
+import com.blackgear.vanillabackport.client.api.renderer.SpecialMobRenderer;
 import com.blackgear.vanillabackport.client.level.entities.layer.WolfArmorLayer;
-import com.blackgear.vanillabackport.client.level.entities.renderer.ageable.AbstractAgeableRenderer;
-import com.blackgear.vanillabackport.client.level.entities.renderer.ageable.WolfAgeableRenderer;
-import com.mojang.blaze3d.vertex.PoseStack;
+import com.blackgear.vanillabackport.common.api.variant.VariantDataHolder;
+import com.blackgear.vanillabackport.common.level.entities.wolf.WolfVariant;
 import net.minecraft.client.model.WolfModel;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.WolfRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.animal.Wolf;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import java.util.function.Supplier;
-
 @Mixin(WolfRenderer.class)
 public abstract class WolfRendererMixin extends MobRendererMixin<Wolf, WolfModel<Wolf>> {
-    @Unique private Supplier<WolfAgeableRenderer> renderer;
-
     public WolfRendererMixin(EntityRendererProvider.Context context, WolfModel<Wolf> model, float shadowRadius) {
         super(context, model, shadowRadius);
     }
 
     @Inject(method = "<init>", at = @At("TAIL"))
     private void vb$addLayer(EntityRendererProvider.Context context, CallbackInfo ci) {
-        this.addLayer(new WolfArmorLayer(this, context.getModelSet()));
-        this.renderer = AbstractAgeableRenderer.create(context, WolfAgeableRenderer::new);
+        SpecialMobRenderer.create(context, ctx -> new WolfArmorLayer(this, ctx.getModelSet()))
+            .ifPresent(layer -> this.addLayer(layer.get()));
     }
 
     @Inject(
@@ -39,14 +33,12 @@ public abstract class WolfRendererMixin extends MobRendererMixin<Wolf, WolfModel
         cancellable = true
     )
     private void vb$getTextureLocation(Wolf entity, CallbackInfoReturnable<ResourceLocation> cir) {
-        this.renderer.get().getTexture(entity).ifPresent(cir::setReturnValue);
-    }
-
-    @Inject(
-        method = "render(Lnet/minecraft/world/entity/animal/Wolf;FFLcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;I)V",
-        at = @At("HEAD")
-    )
-    public void render(Wolf entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource buffer, int packedLight, CallbackInfo ci) {
-        this.model = this.renderer.get().getModel(entity).orElseGet(() -> this.defaultModel);
+        VariantDataHolder.<WolfVariant>getHolder(entity).getVariantData().ifPresent(variant -> {
+            if (entity.isTame()) {
+                cir.setReturnValue(variant.assetInfo().tame().path());
+            } else {
+                cir.setReturnValue(entity.isAngry() ? variant.assetInfo().angry().path() : variant.assetInfo().wild().path());
+            }
+        });
     }
 }

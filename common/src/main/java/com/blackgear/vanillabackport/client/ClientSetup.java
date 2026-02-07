@@ -12,17 +12,16 @@ import com.blackgear.vanillabackport.client.resources.DryFoliageColorReloadListe
 import com.blackgear.vanillabackport.client.resources.LeafColorReloadListener;
 import com.blackgear.vanillabackport.common.registries.ModWoodTypes;
 import com.blackgear.vanillabackport.core.VanillaBackport;
+import net.minecraft.resources.ResourceLocation;
 
 public class ClientSetup {
     public static void setup() {
-        ResourcePackManager.registerBuiltResourcePack(
-            VanillaBackport.resource("vb_freshly_animated"),
-            VanillaBackport.MOD_ID,
-            "VB - Freshly Animated"
-        );
+        ResourcePackManager.registerBuiltResourcePack(VanillaBackport.resource("freshly_animated"), VanillaBackport.MOD_ID, "Freshly Animated");
+        ResourcePackManager.registerBuiltResourcePack(VanillaBackport.resource("freshly_animated_legacy"), VanillaBackport.MOD_ID, "Freshly Animated Legacy");
+
         ResourceReloadManager.registerClient(event -> {
-            event.register(VanillaBackport.vanilla("dry_foliage"), DryFoliageColorReloadListener.INSTANCE);
-            event.register(VanillaBackport.vanilla("leaf_colors"), LeafColorReloadListener.INSTANCE);
+            event.register(new ResourceLocation("dry_foliage"), DryFoliageColorReloadListener.INSTANCE);
+            event.register(new ResourceLocation("leaf_colors"), LeafColorReloadListener.INSTANCE);
         });
 
         GameRendering.registerModelLayers(Rendering::modelLayers);

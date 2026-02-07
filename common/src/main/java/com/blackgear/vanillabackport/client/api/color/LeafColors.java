@@ -1,7 +1,7 @@
 package com.blackgear.vanillabackport.client.api.color;
 
 import com.blackgear.vanillabackport.client.resources.LeafColorReloadListener;
-import com.blackgear.vanillabackport.common.registries.ModBiomes;
+import com.blackgear.vanillabackport.core.data.tags.ModBiomeTags;
 import com.blackgear.vanillabackport.core.mixin.access.BiomeAccessor;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -13,7 +13,6 @@ import net.minecraft.core.Holder;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.ColorResolver;
 import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -62,9 +61,7 @@ public class LeafColors {
     }
 
     static {
-        COLOR_MAP.put(holder -> holder.is(ModBiomes.PALE_GARDEN), 10528412);
-        COLOR_MAP.put(holder -> holder.is(Biomes.DARK_FOREST), 8082228);
-        COLOR_MAP.put(holder -> holder.is(Biomes.SWAMP), 8082228);
-        COLOR_MAP.put(holder -> holder.is(Biomes.MANGROVE_SWAMP), 8082228);
+        COLOR_MAP.put(holder -> holder.is(ModBiomeTags.HAS_PALE_LEAF_LITTER), 10528412);
+        COLOR_MAP.put(holder -> holder.is(ModBiomeTags.HAS_DARK_LEAF_LITTER), 8082228);
     }
 }

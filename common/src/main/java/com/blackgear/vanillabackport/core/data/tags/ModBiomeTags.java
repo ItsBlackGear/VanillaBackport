@@ -49,4 +49,7 @@ public class ModBiomeTags {
 
     public static final TagKey<Biome> SPAWNS_LEAF_LITTER = TAGS.register("spawns_leaf_litter");
     public static final TagKey<Biome> SPAWNS_LEAF_LITTER_PATCHES = TAGS.register("spawns_leaf_litter_patches");
+
+    public static final TagKey<Biome> HAS_DARK_LEAF_LITTER = TAGS.register("has_dark_leaf_litter");
+    public static final TagKey<Biome> HAS_PALE_LEAF_LITTER = TAGS.register("has_pale_leaf_litter");
 }

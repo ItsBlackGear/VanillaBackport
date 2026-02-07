@@ -4,7 +4,6 @@ import com.blackgear.platform.core.BuiltInCoreRegistry;
 import com.blackgear.vanillabackport.common.api.variant.spawn.check.raw.RawBiomeCheck;
 import com.blackgear.vanillabackport.common.api.variant.ModelAndTexture;
 import com.blackgear.vanillabackport.common.api.variant.spawn.SpawnPrioritySelectors;
-import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.blackgear.vanillabackport.core.data.tags.ModBiomeTags;
 import com.blackgear.vanillabackport.core.registries.ModBuiltinRegistries;
 import net.minecraft.resources.ResourceKey;
@@ -39,7 +38,7 @@ public class PigVariants {
     }
 
     private static ResourceKey<PigVariant> register(String key, PigVariant.ModelType type, String adultAssetId, SpawnPrioritySelectors selectors) {
-        ResourceLocation adultTexture = VanillaBackport.vanilla("entity/pig/" + adultAssetId);
+        ResourceLocation adultTexture = new ResourceLocation("entity/pig/" + adultAssetId);
         return REGISTRY.resource(key, new PigVariant(new ModelAndTexture<>(type, adultTexture), selectors));
     }
 }

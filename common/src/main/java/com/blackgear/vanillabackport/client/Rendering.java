@@ -6,14 +6,10 @@ import com.blackgear.platform.client.v2.render.ItemRendererRegistry;
 import com.blackgear.vanillabackport.client.api.color.DryFoliageColor;
 import com.blackgear.vanillabackport.client.api.color.LeafColors;
 import com.blackgear.vanillabackport.client.level.entities.model.*;
-import com.blackgear.vanillabackport.client.level.entities.model.chicken.BabyChickenModel;
 import com.blackgear.vanillabackport.client.level.entities.model.chicken.ColdChickenModel;
-import com.blackgear.vanillabackport.client.level.entities.model.cow.BabyCowModel;
 import com.blackgear.vanillabackport.client.level.entities.model.cow.ColdCowModel;
 import com.blackgear.vanillabackport.client.level.entities.model.cow.WarmCowModel;
-import com.blackgear.vanillabackport.client.level.entities.model.pig.BabyPigModel;
 import com.blackgear.vanillabackport.client.level.entities.model.pig.ColdPigModel;
-import com.blackgear.vanillabackport.client.level.entities.model.wolf.BabyWolfModel;
 import com.blackgear.vanillabackport.client.level.entities.model.wolf.WolfArmorModel;
 import com.blackgear.vanillabackport.client.level.entities.renderer.*;
 import com.blackgear.vanillabackport.client.level.item.BundleRenderer;
@@ -69,16 +65,6 @@ public class Rendering {
         event.register(ModModelLayers.COLD_CHICKEN, ColdChickenModel::createBodyLayer);
         event.register(ModModelLayers.COLD_COW, ColdCowModel::createBodyLayer);
         event.register(ModModelLayers.WARM_COW, WarmCowModel::createBodyLayer);
-
-        event.register(ModModelLayers.CHICKEN_BABY, BabyChickenModel::createBodyLayer);
-        event.register(ModModelLayers.PIG_BABY, BabyPigModel::createBodyLayer);
-        event.register(ModModelLayers.COW_BABY, BabyCowModel::createBodyLayer);
-        event.register(ModModelLayers.WARM_COW_BABY, BabyCowModel::createBodyLayer);
-        event.register(ModModelLayers.COLD_COW_BABY, BabyCowModel::createBodyLayer);
-        event.register(ModModelLayers.MOOSHROOM_BABY, BabyCowModel::createBodyLayer);
-
-        event.register(ModModelLayers.WOLF_BABY, BabyWolfModel::createBodyLayer);
-        event.register(ModModelLayers.SHEEP_BABY, BabySheepModel::createBodyLayer);
     }
 
     public static void specialModels(GameRendering.SpecialModelEvent event) {

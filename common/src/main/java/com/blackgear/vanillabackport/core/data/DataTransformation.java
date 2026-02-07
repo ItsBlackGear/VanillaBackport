@@ -2,7 +2,6 @@ package com.blackgear.vanillabackport.core.data;
 
 import com.blackgear.platform.common.data.DataTransformer;
 import com.blackgear.platform.core.Environment;
-import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.List;
@@ -110,7 +109,7 @@ public class DataTransformation {
 
     public static void bootstrap() {
         DataTransformer.onDataTransformation(transformer -> {
-            String namespace = VanillaBackport.MOD_ID;
+            String namespace = "vanillabackport";
             PARTICLE_IDS.forEach(id -> remap(transformer, namespace, id));
             BLOCK_IDS.forEach(id -> remap(transformer, namespace, id));
             ITEM_IDS.forEach(id -> remap(transformer, namespace, id));
@@ -129,7 +128,7 @@ public class DataTransformation {
                 transformer.add(original -> {
                     String path = original.getPath();
                     if (path.contains(namespace)) {
-                        String newPath = path.replaceAll(namespace, VanillaBackport.NAMESPACE);
+                        String newPath = path.replaceAll(namespace, "minecraft");
                         return new ResourceLocation(original.getNamespace(), newPath);
                     }
 
@@ -140,6 +139,6 @@ public class DataTransformation {
     }
 
     private static void remap(DataTransformer.Transformer transformer, String namespace, String id) {
-        transformer.remap(new ResourceLocation(namespace, id), VanillaBackport.vanilla(id));
+        transformer.remap(new ResourceLocation(namespace, id), new ResourceLocation(id));
     }
 }

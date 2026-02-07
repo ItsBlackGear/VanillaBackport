@@ -6,7 +6,6 @@ import com.blackgear.vanillabackport.common.level.entities.wolf.ModCrackiness;
 import com.blackgear.vanillabackport.common.level.entities.wolf.ModCrackiness.Level;
 import com.blackgear.vanillabackport.common.level.items.WolfArmorItem;
 import com.blackgear.vanillabackport.common.registries.ModItems;
-import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.fabricmc.api.EnvType;
@@ -28,9 +27,9 @@ import java.util.Map;
 @Environment(EnvType.CLIENT)
 public class WolfArmorLayer extends RenderLayer<Wolf, WolfModel<Wolf>> {
     private static final Map<Level, ResourceLocation> ARMOR_CRACK_LOCATIONS = Map.of(
-        Level.LOW, VanillaBackport.vanilla("textures/entity/wolf/wolf_armor_crackiness_low.png"),
-        Level.MEDIUM, VanillaBackport.vanilla("textures/entity/wolf/wolf_armor_crackiness_medium.png"),
-        Level.HIGH, VanillaBackport.vanilla("textures/entity/wolf/wolf_armor_crackiness_high.png")
+        Level.LOW, new ResourceLocation("textures/entity/wolf/wolf_armor_crackiness_low.png"),
+        Level.MEDIUM, new ResourceLocation("textures/entity/wolf/wolf_armor_crackiness_medium.png"),
+        Level.HIGH, new ResourceLocation("textures/entity/wolf/wolf_armor_crackiness_high.png")
     );
     private final LazyModel<Wolf, WolfModel<Wolf>> model;
 

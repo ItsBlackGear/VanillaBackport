@@ -2,7 +2,6 @@ package com.blackgear.vanillabackport.client.level.entities.renderer;
 
 import com.blackgear.platform.client.api.model.CustomBoatModel;
 import com.blackgear.vanillabackport.client.registries.ModModelLayers;
-import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.mojang.datafixers.util.Pair;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -16,8 +15,8 @@ import net.minecraft.world.entity.vehicle.Boat;
 
 @Environment(EnvType.CLIENT)
 public class PaleOakBoatRenderer extends BoatRenderer implements CustomBoatModel {
-    private static final ResourceLocation PALE_OAK_BOAT = VanillaBackport.vanilla("textures/entity/boat/pale_oak.png");
-    private static final ResourceLocation PALE_OAK_CHEST_BOAT = VanillaBackport.vanilla("textures/entity/chest_boat/pale_oak.png");
+    private static final ResourceLocation PALE_OAK_BOAT = new ResourceLocation("textures/entity/boat/pale_oak.png");
+    private static final ResourceLocation PALE_OAK_CHEST_BOAT = new ResourceLocation("textures/entity/chest_boat/pale_oak.png");
     private final Pair<ResourceLocation, ListModel<Boat>> boatResource;
 
     public PaleOakBoatRenderer(EntityRendererProvider.Context context, boolean chestBoat) {

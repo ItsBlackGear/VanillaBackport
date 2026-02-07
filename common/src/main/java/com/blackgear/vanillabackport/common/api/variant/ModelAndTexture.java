@@ -6,7 +6,6 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.resources.ResourceLocation;
 
 public record ModelAndTexture<T>(T model, ClientAsset asset) {
-
     public ModelAndTexture(T model, ResourceLocation path) {
         this(model, new ClientAsset(path));
     }

@@ -93,9 +93,4 @@ public final class VanillaBackport {
     public static ResourceLocation resource(String path) {
         return new ResourceLocation(MOD_ID, path);
     }
-
-    public static ResourceLocation vanilla(String path) {
-        return new ResourceLocation(path);
-    }
-
 }
