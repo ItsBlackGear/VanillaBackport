@@ -1,7 +1,6 @@
 package com.blackgear.vanillabackport.client.resources;
 
 import com.blackgear.vanillabackport.client.api.color.DryFoliageColor;
-import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.resources.LegacyStuffWrapper;
@@ -14,7 +13,7 @@ import java.io.IOException;
 
 @Environment(EnvType.CLIENT)
 public class DryFoliageColorReloadListener extends SimplePreparableReloadListener<int[]> {
-    private static final ResourceLocation LOCATION = VanillaBackport.vanilla("textures/colormap/dry_foliage.png");
+    private static final ResourceLocation LOCATION = ResourceLocation.withDefaultNamespace("textures/colormap/dry_foliage.png");
     public static final DryFoliageColorReloadListener INSTANCE = new DryFoliageColorReloadListener();
 
     @Override

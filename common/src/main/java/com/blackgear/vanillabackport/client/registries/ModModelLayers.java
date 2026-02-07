@@ -1,7 +1,7 @@
 package com.blackgear.vanillabackport.client.registries;
 
-import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.client.model.geom.ModelLayerLocation;
+import net.minecraft.resources.ResourceLocation;
 
 public class ModModelLayers {
     // The Garden Awakens
@@ -25,6 +25,6 @@ public class ModModelLayers {
     }
 
     private static ModelLayerLocation register(String name, String layer) {
-        return new ModelLayerLocation(VanillaBackport.resource(name), layer);
+        return new ModelLayerLocation(ResourceLocation.withDefaultNamespace(name), layer);
     }
 }

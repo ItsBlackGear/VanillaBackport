@@ -4,7 +4,6 @@ import com.blackgear.platform.core.BuiltInCoreRegistry;
 import com.blackgear.vanillabackport.common.api.variant.ModelAndTexture;
 import com.blackgear.vanillabackport.common.api.variant.spawn.SpawnPrioritySelectors;
 import com.blackgear.vanillabackport.common.api.variant.spawn.check.raw.RawBiomeCheck;
-import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.blackgear.vanillabackport.core.data.tags.ModBiomeTags;
 import com.blackgear.vanillabackport.core.registries.ModBuiltinRegistries;
 import net.minecraft.resources.ResourceKey;
@@ -24,7 +23,7 @@ public class CowVariants {
     }
 
     private static ResourceKey<CowVariant> register(String key, CowVariant.ModelType type, String assetId, SpawnPrioritySelectors selectors) {
-        ResourceLocation path = VanillaBackport.vanilla("entity/cow/" + assetId);
+        ResourceLocation path = ResourceLocation.withDefaultNamespace("entity/cow/" + assetId);
         return REGISTRY.resource(key, new CowVariant(new ModelAndTexture<>(type, path), selectors));
     }
 }

@@ -16,7 +16,7 @@ import java.util.Optional;
 
 public class BundleFeatures {
     public static boolean onBundleUpdate() {
-        return VanillaBackport.COMMON_CONFIG.hasUpdatedBundles.get() && !ModChecker.BEST_BUNDLES_LOADED.get();
+        return VanillaBackport.COMMON_CONFIG.hasUpdatedBundles.get() && !ModChecker.BEST_BUNDLES_LOADED;
     }
 
     public static boolean canItemBeInBundle(ItemStack stack) {

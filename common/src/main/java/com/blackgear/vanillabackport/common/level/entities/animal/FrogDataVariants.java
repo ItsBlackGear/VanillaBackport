@@ -4,11 +4,9 @@ import com.blackgear.platform.core.BuiltInCoreRegistry;
 import com.blackgear.vanillabackport.common.api.variant.ClientAsset;
 import com.blackgear.vanillabackport.common.api.variant.spawn.SpawnPrioritySelectors;
 import com.blackgear.vanillabackport.common.api.variant.spawn.check.raw.RawBiomeCheck;
-import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.blackgear.vanillabackport.core.registries.ModBuiltinRegistries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.BiomeTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
 
@@ -22,7 +20,7 @@ public class FrogDataVariants {
     }
 
     private static ResourceKey<FrogDataVariant> register(String key, SpawnPrioritySelectors selectors) {
-        ResourceLocation texture = VanillaBackport.vanilla("entity/frog/" + key + "_frog");
+        ResourceLocation texture = ResourceLocation.withDefaultNamespace("entity/frog/" + key + "_frog");
         return REGISTRY.resource(key, new FrogDataVariant(new ClientAsset(texture), selectors));
     }
 }

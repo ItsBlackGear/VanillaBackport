@@ -1,6 +1,5 @@
 package com.blackgear.vanillabackport.data.client.colors;
 
-import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -33,12 +32,12 @@ public class LeafColorGenerator implements DataProvider {
 
     private void add(Block block, int color) {
         ResourceLocation registry = BuiltInRegistries.BLOCK.getKey(block);
-        ResourceLocation name = VanillaBackport.vanilla(registry.getPath());
+        ResourceLocation name = ResourceLocation.withDefaultNamespace(registry.getPath());
         this.addElement(name, registry.toString(), color);
     }
 
     private void add(String block, int color) {
-        this.addElement(VanillaBackport.vanilla(block), block, color);
+        this.addElement(ResourceLocation.withDefaultNamespace(block), block, color);
     }
 
     @Override

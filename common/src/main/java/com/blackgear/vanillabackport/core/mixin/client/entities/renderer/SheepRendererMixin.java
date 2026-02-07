@@ -1,5 +1,7 @@
 package com.blackgear.vanillabackport.core.mixin.client.entities.renderer;
 
+import com.blackgear.vanillabackport.client.api.renderer.RenderConditions;
+import com.blackgear.vanillabackport.client.api.renderer.SpecialMobRenderer;
 import com.blackgear.vanillabackport.client.level.entities.layer.SheepWoolUndercoatLayer;
 import net.minecraft.client.model.SheepModel;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -18,6 +20,7 @@ public abstract class SheepRendererMixin extends MobRendererMixin<Sheep, SheepMo
 
     @Inject(method = "<init>", at = @At("TAIL"))
     private void onInit(EntityRendererProvider.Context context, CallbackInfo ci) {
-        this.addLayer(new SheepWoolUndercoatLayer(this, context.getModelSet()));
+        SpecialMobRenderer.create(context, ctx -> new SheepWoolUndercoatLayer(this, ctx.getModelSet()), RenderConditions.SHEEP_UNDERCOAT)
+            .ifPresent(layer -> this.addLayer(layer.get()));
     }
 }

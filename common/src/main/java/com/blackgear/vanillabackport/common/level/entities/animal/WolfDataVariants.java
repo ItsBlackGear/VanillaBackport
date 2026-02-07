@@ -4,7 +4,6 @@ import com.blackgear.platform.core.BuiltInCoreRegistry;
 import com.blackgear.vanillabackport.common.api.variant.ClientAsset;
 import com.blackgear.vanillabackport.common.api.variant.spawn.SpawnPrioritySelectors;
 import com.blackgear.vanillabackport.common.api.variant.spawn.check.raw.RawBiomeCheck;
-import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.blackgear.vanillabackport.core.registries.ModBuiltinRegistries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -21,9 +20,9 @@ public class WolfDataVariants {
     }
 
     private static ResourceKey<WolfDataVariant> register(String key, String assetId, SpawnPrioritySelectors selectors) {
-        ResourceLocation wild = VanillaBackport.vanilla("entity/wolf/" + assetId);
-        ResourceLocation tame = VanillaBackport.vanilla("entity/wolf/" + assetId + "_tame");
-        ResourceLocation angry = VanillaBackport.vanilla("entity/wolf/" + assetId + "_angry");
+        ResourceLocation wild = ResourceLocation.withDefaultNamespace("entity/wolf/" + assetId);
+        ResourceLocation tame = ResourceLocation.withDefaultNamespace("entity/wolf/" + assetId + "_tame");
+        ResourceLocation angry = ResourceLocation.withDefaultNamespace("entity/wolf/" + assetId + "_angry");
         return REGISTRY.resource(
             key,
             new WolfDataVariant(

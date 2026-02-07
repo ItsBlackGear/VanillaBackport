@@ -140,6 +140,6 @@ public class DataTransformation {
     }
 
     private static void remap(DataTransformer.Transformer transformer, String namespace, String id) {
-        transformer.remap(ResourceLocation.fromNamespaceAndPath(namespace, id), VanillaBackport.vanilla(id));
+        transformer.remap(ResourceLocation.fromNamespaceAndPath(namespace, id), ResourceLocation.withDefaultNamespace(id));
     }
 }

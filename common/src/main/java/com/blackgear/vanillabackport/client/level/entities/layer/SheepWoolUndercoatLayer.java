@@ -1,7 +1,6 @@
 package com.blackgear.vanillabackport.client.level.entities.layer;
 
 import com.blackgear.vanillabackport.client.util.LazyModel;
-import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.SheepFurModel;
@@ -13,11 +12,12 @@ import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.FastColor;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.animal.Sheep;
 import net.minecraft.world.item.DyeColor;
 
 public class SheepWoolUndercoatLayer extends RenderLayer<Sheep, SheepModel<Sheep>> {
-    private static final ResourceLocation SHEEP_WOOL_UNDERCOAT_TEXTURE = VanillaBackport.vanilla("textures/entity/sheep/sheep_wool_undercoat.png");
+    private static final ResourceLocation SHEEP_WOOL_UNDERCOAT_TEXTURE = ResourceLocation.withDefaultNamespace("textures/entity/sheep/sheep_wool_undercoat.png");
     private final LazyModel<Sheep, EntityModel<Sheep>> model;
 
     public SheepWoolUndercoatLayer(RenderLayerParent<Sheep, SheepModel<Sheep>> renderer, EntityModelSet models) {
@@ -27,7 +27,7 @@ public class SheepWoolUndercoatLayer extends RenderLayer<Sheep, SheepModel<Sheep
 
     @Override
     public void render(PoseStack poseStack, MultiBufferSource buffer, int packedLight, Sheep sheep, float limbSwing, float limbSwingAmount, float partialTick, float ageInTicks, float netHeadYaw, float headPitch) {
-        if (!sheep.isInvisible()) {
+        if (sheep.getType() == EntityType.SHEEP && !sheep.isInvisible()) {
             int color;
             if (sheep.hasCustomName() && "jeb_".equals(sheep.getName().getString())) {
                 int offset = sheep.tickCount / 25 + sheep.getId();

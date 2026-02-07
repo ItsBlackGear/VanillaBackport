@@ -1,9 +1,9 @@
 package com.blackgear.vanillabackport.common.registries;
 
-import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.decoration.PaintingVariant;
 
 public class ModPaintingVariants {
@@ -18,6 +18,6 @@ public class ModPaintingVariants {
     }
 
     private static ResourceKey<PaintingVariant> registryKey(String name) {
-        return ResourceKey.create(Registries.PAINTING_VARIANT, VanillaBackport.vanilla(name));
+        return ResourceKey.create(Registries.PAINTING_VARIANT, ResourceLocation.withDefaultNamespace(name));
     }
 }

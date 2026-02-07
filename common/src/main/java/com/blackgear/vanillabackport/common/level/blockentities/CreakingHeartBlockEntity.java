@@ -252,12 +252,12 @@ public class CreakingHeartBlockEntity extends BlockEntity {
             for (Direction direction : Util.shuffledCopy(Direction.values(), this.level.getRandom())) {
                 BlockPos neighbor = pos.relative(direction);
 
-                if (this.level.getBlockState(neighbor).is(ModBlockTags.PALE_OAK_LOGS)) {
+                if (this.level.getBlockState(neighbor).is(ModBlockTags.CREAKING_HEART_HOLDERS)) {
                     consumer.accept(neighbor);
                 }
             }
         }, pos -> {
-            if (this.level.getBlockState(pos).is(ModBlockTags.PALE_OAK_LOGS)) {
+            if (this.level.getBlockState(pos).is(ModBlockTags.CREAKING_HEART_HOLDERS)) {
                 for (Direction direction : Util.shuffledCopy(Direction.values(), this.level.getRandom())) {
                     BlockPos neighbor = pos.relative(direction);
                     BlockState neighborState = this.level.getBlockState(neighbor);

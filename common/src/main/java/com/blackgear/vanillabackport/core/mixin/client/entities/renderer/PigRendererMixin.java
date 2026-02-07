@@ -1,7 +1,9 @@
 package com.blackgear.vanillabackport.core.mixin.client.entities.renderer;
 
-import com.blackgear.vanillabackport.client.level.entities.renderer.variant.AbstractVariantRenderer;
-import com.blackgear.vanillabackport.client.level.entities.renderer.variant.PigVariantRenderer;
+import com.blackgear.vanillabackport.client.api.renderer.AbstractVariantRenderer;
+import com.blackgear.vanillabackport.client.api.renderer.PigVariantRenderer;
+import com.blackgear.vanillabackport.client.api.renderer.RenderConditions;
+import com.blackgear.vanillabackport.client.api.renderer.SpecialMobRenderer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.PigModel;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -16,11 +18,12 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.util.Optional;
 import java.util.function.Supplier;
 
 @Mixin(PigRenderer.class)
 public abstract class PigRendererMixin extends MobRendererMixin<Pig, PigModel<Pig>> {
-    @Unique private Supplier<PigVariantRenderer> renderer;
+    @Unique private Optional<Supplier<PigVariantRenderer>> renderer;
 
     public PigRendererMixin(EntityRendererProvider.Context context, PigModel<Pig> model, float shadowRadius) {
         super(context, model, shadowRadius);
@@ -28,7 +31,7 @@ public abstract class PigRendererMixin extends MobRendererMixin<Pig, PigModel<Pi
 
     @Inject(method = "<init>", at = @At("TAIL"))
     private void onInit(EntityRendererProvider.Context context, CallbackInfo ci) {
-        this.renderer = AbstractVariantRenderer.create(context, PigVariantRenderer::new);
+        this.renderer = SpecialMobRenderer.create(context, PigVariantRenderer::new, RenderConditions.FARM_ANIMALS);
     }
 
     @Inject(
@@ -37,12 +40,12 @@ public abstract class PigRendererMixin extends MobRendererMixin<Pig, PigModel<Pi
         cancellable = true
     )
     private void vb$getTextureLocation(Pig entity, CallbackInfoReturnable<ResourceLocation> cir) {
-        this.renderer.get().getTexture(entity).ifPresent(cir::setReturnValue);
+        this.renderer.flatMap(renderer -> renderer.get().getTexture(entity)).ifPresent(cir::setReturnValue);
     }
 
     @Override
     public void render(Pig entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource buffer, int packedLight) {
-        this.model = this.renderer.get().getModel(entity).orElseGet(() -> this.defaultModel);
+        this.renderer.ifPresent(renderer -> this.model = renderer.get().getModel(entity).orElseGet(() -> this.defaultModel));
         super.render(entity, entityYaw, partialTicks, poseStack, buffer, packedLight);
     }
 }
