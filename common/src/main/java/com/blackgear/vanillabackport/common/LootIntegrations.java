@@ -67,7 +67,7 @@ public class LootIntegrations implements LootModifier.LootTableModifier {
         }
 
         // CHICKEN JOCKEYS DROP LAVA CHICKEN MUSIC DISC
-        if (path.equals(EntityType.ZOMBIE.getDefaultLootTable())) {
+        if (path.equals(EntityType.ZOMBIE.getDefaultLootTable()) && VanillaBackport.COMMON_CONFIG.hasLavaChickenMusicDisc.get()) {
             context.addPool(
                 LootPool.lootPool()
                     .add(LootItem.lootTableItem(ModItems.MUSIC_DISC_LAVA_CHICKEN.get()))
