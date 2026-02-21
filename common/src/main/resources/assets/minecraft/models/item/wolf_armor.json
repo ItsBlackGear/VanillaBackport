@@ -1,0 +1,14 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "minecraft:item/wolf_armor"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "dyed": 1
+      },
+      "model": "minecraft:item/wolf_armor_dyed"
+    }
+  ]
+}

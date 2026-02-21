@@ -63,7 +63,6 @@ public class ModelGenerator extends VanillaModelGenerator {
     public void generateItemModels(VanillaItemModels gen) {
         // Armored Paws
         gen.createFlatItem(ModItems.ARMADILLO_SCUTE.get());
-        gen.generateItemWithOverlay(ModItems.WOLF_ARMOR.get());
 
         // The Garden Awakens
         gen.createFlatItem(ModItems.RESIN_BRICK.get());

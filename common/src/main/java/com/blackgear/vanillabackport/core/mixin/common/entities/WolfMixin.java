@@ -9,15 +9,11 @@ import com.blackgear.vanillabackport.common.api.wolf.BackportedWolvesConversion;
 import com.blackgear.vanillabackport.common.api.wolf.WolfSoundVariant;
 import com.blackgear.vanillabackport.common.api.wolf.WolfSoundVariantHolder;
 import com.blackgear.vanillabackport.common.api.wolf.WolfSoundVariants;
-import com.blackgear.vanillabackport.common.level.entities.wolf.ModCrackiness;
 import com.blackgear.vanillabackport.common.level.entities.wolf.WolfVariant;
 import com.blackgear.vanillabackport.common.level.entities.wolf.WolfSoundVariantsModule;
-import com.blackgear.vanillabackport.common.level.items.WolfArmorItem;
 import com.blackgear.vanillabackport.common.registries.ModItems;
 import com.blackgear.vanillabackport.core.registries.ModBuiltinRegistries;
 import com.blackgear.vanillabackport.core.util.ColorUtils;
-import net.minecraft.core.particles.ItemParticleOption;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -25,8 +21,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.tags.DamageTypeTags;
-import net.minecraft.util.Mth;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -36,7 +31,6 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.Wolf;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import org.spongepowered.asm.mixin.Mixin;
@@ -133,10 +127,6 @@ public abstract class WolfMixin extends TamableAnimalMixin implements NeutralMob
 
     @Inject(method = "getHurtSound", at = @At("HEAD"), cancellable = true)
     private void vb$getHurtSound(DamageSource source, CallbackInfoReturnable<SoundEvent> cir) {
-        if (this.canArmorAbsorb(source)) {
-            cir.setReturnValue(ModSoundEvents.WOLF_ARMOR_DAMAGE.get());
-        }
-
         SoundEvent result = WolfSoundVariantsModule.getHurtSound((Wolf & WolfSoundVariantHolder) (Object) this);
         if (result != null) cir.setReturnValue(result);
     }
@@ -147,27 +137,85 @@ public abstract class WolfMixin extends TamableAnimalMixin implements NeutralMob
         if (result != null) cir.setReturnValue(result);
     }
 
-    @Override
-    protected void actuallyHurt(DamageSource damageSource, float damageAmount) {
-        if (!this.canArmorAbsorb(damageSource)) {
-            super.actuallyHurt(damageSource, damageAmount);
-        } else {
-            ItemStack stack = this.getItemBySlot(EquipmentSlot.CHEST);
-            int prevDamage = stack.getDamageValue();
-            int max = stack.getMaxDamage();
-            stack.hurtAndBreak(Mth.ceil(damageAmount), this, wolf -> wolf.broadcastBreakEvent(EquipmentSlot.CHEST));
-            if (ModCrackiness.WOLF_ARMOR.byDamage(prevDamage, max) != ModCrackiness.WOLF_ARMOR.byDamage(stack)) {
-                this.playSound(ModSoundEvents.WOLF_ARMOR_CRACK.get());
-                if (this.level() instanceof ServerLevel level) {
-                    level.sendParticles(new ItemParticleOption(ParticleTypes.ITEM, ModItems.ARMADILLO_SCUTE.get().getDefaultInstance()), this.getX(), this.getY() + 1.0, this.getZ(), 20, 0.2, 0.1, 0.2, 0.1);
-                }
-            }
+    @Inject(method = "hurt", at = @At("TAIL"))
+    private void vb$damageWolfArmor(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
+        Wolf wolf = (Wolf)(Object)this;
+
+        ItemStack armor = wolf.getItemBySlot(EquipmentSlot.CHEST);
+        if (armor.isEmpty() || !armor.isDamageableItem()) {
+            return;
+        }
+
+        int oldDamage = armor.getDamageValue();
+
+        armor.hurtAndBreak(1, wolf, e -> {});
+
+        int newDamage = armor.getDamageValue();
+        int max = armor.getMaxDamage();
+        int stageSize = max / 4;
+
+        int oldStage = oldDamage / stageSize;
+        int newStage = newDamage / stageSize;
+
+        if (newStage > oldStage && newStage < 4) {
+            wolf.level().playSound(
+                    null,
+                    wolf.blockPosition(),
+                    ModSoundEvents.WOLF_ARMOR_CRACK.get(),
+                    SoundSource.PLAYERS,
+                    1.0F,
+                    1.0F
+            );
+        }
+
+        if (newDamage >= max) {
+            wolf.level().playSound(
+                    null,
+                    wolf.blockPosition(),
+                    ModSoundEvents.WOLF_ARMOR_BREAK.get(),
+                    SoundSource.PLAYERS,
+                    1.0F,
+                    1.0F
+            );
         }
     }
 
-    @Unique
-    private boolean canArmorAbsorb(DamageSource source) {
-        return this.hasArmor() && !source.is(DamageTypeTags.BYPASSES_ARMOR);
+    @Inject(method = "mobInteract", at = @At("HEAD"), cancellable = true)
+    private void vb$repairWolfArmor(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
+        Wolf wolf = (Wolf)(Object)this;
+        ItemStack held = player.getItemInHand(hand);
+
+        if (held.is(ModItems.ARMADILLO_SCUTE.get())) {
+
+            ItemStack armor = wolf.getItemBySlot(EquipmentSlot.CHEST);
+            if (armor.isEmpty() || !armor.isDamageableItem()) {
+                return;
+            }
+
+            int dmg = armor.getDamageValue();
+
+            if (dmg <= 0) {
+                return;
+            }
+
+            int newDamage = Math.max(0, dmg - 16);
+            armor.setDamageValue(newDamage);
+
+            wolf.level().playSound(
+                    null,
+                    wolf.blockPosition(),
+                    ModSoundEvents.WOLF_ARMOR_REPAIR.get(),
+                    SoundSource.PLAYERS,
+                    1.0F,
+                    1.0F
+            );
+
+            if (!player.getAbilities().instabuild) {
+                held.shrink(1);
+            }
+
+            cir.setReturnValue(InteractionResult.SUCCESS);
+        }
     }
 
     @Override
@@ -178,73 +226,5 @@ public abstract class WolfMixin extends TamableAnimalMixin implements NeutralMob
         } else {
             this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(8.0);
         }
-    }
-
-    @Override
-    public void hurtArmor(DamageSource damageSource, float damageAmount) {
-        if (damageAmount > 0.0F) {
-            int i = (int) Math.max(1.0F, damageAmount / 4.0F);
-
-            ItemStack stack = this.getItemBySlot(EquipmentSlot.CHEST);
-            if (stack.getItem() instanceof WolfArmorItem) {
-                stack.hurtAndBreak(i, this, wolf -> wolf.broadcastBreakEvent(EquipmentSlot.CHEST));
-                if (stack.isEmpty()) {
-                    this.playSound(ModSoundEvents.WOLF_ARMOR_BREAK.get());
-                    this.setItemSlot(EquipmentSlot.CHEST, ItemStack.EMPTY);
-                }
-            }
-        }
-    }
-
-    @Inject(method = "mobInteract", at = @At("HEAD"), cancellable = true)
-    private void vb$mobInteract(Player player, InteractionHand hand, CallbackInfoReturnable<InteractionResult> cir) {
-        ItemStack stack = player.getItemInHand(hand);
-        if (!this.level().isClientSide) {
-            if (this.isTame()) {
-                if (stack.is(ModItems.WOLF_ARMOR.get()) && this.isOwnedBy(player) && this.getItemBySlot(EquipmentSlot.CHEST).isEmpty() && !this.isBaby()) {
-                    this.setItemSlot(EquipmentSlot.CHEST, stack.copyWithCount(1));
-                    this.playSound(ModSoundEvents.ARMOR_EQUIP_WOLF.get());
-                    if (!player.getAbilities().instabuild) stack.shrink(1);
-                    cir.setReturnValue(InteractionResult.SUCCESS);
-                } else if (stack.is(Items.SHEARS)
-                    && this.isOwnedBy(player)
-                    && this.hasArmor()
-                    && (!EnchantmentHelper.hasBindingCurse(this.getItemBySlot(EquipmentSlot.CHEST)) || player.isCreative())) {
-                    stack.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(hand));
-                    this.playSound(ModSoundEvents.ARMOR_UNEQUIP_WOLF.get());
-                    ItemStack armor = this.getItemBySlot(EquipmentSlot.CHEST);
-                    this.setItemSlot(EquipmentSlot.CHEST, ItemStack.EMPTY);
-                    this.spawnAtLocation(armor);
-                    cir.setReturnValue(InteractionResult.SUCCESS);
-                } else if (stack.is(ModItems.ARMADILLO_SCUTE.get())
-                    && this.isInSittingPose()
-                    && this.hasArmor()
-                    && this.isOwnedBy(player)) {
-
-                    ItemStack armor = this.getItemBySlot(EquipmentSlot.CHEST);
-                    if (armor.isDamaged()) {
-                        int repair = Mth.ceil(armor.getMaxDamage() * 0.125F);
-                        int current = armor.getDamageValue();
-                        int newDamage = Math.max(0, current - repair);
-
-                        if (newDamage < current) {
-                            armor.setDamageValue(newDamage);
-                            this.playSound(ModSoundEvents.WOLF_ARMOR_REPAIR.get());
-                            if (!player.getAbilities().instabuild) {
-                                stack.shrink(1);
-                            }
-
-                            cir.setReturnValue(InteractionResult.SUCCESS);
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    @Unique
-    private boolean hasArmor() {
-        ItemStack stack = this.getItemBySlot(EquipmentSlot.CHEST);
-        return !stack.isEmpty() && stack.is(ModItems.WOLF_ARMOR.get());
     }
 }

@@ -1,6 +1,7 @@
 package com.blackgear.vanillabackport.core.mixin.client.entities.renderer;
 
 import com.blackgear.vanillabackport.client.api.renderer.SpecialMobRenderer;
+import com.blackgear.vanillabackport.client.level.entities.layer.WolfArmorCrackinessLayer;
 import com.blackgear.vanillabackport.client.level.entities.layer.WolfArmorLayer;
 import com.blackgear.vanillabackport.common.api.variant.VariantDataHolder;
 import com.blackgear.vanillabackport.common.level.entities.wolf.WolfVariant;
@@ -17,6 +18,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(WolfRenderer.class)
 public abstract class WolfRendererMixin extends MobRendererMixin<Wolf, WolfModel<Wolf>> {
+    private WolfArmorLayer armorLayer;
+
     public WolfRendererMixin(EntityRendererProvider.Context context, WolfModel<Wolf> model, float shadowRadius) {
         super(context, model, shadowRadius);
     }
@@ -24,7 +27,13 @@ public abstract class WolfRendererMixin extends MobRendererMixin<Wolf, WolfModel
     @Inject(method = "<init>", at = @At("TAIL"))
     private void vb$addLayer(EntityRendererProvider.Context context, CallbackInfo ci) {
         SpecialMobRenderer.create(context, ctx -> new WolfArmorLayer(this, ctx.getModelSet()))
-            .ifPresent(layer -> this.addLayer(layer.get()));
+                .ifPresent(layer -> {
+                    this.armorLayer = layer.get();
+                    this.addLayer(this.armorLayer);
+                });
+        SpecialMobRenderer.create(context, ctx ->
+                new WolfArmorCrackinessLayer((WolfRenderer)(Object)this, this.armorLayer.getArmorModel())
+        ).ifPresent(layer -> this.addLayer(layer.get()));
     }
 
     @Inject(

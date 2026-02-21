@@ -20,7 +20,8 @@ import com.blackgear.vanillabackport.client.level.particles.FireflyParticle;
 import com.blackgear.vanillabackport.client.level.particles.TrailParticle;
 import com.blackgear.vanillabackport.client.registries.ModModelLayers;
 import com.blackgear.vanillabackport.client.registries.ModParticles;
-import com.blackgear.vanillabackport.common.level.items.WolfArmorItem;
+import com.blackgear.vanillabackport.common.level.items.AnimalArmorItem;
+import com.blackgear.vanillabackport.common.level.items.DyeableAnimalArmorItem;
 import com.blackgear.vanillabackport.common.registries.ModBlocks;
 import com.blackgear.vanillabackport.common.registries.ModEntities;
 import com.blackgear.vanillabackport.common.registries.ModItems;
@@ -51,7 +52,7 @@ public class Rendering {
         event.register(ModModelLayers.BAT, BatModel::createBodyLayer);
 
         event.register(ModModelLayers.ARMADILLO, ArmadilloModel::createBodyLayer);
-        event.register(ModModelLayers.WOLF_ARMOR, () -> LayerDefinition.create(WolfArmorModel.createMeshDefinition(new CubeDeformation(0.2F)), 64, 32));
+        event.register(ModModelLayers.WOLF_ARMOR, WolfArmorModel::createMeshDefinition);
 
         event.register(ModModelLayers.CREAKING, CreakingModel::createBodyLayer);
         event.register(ModModelLayers.PALE_OAK_BOAT, BoatModel::createBodyModel);
@@ -134,6 +135,19 @@ public class Rendering {
 
     public static void itemColors(GameRendering.ItemColorEvent event) {
         event.register(event::getColor, ModBlocks.BUSH.get());
-        event.register((stack, i) -> i != 1 ? -1 : WolfArmorItem.getColorOrDefault(stack, 0), ModItems.WOLF_ARMOR.get());
+        event.register((stack, tintIndex) -> {
+            if (tintIndex == 0) {
+                return 0xFFFFFFFF;
+            }
+            if (tintIndex == 1) {
+                if (stack.getItem() instanceof DyeableAnimalArmorItem dyeable) {
+                    if (dyeable.hasCustomColor(stack)) {
+                        return dyeable.getColor(stack);
+                    }
+                }
+                return 0xFFFFFFFF;
+            }
+            return 0xFFFFFFFF;
+        }, ModItems.WOLF_ARMOR.get());
     }
 }

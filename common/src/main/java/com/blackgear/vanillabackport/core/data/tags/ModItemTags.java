@@ -16,4 +16,5 @@ public class ModItemTags {
     public static final TagKey<Item> BUNDLES = TAGS.register("bundles");
     public static final TagKey<Item> EGGS = TAGS.register("eggs");
     public static final TagKey<Item> ARMADILLO_FOOD = TAGS.register("armadillo_food");
+    public static final TagKey<Item> WOLF_ARMOR = TAGS.register("wolf_armor");
 }
