@@ -10,8 +10,11 @@ import com.blackgear.vanillabackport.client.api.bundle.BundleMouseActions;
 import com.blackgear.vanillabackport.client.api.tabs.BundledTabSelector;
 import com.blackgear.vanillabackport.client.resources.DryFoliageColorReloadListener;
 import com.blackgear.vanillabackport.client.resources.LeafColorReloadListener;
+import com.blackgear.vanillabackport.common.level.items.DyeableAnimalArmorItem;
+import com.blackgear.vanillabackport.common.registries.ModItems;
 import com.blackgear.vanillabackport.common.registries.ModWoodTypes;
 import com.blackgear.vanillabackport.core.VanillaBackport;
+import net.minecraft.client.renderer.item.ItemProperties;
 import net.minecraft.resources.ResourceLocation;
 
 public class ClientSetup {

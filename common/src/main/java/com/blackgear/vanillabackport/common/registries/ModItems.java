@@ -3,10 +3,7 @@ package com.blackgear.vanillabackport.common.registries;
 import com.blackgear.platform.core.helper.ItemRegistry;
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
 import com.blackgear.vanillabackport.common.level.entities.animal.ChickenVariants;
-import com.blackgear.vanillabackport.common.level.items.PaleOakBoatItem;
-import com.blackgear.vanillabackport.common.level.items.HarnessItem;
-import com.blackgear.vanillabackport.common.level.items.VariantEggItem;
-import com.blackgear.vanillabackport.common.level.items.WolfArmorItem;
+import com.blackgear.vanillabackport.common.level.items.*;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.world.item.*;
 
@@ -185,7 +182,7 @@ public class ModItems {
     public static final Supplier<Item> ARMADILLO_SCUTE = ITEMS.register("armadillo_scute");
     public static final Supplier<Item> WOLF_ARMOR = ITEMS.register(
         "wolf_armor",
-        WolfArmorItem::new,
-        new Item.Properties().durability(64)
+        properties -> new DyeableAnimalArmorItem(ModAnimalMaterials.ARMADILLO_SCUTE, AnimalArmorItem.BodyType.CANINE, 64, properties),
+        new Item.Properties()
     );
 }

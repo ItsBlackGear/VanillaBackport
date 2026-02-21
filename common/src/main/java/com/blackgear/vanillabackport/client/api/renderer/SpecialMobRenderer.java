@@ -11,9 +11,9 @@ import java.util.function.Supplier;
 
 public abstract class SpecialMobRenderer<T extends LivingEntity, M extends EntityModel<T>> {
     public static <R> Optional<Supplier<R>> create(
-        EntityRendererProvider.Context context,
-        Function<EntityRendererProvider.Context, R> factory,
-        RenderConditions conditions
+            EntityRendererProvider.Context context,
+            Function<EntityRendererProvider.Context, R> factory,
+            RenderConditions conditions
     ) {
         if (!conditions.apply()) return Optional.empty();
 

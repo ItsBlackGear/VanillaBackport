@@ -1,6 +1,7 @@
 package com.blackgear.vanillabackport.client;
 
 import com.blackgear.platform.common.item.ItemPropertyRegistry;
+import com.blackgear.vanillabackport.common.level.items.DyeableAnimalArmorItem;
 import com.blackgear.vanillabackport.common.registries.ModItems;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.resources.ResourceLocation;
@@ -26,6 +27,7 @@ public class ItemPropertyRegistrar {
         ItemPropertyRegistry.register(ModItems.LIME_BUNDLE.get(), new ResourceLocation("filled"), ItemPropertyRegistrar::bundleDisplay);
         ItemPropertyRegistry.register(ModItems.BROWN_BUNDLE.get(), new ResourceLocation("filled"), ItemPropertyRegistrar::bundleDisplay);
         ItemPropertyRegistry.register(ModItems.ORANGE_BUNDLE.get(), new ResourceLocation("filled"), ItemPropertyRegistrar::bundleDisplay);
+        ItemPropertyRegistry.register(ModItems.WOLF_ARMOR.get(), new ResourceLocation("dyed"), (stack, level, entity, seed) -> ((DyeableAnimalArmorItem) ModItems.WOLF_ARMOR.get()).hasCustomColor(stack) ? 1.0F : 0.0F);
     }
 
     private static float bundleDisplay(ItemStack stack, ClientLevel level, LivingEntity entity, int i) {
