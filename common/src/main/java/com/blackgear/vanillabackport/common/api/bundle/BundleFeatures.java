@@ -108,6 +108,8 @@ public final class BundleFeatures {
     }
 
     public static void setSelectedItem(ItemStack bundle, int index) {
+        if (!bundle.is(ModItemTags.BUNDLES)) return;
+
         CompoundTag tag = bundle.getOrCreateTag();
         tag.putInt(TAG_SELECTED_ITEM, index);
     }
@@ -182,6 +184,8 @@ public final class BundleFeatures {
     }
 
     public static void toggleSelectedItem(ItemStack bundle, int index) {
+        if (!bundle.is(ModItemTags.BUNDLES)) return;
+
         CompoundTag tag = bundle.getOrCreateTag();
         int selected0 = tag.getInt(TAG_SELECTED_ITEM);
 
