@@ -9,6 +9,7 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.BundleItem;
 import net.minecraft.world.item.ItemStack;
 
 public record ServerboundSelectBundleItemPacket(int slotId, int selectedItemIndex) implements Packet<ServerboundSelectBundleItemPacket> {
@@ -53,7 +54,9 @@ public record ServerboundSelectBundleItemPacket(int slotId, int selectedItemInde
 
                 if (slotId >= 0 && slotId < slots.size()) {
                     ItemStack stack = slots.get(slotId).getItem();
-                    BundleFeatures.toggleSelectedItem(stack, selectedItemIndex);
+                    if (stack.getItem() instanceof BundleItem) {
+                        BundleFeatures.toggleSelectedItem(stack, selectedItemIndex);
+                    }
                 }
             };
         }
