@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "minecraft:pale_oak_sapling",
+      "structure_nbt": "minecraft:pale_oak",
+      "components": [
+        "minecraft:pale_oak_log",
+        "minecraft:pale_oak_leaves"
+      ]
+    }
+  ]
+}

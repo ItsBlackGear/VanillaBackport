@@ -57,6 +57,7 @@
     "common.item.BundleContentsMixin",
     "common.item.BundleItemMixin",
     "common.item.MutableBundleContentsMixin",
+    "common.level.ChunkSerializerMixin",
     "common.worldgen.feature.SimpleBlockFeatureMixin",
     "common.worldgen.structure.NetherFossilPieceMixin",
     "compat.jer.BiomeHelperMixin",

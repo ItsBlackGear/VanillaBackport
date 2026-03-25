@@ -20,7 +20,6 @@ import com.blackgear.vanillabackport.common.worldgen.features.SpringToLifeFeatur
 import com.blackgear.vanillabackport.common.worldgen.features.TheGardenAwakensFeatures;
 import com.blackgear.vanillabackport.common.worldgen.placements.SpringToLifePlacements;
 import com.blackgear.vanillabackport.common.worldgen.placements.TheGardenAwakensPlacements;
-import com.blackgear.vanillabackport.core.data.DataTransformation;
 import com.blackgear.vanillabackport.core.data.tags.ModBiomeTags;
 import com.blackgear.vanillabackport.core.data.tags.ModBlockTags;
 import com.blackgear.vanillabackport.core.data.tags.ModEntityTypeTags;
@@ -90,7 +89,7 @@ public final class VanillaBackport {
             ServerboundSelectBundleItemPacket::handler
         ));
 
-        DataTransformation.bootstrap();
+//        DataTransformation.bootstrap();
     }
 
     public static ResourceLocation resource(String path) {

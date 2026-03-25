@@ -4,6 +4,7 @@ import com.blackgear.vanillabackport.client.api.tabs.BundledTabs;
 import com.blackgear.vanillabackport.common.registries.ModBlocks;
 import com.blackgear.vanillabackport.common.registries.ModItems;
 import com.blackgear.vanillabackport.common.registries.ModPaintingVariants;
+import com.blackgear.vanillabackport.core.FeatureFlag;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.NbtOps;
@@ -14,11 +15,12 @@ import net.minecraft.world.entity.decoration.Painting;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.CustomData;
 
-import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ModBundledTabs {
-    private static final List<BundledTabs> FILTERS = new ArrayList<>();
+    private static final Map<BundledTabs, FeatureFlag> FILTERS = new LinkedHashMap<>();
 
     public static final BundledTabs BUNDLES_OF_BRAVERY = register(
         BundledTabs.builder()
@@ -159,11 +161,14 @@ public class ModBundledTabs {
     );
 
     public static BundledTabs register(BundledTabs builder) {
-        FILTERS.add(builder);
+        FILTERS.put(builder, FeatureFlag.DEFAULT);
         return builder;
     }
 
-    public static List<BundledTabs> getFilters() {
-        return FILTERS;
+    public static List<BundledTabs> getTabs() {
+        return FILTERS.entrySet().stream()
+            .filter(entry -> entry.getValue().isEnabled())
+            .map(Map.Entry::getKey)
+            .toList();
     }
 }

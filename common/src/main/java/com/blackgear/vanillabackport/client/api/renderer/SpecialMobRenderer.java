@@ -15,13 +15,12 @@ public abstract class SpecialMobRenderer<T extends LivingEntity, M extends Entit
         Function<EntityRendererProvider.Context, R> factory,
         RenderConditions conditions
     ) {
-        if (!conditions.apply()) return Optional.empty();
-
         return Optional.of(new Supplier<>() {
             private R instance;
 
             @Override
             public R get() {
+                if (!conditions.apply()) return null;
                 if (this.instance == null) this.instance = factory.apply(context);
                 return this.instance;
             }

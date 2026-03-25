@@ -1,6 +1,7 @@
-package com.blackgear.vanillabackport.common.api.leash;
+package com.blackgear.vanillabackport.common.api.interactions;
 
 import com.blackgear.platform.common.integration.MobInteraction;
+import com.blackgear.vanillabackport.common.api.leash.LeashExtension;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.InteractionHand;

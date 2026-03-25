@@ -1,4 +1,4 @@
-package com.blackgear.vanillabackport.client.resources;
+package com.blackgear.vanillabackport.client.resources.color;
 
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.google.gson.Gson;

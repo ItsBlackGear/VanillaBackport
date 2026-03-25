@@ -81,7 +81,8 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
                 ModItems.GREEN_HARNESS.get(),
                 ModItems.RED_HARNESS.get(),
                 ModItems.BLACK_HARNESS.get()
-            );
+            )
+            .addOptional(ResourceLocation.fromNamespaceAndPath("vanillabackport", "harnesses"));
 
         this.getOrCreateTagBuilder(ModItemTags.HAPPY_GHAST_FOOD)
             .add(Items.SNOWBALL);

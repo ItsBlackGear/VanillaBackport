@@ -1,5 +1,6 @@
 package com.blackgear.vanillabackport.data.server.loot;
 
+import com.blackgear.vanillabackport.common.level.blocks.LeafLitterBlock;
 import com.blackgear.vanillabackport.common.level.blocks.MossyCarpetBlock;
 import com.blackgear.vanillabackport.common.registries.ModBlocks;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -25,6 +26,7 @@ import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.stream.IntStream;
 
 public class BlockLootGenerator extends FabricBlockLootTableProvider {
     public BlockLootGenerator(FabricDataOutput dataOutput, CompletableFuture<HolderLookup.Provider> registryLookup) {
@@ -92,7 +94,7 @@ public class BlockLootGenerator extends FabricBlockLootTableProvider {
         this.dropSelf(ModBlocks.FIREFLY_BUSH.get());
         this.add(ModBlocks.BUSH.get(), this::createShearsOrSilkTouchOnlyDrop);
         this.add(ModBlocks.WILDFLOWERS.get(), this.createPetalsDrops(ModBlocks.WILDFLOWERS.get()));
-        this.add(ModBlocks.LEAF_LITTER.get(), this.createPetalsDrops(ModBlocks.LEAF_LITTER.get()));
+        this.add(ModBlocks.LEAF_LITTER.get(), this.createLeafLitterDrops(ModBlocks.LEAF_LITTER.get()));
         this.dropSelf(ModBlocks.CACTUS_FLOWER.get());
         this.add(ModBlocks.SHORT_DRY_GRASS.get(), this::createShearsOrSilkTouchOnlyDrop);
         this.add(ModBlocks.TALL_DRY_GRASS.get(), this::createShearsOrSilkTouchOnlyDrop);
@@ -140,5 +142,17 @@ public class BlockLootGenerator extends FabricBlockLootTableProvider {
     protected LootTable.Builder createShearsOrSilkTouchOnlyDrop(ItemLike itemLike) {
         return LootTable.lootTable()
             .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).when(this.hasShearsOrSilkTouch()).add(LootItem.lootTableItem(itemLike)));
+    }
+
+    public LootTable.Builder createLeafLitterDrops(Block petalBlock) {
+        return LootTable.lootTable()
+            .withPool(LootPool.lootPool()
+                .setRolls(ConstantValue.exactly(1.0F))
+                .add(this.applyExplosionDecay(petalBlock,
+                    LootItem.lootTableItem(petalBlock)
+                        .apply(IntStream.rangeClosed(1, 4).boxed().toList(),
+                            value -> SetItemCountFunction.setCount(ConstantValue.exactly((float) value))
+                                .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(petalBlock)
+                                    .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(LeafLitterBlock.AMOUNT, value)))))));
     }
 }

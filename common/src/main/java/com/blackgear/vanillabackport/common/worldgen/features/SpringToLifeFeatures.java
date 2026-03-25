@@ -1,6 +1,7 @@
 package com.blackgear.vanillabackport.common.worldgen.features;
 
 import com.blackgear.platform.common.worldgen.WorldGenRegistry;
+import com.blackgear.vanillabackport.common.level.blocks.LeafLitterBlock;
 import com.blackgear.vanillabackport.common.level.features.FallenTreeConfiguration;
 import com.blackgear.vanillabackport.common.registries.ModBlocks;
 import com.blackgear.vanillabackport.common.registries.ModFeatures;
@@ -202,7 +203,7 @@ public class SpringToLifeFeatures {
     }
 
     private static SimpleWeightedRandomList.Builder<BlockState> leafLitterPatchBuilder(int min, int max) {
-        return segmentedBlockPatchBuilder(ModBlocks.LEAF_LITTER.get(), min, max, PinkPetalsBlock.AMOUNT, PinkPetalsBlock.FACING);
+        return segmentedBlockPatchBuilder(ModBlocks.LEAF_LITTER.get(), min, max, LeafLitterBlock.AMOUNT, PinkPetalsBlock.FACING);
     }
 
     private static SimpleWeightedRandomList.Builder<BlockState> segmentedBlockPatchBuilder(

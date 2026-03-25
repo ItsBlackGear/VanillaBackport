@@ -202,6 +202,22 @@ public class LangGenerator extends FabricLanguageProvider {
         builder.add(ModItems.BROWN_BUNDLE.get(), "Brown Bundle");
         builder.add(ModItems.ORANGE_BUNDLE.get(), "Orange Bundle");
 
+        // Advancements
+        builder.add("advancements.adventure.heart_transplanter.title", "Heart Transplanter");
+        builder.add("advancements.adventure.heart_transplanter.description", "Place a Creaking Heart with the correct alignment between two Pale Oak Log blocks");
+
+        builder.add("advancements.husbandry.whole_pack.title", "The Whole Pack");
+        builder.add("advancements.husbandry.whole_pack.description", "Tame one of each Wolf variant");
+
+        builder.add("advancements.husbandry.remove_wolf_armor.title", "Shear Brilliance");
+        builder.add("advancements.husbandry.remove_wolf_armor.description", "Remove Wolf Armor from a Wolf using Shears");
+
+        builder.add("advancements.husbandry.repair_wolf_armor.title", "Good as New");
+        builder.add("advancements.husbandry.repair_wolf_armor.description", "Fully repair damaged Wolf Armor using Armadillo Scutes");
+
+        builder.add("advancements.husbandry.place_dried_ghast_in_water.title", "Stay Hydrated!");
+        builder.add("advancements.husbandry.place_dried_ghast_in_water.description", "Place a Dried Ghast block into water");
+
         // Bundled Tabs
         builder.add("bundled_tab.bundles_of_bravery.title", "Bundles of Bravery");
         builder.add("bundled_tab.the_garden_awakens.title", "The Garden Awakens");

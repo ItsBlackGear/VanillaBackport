@@ -23,6 +23,7 @@ public class BiomeTagGenerator extends FabricTagProvider<Biome> {
     protected void addTags(HolderLookup.Provider provider) {
         this.addEntityPlacementTags(provider);
         this.addFeaturePlacementTags(provider);
+        this.addBiomeConventionalTags(provider);
 
         this.getOrCreateTagBuilder(BiomeTags.IS_FOREST)
             .add(ModBiomes.PALE_GARDEN);
@@ -177,6 +178,20 @@ public class BiomeTagGenerator extends FabricTagProvider<Biome> {
             );
 
         this.getOrCreateTagBuilder(ModBiomeTags.HAS_PALE_LEAF_LITTER)
+            .add(ModBiomes.PALE_GARDEN);
+    }
+
+    protected void addBiomeConventionalTags(HolderLookup.Provider provider) {
+        this.getOrCreateTagBuilder(ForgeBiomeTags.IS_SPOOKY)
+            .add(ModBiomes.PALE_GARDEN);
+
+        this.getOrCreateTagBuilder(ForgeBiomeTags.IS_DARK_FOREST)
+            .add(ModBiomes.PALE_GARDEN);
+
+        this.getOrCreateTagBuilder(ForgeBiomeTags.IS_RARE)
+            .add(ModBiomes.PALE_GARDEN);
+
+        this.getOrCreateTagBuilder(ForgeBiomeTags.IS_TREE_DECIDUOUS)
             .add(ModBiomes.PALE_GARDEN);
     }
 }

@@ -1,5 +1,6 @@
 package com.blackgear.vanillabackport.common.level.blocks;
 
+import com.blackgear.vanillabackport.common.registries.ModBlockStateProperties;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
@@ -24,7 +25,7 @@ public class LeafLitterBlock extends BushBlock {
     public static final int MIN_SEGMENT = 1;
     public static final int MAX_SEGMENT = 4;
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
-    public static final IntegerProperty AMOUNT = BlockStateProperties.FLOWER_AMOUNT;
+    public static final IntegerProperty AMOUNT = ModBlockStateProperties.SEGMENT_AMOUNT;
     private static final BiFunction<Direction, Integer, VoxelShape> SHAPE_BY_PROPERTIES = Util.memoize((direction, value) -> {
         VoxelShape shape = Shapes.empty();
         VoxelShape[] shapes = new VoxelShape[] {

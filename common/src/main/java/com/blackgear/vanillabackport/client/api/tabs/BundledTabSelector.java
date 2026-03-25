@@ -55,11 +55,7 @@ public class BundledTabSelector {
 
     private void init(Minecraft minecraft, Screen screen, ScreenAccess access) {
         if (screen instanceof CreativeModeInventoryScreen creativeScreen) {
-            if (this.bundles == null) {
-                List<BundledTabs> bundles = new ArrayList<>(ModBundledTabs.getFilters());
-                Collections.reverse(bundles);
-                this.bundles = bundles;
-            }
+            if (this.bundles == null) this.bundles = new ArrayList<>(ModBundledTabs.getTabs());
             this.guiLeft = creativeScreen.leftPos;
             this.guiTop = creativeScreen.topPos;
             this.injectWidgets(creativeScreen, access::addRenderableWidget);

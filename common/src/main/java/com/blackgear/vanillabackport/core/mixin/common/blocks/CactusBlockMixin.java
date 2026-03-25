@@ -2,6 +2,7 @@ package com.blackgear.vanillabackport.core.mixin.common.blocks;
 
 import com.blackgear.vanillabackport.common.registries.ModBlocks;
 import com.blackgear.vanillabackport.core.VanillaBackport;
+import com.blackgear.vanillabackport.core.data.tags.ModBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
@@ -16,6 +17,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(CactusBlock.class)
 public abstract class CactusBlockMixin extends Block {
@@ -46,6 +48,14 @@ public abstract class CactusBlockMixin extends Block {
                     level.setBlockAndUpdate(above, ModBlocks.CACTUS_FLOWER.get().defaultBlockState());
                 }
             }
+        }
+    }
+
+    @Inject(method = "canSurvive", at = @At("HEAD"), cancellable = true)
+    private void vb$allowCactusPlacement(BlockState state, LevelReader level, BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
+        BlockState belowState = level.getBlockState(pos.below());
+        if ((belowState.is(CactusBlock.class.cast(this)) || belowState.is(ModBlockTags.SUPPORTS_CACTUS)) && !level.getBlockState(pos.above()).liquid()) {
+            cir.setReturnValue(true);
         }
     }
 }

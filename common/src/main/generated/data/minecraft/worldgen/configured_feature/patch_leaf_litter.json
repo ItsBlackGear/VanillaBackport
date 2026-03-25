@@ -13,7 +13,7 @@
                   "Name": "minecraft:leaf_litter",
                   "Properties": {
                     "facing": "north",
-                    "flower_amount": "1"
+                    "segment_amount": "1"
                   }
                 },
                 "weight": 1
@@ -23,7 +23,7 @@
                   "Name": "minecraft:leaf_litter",
                   "Properties": {
                     "facing": "east",
-                    "flower_amount": "1"
+                    "segment_amount": "1"
                   }
                 },
                 "weight": 1
@@ -33,7 +33,7 @@
                   "Name": "minecraft:leaf_litter",
                   "Properties": {
                     "facing": "south",
-                    "flower_amount": "1"
+                    "segment_amount": "1"
                   }
                 },
                 "weight": 1
@@ -43,7 +43,7 @@
                   "Name": "minecraft:leaf_litter",
                   "Properties": {
                     "facing": "west",
-                    "flower_amount": "1"
+                    "segment_amount": "1"
                   }
                 },
                 "weight": 1
@@ -53,7 +53,7 @@
                   "Name": "minecraft:leaf_litter",
                   "Properties": {
                     "facing": "north",
-                    "flower_amount": "2"
+                    "segment_amount": "2"
                   }
                 },
                 "weight": 1
@@ -63,7 +63,7 @@
                   "Name": "minecraft:leaf_litter",
                   "Properties": {
                     "facing": "east",
-                    "flower_amount": "2"
+                    "segment_amount": "2"
                   }
                 },
                 "weight": 1
@@ -73,7 +73,7 @@
                   "Name": "minecraft:leaf_litter",
                   "Properties": {
                     "facing": "south",
-                    "flower_amount": "2"
+                    "segment_amount": "2"
                   }
                 },
                 "weight": 1
@@ -83,7 +83,7 @@
                   "Name": "minecraft:leaf_litter",
                   "Properties": {
                     "facing": "west",
-                    "flower_amount": "2"
+                    "segment_amount": "2"
                   }
                 },
                 "weight": 1
@@ -93,7 +93,7 @@
                   "Name": "minecraft:leaf_litter",
                   "Properties": {
                     "facing": "north",
-                    "flower_amount": "3"
+                    "segment_amount": "3"
                   }
                 },
                 "weight": 1
@@ -103,7 +103,7 @@
                   "Name": "minecraft:leaf_litter",
                   "Properties": {
                     "facing": "east",
-                    "flower_amount": "3"
+                    "segment_amount": "3"
                   }
                 },
                 "weight": 1
@@ -113,7 +113,7 @@
                   "Name": "minecraft:leaf_litter",
                   "Properties": {
                     "facing": "south",
-                    "flower_amount": "3"
+                    "segment_amount": "3"
                   }
                 },
                 "weight": 1
@@ -123,7 +123,7 @@
                   "Name": "minecraft:leaf_litter",
                   "Properties": {
                     "facing": "west",
-                    "flower_amount": "3"
+                    "segment_amount": "3"
                   }
                 },
                 "weight": 1

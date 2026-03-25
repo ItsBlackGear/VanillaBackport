@@ -9,20 +9,20 @@ import com.blackgear.platform.common.worldgen.placement.BiomePlacement;
 import com.blackgear.platform.core.ParallelDispatch;
 import com.blackgear.platform.core.events.ResourceReloadManager;
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
-import com.blackgear.vanillabackport.common.api.leash.LeashIntegration;
-import com.blackgear.vanillabackport.common.api.wolf.WolfSoundVariantReloadListener;
+import com.blackgear.vanillabackport.common.api.interactions.LeashIntegration;
+import com.blackgear.vanillabackport.common.resource.sound.WolfSoundVariantReloadListener;
 import com.blackgear.vanillabackport.common.level.dispenser.PaleOakBoatDispenseBehavior;
 import com.blackgear.vanillabackport.common.level.entities.creaking.Creaking;
 import com.blackgear.vanillabackport.common.level.entities.happyghast.HappyGhast;
 import com.blackgear.vanillabackport.common.registries.ModBlocks;
 import com.blackgear.vanillabackport.common.registries.ModEntities;
 import com.blackgear.vanillabackport.common.registries.ModItems;
-import com.blackgear.vanillabackport.common.resource.*;
+import com.blackgear.vanillabackport.common.resource.variant.*;
 import com.blackgear.vanillabackport.common.worldgen.BiomeGeneration;
 import com.blackgear.vanillabackport.common.worldgen.WorldGeneration;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.blackgear.vanillabackport.core.data.tags.ModBlockTags;
-import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
+import net.minecraft.core.dispenser.ProjectileDispenseBehavior;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.SpawnPlacementTypes;
@@ -106,8 +106,8 @@ public class CommonSetup {
 
         event.registerDispenserBehavior(ModItems.PALE_OAK_BOAT.get(), new PaleOakBoatDispenseBehavior());
         event.registerDispenserBehavior(ModItems.PALE_OAK_CHEST_BOAT.get(), new PaleOakBoatDispenseBehavior(true));
-        event.registerDispenserBehavior(ModItems.BLUE_EGG.get(), new DefaultDispenseItemBehavior());
-        event.registerDispenserBehavior(ModItems.BROWN_EGG.get(), new DefaultDispenseItemBehavior());
+        event.registerDispenserBehavior(ModItems.BLUE_EGG.get(), new ProjectileDispenseBehavior(ModItems.BLUE_EGG.get()));
+        event.registerDispenserBehavior(ModItems.BROWN_EGG.get(), new ProjectileDispenseBehavior(ModItems.BROWN_EGG.get()));
     }
 
     public static void tradeIntegrations(TradeIntegration.Event event) {

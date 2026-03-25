@@ -46,15 +46,17 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:$rootProject.fabric_loader_version"
 
     modImplementation "net.fabricmc.fabric-api:fabric-api:$rootProject.fabric_api_version"
-    modImplementation "com.blackgear:Platform-fabric-1.21.1:$rootProject.platform_indev_version"
-//    modApi "flatDir:Platform-fabric-1.21.1-$rootProject.platform_indev_version"
-//    modApi "curse.maven:platform-997634:$rootProject.platform_fabric_version"
+//    modImplementation "flatDir:Platform-fabric-1.21.1-$rootProject.platform_indev_version"
+//    modImplementation "curse.maven:platform-997634:$rootProject.platform_fabric_version"
+    modImplementation "maven.modrinth:platform:1.3-fabric,1.21.1"
 
     modCompileOnly "curse.maven:mouse-tweaks-60089:5437294"
     modCompileOnly "curse.maven:jei-238222:7270453"
     modCompileOnly "curse.maven:just-enough-resources-jer-240630:6506299"
 
     modImplementation("com.github.glitchfiend:TerraBlender-fabric:$rootProject.terrablender_version")
+    include(implementation(annotationProcessor("com.github.bawnorton.mixinsquared:mixinsquared-fabric:${mixin_squared_version}")))
+
 
     common(project(path: ':common', configuration: 'namedElements')) { transitive false }
     shadowBundle project(path: ':common', configuration: 'transformProductionFabric')

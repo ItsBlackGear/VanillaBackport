@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.core.mixin.leash;
 
-import com.blackgear.vanillabackport.common.api.leash.LeashIntegration;
+import com.blackgear.vanillabackport.common.api.interactions.LeashIntegration;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;

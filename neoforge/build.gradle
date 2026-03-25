@@ -39,10 +39,9 @@ repositories {
 
 dependencies {
     neoForge "net.neoforged:neoforge:$rootProject.neoforge_version"
-    modImplementation "com.blackgear:Platform-neoforge-1.21.1:$rootProject.platform_indev_version"
-
-//    modApi "flatDir:Platform-neoforge-1.21.1-$rootProject.platform_indev_version"
-//    modApi "curse.maven:platform-997634:$rootProject.platform_neoforge_version"
+//    modImplementation "flatDir:Platform-neoforge-1.21.1:$rootProject.platform_indev_version"
+//    modImplementation "curse.maven:platform-997634:$rootProject.platform_neoforge_version"
+    modImplementation "maven.modrinth:platform:1.3-neoforge,1.21.1"
 
     compileOnly("curse.maven:mouse-tweaks-60089:5637846")
     compileOnly("curse.maven:jei-238222:7270455")

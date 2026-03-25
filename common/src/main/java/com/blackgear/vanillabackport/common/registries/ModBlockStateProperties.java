@@ -10,4 +10,5 @@ public class ModBlockStateProperties {
     public static final BooleanProperty NATURAL = BooleanProperty.create("natural");
     public static final EnumProperty<CreakingHeartState> CREAKING_HEART_STATE = EnumProperty.create("creaking_heart_state", CreakingHeartState.class);
     public static final IntegerProperty HYDRATION_LEVEL = IntegerProperty.create("hydration", 0, 3);
+    public static final IntegerProperty SEGMENT_AMOUNT = IntegerProperty.create("segment_amount", 1, 4);
 }

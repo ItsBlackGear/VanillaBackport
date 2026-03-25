@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "package": "com.blackgear.vanillabackport.core.fabric.mixin",
+  "plugin": "com.blackgear.vanillabackport.core.fabric.VanillaBackportPlugin",
+  "compatibilityLevel": "JAVA_21",
+  "minVersion": "0.8",
+  "mixins": [
+    "MappedRegistryMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

@@ -15,6 +15,10 @@
     "minecraft:brown_harness",
     "minecraft:green_harness",
     "minecraft:red_harness",
-    "minecraft:black_harness"
+    "minecraft:black_harness",
+    {
+      "id": "vanillabackport:harnesses",
+      "required": false
+    }
   ]
 }

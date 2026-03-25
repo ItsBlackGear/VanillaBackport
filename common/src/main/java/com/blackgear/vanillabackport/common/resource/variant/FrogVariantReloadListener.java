@@ -1,4 +1,4 @@
-package com.blackgear.vanillabackport.common.resource;
+package com.blackgear.vanillabackport.common.resource.variant;
 
 import com.blackgear.platform.common.resource.RegistryAwareJsonReloadListener;
 import com.blackgear.vanillabackport.common.level.entities.animal.FrogDataVariant;
