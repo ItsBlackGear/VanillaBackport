@@ -4,7 +4,6 @@ import com.blackgear.platform.core.helper.ItemRegistry;
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
 import com.blackgear.vanillabackport.common.level.entities.animal.ChickenVariants;
 import com.blackgear.vanillabackport.common.level.items.PaleOakBoatItem;
-import com.blackgear.vanillabackport.common.level.items.HarnessItem;
 import com.blackgear.vanillabackport.common.level.items.VariantEggItem;
 import com.blackgear.vanillabackport.common.level.items.WolfArmorItem;
 import com.blackgear.vanillabackport.core.VanillaBackport;
@@ -25,82 +24,66 @@ public class ModItems {
 
     public static final Supplier<Item> WHITE_HARNESS = ITEMS.register(
         "white_harness",
-        HarnessItem::new,
         new Item.Properties().stacksTo(1)
     );
     public static final Supplier<Item> ORANGE_HARNESS = ITEMS.register(
         "orange_harness",
-        HarnessItem::new,
         new Item.Properties().stacksTo(1)
     );
     public static final Supplier<Item> MAGENTA_HARNESS = ITEMS.register(
         "magenta_harness",
-        HarnessItem::new,
         new Item.Properties().stacksTo(1)
     );
     public static final Supplier<Item> LIGHT_BLUE_HARNESS = ITEMS.register(
         "light_blue_harness",
-        HarnessItem::new,
         new Item.Properties().stacksTo(1)
     );
     public static final Supplier<Item> YELLOW_HARNESS = ITEMS.register(
         "yellow_harness",
-        HarnessItem::new,
         new Item.Properties().stacksTo(1)
     );
     public static final Supplier<Item> LIME_HARNESS = ITEMS.register(
         "lime_harness",
-        HarnessItem::new,
         new Item.Properties().stacksTo(1)
     );
     public static final Supplier<Item> PINK_HARNESS = ITEMS.register(
         "pink_harness",
-        HarnessItem::new,
         new Item.Properties().stacksTo(1)
     );
     public static final Supplier<Item> GRAY_HARNESS = ITEMS.register(
         "gray_harness",
-        HarnessItem::new,
         new Item.Properties().stacksTo(1)
     );
     public static final Supplier<Item> LIGHT_GRAY_HARNESS = ITEMS.register(
         "light_gray_harness",
-        HarnessItem::new,
         new Item.Properties().stacksTo(1)
     );
     public static final Supplier<Item> CYAN_HARNESS = ITEMS.register(
         "cyan_harness",
-        HarnessItem::new,
         new Item.Properties().stacksTo(1)
     );
     public static final Supplier<Item> PURPLE_HARNESS = ITEMS.register(
         "purple_harness",
-        HarnessItem::new,
         new Item.Properties().stacksTo(1)
     );
     public static final Supplier<Item> BLUE_HARNESS = ITEMS.register(
         "blue_harness",
-        HarnessItem::new,
         new Item.Properties().stacksTo(1)
     );
     public static final Supplier<Item> BROWN_HARNESS = ITEMS.register(
         "brown_harness",
-        HarnessItem::new,
         new Item.Properties().stacksTo(1)
     );
     public static final Supplier<Item> GREEN_HARNESS = ITEMS.register(
         "green_harness",
-        HarnessItem::new,
         new Item.Properties().stacksTo(1)
     );
     public static final Supplier<Item> RED_HARNESS = ITEMS.register(
         "red_harness",
-        HarnessItem::new,
         new Item.Properties().stacksTo(1)
     );
     public static final Supplier<Item> BLACK_HARNESS = ITEMS.register(
         "black_harness",
-        HarnessItem::new,
         new Item.Properties().stacksTo(1)
     );
 

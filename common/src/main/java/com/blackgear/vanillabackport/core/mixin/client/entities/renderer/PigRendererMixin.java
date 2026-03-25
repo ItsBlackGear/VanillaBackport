@@ -39,12 +39,15 @@ public abstract class PigRendererMixin extends MobRendererMixin<Pig, PigModel<Pi
         cancellable = true
     )
     private void vb$getTextureLocation(Pig entity, CallbackInfoReturnable<ResourceLocation> cir) {
-        this.renderer.flatMap(renderer -> renderer.get().getTexture(entity)).ifPresent(cir::setReturnValue);
+        this.renderer.flatMap(renderer -> Optional.ofNullable(renderer.get()))
+            .flatMap(renderer -> renderer.getTexture(entity))
+            .ifPresent(cir::setReturnValue);
     }
 
     @Override
     public void render(Pig entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource buffer, int packedLight) {
-        this.renderer.ifPresent(renderer -> this.model = renderer.get().getModel(entity).orElseGet(() -> this.defaultModel));
+        this.renderer.flatMap(renderer -> Optional.ofNullable(renderer.get()))
+            .ifPresent(renderer -> this.model = renderer.getModel(entity).orElseGet(() -> this.defaultModel));
         super.render(entity, entityYaw, partialTicks, poseStack, buffer, packedLight);
     }
 }

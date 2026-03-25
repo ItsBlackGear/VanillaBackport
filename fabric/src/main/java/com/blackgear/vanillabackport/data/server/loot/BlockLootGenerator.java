@@ -1,5 +1,6 @@
 package com.blackgear.vanillabackport.data.server.loot;
 
+import com.blackgear.vanillabackport.common.level.blocks.LeafLitterBlock;
 import com.blackgear.vanillabackport.common.level.blocks.MossyCarpetBlock;
 import com.blackgear.vanillabackport.common.registries.ModBlocks;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -8,10 +9,7 @@ import net.minecraft.advancements.critereon.StatePropertiesPredicate;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ItemLike;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.DecoratedPotBlock;
-import net.minecraft.world.level.block.MultifaceBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.DecoratedPotBlockEntity;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.storage.loot.IntRange;
@@ -27,6 +25,8 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePrope
 import net.minecraft.world.level.storage.loot.providers.nbt.ContextNbtProvider;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
+
+import java.util.stream.IntStream;
 
 public class BlockLootGenerator extends FabricBlockLootTableProvider {
     public BlockLootGenerator(FabricDataOutput dataOutput) {
@@ -66,6 +66,7 @@ public class BlockLootGenerator extends FabricBlockLootTableProvider {
         this.dropPottedContents(ModBlocks.POTTED_CLOSED_EYEBLOSSOM.get());
 
         this.dropSelf(ModBlocks.RESIN_BLOCK.get());
+        this.dropSelf(ModBlocks.RESIN_BLOCK.get());
         this.dropSelf(ModBlocks.RESIN_BRICKS.get());
         this.dropSelf(ModBlocks.RESIN_BRICK_WALL.get());
         this.dropSelf(ModBlocks.RESIN_BRICK_STAIRS.get());
@@ -94,7 +95,7 @@ public class BlockLootGenerator extends FabricBlockLootTableProvider {
         this.dropSelf(ModBlocks.FIREFLY_BUSH.get());
         this.add(ModBlocks.BUSH.get(), this::createShearsOrSilkTouchOnlyDrop);
         this.add(ModBlocks.WILDFLOWERS.get(), this.createPetalsDrops(ModBlocks.WILDFLOWERS.get()));
-        this.add(ModBlocks.LEAF_LITTER.get(), this.createPetalsDrops(ModBlocks.LEAF_LITTER.get()));
+        this.add(ModBlocks.LEAF_LITTER.get(), this.createLeafLitterDrops(ModBlocks.LEAF_LITTER.get()));
         this.dropSelf(ModBlocks.CACTUS_FLOWER.get());
         this.add(ModBlocks.SHORT_DRY_GRASS.get(), this::createShearsOrSilkTouchOnlyDrop);
         this.add(ModBlocks.TALL_DRY_GRASS.get(), this::createShearsOrSilkTouchOnlyDrop);
@@ -147,24 +148,37 @@ public class BlockLootGenerator extends FabricBlockLootTableProvider {
             .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).when(HAS_SHEARS_OR_SILK_TOUCH).add(LootItem.lootTableItem(itemLike)));
     }
 
+    public LootTable.Builder createLeafLitterDrops(Block petalBlock) {
+        return LootTable.lootTable()
+            .withPool(LootPool.lootPool()
+                .setRolls(ConstantValue.exactly(1.0F))
+                .add(this.applyExplosionDecay(petalBlock,
+                    LootItem.lootTableItem(petalBlock)
+                        .apply(IntStream.rangeClosed(1, 4).boxed().toList(),
+                            value -> SetItemCountFunction.setCount(ConstantValue.exactly((float) value))
+                                .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(petalBlock)
+                                    .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(LeafLitterBlock.AMOUNT, value)))))));
+    }
+
+
     protected LootTable.Builder createDecoratedPotTable(Block pBlock) {
         return LootTable.lootTable()
-                .withPool(
-                        LootPool.lootPool()
-                                .setRolls(ConstantValue.exactly(1.0F))
-                                .add(
-                                        DynamicLoot.dynamicEntry(DecoratedPotBlock.SHERDS_DYNAMIC_DROP_ID)
-                                                .when(
-                                                        LootItemBlockStatePropertyCondition.hasBlockStateProperties(pBlock)
-                                                                .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.CRACKED, true))
-                                                )
-                                                .otherwise(
-                                                        LootItem.lootTableItem(pBlock)
-                                                                .apply(CopyNbtFunction.copyData(ContextNbtProvider.BLOCK_ENTITY)
-                                                                        .copy(DecoratedPotBlockEntity.TAG_SHERDS, "BlockEntityTag.sherds")
-                                                                )
-                                                )
-                                )
-                );
+            .withPool(
+                LootPool.lootPool()
+                    .setRolls(ConstantValue.exactly(1.0F))
+                    .add(
+                        DynamicLoot.dynamicEntry(DecoratedPotBlock.SHERDS_DYNAMIC_DROP_ID)
+                            .when(
+                                LootItemBlockStatePropertyCondition.hasBlockStateProperties(pBlock)
+                                    .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(BlockStateProperties.CRACKED, true))
+                            )
+                            .otherwise(
+                                LootItem.lootTableItem(pBlock)
+                                    .apply(CopyNbtFunction.copyData(ContextNbtProvider.BLOCK_ENTITY)
+                                        .copy(DecoratedPotBlockEntity.TAG_SHERDS, "BlockEntityTag.sherds")
+                                    )
+                            )
+                    )
+            );
     }
 }

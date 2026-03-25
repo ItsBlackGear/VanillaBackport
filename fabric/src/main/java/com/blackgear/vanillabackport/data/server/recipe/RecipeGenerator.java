@@ -6,7 +6,6 @@ import com.blackgear.vanillabackport.common.registries.ModRecipeSerializers;
 import com.blackgear.vanillabackport.core.data.tags.ModItemTags;
 import com.blackgear.vanillabackport.data.client.BlockFamilies;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricRecipeProvider;
 import net.minecraft.data.recipes.*;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.flag.FeatureFlagSet;
@@ -18,7 +17,10 @@ import net.minecraft.world.level.block.Blocks;
 
 import java.util.function.Consumer;
 
-public class RecipeGenerator extends FabricRecipeProvider {
+import static net.minecraft.data.recipes.RecipeProvider.*;
+
+public class RecipeGenerator extends VanillaRecipeProvider {
+
     public RecipeGenerator(FabricDataOutput output) {
         super(output);
     }
@@ -176,5 +178,10 @@ public class RecipeGenerator extends FabricRecipeProvider {
             .group("harness")
             .unlockedBy("has_dried_ghast", has(ModBlocks.DRIED_GHAST.get()))
             .save(exporter);
+    }
+
+    @Override
+    public String getName() {
+        return "Vanilla Backport recipes";
     }
 }

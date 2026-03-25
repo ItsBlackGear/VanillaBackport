@@ -37,6 +37,8 @@ public class ForgeBiomeTags {
     public static final TagKey<Biome> IS_DEAD = TAGS.register("is_dead");
     public static final TagKey<Biome> IS_LUSH = TAGS.register("is_lush");
     public static final TagKey<Biome> IS_MUSHROOM = TAGS.register("is_mushroom");
+    public static final TagKey<Biome> IS_DARK_FOREST = TAGS.register("is_dark_forest");
+    public static final TagKey<Biome> IS_TREE_DECIDUOUS = TAGS.register("is_tree/deciduous");
     public static final TagKey<Biome> IS_MAGICAL = TAGS.register("is_magical");
     public static final TagKey<Biome> IS_RARE = TAGS.register("is_rare");
     public static final TagKey<Biome> IS_PLATEAU = TAGS.register("is_plateau");

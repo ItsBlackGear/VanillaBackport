@@ -33,7 +33,8 @@
     ]
   },
   "mixins": [
-    "vanillabackport.mixins.json"
+    "vanillabackport.mixins.json",
+    "vanillabackport-fabric.mixins.json"
   ],
   "depends": {
     "fabricloader": ">=0.15.10",

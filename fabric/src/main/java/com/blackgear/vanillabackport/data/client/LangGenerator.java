@@ -1,13 +1,8 @@
 package com.blackgear.vanillabackport.data.client;
 
-import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
 import com.blackgear.vanillabackport.common.registries.*;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
-import net.minecraft.Util;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.item.Item;
 
 public class LangGenerator extends FabricLanguageProvider {
     public LangGenerator(FabricDataOutput dataOutput) {
@@ -209,6 +204,9 @@ public class LangGenerator extends FabricLanguageProvider {
         builder.add(ModItems.ARMADILLO_SCUTE.get(), "Armadillo Scute");
         builder.add(ModItems.ARMADILLO_SPAWN_EGG.get(), "Armadillo Spawn Egg");
 
+        builder.add("subtitles.block.decorated_pot.insert","Decorated Pot fills");
+        builder.add("subtitles.block.decorated_pot.insert_fail","Decorated Pot wobbles");
+
         builder.add("subtitles.entity.armadillo.ambient", "Armadillo grunts");
         builder.add("subtitles.entity.armadillo.brush", "Scute is brushed off");
         builder.add("subtitles.entity.armadillo.death", "Armadillo dies");
@@ -230,18 +228,28 @@ public class LangGenerator extends FabricLanguageProvider {
         builder.add("subtitles.item.wolf_armor.damage", "Wolf Armor takes damage");
         builder.add("subtitles.item.wolf_armor.repair", "Wolf Armor is repaired");
 
-        // Bundled Tabs
+        // Advancements
+        builder.add("advancements.adventure.heart_transplanter.title", "Heart Transplanter");
+        builder.add("advancements.adventure.heart_transplanter.description", "Place a Creaking Heart with the correct alignment between two Pale Oak Log blocks");
 
+        builder.add("advancements.husbandry.whole_pack.title", "The Whole Pack");
+        builder.add("advancements.husbandry.whole_pack.description", "Tame one of each Wolf variant");
+
+        builder.add("advancements.husbandry.remove_wolf_armor.title", "Shear Brilliance");
+        builder.add("advancements.husbandry.remove_wolf_armor.description", "Remove Wolf Armor from a Wolf using Shears");
+
+        builder.add("advancements.husbandry.repair_wolf_armor.title", "Good as New");
+        builder.add("advancements.husbandry.repair_wolf_armor.description", "Fully repair damaged Wolf Armor using Armadillo Scutes");
+
+        builder.add("advancements.husbandry.place_dried_ghast_in_water.title", "Stay Hydrated!");
+        builder.add("advancements.husbandry.place_dried_ghast_in_water.description", "Place a Dried Ghast block into water");
+
+        // Bundled Tabs
         builder.add("bundled_tab.armored_paws.title", "Armored Paws");
         builder.add("bundled_tab.bundles_of_bravery.title", "Bundles of Bravery");
         builder.add("bundled_tab.the_garden_awakens.title", "The Garden Awakens");
         builder.add("bundled_tab.spring_to_life.title", "Spring to Life");
         builder.add("bundled_tab.chase_the_skies.title", "Chase The Skies");
         builder.add("bundled_tab.hot_as_lava.title", "Hot as Lava");
-
-        // Tricky Trials - Echo2craft.
-        builder.add("subtitles.block.decorated_pot.insert","Decorated Pot fills");
-        builder.add("subtitles.block.decorated_pot.insert_fail","Decorated Pot wobbles");
-
     }
 }

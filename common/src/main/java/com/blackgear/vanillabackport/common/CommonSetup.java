@@ -9,8 +9,14 @@ import com.blackgear.platform.common.worldgen.placement.BiomePlacement;
 import com.blackgear.platform.core.ParallelDispatch;
 import com.blackgear.platform.core.events.ResourceReloadManager;
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
-import com.blackgear.vanillabackport.common.api.leash.LeashIntegration;
-import com.blackgear.vanillabackport.common.resource.*;
+import com.blackgear.vanillabackport.common.api.interactions.mob.GhastHarnessInteraction;
+import com.blackgear.vanillabackport.common.api.interactions.mob.ShearEquipmentInteraction;
+import com.blackgear.vanillabackport.common.api.interactions.mob.LeashIntegration;
+import com.blackgear.vanillabackport.common.api.interactions.mob.WolfArmorInteraction;
+import com.blackgear.vanillabackport.common.api.variant.VariantDataHolder;
+import com.blackgear.vanillabackport.common.api.variant.VariantUtils;
+import com.blackgear.vanillabackport.common.level.entities.animal.ChickenVariant;
+import com.blackgear.vanillabackport.common.level.entities.animal.ChickenVariants;
 import com.blackgear.vanillabackport.common.level.dispenser.PaleOakBoatDispenseBehavior;
 import com.blackgear.vanillabackport.common.level.entities.armadillo.Armadillo;
 import com.blackgear.vanillabackport.common.level.entities.creaking.Creaking;
@@ -18,11 +24,16 @@ import com.blackgear.vanillabackport.common.level.entities.happyghast.HappyGhast
 import com.blackgear.vanillabackport.common.registries.ModBlocks;
 import com.blackgear.vanillabackport.common.registries.ModEntities;
 import com.blackgear.vanillabackport.common.registries.ModItems;
+import com.blackgear.vanillabackport.common.resource.sound.WolfSoundVariantReloadListener;
+import com.blackgear.vanillabackport.common.resource.variants.*;
 import com.blackgear.vanillabackport.common.worldgen.BiomeGeneration;
 import com.blackgear.vanillabackport.common.worldgen.WorldGeneration;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.blackgear.vanillabackport.core.data.tags.ModBlockTags;
-import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
+import com.blackgear.vanillabackport.core.registries.ModBuiltinRegistries;
+import net.minecraft.Util;
+import net.minecraft.core.Position;
+import net.minecraft.core.dispenser.AbstractProjectileDispenseBehavior;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.SpawnPlacements;
@@ -30,6 +41,10 @@ import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.animal.Parrot;
 import net.minecraft.world.entity.monster.Spider;
 import net.minecraft.world.entity.npc.VillagerTrades.ItemsForEmeralds;
+import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.entity.projectile.ThrownEgg;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.levelgen.Heightmap;
 
 public class CommonSetup {
@@ -107,8 +122,22 @@ public class CommonSetup {
 
         event.registerDispenserBehavior(ModItems.PALE_OAK_BOAT.get(), new PaleOakBoatDispenseBehavior());
         event.registerDispenserBehavior(ModItems.PALE_OAK_CHEST_BOAT.get(), new PaleOakBoatDispenseBehavior(true));
-        event.registerDispenserBehavior(ModItems.BLUE_EGG.get(), new DefaultDispenseItemBehavior());
-        event.registerDispenserBehavior(ModItems.BROWN_EGG.get(), new DefaultDispenseItemBehavior());
+        event.registerDispenserBehavior(ModItems.BLUE_EGG.get(), new AbstractProjectileDispenseBehavior() {
+            @Override
+            protected Projectile getProjectile(Level level, Position position, ItemStack stack) {
+                ThrownEgg thrownEgg = new ThrownEgg(level, position.x(), position.y(), position.z());
+                VariantDataHolder.<ChickenVariant>getHolder(thrownEgg).setVariantData(VariantUtils.getDefault(ModBuiltinRegistries.CHICKEN_VARIANTS, ChickenVariants.COLD));
+                return Util.make(thrownEgg, egg -> egg.setItem(stack));
+            }
+        });
+        event.registerDispenserBehavior(ModItems.BROWN_EGG.get(), new AbstractProjectileDispenseBehavior() {
+            @Override
+            protected Projectile getProjectile(Level level, Position position, ItemStack stack) {
+                ThrownEgg thrownEgg = new ThrownEgg(level, position.x(), position.y(), position.z());
+                VariantDataHolder.<ChickenVariant>getHolder(thrownEgg).setVariantData(VariantUtils.getDefault(ModBuiltinRegistries.CHICKEN_VARIANTS, ChickenVariants.WARM));
+                return Util.make(thrownEgg, egg -> egg.setItem(stack));
+            }
+        });
     }
 
     public static void tradeIntegrations(TradeIntegration.Event event) {
@@ -138,6 +167,9 @@ public class CommonSetup {
 
     public static void mobIntegrations(MobIntegration.Event event) {
         event.registerMobInteraction(new LeashIntegration());
+        event.registerMobInteraction(new ShearEquipmentInteraction());
+        event.registerMobInteraction(new WolfArmorInteraction());
+        event.registerMobInteraction(new GhastHarnessInteraction());
 
         event.registerPlacement(ModEntities.ARMADILLO, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (type, level, reason, pos, random) -> level.getBlockState(pos.below()).is(ModBlockTags.ARMADILLO_SPAWNABLE_ON) && level.getRawBrightness(pos, 0) > 8);
         event.registerPlacement(() -> EntityType.CAMEL, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (type, level, reason, pos, random) -> level.getBlockState(pos.below()).is(ModBlockTags.CAMELS_SPAWNABLE_ON) && level.getRawBrightness(pos, 0) > 8);

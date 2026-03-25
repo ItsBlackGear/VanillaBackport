@@ -189,7 +189,14 @@ public abstract class BundleItemMixin {
     @Unique
     private void broadcastChangesOnContainerMenu(Player player) {
         AbstractContainerMenu menu = player.containerMenu;
-        if (menu != null) menu.slotsChanged(player.getInventory());
+        if (menu != null) {
+            try {
+                menu.slotsChanged(player.getInventory());
+            } catch (IndexOutOfBoundsException ignored) {
+                // This works as fallback for a very specific set of mods that lead to crash when opening a very specific inventory...
+                // i couldn't replicate this properly but hey, this works :shrug:
+            }
+        }
     }
 }
 

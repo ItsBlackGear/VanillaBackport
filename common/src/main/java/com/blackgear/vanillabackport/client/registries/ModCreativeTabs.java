@@ -9,7 +9,6 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.function.Supplier;
 
@@ -23,11 +22,10 @@ public interface ModCreativeTabs {
             .icon(() -> new ItemStack(Items.BUNDLE))
             .displayItems((parameters, output) -> {
                 var provider = parameters.holders();
-                List<BundledTabs> filters = ModBundledTabs.getFilters();
-                Collections.reverse(filters);
+                List<BundledTabs> tabs = ModBundledTabs.getTabs();
 
-                filters.forEach(tab -> tab.populate(provider));
-                filters.stream()
+                tabs.forEach(tab -> tab.populate(provider));
+                tabs.stream()
                     .flatMap(tab -> tab.getDisplayItems().stream())
                     .forEach(output::accept);
             })

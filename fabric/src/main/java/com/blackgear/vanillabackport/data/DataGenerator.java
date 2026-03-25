@@ -9,6 +9,7 @@ import com.blackgear.vanillabackport.common.worldgen.placements.TheGardenAwakens
 import com.blackgear.vanillabackport.data.client.LangGenerator;
 import com.blackgear.vanillabackport.data.client.ModelGenerator;
 import com.blackgear.vanillabackport.data.client.colors.LeafColorGenerator;
+import com.blackgear.vanillabackport.data.server.advancement.AdvancementGenerator;
 import com.blackgear.vanillabackport.data.server.builder.*;
 import com.blackgear.vanillabackport.data.server.loot.BlockLootGenerator;
 import com.blackgear.vanillabackport.data.server.loot.GiftLootGenerator;
@@ -30,6 +31,8 @@ public class DataGenerator implements DataGeneratorEntrypoint {
         pack.addProvider(LeafColorGenerator::new);
 
         // SERVER SIDE
+        pack.addProvider(AdvancementGenerator::new);
+
         pack.addProvider(GiftLootGenerator::new);
         pack.addProvider(BlockLootGenerator::new);
 

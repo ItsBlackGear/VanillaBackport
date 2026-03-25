@@ -31,6 +31,8 @@ public final class BundleFeatures {
 
     @Nullable
     public static ItemStack removeOne(ItemStack bundle) {
+        if (!bundle.is(ModItemTags.BUNDLES)) return null;
+
         CompoundTag tag = bundle.getOrCreateTag();
         if (tag.contains(TAG_ITEMS)) {
             ListTag items = tag.getList(TAG_ITEMS, 10);
@@ -115,6 +117,8 @@ public final class BundleFeatures {
     }
 
     public static int getSelectedItem(ItemStack bundle) {
+        if (!bundle.is(ModItemTags.BUNDLES)) return NO_SELECTED_ITEM;
+
         CompoundTag tag = bundle.getTag();
         if (tag == null || !tag.contains(TAG_SELECTED_ITEM)) {
             return NO_SELECTED_ITEM;
@@ -142,6 +146,7 @@ public final class BundleFeatures {
 
     public static int tryInsert(ItemStack bundle, ItemStack item) {
         if (!canItemBeInBundle(item)) return 0;
+        if (!bundle.is(ModItemTags.BUNDLES)) return 0;
 
         CompoundTag tag = bundle.getOrCreateTag();
         if (!tag.contains(TAG_ITEMS)) {
@@ -173,6 +178,8 @@ public final class BundleFeatures {
     }
 
     public static int tryTransfer(ItemStack bundle, Slot slot, Player player) {
+        if (!bundle.is(ModItemTags.BUNDLES)) return 0;
+
         ItemStack slotStack = slot.getItem();
         if (!canItemBeInBundle(slotStack)) return 0;
 
@@ -228,6 +235,8 @@ public final class BundleFeatures {
     }
 
     public static ItemStack getSelectedItemStack(ItemStack bundle) {
+        if (!bundle.is(ModItemTags.BUNDLES)) return ItemStack.EMPTY;
+
         int selectedIndex = getSelectedItem(bundle);
         if (selectedIndex == NO_SELECTED_ITEM) {
             return ItemStack.EMPTY;

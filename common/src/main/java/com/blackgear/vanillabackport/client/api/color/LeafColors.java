@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.client.api.color;
 
-import com.blackgear.vanillabackport.client.resources.LeafColorReloadListener;
+import com.blackgear.vanillabackport.client.resources.color.LeafColorReloadListener;
 import com.blackgear.vanillabackport.core.data.tags.ModBiomeTags;
 import com.blackgear.vanillabackport.core.mixin.access.BiomeAccessor;
 import net.fabricmc.api.EnvType;

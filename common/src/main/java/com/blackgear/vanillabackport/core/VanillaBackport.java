@@ -20,7 +20,6 @@ import com.blackgear.vanillabackport.common.worldgen.features.SpringToLifeFeatur
 import com.blackgear.vanillabackport.common.worldgen.features.TheGardenAwakensFeatures;
 import com.blackgear.vanillabackport.common.worldgen.placements.SpringToLifePlacements;
 import com.blackgear.vanillabackport.common.worldgen.placements.TheGardenAwakensPlacements;
-import com.blackgear.vanillabackport.core.data.DataTransformation;
 import com.blackgear.vanillabackport.core.data.tags.*;
 import com.blackgear.vanillabackport.core.network.NetworkHandler;
 import com.blackgear.vanillabackport.core.registries.ModBuiltinRegistries;
@@ -41,11 +40,12 @@ public final class VanillaBackport {
         .postCommon(CommonSetup::asyncSetup)
         .build();
 
-
     public static void bootstrap() {
         INSTANCE.bootstrap();
         ConfigLoader.bootstrap();
         NetworkHandler.bootstrap();
+
+        ModCriteriaTriggers.bootstrap();
 
         ModBlockTags.TAGS.register();
         ModItemTags.TAGS.register();
@@ -87,7 +87,7 @@ public final class VanillaBackport {
         TheGardenAwakensPlacements.FEATURES.register();
 
         ModEntityDataSerializers.SERIALIZERS.register();
-        DataTransformation.bootstrap();
+        //DataTransformation.bootstrap();
     }
 
     public static ResourceLocation resource(String path) {

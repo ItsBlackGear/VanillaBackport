@@ -48,6 +48,7 @@
     "common.blocks.DecoratedPotBlockMixin",
     "common.blocks.SandBlockMixin",
     "common.blocks.entities.DecoratedPotBlockEntityMixin",
+    "common.level.ChunkSerializerMixin",
     "common.entities.BatMixin",
     "common.entities.CatMixin",
     "common.entities.ChickenMixin",

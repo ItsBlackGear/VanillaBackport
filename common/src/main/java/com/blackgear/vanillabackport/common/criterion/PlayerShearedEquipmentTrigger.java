@@ -1,0 +1,60 @@
+package com.blackgear.vanillabackport.common.criterion;
+
+import com.google.gson.JsonObject;
+import net.minecraft.advancements.critereon.*;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.storage.loot.LootContext;
+
+public class PlayerShearedEquipmentTrigger extends SimpleCriterionTrigger<PlayerShearedEquipmentTrigger.TriggerInstance> {
+	static final ResourceLocation ID = new ResourceLocation("player_sheared_equipment");
+
+	@Override
+	public ResourceLocation getId() {
+		return ID;
+	}
+
+	protected PlayerShearedEquipmentTrigger.TriggerInstance createInstance(JsonObject json, ContextAwarePredicate predicate, DeserializationContext deserializationContext) {
+		ItemPredicate itemPredicate = ItemPredicate.fromJson(json.get("item"));
+		ContextAwarePredicate contextAwarePredicate = EntityPredicate.fromJson(json, "entity", deserializationContext);
+		return new PlayerShearedEquipmentTrigger.TriggerInstance(predicate, itemPredicate, contextAwarePredicate);
+	}
+
+	public void trigger(ServerPlayer player, ItemStack item, Entity entity) {
+		LootContext lootContext = EntityPredicate.createContext(player, entity);
+		this.trigger(player, triggerInstance -> triggerInstance.matches(item, lootContext));
+	}
+
+	public static class TriggerInstance extends AbstractCriterionTriggerInstance {
+		private final ItemPredicate item;
+		private final ContextAwarePredicate entity;
+
+		public TriggerInstance(ContextAwarePredicate player, ItemPredicate item, ContextAwarePredicate entity) {
+			super(PlayerShearedEquipmentTrigger.ID, player);
+			this.item = item;
+			this.entity = entity;
+		}
+
+		public static PlayerShearedEquipmentTrigger.TriggerInstance equipmentSheared(ContextAwarePredicate player, ItemPredicate.Builder item, ContextAwarePredicate entity) {
+			return new PlayerShearedEquipmentTrigger.TriggerInstance(player, item.build(), entity);
+		}
+
+		public static PlayerShearedEquipmentTrigger.TriggerInstance equipmentSheared(ItemPredicate.Builder item, ContextAwarePredicate entity) {
+			return equipmentSheared(ContextAwarePredicate.ANY, item, entity);
+		}
+
+		public boolean matches(ItemStack item, LootContext lootContext) {
+			return this.item.matches(item) && this.entity.matches(lootContext);
+		}
+
+		@Override
+		public JsonObject serializeToJson(SerializationContext context) {
+			JsonObject jsonObject = super.serializeToJson(context);
+			jsonObject.add("item", this.item.serializeToJson());
+			jsonObject.add("entity", this.entity.toJson(context));
+			return jsonObject;
+		}
+	}
+}

@@ -14,7 +14,7 @@
                   "block": "minecraft:leaf_litter",
                   "condition": "minecraft:block_state_property",
                   "properties": {
-                    "flower_amount": "1"
+                    "segment_amount": "1"
                   }
                 }
               ],
@@ -28,7 +28,7 @@
                   "block": "minecraft:leaf_litter",
                   "condition": "minecraft:block_state_property",
                   "properties": {
-                    "flower_amount": "2"
+                    "segment_amount": "2"
                   }
                 }
               ],
@@ -42,7 +42,7 @@
                   "block": "minecraft:leaf_litter",
                   "condition": "minecraft:block_state_property",
                   "properties": {
-                    "flower_amount": "3"
+                    "segment_amount": "3"
                   }
                 }
               ],
@@ -56,7 +56,7 @@
                   "block": "minecraft:leaf_litter",
                   "condition": "minecraft:block_state_property",
                   "properties": {
-                    "flower_amount": "4"
+                    "segment_amount": "4"
                   }
                 }
               ],

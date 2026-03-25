@@ -1,7 +1,7 @@
-package com.blackgear.vanillabackport.common.resource;
+package com.blackgear.vanillabackport.common.resource.variants;
 
 import com.blackgear.platform.common.resource.RegistryAwareJsonReloadListener;
-import com.blackgear.vanillabackport.common.level.entities.animal.CatDataVariant;
+import com.blackgear.vanillabackport.common.level.entities.animal.CowVariant;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.blackgear.vanillabackport.core.registries.ModBuiltinRegistries;
 import com.google.gson.Gson;
@@ -18,19 +18,19 @@ import net.minecraft.util.profiling.ProfilerFiller;
 
 import java.util.Map;
 
-public class CatVariantReloadListener extends RegistryAwareJsonReloadListener {
+public class CowVariantReloadListener extends RegistryAwareJsonReloadListener {
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
-    private static final String DIRECTORY = "cat_variant";
+    private static final String DIRECTORY = "cow_variant";
 
-    public CatVariantReloadListener() {
+    public CowVariantReloadListener() {
         super(GSON, DIRECTORY);
     }
 
     @Override
     public void parse(Map<ResourceLocation, JsonElement> resources, RegistryAccess registryAccess, ResourceManager manager, ProfilerFiller profiler) {
-        profiler.push("Loading cat variants");
+        profiler.push("Loading cow variants");
 
-        ModBuiltinRegistries.CAT_VARIANTS.clearDataDrivenEntries();
+        ModBuiltinRegistries.COW_VARIANTS.clearDataDrivenEntries();
 
         DynamicOps<JsonElement> ops = RegistryOps.create(JsonOps.INSTANCE, registryAccess);
         for (Map.Entry<ResourceLocation, JsonElement> entry : resources.entrySet()) {
@@ -38,13 +38,13 @@ public class CatVariantReloadListener extends RegistryAwareJsonReloadListener {
             JsonElement element = entry.getValue();
 
             try {
-                CatDataVariant.CODEC.parse(ops, element)
-                    .resultOrPartial(error -> VanillaBackport.LOGGER.error("Failed to parse cat variant {}: {}", name, error))
-                    .ifPresent(variant -> ModBuiltinRegistries.CAT_VARIANTS.registerDataDriven(name, variant));
+                CowVariant.CODEC.parse(ops, element)
+                    .resultOrPartial(error -> VanillaBackport.LOGGER.error("Failed to parse cow variant {}: {}", name, error))
+                    .ifPresent(variant -> ModBuiltinRegistries.COW_VARIANTS.registerDataDriven(name, variant));
             } catch (JsonParseException exception) {
-                VanillaBackport.LOGGER.error("Failed to parse cat variant JSON {}: {}", name, exception.getMessage(), exception);
+                VanillaBackport.LOGGER.error("Failed to parse cow variant JSON {}: {}", name, exception.getMessage(), exception);
             } catch (Exception exception) {
-                VanillaBackport.LOGGER.error("Unexpected error processing cat variant {}", name, exception);
+                VanillaBackport.LOGGER.error("Unexpected error processing cow variant {}", name, exception);
             }
         }
 

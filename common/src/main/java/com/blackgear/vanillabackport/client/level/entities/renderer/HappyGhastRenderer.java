@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.client.level.entities.renderer;
 
-import com.blackgear.vanillabackport.client.level.entities.layer.GhastHarnessLayer;
+import com.blackgear.vanillabackport.client.level.entities.layer.GhastHarnessHandler;
 import com.blackgear.vanillabackport.client.level.entities.layer.RopesLayer;
 import com.blackgear.vanillabackport.client.level.entities.layer.SimpleEquipmentLayer;
 import com.blackgear.vanillabackport.client.level.entities.model.HappyGhastHarnessModel;
@@ -26,7 +26,7 @@ public class HappyGhastRenderer extends MobRenderer<HappyGhast, HappyGhastModel<
         this.addLayer(
             new SimpleEquipmentLayer<>(
                 this,
-                GhastHarnessLayer.TEXTURE_BY_ITEM,
+                GhastHarnessHandler.HARNESS_EQUIPMENT,
                 EquipmentSlot.CHEST,
                 HappyGhast::isHarnessed,
                 new HappyGhastHarnessModel<>(context.bakeLayer(ModModelLayers.HAPPY_GHAST_HARNESS)),
