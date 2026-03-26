@@ -23,8 +23,10 @@ public abstract class WolfRendererMixin extends MobRendererMixin<Wolf, WolfModel
 
     @Inject(method = "<init>", at = @At("TAIL"))
     private void vb$addLayer(EntityRendererProvider.Context context, CallbackInfo ci) {
-        SpecialMobRenderer.create(context, ctx -> new WolfArmorLayer(this, ctx.getModelSet()))
-            .ifPresent(layer -> this.addLayer(layer.get()));
+        SpecialMobRenderer.addLayer(
+            SpecialMobRenderer.create(context, ctx -> new WolfArmorLayer(this, ctx.getModelSet())),
+            this::addLayer
+        );
     }
 
     @Inject(

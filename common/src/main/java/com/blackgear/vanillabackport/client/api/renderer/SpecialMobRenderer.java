@@ -6,6 +6,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 
 import java.util.Optional;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -29,6 +30,13 @@ public abstract class SpecialMobRenderer<T extends LivingEntity, M extends Entit
 
     public static <R> Optional<Supplier<R>> create(EntityRendererProvider.Context context, Function<EntityRendererProvider.Context, R> factory) {
         return create(context, factory, RenderConditions.DEFAULT);
+    }
+
+    public static <R> void addLayer(Optional<Supplier<R>> renderer, Consumer<R> consumer) {
+        renderer.ifPresent(supplier -> {
+            R value = supplier.get();
+            if (value != null) consumer.accept(value);
+        });
     }
 
     public abstract Optional<ResourceLocation> getTexture(T entity);
