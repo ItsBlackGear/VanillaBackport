@@ -1,0 +1,22 @@
+{
+  "entries": [
+    {
+      "id": "minecraft:chicken",
+      "replace": false,
+      "variants": [
+        {
+          "id": "Temperant",
+          "nbt": "{variant: \"minecraft:temperate\"}"
+        },
+        {
+          "id": "Cold",
+          "nbt": "{variant: \"minecraft:cold\"}"
+        },
+        {
+          "id": "Warm",
+          "nbt": "{variant: \"minecraft:warm\"}"
+        }
+      ]
+    }
+  ]
+}
