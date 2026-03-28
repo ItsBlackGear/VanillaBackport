@@ -51,11 +51,10 @@ public abstract class CactusBlockMixin extends Block {
         }
     }
 
-    @Inject(method = "canSurvive", at = @At("HEAD"), cancellable = true)
+    @Inject(method = "canSurvive", at = @At("TAIL"), cancellable = true)
     private void vb$allowCactusPlacement(BlockState state, LevelReader level, BlockPos pos, CallbackInfoReturnable<Boolean> cir) {
         BlockState belowState = level.getBlockState(pos.below());
-        if ((belowState.is(CactusBlock.class.cast(this)) || belowState.is(ModBlockTags.SUPPORTS_CACTUS)) && !level.getBlockState(pos.above()).liquid()) {
-            cir.setReturnValue(true);
-        }
+        boolean result = (belowState.is(CactusBlock.class.cast(this)) || belowState.is(ModBlockTags.SUPPORTS_CACTUS)) && !level.getBlockState(pos.above()).liquid();
+        cir.setReturnValue(cir.getReturnValue() || result);
     }
 }
