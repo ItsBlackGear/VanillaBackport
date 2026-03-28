@@ -59,13 +59,13 @@ public class CommonSetup {
             event.register(VanillaBackport.resource("cat_variants"), new CatVariantReloadListener());
         });
 
-        MobIntegration.registerIntegrations(CommonSetup::mobIntegrations);
     }
 
     public static void asyncSetup(ParallelDispatch dispatch) {
         dispatch.enqueueWork(() -> {
             BiomeManager.add(WorldGeneration::bootstrap);
             BiomePlacement.registerBiomePlacements(BiomeGeneration::bootstrap);
+            MobIntegration.registerIntegrations(CommonSetup::mobIntegrations);
             BlockIntegration.registerIntegrations(CommonSetup::blockIntegrations);
             TradeIntegration.registerVillagerTrades(CommonSetup::tradeIntegrations);
             Parrot.MOB_SOUND_MAP.put(ModEntities.CREAKING.get(), ModSoundEvents.PARROT_IMITATE_CREAKING.get());
