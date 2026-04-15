@@ -37,6 +37,7 @@
     "access.TextureSlotAccessor",
     "access.TreeDecoratorTypeAccessor",
     "access.WolfAccessor",
+    "common.BuildStateMixin",
     "common.ServerGamePacketListenerImplMixin",
     "common.blocks.BlockMixin",
     "common.blocks.CactusBlockMixin",
