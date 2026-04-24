@@ -336,5 +336,18 @@
   "subtitles.item.spear.use": "架矛",
   "subtitles.item.spear_wood.attack": "矛戳刺聲",
   "subtitles.item.spear_wood.hit": "矛擊中聲",
-  "subtitles.item.spear_wood.use": "架矛"
+  "subtitles.item.spear_wood.use": "架矛",
+  "entity.minecraft.sulfur_cube": "硫磺立方怪",
+  "entity.sulfur_cube.content": "含有：%s",
+  "item.minecraft.sulfur_cube_bucket": "硫磺立方怪桶",
+  "item.minecraft.sulfur_cube_spawn_egg": "硫磺立方怪生怪蛋",
+  "subtitles.entity.sulfur_cube.absorb": "硫磺立方怪填充",
+  "subtitles.entity.sulfur_cube.bounce": "硫磺立方怪彈跳",
+  "subtitles.entity.sulfur_cube.death": "硫磺立方怪死亡",
+  "subtitles.entity.sulfur_cube.eject": "方塊被移除",
+  "subtitles.entity.sulfur_cube.hit": "硫磺立方怪被擊中",
+  "subtitles.entity.sulfur_cube.hurt": "硫磺立方怪受傷",
+  "subtitles.entity.sulfur_cube.push": "硫磺立方怪被推動",
+  "subtitles.entity.sulfur_cube.squish": "硫磺立方怪彈跳",
+  "subtitles.item.bucket.fill_sulfur_cube": "硫磺立方怪被撈起"
 }
