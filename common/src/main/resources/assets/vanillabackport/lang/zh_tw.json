@@ -349,5 +349,7 @@
   "subtitles.entity.sulfur_cube.hurt": "硫磺立方怪受傷",
   "subtitles.entity.sulfur_cube.push": "硫磺立方怪被推動",
   "subtitles.entity.sulfur_cube.squish": "硫磺立方怪彈跳",
-  "subtitles.item.bucket.fill_sulfur_cube": "硫磺立方怪被撈起"
+  "subtitles.item.bucket.fill_sulfur_cube": "硫磺立方怪被撈起",
+  "advancements.husbandry.uh_oh.description": "讓硫磺立方怪吸收 TNT 方塊",
+  "advancements.husbandry.uh_oh.title": "糗了"
 }
