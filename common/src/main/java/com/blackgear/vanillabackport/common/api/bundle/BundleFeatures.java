@@ -12,9 +12,37 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.BundleContents;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 public class BundleFeatures {
+
+    public static final Map<DyeColor, Item> BUNDLES_BY_DYE = new HashMap<>();
+
+    static {
+        register(DyeColor.WHITE, ModItems.WHITE_BUNDLE.get());
+        register(DyeColor.ORANGE, ModItems.ORANGE_BUNDLE.get());
+        register(DyeColor.MAGENTA, ModItems.MAGENTA_BUNDLE.get());
+        register(DyeColor.LIGHT_BLUE, ModItems.LIGHT_BLUE_BUNDLE.get());
+        register(DyeColor.YELLOW, ModItems.YELLOW_BUNDLE.get());
+        register(DyeColor.LIME, ModItems.LIME_BUNDLE.get());
+        register(DyeColor.PINK, ModItems.PINK_BUNDLE.get());
+        register(DyeColor.GRAY, ModItems.GRAY_BUNDLE.get());
+        register(DyeColor.LIGHT_GRAY, ModItems.LIGHT_GRAY_BUNDLE.get());
+        register(DyeColor.CYAN, ModItems.CYAN_BUNDLE.get());
+        register(DyeColor.PURPLE, ModItems.PURPLE_BUNDLE.get());
+        register(DyeColor.BLUE, ModItems.BLUE_BUNDLE.get());
+        register(DyeColor.BROWN, ModItems.BROWN_BUNDLE.get());
+        register(DyeColor.GREEN, ModItems.GREEN_BUNDLE.get());
+        register(DyeColor.RED, ModItems.RED_BUNDLE.get());
+        register(DyeColor.BLACK, ModItems.BLACK_BUNDLE.get());
+    }
+
+    public static void register(DyeColor dyeColor, Item item) {
+        BUNDLES_BY_DYE.put(dyeColor, item);
+    }
+
     public static boolean onBundleUpdate() {
         return VanillaBackport.COMMON_CONFIG.hasUpdatedBundles.get() && !ModChecker.BEST_BUNDLES_LOADED;
     }
@@ -34,20 +62,20 @@ public class BundleFeatures {
 
     public static int getSelectedItem(ItemStack stack) {
         BundleContents contents = stack.getOrDefault(DataComponents.BUNDLE_CONTENTS, BundleContents.EMPTY);
-        return ((IBundle)(Object)contents).getSelectedItem();
+        return ((IBundle) (Object) contents).getSelectedItem();
     }
 
     public static ItemStack getSelectedItemStack(ItemStack stack) {
         BundleContents contents = stack.get(DataComponents.BUNDLE_CONTENTS);
-        IBundle ibundle = (IBundle)(Object)contents;
+        IBundle ibundle = (IBundle) (Object) contents;
         return contents != null && ibundle.getSelectedItem() != -1
-            ? contents.getItemUnsafe(ibundle.getSelectedItem())
-            : ItemStack.EMPTY;
+                ? contents.getItemUnsafe(ibundle.getSelectedItem())
+                : ItemStack.EMPTY;
     }
 
     public static int getNumberOfItemsToShow(ItemStack stack) {
         BundleContents contents = stack.getOrDefault(DataComponents.BUNDLE_CONTENTS, BundleContents.EMPTY);
-        return ((IBundle)(Object)contents).getNumberOfItemsToShow();
+        return ((IBundle) (Object) contents).getNumberOfItemsToShow();
     }
 
     public static Optional<ItemStack> removeOneItemFromBundle(ItemStack stack, Player player, BundleContents contents) {
@@ -63,25 +91,7 @@ public class BundleFeatures {
     }
 
     public static Item getByColor(DyeColor dyeColor) {
-        return switch (dyeColor) {
-            case WHITE -> ModItems.WHITE_BUNDLE.get();
-            case ORANGE -> ModItems.ORANGE_BUNDLE.get();
-            case MAGENTA -> ModItems.MAGENTA_BUNDLE.get();
-            case LIGHT_BLUE -> ModItems.LIGHT_BLUE_BUNDLE.get();
-            case YELLOW -> ModItems.YELLOW_BUNDLE.get();
-            case LIME -> ModItems.LIME_BUNDLE.get();
-            case PINK -> ModItems.PINK_BUNDLE.get();
-            case GRAY -> ModItems.GRAY_BUNDLE.get();
-            case LIGHT_GRAY -> ModItems.LIGHT_GRAY_BUNDLE.get();
-            case CYAN -> ModItems.CYAN_BUNDLE.get();
-            case BLUE -> ModItems.BLUE_BUNDLE.get();
-            case BROWN -> ModItems.BROWN_BUNDLE.get();
-            case GREEN -> ModItems.GREEN_BUNDLE.get();
-            case RED -> ModItems.RED_BUNDLE.get();
-            case BLACK -> ModItems.BLACK_BUNDLE.get();
-            case PURPLE -> ModItems.PURPLE_BUNDLE.get();
-            default -> Items.BUNDLE;
-        };
+        return BUNDLES_BY_DYE.getOrDefault(dyeColor, Items.BUNDLE);
     }
 
     public static void playRemoveOneSound(Entity entity) {
