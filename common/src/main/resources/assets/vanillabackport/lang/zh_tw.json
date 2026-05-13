@@ -182,7 +182,7 @@
   "block.minecraft.sulfur_spike": "硫磺尖錐",
   "block.minecraft.sulfur_stairs": "硫磺階梯",
   "block.minecraft.sulfur_wall": "硫磺牆",
-  "bundled_tab.chaos_cubed.title": "Chaos Cubed",
+  "bundled_tab.chaos_cubed.title": "混沌立方",
   "entity.minecraft.armadillo": "犰狳",
   "item.minecraft.armadillo_scute": "犰狳鱗甲",
   "item.minecraft.armadillo_spawn_egg": "犰狳生怪蛋",
@@ -351,5 +351,11 @@
   "subtitles.entity.sulfur_cube.squish": "硫磺立方怪彈跳",
   "subtitles.item.bucket.fill_sulfur_cube": "硫磺立方怪被撈起",
   "advancements.husbandry.uh_oh.description": "讓硫磺立方怪吸收 TNT 方塊",
-  "advancements.husbandry.uh_oh.title": "糟糕"
+  "advancements.husbandry.uh_oh.title": "糟了",
+  "item.minecraft.music_disc_bounce": "唱片",
+  "item.minecraft.music_disc_bounce.desc": "fingerspit - Bounce",
+  "subtitles.block.potent_sulfur.geyser_eruption": "硫磺湧泉噴發",
+  "attribute.name.air_drag_modifier": "空氣阻力修正係數",
+  "attribute.name.bounciness": "彈性",
+  "attribute.name.friction_modifier": "摩擦力修正係數"
 }
