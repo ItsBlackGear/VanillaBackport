@@ -14,15 +14,13 @@ import com.blackgear.vanillabackport.client.level.entities.model.wolf.WolfArmorM
 import com.blackgear.vanillabackport.client.level.entities.renderer.*;
 import com.blackgear.vanillabackport.client.level.item.BundleRenderer;
 import com.blackgear.vanillabackport.client.level.item.SpawnEggRenderer;
-import com.blackgear.vanillabackport.client.level.particles.DustPlumeParticle;
-import com.blackgear.vanillabackport.client.level.particles.FallingLeavesParticle;
-import com.blackgear.vanillabackport.client.level.particles.FireflyParticle;
-import com.blackgear.vanillabackport.client.level.particles.TrailParticle;
+import com.blackgear.vanillabackport.client.level.particles.*;
 import com.blackgear.vanillabackport.client.registries.ModModelLayers;
 import com.blackgear.vanillabackport.client.registries.ModParticles;
 import com.blackgear.vanillabackport.common.level.items.WolfArmorItem;
 import com.blackgear.vanillabackport.common.registries.ModBlocks;
 import com.blackgear.vanillabackport.common.registries.ModEntities;
+import com.blackgear.vanillabackport.common.registries.ModEntityTypes;
 import com.blackgear.vanillabackport.common.registries.ModItems;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -45,6 +43,15 @@ public class Rendering {
         event.register(ModParticles.TINTED_NEEDLES, FallingLeavesParticle.TintedLeavesProvider::new);
 
         event.register(ModParticles.DUST_PLUME, DustPlumeParticle.Provider::new);
+
+        event.register(ModParticles.SULFUR_BUBBLES, SulfurBubbleParticle.Provider::new);
+        event.register(ModParticles.NOXIOUS_GAS, NoxiousGasParticle.Provider::new);
+        event.register(ModParticles.NOXIOUS_GAS_CLOUD, new NoxiousGasCloudParticle.Provider());
+        event.register(ModParticles.SULFUR_CUBE_GOO, SulfurCubeParticle.Provider::new);
+        event.register(ModParticles.GEYSER, GeyserEruptionParticle.Provider::new);
+        event.register(ModParticles.GEYSER_BASE, GeyserBaseParticle.Provider::new);
+        event.register(ModParticles.GEYSER_POOF, GeyserBaseParticle.Provider::new);
+        event.register(ModParticles.GEYSER_PLUME, GeyserPlumeParticle.Provider::new);
     }
 
     public static void modelLayers(GameRendering.ModelLayerEvent event) {
@@ -65,6 +72,9 @@ public class Rendering {
         event.register(ModModelLayers.COLD_CHICKEN, ColdChickenModel::createBodyLayer);
         event.register(ModModelLayers.COLD_COW, ColdCowModel::createBodyLayer);
         event.register(ModModelLayers.WARM_COW, WarmCowModel::createBodyLayer);
+
+        event.register(ModModelLayers.SULFUR_CUBE, SulfurCubeModel::createOuterBodyLayer);
+        event.register(ModModelLayers.SULFUR_CUBE_INNER, SulfurCubeModel::createInnerBodyLayer);
     }
 
     public static void specialModels(GameRendering.SpecialModelEvent event) {
@@ -78,6 +88,7 @@ public class Rendering {
         event.register(ModEntities.HAPPY_GHAST.get(), HappyGhastRenderer::new);
         event.register(ModEntities.PALE_OAK_BOAT.get(), context -> new PaleOakBoatRenderer(context, false));
         event.register(ModEntities.PALE_OAK_CHEST_BOAT.get(), context -> new PaleOakBoatRenderer(context, true));
+        event.register(ModEntityTypes.SULFUR_CUBE, SulfurCubeRenderer::new);
     }
 
     public static void blockRendering(GameRendering.BlockRendererEvent event) {
@@ -104,7 +115,8 @@ public class Rendering {
             ModBlocks.SHORT_DRY_GRASS.get(),
             ModBlocks.TALL_DRY_GRASS.get(),
             ModBlocks.PALE_OAK_DOOR.get(),
-            ModBlocks.PALE_OAK_TRAPDOOR.get()
+            ModBlocks.PALE_OAK_TRAPDOOR.get(),
+            ModBlocks.SULFUR_SPIKE.get()
         );
     }
 

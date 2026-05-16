@@ -9,6 +9,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.ServerLevelAccessor;
 
 import java.util.Optional;
+import java.util.stream.Stream;
 
 public class VariantUtils {
     public static final String VARIANT_KEY = "variant";

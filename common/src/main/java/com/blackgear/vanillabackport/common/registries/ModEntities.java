@@ -27,7 +27,6 @@ public class ModEntities {
             .sized(4.0F, 4.0F)
             .clientTrackingRange(10)
     );
-
     public static final Supplier<EntityType<PaleOakBoat>> PALE_OAK_BOAT = ENTITIES.entity(
         "pale_oak_boat",
         EntityType.Builder.<PaleOakBoat>of(PaleOakBoat::new, MobCategory.MISC)

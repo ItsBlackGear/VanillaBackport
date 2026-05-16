@@ -1,6 +1,7 @@
 package com.blackgear.vanillabackport.common.level.entities.happyghast;
 
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
+import com.blackgear.vanillabackport.common.api.extensions.PositionAwareEntity;
 import com.blackgear.vanillabackport.common.api.leash.Leashable;
 import com.blackgear.vanillabackport.common.registries.ModEntities;
 import com.blackgear.vanillabackport.core.VanillaBackport;
@@ -59,7 +60,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.EnumSet;
 import java.util.function.BooleanSupplier;
 
-public class HappyGhast extends Animal implements PlayerRideable, Leashable {
+public class HappyGhast extends Animal implements PlayerRideable, Leashable, PositionAwareEntity {
     public static final Ingredient IS_FOOD = Ingredient.of(ModItemTags.HAPPY_GHAST_FOOD);
     private int leashHolderTime = 0;
     private int serverStillTimeout;
@@ -105,13 +106,13 @@ public class HappyGhast extends Animal implements PlayerRideable, Leashable {
         this.goalSelector
             .addGoal(
                 4,
-                new HappyGhastTemptGoal(
+                new TemptGoal.ForNonPathfinders(
                     this,
                     1.0,
                     stack -> !this.isHarnessed() && !this.isBaby() ? stack.is(ModItemTags.HAPPY_GHAST_TEMPT_ITEMS) : IS_FOOD.test(stack),
                     false,
                     7.0
-                )
+                ).setTemptRange(16)
             );
         this.goalSelector.addGoal(5, new RandomFloatAroundGoal(this, 16));
     }
@@ -156,10 +157,12 @@ public class HappyGhast extends Animal implements PlayerRideable, Leashable {
             .add(Attributes.FOLLOW_RANGE, 16.0);
     }
 
+    @Override
     public boolean getRequiresPrecisePosition() {
         return this.requiresPrecisePosition;
     }
 
+    @Override
     public void setRequiresPrecisePosition(boolean requiresPrecisePosition) {
         this.requiresPrecisePosition = requiresPrecisePosition;
     }
@@ -616,7 +619,7 @@ public class HappyGhast extends Animal implements PlayerRideable, Leashable {
 
     private boolean scanPlayerAboveGhast() {
         AABB bb = this.getBoundingBox();
-        AABB ghastDetectionBox = new AABB(bb.minX - 1.0, bb.maxY - 1.0E-5F, bb.minZ - 1.0, bb.maxX + 1.0, bb.maxY + bb.getYsize() / 2.0, bb.maxZ + 1.0);
+        AABB ghastDetectionBox = new AABB(bb.minX - 1.0, bb.maxY - Mth.EPSILON, bb.minZ - 1.0, bb.maxX + 1.0, bb.maxY + bb.getYsize() / 2.0, bb.maxZ + 1.0);
 
         for (Player player : this.level().players()) {
             if (!player.isSpectator()) {

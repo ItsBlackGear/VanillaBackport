@@ -64,6 +64,30 @@ public class ModSoundEvents {
     public static final Supplier<SoundEvent> DECORATED_POT_INSERT = SOUNDS.soundEvent("block.decorated_pot.insert");
     public static final Supplier<SoundEvent> DECORATED_POT_INSERT_FAIL = SOUNDS.soundEvent("block.decorated_pot.insert_fail");
 
+    public static final Supplier<SoundEvent> SULFUR_BREAK = SOUNDS.soundEvent("block.sulfur.break");
+    public static final Supplier<SoundEvent> SULFUR_STEP = SOUNDS.soundEvent("block.sulfur.step");
+    public static final Supplier<SoundEvent> SULFUR_PLACE = SOUNDS.soundEvent("block.sulfur.place");
+    public static final Supplier<SoundEvent> SULFUR_HIT = SOUNDS.soundEvent("block.sulfur.hit");
+    public static final Supplier<SoundEvent> SULFUR_FALL = SOUNDS.soundEvent("block.sulfur.fall");
+
+    public static final Supplier<SoundEvent> POTENT_SULFUR_BREAK = SOUNDS.soundEvent("block.potent_sulfur.break");
+    public static final Supplier<SoundEvent> POTENT_SULFUR_STEP = SOUNDS.soundEvent("block.potent_sulfur.step");
+    public static final Supplier<SoundEvent> POTENT_SULFUR_PLACE = SOUNDS.soundEvent("block.potent_sulfur.place");
+    public static final Supplier<SoundEvent> POTENT_SULFUR_HIT = SOUNDS.soundEvent("block.potent_sulfur.hit");
+    public static final Supplier<SoundEvent> POTENT_SULFUR_FALL = SOUNDS.soundEvent("block.potent_sulfur.fall");
+
+    public static final Supplier<SoundEvent> CINNABAR_BREAK = SOUNDS.soundEvent("block.cinnabar.break");
+    public static final Supplier<SoundEvent> CINNABAR_STEP = SOUNDS.soundEvent("block.cinnabar.step");
+    public static final Supplier<SoundEvent> CINNABAR_PLACE = SOUNDS.soundEvent("block.cinnabar.place");
+    public static final Supplier<SoundEvent> CINNABAR_HIT = SOUNDS.soundEvent("block.cinnabar.hit");
+    public static final Supplier<SoundEvent> CINNABAR_FALL = SOUNDS.soundEvent("block.cinnabar.fall");
+
+    public static final Supplier<SoundEvent> NOXIOUS_GAS = SOUNDS.soundEvent("block.potent_sulfur.noxious_gas");
+    public static final Supplier<SoundEvent> GEYSER_ERUPTION_START = SOUNDS.soundEvent("block.potent_sulfur.geyser_eruption");
+    public static final Supplier<SoundEvent> GEYSER_ERUPTION_ACTIVE = SOUNDS.soundEvent("block.potent_sulfur.geyser_eruption_active");
+    public static final Supplier<SoundEvent> GEYSER_CONTINUOUS_START = SOUNDS.soundEvent("block.potent_sulfur.geyser_continuous_eruption_start");
+    public static final Supplier<SoundEvent> GEYSER_CONTINUOUS_ACTIVE = SOUNDS.soundEvent("block.potent_sulfur.geyser_continuous_eruption_active");
+
     // ITEMS
     public static final Supplier<SoundEvent> BUNDLE_INSERT_FAIL = SOUNDS.soundEvent("item.bundle.insert_fail");
     public static final Supplier<SoundEvent> ARMOR_EQUIP_WOLF = SOUNDS.soundEvent("item.armor.equip_wolf");
@@ -74,6 +98,9 @@ public class ModSoundEvents {
     public static final Supplier<SoundEvent> WOLF_ARMOR_REPAIR = SOUNDS.soundEvent("item.wolf_armor.repair");
 
     public static final Supplier<SoundEvent> OMINOUS_BOTTLE_DISPOSE = SOUNDS.soundEvent("item.ominous_bottle.dispose");
+
+    public static final Supplier<SoundEvent> BUCKET_EMPTY_SULFUR_CUBE = SOUNDS.soundEvent("item.bucket.empty_sulfur_cube");
+    public static final Supplier<SoundEvent> BUCKET_FILL_SULFUR_CUBE = SOUNDS.soundEvent("item.bucket.fill_sulfur_cube");
 
     // ENTITIES
     public static final Supplier<SoundEvent> ARMADILLO_EAT = SOUNDS.soundEvent("entity.armadillo.eat");
@@ -161,7 +188,25 @@ public class ModSoundEvents {
     public static final Supplier<SoundEvent> WOLF_CUTE_PANT = SOUNDS.soundEvent("entity.wolf_cute.pant");
     public static final Supplier<SoundEvent> WOLF_CUTE_WHINE = SOUNDS.soundEvent("entity.wolf_cute.whine");
 
+    public static final Supplier<SoundEvent> SULFUR_CUBE_ABSORB = SOUNDS.soundEvent("entity.sulfur_cube.absorb");
+    public static final Supplier<SoundEvent> SULFUR_CUBE_BOUNCE = SOUNDS.soundEvent("entity.sulfur_cube.bounce");
+    public static final Supplier<SoundEvent> SULFUR_CUBE_DEATH = SOUNDS.soundEvent("entity.sulfur_cube.death");
+    public static final Supplier<SoundEvent> SULFUR_CUBE_EJECT = SOUNDS.soundEvent("entity.sulfur_cube.eject");
+    public static final Supplier<SoundEvent> SULFUR_CUBE_HIT = SOUNDS.soundEvent("entity.sulfur_cube.hit");
+    public static final Supplier<SoundEvent> SULFUR_CUBE_HURT = SOUNDS.soundEvent("entity.sulfur_cube.hurt");
+    public static final Supplier<SoundEvent> SULFUR_CUBE_JUMP = SOUNDS.soundEvent("entity.sulfur_cube.jump");
+    public static final Supplier<SoundEvent> SULFUR_CUBE_PUSH = SOUNDS.soundEvent("entity.sulfur_cube.push");
+    public static final Supplier<SoundEvent> SULFUR_CUBE_SQUISH = SOUNDS.soundEvent("entity.sulfur_cube.squish");
+
+    public static final Supplier<SoundEvent> SULFUR_CUBE_SMALL_DEATH = SOUNDS.soundEvent("entity.small_sulfur_cube.death");
+    public static final Supplier<SoundEvent> SULFUR_CUBE_SMALL_HURT = SOUNDS.soundEvent("entity.small_sulfur_cube.hurt");
+    public static final Supplier<SoundEvent> SULFUR_CUBE_SMALL_JUMP = SOUNDS.soundEvent("entity.small_sulfur_cube.jump");
+    public static final Supplier<SoundEvent> SULFUR_CUBE_SMALL_SQUISH = SOUNDS.soundEvent("entity.small_sulfur_cube.squish");
+
+    public static final Supplier<SoundEvent> MUSIC_BIOME_SULFUR_CAVES = SOUNDS.soundEvent("music.overworld.sulfur_caves");
+
     // RECORDS
     public static final Supplier<SoundEvent> MUSIC_DISC_TEARS = SOUNDS.soundEvent("music_disc.tears");
     public static final Supplier<SoundEvent> MUSIC_DISC_LAVA_CHICKEN = SOUNDS.soundEvent("music_disc.lava_chicken");
+    public static final Supplier<SoundEvent> MUSIC_DISC_BOUNCE = SOUNDS.soundEvent("music_disc.bounce");
 }

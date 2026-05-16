@@ -54,13 +54,37 @@ public abstract class BlockItemTagGenerator {
             .addTag(ModBlockTags.PALE_OAK_LOGS);
 
         this.tag(BlockTags.SLABS, ItemTags.SLABS)
-            .add(ModBlocks.RESIN_BRICK_SLAB.get());
+            .add(
+                ModBlocks.RESIN_BRICK_SLAB.get(),
+                ModBlocks.CINNABAR_SLAB.get(),
+                ModBlocks.POLISHED_CINNABAR_SLAB.get(),
+                ModBlocks.CINNABAR_BRICK_SLAB.get(),
+                ModBlocks.SULFUR_SLAB.get(),
+                ModBlocks.POLISHED_SULFUR_SLAB.get(),
+                ModBlocks.SULFUR_BRICK_SLAB.get()
+            );
 
         this.tag(BlockTags.WALLS, ItemTags.WALLS)
-            .add(ModBlocks.RESIN_BRICK_WALL.get());
+            .add(
+                ModBlocks.RESIN_BRICK_WALL.get(),
+                ModBlocks.CINNABAR_WALL.get(),
+                ModBlocks.POLISHED_CINNABAR_WALL.get(),
+                ModBlocks.CINNABAR_BRICK_WALL.get(),
+                ModBlocks.SULFUR_WALL.get(),
+                ModBlocks.POLISHED_SULFUR_WALL.get(),
+                ModBlocks.SULFUR_BRICK_WALL.get()
+            );
 
         this.tag(BlockTags.STAIRS, ItemTags.STAIRS)
-            .add(ModBlocks.RESIN_BRICK_STAIRS.get());
+            .add(
+                ModBlocks.RESIN_BRICK_STAIRS.get(),
+                ModBlocks.CINNABAR_STAIRS.get(),
+                ModBlocks.POLISHED_CINNABAR_STAIRS.get(),
+                ModBlocks.CINNABAR_BRICK_STAIRS.get(),
+                ModBlocks.SULFUR_STAIRS.get(),
+                ModBlocks.POLISHED_SULFUR_STAIRS.get(),
+                ModBlocks.SULFUR_BRICK_STAIRS.get()
+            );
 
         this.tag(BlockTags.LEAVES, ItemTags.LEAVES)
             .add(ModBlocks.PALE_OAK_LEAVES.get());

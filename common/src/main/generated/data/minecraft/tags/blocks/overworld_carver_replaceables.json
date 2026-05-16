@@ -1,0 +1,8 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:cinnabar",
+    "minecraft:sulfur",
+    "minecraft:potent_sulfur"
+  ]
+}

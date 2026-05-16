@@ -24,19 +24,22 @@ public class BiomeTagGenerator extends FabricTagProvider<Biome> {
     protected void addTags(HolderLookup.Provider provider) {
         this.addEntityPlacementTags(provider);
         this.addFeaturePlacementTags(provider);
+        this.addStructureTags(provider);
         this.addBiomeConventionalTags(provider);
 
         this.getOrCreateTagBuilder(BiomeTags.IS_FOREST)
             .add(ModBiomes.PALE_GARDEN);
 
         this.getOrCreateTagBuilder(BiomeTags.IS_OVERWORLD)
-            .add(ModBiomes.PALE_GARDEN);
+            .add(ModBiomes.PALE_GARDEN)
+            .add(ModBiomes.SULFUR_CAVES);
 
         this.getOrCreateTagBuilder(BiomeTags.HAS_WOODLAND_MANSION)
             .add(ModBiomes.PALE_GARDEN);
 
         this.getOrCreateTagBuilder(BiomeTags.STRONGHOLD_BIASED_TO)
-            .add(ModBiomes.PALE_GARDEN);
+            .add(ModBiomes.PALE_GARDEN)
+            .add(ModBiomes.SULFUR_CAVES);
 
         this.getOrCreateTagBuilder(ModBiomeTags.SPAWNS_COLD_VARIANT_FARM_ANIMALS)
             .add(Biomes.SNOWY_PLAINS)
@@ -221,6 +224,14 @@ public class BiomeTagGenerator extends FabricTagProvider<Biome> {
             .add(ModBiomes.PALE_GARDEN);
     }
 
+    protected void addStructureTags(HolderLookup.Provider provider) {
+        this.getOrCreateTagBuilder(BiomeTags.HAS_MINESHAFT)
+            .add(ModBiomes.SULFUR_CAVES);
+
+        this.getOrCreateTagBuilder(BiomeTags.HAS_RUINED_PORTAL_STANDARD)
+            .add(ModBiomes.SULFUR_CAVES);
+    }
+
     protected void addBiomeConventionalTags(HolderLookup.Provider provider) {
         this.getOrCreateTagBuilder(ForgeBiomeTags.IS_SPOOKY)
             .add(ModBiomes.PALE_GARDEN);
@@ -233,5 +244,11 @@ public class BiomeTagGenerator extends FabricTagProvider<Biome> {
 
         this.getOrCreateTagBuilder(ForgeBiomeTags.IS_TREE_DECIDUOUS)
             .add(ModBiomes.PALE_GARDEN);
+
+        this.getOrCreateTagBuilder(ForgeBiomeTags.IS_CAVE)
+            .add(ModBiomes.SULFUR_CAVES);
+
+        this.getOrCreateTagBuilder(FabricBiomeTags.CAVES)
+            .add(ModBiomes.SULFUR_CAVES);
     }
 }

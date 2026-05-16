@@ -2,6 +2,8 @@ package com.blackgear.vanillabackport.client.registries;
 
 import com.blackgear.platform.core.helper.ParticleRegistry;
 import com.blackgear.vanillabackport.client.level.particles.particleoptions.ColorParticleOption;
+import com.blackgear.vanillabackport.client.level.particles.particleoptions.GeyserBaseParticleOptions;
+import com.blackgear.vanillabackport.client.level.particles.particleoptions.GeyserParticleOptions;
 import com.blackgear.vanillabackport.client.level.particles.particleoptions.TrailParticleOption;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.core.BlockPos;
@@ -42,6 +44,35 @@ public class ModParticles {
     );
 
     public static final Supplier<SimpleParticleType> DUST_PLUME = PARTICLES.register("dust_plume",false);
+    public static final Supplier<SimpleParticleType> SULFUR_BUBBLES = PARTICLES.register("sulfur_bubbles", false);
+    public static final Supplier<SimpleParticleType> NOXIOUS_GAS = PARTICLES.register("noxious_gas", false);
+    public static final Supplier<SimpleParticleType> NOXIOUS_GAS_CLOUD = PARTICLES.register("noxious_gas_cloud", false);
+    public static final Supplier<SimpleParticleType> SULFUR_CUBE_GOO = PARTICLES.register("sulfur_cube_goo", false);
+
+    public static final Supplier<ParticleType<GeyserParticleOptions>> GEYSER = PARTICLES.register(
+        "geyser",
+        true,
+        GeyserParticleOptions.DESERIALIZER,
+        GeyserParticleOptions::codec
+    );
+    public static final Supplier<ParticleType<GeyserBaseParticleOptions>> GEYSER_BASE = PARTICLES.register(
+        "geyser_base",
+        true,
+        GeyserBaseParticleOptions.DESERIALIZER,
+        GeyserBaseParticleOptions::codec
+    );
+    public static final Supplier<ParticleType<GeyserBaseParticleOptions>> GEYSER_POOF = PARTICLES.register(
+        "geyser_poof",
+        true,
+        GeyserBaseParticleOptions.DESERIALIZER,
+        GeyserBaseParticleOptions::codec
+    );
+    public static final Supplier<ParticleType<GeyserParticleOptions>> GEYSER_PLUME = PARTICLES.register(
+        "geyser_plume",
+        true,
+        GeyserParticleOptions.DESERIALIZER,
+        GeyserParticleOptions::codec
+    );
 
     public static <T extends ParticleOptions> int sendParticles(ServerLevel level, T particle, double x, double y, double z, int particleCount, double xOffset, double yOffset, double zOffset, double speed) {
         return sendParticles(level, particle, false, false, x, y, z, particleCount, xOffset, yOffset, zOffset, speed);

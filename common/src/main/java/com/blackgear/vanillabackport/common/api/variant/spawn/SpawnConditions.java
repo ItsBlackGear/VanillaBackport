@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.common.api.variant.spawn;
 
-import com.blackgear.platform.core.CoreRegistry;
+import com.blackgear.platform.core.api.registrar.Registrar;
 import com.blackgear.vanillabackport.common.api.variant.spawn.check.BiomeCheck;
 import com.blackgear.vanillabackport.common.api.variant.spawn.check.MoonBrightnessCheck;
 import com.blackgear.vanillabackport.common.api.variant.spawn.check.StructureCheck;
@@ -10,15 +10,13 @@ import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.blackgear.vanillabackport.core.registries.ModRegistries;
 import com.mojang.serialization.Codec;
 
-import java.util.function.Supplier;
-
 public class SpawnConditions {
-    public static final CoreRegistry<Codec<? extends SpawnCondition>> CONDITIONS = CoreRegistry.create(ModRegistries.SPAWN_CONDITION_TYPE.get(), VanillaBackport.NAMESPACE);
+    public static final Registrar<Codec<? extends SpawnCondition>> CONDITIONS = Registrar.create(ModRegistries.SPAWN_CONDITION_TYPE_KEY, VanillaBackport.NAMESPACE);
 
-    public static final Supplier<Codec<? extends SpawnCondition>> STRUCTURE = CONDITIONS.register("structure", () -> StructureCheck.CODEC);
-    public static final Supplier<Codec<? extends SpawnCondition>> MOON_BRIGHTNESS = CONDITIONS.register("moon_brightness", () -> MoonBrightnessCheck.CODEC);
-    public static final Supplier<Codec<? extends SpawnCondition>> BIOME = CONDITIONS.register("biome", () -> BiomeCheck.CODEC);
+    public static final Codec<? extends SpawnCondition> STRUCTURE = CONDITIONS.register("structure", StructureCheck.CODEC);
+    public static final Codec<? extends SpawnCondition> MOON_BRIGHTNESS = CONDITIONS.register("moon_brightness", MoonBrightnessCheck.CODEC);
+    public static final Codec<? extends SpawnCondition> BIOME = CONDITIONS.register("biome", BiomeCheck.CODEC);
 
-    public static final Supplier<Codec<? extends SpawnCondition>> RAW_BIOME = CONDITIONS.register("raw_biome", () -> RawBiomeCheck.CODEC);
-    public static final Supplier<Codec<? extends SpawnCondition>> RAW_STRUCTURE = CONDITIONS.register("raw_structure", () -> RawStructureCheck.CODEC);
+    public static final Codec<? extends SpawnCondition> RAW_BIOME = CONDITIONS.register("raw_biome", RawBiomeCheck.CODEC);
+    public static final Codec<? extends SpawnCondition> RAW_STRUCTURE = CONDITIONS.register("raw_structure", RawStructureCheck.CODEC);
 }

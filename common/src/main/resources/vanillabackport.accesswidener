@@ -38,6 +38,16 @@ accessible method net/minecraft/world/level/block/StairBlock <init> (Lnet/minecr
 accessible field net/minecraft/world/entity/vehicle/Boat lastYd D
 accessible field net/minecraft/world/entity/vehicle/Boat status Lnet/minecraft/world/entity/vehicle/Boat$Status;
 
+accessible class net/minecraft/world/entity/monster/Slime$SlimeMoveControl
+extendable class net/minecraft/world/entity/monster/Slime$SlimeMoveControl
+
+accessible method net/minecraft/world/entity/Entity collide (Lnet/minecraft/world/phys/Vec3;)Lnet/minecraft/world/phys/Vec3;
+extendable method net/minecraft/world/entity/Entity collide (Lnet/minecraft/world/phys/Vec3;)Lnet/minecraft/world/phys/Vec3;
+
+accessible method net/minecraft/world/entity/LivingEntity collectEquipmentChanges ()Ljava/util/Map;
+extendable method net/minecraft/world/entity/LivingEntity collectEquipmentChanges ()Ljava/util/Map;
+accessible method net/minecraft/world/entity/LivingEntity getLastHandItem (Lnet/minecraft/world/entity/EquipmentSlot;)Lnet/minecraft/world/item/ItemStack;
+
 accessible class net/minecraft/world/entity/npc/VillagerTrades$ItemsForEmeralds
 
 accessible field net/minecraft/client/gui/screens/inventory/AbstractContainerScreen hoveredSlot Lnet/minecraft/world/inventory/Slot;
@@ -54,6 +64,12 @@ accessible field net/minecraft/world/item/CreativeModeTabs COMBAT Lnet/minecraft
 accessible field net/minecraft/world/item/CreativeModeTabs FOOD_AND_DRINKS Lnet/minecraft/resources/ResourceKey;
 accessible field net/minecraft/world/item/CreativeModeTabs INGREDIENTS Lnet/minecraft/resources/ResourceKey;
 accessible field net/minecraft/world/item/CreativeModeTabs SPAWN_EGGS Lnet/minecraft/resources/ResourceKey;
+
+accessible class net/minecraft/world/level/levelgen/SurfaceRules$SequenceRuleSource
+accessible class net/minecraft/world/level/levelgen/SurfaceRules$SurfaceRule
+accessible class net/minecraft/world/level/levelgen/SurfaceRules$Condition
+accessible class net/minecraft/world/level/levelgen/SurfaceRules$Context
+accessible field net/minecraft/world/level/levelgen/SurfaceRules$Context randomState Lnet/minecraft/world/level/levelgen/RandomState;
 
 accessible class net/minecraft/core/registries/BuiltInRegistries$RegistryBootstrap
 accessible method net/minecraft/advancements/critereon/MinMaxBounds$Doubles <init> (Ljava/lang/Double;Ljava/lang/Double;)V

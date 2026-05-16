@@ -88,7 +88,7 @@ public class LangGenerator extends FabricLanguageProvider {
         builder.add("subtitles.entity.creaking.deactivate", "Creaking calms");
         builder.add("subtitles.entity.creaking.attack", "Creaking attacks");
         builder.add("subtitles.entity.creaking.death", "Creaking crumbles");
-        builder.add("subtitles.entity.creaking.freeze", "Creaking stop");
+        builder.add("subtitles.entity.creaking.freeze", "Creaking stops");
         builder.add("subtitles.entity.creaking.spawn", "Creaking manifests");
         builder.add("subtitles.entity.creaking.sway", "Creaking is hit");
         builder.add("subtitles.entity.creaking.twitch", "Creaking twitches");
@@ -133,7 +133,7 @@ public class LangGenerator extends FabricLanguageProvider {
 
         builder.add(ModEntities.HAPPY_GHAST.get(), "Happy Ghast");
 
-        builder.add("subtitles.block.dried_ghast.ambient", "Dried Ghast wheezes");
+        builder.add("subtitles.block.dried_ghast.ambient", "Sounds of dryness");
         builder.add("subtitles.block.dried_ghast.ambient_water", "Dried Ghast rehydrates");
         builder.add("subtitles.block.dried_ghast.place_in_water", "Dried Ghast soaks");
         builder.add("subtitles.block.dried_ghast.transition", "Dried Ghast feels better");
@@ -177,7 +177,7 @@ public class LangGenerator extends FabricLanguageProvider {
         builder.add("item.minecraft.bundle.empty", "Empty");
         builder.add("item.minecraft.bundle.empty.description", "Can hold a mixed stack of items");
         builder.add("item.minecraft.bundle.full", "Full");
-        
+
         builder.add("subtitles.item.bundle.insert_fail", "Bundle full");
 
         builder.add(ModItems.BLACK_BUNDLE.get(), "Black Bundle");
@@ -228,6 +228,69 @@ public class LangGenerator extends FabricLanguageProvider {
         builder.add("subtitles.item.wolf_armor.damage", "Wolf Armor takes damage");
         builder.add("subtitles.item.wolf_armor.repair", "Wolf Armor is repaired");
 
+        // Chaos Cubed
+
+        builder.add("biome.minecraft.sulfur_caves", "Sulfur Caves");
+
+        builder.add(ModBlocks.CINNABAR.get(), "Cinnabar");
+        builder.add(ModBlocks.CINNABAR_SLAB.get(), "Cinnabar Slab");
+        builder.add(ModBlocks.CINNABAR_STAIRS.get(), "Cinnabar Stairs");
+        builder.add(ModBlocks.CINNABAR_WALL.get(), "Cinnabar Wall");
+        builder.add(ModBlocks.POLISHED_CINNABAR.get(), "Polished Cinnabar");
+        builder.add(ModBlocks.POLISHED_CINNABAR_SLAB.get(), "Polished Cinnabar Slab");
+        builder.add(ModBlocks.POLISHED_CINNABAR_STAIRS.get(), "Polished Cinnabar Stairs");
+        builder.add(ModBlocks.POLISHED_CINNABAR_WALL.get(), "Polished Cinnabar Wall");
+        builder.add(ModBlocks.CINNABAR_BRICKS.get(), "Cinnabar Bricks");
+        builder.add(ModBlocks.CINNABAR_BRICK_SLAB.get(), "Cinnabar Brick Slab");
+        builder.add(ModBlocks.CINNABAR_BRICK_STAIRS.get(), "Cinnabar Brick Stairs");
+        builder.add(ModBlocks.CINNABAR_BRICK_WALL.get(), "Cinnabar Brick Wall");
+        builder.add(ModBlocks.CHISELED_CINNABAR.get(), "Chiseled Cinnabar");
+        builder.add(ModBlocks.POTENT_SULFUR.get(), "Potent Sulfur");
+        builder.add(ModBlocks.SULFUR_SPIKE.get(), "Sulfur Spike");
+        builder.add(ModBlocks.SULFUR.get(), "Sulfur");
+        builder.add(ModBlocks.SULFUR_SLAB.get(), "Sulfur Slab");
+        builder.add(ModBlocks.SULFUR_STAIRS.get(), "Sulfur Stairs");
+        builder.add(ModBlocks.SULFUR_WALL.get(), "Sulfur Wall");
+        builder.add(ModBlocks.POLISHED_SULFUR.get(), "Polished Sulfur");
+        builder.add(ModBlocks.POLISHED_SULFUR_SLAB.get(), "Polished Sulfur Slab");
+        builder.add(ModBlocks.POLISHED_SULFUR_STAIRS.get(), "Polished Sulfur Stairs");
+        builder.add(ModBlocks.POLISHED_SULFUR_WALL.get(), "Polished Sulfur Wall");
+        builder.add(ModBlocks.SULFUR_BRICKS.get(), "Sulfur Bricks");
+        builder.add(ModBlocks.SULFUR_BRICK_SLAB.get(), "Sulfur Brick Slab");
+        builder.add(ModBlocks.SULFUR_BRICK_STAIRS.get(), "Sulfur Brick Stairs");
+        builder.add(ModBlocks.SULFUR_BRICK_WALL.get(), "Sulfur Brick Wall");
+        builder.add(ModBlocks.CHISELED_SULFUR.get(), "Chiseled Sulfur");
+
+        builder.add(ModEntityTypes.SULFUR_CUBE, "Sulfur Cube");
+        builder.add("entity.minecraft.sulfur_cube.content", "Contains: %s");
+        builder.add("entity.minecraft.sulfur_cube.explosion_disabled", "Sulfur Cube explosions are disabled");
+
+        builder.add(ModItems.SULFUR_CUBE_BUCKET.get(), "Bucket of Sulfur Cube");
+        builder.add(ModItems.SULFUR_CUBE_SPAWN_EGG.get(), "Sulfur Cube Spawn Egg");
+
+        builder.add("subtitles.entity.sulfur_cube.absorb", "Sulfur Cube full");
+        builder.add("subtitles.entity.sulfur_cube.bounce", "Sulfur Cube bounces");
+        builder.add("subtitles.entity.sulfur_cube.death", "Sulfur Cube dies");
+        builder.add("subtitles.entity.sulfur_cube.eject", "Block removed");
+        builder.add("subtitles.entity.sulfur_cube.hit", "Sulfur Cube hit");
+        builder.add("subtitles.entity.sulfur_cube.hurt", "Sulfur Cube hurts");
+        builder.add("subtitles.entity.sulfur_cube.push", "Sulfur Cube pushed");
+        builder.add("subtitles.entity.sulfur_cube.squish", "Sulfur Cube bounces");
+
+        builder.add("subtitles.item.bucket.fill_sulfur_cube", "Sulfur Cube scooped");
+
+        builder.add("subtitles.block.potent_sulfur.geyser_eruption", "Sulfur spring bursts");
+        builder.add("subtitles.block.potent_sulfur.noxious_gas", "Noxious gas appears");
+
+        builder.add(ModAttributes.AIR_DRAG_MODIFIER, "Air Drag Modifier");
+        builder.add(ModAttributes.BOUNCINESS, "Bounciness");
+        builder.add(ModAttributes.FRICTION_MODIFIER, "Friction Modifier");
+
+        builder.add("item.minecraft.music_disc_bounce", "Music Disc");
+        builder.add("item.minecraft.music_disc_bounce.desc", "fingerspit - Bounce");
+
+        builder.add("jukebox_song.minecraft.bounce", "fingerspit - Bounce");
+
         // Advancements
         builder.add("advancements.adventure.heart_transplanter.title", "Heart Transplanter");
         builder.add("advancements.adventure.heart_transplanter.description", "Place a Creaking Heart with the correct alignment between two Pale Oak Log blocks");
@@ -244,6 +307,9 @@ public class LangGenerator extends FabricLanguageProvider {
         builder.add("advancements.husbandry.place_dried_ghast_in_water.title", "Stay Hydrated!");
         builder.add("advancements.husbandry.place_dried_ghast_in_water.description", "Place a Dried Ghast block into water");
 
+        builder.add("advancements.husbandry.uh_oh.title", "Uh Oh");
+        builder.add("advancements.husbandry.uh_oh.description", "Have a Sulfur Cube absorb a TNT block");
+
         // Bundled Tabs
         builder.add("bundled_tab.armored_paws.title", "Armored Paws");
         builder.add("bundled_tab.bundles_of_bravery.title", "Bundles of Bravery");
@@ -251,5 +317,6 @@ public class LangGenerator extends FabricLanguageProvider {
         builder.add("bundled_tab.spring_to_life.title", "Spring to Life");
         builder.add("bundled_tab.chase_the_skies.title", "Chase The Skies");
         builder.add("bundled_tab.hot_as_lava.title", "Hot as Lava");
+        builder.add("bundled_tab.chaos_cubed.title", "Chaos Cubed");
     }
 }

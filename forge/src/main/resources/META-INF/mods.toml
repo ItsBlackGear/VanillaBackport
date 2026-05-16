@@ -28,6 +28,7 @@ license = "MIT"
 [[dependencies.vanillabackport]]
     modId = "platform"
     mandatory = true
-    versionRange = "[1.2.11.4,)"
+    type = "required"
+    versionRange = "[1.3.3,)"
     ordering = "NONE"
     side = "BOTH"

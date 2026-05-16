@@ -127,7 +127,7 @@ public interface Leashable {
     }
 
     default void vb$whenLeashedTo(Entity entity) {
-        if (this instanceof PathfinderMob mob) mob.restrictTo(entity.blockPosition(), (int) this.vb$leashElasticDistance() - 1);
+        if (this instanceof Mob mob) mob.restrictTo(entity.blockPosition(), (int) this.vb$leashElasticDistance() - 1);
         if (entity instanceof Leashable ext) ext.vb$notifyLeashHolder(this);
     }
 
@@ -136,12 +136,12 @@ public interface Leashable {
     }
 
     default void vb$leashTooFarBehaviour() {
-        if (this instanceof PathfinderMob mob) mob.goalSelector.disableControlFlag(Goal.Flag.MOVE);
+        if (this instanceof Mob mob) mob.goalSelector.disableControlFlag(Goal.Flag.MOVE);
         this.vb$dropLeash(true, true);
     }
 
     default void vb$closeRangeLeashBehavior(Entity entity) {
-        if (this instanceof PathfinderMob mob) {
+        if (this instanceof Mob mob) {
             if (((PathfinderMobAccessor) this).callShouldStayCloseToLeashHolder()) {
                 mob.goalSelector.enableControlFlag(Goal.Flag.MOVE);
                 float distanceFromHolder = mob.distanceTo(entity);

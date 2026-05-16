@@ -4,6 +4,7 @@ import com.blackgear.platform.core.helper.BlockRegistry;
 import com.blackgear.vanillabackport.client.registries.ModParticles;
 import com.blackgear.vanillabackport.client.registries.ModSoundTypes;
 import com.blackgear.vanillabackport.common.level.blocks.*;
+import com.blackgear.vanillabackport.common.level.blocks.properties.SharedBlockProperties;
 import com.blackgear.vanillabackport.common.worldgen.grower.PaleOakTreeGrower;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.mojang.datafixers.util.Pair;
@@ -11,6 +12,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.MapColor;
@@ -24,7 +26,7 @@ public class ModBlocks {
     public static final Supplier<Block> PALE_OAK_LEAVES = BLOCKS.register(
         "pale_oak_leaves",
         properties -> new ParticleLeavesBlock(50, ModParticles.PALE_OAK_LEAVES, properties),
-        BlockBehaviour.Properties.of()
+        Properties.of()
             .mapColor(MapColor.TERRACOTTA_GREEN)
             .strength(0.2F)
             .randomTicks()
@@ -39,7 +41,7 @@ public class ModBlocks {
     );
     public static final Supplier<Block> PALE_OAK_PLANKS = BLOCKS.register(
         "pale_oak_planks",
-        BlockBehaviour.Properties.of()
+        Properties.of()
             .mapColor(MapColor.QUARTZ)
             .instrument(NoteBlockInstrument.BASS)
             .strength(2.0F, 3.0F)
@@ -49,7 +51,7 @@ public class ModBlocks {
     public static final Supplier<Block> PALE_OAK_STAIRS = BLOCKS.register(
         "pale_oak_stairs",
         properties -> new StairBlock(PALE_OAK_PLANKS.get().defaultBlockState(), properties),
-        BlockBehaviour.Properties.of()
+        Properties.of()
             .mapColor(MapColor.QUARTZ)
             .instrument(NoteBlockInstrument.BASS)
             .strength(2.0F, 3.0F)
@@ -59,7 +61,7 @@ public class ModBlocks {
     public static final Supplier<Block> PALE_OAK_SLAB = BLOCKS.register(
         "pale_oak_slab",
         SlabBlock::new,
-        BlockBehaviour.Properties.of()
+        Properties.of()
             .mapColor(MapColor.QUARTZ)
             .instrument(NoteBlockInstrument.BASS)
             .strength(2.0F, 3.0F)
@@ -69,7 +71,7 @@ public class ModBlocks {
     public static final Supplier<Block> PALE_OAK_FENCE = BLOCKS.register(
         "pale_oak_fence",
         FenceBlock::new,
-        BlockBehaviour.Properties.of()
+        Properties.of()
             .mapColor(MapColor.QUARTZ)
             .instrument(NoteBlockInstrument.BASS)
             .strength(2.0F, 3.0F)
@@ -79,7 +81,7 @@ public class ModBlocks {
     public static final Supplier<Block> PALE_OAK_FENCE_GATE = BLOCKS.register(
         "pale_oak_fence_gate",
         properties -> new FenceGateBlock(properties, ModWoodTypes.PALE_OAK),
-        BlockBehaviour.Properties.of()
+        Properties.of()
             .mapColor(MapColor.QUARTZ)
             .forceSolidOn()
             .instrument(NoteBlockInstrument.BASS)
@@ -89,7 +91,7 @@ public class ModBlocks {
     public static final Supplier<Block> PALE_OAK_DOOR = BLOCKS.register(
         "pale_oak_door",
         properties -> new DoorBlock(properties, ModBlockSetTypes.PALE_OAK),
-        BlockBehaviour.Properties.of()
+        Properties.of()
             .mapColor(MapColor.QUARTZ)
             .instrument(NoteBlockInstrument.BASS)
             .strength(3.0F)
@@ -100,7 +102,7 @@ public class ModBlocks {
     public static final Supplier<Block> PALE_OAK_WOOD = BLOCKS.register(
         "pale_oak_wood",
         RotatedPillarBlock::new,
-        BlockBehaviour.Properties.of()
+        Properties.of()
             .mapColor(MapColor.STONE)
             .instrument(NoteBlockInstrument.BASS)
             .strength(2.0F)
@@ -115,7 +117,7 @@ public class ModBlocks {
     public static final Supplier<Block> STRIPPED_PALE_OAK_WOOD = BLOCKS.register(
         "stripped_pale_oak_wood",
         RotatedPillarBlock::new,
-        BlockBehaviour.Properties.of()
+        Properties.of()
             .mapColor(MapColor.QUARTZ)
             .instrument(NoteBlockInstrument.BASS)
             .strength(2.0F)
@@ -130,7 +132,7 @@ public class ModBlocks {
     public static final Supplier<Block> PALE_MOSS_BLOCK = BLOCKS.register(
         "pale_moss_block",
         PaleMossBlock::new,
-        BlockBehaviour.Properties.of()
+        Properties.of()
             .ignitedByLava()
             .mapColor(MapColor.COLOR_LIGHT_GRAY)
             .strength(0.1F)
@@ -140,7 +142,7 @@ public class ModBlocks {
     public static final Supplier<Block> PALE_MOSS_CARPET = BLOCKS.register(
         "pale_moss_carpet",
         MossyCarpetBlock::new,
-        BlockBehaviour.Properties.of()
+        Properties.of()
             .ignitedByLava()
             .mapColor(MapColor.COLOR_LIGHT_GRAY)
             .strength(0.1F)
@@ -150,7 +152,7 @@ public class ModBlocks {
     public static final Supplier<Block> PALE_HANGING_MOSS = BLOCKS.register(
         "pale_hanging_moss",
         HangingMossBlock::new,
-        BlockBehaviour.Properties.of()
+        Properties.of()
             .ignitedByLava()
             .mapColor(MapColor.COLOR_LIGHT_GRAY)
             .noCollission()
@@ -160,7 +162,7 @@ public class ModBlocks {
     public static final Supplier<Block> OPEN_EYEBLOSSOM = BLOCKS.register(
         "open_eyeblossom",
         properties -> new EyeblossomBlock(EyeblossomBlock.Type.OPEN, properties),
-        BlockBehaviour.Properties.of()
+        Properties.of()
             .mapColor(MapColor.COLOR_ORANGE)
             .noCollission()
             .instabreak()
@@ -172,7 +174,7 @@ public class ModBlocks {
     public static final Supplier<Block> CLOSED_EYEBLOSSOM = BLOCKS.register(
         "closed_eyeblossom",
         properties -> new EyeblossomBlock(EyeblossomBlock.Type.CLOSED, properties),
-        BlockBehaviour.Properties.of()
+        Properties.of()
             .mapColor(MapColor.COLOR_LIGHT_GRAY)
             .noCollission()
             .instabreak()
@@ -184,7 +186,7 @@ public class ModBlocks {
     public static final Supplier<Block> PALE_OAK_SAPLING = BLOCKS.register(
         "pale_oak_sapling",
         properties -> new SaplingBlock(new PaleOakTreeGrower(), properties),
-        BlockBehaviour.Properties.of()
+        Properties.of()
             .mapColor(MapColor.COLOR_LIGHT_GRAY)
             .noCollission()
             .randomTicks()
@@ -210,7 +212,7 @@ public class ModBlocks {
     public static final Supplier<Block> CREAKING_HEART = BLOCKS.register(
         "creaking_heart",
         CreakingHeartBlock::new,
-        BlockBehaviour.Properties.of()
+        Properties.of()
             .mapColor(MapColor.COLOR_ORANGE)
             .instrument(NoteBlockInstrument.BASEDRUM)
             .strength(10.0F)
@@ -229,7 +231,7 @@ public class ModBlocks {
     public static final Supplier<Block> PALE_OAK_PRESSURE_PLATE = BLOCKS.register(
         "pale_oak_pressure_plate",
         properties -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, properties, ModBlockSetTypes.PALE_OAK),
-        BlockBehaviour.Properties.of()
+        Properties.of()
             .mapColor(MapColor.QUARTZ)
             .forceSolidOn()
             .instrument(NoteBlockInstrument.BASS)
@@ -241,7 +243,7 @@ public class ModBlocks {
     public static final Supplier<Block> PALE_OAK_TRAPDOOR = BLOCKS.register(
         "pale_oak_trapdoor",
         properties -> new TrapDoorBlock(properties, ModBlockSetTypes.PALE_OAK),
-        BlockBehaviour.Properties.of()
+        Properties.of()
             .mapColor(MapColor.QUARTZ)
             .instrument(NoteBlockInstrument.BASS)
             .strength(3.0F)
@@ -257,7 +259,7 @@ public class ModBlocks {
     public static final Supplier<Block> RESIN_CLUMP = BLOCKS.register(
         "resin_clump",
         ResinClumpBlock::new,
-        BlockBehaviour.Properties.of()
+        Properties.of()
             .mapColor(MapColor.TERRACOTTA_ORANGE)
             .replaceable()
             .noCollission()
@@ -267,14 +269,14 @@ public class ModBlocks {
     );
     public static final Supplier<Block> RESIN_BLOCK = BLOCKS.register(
         "resin_block",
-        BlockBehaviour.Properties.of()
+        Properties.of()
             .mapColor(MapColor.TERRACOTTA_ORANGE)
             .instrument(NoteBlockInstrument.BASEDRUM)
             .sound(ModSoundTypes.RESIN)
     );
     public static final Supplier<Block> RESIN_BRICKS = BLOCKS.register(
         "resin_bricks",
-        BlockBehaviour.Properties.of()
+        Properties.of()
             .mapColor(MapColor.TERRACOTTA_ORANGE)
             .instrument(NoteBlockInstrument.BASEDRUM)
             .requiresCorrectToolForDrops()
@@ -284,7 +286,7 @@ public class ModBlocks {
     public static final Supplier<Block> RESIN_BRICK_STAIRS = BLOCKS.register(
         "resin_brick_stairs",
         properties -> new StairBlock(RESIN_BRICKS.get().defaultBlockState(), properties),
-        BlockBehaviour.Properties.of()
+        Properties.of()
             .mapColor(MapColor.TERRACOTTA_ORANGE)
             .instrument(NoteBlockInstrument.BASEDRUM)
             .requiresCorrectToolForDrops()
@@ -294,7 +296,7 @@ public class ModBlocks {
     public static final Supplier<Block> RESIN_BRICK_SLAB = BLOCKS.register(
         "resin_brick_slab",
         SlabBlock::new,
-        BlockBehaviour.Properties.of()
+        Properties.of()
             .mapColor(MapColor.TERRACOTTA_ORANGE)
             .instrument(NoteBlockInstrument.BASEDRUM)
             .requiresCorrectToolForDrops()
@@ -304,7 +306,7 @@ public class ModBlocks {
     public static final Supplier<Block> RESIN_BRICK_WALL = BLOCKS.register(
         "resin_brick_wall",
         WallBlock::new,
-        BlockBehaviour.Properties.of()
+        Properties.of()
             .mapColor(MapColor.TERRACOTTA_ORANGE)
             .instrument(NoteBlockInstrument.BASEDRUM)
             .requiresCorrectToolForDrops()
@@ -313,7 +315,7 @@ public class ModBlocks {
     );
     public static final Supplier<Block> CHISELED_RESIN_BRICKS = BLOCKS.register(
         "chiseled_resin_bricks",
-        BlockBehaviour.Properties.of()
+        Properties.of()
             .mapColor(MapColor.TERRACOTTA_ORANGE)
             .instrument(NoteBlockInstrument.BASEDRUM)
             .requiresCorrectToolForDrops()
@@ -324,7 +326,7 @@ public class ModBlocks {
     public static final Supplier<Block> DRIED_GHAST = BLOCKS.register(
         "dried_ghast",
         DriedGhastBlock::new,
-        BlockBehaviour.Properties.of()
+        Properties.of()
             .mapColor(MapColor.COLOR_GRAY)
             .instabreak()
             .sound(ModSoundTypes.DRIED_GHAST)
@@ -335,7 +337,7 @@ public class ModBlocks {
     public static final Supplier<Block> BUSH = BLOCKS.register(
         "bush",
         ActualBushBlock::new,
-        BlockBehaviour.Properties.of()
+        Properties.of()
             .mapColor(MapColor.PLANT)
             .replaceable()
             .noCollission()
@@ -347,7 +349,7 @@ public class ModBlocks {
     public static final Supplier<Block> FIREFLY_BUSH = BLOCKS.register(
         "firefly_bush",
         FireflyBushBlock::new,
-        BlockBehaviour.Properties.of()
+        Properties.of()
             .mapColor(MapColor.PLANT)
             .ignitedByLava()
             .lightLevel(state -> 2)
@@ -359,7 +361,7 @@ public class ModBlocks {
     public static final Supplier<Block> WILDFLOWERS = BLOCKS.register(
         "wildflowers",
         PinkPetalsBlock::new,
-        BlockBehaviour.Properties.of()
+        Properties.of()
             .mapColor(MapColor.PLANT)
             .noCollission()
             .sound(SoundType.PINK_PETALS)
@@ -368,7 +370,7 @@ public class ModBlocks {
     public static final Supplier<Block> LEAF_LITTER = BLOCKS.register(
         "leaf_litter",
         LeafLitterBlock::new,
-        BlockBehaviour.Properties.of()
+        Properties.of()
             .mapColor(MapColor.COLOR_BROWN)
             .replaceable()
             .noCollission()
@@ -378,7 +380,7 @@ public class ModBlocks {
     public static final Supplier<Block> CACTUS_FLOWER = BLOCKS.register(
         "cactus_flower",
         CactusFlowerBlock::new,
-        BlockBehaviour.Properties.of()
+        Properties.of()
             .mapColor(MapColor.COLOR_PINK)
             .noCollission()
             .instabreak()
@@ -389,7 +391,7 @@ public class ModBlocks {
     public static final Supplier<Block> SHORT_DRY_GRASS = BLOCKS.register(
         "short_dry_grass",
         ShortDryGrassBlock::new,
-        BlockBehaviour.Properties.of()
+        Properties.of()
             .mapColor(MapColor.COLOR_YELLOW)
             .replaceable()
             .noCollission()
@@ -402,7 +404,7 @@ public class ModBlocks {
     public static final Supplier<Block> TALL_DRY_GRASS = BLOCKS.register(
         "tall_dry_grass",
         TallDryGrassBlock::new,
-        BlockBehaviour.Properties.of()
+        Properties.of()
             .mapColor(MapColor.COLOR_YELLOW)
             .replaceable()
             .noCollission()
@@ -413,8 +415,57 @@ public class ModBlocks {
             .pushReaction(PushReaction.DESTROY)
     );
 
-    private static BlockBehaviour.Properties logProperties(MapColor topColor, MapColor sideColor, SoundType sound) {
-        return BlockBehaviour.Properties.of()
+    public static final Supplier<Block> CINNABAR = BLOCKS.register("cinnabar", SharedBlockProperties.CINNABAR);
+    public static final Supplier<Block> CINNABAR_SLAB = BLOCKS.register("cinnabar_slab", SlabBlock::new, SharedBlockProperties.CINNABAR);
+    public static final Supplier<Block> CINNABAR_STAIRS = BLOCKS.register("cinnabar_stairs", () -> new StairBlock(CINNABAR.get().defaultBlockState(), SharedBlockProperties.CINNABAR));
+    public static final Supplier<Block> CINNABAR_WALL = BLOCKS.register("cinnabar_wall", WallBlock::new, SharedBlockProperties.CINNABAR);
+    public static final Supplier<Block> POLISHED_CINNABAR = BLOCKS.register("polished_cinnabar", SharedBlockProperties.CINNABAR);
+    public static final Supplier<Block> POLISHED_CINNABAR_SLAB = BLOCKS.register("polished_cinnabar_slab", SlabBlock::new, SharedBlockProperties.CINNABAR);
+    public static final Supplier<Block> POLISHED_CINNABAR_STAIRS = BLOCKS.register("polished_cinnabar_stairs", () -> new StairBlock(POLISHED_CINNABAR.get().defaultBlockState(), SharedBlockProperties.CINNABAR));
+    public static final Supplier<Block> POLISHED_CINNABAR_WALL = BLOCKS.register("polished_cinnabar_wall", WallBlock::new, SharedBlockProperties.CINNABAR);
+    public static final Supplier<Block> CINNABAR_BRICKS = BLOCKS.register("cinnabar_bricks", SharedBlockProperties.CINNABAR);
+    public static final Supplier<Block> CINNABAR_BRICK_SLAB = BLOCKS.register("cinnabar_brick_slab", SlabBlock::new, SharedBlockProperties.CINNABAR);
+    public static final Supplier<Block> CINNABAR_BRICK_STAIRS = BLOCKS.register("cinnabar_brick_stairs", () -> new StairBlock(CINNABAR_BRICKS.get().defaultBlockState(), SharedBlockProperties.CINNABAR));
+    public static final Supplier<Block> CINNABAR_BRICK_WALL = BLOCKS.register("cinnabar_brick_wall", WallBlock::new, SharedBlockProperties.CINNABAR);
+    public static final Supplier<Block> CHISELED_CINNABAR = BLOCKS.register("chiseled_cinnabar", SharedBlockProperties.CINNABAR);
+
+    public static final Supplier<Block> SULFUR = BLOCKS.register("sulfur", SharedBlockProperties.SULFUR);
+    public static final Supplier<Block> SULFUR_SLAB = BLOCKS.register("sulfur_slab", SlabBlock::new, SharedBlockProperties.SULFUR);
+    public static final Supplier<Block> SULFUR_STAIRS = BLOCKS.register("sulfur_stairs", () -> new StairBlock(SULFUR.get().defaultBlockState(), SharedBlockProperties.SULFUR));
+    public static final Supplier<Block> SULFUR_WALL = BLOCKS.register("sulfur_wall", WallBlock::new, SharedBlockProperties.SULFUR);
+    public static final Supplier<Block> POLISHED_SULFUR = BLOCKS.register("polished_sulfur", SharedBlockProperties.SULFUR);
+    public static final Supplier<Block> POLISHED_SULFUR_SLAB = BLOCKS.register("polished_sulfur_slab", SlabBlock::new, SharedBlockProperties.SULFUR);
+    public static final Supplier<Block> POLISHED_SULFUR_STAIRS = BLOCKS.register("polished_sulfur_stairs", () -> new StairBlock(POLISHED_SULFUR.get().defaultBlockState(), SharedBlockProperties.SULFUR));
+    public static final Supplier<Block> POLISHED_SULFUR_WALL = BLOCKS.register("polished_sulfur_wall", WallBlock::new, SharedBlockProperties.SULFUR);
+    public static final Supplier<Block> SULFUR_BRICKS = BLOCKS.register("sulfur_bricks", SharedBlockProperties.SULFUR);
+    public static final Supplier<Block> SULFUR_BRICK_SLAB = BLOCKS.register("sulfur_brick_slab", SlabBlock::new, SharedBlockProperties.SULFUR);
+    public static final Supplier<Block> SULFUR_BRICK_STAIRS = BLOCKS.register("sulfur_brick_stairs", () -> new StairBlock(SULFUR_BRICKS.get().defaultBlockState(), SharedBlockProperties.SULFUR));
+    public static final Supplier<Block> SULFUR_BRICK_WALL = BLOCKS.register("sulfur_brick_wall", WallBlock::new, SharedBlockProperties.SULFUR);
+    public static final Supplier<Block> CHISELED_SULFUR = BLOCKS.register("chiseled_sulfur", SharedBlockProperties.SULFUR);
+
+    public static final Supplier<Block> POTENT_SULFUR = BLOCKS.register("potent_sulfur", PotentSulfurBlock::new, SharedBlockProperties.SULFUR.sound(ModSoundTypes.POTENT_SULFUR));
+    public static final Supplier<Block> SULFUR_SPIKE = BLOCKS.register(
+        "sulfur_spike",
+        () -> new SpeleothemBlock(
+            SULFUR.get().defaultBlockState(),
+            Properties.of()
+                .mapColor(MapColor.COLOR_YELLOW)
+                .forceSolidOn()
+                .instrument(NoteBlockInstrument.BASEDRUM)
+                .noOcclusion()
+                .sound(SoundType.POINTED_DRIPSTONE)
+                .randomTicks()
+                .strength(1.5F, 3.0F)
+                .dynamicShape()
+                .offsetType(BlockBehaviour.OffsetType.XZ)
+                .pushReaction(PushReaction.DESTROY)
+                .isRedstoneConductor(BLOCKS::never)
+                .noOcclusion()
+        )
+    );
+
+    private static Properties logProperties(MapColor topColor, MapColor sideColor, SoundType sound) {
+        return Properties.of()
             .mapColor(state -> state.getValue(RotatedPillarBlock.AXIS) == Direction.Axis.Y ? topColor : sideColor)
             .instrument(NoteBlockInstrument.BASS)
             .strength(2.0F)
@@ -422,19 +473,19 @@ public class ModBlocks {
             .ignitedByLava();
     }
 
-    private static BlockBehaviour.Properties buttonProperties() {
-        return BlockBehaviour.Properties.of().noCollission().strength(0.5F).pushReaction(PushReaction.DESTROY);
+    private static Properties buttonProperties() {
+        return Properties.of().noCollission().strength(0.5F).pushReaction(PushReaction.DESTROY);
     }
 
-    private static BlockBehaviour.Properties flowerPotProperties() {
-        return BlockBehaviour.Properties.of()
+    private static Properties flowerPotProperties() {
+        return Properties.of()
             .instabreak()
             .noOcclusion()
             .pushReaction(PushReaction.DESTROY);
     }
 
     public static Pair<Supplier<Block>, Supplier<Block>> sign(String name, WoodType woodType, MapColor color) {
-        BlockBehaviour.Properties properties = BlockBehaviour.Properties.of()
+        Properties properties = Properties.of()
             .mapColor(color)
             .forceSolidOn()
             .instrument(NoteBlockInstrument.BASS)
@@ -448,7 +499,7 @@ public class ModBlocks {
     }
 
     public static Pair<Supplier<Block>, Supplier<Block>> hangingSign(String name, WoodType woodType, MapColor color) {
-        BlockBehaviour.Properties properties = BlockBehaviour.Properties.of()
+        Properties properties = Properties.of()
             .mapColor(color)
             .forceSolidOn()
             .instrument(NoteBlockInstrument.BASS)

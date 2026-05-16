@@ -4,7 +4,7 @@ import com.blackgear.vanillabackport.common.level.blocks.CreakingHeartBlock;
 import com.blackgear.vanillabackport.common.level.blocks.DriedGhastBlock;
 import com.blackgear.vanillabackport.common.level.blocks.HangingMossBlock;
 import com.blackgear.vanillabackport.common.level.blocks.MossyCarpetBlock;
-import com.blackgear.vanillabackport.common.level.blocks.blockstates.CreakingHeartState;
+import com.blackgear.vanillabackport.common.level.blocks.states.CreakingHeartState;
 import com.blackgear.vanillabackport.common.registries.ModBlockStateProperties;
 import com.blackgear.vanillabackport.common.registries.ModBlocks;
 import com.blackgear.vanillabackport.data.client.model.ModelTemplates;
@@ -24,10 +24,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.properties.BlockStateProperties;
-import net.minecraft.world.level.block.state.properties.BooleanProperty;
-import net.minecraft.world.level.block.state.properties.EnumProperty;
-import net.minecraft.world.level.block.state.properties.WallSide;
+import net.minecraft.world.level.block.state.properties.*;
 
 import java.util.List;
 import java.util.function.BiConsumer;
@@ -325,5 +322,26 @@ public class VanillaBlockModels extends BlockModelGenerators {
                         .with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270)
                 )
         );
+    }
+
+    public void createSpeleothem(Block block) {
+        this.skipAutoItemBlock(block);
+        PropertyDispatch.C2<Direction, DripstoneThickness> generator = PropertyDispatch.properties(BlockStateProperties.VERTICAL_DIRECTION, BlockStateProperties.DRIPSTONE_THICKNESS);
+
+        for (DripstoneThickness thickness : DripstoneThickness.values()) {
+            generator.select(Direction.UP, thickness, this.createSpeleothemVariant(Direction.UP, thickness, block));
+        }
+
+        for (DripstoneThickness thickness : DripstoneThickness.values()) {
+            generator.select(Direction.DOWN, thickness, this.createSpeleothemVariant(Direction.DOWN, thickness, block));
+        }
+
+        this.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block).with(generator));
+    }
+
+    private Variant createSpeleothemVariant(Direction direction, DripstoneThickness thickness, Block block) {
+        String suffix = "_" + direction.getSerializedName() + "_" + thickness.getSerializedName();
+        TextureMapping texture = TextureMapping.cross(TextureMapping.getBlockTexture(block, suffix));
+        return Variant.variant().with(VariantProperties.MODEL, net.minecraft.data.models.model.ModelTemplates.POINTED_DRIPSTONE.createWithSuffix(block, suffix, texture, this.modelOutput));
     }
 }

@@ -3,6 +3,7 @@ package com.blackgear.vanillabackport.core.util.codec;
 import com.blackgear.vanillabackport.core.util.ColorUtils;
 import com.mojang.datafixers.util.Either;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.DataResult;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.Util;
 import net.minecraft.advancements.critereon.MinMaxBounds;
@@ -12,6 +13,7 @@ import net.minecraft.resources.RegistryFileCodec;
 import net.minecraft.resources.RegistryFixedCodec;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.util.ExtraCodecs;
+import net.minecraft.util.valueproviders.FloatProvider;
 import org.joml.Vector4f;
 
 import java.util.List;
@@ -57,6 +59,14 @@ public class AdditionalCodecs {
                 Optional<T> optional = min.equals(max) ? min : Optional.empty();
                 return optional.<Either<R, T>>map(Either::right).orElseGet(() -> Either.left(bounds));
             });
+    }
+
+    public static Codec<FloatProvider> floatProvider(float minValue) {
+        return ExtraCodecs.validate(FloatProvider.CODEC,
+            value -> value.getMinValue() < minValue
+                ? DataResult.error(() -> "Value provider too low: " + minValue + " [" + value.getMinValue() + "-" + value.getMaxValue() + "]")
+                : DataResult.success(value)
+        );
     }
 
     interface BoundsFactory<T extends Number, R extends MinMaxBounds<T>> {

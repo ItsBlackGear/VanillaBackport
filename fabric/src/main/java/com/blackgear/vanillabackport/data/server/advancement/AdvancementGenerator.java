@@ -2,11 +2,13 @@ package com.blackgear.vanillabackport.data.server.advancement;
 
 import com.blackgear.vanillabackport.common.criterion.PlayerShearedEquipmentTrigger;
 import com.blackgear.vanillabackport.common.level.blocks.CreakingHeartBlock;
-import com.blackgear.vanillabackport.common.level.blocks.blockstates.CreakingHeartState;
+import com.blackgear.vanillabackport.common.level.blocks.states.CreakingHeartState;
 import com.blackgear.vanillabackport.common.registries.ModBlockStateProperties;
 import com.blackgear.vanillabackport.common.registries.ModBlocks;
+import com.blackgear.vanillabackport.common.registries.ModEntityTypes;
 import com.blackgear.vanillabackport.common.registries.ModItems;
 import com.blackgear.vanillabackport.core.data.tags.ModBlockTags;
+import com.blackgear.vanillabackport.core.data.tags.ModItemTags;
 import com.blackgear.vanillabackport.core.registries.ModBuiltinRegistries;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
@@ -160,6 +162,46 @@ public class AdvancementGenerator extends FabricAdvancementProvider {
                 placedBlockWithProperties(ModBlocks.DRIED_GHAST.get(), BlockStateProperties.WATERLOGGED, String.valueOf(true))
             )
             .save(consumer, "husbandry/place_dried_ghast_in_water");
+
+        Advancement.Builder.advancement()
+            .parent(husbandry)
+            .display(
+                Items.TNT,
+                Component.translatable("advancements.husbandry.uh_oh.title"),
+                Component.translatable("advancements.husbandry.uh_oh.description"),
+                null,
+                FrameType.TASK,
+                true,
+                true,
+                false
+            )
+            .requirements(RequirementsStrategy.OR)
+            .addCriterion(
+                "pick_up_dropped_tnt",
+                PickedUpItemTrigger.TriggerInstance.thrownItemPickedUpByEntity(
+                    ContextAwarePredicate.ANY,
+                    ItemPredicate.Builder.item().of(ModItemTags.SULFUR_CUBE_ARCHETYPE_EXPLOSIVE).build(),
+                    EntityPredicate.wrap(
+                        EntityPredicate.Builder.entity()
+                            .of(ModEntityTypes.SULFUR_CUBE)
+                            .flags(EntityFlagsPredicate.Builder.flags().setIsBaby(false).build())
+                            .build()
+                    )
+                )
+            )
+            .addCriterion(
+                "give_tnt_directly",
+                PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(
+                    ContextAwarePredicate.ANY,
+                    ItemPredicate.Builder.item().of(ModItemTags.SULFUR_CUBE_ARCHETYPE_EXPLOSIVE),
+                    EntityPredicate.wrap(
+                        EntityPredicate.Builder.entity()
+                            .of(ModEntityTypes.SULFUR_CUBE)
+                            .flags(EntityFlagsPredicate.Builder.flags().setIsBaby(false).build())
+                            .build()
+                    )
+                )
+            ).save(consumer, "husbandry/uh_oh");
     }
 
     private static CompoundTag getNbt(Consumer<CompoundTag> consumer) {

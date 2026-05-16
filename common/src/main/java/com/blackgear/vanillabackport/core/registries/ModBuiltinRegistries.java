@@ -3,6 +3,7 @@ package com.blackgear.vanillabackport.core.registries;
 import com.blackgear.platform.core.BuiltInCoreRegistry;
 import com.blackgear.vanillabackport.common.api.wolf.WolfSoundVariant;
 import com.blackgear.vanillabackport.common.level.entities.animal.*;
+import com.blackgear.vanillabackport.common.level.entities.sulfurcube.SulfurCubeArchetype;
 import com.blackgear.vanillabackport.common.level.entities.wolf.WolfVariant;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 
@@ -14,4 +15,5 @@ public class ModBuiltinRegistries {
     public static final BuiltInCoreRegistry<WolfVariant> WOLF_VARIANTS = new BuiltInCoreRegistry<>(ModRegistries.WOLF_VARIANT.get(), VanillaBackport.NAMESPACE);
     public static final BuiltInCoreRegistry<FrogDataVariant> FROG_VARIANTS = new BuiltInCoreRegistry<>(ModRegistries.FROG_VARIANT.get(), VanillaBackport.NAMESPACE);
     public static final BuiltInCoreRegistry<CatDataVariant> CAT_VARIANTS = new BuiltInCoreRegistry<>(ModRegistries.CAT_VARIANT.get(), VanillaBackport.NAMESPACE);
+    public static final BuiltInCoreRegistry<SulfurCubeArchetype> SULFUR_CUBE_ARCHETYPES = new BuiltInCoreRegistry<>(ModRegistries.SULFUR_CUBE_ARCHETYPES.get(), VanillaBackport.NAMESPACE);
 }

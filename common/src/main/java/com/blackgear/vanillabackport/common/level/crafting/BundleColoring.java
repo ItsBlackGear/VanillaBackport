@@ -24,7 +24,7 @@ public class BundleColoring extends CustomRecipe {
         for (int slot = 0; slot < container.getContainerSize(); slot++) {
             ItemStack stack = container.getItem(slot);
             if (!stack.isEmpty()) {
-                if (stack.getItem() instanceof BundleItem) {
+                if (isBundle(stack.getItem())) {
                     bundles++;
                 } else if (stack.getItem() instanceof DyeItem) {
                     dyes++;
@@ -52,7 +52,7 @@ public class BundleColoring extends CustomRecipe {
             if (!stack.isEmpty()) {
                 Item item = stack.getItem();
 
-                if (item instanceof BundleItem) {
+                if (isBundle(item)) {
                     bundle = stack;
                 } else if (item instanceof DyeItem) {
                     dye = (DyeItem) item;
@@ -77,5 +77,9 @@ public class BundleColoring extends CustomRecipe {
     @Override
     public RecipeSerializer<?> getSerializer() {
         return ModRecipeSerializers.BUNDLE_COLORING.get();
+    }
+
+    private static boolean isBundle(Item item) {
+        return item == Items.BUNDLE || BundleFeatures.BUNDLES_BY_DYE.containsValue(item);
     }
 }

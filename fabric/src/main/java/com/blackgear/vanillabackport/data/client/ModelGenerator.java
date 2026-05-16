@@ -57,6 +57,11 @@ public class ModelGenerator extends VanillaModelGenerator {
 
         // ARMORED PAWS
         gen.createSpawnEgg(ModItems.ARMADILLO_SPAWN_EGG.get());
+
+        // Chaos Cubed
+        gen.createTrivialCube(ModBlocks.POTENT_SULFUR.get());
+        gen.createSpeleothem(ModBlocks.SULFUR_SPIKE.get());
+        gen.createSpawnEgg(ModItems.SULFUR_CUBE_SPAWN_EGG.get());
     }
 
     @Override
@@ -93,5 +98,9 @@ public class ModelGenerator extends VanillaModelGenerator {
         // Spring to Life
         gen.createFlatItem(ModItems.BLUE_EGG.get());
         gen.createFlatItem(ModItems.BROWN_EGG.get());
+
+        // Chaos Cubed
+        gen.createFlatItem(ModItems.SULFUR_CUBE_BUCKET.get());
+        gen.createMusicDisc(ModItems.MUSIC_DISC_BOUNCE.get());
     }
 }

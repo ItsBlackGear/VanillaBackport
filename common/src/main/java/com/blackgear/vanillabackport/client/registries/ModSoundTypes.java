@@ -50,4 +50,25 @@ public class ModSoundTypes {
         () -> SoundEvents.EMPTY,
         () -> SoundEvents.EMPTY
     );
+    public static final SoundType CINNABAR = SOUNDS.soundType(
+        ModSoundEvents.CINNABAR_BREAK,
+        ModSoundEvents.CINNABAR_STEP,
+        ModSoundEvents.CINNABAR_PLACE,
+        ModSoundEvents.CINNABAR_HIT,
+        ModSoundEvents.CINNABAR_FALL
+    );
+    public static final SoundType SULFUR = SOUNDS.soundType(
+        ModSoundEvents.SULFUR_BREAK,
+        ModSoundEvents.SULFUR_STEP,
+        ModSoundEvents.SULFUR_PLACE,
+        ModSoundEvents.SULFUR_HIT,
+        ModSoundEvents.SULFUR_FALL
+    );
+    public static final SoundType POTENT_SULFUR = SOUNDS.soundType(
+        ModSoundEvents.POTENT_SULFUR_BREAK,
+        ModSoundEvents.POTENT_SULFUR_STEP,
+        ModSoundEvents.POTENT_SULFUR_PLACE,
+        ModSoundEvents.POTENT_SULFUR_HIT,
+        ModSoundEvents.POTENT_SULFUR_FALL
+    );
 }

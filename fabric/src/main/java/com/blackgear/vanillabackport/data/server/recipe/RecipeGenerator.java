@@ -5,7 +5,9 @@ import com.blackgear.vanillabackport.common.registries.ModItems;
 import com.blackgear.vanillabackport.common.registries.ModRecipeSerializers;
 import com.blackgear.vanillabackport.core.data.tags.ModItemTags;
 import com.blackgear.vanillabackport.data.client.BlockFamilies;
+import com.google.common.collect.ImmutableMap;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.minecraft.data.BlockFamily;
 import net.minecraft.data.recipes.*;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.flag.FeatureFlagSet;
@@ -13,13 +15,23 @@ import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 
+import java.util.Map;
 import java.util.function.Consumer;
 
 import static net.minecraft.data.recipes.RecipeProvider.*;
 
 public class RecipeGenerator extends VanillaRecipeProvider {
+    private static final Map<BlockFamily.Variant, FamilyStonecutterRecipeProvider> STONECUTTER_RECIPE_BUILDERS = ImmutableMap.<BlockFamily.Variant, FamilyStonecutterRecipeProvider>builder()
+        .put(BlockFamily.Variant.SLAB, (exporter, result, base) -> stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, result, base, 2))
+        .put(BlockFamily.Variant.STAIRS, (exporter, result, base) -> stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, result, base, 1))
+        .put(BlockFamily.Variant.WALL, (exporter, result, base) -> stonecutterResultFromBase(exporter, RecipeCategory.DECORATIONS, result, base, 1))
+        .put(BlockFamily.Variant.CHISELED, (exporter, result, base) -> stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, result, base, 1))
+        .put(BlockFamily.Variant.POLISHED, (exporter, result, base) -> stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, result, base, 1))
+        .put(BlockFamily.Variant.CUT, (exporter, result, base) -> stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, result, base, 1))
+        .build();
 
     public RecipeGenerator(FabricDataOutput output) {
         super(output);
@@ -146,6 +158,37 @@ public class RecipeGenerator extends VanillaRecipeProvider {
             .save(exporter);
 
         SpecialRecipeBuilder.special(ModRecipeSerializers.BUNDLE_COLORING.get()).save(exporter, "bundle_coloring");
+        
+        // Chaos Cubed
+
+        this.generateStonecutterRecipes(exporter, BlockFamilies.SULFUR, FeatureFlagSet.of(FeatureFlags.VANILLA));
+        this.generateStonecutterRecipes(exporter, BlockFamilies.POLISHED_SULFUR, FeatureFlagSet.of(FeatureFlags.VANILLA));
+        this.generateStonecutterRecipes(exporter, BlockFamilies.SULFUR_BRICKS, FeatureFlagSet.of(FeatureFlags.VANILLA));
+        this.generateStonecutterRecipes(exporter, BlockFamilies.CINNABAR, FeatureFlagSet.of(FeatureFlags.VANILLA));
+        this.generateStonecutterRecipes(exporter, BlockFamilies.POLISHED_CINNABAR, FeatureFlagSet.of(FeatureFlags.VANILLA));
+        this.generateStonecutterRecipes(exporter, BlockFamilies.CINNABAR_BRICKS, FeatureFlagSet.of(FeatureFlags.VANILLA));
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.SULFUR_BRICKS.get(), 4)
+            .define('S', ModBlocks.POLISHED_SULFUR.get())
+            .pattern("SS")
+            .pattern("SS")
+            .unlockedBy("has_polished_sulfur", has(ModBlocks.POLISHED_SULFUR.get()))
+            .save(exporter);
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.CINNABAR_BRICKS.get(), 4)
+            .define('S', ModBlocks.POLISHED_CINNABAR.get())
+            .pattern("SS")
+            .pattern("SS")
+            .unlockedBy("has_polished_cinnabar", has(ModBlocks.POLISHED_CINNABAR.get()))
+            .save(exporter);
+        stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.SULFUR_BRICKS.get(), ModBlocks.POLISHED_SULFUR.get(), 1);
+        stonecutterResultFromBase(exporter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CINNABAR_BRICKS.get(), ModBlocks.POLISHED_CINNABAR.get(), 1);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.SULFUR.get(), 4)
+            .define('S', ModBlocks.SULFUR_SPIKE.get())
+            .pattern("SS")
+            .pattern("SS")
+            .unlockedBy("has_sulfur_spike", has(ModBlocks.SULFUR_SPIKE.get()))
+            .save(exporter);
+        threeByThreePacker(exporter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.POTENT_SULFUR.get(), ModBlocks.SULFUR.get());
     }
 
     public static ShapedRecipeBuilder shaped(RecipeCategory category, ItemLike entry) {
@@ -178,6 +221,34 @@ public class RecipeGenerator extends VanillaRecipeProvider {
             .group("harness")
             .unlockedBy("has_dried_ghast", has(ModBlocks.DRIED_GHAST.get()))
             .save(exporter);
+    }
+
+    private void generateStonecutterRecipes(Consumer<FinishedRecipe> exporter, BlockFamily family, FeatureFlagSet flagSet) {
+        family.getVariants().forEach((variant, result) -> {
+            if (result.requiredFeatures().isSubsetOf(flagSet)) {
+                Block base = family.getBaseBlock();
+                this.generateStonecutterRecipe(exporter, family, variant, base);
+            }
+        });
+    }
+
+    private void generateStonecutterRecipe(Consumer<FinishedRecipe> exporter, BlockFamily family, BlockFamily.Variant variant, Block base) {
+        FamilyStonecutterRecipeProvider recipeFunction = STONECUTTER_RECIPE_BUILDERS.get(variant);
+        if (recipeFunction != null) {
+            recipeFunction.create(exporter, family.get(variant), base);
+        }
+
+        if (variant == BlockFamily.Variant.POLISHED || variant == BlockFamily.Variant.CUT) {
+            BlockFamily childVariantFamily = BlockFamilies.getFamily(family.get(variant));
+            if (childVariantFamily != null) {
+                childVariantFamily.getVariants().forEach((childVariant, r) -> this.generateStonecutterRecipe(exporter, childVariantFamily, childVariant, base));
+            }
+        }
+    }
+
+    @FunctionalInterface
+    private interface FamilyStonecutterRecipeProvider {
+        void create(Consumer<FinishedRecipe> exporter, ItemLike result, ItemLike base);
     }
 
     @Override

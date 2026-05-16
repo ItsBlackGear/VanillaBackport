@@ -273,4 +273,8 @@ public class FabricItemTags {
 
     public static final TagKey<Item> STRIPPED_LOGS = TAGS.register("stripped_logs");
     public static final TagKey<Item> STRIPPED_WOOD = TAGS.register("stripped_wood");
+
+    public static final TagKey<Item> GLAZED_TERRACOTTA = TAGS.register("glazed_terracotta");
+    public static final TagKey<Item> CONCRETE = TAGS.register("concrete");
+    public static final TagKey<Item> CONCRETE_POWDERS = TAGS.register("concrete_powders");
 }

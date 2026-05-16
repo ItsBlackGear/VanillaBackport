@@ -10,4 +10,5 @@ public class ModEntityTypeTags {
     public static final TagRegistry<EntityType<?>> TAGS = TagRegistry.create(Registries.ENTITY_TYPE, VanillaBackport.NAMESPACE);
 
     public static final TagKey<EntityType<?>> FOLLOWABLE_FRIENDLY_MOBS = TAGS.register("followable_friendly_mobs");
+    public static final TagKey<EntityType<?>> MONSTERS_THAT_SPAWN_ON_PEACEFUL = TAGS.register("monsters_that_spawn_on_peaceful");
 }

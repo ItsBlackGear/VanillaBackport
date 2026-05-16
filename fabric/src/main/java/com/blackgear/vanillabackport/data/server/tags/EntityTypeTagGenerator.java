@@ -1,6 +1,7 @@
 package com.blackgear.vanillabackport.data.server.tags;
 
 import com.blackgear.vanillabackport.common.registries.ModEntities;
+import com.blackgear.vanillabackport.common.registries.ModEntityTypes;
 import com.blackgear.vanillabackport.core.data.tags.ModEntityTypeTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
@@ -49,6 +50,13 @@ public class EntityTypeTagGenerator extends FabricTagProvider.EntityTypeTagProvi
                 EntityType.STRIDER,
                 EntityType.VILLAGER,
                 EntityType.WOLF
+            );
+
+        this.getOrCreateTagBuilder(ModEntityTypeTags.MONSTERS_THAT_SPAWN_ON_PEACEFUL)
+            .add(
+                EntityType.PIGLIN,
+                EntityType.HOGLIN,
+                ModEntityTypes.SULFUR_CUBE
             );
     }
 }

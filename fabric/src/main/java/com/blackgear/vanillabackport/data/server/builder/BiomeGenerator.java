@@ -18,6 +18,7 @@ public class BiomeGenerator extends FabricDynamicRegistryProvider {
     @Override
     protected void configure(HolderLookup.Provider provider, Entries entries) {
         this.add(provider, entries, ModBiomes.PALE_GARDEN);
+        this.add(provider, entries, ModBiomes.SULFUR_CAVES);
     }
 
     private void add(HolderLookup.Provider provider, Entries entries, ResourceKey<Biome> key) {

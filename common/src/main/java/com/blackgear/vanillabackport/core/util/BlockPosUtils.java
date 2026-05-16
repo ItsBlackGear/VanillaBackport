@@ -128,9 +128,9 @@ public class BlockPosUtils {
 
             Vec3 hitPoint = intersectionPoint.get();
             // Ensure hit point is slightly inside the block
-            double x = Mth.clamp(hitPoint.x, (double)startX + (double)1.0E-5f, (double)startX + 1.0 - (double)1.0E-5f);
-            double y = Mth.clamp(hitPoint.y, (double)startY + (double)1.0E-5f, (double)startY + 1.0 - (double)1.0E-5f);
-            double z = Mth.clamp(hitPoint.z, (double)startZ + (double)1.0E-5f, (double)startZ + 1.0 - (double)1.0E-5f);
+            double x = Mth.clamp(hitPoint.x, (double)startX + (double) Mth.EPSILON, (double)startX + 1.0 - (double) Mth.EPSILON);
+            double y = Mth.clamp(hitPoint.y, (double)startY + (double) Mth.EPSILON, (double)startY + 1.0 - (double) Mth.EPSILON);
+            double z = Mth.clamp(hitPoint.z, (double)startZ + (double) Mth.EPSILON, (double)startZ + 1.0 - (double) Mth.EPSILON);
 
             // Calculate bounds of potential overlapping blocks
             int maxX = Mth.floor(x + box.getXsize());

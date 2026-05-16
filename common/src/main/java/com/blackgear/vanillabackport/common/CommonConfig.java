@@ -20,6 +20,7 @@ public class CommonConfig {
     public final ConfigBuilder.ConfigValue<Boolean> hasPaleTrades;
     public final ConfigBuilder.ConfigValue<Integer> creakingParticleColor;
     public final ConfigBuilder.ConfigValue<Integer> creakingParticleReverseColor;
+    public final ConfigBuilder.ConfigValue<Boolean> doCreakingHeartsWorkOnDay;
 
     // Spring to Life
     public final ConfigBuilder.ConfigValue<Boolean> hasBushes;
@@ -43,6 +44,16 @@ public class CommonConfig {
 
     // Hot as Lava
     public final ConfigBuilder.ConfigValue<Boolean> hasLavaChickenMusicDisc;
+
+    // Chaos Cubed
+    public final ConfigBuilder.ConfigValue<Boolean> hasSulfurCaves;
+    public final ConfigBuilder.ConfigValue<Boolean> hasSulfurSprings;
+    public final ConfigBuilder.ConfigValue<Boolean> doGeysersErupt;
+    public final ConfigBuilder.ConfigValue<Boolean> hasSulfurCubes;
+    public final ConfigBuilder.ConfigValue<Boolean> doSulfurCubesExplode;
+    public final ConfigBuilder.ConfigValue<Boolean> doSulfurCubesDealDamage;
+    public final ConfigBuilder.ConfigValue<Boolean> doMerchantTradeChaosCubedContents;
+    public final ConfigBuilder.ConfigValue<Boolean> hasBounceMusicDisc;
 
     public CommonConfig(ConfigBuilder builder) {
         builder.push("Armored Paws");
@@ -76,6 +87,8 @@ public class CommonConfig {
             .define("creaking_particle_color", 6250335);
         this.creakingParticleReverseColor = builder.comment("creaking heart trail particle reverse color (orange by default)")
             .define("creaking_particle_reverse_color", 16545810);
+        this.doCreakingHeartsWorkOnDay = builder.comment("allow Creaking Hearts to generate Creakings even during the day")
+            .define("do_creaking_hearts_work_on_day", false);
         builder.pop();
 
         builder.push("Spring to Life");
@@ -119,6 +132,17 @@ public class CommonConfig {
         builder.push("Hot as Lava");
         this.hasLavaChickenMusicDisc = builder.comment("allows chicken jockeys to drop the lava chicken music disc")
             .define("lava_chicken_music_disc", true);
+        builder.pop();
+
+        builder.push("Chaos Cubed");
+        this.hasSulfurCaves = builder.comment("allow the generation of Sulfur Cave biomes").define("has_sulfur_caves", true);
+        this.hasSulfurSprings = builder.comment("allow the generation of Sulfur Springs on top of Sulfur Caves").define("has_sulfur_springs", true);
+        this.doGeysersErupt = builder.comment("allow Potent Sulfur Blocks to generate Geysers").define("do_geysers_erupt", true);
+        this.hasSulfurCubes = builder.comment("allow Sulfur Cubes to spawn on Sulfur Caves").define("has_sulfur_cubes", true);
+        this.doSulfurCubesExplode = builder.comment("allow Sulfur Cubes with exploding archetypes to explode").define("do_sulfur_cubes_explode", true);
+        this.doSulfurCubesDealDamage = builder.comment("allow Sulfur Cubes with damaging archetypes to deal damage").define("do_sulfur_cubes_damage", true);
+        this.doMerchantTradeChaosCubedContents = builder.comment("allow Wanderer traders to sell contents from Chaos Cubed").define("do_merchant_trade_chaos_cubed_contents", true);
+        this.hasBounceMusicDisc = builder.comment("allows the bounce music disc to generate on abandoned mineshafts").define("has_bounce_music_disc", true);
         builder.pop();
     }
 }

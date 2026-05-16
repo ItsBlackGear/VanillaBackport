@@ -10,6 +10,7 @@ import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 
 import java.util.function.Function;
@@ -53,7 +54,7 @@ public class LivingEntityEmissiveLayer<T extends LivingEntity, M extends Hierarc
     ) {
         if (!entity.isInvisible() || this.alwaysVisible) {
             float alpha = this.alphaFunction.apply(entity, ageInTicks);
-            if (alpha > 1.0E-5F) {
+            if (alpha > Mth.EPSILON) {
                 RenderType renderType = this.bufferProvider.apply(this.textureProvider.apply(entity));
                 this.model.prepareMobModel(entity, limbSwing, limbSwingAmount, partialTick);
                 this.model.setupAnim(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
@@ -63,6 +64,7 @@ public class LivingEntityEmissiveLayer<T extends LivingEntity, M extends Hierarc
         }
     }
 
+    @Environment(EnvType.CLIENT)
     public interface AlphaFunction<T extends LivingEntity> {
         float apply(T entity, float ageInTicks);
     }

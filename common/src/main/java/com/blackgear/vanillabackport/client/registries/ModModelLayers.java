@@ -28,6 +28,10 @@ public class ModModelLayers {
     public static final ModelLayerLocation HAPPY_GHAST_HARNESS = register("happy_ghast", "harness");
     public static final ModelLayerLocation HAPPY_GHAST_ROPES = register("happy_ghast", "ropes");
 
+    // CHAOS CUBED
+    public static final ModelLayerLocation SULFUR_CUBE = register("sulfur_cube");
+    public static final ModelLayerLocation SULFUR_CUBE_INNER = register("sulfur_cube", "inner");
+
     private static ModelLayerLocation register(String name) {
         return register(name, "main");
     }

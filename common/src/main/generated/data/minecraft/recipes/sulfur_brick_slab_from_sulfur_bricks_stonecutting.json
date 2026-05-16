@@ -1,0 +1,8 @@
+{
+  "type": "minecraft:stonecutting",
+  "count": 2,
+  "ingredient": {
+    "item": "minecraft:sulfur_bricks"
+  },
+  "result": "minecraft:sulfur_brick_slab"
+}

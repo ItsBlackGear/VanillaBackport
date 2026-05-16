@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "minecraft:pale_garden"
+    "minecraft:pale_garden",
+    "minecraft:sulfur_caves"
   ]
 }

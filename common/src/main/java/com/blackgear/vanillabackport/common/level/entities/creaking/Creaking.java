@@ -4,7 +4,7 @@ import com.blackgear.vanillabackport.client.registries.ModParticles;
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
 import com.blackgear.vanillabackport.common.level.blockentities.CreakingHeartBlockEntity;
 import com.blackgear.vanillabackport.common.level.blocks.CreakingHeartBlock;
-import com.blackgear.vanillabackport.common.level.blocks.blockstates.CreakingHeartState;
+import com.blackgear.vanillabackport.common.level.blocks.states.CreakingHeartState;
 import com.blackgear.vanillabackport.common.registries.ModBlocks;
 import com.mojang.serialization.Dynamic;
 import net.minecraft.core.BlockPos;

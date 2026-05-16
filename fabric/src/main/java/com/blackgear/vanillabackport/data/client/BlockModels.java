@@ -4,7 +4,7 @@ import com.blackgear.vanillabackport.common.level.blocks.CreakingHeartBlock;
 import com.blackgear.vanillabackport.common.level.blocks.DriedGhastBlock;
 import com.blackgear.vanillabackport.common.level.blocks.HangingMossBlock;
 import com.blackgear.vanillabackport.common.level.blocks.MossyCarpetBlock;
-import com.blackgear.vanillabackport.common.level.blocks.blockstates.CreakingHeartState;
+import com.blackgear.vanillabackport.common.level.blocks.states.CreakingHeartState;
 import com.blackgear.vanillabackport.common.registries.ModBlocks;
 import com.blackgear.vanillabackport.data.client.model.ModelTemplates;
 import com.blackgear.vanillabackport.data.client.model.TextureMappings;

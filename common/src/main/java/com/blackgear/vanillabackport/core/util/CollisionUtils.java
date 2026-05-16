@@ -1,11 +1,18 @@
 package com.blackgear.vanillabackport.core.util;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.EntityCollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -66,5 +73,38 @@ public class CollisionUtils {
         }
 
         return false;
+    }
+
+    public static CollisionContext positionContext(double y) {
+        return new PositionCollisionContext(y);
+    }
+
+    private static class PositionCollisionContext extends EntityCollisionContext {
+        private final double y;
+
+        private PositionCollisionContext(double y) {
+            super(false, -Double.MAX_VALUE, ItemStack.EMPTY, fluidState -> false, null);
+            this.y = y;
+        }
+
+        @Override
+        public boolean isDescending() {
+            return false;
+        }
+
+        @Override
+        public boolean isAbove(VoxelShape shape, BlockPos pos, boolean canAscend) {
+            return this.y > pos.getY() + shape.max(Direction.Axis.Y) - Mth.EPSILON;
+        }
+
+        @Override
+        public boolean isHoldingItem(Item item) {
+            return false;
+        }
+
+        @Override
+        public boolean canStandOnFluid(FluidState fluid1, FluidState fluid2) {
+            return false;
+        }
     }
 }

@@ -1,9 +1,12 @@
 package com.blackgear.vanillabackport.data;
 
 import com.blackgear.vanillabackport.common.registries.ModBiomes;
+import com.blackgear.vanillabackport.common.registries.ModNoises;
 import com.blackgear.vanillabackport.common.registries.ModTrimMaterials;
+import com.blackgear.vanillabackport.common.worldgen.features.ChaosCubedFeatures;
 import com.blackgear.vanillabackport.common.worldgen.features.SpringToLifeFeatures;
 import com.blackgear.vanillabackport.common.worldgen.features.TheGardenAwakensFeatures;
+import com.blackgear.vanillabackport.common.worldgen.placements.ChaosCubedPlacements;
 import com.blackgear.vanillabackport.common.worldgen.placements.SpringToLifePlacements;
 import com.blackgear.vanillabackport.common.worldgen.placements.TheGardenAwakensPlacements;
 import com.blackgear.vanillabackport.data.client.LangGenerator;
@@ -12,6 +15,7 @@ import com.blackgear.vanillabackport.data.client.colors.LeafColorGenerator;
 import com.blackgear.vanillabackport.data.server.advancement.AdvancementGenerator;
 import com.blackgear.vanillabackport.data.server.builder.*;
 import com.blackgear.vanillabackport.data.server.loot.BlockLootGenerator;
+import com.blackgear.vanillabackport.data.server.loot.EntityLootGenerator;
 import com.blackgear.vanillabackport.data.server.loot.GiftLootGenerator;
 import com.blackgear.vanillabackport.data.server.recipe.RecipeGenerator;
 import com.blackgear.vanillabackport.data.server.tags.*;
@@ -35,6 +39,7 @@ public class DataGenerator implements DataGeneratorEntrypoint {
 
         pack.addProvider(GiftLootGenerator::new);
         pack.addProvider(BlockLootGenerator::new);
+        pack.addProvider(EntityLootGenerator::new);
 
         pack.addProvider(RecipeGenerator::new);
 
@@ -42,10 +47,12 @@ public class DataGenerator implements DataGeneratorEntrypoint {
         pack.addProvider(BlockTagGenerator::new);
         pack.addProvider(ItemTagGenerator::new);
         pack.addProvider(EntityTypeTagGenerator::new);
+        pack.addProvider(DamageTypeTagGenerator::new);
         pack.addProvider(PaintingVariantTagGenerator::new);
 
         pack.addProvider(TrimMaterialGenerator::new);
         pack.addProvider(BiomeGenerator::new);
+        pack.addProvider(NoiseGenerator::new);
         pack.addProvider(ConfiguredFeatureGenerator::new);
         pack.addProvider(PlacedFeatureGenerator::new);
     }
@@ -54,9 +61,12 @@ public class DataGenerator implements DataGeneratorEntrypoint {
     public void buildRegistry(RegistrySetBuilder builder) {
         builder.add(Registries.TRIM_MATERIAL, ModTrimMaterials::bootstrap);
         builder.add(Registries.BIOME, ModBiomes::bootstrap);
+        builder.add(Registries.NOISE, ModNoises.NOISES::bootstrap);
         builder.add(Registries.CONFIGURED_FEATURE, SpringToLifeFeatures::bootstrap);
         builder.add(Registries.CONFIGURED_FEATURE, TheGardenAwakensFeatures::bootstrap);
+        builder.add(Registries.CONFIGURED_FEATURE, ChaosCubedFeatures::bootstrap);
         builder.add(Registries.PLACED_FEATURE, SpringToLifePlacements::bootstrap);
         builder.add(Registries.PLACED_FEATURE, TheGardenAwakensPlacements::bootstrap);
+        builder.add(Registries.PLACED_FEATURE, ChaosCubedPlacements::bootstrap);
     }
 }

@@ -2,9 +2,10 @@ package com.blackgear.vanillabackport.common.level.blocks;
 
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
 import com.blackgear.vanillabackport.common.level.blockentities.CreakingHeartBlockEntity;
-import com.blackgear.vanillabackport.common.level.blocks.blockstates.CreakingHeartState;
+import com.blackgear.vanillabackport.common.level.blocks.states.CreakingHeartState;
 import com.blackgear.vanillabackport.common.registries.ModBlockEntities;
 import com.blackgear.vanillabackport.common.registries.ModBlockStateProperties;
+import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.blackgear.vanillabackport.core.data.tags.ModBlockTags;
 import com.blackgear.vanillabackport.core.util.LevelUtils;
 import net.minecraft.core.BlockPos;
@@ -65,7 +66,7 @@ public class CreakingHeartBlock extends BaseEntityBlock {
 
     @Override
     public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
-        if (isNaturalNight(level)) {
+        if (VanillaBackport.COMMON_CONFIG.doCreakingHeartsWorkOnDay.get() || isNaturalNight(level)) {
             if (state.getValue(STATE) != CreakingHeartState.UPROOTED) {
                 if (random.nextInt(16) == 0 && isSurroundedByLogs(level, pos)) {
                     level.playLocalSound(pos.getX(), pos.getY(), pos.getZ(), ModSoundEvents.CREAKING_HEART_IDLE.get(), SoundSource.BLOCKS, 1.0F, 1.0F, false);
@@ -97,7 +98,7 @@ public class CreakingHeartBlock extends BaseEntityBlock {
         boolean hasRequiredLogs = hasRequiredLogs(state, level, pos);
         boolean isUprooted = state.getValue(STATE) == CreakingHeartState.UPROOTED;
         return hasRequiredLogs && isUprooted
-            ? state.setValue(STATE, isNaturalNight(level) ? CreakingHeartState.AWAKE : CreakingHeartState.DORMANT)
+            ? state.setValue(STATE, VanillaBackport.COMMON_CONFIG.doCreakingHeartsWorkOnDay.get() || isNaturalNight(level) ? CreakingHeartState.AWAKE : CreakingHeartState.DORMANT)
             : state;
     }
 
@@ -116,9 +117,9 @@ public class CreakingHeartBlock extends BaseEntityBlock {
 
     private static Direction[] directions(Direction.Axis axis) {
         return switch (axis) {
-            case X -> new Direction[]{Direction.NORTH, Direction.SOUTH};
+            case X -> new Direction[]{Direction.EAST, Direction.WEST};
             case Y -> new Direction[]{Direction.UP, Direction.DOWN};
-            case Z -> new Direction[]{Direction.EAST, Direction.WEST};
+            case Z -> new Direction[]{Direction.NORTH, Direction.SOUTH};
         };
     }
 

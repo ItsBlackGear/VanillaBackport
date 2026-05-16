@@ -2,6 +2,7 @@ package com.blackgear.vanillabackport.core.fabric.mixin;
 
 import com.bawnorton.mixinsquared.TargetHandler;
 import com.blackgear.platform.core.fabric.CoreRegistryImpl;
+import com.blackgear.platform.core.api.registrar.fabric.RegistrarImpl;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.core.MappedRegistry;
@@ -30,11 +31,13 @@ public abstract class MappedRegistryMixin<T> {
         Set<String> vanillaNamespaces,
         Object namespace,
         Operation<Boolean> original,
-        ResourceKey<T> registryKey
+        ResourceKey<T> key
     ) {
         boolean isVanillaNamespace = original.call(vanillaNamespaces, namespace);
-        if (isVanillaNamespace && CoreRegistryImpl.REGISTERED_KEYS.contains(registryKey)) {
-            return false;
+        if (isVanillaNamespace) {
+            if (CoreRegistryImpl.REGISTERED_KEYS.contains(key) || RegistrarImpl.VANILLA_ENTRIES.contains(key)) {
+                return false;
+            }
         }
 
         return isVanillaNamespace;

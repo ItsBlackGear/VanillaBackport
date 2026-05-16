@@ -10,7 +10,9 @@ import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.*;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -20,6 +22,31 @@ public final class BundleFeatures {
     public static final int MAX_WEIGHT = 64;
     private static final int BUNDLE_IN_BUNDLE_WEIGHT = 4;
     private static final int NO_SELECTED_ITEM = -1;
+
+    public static final Map<DyeColor, Item> BUNDLES_BY_DYE = new HashMap<>();
+
+    static {
+        register(DyeColor.WHITE, ModItems.WHITE_BUNDLE.get());
+        register(DyeColor.ORANGE, ModItems.ORANGE_BUNDLE.get());
+        register(DyeColor.MAGENTA, ModItems.MAGENTA_BUNDLE.get());
+        register(DyeColor.LIGHT_BLUE, ModItems.LIGHT_BLUE_BUNDLE.get());
+        register(DyeColor.YELLOW, ModItems.YELLOW_BUNDLE.get());
+        register(DyeColor.LIME, ModItems.LIME_BUNDLE.get());
+        register(DyeColor.PINK, ModItems.PINK_BUNDLE.get());
+        register(DyeColor.GRAY, ModItems.GRAY_BUNDLE.get());
+        register(DyeColor.LIGHT_GRAY, ModItems.LIGHT_GRAY_BUNDLE.get());
+        register(DyeColor.CYAN, ModItems.CYAN_BUNDLE.get());
+        register(DyeColor.PURPLE, ModItems.PURPLE_BUNDLE.get());
+        register(DyeColor.BLUE, ModItems.BLUE_BUNDLE.get());
+        register(DyeColor.BROWN, ModItems.BROWN_BUNDLE.get());
+        register(DyeColor.GREEN, ModItems.GREEN_BUNDLE.get());
+        register(DyeColor.RED, ModItems.RED_BUNDLE.get());
+        register(DyeColor.BLACK, ModItems.BLACK_BUNDLE.get());
+    }
+
+    public static void register(DyeColor dyeColor, Item item) {
+        BUNDLES_BY_DYE.put(dyeColor, item);
+    }
 
     public static boolean onBundleUpdate() {
         return VanillaBackport.COMMON_CONFIG.hasUpdatedBundles.get();
@@ -257,24 +284,6 @@ public final class BundleFeatures {
     }
 
     public static Item getByColor(DyeColor dyeColor) {
-        return switch (dyeColor) {
-            case WHITE -> ModItems.WHITE_BUNDLE.get();
-            case ORANGE -> ModItems.ORANGE_BUNDLE.get();
-            case MAGENTA -> ModItems.MAGENTA_BUNDLE.get();
-            case LIGHT_BLUE -> ModItems.LIGHT_BLUE_BUNDLE.get();
-            case YELLOW -> ModItems.YELLOW_BUNDLE.get();
-            case LIME -> ModItems.LIME_BUNDLE.get();
-            case PINK -> ModItems.PINK_BUNDLE.get();
-            case GRAY -> ModItems.GRAY_BUNDLE.get();
-            case LIGHT_GRAY -> ModItems.LIGHT_GRAY_BUNDLE.get();
-            case CYAN -> ModItems.CYAN_BUNDLE.get();
-            case BLUE -> ModItems.BLUE_BUNDLE.get();
-            case BROWN -> ModItems.BROWN_BUNDLE.get();
-            case GREEN -> ModItems.GREEN_BUNDLE.get();
-            case RED -> ModItems.RED_BUNDLE.get();
-            case BLACK -> ModItems.BLACK_BUNDLE.get();
-            case PURPLE -> ModItems.PURPLE_BUNDLE.get();
-            default -> Items.BUNDLE;
-        };
+        return BUNDLES_BY_DYE.getOrDefault(dyeColor, Items.BUNDLE);
     }
 }

@@ -2,6 +2,7 @@ package com.blackgear.vanillabackport.core;
 
 import com.blackgear.platform.core.Environment;
 import com.blackgear.platform.core.ModInstance;
+import com.blackgear.platform.core.api.registrar.Registrar;
 import com.blackgear.platform.core.util.config.ConfigLoader;
 import com.blackgear.platform.core.util.config.ModConfig;
 import com.blackgear.vanillabackport.client.ClientConfig;
@@ -14,16 +15,21 @@ import com.blackgear.vanillabackport.common.CommonConfig;
 import com.blackgear.vanillabackport.common.CommonSetup;
 import com.blackgear.vanillabackport.common.api.variant.spawn.SpawnConditions;
 import com.blackgear.vanillabackport.common.level.entities.animal.*;
+import com.blackgear.vanillabackport.common.level.entities.sulfurcube.SulfurCubeArchetypes;
 import com.blackgear.vanillabackport.common.level.entities.wolf.WolfVariants;
 import com.blackgear.vanillabackport.common.registries.*;
+import com.blackgear.vanillabackport.common.worldgen.features.ChaosCubedFeatures;
 import com.blackgear.vanillabackport.common.worldgen.features.SpringToLifeFeatures;
 import com.blackgear.vanillabackport.common.worldgen.features.TheGardenAwakensFeatures;
+import com.blackgear.vanillabackport.common.worldgen.placements.ChaosCubedPlacements;
 import com.blackgear.vanillabackport.common.worldgen.placements.SpringToLifePlacements;
 import com.blackgear.vanillabackport.common.worldgen.placements.TheGardenAwakensPlacements;
 import com.blackgear.vanillabackport.core.data.tags.*;
 import com.blackgear.vanillabackport.core.network.NetworkHandler;
 import com.blackgear.vanillabackport.core.registries.ModBuiltinRegistries;
+import com.blackgear.vanillabackport.core.registries.ModRegistries;
 import com.mojang.logging.LogUtils;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import org.slf4j.Logger;
 
@@ -31,8 +37,8 @@ public final class VanillaBackport {
     public static final String MOD_ID = "vanillabackport";
     public static final String NAMESPACE = "minecraft";
     public static final Logger LOGGER = LogUtils.getLogger();
-    public static final ClientConfig CLIENT_CONFIG = Environment.registerSafeConfig(MOD_ID, ModConfig.Type.CLIENT, ClientConfig::new);
-    public static final CommonConfig COMMON_CONFIG = Environment.registerSafeConfig(MOD_ID, ModConfig.Type.COMMON, CommonConfig::new);
+    public static final ClientConfig CLIENT_CONFIG = Environment.registerConfig(MOD_ID, ModConfig.Type.CLIENT, ClientConfig::new);
+    public static final CommonConfig COMMON_CONFIG = Environment.registerConfig(MOD_ID, ModConfig.Type.COMMON, CommonConfig::new);
     public static final ModInstance INSTANCE = ModInstance.create(MOD_ID)
         .client(ClientSetup::setup)
         .postClient(ClientSetup::asyncSetup)
@@ -52,6 +58,11 @@ public final class VanillaBackport {
         ModBiomeTags.TAGS.register();
         ModBiomeTags.CONVENTIONAL.register();
         ModEntityTypeTags.TAGS.register();
+        ModDamageTypeTags.TAGS.register();
+
+        ModValueProviders.VALUE_PROVIDERS.register();
+        ModMaterialRules.MATERIALS.registrar();
+        ModMaterialConditions.MATERIALS.registrar();
 
         ModParticles.PARTICLES.register();
 
@@ -59,8 +70,12 @@ public final class VanillaBackport {
         ModItems.ITEMS.register();
         ModBlockEntities.BLOCK_ENTITIES.register();
         ModEntities.ENTITIES.register();
+        Registrar.bind(BuiltInRegistries.ENTITY_TYPE, ModEntityTypes::bootstrap);
         ModMemoryModules.REGISTRAR.register();
         ModSensorTypes.SENSOR_TYPES.register();
+
+        ModAttributes.ATTRIBUTES.registrar();
+        SulfurCubeArchetypes.REGISTRY.register();
 
         ModSoundEvents.SOUNDS.register();
         ModSoundTypes.SOUNDS.register();
@@ -76,18 +91,21 @@ public final class VanillaBackport {
         PigVariants.REGISTRY.register();
         FrogDataVariants.REGISTRY.register();
         CatDataVariants.REGISTRY.register();
-        SpawnConditions.CONDITIONS.register();
+        SpawnConditions.CONDITIONS.registrar();
 
         ModBiomes.BIOMES.register();
         ModFeatures.FEATURES.register();
         ModTreeDecorators.DECORATORS.register();
+
         SpringToLifeFeatures.FEATURES.register();
         TheGardenAwakensFeatures.FEATURES.register();
+        ChaosCubedFeatures.FEATURES.register();
+
         SpringToLifePlacements.FEATURES.register();
         TheGardenAwakensPlacements.FEATURES.register();
+        ChaosCubedPlacements.FEATURES.register();
 
         ModEntityDataSerializers.SERIALIZERS.register();
-        //DataTransformation.bootstrap();
     }
 
     public static ResourceLocation resource(String path) {
