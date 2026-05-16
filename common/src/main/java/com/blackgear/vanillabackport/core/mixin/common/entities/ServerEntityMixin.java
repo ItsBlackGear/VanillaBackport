@@ -1,13 +1,14 @@
 package com.blackgear.vanillabackport.core.mixin.common.entities;
 
-import com.blackgear.vanillabackport.common.level.entities.happyghast.HappyGhast;
+import com.blackgear.vanillabackport.common.api.extensions.PositionAwareEntity;
+import com.blackgear.vanillabackport.core.util.MathUtils;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.*;
 import net.minecraft.server.level.ServerEntity;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -22,15 +23,15 @@ import java.util.stream.Stream;
 
 @Mixin(ServerEntity.class)
 public abstract class ServerEntityMixin {
-    @Shadow private int tickCount;
-    @Shadow private int lastSentXRot;
+    @Shadow private Vec3 lastSentMovement;
     @Shadow private int lastSentYRot;
+    @Shadow private int lastSentXRot;
+    @Shadow private int tickCount;
+    @Shadow private int lastSentYHeadRot;
     @Shadow private int teleportDelay;
     @Shadow private boolean wasRiding;
     @Shadow private boolean wasOnGround;
     @Shadow @Final private Entity entity;
-    @Shadow private int lastSentYHeadRot;
-    @Shadow private Vec3 lastSentMovement;
     @Shadow @Final private int updateInterval;
     @Shadow @Final private boolean trackDelta;
     @Shadow private List<Entity> lastPassengers;
@@ -46,7 +47,7 @@ public abstract class ServerEntityMixin {
         cancellable = true
     )
     private void onSendChanges(CallbackInfo ci) {
-        if (this.entity instanceof HappyGhast ghast) {
+        if (this.entity instanceof PositionAwareEntity mob) {
             List<Entity> passengers = this.entity.getPassengers();
             if (!passengers.equals(this.lastPassengers)) {
                 this.broadcast.accept(new ClientboundSetPassengersPacket(this.entity));
@@ -60,11 +61,20 @@ public abstract class ServerEntityMixin {
             }
 
             if (this.tickCount % this.updateInterval == 0 || this.entity.hasImpulse || this.entity.getEntityData().isDirty()) {
-                byte yRot = (byte) Mth.floor(this.entity.getYRot() * 256.0F / 360.0F);
-                byte xRot = (byte) Mth.floor(this.entity.getXRot() * 256.0F / 360.0F);
+                byte yRot = MathUtils.packDegrees(this.entity.getYRot());
+                byte xRot = MathUtils.packDegrees(this.entity.getXRot());
                 boolean shouldSendRotation = Math.abs(yRot - this.lastSentYRot) >= 1 || Math.abs(xRot - this.lastSentXRot) >= 1;
+                if (this.entity.isPassenger()) {
+                    if (shouldSendRotation) {
+                        this.broadcastAndSend(new ClientboundMoveEntityPacket.Rot(this.entity.getId(), yRot, xRot, this.entity.onGround()));
+                        this.lastSentYRot = yRot;
+                        this.lastSentXRot = xRot;
+                    }
 
-                if (!this.entity.isPassenger()) {
+                    this.positionCodec.setBase(this.entity.trackingPosition());
+                    this.sendDirtyEntityData();
+                    this.wasRiding = true;
+                } else {
                     this.teleportDelay++;
                     Vec3 currentPosition = this.entity.trackingPosition();
                     boolean positionChanged = this.positionCodec.delta(currentPosition).lengthSqr() >= 7.6293945E-6F;
@@ -76,14 +86,13 @@ public abstract class ServerEntityMixin {
                     long y = this.positionCodec.encodeY(currentPosition);
                     long z = this.positionCodec.encodeZ(currentPosition);
                     boolean deltaTooBig = x < -32768L || x > 32767L || y < -32768L || y > 32767L || z < -32768L || z > 32767L;
-
-                    if (ghast.getRequiresPrecisePosition() || deltaTooBig || this.teleportDelay > 400 || this.wasRiding || this.wasOnGround != this.entity.onGround()) {
+                    if (mob.getRequiresPrecisePosition() || deltaTooBig || this.teleportDelay > 400 || this.wasRiding || this.wasOnGround != this.entity.onGround()) {
                         this.wasOnGround = this.entity.onGround();
                         this.teleportDelay = 0;
                         packet = new ClientboundTeleportEntityPacket(this.entity);
                         sendPosition = true;
                         sendRotation = true;
-                    } else if (!pos || !shouldSendRotation) {
+                    } else if ((!pos || !shouldSendRotation) && !(this.entity instanceof AbstractArrow)) {
                         if (pos) {
                             packet = new ClientboundMoveEntityPacket.Pos(this.entity.getId(), (short) x, (short) y, (short) z, this.entity.onGround());
                             sendPosition = true;
@@ -97,9 +106,10 @@ public abstract class ServerEntityMixin {
                         sendRotation = true;
                     }
 
-                    if (this.trackDelta || this.entity.hasImpulse || this.entity instanceof LivingEntity living && living.isFallFlying()) {
+                    if (this.entity.hasImpulse || this.trackDelta || this.entity instanceof LivingEntity living && living.isFallFlying()) {
                         Vec3 movement = this.entity.getDeltaMovement();
                         double diff = movement.distanceToSqr(this.lastSentMovement);
+
                         if (diff > 1.0E-7 || diff > 0.0 && movement.lengthSqr() == 0.0) {
                             this.lastSentMovement = movement;
                             this.broadcast.accept(new ClientboundSetEntityMotionPacket(this.entity.getId(), this.lastSentMovement));
@@ -119,7 +129,7 @@ public abstract class ServerEntityMixin {
                     this.wasRiding = false;
                 }
 
-                byte yHeadRot = (byte) Mth.floor(this.entity.getYHeadRot() * 256.0F / 360.0F);
+                byte yHeadRot = MathUtils.packDegrees(this.entity.getYHeadRot());
                 if (Math.abs(yHeadRot - this.lastSentYHeadRot) >= 1) {
                     this.broadcast.accept(new ClientboundRotateHeadPacket(this.entity, yHeadRot));
                     this.lastSentYHeadRot = yHeadRot;

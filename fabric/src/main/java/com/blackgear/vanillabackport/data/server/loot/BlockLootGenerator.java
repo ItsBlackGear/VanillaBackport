@@ -98,6 +98,36 @@ public class BlockLootGenerator extends FabricBlockLootTableProvider {
         this.dropSelf(ModBlocks.CACTUS_FLOWER.get());
         this.add(ModBlocks.SHORT_DRY_GRASS.get(), this::createShearsOrSilkTouchOnlyDrop);
         this.add(ModBlocks.TALL_DRY_GRASS.get(), this::createShearsOrSilkTouchOnlyDrop);
+
+        // Chaos Cubed
+        this.dropSelf(ModBlocks.SULFUR_SPIKE.get());
+        this.dropSelf(ModBlocks.SULFUR.get());
+        this.dropSelf(ModBlocks.POTENT_SULFUR.get());
+        this.dropSelf(ModBlocks.SULFUR_STAIRS.get());
+        this.add(ModBlocks.SULFUR_SLAB.get(), this::createSlabItemTable);
+        this.dropSelf(ModBlocks.SULFUR_WALL.get());
+        this.dropSelf(ModBlocks.CHISELED_SULFUR.get());
+        this.dropSelf(ModBlocks.POLISHED_SULFUR.get());
+        this.dropSelf(ModBlocks.POLISHED_SULFUR_STAIRS.get());
+        this.add(ModBlocks.POLISHED_SULFUR_SLAB.get(), this::createSlabItemTable);
+        this.dropSelf(ModBlocks.POLISHED_SULFUR_WALL.get());
+        this.dropSelf(ModBlocks.SULFUR_BRICKS.get());
+        this.dropSelf(ModBlocks.SULFUR_BRICK_STAIRS.get());
+        this.add(ModBlocks.SULFUR_BRICK_SLAB.get(), this::createSlabItemTable);
+        this.dropSelf(ModBlocks.SULFUR_BRICK_WALL.get());
+        this.dropSelf(ModBlocks.CINNABAR.get());
+        this.dropSelf(ModBlocks.CINNABAR_STAIRS.get());
+        this.add(ModBlocks.CINNABAR_SLAB.get(), this::createSlabItemTable);
+        this.dropSelf(ModBlocks.CINNABAR_WALL.get());
+        this.dropSelf(ModBlocks.CHISELED_CINNABAR.get());
+        this.dropSelf(ModBlocks.POLISHED_CINNABAR.get());
+        this.dropSelf(ModBlocks.POLISHED_CINNABAR_STAIRS.get());
+        this.add(ModBlocks.POLISHED_CINNABAR_SLAB.get(), this::createSlabItemTable);
+        this.dropSelf(ModBlocks.POLISHED_CINNABAR_WALL.get());
+        this.dropSelf(ModBlocks.CINNABAR_BRICKS.get());
+        this.dropSelf(ModBlocks.CINNABAR_BRICK_STAIRS.get());
+        this.add(ModBlocks.CINNABAR_BRICK_SLAB.get(), this::createSlabItemTable);
+        this.dropSelf(ModBlocks.CINNABAR_BRICK_WALL.get());
     }
 
     protected LootTable.Builder createMultifaceBlockDrops(Block block) {

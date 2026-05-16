@@ -1,0 +1,17 @@
+{
+  "values": [
+    "#minecraft:is_hill",
+    "#minecraft:is_river",
+    "minecraft:forest",
+    "minecraft:birch_forest",
+    "minecraft:old_growth_birch_forest",
+    {
+      "id": "#c:is_plains",
+      "required": false
+    },
+    {
+      "id": "#c:plains",
+      "required": false
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "values": [
+    "#minecraft:is_beach",
+    "#minecraft:is_river",
+    "#minecraft:is_taiga",
+    "#minecraft:is_forest",
+    "#minecraft:is_ocean",
+    "#minecraft:is_savanna",
+    "#minecraft:is_hill",
+    "#minecraft:is_jungle",
+    "#minecraft:is_badlands",
+    {
+      "id": "#c:is_plains",
+      "required": false
+    },
+    {
+      "id": "#c:plains",
+      "required": false
+    },
+    {
+      "id": "#c:is_mushroom",
+      "required": false
+    },
+    {
+      "id": "#c:mushroom",
+      "required": false
+    },
+    "minecraft:mangrove_swamp"
+  ]
+}

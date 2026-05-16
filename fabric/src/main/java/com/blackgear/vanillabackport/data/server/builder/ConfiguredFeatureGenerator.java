@@ -1,5 +1,6 @@
 package com.blackgear.vanillabackport.data.server.builder;
 
+import com.blackgear.vanillabackport.common.worldgen.features.ChaosCubedFeatures;
 import com.blackgear.vanillabackport.common.worldgen.features.SpringToLifeFeatures;
 import com.blackgear.vanillabackport.common.worldgen.features.TheGardenAwakensFeatures;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -49,6 +50,13 @@ public class ConfiguredFeatureGenerator extends FabricDynamicRegistryProvider {
         this.add(provider, entries, SpringToLifeFeatures.FALLEN_SUPER_BIRCH_TREE);
         this.add(provider, entries, SpringToLifeFeatures.FALLEN_JUNGLE_TREE);
         this.add(provider, entries, SpringToLifeFeatures.FALLEN_SPRUCE_TREE);
+
+        // Chaos Cubed
+        this.add(provider, entries, ChaosCubedFeatures.SULFUR_POOL);
+        this.add(provider, entries, ChaosCubedFeatures.SULFUR_SPRING);
+        this.add(provider, entries, ChaosCubedFeatures.ROOTED_SULFUR_SPRING);
+        this.add(provider, entries, ChaosCubedFeatures.SULFUR_SPIKE_CLUSTER);
+        this.add(provider, entries, ChaosCubedFeatures.SULFUR_SPIKE);
     }
 
     private void add(HolderLookup.Provider provider, Entries entries, ResourceKey<ConfiguredFeature<?, ?>> key) {

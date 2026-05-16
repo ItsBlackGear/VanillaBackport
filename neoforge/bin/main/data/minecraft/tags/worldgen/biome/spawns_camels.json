@@ -1,0 +1,12 @@
+{
+  "values": [
+    {
+      "id": "#c:desert",
+      "required": false
+    },
+    {
+      "id": "#c:is_desert",
+      "required": false
+    }
+  ]
+}

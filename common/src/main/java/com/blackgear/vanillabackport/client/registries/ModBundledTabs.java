@@ -160,6 +160,46 @@ public class ModBundledTabs {
             .build()
     );
 
+    public static final BundledTabs CHAOS_CUBED = register(
+        BundledTabs.builder()
+            .title(Component.translatable("bundled_tab.chaos_cubed.title"))
+            .icon(new ItemStack(ModItems.SULFUR_CUBE_BUCKET.get()))
+            .displayItems((provider, output) -> {
+                output.accept(ModBlocks.CINNABAR.get());
+                output.accept(ModBlocks.CINNABAR_SLAB.get());
+                output.accept(ModBlocks.CINNABAR_STAIRS.get());
+                output.accept(ModBlocks.CINNABAR_WALL.get());
+                output.accept(ModBlocks.POLISHED_CINNABAR.get());
+                output.accept(ModBlocks.POLISHED_CINNABAR_SLAB.get());
+                output.accept(ModBlocks.POLISHED_CINNABAR_STAIRS.get());
+                output.accept(ModBlocks.POLISHED_CINNABAR_WALL.get());
+                output.accept(ModBlocks.CINNABAR_BRICKS.get());
+                output.accept(ModBlocks.CINNABAR_BRICK_SLAB.get());
+                output.accept(ModBlocks.CINNABAR_BRICK_STAIRS.get());
+                output.accept(ModBlocks.CINNABAR_BRICK_WALL.get());
+                output.accept(ModBlocks.CHISELED_CINNABAR.get());
+                output.accept(ModBlocks.POTENT_SULFUR.get());
+                output.accept(ModBlocks.SULFUR.get());
+                output.accept(ModBlocks.SULFUR_SLAB.get());
+                output.accept(ModBlocks.SULFUR_STAIRS.get());
+                output.accept(ModBlocks.SULFUR_WALL.get());
+                output.accept(ModBlocks.POLISHED_SULFUR.get());
+                output.accept(ModBlocks.POLISHED_SULFUR_SLAB.get());
+                output.accept(ModBlocks.POLISHED_SULFUR_STAIRS.get());
+                output.accept(ModBlocks.POLISHED_SULFUR_WALL.get());
+                output.accept(ModBlocks.SULFUR_BRICKS.get());
+                output.accept(ModBlocks.SULFUR_BRICK_SLAB.get());
+                output.accept(ModBlocks.SULFUR_BRICK_STAIRS.get());
+                output.accept(ModBlocks.SULFUR_BRICK_WALL.get());
+                output.accept(ModBlocks.CHISELED_SULFUR.get());
+                output.accept(ModBlocks.SULFUR_SPIKE.get());
+                output.accept(ModItems.SULFUR_CUBE_BUCKET.get());
+                output.accept(ModItems.SULFUR_CUBE_SPAWN_EGG.get());
+                output.accept(ModItems.MUSIC_DISC_BOUNCE.get());
+            })
+            .build()
+    );
+
     public static BundledTabs register(BundledTabs builder) {
         FILTERS.put(builder, FeatureFlag.DEFAULT);
         return builder;

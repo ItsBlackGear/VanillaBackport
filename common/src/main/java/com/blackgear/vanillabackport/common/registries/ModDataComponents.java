@@ -16,7 +16,7 @@ public class ModDataComponents {
 
     public static final Supplier<DataComponentType<ResourceKey<ChickenVariant>>> CHICKEN_VARIANT = register(
         "chicken/variant",
-        builder -> builder.persistent(ResourceKey.codec(ModRegistries.CHICKEN_VARIANT_KEY)).networkSynchronized(ResourceKey.streamCodec(ModRegistries.CHICKEN_VARIANT_KEY))
+        builder -> builder.persistent(ResourceKey.codec(ModRegistries.CHICKEN_VARIANT.key())).networkSynchronized(ResourceKey.streamCodec(ModRegistries.CHICKEN_VARIANT.key()))
     );
 
     public static <T> Supplier<DataComponentType<T>> register(String key, UnaryOperator<DataComponentType.Builder<T>> operator) {

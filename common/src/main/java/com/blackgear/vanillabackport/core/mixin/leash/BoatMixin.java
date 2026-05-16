@@ -1,7 +1,6 @@
 package com.blackgear.vanillabackport.core.mixin.leash;
 
 import com.blackgear.vanillabackport.common.api.leash.InterpolationHandler;
-import com.blackgear.vanillabackport.common.api.leash.LeashExtension;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.vehicle.Boat;
@@ -14,7 +13,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Boat.class)
-public abstract class BoatMixin extends Entity implements LeashExtension {
+public abstract class BoatMixin extends Entity {
     @Unique private final InterpolationHandler interpolation = new InterpolationHandler(this, 3);
 
     public BoatMixin(EntityType<?> entityType, Level level) {

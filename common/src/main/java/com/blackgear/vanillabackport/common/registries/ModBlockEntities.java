@@ -3,6 +3,7 @@ package com.blackgear.vanillabackport.common.registries;
 import com.blackgear.platform.core.helper.BlockEntityRegistry;
 import com.blackgear.platform.core.helper.BlockEntityTypeBuilder;
 import com.blackgear.vanillabackport.common.level.blockentities.CreakingHeartBlockEntity;
+import com.blackgear.vanillabackport.common.level.blockentities.PotentSulfurBlockEntity;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 
@@ -16,6 +17,13 @@ public class ModBlockEntities {
         BlockEntityTypeBuilder.create(
             CreakingHeartBlockEntity::new,
             ModBlocks.CREAKING_HEART
+        )
+    );
+    public static final Supplier<BlockEntityType<PotentSulfurBlockEntity>> POTENT_SULFUR = BLOCK_ENTITIES.register(
+        "potent_sulfur",
+        BlockEntityTypeBuilder.create(
+            PotentSulfurBlockEntity::new,
+            ModBlocks.POTENT_SULFUR
         )
     );
 }

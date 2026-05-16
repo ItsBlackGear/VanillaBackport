@@ -1,5 +1,6 @@
 package com.blackgear.vanillabackport.data.server.builder;
 
+import com.blackgear.vanillabackport.common.worldgen.placements.ChaosCubedPlacements;
 import com.blackgear.vanillabackport.common.worldgen.placements.SpringToLifePlacements;
 import com.blackgear.vanillabackport.common.worldgen.placements.TheGardenAwakensPlacements;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -58,6 +59,12 @@ public class PlacedFeatureGenerator extends FabricDynamicRegistryProvider {
         this.add(provider, entries, SpringToLifePlacements.PLACED_FALLEN_JUNGLE_TREE);
         this.add(provider, entries, SpringToLifePlacements.PLACED_FALLEN_SPRUCE_TREE);
         this.add(provider, entries, SpringToLifePlacements.PLACED_RARE_FALLEN_SPRUCE_TREE);
+
+        // Chaos Cubed
+        this.add(provider, entries, ChaosCubedPlacements.SULFUR_POOL);
+        this.add(provider, entries, ChaosCubedPlacements.ROOTED_SULFUR_SPRING);
+        this.add(provider, entries, ChaosCubedPlacements.SULFUR_SPIKE_CLUSTER);
+        this.add(provider, entries, ChaosCubedPlacements.SULFUR_SPIKE);
     }
 
     private void add(HolderLookup.Provider provider, Entries entries, ResourceKey<PlacedFeature> key) {

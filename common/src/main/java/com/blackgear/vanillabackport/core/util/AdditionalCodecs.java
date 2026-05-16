@@ -2,10 +2,12 @@ package com.blackgear.vanillabackport.core.util;
 
 import com.mojang.datafixers.util.Either;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.DataResult;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.ExtraCodecs;
+import net.minecraft.util.valueproviders.FloatProvider;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.function.Function;
@@ -28,5 +30,13 @@ public class AdditionalCodecs {
 
     private static <T, U> Codec<T> withAlternative(Codec<T> primary, Codec<U> alternative, Function<U, T> converter) {
         return Codec.either(primary, alternative).xmap(either -> either.map(t -> t, converter), Either::left);
+    }
+
+    public static Codec<FloatProvider> floatProvider(float minValue) {
+        return FloatProvider.CODEC.validate(
+            value -> value.getMinValue() < minValue
+                ? DataResult.error(() -> "Value provider too low: " + minValue + " [" + value.getMinValue() + "-" + value.getMaxValue() + "]")
+                : DataResult.success(value)
+        );
     }
 }

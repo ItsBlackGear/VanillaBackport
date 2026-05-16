@@ -21,13 +21,15 @@ public interface ModCreativeTabs {
             .title(Component.literal("Vanilla Backport"))
             .icon(() -> new ItemStack(Items.BUNDLE))
             .displayItems((parameters, output) -> {
-                var provider = parameters.holders();
-                List<BundledTabs> tabs = ModBundledTabs.getTabs();
+                synchronized (ModCreativeTabs.class) {
+                    var provider = parameters.holders();
+                    List<BundledTabs> tabs = ModBundledTabs.getTabs();
 
-                tabs.forEach(tab -> tab.populate(provider));
-                tabs.stream()
-                    .flatMap(tab -> tab.getDisplayItems().stream())
-                    .forEach(output::accept);
+                    tabs.forEach(tab -> tab.populate(provider));
+                    tabs.stream()
+                        .flatMap(tab -> tab.getDisplayItems().stream())
+                        .forEach(output::accept);
+                }
             })
             .build()
     );

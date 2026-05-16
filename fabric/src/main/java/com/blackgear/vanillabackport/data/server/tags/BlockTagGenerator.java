@@ -72,8 +72,36 @@ public class BlockTagGenerator extends FabricTagProvider.BlockTagProvider {
                 ModBlocks.RESIN_BRICK_SLAB.get(),
                 ModBlocks.RESIN_BRICK_WALL.get(),
                 ModBlocks.RESIN_BRICK_STAIRS.get(),
-                ModBlocks.CHISELED_RESIN_BRICKS.get()
-            );
+                ModBlocks.CHISELED_RESIN_BRICKS.get(),
+                ModBlocks.CINNABAR.get(),
+                ModBlocks.CINNABAR_SLAB.get(),
+                ModBlocks.CINNABAR_STAIRS.get(),
+                ModBlocks.CINNABAR_WALL.get(),
+                ModBlocks.POLISHED_CINNABAR.get(),
+                ModBlocks.POLISHED_CINNABAR_SLAB.get(),
+                ModBlocks.POLISHED_CINNABAR_STAIRS.get(),
+                ModBlocks.POLISHED_CINNABAR_WALL.get(),
+                ModBlocks.CINNABAR_BRICKS.get(),
+                ModBlocks.CINNABAR_BRICK_SLAB.get(),
+                ModBlocks.CINNABAR_BRICK_STAIRS.get(),
+                ModBlocks.CINNABAR_BRICK_WALL.get(),
+                ModBlocks.CHISELED_CINNABAR.get(),
+                ModBlocks.SULFUR.get(),
+                ModBlocks.POTENT_SULFUR.get(),
+                ModBlocks.SULFUR_SLAB.get(),
+                ModBlocks.SULFUR_STAIRS.get(),
+                ModBlocks.SULFUR_WALL.get(),
+                ModBlocks.POLISHED_SULFUR.get(),
+                ModBlocks.POLISHED_SULFUR_SLAB.get(),
+                ModBlocks.POLISHED_SULFUR_STAIRS.get(),
+                ModBlocks.POLISHED_SULFUR_WALL.get(),
+                ModBlocks.SULFUR_BRICKS.get(),
+                ModBlocks.SULFUR_BRICK_SLAB.get(),
+                ModBlocks.SULFUR_BRICK_STAIRS.get(),
+                ModBlocks.SULFUR_BRICK_WALL.get(),
+                ModBlocks.CHISELED_SULFUR.get()
+            )
+            .forceAddTag(ModBlockTags.SPELEOTHEMS);
 
         this.getOrCreateTagBuilder(BlockTags.REPLACEABLE_BY_TREES)
             .add(
@@ -94,9 +122,9 @@ public class BlockTagGenerator extends FabricTagProvider.BlockTagProvider {
                 Blocks.CACTUS,
                 Blocks.WITHER_ROSE,
                 Blocks.MAGMA_BLOCK,
-                Blocks.FIRE,
-                Blocks.POINTED_DRIPSTONE
-            );
+                Blocks.FIRE
+            )
+            .forceAddTag(ModBlockTags.SPELEOTHEMS);
 
         this.getOrCreateTagBuilder(ModBlockTags.TRIGGERS_AMBIENT_DESERT_SAND_BLOCK_SOUNDS)
             .add(Blocks.SAND, Blocks.RED_SAND);
@@ -137,6 +165,37 @@ public class BlockTagGenerator extends FabricTagProvider.BlockTagProvider {
 
         this.getOrCreateTagBuilder(ModBlockTags.CAMELS_SPAWNABLE_ON)
             .forceAddTag(BlockTags.SAND);
+
+        this.getOrCreateTagBuilder(BlockTags.OVERWORLD_CARVER_REPLACEABLES)
+            .add(
+                ModBlocks.CINNABAR.get(),
+                ModBlocks.SULFUR.get(),
+                ModBlocks.POTENT_SULFUR.get()
+            );
+
+        this.getOrCreateTagBuilder(BlockTags.SCULK_REPLACEABLE)
+            .add(
+                ModBlocks.CINNABAR.get(),
+                ModBlocks.SULFUR.get()
+            );
+
+        this.getOrCreateTagBuilder(ModBlockTags.CAUSES_PERIODIC_GEYSER_ERUPTIONS)
+            .add(Blocks.MAGMA_BLOCK);
+
+        this.getOrCreateTagBuilder(ModBlockTags.CAUSES_CONTINUOUS_GEYSER_ERUPTIONS)
+            .add(Blocks.LAVA);
+
+        this.getOrCreateTagBuilder(ModBlockTags.SPELEOTHEMS)
+            .add(
+                Blocks.POINTED_DRIPSTONE,
+                ModBlocks.SULFUR_SPIKE.get()
+            );
+
+        this.getOrCreateTagBuilder(ModBlockTags.SULFUR_SPIKE_REPLACEABLE)
+            .add(
+                ModBlocks.SULFUR.get(),
+                ModBlocks.CINNABAR.get()
+            );
     }
 
     protected DualTagHolder getDualTagBuilder(TagKey<Block> forge, TagKey<Block> fabric) {

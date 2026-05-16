@@ -94,6 +94,7 @@ public class SpawnEggRenderer implements DynamicItemRenderer.Renderer {
         Items.SQUID_SPAWN_EGG,
         Items.STRAY_SPAWN_EGG,
         Items.STRIDER_SPAWN_EGG,
+        ModItems.SULFUR_CUBE_SPAWN_EGG.get(),
         Items.TADPOLE_SPAWN_EGG,
         Items.TRADER_LLAMA_SPAWN_EGG,
         Items.TROPICAL_FISH_SPAWN_EGG,

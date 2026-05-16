@@ -54,6 +54,11 @@ public class ModelGenerator extends VanillaModelGenerator {
         gen.createCrossBlockWithDefaultItem(ModBlocks.CACTUS_FLOWER.get(), BlockModelGenerators.TintState.NOT_TINTED);
         gen.createCrossBlockWithDefaultItem(ModBlocks.SHORT_DRY_GRASS.get(), BlockModelGenerators.TintState.NOT_TINTED);
         gen.createCrossBlockWithDefaultItem(ModBlocks.TALL_DRY_GRASS.get(), BlockModelGenerators.TintState.NOT_TINTED);
+
+        // Chaos Cubed
+        gen.createTrivialCube(ModBlocks.POTENT_SULFUR.get());
+        gen.createSpeleothem(ModBlocks.SULFUR_SPIKE.get());
+        gen.createSpawnEgg(ModItems.SULFUR_CUBE_SPAWN_EGG.get());
     }
 
     @Override
@@ -81,28 +86,16 @@ public class ModelGenerator extends VanillaModelGenerator {
         gen.createFlatItem(ModItems.RED_HARNESS.get());
         gen.createFlatItem(ModItems.BLACK_HARNESS.get());
         gen.createMusicDisc(ModItems.MUSIC_DISC_TEARS.get());
-        gen.createMusicDisc(ModItems.MUSIC_DISC_LAVA_CHICKEN.get());
 
-        // Bundles of Bravery
-//        gen.createFlatItem(ModItems.BLACK_BUNDLE.get());
-//        gen.createFlatItem(ModItems.WHITE_BUNDLE.get());
-//        gen.createFlatItem(ModItems.GRAY_BUNDLE.get());
-//        gen.createFlatItem(ModItems.LIGHT_GRAY_BUNDLE.get());
-//        gen.createFlatItem(ModItems.LIGHT_BLUE_BUNDLE.get());
-//        gen.createFlatItem(ModItems.BLUE_BUNDLE.get());
-//        gen.createFlatItem(ModItems.CYAN_BUNDLE.get());
-//        gen.createFlatItem(ModItems.YELLOW_BUNDLE.get());
-//        gen.createFlatItem(ModItems.RED_BUNDLE.get());
-//        gen.createFlatItem(ModItems.PURPLE_BUNDLE.get());
-//        gen.createFlatItem(ModItems.MAGENTA_BUNDLE.get());
-//        gen.createFlatItem(ModItems.PINK_BUNDLE.get());
-//        gen.createFlatItem(ModItems.GREEN_BUNDLE.get());
-//        gen.createFlatItem(ModItems.LIME_BUNDLE.get());
-//        gen.createFlatItem(ModItems.BROWN_BUNDLE.get());
-//        gen.createFlatItem(ModItems.ORANGE_BUNDLE.get());
+        // Hot as Lava
+        gen.createMusicDisc(ModItems.MUSIC_DISC_LAVA_CHICKEN.get());
 
         // Spring to Life
         gen.createFlatItem(ModItems.BLUE_EGG.get());
         gen.createFlatItem(ModItems.BROWN_EGG.get());
+
+        // Chaos Cubed
+        gen.createFlatItem(ModItems.SULFUR_CUBE_BUCKET.get());
+        gen.createMusicDisc(ModItems.MUSIC_DISC_BOUNCE.get());
     }
 }

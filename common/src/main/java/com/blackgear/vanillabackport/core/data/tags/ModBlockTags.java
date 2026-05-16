@@ -25,4 +25,10 @@ public class ModBlockTags {
     public static final TagKey<Block> SPAWN_FALLING_NEEDLES = TAGS.register("spawn_falling_needles");
 
     public static final TagKey<Block> CAMELS_SPAWNABLE_ON = TAGS.register("camel_spawnable_on");
+
+    public static final TagKey<Block> CAUSES_PERIODIC_GEYSER_ERUPTIONS = TAGS.register("causes_periodic_geyser_eruptions");
+    public static final TagKey<Block> CAUSES_CONTINUOUS_GEYSER_ERUPTIONS = TAGS.register("causes_continuous_geyser_eruptions");
+
+    public static final TagKey<Block> SPELEOTHEMS = TAGS.register("speleothems");
+    public static final TagKey<Block> SULFUR_SPIKE_REPLACEABLE = TAGS.register("sulfur_spike_replaceable");
 }

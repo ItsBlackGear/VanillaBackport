@@ -40,8 +40,9 @@ public class LivingEntityEmissiveLayer<T extends LivingEntity, M extends Hierarc
         this.alwaysVisible = alwaysVisible;
     }
 
+    @Override
     public void render(
-        PoseStack poseStack,
+        PoseStack pose,
         MultiBufferSource buffer,
         int packedLight,
         T entity,
@@ -54,12 +55,12 @@ public class LivingEntityEmissiveLayer<T extends LivingEntity, M extends Hierarc
     ) {
         if (!entity.isInvisible() || this.alwaysVisible) {
             float alpha = this.alphaFunction.apply(entity, ageInTicks);
-            if (alpha > 1.0E-5F) {
+            if (alpha > Mth.EPSILON) {
                 RenderType renderType = this.bufferProvider.apply(this.textureProvider.apply(entity));
                 int color = FastColor.ARGB32.color(Mth.floor(alpha * 255.0F), 255, 255, 255);
                 this.model.prepareMobModel(entity, limbSwing, limbSwingAmount, partialTick);
                 this.model.setupAnim(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
-                this.model.renderToBuffer(poseStack, buffer.getBuffer(renderType), packedLight, LivingEntityRenderer.getOverlayCoords(entity, 0.0F), color);
+                this.model.renderToBuffer(pose, buffer.getBuffer(renderType), packedLight, LivingEntityRenderer.getOverlayCoords(entity, 0.0F), color);
                 this.getParentModel().copyPropertiesTo(this.model);
             }
         }
@@ -67,6 +68,6 @@ public class LivingEntityEmissiveLayer<T extends LivingEntity, M extends Hierarc
 
     @Environment(EnvType.CLIENT)
     public interface AlphaFunction<T extends LivingEntity> {
-        float apply(T creaking, float ageInTicks);
+        float apply(T entity, float ageInTicks);
     }
 }

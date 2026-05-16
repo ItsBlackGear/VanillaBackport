@@ -120,3 +120,5 @@ runs/
 
 # Data gen cache
 /common/src/main/generated/.cache
+/neoforge/bin/
+/fabric/bin/

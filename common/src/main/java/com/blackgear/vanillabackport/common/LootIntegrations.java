@@ -1,13 +1,14 @@
 package com.blackgear.vanillabackport.common;
 
 import com.blackgear.platform.common.data.LootModifier;
+import com.blackgear.platform.core.events.ServerLifecycleEvents;
+import com.blackgear.vanillabackport.common.registries.ModBiomes;
 import com.blackgear.vanillabackport.common.registries.ModBlocks;
 import com.blackgear.vanillabackport.common.registries.ModItems;
 import com.blackgear.vanillabackport.core.VanillaBackport;
-import net.minecraft.advancements.critereon.DamageSourcePredicate;
-import net.minecraft.advancements.critereon.EntityFlagsPredicate;
-import net.minecraft.advancements.critereon.EntityPredicate;
-import net.minecraft.advancements.critereon.TagPredicate;
+import net.minecraft.advancements.critereon.*;
+import net.minecraft.core.HolderSet;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.entity.EntityType;
@@ -20,6 +21,7 @@ import net.minecraft.world.level.storage.loot.entries.EmptyLootItem;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.predicates.DamageSourceCondition;
+import net.minecraft.world.level.storage.loot.predicates.LocationCheck;
 import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
 import net.minecraft.world.level.storage.loot.predicates.LootItemKilledByPlayerCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
@@ -96,7 +98,7 @@ public class LootIntegrations implements LootModifier.LootTableModifier {
         }
 
         // GENERATE BUNDLES IN VILLAGE CHESTS
-        if (CONTAIN_BUNDLE.contains(key) && VanillaBackport.COMMON_CONFIG.hadBundleLoot.get()) {
+        if (CONTAIN_BUNDLE.contains(key) && VanillaBackport.COMMON_CONFIG.hasBundleLoot.get()) {
             context.addPool(
                 LootPool.lootPool()
                     .setRolls(ConstantValue.exactly(1.0F))
@@ -113,6 +115,20 @@ public class LootIntegrations implements LootModifier.LootTableModifier {
                     .add(LootItem.lootTableItem(Items.LODESTONE).setWeight(2).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F))))
                     .add(EmptyLootItem.emptyItem().setWeight(1))
             );
+        }
+
+        // GENERATE BOUNCE MUSIC DISC ON SULFUR CAVE MINESHAFTS
+        if (key.equals(BuiltInLootTables.ABANDONED_MINESHAFT) && VanillaBackport.COMMON_CONFIG.hasBounceMusicDisc.get()) {
+            ServerLifecycleEvents.STARTING.register(server -> {
+                var lookup = server.registryAccess().lookupOrThrow(Registries.BIOME);
+                context.addToPool(
+                    2,
+                    LootItem.lootTableItem(ModItems.MUSIC_DISC_BOUNCE.get())
+                        .when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(HolderSet.direct(lookup.getOrThrow(ModBiomes.SULFUR_CAVES)))))
+                        .setWeight(10)
+                        .build()
+                );
+            });
         }
     }
 }

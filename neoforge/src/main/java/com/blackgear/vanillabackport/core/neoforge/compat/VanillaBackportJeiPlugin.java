@@ -22,19 +22,6 @@ import java.util.stream.Collectors;
 
 @JeiPlugin
 public class VanillaBackportJeiPlugin implements IModPlugin {
-    private static final List<Item> BUNDLES = BuiltInRegistries.ITEM.stream()
-        .filter(item -> item instanceof BundleItem)
-        .toList();
-
-    private static final Map<DyeColor, List<Item>> DYES_BY_COLOR = BuiltInRegistries.ITEM.stream()
-        .filter(item -> item instanceof DyeItem)
-        .map(item -> (DyeItem) item)
-        .collect(Collectors.groupingBy(
-            DyeItem::getDyeColor,
-            () -> new EnumMap<>(DyeColor.class),
-            Collectors.mapping(d -> (Item) d, Collectors.toList())
-        ));
-
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
         Minecraft mc = Minecraft.getInstance();
@@ -54,10 +41,10 @@ public class VanillaBackportJeiPlugin implements IModPlugin {
 
         for (DyeColor dyeColor : DyeColor.values()) {
             Item resultBundle = BundleFeatures.getByColor(dyeColor);
-            List<Item> dyeItems = DYES_BY_COLOR.get(dyeColor);
+            List<Item> dyeItems = getDyesByColor().get(dyeColor);
             if (resultBundle == null || dyeItems == null || dyeItems.isEmpty()) continue;
 
-            List<Item> otherBundles = BUNDLES.stream()
+            List<Item> otherBundles = getBundles().stream()
                 .filter(item -> item != resultBundle)
                 .toList();
 
@@ -88,6 +75,21 @@ public class VanillaBackportJeiPlugin implements IModPlugin {
         }
 
         registration.addRecipes(RecipeTypes.CRAFTING, extraRecipes);
+    }
+
+    private static List<Item> getBundles() {
+        return List.copyOf(BundleFeatures.BUNDLES_BY_DYE.values());
+    }
+
+    private static Map<DyeColor, List<Item>> getDyesByColor() {
+        return BuiltInRegistries.ITEM.stream()
+            .filter(item -> item instanceof DyeItem)
+            .map(item -> (DyeItem) item)
+            .collect(Collectors.groupingBy(
+                DyeItem::getDyeColor,
+                () -> new EnumMap<>(DyeColor.class),
+                Collectors.mapping(d -> (Item) d, Collectors.toList())
+            ));
     }
 
     @Override

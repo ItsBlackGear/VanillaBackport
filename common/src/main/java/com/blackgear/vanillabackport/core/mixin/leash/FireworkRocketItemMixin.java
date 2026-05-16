@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.core.mixin.leash;
 
-import com.blackgear.vanillabackport.common.api.interactions.LeashIntegration;
+import com.blackgear.vanillabackport.common.api.leash.LeashPhysics;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -20,7 +20,7 @@ public class FireworkRocketItemMixin {
     @Inject(method = "use", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/projectile/FireworkRocketEntity;<init>(Lnet/minecraft/world/level/Level;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/entity/LivingEntity;)V"))
     private void vb$onUse(Level level, Player player, InteractionHand usedHand, CallbackInfoReturnable<InteractionResultHolder<ItemStack>> cir) {
         if (VanillaBackport.COMMON_CONFIG.leashDropConnections.get()) {
-            if (LeashIntegration.dropAllLeashConnections(player, null)) {
+            if (LeashPhysics.dropAllLeashConnections(player, null)) {
                 level.playSound(null, player, SoundEvents.LEASH_KNOT_BREAK, SoundSource.NEUTRAL, 1.0F, 1.0F);
             }
         }

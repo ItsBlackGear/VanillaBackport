@@ -4,6 +4,7 @@ import com.blackgear.vanillabackport.common.level.blocks.EyeblossomBlock;
 import com.blackgear.vanillabackport.common.level.blocks.MossyCarpetBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.feature.SimpleBlockFeature;
@@ -25,15 +26,16 @@ public class SimpleBlockFeatureMixin {
         WorldGenLevel level = context.level();
         BlockPos origin = context.origin();
         BlockState state = config.toPlace().getState(context.random(), origin);
+        Block block = state.getBlock();
         if (state.canSurvive(level, origin)) {
-            if (state.getBlock() instanceof MossyCarpetBlock) {
-                MossyCarpetBlock.placeAt(level, origin, level.getRandom(), 2);
+            if (block instanceof MossyCarpetBlock) {
+                MossyCarpetBlock.placeAt(level, origin, level.getRandom(), Block.UPDATE_CLIENTS);
                 cir.setReturnValue(true);
             }
 
-            if (state.getBlock() instanceof EyeblossomBlock) {
+            if (block instanceof EyeblossomBlock) {
+                level.setBlock(origin, state, Block.UPDATE_CLIENTS);
                 level.scheduleTick(origin, level.getBlockState(origin).getBlock(), 1);
-                level.setBlock(origin, state, 2);
                 cir.setReturnValue(true);
             }
         }

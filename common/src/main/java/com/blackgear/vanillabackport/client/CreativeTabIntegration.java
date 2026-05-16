@@ -33,6 +33,34 @@ public interface CreativeTabIntegration {
             ModBlocks.RESIN_BRICK_WALL.get(),
             ModBlocks.CHISELED_RESIN_BRICKS.get()
         ));
+        output.addAllAfter(Items.CUT_RED_SANDSTONE_SLAB, List.of(
+            ModBlocks.CINNABAR.get(),
+            ModBlocks.CINNABAR_STAIRS.get(),
+            ModBlocks.CINNABAR_SLAB.get(),
+            ModBlocks.CINNABAR_WALL.get(),
+            ModBlocks.CHISELED_CINNABAR.get(),
+            ModBlocks.POLISHED_CINNABAR.get(),
+            ModBlocks.POLISHED_CINNABAR_STAIRS.get(),
+            ModBlocks.POLISHED_CINNABAR_SLAB.get(),
+            ModBlocks.POLISHED_CINNABAR_WALL.get(),
+            ModBlocks.CINNABAR_BRICKS.get(),
+            ModBlocks.CINNABAR_BRICK_STAIRS.get(),
+            ModBlocks.CINNABAR_BRICK_SLAB.get(),
+            ModBlocks.CINNABAR_BRICK_WALL.get(),
+            ModBlocks.SULFUR.get(),
+            ModBlocks.SULFUR_STAIRS.get(),
+            ModBlocks.SULFUR_SLAB.get(),
+            ModBlocks.SULFUR_WALL.get(),
+            ModBlocks.CHISELED_SULFUR.get(),
+            ModBlocks.POLISHED_SULFUR.get(),
+            ModBlocks.POLISHED_SULFUR_STAIRS.get(),
+            ModBlocks.POLISHED_SULFUR_SLAB.get(),
+            ModBlocks.POLISHED_SULFUR_WALL.get(),
+            ModBlocks.SULFUR_BRICKS.get(),
+            ModBlocks.SULFUR_BRICK_STAIRS.get(),
+            ModBlocks.SULFUR_BRICK_SLAB.get(),
+            ModBlocks.SULFUR_BRICK_WALL.get()
+        ));
     };
 
     CreativeTabs.Modifier COLORED_BLOCKS = (flag, output, operator) -> {};
@@ -42,6 +70,12 @@ public interface CreativeTabIntegration {
             ModBlocks.PALE_MOSS_BLOCK.get(),
             ModBlocks.PALE_MOSS_CARPET.get(),
             ModBlocks.PALE_HANGING_MOSS.get()
+        ));
+        output.addAllAfter(Items.PRISMARINE, List.of(
+            ModBlocks.CINNABAR.get(),
+            ModBlocks.SULFUR.get(),
+            ModBlocks.SULFUR_SPIKE.get(),
+            ModBlocks.POTENT_SULFUR.get()
         ));
         output.addAfter(Items.CHERRY_LOG, ModBlocks.PALE_OAK_LOG.get());
         output.addAfter(Items.CHERRY_LEAVES, ModBlocks.PALE_OAK_LEAVES.get());
@@ -75,6 +109,7 @@ public interface CreativeTabIntegration {
     CreativeTabs.Modifier REDSTONE_BLOCKS = (flag, output, operator) -> {};
 
     CreativeTabs.Modifier TOOLS_AND_UTILITIES = (flag, output, operator) -> {
+        output.addAfter(Items.TADPOLE_BUCKET, ModItems.SULFUR_CUBE_BUCKET.get());
         if (flag.contains(FeatureFlags.BUNDLE)) {
             output.addAllAfter(Items.BUNDLE, List.of(
                 ModItems.WHITE_BUNDLE.get(),
@@ -119,7 +154,8 @@ public interface CreativeTabIntegration {
         ));
         output.addAllAfter(Items.MUSIC_DISC_RELIC, List.of(
             ModItems.MUSIC_DISC_TEARS.get(),
-            ModItems.MUSIC_DISC_LAVA_CHICKEN.get()
+            ModItems.MUSIC_DISC_LAVA_CHICKEN.get(),
+            ModItems.MUSIC_DISC_BOUNCE.get()
         ));
     };
 
@@ -145,6 +181,7 @@ public interface CreativeTabIntegration {
         output.addAfter(Items.SPAWNER, ModBlocks.CREAKING_HEART.get());
         output.addAfter(Items.COW_SPAWN_EGG, ModItems.CREAKING_SPAWN_EGG.get());
         output.addAfter(Items.GUARDIAN_SPAWN_EGG, ModItems.HAPPY_GHAST_SPAWN_EGG.get());
+        output.addAfter(Items.SNIFFER_SPAWN_EGG, ModItems.SULFUR_CUBE_SPAWN_EGG.get());
     };
 
     static void bootstrap() {

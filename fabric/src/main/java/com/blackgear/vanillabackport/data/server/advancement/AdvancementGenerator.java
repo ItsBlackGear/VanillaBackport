@@ -1,10 +1,12 @@
 package com.blackgear.vanillabackport.data.server.advancement;
 
 import com.blackgear.vanillabackport.common.level.blocks.CreakingHeartBlock;
-import com.blackgear.vanillabackport.common.level.blocks.blockstates.CreakingHeartState;
+import com.blackgear.vanillabackport.common.level.blocks.states.CreakingHeartState;
 import com.blackgear.vanillabackport.common.registries.ModBlockStateProperties;
 import com.blackgear.vanillabackport.common.registries.ModBlocks;
+import com.blackgear.vanillabackport.common.registries.ModEntityTypes;
 import com.blackgear.vanillabackport.core.data.tags.ModBlockTags;
+import com.blackgear.vanillabackport.core.data.tags.ModItemTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
 import net.minecraft.advancements.*;
@@ -17,6 +19,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.StringRepresentable;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.Property;
@@ -84,6 +87,47 @@ public class AdvancementGenerator extends FabricAdvancementProvider {
                 placedBlockWithProperties(ModBlocks.DRIED_GHAST.get(), BlockStateProperties.WATERLOGGED, String.valueOf(true))
             )
             .save(consumer, "husbandry/place_dried_ghast_in_water");
+
+
+        Advancement.Builder.advancement()
+            .parent(husbandry)
+            .display(
+                Items.TNT,
+                Component.translatable("advancements.husbandry.uh_oh.title"),
+                Component.translatable("advancements.husbandry.uh_oh.description"),
+                null,
+                AdvancementType.TASK,
+                true,
+                true,
+                false
+            )
+            .requirements(AdvancementRequirements.Strategy.OR)
+            .addCriterion(
+                "pick_up_dropped_tnt",
+                PickedUpItemTrigger.TriggerInstance.thrownItemPickedUpByEntity(
+                    ContextAwarePredicate.create(),
+                    Optional.of(ItemPredicate.Builder.item().of(ModItemTags.SULFUR_CUBE_ARCHETYPE_EXPLOSIVE).build()),
+                    Optional.of(EntityPredicate.wrap(
+                        EntityPredicate.Builder.entity()
+                            .of(ModEntityTypes.SULFUR_CUBE)
+                            .flags(EntityFlagsPredicate.Builder.flags().setIsBaby(false))
+                            .build()
+                    ))
+                )
+            )
+            .addCriterion(
+                "give_tnt_directly",
+                PlayerInteractTrigger.TriggerInstance.itemUsedOnEntity(
+                    Optional.empty(),
+                    ItemPredicate.Builder.item().of(ModItemTags.SULFUR_CUBE_ARCHETYPE_EXPLOSIVE),
+                    Optional.of(EntityPredicate.wrap(
+                        EntityPredicate.Builder.entity()
+                            .of(ModEntityTypes.SULFUR_CUBE)
+                            .flags(EntityFlagsPredicate.Builder.flags().setIsBaby(false))
+                            .build()
+                    ))
+                )
+            ).save(consumer, "husbandry/uh_oh");
     }
 
     private Criterion<ItemUsedOnLocationTrigger.TriggerInstance> placedBlockActivatesCreakingHeart(TagKey<Block> block) {

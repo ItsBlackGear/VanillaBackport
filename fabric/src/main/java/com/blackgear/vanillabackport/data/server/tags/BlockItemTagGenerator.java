@@ -3,8 +3,8 @@ package com.blackgear.vanillabackport.data.server.tags;
 import com.blackgear.vanillabackport.common.registries.ModBlocks;
 import com.blackgear.vanillabackport.core.data.tags.ModBlockTags;
 import com.blackgear.vanillabackport.core.data.tags.ModItemTags;
-import com.blackgear.vanillabackport.core.data.tags.fabric.FabricBlockTags;
-import com.blackgear.vanillabackport.core.data.tags.fabric.FabricItemTags;
+import com.blackgear.vanillabackport.core.data.tags.fabric.ConventionalBlockTags;
+import com.blackgear.vanillabackport.core.data.tags.fabric.ConventionalItemTags;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
@@ -52,13 +52,37 @@ public abstract class BlockItemTagGenerator {
             .addTag(ModBlockTags.PALE_OAK_LOGS);
 
         this.tag(BlockTags.SLABS, ItemTags.SLABS)
-            .add(ModBlocks.RESIN_BRICK_SLAB.get());
+            .add(
+                ModBlocks.RESIN_BRICK_SLAB.get(),
+                ModBlocks.CINNABAR_SLAB.get(),
+                ModBlocks.POLISHED_CINNABAR_SLAB.get(),
+                ModBlocks.CINNABAR_BRICK_SLAB.get(),
+                ModBlocks.SULFUR_SLAB.get(),
+                ModBlocks.POLISHED_SULFUR_SLAB.get(),
+                ModBlocks.SULFUR_BRICK_SLAB.get()
+            );
 
         this.tag(BlockTags.WALLS, ItemTags.WALLS)
-            .add(ModBlocks.RESIN_BRICK_WALL.get());
+            .add(
+                ModBlocks.RESIN_BRICK_WALL.get(),
+                ModBlocks.CINNABAR_WALL.get(),
+                ModBlocks.POLISHED_CINNABAR_WALL.get(),
+                ModBlocks.CINNABAR_BRICK_WALL.get(),
+                ModBlocks.SULFUR_WALL.get(),
+                ModBlocks.POLISHED_SULFUR_WALL.get(),
+                ModBlocks.SULFUR_BRICK_WALL.get()
+            );
 
         this.tag(BlockTags.STAIRS, ItemTags.STAIRS)
-            .add(ModBlocks.RESIN_BRICK_STAIRS.get());
+            .add(
+                ModBlocks.RESIN_BRICK_STAIRS.get(),
+                ModBlocks.CINNABAR_STAIRS.get(),
+                ModBlocks.POLISHED_CINNABAR_STAIRS.get(),
+                ModBlocks.CINNABAR_BRICK_STAIRS.get(),
+                ModBlocks.SULFUR_STAIRS.get(),
+                ModBlocks.POLISHED_SULFUR_STAIRS.get(),
+                ModBlocks.SULFUR_BRICK_STAIRS.get()
+            );
 
         this.tag(BlockTags.LEAVES, ItemTags.LEAVES)
             .add(ModBlocks.PALE_OAK_LEAVES.get());
@@ -83,10 +107,10 @@ public abstract class BlockItemTagGenerator {
     }
 
     private void handleConventionalTags() {
-        this.tag(FabricBlockTags.STRIPPED_LOGS, FabricItemTags.STRIPPED_LOGS)
+        this.tag(ConventionalBlockTags.STRIPPED_LOGS, ConventionalItemTags.STRIPPED_LOGS)
             .add(ModBlocks.STRIPPED_PALE_OAK_LOG.get());
 
-        this.tag(FabricBlockTags.STRIPPED_WOOD, FabricItemTags.STRIPPED_WOOD)
+        this.tag(ConventionalBlockTags.STRIPPED_WOOD, ConventionalItemTags.STRIPPED_WOOD)
             .add(ModBlocks.STRIPPED_PALE_OAK_WOOD.get());
     }
 

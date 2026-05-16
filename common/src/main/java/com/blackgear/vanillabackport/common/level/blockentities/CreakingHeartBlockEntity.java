@@ -4,7 +4,7 @@ import com.blackgear.vanillabackport.client.level.particles.particleoptions.Trai
 import com.blackgear.vanillabackport.client.registries.ModParticles;
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
 import com.blackgear.vanillabackport.common.level.blocks.CreakingHeartBlock;
-import com.blackgear.vanillabackport.common.level.blocks.blockstates.CreakingHeartState;
+import com.blackgear.vanillabackport.common.level.blocks.states.CreakingHeartState;
 import com.blackgear.vanillabackport.common.level.entities.creaking.Creaking;
 import com.blackgear.vanillabackport.common.registries.ModBlockEntities;
 import com.blackgear.vanillabackport.common.registries.ModBlocks;
@@ -119,7 +119,8 @@ public class CreakingHeartBlockEntity extends BlockEntity {
                     Optional<Creaking> protector = heart.getCreakingProtector();
                     if (protector.isPresent()) {
                         Creaking creaking = protector.get();
-                        if (!CreakingHeartBlock.isNaturalNight(level) && !creaking.isPersistenceRequired()
+                        if (!(CreakingHeartBlock.isNaturalNight(level) || VanillaBackport.COMMON_CONFIG.doCreakingHeartsWorkOnDay.get())
+                            && !creaking.isPersistenceRequired()
                             || heart.distanceToCreaking() > 34.0
                             || creaking.playerIsStuckInYou()) {
                             heart.removeProtector(null);
@@ -134,7 +135,7 @@ public class CreakingHeartBlockEntity extends BlockEntity {
         if (!CreakingHeartBlock.hasRequiredLogs(state, level, pos) && heart.creakingInfo == null) {
             return state.setValue(CreakingHeartBlock.STATE, CreakingHeartState.UPROOTED);
         } else {
-            boolean isNaturalNight = CreakingHeartBlock.isNaturalNight(level);
+            boolean isNaturalNight = VanillaBackport.COMMON_CONFIG.doCreakingHeartsWorkOnDay.get() || CreakingHeartBlock.isNaturalNight(level);
             return state.setValue(CreakingHeartBlock.STATE, isNaturalNight ? CreakingHeartState.AWAKE : CreakingHeartState.DORMANT);
         }
     }

@@ -1,7 +1,10 @@
 package com.blackgear.vanillabackport.common.level.entities.happyghast;
 
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
-import com.blackgear.vanillabackport.common.api.leash.LeashExtension;
+import com.blackgear.vanillabackport.common.api.extensions.PositionAwareEntity;
+import com.blackgear.vanillabackport.common.api.leash.LeashHolderCallback;
+import com.blackgear.vanillabackport.common.api.leash.LeashPhysics;
+import com.blackgear.vanillabackport.common.api.leash.LeashableCallback;
 import com.blackgear.vanillabackport.common.registries.ModEntities;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.blackgear.vanillabackport.core.data.tags.ModBlockTags;
@@ -59,7 +62,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.EnumSet;
 import java.util.function.BooleanSupplier;
 
-public class HappyGhast extends Animal implements PlayerRideable, LeashExtension {
+public class HappyGhast extends Animal implements PlayerRideable, LeashableCallback, LeashHolderCallback, PositionAwareEntity {
     public static final Ingredient IS_FOOD = Ingredient.of(ModItemTags.HAPPY_GHAST_FOOD);
     private int leashHolderTime = 0;
     private int serverStillTimeout;
@@ -93,13 +96,13 @@ public class HappyGhast extends Animal implements PlayerRideable, LeashExtension
         this.goalSelector
             .addGoal(
                 4,
-                new HappyGhastTemptGoal(
+                new TemptGoal.ForNonPathfinders(
                     this,
                     1.0,
                     stack -> !this.isHarnessed() && !this.isBaby() ? stack.is(ModItemTags.HAPPY_GHAST_TEMPT_ITEMS) : IS_FOOD.test(stack),
                     false,
                     7.0
-                )
+                ).setTemptRange(16)
             );
         this.goalSelector.addGoal(5, new RandomFloatAroundGoal(this, 16));
     }
@@ -149,10 +152,12 @@ public class HappyGhast extends Animal implements PlayerRideable, LeashExtension
         return Math.min(scale, 1.0F);
     }
 
+    @Override
     public boolean getRequiresPrecisePosition() {
         return this.requiresPrecisePosition;
     }
 
+    @Override
     public void setRequiresPrecisePosition(boolean requiresPrecisePosition) {
         this.requiresPrecisePosition = requiresPrecisePosition;
     }
@@ -163,7 +168,7 @@ public class HappyGhast extends Animal implements PlayerRideable, LeashExtension
         this.setYya(0.0F);
         this.setSpeed(0.0F);
         this.setDeltaMovement(0.0, 0.0, 0.0);
-        this.vb$resetAngularMomentum();
+        LeashPhysics.resetAngularMomentum(this);
     }
 
     @Override
@@ -228,6 +233,11 @@ public class HappyGhast extends Animal implements PlayerRideable, LeashExtension
     @Override
     public float getVoicePitch() {
         return 1.0F;
+    }
+
+    @Override
+    public SoundSource getSoundSource() {
+        return SoundSource.NEUTRAL;
     }
 
     @Override
@@ -374,8 +384,8 @@ public class HappyGhast extends Animal implements PlayerRideable, LeashExtension
         float strafe = 0.0F;
         float upward = 0.0F;
         if (player.zza != 0.0F) {
-            float xOffset = Mth.cos(player.getXRot() * (float) (Math.PI / 180.0));
-            float zOffset = -Mth.sin(player.getXRot() * (float) (Math.PI / 180.0));
+            float xOffset = Mth.cos(player.getXRot() * Mth.DEG_TO_RAD);
+            float zOffset = -Mth.sin(player.getXRot() * Mth.DEG_TO_RAD);
             if (player.zza < 0.0F) {
                 xOffset *= -0.5F;
                 zOffset *= -0.5F;
@@ -543,13 +553,13 @@ public class HappyGhast extends Animal implements PlayerRideable, LeashExtension
     }
 
     @Override
-    public boolean vb$supportQuadLeashAsHolder() {
+    public boolean vb$supportsQuadLeashAsHolder() {
         return true;
     }
 
     @Override
     public Vec3[] vb$getQuadLeashHolderOffsets() {
-        return LeashExtension.vb$createQuadLeashOffsets(this, -0.03125, 0.4375, 0.46875, 0.03125);
+        return LeashPhysics.createQuadOffsets(this, -0.03125, 0.4375, 0.46875, 0.03125);
     }
 
     @Override
@@ -569,13 +579,13 @@ public class HappyGhast extends Animal implements PlayerRideable, LeashExtension
 
     @Override
     public void vb$onElasticLeashPull() {
-        LeashExtension.super.vb$onElasticLeashPull();
+        LeashableCallback.super.vb$onElasticLeashPull();
         this.getMoveControl().operation = MoveControl.Operation.WAIT;
     }
 
     @Override
-    public void vb$notifyLeashHolder(Leashable leashable) {
-        if (((LeashExtension) leashable).vb$supportQuadLeash()) {
+    public void vb$notifyLeashHolder(Leashable leashee) {
+        if (LeashPhysics.supportsQuadLeash((Entity) leashee)) {
             this.leashHolderTime = 5;
         }
     }
@@ -598,7 +608,7 @@ public class HappyGhast extends Animal implements PlayerRideable, LeashExtension
 
     private boolean scanPlayerAboveGhast() {
         AABB bb = this.getBoundingBox();
-        AABB ghastDetectionBox = new AABB(bb.minX - 1.0, bb.maxY - 1.0E-5F, bb.minZ - 1.0, bb.maxX + 1.0, bb.maxY + bb.getYsize() / 2.0, bb.maxZ + 1.0);
+        AABB ghastDetectionBox = new AABB(bb.minX - 1.0, bb.maxY - Mth.EPSILON, bb.minZ - 1.0, bb.maxX + 1.0, bb.maxY + bb.getYsize() / 2.0, bb.maxZ + 1.0);
 
         for (Player player : this.level().players()) {
             if (!player.isSpectator()) {
@@ -624,6 +634,11 @@ public class HappyGhast extends Animal implements PlayerRideable, LeashExtension
         } else {
             return false;
         }
+    }
+
+    @Override
+    public Vec3 getDismountLocationForPassenger(LivingEntity passenger) {
+        return new Vec3(this.getX(), this.getBoundingBox().maxY, this.getZ());
     }
 
     static class BabyFlyingPathNavigation extends FlyingPathNavigation {

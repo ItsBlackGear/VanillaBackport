@@ -1,5 +1,11 @@
 {
   "values": [
-    "minecraft:resin_brick_slab"
+    "minecraft:resin_brick_slab",
+    "minecraft:cinnabar_slab",
+    "minecraft:polished_cinnabar_slab",
+    "minecraft:cinnabar_brick_slab",
+    "minecraft:sulfur_slab",
+    "minecraft:polished_sulfur_slab",
+    "minecraft:sulfur_brick_slab"
   ]
 }
