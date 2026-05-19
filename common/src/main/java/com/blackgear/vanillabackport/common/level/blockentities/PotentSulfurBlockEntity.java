@@ -2,7 +2,6 @@ package com.blackgear.vanillabackport.common.level.blockentities;
 
 import com.blackgear.vanillabackport.client.level.particles.particleoptions.GeyserParticleOptions;
 import com.blackgear.vanillabackport.client.registries.ModParticles;
-import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
 import com.blackgear.vanillabackport.common.level.blocks.states.PotentSulfurState;
 import com.blackgear.vanillabackport.common.registries.ModBlockEntities;
 import com.blackgear.vanillabackport.core.util.CollisionUtils;
@@ -128,11 +127,8 @@ public class PotentSulfurBlockEntity extends BlockEntity {
                     target.addDeltaMovement(new Vec3(0.0, 0.2F, 0.0));
                     target.hurtMarked = true;
                     target.hasImpulse = true;
+                    target.checkSlowFallDistance();
                 }
-            }
-
-            if (level.getGameTime() % 20L == 0L) {
-                level.playSound(null, pos, ModSoundEvents.GEYSER_ERUPTION_ACTIVE.get(), SoundSource.BLOCKS, 1.0F * waterBlocks, 1.0F);
             }
         }
     };

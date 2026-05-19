@@ -27,7 +27,6 @@ import com.blackgear.vanillabackport.common.worldgen.placements.TheGardenAwakens
 import com.blackgear.vanillabackport.core.data.tags.*;
 import com.blackgear.vanillabackport.core.network.NetworkHandler;
 import com.blackgear.vanillabackport.core.registries.ModBuiltinRegistries;
-import com.blackgear.vanillabackport.core.registries.ModRegistries;
 import com.mojang.logging.LogUtils;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;

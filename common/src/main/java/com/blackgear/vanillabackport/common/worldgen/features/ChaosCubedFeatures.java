@@ -3,11 +3,8 @@ package com.blackgear.vanillabackport.common.worldgen.features;
 import com.blackgear.platform.common.worldgen.WorldGenRegistry;
 import com.blackgear.vanillabackport.common.level.blocks.PotentSulfurBlock;
 import com.blackgear.vanillabackport.common.level.blocks.states.PotentSulfurState;
-import com.blackgear.vanillabackport.common.level.features.SpeleothemClusterConfiguration;
-import com.blackgear.vanillabackport.common.level.features.SpeleothemConfiguration;
-import com.blackgear.vanillabackport.common.level.features.TemplateFeatureConfiguration;
+import com.blackgear.vanillabackport.common.level.features.*;
 import com.blackgear.vanillabackport.common.level.features.TemplateFeatureConfiguration.TemplateEntry;
-import com.blackgear.vanillabackport.common.level.features.WeightedRandomFeatureConfiguration;
 import com.blackgear.vanillabackport.common.registries.ModBlocks;
 import com.blackgear.vanillabackport.common.registries.ModFeatures;
 import com.blackgear.vanillabackport.core.VanillaBackport;
@@ -170,10 +167,12 @@ public class ChaosCubedFeatures {
         FEATURES.register(
             context,
             ROOTED_SULFUR_SPRING,
-            Feature.ROOT_SYSTEM,
-            new RootSystemConfiguration(
+            ModFeatures.SULFUR_ROOT_SYSTEM.get(),
+            new SulfurRootSystemConfiguration(
                 PlacementUtils.inlinePlaced(features.getOrThrow(SULFUR_SPRING)),
                 5,
+                8,
+                2,
                 3,
                 BlockTags.AZALEA_ROOT_REPLACEABLE,
                 BlockStateProvider.simple(ModBlocks.SULFUR.get()),
