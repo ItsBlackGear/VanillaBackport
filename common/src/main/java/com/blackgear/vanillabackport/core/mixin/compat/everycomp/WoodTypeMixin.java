@@ -9,7 +9,8 @@ import org.spongepowered.asm.mixin.Unique;
 
 import java.util.Set;
 
-@Pseudo @Mixin(WoodType.class) // TODO: PR this to moonlight-api
+// Modern versions shouldn't have this problem, this is kept for legacy users
+@Pseudo @Mixin(WoodType.class)
 public abstract class WoodTypeMixin extends BlockType {
     protected WoodTypeMixin(ResourceLocation resourceLocation) {
         super(resourceLocation);

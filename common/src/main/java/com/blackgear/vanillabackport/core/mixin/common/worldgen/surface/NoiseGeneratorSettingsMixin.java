@@ -1,6 +1,10 @@
 package com.blackgear.vanillabackport.core.mixin.common.worldgen.surface;
 
 import com.blackgear.vanillabackport.common.worldgen.ModSurfaceRuleData;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.levelgen.NoiseGeneratorSettings;
 import net.minecraft.world.level.levelgen.SurfaceRules;
 import org.spongepowered.asm.mixin.*;
@@ -15,9 +19,18 @@ public class NoiseGeneratorSettingsMixin {
 
     @Inject(method = "<init>", at = @At("TAIL"))
     private void vb$injectSurfaceRules(CallbackInfo ci) {
-        if (!this.vb$appliedRules) {
+        if (this.vb$appliedRules) return;
+
+        if (vb$canLoad()) {
             this.surfaceRule = SurfaceRules.sequence(ModSurfaceRuleData.makeRules(), this.surfaceRule);
             this.vb$appliedRules = true;
         }
+    }
+
+    @Unique // Hacky workaround, at least until 1.2
+    private static boolean vb$canLoad() {
+        Registry<Block> registry = BuiltInRegistries.BLOCK;
+        return registry.containsKey(new ResourceLocation("sulfur"))
+            && registry.containsKey(new ResourceLocation("cinnabar"));
     }
 }

@@ -18,6 +18,7 @@ dependencies {
 //    modImplementation "maven.modrinth:biolith:1.0.1-alpha.1-fabric,1.20.1"
 
     modCompileOnly "curse.maven:selene-499980:6841406"
+    modCompileOnly "maven.modrinth:stone-zone:1.20-2.9.10-fabric"
 
     modCompileOnly "curse.maven:mouse-tweaks-60089:5230279"
     modCompileOnly "curse.maven:jei-238222:7253589"

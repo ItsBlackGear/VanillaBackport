@@ -82,6 +82,7 @@
     "common.worldgen.surface.NoiseGeneratorSettingsMixin",
     "common.worldgen.surface.SurfaceContextMixin",
     "compat.everycomp.LeavesTypeMixin",
+    "compat.everycomp.StoneTypeMixin",
     "compat.everycomp.WoodTypeMixin",
     "compat.jer.BiomeHelperMixin",
     "compat.mousetweaks.MainMixin",

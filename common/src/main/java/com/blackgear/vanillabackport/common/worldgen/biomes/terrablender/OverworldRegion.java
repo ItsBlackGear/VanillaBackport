@@ -25,7 +25,7 @@ public class OverworldRegion extends Region {
         VanillaParameterOverlayBuilder builder = new VanillaParameterOverlayBuilder();
 
         if (VanillaBackport.COMMON_CONFIG.hasPaleGarden.get()) addPaleGarden(builder);
-        addSulfurCaves(builder);
+        if (VanillaBackport.COMMON_CONFIG.hasSulfurCaves.get()) addSulfurCaves(builder);
 
         builder.build().forEach(mapper);
     }

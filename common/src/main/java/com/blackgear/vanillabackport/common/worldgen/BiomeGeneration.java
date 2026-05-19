@@ -21,31 +21,33 @@ public class BiomeGeneration {
             addPaleGarden(event, Placement.MID_SLICE_VARIANT, Continentalness.FAR_INLAND.parameter(), Erosion.EROSION_2);
         }
 
-        event.add(new Pair<>(
-            new Climate.ParameterPoint(
-                Temperature.FULL_RANGE.parameter(),
-                Humidity.FULL_RANGE.parameter(),
-                Continentalness.span(Continentalness.COAST, Continentalness.INLAND),
-                Erosion.span(Erosion.EROSION_5, Erosion.EROSION_6),
-                Depth.UNDERGROUND.parameter(),
-                Climate.Parameter.span(-1.1F, -0.85F),
-                0L
-            ),
-            ModBiomes.SULFUR_CAVES
-        ));
+        if (VanillaBackport.COMMON_CONFIG.hasSulfurCaves.get()) {
+            event.add(new Pair<>(
+                Climate.parameters(
+                    Temperature.FULL_RANGE.parameter(),
+                    Humidity.FULL_RANGE.parameter(),
+                    Continentalness.span(Continentalness.COAST, Continentalness.INLAND),
+                    Erosion.span(Erosion.EROSION_5, Erosion.EROSION_6),
+                    Depth.UNDERGROUND.parameter(),
+                    Climate.Parameter.span(-1.1F, -0.85F),
+                    0.0F
+                ),
+                ModBiomes.SULFUR_CAVES
+            ));
+        }
     }
 
     private static void addPaleGarden(BiomePlacement.Event event, Placement placement, Climate.Parameter continentalness, Erosion erosion) {
         for (Weirdness weirdness : placement.getWeirdnesses()) {
             event.add(new Pair<>(
-                new Climate.ParameterPoint(
+                Climate.parameters(
                     Temperature.NEUTRAL.parameter(),
                     Humidity.HUMID.parameter(),
                     continentalness,
                     erosion.parameter(),
                     Depth.SURFACE.parameter(),
                     weirdness.parameter(),
-                    0L
+                    0.0F
                 ),
                 ModBiomes.PALE_GARDEN
             ));
