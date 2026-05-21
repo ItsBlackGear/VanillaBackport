@@ -16,7 +16,7 @@ import net.minecraft.util.StringRepresentable;
 import java.util.List;
 
 public record CowVariant(ModelAndTexture<ModelType> modelAndTexture, SpawnPrioritySelectors spawnConditions) implements PriorityProvider<SpawnContext, SpawnCondition> {
-    public static final StreamCodec<RegistryFriendlyByteBuf, CowVariant> STREAM_CODEC = ByteBufCodecs.registry(ModRegistries.COW_VARIANT.key());
+    public static final StreamCodec<RegistryFriendlyByteBuf, CowVariant> STREAM_CODEC = ByteBufCodecs.registry(ModRegistries.COW_VARIANT_KEY);
 
     public static final Codec<CowVariant> CODEC = RecordCodecBuilder.create(instance -> instance.group(
         ModelAndTexture.codec(ModelType.CODEC, ModelType.NORMAL).forGetter(CowVariant::modelAndTexture),

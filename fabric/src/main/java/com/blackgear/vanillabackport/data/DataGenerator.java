@@ -52,6 +52,7 @@ public class DataGenerator implements DataGeneratorEntrypoint {
         pack.addProvider(TrimMaterialGenerator::new);
         pack.addProvider(BiomeGenerator::new);
         pack.addProvider(NoiseGenerator::new);
+        pack.addProvider(DamageTypeGenerator::new);
         pack.addProvider(ConfiguredFeatureGenerator::new);
         pack.addProvider(PlacedFeatureGenerator::new);
         pack.addProvider(JukeboxSongGenerator::new);
@@ -64,6 +65,7 @@ public class DataGenerator implements DataGeneratorEntrypoint {
         builder.add(Registries.JUKEBOX_SONG, ModJukeboxSongs::bootstrap);
         builder.add(Registries.BIOME, ModBiomes::bootstrap);
         builder.add(Registries.NOISE, ModNoises.NOISES::bootstrap);
+        builder.add(Registries.DAMAGE_TYPE, ModDamageTypes.REGISTRIES::bootstrap);
         builder.add(Registries.CONFIGURED_FEATURE, TheGardenAwakensFeatures::bootstrap);
         builder.add(Registries.CONFIGURED_FEATURE, SpringToLifeFeatures::bootstrap);
         builder.add(Registries.CONFIGURED_FEATURE, ChaosCubedFeatures::bootstrap);

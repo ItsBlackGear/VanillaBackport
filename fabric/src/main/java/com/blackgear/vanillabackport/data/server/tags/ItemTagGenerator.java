@@ -118,7 +118,9 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
                 Items.CHISELED_RED_SANDSTONE,
                 Items.CHISELED_SANDSTONE,
                 Items.CHISELED_STONE_BRICKS,
-                ModBlocks.CHISELED_SULFUR.get().asItem()
+                ModBlocks.CHISELED_SULFUR.get().asItem(),
+                Items.CHISELED_TUFF,
+                Items.CHISELED_TUFF_BRICKS
             )
             .add(ModBlocks.CINNABAR.get().asItem(), ModBlocks.CINNABAR_BRICKS.get().asItem(), Items.COBBLED_DEEPSLATE, Items.COBBLESTONE)
             // Cracked Blocks
@@ -161,7 +163,8 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
                 Items.POLISHED_DEEPSLATE,
                 Items.POLISHED_DIORITE,
                 Items.POLISHED_GRANITE,
-                ModBlocks.POLISHED_SULFUR.get().asItem()
+                ModBlocks.POLISHED_SULFUR.get().asItem(),
+                Items.POLISHED_TUFF
             )
             .add(
                 Items.PRISMARINE,
@@ -181,6 +184,7 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
                 ModBlocks.SULFUR.get().asItem(),
                 ModBlocks.SULFUR_BRICKS.get().asItem(),
                 Items.TUFF,
+                Items.TUFF_BRICKS,
                 Items.WARPED_NYLIUM
             )
             .forceAddTag(ConventionalItemTags.CONCRETE)

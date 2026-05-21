@@ -3,6 +3,7 @@ package com.blackgear.vanillabackport.common.level.entities.sulfurcube;
 import com.blackgear.platform.core.BuiltInCoreRegistry;
 import com.blackgear.vanillabackport.common.level.entities.sulfurcube.SulfurCubeArchetype.AttributeEntry;
 import com.blackgear.vanillabackport.common.registries.ModAttributes;
+import com.blackgear.vanillabackport.common.registries.ModDamageTypes;
 import com.blackgear.vanillabackport.core.data.tags.ModItemTags;
 import com.blackgear.vanillabackport.core.registries.ModBuiltinRegistries;
 import com.blackgear.vanillabackport.core.registries.ModRegistries;
@@ -13,7 +14,6 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.util.valueproviders.ConstantFloat;
 import net.minecraft.util.valueproviders.FloatProvider;
 import net.minecraft.world.damagesource.DamageType;
-import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.Item;
@@ -132,7 +132,7 @@ public class SulfurCubeArchetypes {
         archetype(1.0F, 0.5F, 0.3F, 0.1F),
         true,
         Optional.empty(),
-        Optional.of(contactDamage(DamageTypes.HOT_FLOOR, ConstantFloat.of(1.0F), false)),
+        Optional.of(contactDamage(ModDamageTypes.SULFUR_CUBE_HOT, ConstantFloat.of(1.0F), false)),
         knockbackHitScale(0.33F, 0.06F)
     );
 
@@ -176,7 +176,7 @@ public class SulfurCubeArchetypes {
         Optional<ContactDamage> contactDamage,
         KnockbackModifiers knockbackModifiers
     ) {
-        ResourceKey<SulfurCubeArchetype> key = ResourceKey.create(ModRegistries.SULFUR_CUBE_ARCHETYPE.key(), ResourceLocation.withDefaultNamespace(name));
+        ResourceKey<SulfurCubeArchetype> key = ResourceKey.create(ModRegistries.SULFUR_CUBE_ARCHETYPES_KEY, ResourceLocation.withDefaultNamespace(name));
         REGISTRY.register(
             name,
             new SulfurCubeArchetype(

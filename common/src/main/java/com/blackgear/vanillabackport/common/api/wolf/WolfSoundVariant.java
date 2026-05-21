@@ -22,7 +22,7 @@ public record WolfSoundVariant(
         this(Holder.direct(ambientSound), Holder.direct(deathSound), Holder.direct(growlSound), Holder.direct(hurtSound), Holder.direct(pantSound), Holder.direct(whineSound));
     }
 
-    public static final StreamCodec<RegistryFriendlyByteBuf, WolfSoundVariant> STREAM_CODEC = ByteBufCodecs.registry(ModRegistries.WOLF_SOUND_VARIANT.key());
+    public static final StreamCodec<RegistryFriendlyByteBuf, WolfSoundVariant> STREAM_CODEC = ByteBufCodecs.registry(ModRegistries.WOLF_SOUND_VARIANT_KEY);
 
     public static final Codec<WolfSoundVariant> CODEC = RecordCodecBuilder.create(instance -> instance.group(
         BuiltInRegistries.SOUND_EVENT.holderByNameCodec().fieldOf("ambient_sound").forGetter(WolfSoundVariant::ambientSound),

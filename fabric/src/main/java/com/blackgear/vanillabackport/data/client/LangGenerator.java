@@ -263,6 +263,9 @@ public class LangGenerator extends FabricLanguageProvider {
 
         builder.add("jukebox_song.minecraft.bounce", "fingerspit - Bounce");
 
+        builder.add("death.attack.sulfurCubeHot", "%1$s died because not just the floor is lava");
+        builder.add("death.attack.sulfurCubeHot.player", "%2$s showed %1$s that not just the floor is lava");
+
         // Advancements
         builder.add("advancements.adventure.heart_transplanter.title", "Heart Transplanter");
         builder.add("advancements.adventure.heart_transplanter.description", "Place a Creaking Heart with the correct alignment between two Pale Oak Log blocks");

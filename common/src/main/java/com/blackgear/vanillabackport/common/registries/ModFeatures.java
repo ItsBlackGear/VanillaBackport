@@ -45,4 +45,8 @@ public class ModFeatures {
         "speleothem_cluster",
         () -> new SpeleothemClusterFeature(SpeleothemClusterConfiguration.CODEC)
     );
+    public static final Supplier<Feature<SulfurRootSystemConfiguration>> SULFUR_ROOT_SYSTEM = FEATURES.register(
+        "sulfur_root_system",
+        () -> new SulfurRootSystemFeature(SulfurRootSystemConfiguration.CODEC)
+    );
 }

@@ -275,7 +275,7 @@ public class SulfurCube extends AbstractCubeMob implements Bucketable, Shearable
             }
 
             if (source.is(ModDamageTypeTags.SULFUR_CUBE_WITH_BLOCK_IMMUNE_TO)) {
-                if (!source.is(DamageTypeTags.IS_EXPLOSION)) {
+                if (!source.is(ModDamageTypeTags.NO_KNOCKBACK)) {
                     // deal default knockback
                     double xd = 0.0;
                     double zd = 0.0;
@@ -298,7 +298,6 @@ public class SulfurCube extends AbstractCubeMob implements Bucketable, Shearable
                     this.knockback(0.4F, xd, zd);
                 }
 
-                this.playSound(this.getHitSound());
                 return true;
             }
         }
@@ -356,7 +355,7 @@ public class SulfurCube extends AbstractCubeMob implements Bucketable, Shearable
                         );
                     }
 
-                    this.getActiveEffectsMap().clear();
+                    this.triggerOnDeathMobEffects(RemovalReason.KILLED);
                 }
 
                 this.discard();
@@ -557,6 +556,7 @@ public class SulfurCube extends AbstractCubeMob implements Bucketable, Shearable
     private static <T extends LivingEntity & Bucketable> Optional<InteractionResult> bucketMobPickup(Player player, InteractionHand hand, T pickupEntity) {
         ItemStack itemStack = player.getItemInHand(hand);
         if (itemStack.getItem() == Items.BUCKET && pickupEntity.isAlive()) {
+            if (pickupEntity instanceof SulfurCube cube) cube.setPersistenceRequired(); // Prevents bucketed Sulfur Cubes to despawn
             pickupEntity.playSound(pickupEntity.getPickupSound(), 1.0F, 1.0F);
             ItemStack bucket = pickupEntity.getBucketItemStack();
             pickupEntity.saveToBucketTag(bucket);
@@ -576,6 +576,12 @@ public class SulfurCube extends AbstractCubeMob implements Bucketable, Shearable
         } else {
             return Optional.empty();
         }
+    }
+
+    @Override
+    public void setCustomName(@Nullable Component name) {
+        super.setCustomName(name);
+        this.setPersistenceRequired(); // Prevents named Sulfur Cubes to despawn
     }
 
     @Override

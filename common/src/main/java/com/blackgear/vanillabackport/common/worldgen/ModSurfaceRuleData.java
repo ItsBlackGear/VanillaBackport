@@ -6,28 +6,23 @@ import com.blackgear.vanillabackport.common.registries.ModNoises;
 import com.blackgear.vanillabackport.common.worldgen.surface.SpatialNoiseThresholdConditionSource;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.SurfaceRules;
 import net.minecraft.world.level.levelgen.synth.NormalNoise;
 
-import java.util.function.Supplier;
-
 public class ModSurfaceRuleData {
-//    private static final SurfaceRules.RuleSource CINNABAR = makeStateRule(ModBlocks.CINNABAR.get());
-//    private static final SurfaceRules.RuleSource SULFUR = makeStateRule(ModBlocks.SULFUR.get());
-
     public static SurfaceRules.RuleSource makeRules() {
-        SurfaceRules.RuleSource cinnabar = makeLazyStateRule(ModBlocks.CINNABAR);
-        SurfaceRules.RuleSource sulfur = makeLazyStateRule(ModBlocks.SULFUR);
+        SurfaceRules.RuleSource cinnabar = makeStateRule(ModBlocks.CINNABAR.get());
+        SurfaceRules.RuleSource sulfur = makeStateRule(ModBlocks.SULFUR.get());
+        SurfaceRules.RuleSource stone = makeStateRule(Blocks.STONE);
 
         return SurfaceRules.ifTrue(
-            SurfaceRules.not(SurfaceRules.abovePreliminarySurface()),
-            SurfaceRules.ifTrue(
-                SurfaceRules.isBiome(ModBiomes.SULFUR_CAVES),
-                SurfaceRules.sequence(
-                    SurfaceRules.ifTrue(noiseCondition3d(ModNoises.SULFUR_CAVE_GRADIENT, -0.4F, -0.1F), cinnabar),
-                    SurfaceRules.ifTrue(noiseCondition3d(ModNoises.SULFUR_CAVE_GRADIENT,  0.0F,  0.4F), sulfur),
-                    SurfaceRules.ifTrue(noiseCondition3d(ModNoises.SULFUR_CAVE_GRADIENT,  0.4F), cinnabar)
-                )
+            SurfaceRules.isBiome(ModBiomes.SULFUR_CAVES),
+            SurfaceRules.sequence(
+                SurfaceRules.ifTrue(noiseCondition3d(ModNoises.SULFUR_CAVE_GRADIENT, -0.4F, -0.1F), cinnabar),
+                SurfaceRules.ifTrue(noiseCondition3d(ModNoises.SULFUR_CAVE_GRADIENT, 0.0F, 0.4F), sulfur),
+                SurfaceRules.ifTrue(noiseCondition3d(ModNoises.SULFUR_CAVE_GRADIENT, 0.4F), cinnabar),
+                SurfaceRules.ifTrue(SurfaceRules.abovePreliminarySurface(), stone)
             )
         );
     }
@@ -42,9 +37,5 @@ public class ModSurfaceRuleData {
 
     private static SurfaceRules.RuleSource makeStateRule(Block block) {
         return SurfaceRules.state(block.defaultBlockState());
-    }
-
-    private static SurfaceRules.RuleSource makeLazyStateRule(Supplier<Block> block) {
-        return SurfaceRules.state(block.get().defaultBlockState());
     }
 }

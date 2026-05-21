@@ -93,6 +93,8 @@
   "bundled_tab.hot_as_lava.title": "Hot as Lava",
   "bundled_tab.spring_to_life.title": "Spring to Life",
   "bundled_tab.the_garden_awakens.title": "The Garden Awakens",
+  "death.attack.sulfurCubeHot": "%1$s died because not just the floor is lava",
+  "death.attack.sulfurCubeHot.player": "%2$s showed %1$s that not just the floor is lava",
   "entity.minecraft.creaking": "Creaking",
   "entity.minecraft.happy_ghast": "Happy Ghast",
   "entity.minecraft.pale_oak_boat": "Pale Oak Boat",
