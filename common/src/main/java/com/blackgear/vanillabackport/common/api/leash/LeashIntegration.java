@@ -65,15 +65,16 @@ public class LeashIntegration implements MobInteraction {
             }
 
             if (heldItem.is(Items.LEAD) && !(leashable.getLeashHolder() instanceof Player)) {
-                if (!level.isClientSide() && LeashPhysics.canAttachLeash(leashable, player)) {
+                if (LeashPhysics.canAttachLeash(leashable, player)) {
                     if (leashable.isLeashed()) {
                         leashable.dropLeash(true, true);
                     }
 
-                    leashable.setLeashedTo(player, true);
+                    if (!level.isClientSide()) leashable.setLeashedTo(player, true);
+
                     entity.playSound(SoundEvents.LEASH_KNOT_PLACE);
                     if (!player.isCreative()) heldItem.shrink(1);
-                    return InteractionResult.SUCCESS;
+                    return InteractionResult.sidedSuccess(level.isClientSide());
                 }
             }
         }

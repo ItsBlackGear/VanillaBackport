@@ -6,7 +6,6 @@ import com.blackgear.platform.common.integration.MobIntegration;
 import com.blackgear.platform.common.integration.TradeIntegration;
 import com.blackgear.platform.common.worldgen.modifier.BiomeManager;
 import com.blackgear.platform.core.ParallelDispatch;
-import com.blackgear.platform.core.events.DataLifecycleEvents;
 import com.blackgear.platform.core.events.ResourceReloadManager;
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
 import com.blackgear.vanillabackport.common.api.interactions.GhastHarnessInteraction;
@@ -25,6 +24,10 @@ import com.blackgear.vanillabackport.common.resource.variant.*;
 import com.blackgear.vanillabackport.common.worldgen.WorldGeneration;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.blackgear.vanillabackport.core.data.tags.ModBlockTags;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.dispenser.BlockSource;
+import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
+import net.minecraft.core.dispenser.DispenseItemBehavior;
 import net.minecraft.core.dispenser.ProjectileDispenseBehavior;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.PathfinderMob;
@@ -32,6 +35,11 @@ import net.minecraft.world.entity.SpawnPlacementTypes;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.animal.Parrot;
 import net.minecraft.world.entity.npc.VillagerTrades.ItemsForEmeralds;
+import net.minecraft.world.item.DispensibleContainerItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.levelgen.Heightmap;
 
 public class CommonSetup {
@@ -111,6 +119,24 @@ public class CommonSetup {
         event.registerDispenserBehavior(ModItems.PALE_OAK_CHEST_BOAT.get(), new PaleOakBoatDispenseBehavior(true));
         event.registerDispenserBehavior(ModItems.BLUE_EGG.get(), new ProjectileDispenseBehavior(ModItems.BLUE_EGG.get()));
         event.registerDispenserBehavior(ModItems.BROWN_EGG.get(), new ProjectileDispenseBehavior(ModItems.BROWN_EGG.get()));
+        DispenseItemBehavior dispenseItemBehavior = new DefaultDispenseItemBehavior() {
+            private final DefaultDispenseItemBehavior defaultDispenseItemBehavior = new DefaultDispenseItemBehavior();
+
+            @Override
+            public ItemStack execute(BlockSource blockSource, ItemStack item) {
+                DispensibleContainerItem dispensibleContainerItem = (DispensibleContainerItem) item.getItem();
+                BlockPos blockPos = blockSource.pos().relative(blockSource.state().getValue(DispenserBlock.FACING));
+                Level level = blockSource.level();
+                if (dispensibleContainerItem.emptyContents(null, level, blockPos, null)) {
+                    dispensibleContainerItem.checkExtraContent(null, level, item, blockPos);
+                    return this.consumeWithRemainder(blockSource, item, new ItemStack(Items.BUCKET));
+                } else {
+                    return this.defaultDispenseItemBehavior.dispense(blockSource, item);
+                }
+            }
+        };
+
+        event.registerDispenserBehavior(ModItems.SULFUR_CUBE_BUCKET.get(), dispenseItemBehavior);
     }
 
     public static void tradeIntegrations(TradeIntegration.Event event) {
@@ -146,7 +172,6 @@ public class CommonSetup {
     }
 
     public static void mobIntegrations(MobIntegration.Event event) {
-//        event.registerMobInteraction(new LeashIntegration());
         event.registerMobInteraction(new GhastHarnessInteraction());
         event.registerMobInteraction(new LeashIntegration());
 

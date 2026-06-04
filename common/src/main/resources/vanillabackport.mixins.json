@@ -4,7 +4,6 @@
   "compatibilityLevel": "JAVA_21",
   "minVersion": "0.8",
   "client": [
-    "client.RenderSectionMixin",
     "access.BlockRenderDispatcherAccessor",
     "access.CreativeModeInventoryScreenAccessor",
     "access.EntityRendererAccessor",
@@ -16,6 +15,7 @@
     "client.ClientBundleTooltipMixin",
     "client.LocalPlayerMixin",
     "client.MusicManagerMixin",
+    "client.RenderSectionMixin",
     "client.SpriteSourceListMixin",
     "client.SpriteSourceListMixin$PalettedPermutationsAccessor",
     "client.entities.renderer.CatRendererMixin",

@@ -143,7 +143,7 @@ public class LeashFeatureRenderer<T extends Entity> {
             int endBlockLight = this.getBlockLightLevel(roper, roperEyePos);
             int startSkyLight = entity.level().getBrightness(LightLayer.SKY, entityEyePos);
             int endSkyLight = entity.level().getBrightness(LightLayer.SKY, roperEyePos);
-            boolean quadConnection = LeashPhysics.supportsQuadLeashAsHolder(roper) && LeashPhysics.supportsQuadLeash(entity);
+            boolean quadConnection = ((LeashableCallback) roper).vb$supportsQuadLeashAsHolder() && ((LeashableCallback) entity).vb$supportsQuadLeash();
             int leashCount = quadConnection ? 4 : 1;
 
             if (this.leashStates == null || this.leashStates.size() != leashCount) {
@@ -154,8 +154,8 @@ public class LeashFeatureRenderer<T extends Entity> {
             if (quadConnection) {
                 float roperYRot = roper.getPreciseBodyRotation(partialTicks) * Mth.DEG_TO_RAD;
                 Vec3 holderPos = roper.getPosition(partialTicks);
-                Vec3[] leashableAttachmentPoints = LeashPhysics.getQuadLeashOffsets(entity);
-                Vec3[] roperAttachmentPoints = LeashPhysics.getQuadLeashHolderOffsets(roper);
+                Vec3[] leashableAttachmentPoints = ((LeashableCallback) entity).vb$getQuadLeashOffsets();
+                Vec3[] roperAttachmentPoints = ((LeashableCallback) roper).vb$getQuadLeashHolderOffsets();
 
                 for (int i = 0; i < leashCount; i++) {
                     LeashState leashState = this.leashStates.get(i);

@@ -2,7 +2,6 @@ package com.blackgear.vanillabackport.common.level.entities.happyghast;
 
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
 import com.blackgear.vanillabackport.common.api.extensions.PositionAwareEntity;
-import com.blackgear.vanillabackport.common.api.leash.LeashHolderCallback;
 import com.blackgear.vanillabackport.common.api.leash.LeashPhysics;
 import com.blackgear.vanillabackport.common.api.leash.LeashableCallback;
 import com.blackgear.vanillabackport.common.registries.ModEntities;
@@ -62,7 +61,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.EnumSet;
 import java.util.function.BooleanSupplier;
 
-public class HappyGhast extends Animal implements PlayerRideable, LeashableCallback, LeashHolderCallback, PositionAwareEntity {
+public class HappyGhast extends Animal implements PlayerRideable, LeashableCallback, PositionAwareEntity {
     public static final Ingredient IS_FOOD = Ingredient.of(ModItemTags.HAPPY_GHAST_FOOD);
     private int leashHolderTime = 0;
     private int serverStillTimeout;
@@ -585,7 +584,8 @@ public class HappyGhast extends Animal implements PlayerRideable, LeashableCallb
 
     @Override
     public void vb$notifyLeashHolder(Leashable leashee) {
-        if (LeashPhysics.supportsQuadLeash((Entity) leashee)) {
+        Entity entity = (Entity) leashee;
+        if (((LeashableCallback) entity).vb$supportsQuadLeash()) {
             this.leashHolderTime = 5;
         }
     }

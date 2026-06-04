@@ -2,6 +2,7 @@ package com.blackgear.vanillabackport.core.mixin.common.entities;
 
 import com.blackgear.vanillabackport.common.api.extensions.TravelAwareEntity;
 import com.blackgear.vanillabackport.common.api.extensions.MotionAwareEntity;
+import com.blackgear.vanillabackport.common.api.leash.LeashableCallback;
 import com.blackgear.vanillabackport.common.registries.ModAttributes;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
@@ -28,7 +29,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Entity.class)
-public abstract class EntityMixin implements MotionAwareEntity {
+public abstract class EntityMixin implements MotionAwareEntity, LeashableCallback {
     @Shadow public abstract Vec3 position();
     @Shadow @Nullable public abstract LivingEntity getControllingPassenger();
     @Shadow public abstract boolean isAlive();

@@ -1,7 +1,6 @@
 package com.blackgear.vanillabackport.core.mixin.leash;
 
-import com.blackgear.vanillabackport.common.api.leash.LeashDataAccess;
-import com.blackgear.vanillabackport.common.api.leash.LeashHolderCallback;
+import com.blackgear.vanillabackport.common.api.leash.LeashDataExtension;
 import com.blackgear.vanillabackport.common.api.leash.LeashPhysics;
 import com.blackgear.vanillabackport.common.api.leash.LeashableCallback;
 import com.blackgear.vanillabackport.core.ModChecker;
@@ -22,7 +21,6 @@ public interface LeashableTickMixin {
     @Inject(method = "tickLeash", at = @At("HEAD"), cancellable = true)
     private static <E extends Entity & Leashable> void vb$tickLeash(E entity, CallbackInfo ci) {
         if (ModChecker.SABLE_LOADED) return;
-        ci.cancel();
 
         Leashable.LeashData data = entity.getLeashData();
         if (data != null && data.delayedLeashInfo != null) {
@@ -32,35 +30,28 @@ public interface LeashableTickMixin {
         if (data != null && data.leashHolder != null) {
             if (!entity.isAlive() || !data.leashHolder.isAlive()) {
                 entity.dropLeash(true, entity.level().getGameRules().getBoolean(GameRules.RULE_DOENTITYDROPS));
-                return;
             }
 
             Entity holder = entity.getLeashHolder();
+            LeashableCallback callback = (LeashableCallback) entity;
             if (holder != null && holder.level() == entity.level()) {
-                if (holder instanceof LeashHolderCallback callback) {
-                    callback.vb$notifyLeashHolder(entity);
-                }
-
                 double distanceTo = LeashPhysics.distanceBetween(entity, holder);
-                if (distanceTo > LeashPhysics.snapDistance(entity)) {
-                    entity.level().playSound(null, holder.getX(), holder.getY(), holder.getZ(), SoundEvents.LEASH_KNOT_BREAK, SoundSource.NEUTRAL, 1.0F, 1.0F);
+                callback.vb$whenLeashedTo(holder);
+                if (distanceTo > callback.vb$leashSnapDistance()) {
+                    entity.level().playSound(null, holder.blockPosition(), SoundEvents.LEASH_KNOT_BREAK, SoundSource.NEUTRAL, 1.0F, 1.0F);
                     entity.leashTooFarBehaviour();
-                } else if (distanceTo > LeashPhysics.elasticDistance(entity) - holder.getBbWidth() - entity.getBbWidth()) {
-                    if (LeashPhysics.checkElasticInteractions(entity, holder, data)) {
-                        if (entity instanceof LeashableCallback callback) {
-                            callback.vb$onElasticLeashPull();
-                        } else {
-                            entity.checkSlowFallDistance();
-                        }
-                    }
+                } else if (distanceTo > callback.vb$leashElasticDistance() - holder.getBbWidth() - entity.getBbWidth() && LeashPhysics.checkElasticInteractions(entity, holder, data)) {
+                    callback.vb$onElasticLeashPull();
                 } else {
                     entity.closeRangeLeashBehaviour(holder);
                 }
 
-                LeashDataAccess access = (LeashDataAccess)(Object) data;
-                entity.setYRot((float)(entity.getYRot() - access.vb$getAngularMomentum()));
-                access.vb$setAngularMomentum(access.vb$getAngularMomentum() * LeashPhysics.angularFriction(entity));
+                LeashDataExtension leashData = (LeashDataExtension) (Object) data;
+                entity.setYRot((float) (entity.getYRot() - leashData.angularMomentum()));
+                leashData.setAngularMomentum(leashData.angularMomentum() * LeashPhysics.angularFriction(entity));
             }
         }
+
+        ci.cancel();
     }
 }

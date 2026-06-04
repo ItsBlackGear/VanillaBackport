@@ -74,7 +74,6 @@ public final class VanillaBackport {
         Registrar.bind(BuiltInRegistries.ENTITY_TYPE, ModEntityTypes::bootstrap);
         ModSensorTypes.SENSOR_TYPES.register();
 
-
         ModSoundEvents.SOUNDS.register();
         ModSoundTypes.SOUNDS.register();
 

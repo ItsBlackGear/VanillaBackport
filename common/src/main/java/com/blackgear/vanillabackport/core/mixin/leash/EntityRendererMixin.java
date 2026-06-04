@@ -2,6 +2,7 @@ package com.blackgear.vanillabackport.core.mixin.leash;
 
 import com.blackgear.vanillabackport.common.api.leash.LeashFeatureRenderer;
 import com.blackgear.vanillabackport.common.api.leash.LeashPhysics;
+import com.blackgear.vanillabackport.common.api.leash.LeashableCallback;
 import com.blackgear.vanillabackport.core.ModChecker;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.MultiBufferSource;
@@ -39,7 +40,7 @@ public class EntityRendererMixin<T extends Entity> {
 
     @Inject(method = "renderLeash", at = @At("HEAD"), cancellable = true)
     private <E extends Entity & Leashable> void vb$cancelVanillaLeash(E entity, float partialTick, PoseStack poseStack, MultiBufferSource buffer, Entity leashHolder, CallbackInfo ci) {
-        if (!ModChecker.SABLE_LOADED && LeashPhysics.supportsQuadLeash(entity)) ci.cancel();
+        if (!ModChecker.SABLE_LOADED && ((LeashableCallback) entity).vb$supportsQuadLeash()) ci.cancel();
     }
 
     @Inject(method = "shouldRender", at = @At("TAIL"), cancellable = true)

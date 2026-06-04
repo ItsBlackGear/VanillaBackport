@@ -1,11 +1,18 @@
 package com.blackgear.vanillabackport.common.api.leash;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
+import net.minecraft.Util;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.Leashable;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.animal.camel.Camel;
+import net.minecraft.world.entity.animal.horse.AbstractChestedHorse;
+import net.minecraft.world.entity.animal.horse.AbstractHorse;
+import net.minecraft.world.entity.animal.sniffer.Sniffer;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.AABB;
@@ -13,6 +20,7 @@ import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 public final class LeashPhysics {
@@ -29,17 +37,15 @@ public final class LeashPhysics {
         new Vec3( 0.5, 0.5, -0.5), new Vec3( 0.5, 0.5,  0.5)
     );
 
-    public static double snapDistance(Entity entity) {
-        return entity instanceof LeashableCallback callback
-            ? callback.vb$leashSnapDistance()
-            : LEASH_TOO_FAR_DIST;
-    }
-
-    public static double elasticDistance(Entity entity) {
-        return entity instanceof LeashableCallback callback
-            ? callback.vb$leashElasticDistance()
-            : LEASH_ELASTIC_DIST;
-    }
+    public static final Map<Predicate<Entity>, Function<Entity, Vec3[]>> QUAD_LEASH_OFFSETS = Util.make(() -> {
+        ImmutableMap.Builder<Predicate<Entity>, Function<Entity, Vec3[]>> offsets = new ImmutableMap.Builder<>();
+        offsets.put(entity -> entity instanceof Boat, entity -> createQuadOffsets(entity, 0.0, 0.64, 0.382, 0.88));
+        offsets.put(entity -> entity instanceof Camel, entity -> createQuadOffsets(entity, 0.02, 0.48, 0.25, 0.82));
+        offsets.put(entity -> entity instanceof AbstractChestedHorse, entity -> createQuadOffsets(entity, 0.04, 0.41, 0.18, 0.73));
+        offsets.put(entity -> entity instanceof AbstractHorse, entity -> createQuadOffsets(entity, 0.04, 0.52, 0.23, 0.87));
+        offsets.put(entity -> entity instanceof Sniffer, entity -> createQuadOffsets(entity, -0.01, 0.63, 0.38, 1.15));
+        return offsets.build();
+    });
 
     public static double distanceBetween(Entity target, Entity holder) {
         return holder.getBoundingBox().getCenter().distanceTo(target.getBoundingBox().getCenter());
@@ -47,68 +53,8 @@ public final class LeashPhysics {
 
     public static boolean canAttachLeash(Leashable leashable, Entity holder) {
         if (leashable == holder) return false;
-        return distanceBetween((Entity) leashable, holder) <= snapDistance((Entity) leashable) && leashable.canBeLeashed();
-    }
-
-    private static List<Vec3> resolveHolderAttachmentPoints(Entity holder, boolean quadConnections) {
-        if (!quadConnections) {
-            return LEASHER_ATTACHMENT_POINT;
-        } else if (holder instanceof LeashHolderCallback callback) {
-            return Arrays.asList(callback.vb$getQuadLeashHolderOffsets());
-        } else {
-            return SHARED_QUAD_ATTACHMENT_POINTS;
-        }
-    }
-
-    private static List<Vec3> resolveEntityAttachmentPoints(Entity entity, boolean quadConnections) {
-        if (!quadConnections) {
-            return ENTITY_ATTACHMENT_POINT;
-        } else if (entity instanceof LeashableCallback callback) {
-            return Arrays.asList(callback.vb$getQuadLeashOffsets());
-        } else {
-            Vec3[] offsets = QuadLeashRegistry.getOffsets(entity);
-            return offsets != null ? Arrays.asList(offsets) : SHARED_QUAD_ATTACHMENT_POINTS;
-        }
-    }
-
-    private static boolean isQuadConnection(Entity entity, Entity holder) {
-        boolean supportsQuadLeashAsHolder = holder instanceof LeashHolderCallback callback
-            ? callback.vb$supportsQuadLeashAsHolder()
-            : QuadLeashRegistry.supportsAsHolder(holder);
-
-        boolean supportsQuadLeash = entity instanceof LeashableCallback callback
-            ? callback.vb$supportsQuadLeash()
-            : QuadLeashRegistry.supports(entity);
-
-        return supportsQuadLeashAsHolder && supportsQuadLeash;
-    }
-
-    public static boolean supportsQuadLeash(Entity entity) {
-        return entity instanceof LeashableCallback callback
-            ? callback.vb$supportsQuadLeash()
-            : QuadLeashRegistry.supports(entity);
-    }
-
-    public static boolean supportsQuadLeashAsHolder(Entity entity) {
-        return entity instanceof LeashHolderCallback callback
-            ? callback.vb$supportsQuadLeashAsHolder()
-            : QuadLeashRegistry.supportsAsHolder(entity);
-    }
-
-    public static Vec3[] getQuadLeashOffsets(Entity entity) {
-        if (entity instanceof LeashableCallback callback) {
-            return callback.vb$getQuadLeashOffsets();
-        } else {
-            Vec3[] offsets = QuadLeashRegistry.getOffsets(entity);
-            return offsets != null ? offsets : createQuadOffsets(entity, 0.0, 0.5, 0.5, 0.5);
-        }
-    }
-
-    public static Vec3[] getQuadLeashHolderOffsets(Entity entity) {
-        if (entity instanceof LeashHolderCallback callback)
-            return callback.vb$getQuadLeashHolderOffsets();
-
-        return createQuadOffsets(entity, 0.0, 0.5, 0.5, 0.0);
+        Entity entity = (Entity) leashable;
+        return distanceBetween(entity, holder) <= ((LeashableCallback) entity).vb$leashSnapDistance() && leashable.canBeLeashed();
     }
 
     public static float angularFriction(Entity entity) {
@@ -130,20 +76,24 @@ public final class LeashPhysics {
         Entity holder,
         Leashable.LeashData data
     ) {
-        boolean quadConnection = isQuadConnection(entity, holder);
+        if (entity.getControllingPassenger() instanceof Player) return false;
 
-        List<Vec3> entityAttachmentPoints = resolveEntityAttachmentPoints(entity, quadConnection);
-        List<Vec3> leasherAttachmentPoints = resolveHolderAttachmentPoints(holder, quadConnection);
+        boolean quadConnection = ((LeashableCallback) holder).vb$supportsQuadLeashAsHolder() && ((LeashableCallback) entity).vb$supportsQuadLeash();
+        List<Wrench> wrenches = computeElasticInteraction(
+            entity,
+            holder,
+            quadConnection ? SHARED_QUAD_ATTACHMENT_POINTS : ENTITY_ATTACHMENT_POINT,
+            quadConnection ? SHARED_QUAD_ATTACHMENT_POINTS : LEASHER_ATTACHMENT_POINT
+        );
 
-        List<Wrench> wrenches = computeElasticInteraction(entity, holder, entityAttachmentPoints, leasherAttachmentPoints);
         if (wrenches.isEmpty()) {
             return false;
         } else {
             Wrench result = Wrench.accumulate(wrenches).scale(quadConnection ? 0.25 : 1.0);
-            LeashDataAccess access = Objects.requireNonNull((LeashDataAccess) (Object) data);
-            access.vb$setAngularMomentum(access.vb$getAngularMomentum() + TORSIONAL_ELASTICITY * result.torque());
-            Vec3 relativeVelocityToLeasher = getHolderMovement(holder).subtract(entity.getKnownMovement());
-            entity.addDeltaMovement(result.force().multiply(AXIS_SPECIFIC_ELASTICITY).add(relativeVelocityToLeasher.scale(STIFFNESS)));
+            LeashDataExtension leashData = Objects.requireNonNull((LeashDataExtension) (Object) data);
+            leashData.setAngularMomentum(leashData.angularMomentum() + TORSIONAL_ELASTICITY * result.torque());
+            Vec3 offset = getHolderMovement(holder).subtract(entity.getKnownMovement());
+            entity.addDeltaMovement(result.force().multiply(AXIS_SPECIFIC_ELASTICITY).add(offset.scale(STIFFNESS)));
             return true;
         }
     }
@@ -154,7 +104,7 @@ public final class LeashPhysics {
         List<Vec3> entityAttachmentPoints,
         List<Vec3> leasherAttachmentPoints
     ) {
-        double slackDistance = elasticDistance(entity);
+        double slackDistance = ((LeashableCallback) entity).vb$leashElasticDistance();
         Vec3 currentMovement = getHolderMovement(entity);
         float entityYRot = entity.getYRot() * Mth.DEG_TO_RAD;
         Vec3 entityDimensions = new Vec3(entity.getBbWidth(), entity.getBbHeight(), entity.getBbWidth());
@@ -187,7 +137,7 @@ public final class LeashPhysics {
             Vec3 displacement = pivot.subtract(pos).normalize().scale(distance - slack);
             double torque = Wrench.torqueFromForce(lever, displacement);
             if (motion.dot(displacement) >= 0.0) {
-                displacement = displacement.scale(0.3);
+                displacement = displacement.scale(0.3F);
             }
 
             return Optional.of(new Wrench(displacement, torque));
@@ -227,7 +177,7 @@ public final class LeashPhysics {
     public static void resetAngularMomentum(Leashable leashable) {
         Leashable.LeashData data = leashable.getLeashData();
         if (data != null) {
-            ((LeashDataAccess)(Object) data).vb$setAngularMomentum(0.0);
+            ((LeashDataExtension)(Object) data).setAngularMomentum(0.0);
         }
     }
 
