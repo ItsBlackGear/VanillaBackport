@@ -8,6 +8,7 @@
     "access.CreativeModeInventoryScreenAccessor",
     "access.EntityRendererAccessor",
     "access.GuiGraphicsAccessor",
+    "access.PostChainAccessor",
     "access.SoundEngineAccessor",
     "access.SoundManagerAccessor",
     "client.AbstractContainerScreenMixin",

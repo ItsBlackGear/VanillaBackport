@@ -2,9 +2,9 @@ package com.blackgear.vanillabackport.common.level.blockentities;
 
 import com.blackgear.vanillabackport.client.level.particles.particleoptions.GeyserParticleOptions;
 import com.blackgear.vanillabackport.client.registries.ModParticles;
-import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
 import com.blackgear.vanillabackport.common.level.blocks.states.PotentSulfurState;
 import com.blackgear.vanillabackport.common.registries.ModBlockEntities;
+import com.blackgear.vanillabackport.core.data.tags.ModEntityTypeTags;
 import com.blackgear.vanillabackport.core.util.CollisionUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -125,11 +125,13 @@ public class PotentSulfurBlockEntity extends BlockEntity {
 
             for (Entity target : level.getEntitiesOfClass(Entity.class, aabb, EFFECT_PREDICATE)) {
                 Vec3 velocity = target.getDeltaMovement();
-                if (!(target instanceof Player player && player.getAbilities().flying) && velocity.y <= 0.3F + waterBlocks * 0.1) {
+                target.checkSlowFallDistance();
+                if (target.isControlledByLocalInstance()
+                    && !(target instanceof Player player && player.getAbilities().flying)
+                    && !target.isPassenger()
+                    && !target.getType().is(ModEntityTypeTags.NOT_AFFECTED_BY_GEYSERS)
+                    && velocity.y < 0.3F + waterBlocks * 0.1) {
                     target.addDeltaMovement(new Vec3(0.0, 0.2F, 0.0));
-                    target.hurtMarked = true;
-                    target.hasImpulse = true;
-                    target.checkSlowFallDistance();
                 }
             }
         }

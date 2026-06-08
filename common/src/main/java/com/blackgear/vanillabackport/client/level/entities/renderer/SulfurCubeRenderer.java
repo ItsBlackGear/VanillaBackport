@@ -15,11 +15,11 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
 @Environment(EnvType.CLIENT)
-public class SulfurCubeRenderer extends MobRenderer<SulfurCube, SulfurCubeModel<SulfurCube>> {
+public class SulfurCubeRenderer extends MobRenderer<SulfurCube, SulfurCubeModel> {
     private static final ResourceLocation SULFUR_CUBE_INNER_LOCATION = ResourceLocation.withDefaultNamespace("textures/entity/sulfur_cube/sulfur_cube_inner.png");
 
     public SulfurCubeRenderer(EntityRendererProvider.Context context) {
-        super(context, new SulfurCubeModel<>(context.bakeLayer(ModModelLayers.SULFUR_CUBE_INNER), true), 0.25F);
+        super(context, new SulfurCubeModel(context.bakeLayer(ModModelLayers.SULFUR_CUBE_INNER), true), 0.25F);
         this.addLayer(new SulfurCubeInnerLayer(this, context.getModelSet(), context.getBlockRenderDispatcher()));
         this.addLayer(new SulfurCubeOuterLayer(this, context.getModelSet()));
     }
@@ -38,7 +38,7 @@ public class SulfurCubeRenderer extends MobRenderer<SulfurCube, SulfurCubeModel<
 
         // apply size and squish
         float size = (float) cube.getSize();
-        float squish = Mth.lerp(partialTicks, cube.oSquish, cube.squish) / (size * 0.5F + 1.0F);
+        float squish = cube.getContainedBlock().isEmpty() ? Mth.lerp(partialTicks, cube.oSquish, cube.squish) / (size * 0.5F + 1.0F) : 0.0F;
         float progress = 1.0F / (squish + 1.0F);
         pose.scale(progress * size, 1.0F / progress * size, progress * size);
 
@@ -52,8 +52,11 @@ public class SulfurCubeRenderer extends MobRenderer<SulfurCube, SulfurCubeModel<
             pose.scale(scale, scale, scale);
         }
 
-        pose.scale(0.5F, 0.5F, 0.5F);
-        pose.translate(-0.0F, 0.98F, -0.0F);
+        float vOffset = cube.isBaby() ? 1.24F : 0.98F;
+        float extraDownscale = cube.isBaby() ? 1.0F : 0.5F;
+        float onePixelUpIfVisible = (cube.isInvisible() ? 0.0F : 1.0F) / 16.0F;
+        pose.scale(extraDownscale, extraDownscale, extraDownscale);
+        pose.translate(-0.0F, vOffset - onePixelUpIfVisible, -0.0F);
     }
 
     @Override

@@ -50,7 +50,7 @@ public class LeashIntegration implements MobInteraction {
         ItemStack heldItem = player.getItemInHand(hand);
         if (heldItem.is(Items.SHEARS) && shearAllConnections(entity, player)) {
             heldItem.hurtAndBreak(1, player, LivingEntity.getSlotForHand(hand));
-            return InteractionResult.SUCCESS;
+            return InteractionResult.sidedSuccess(level.isClientSide());
         }
 
         if (entity.isAlive() && entity instanceof Leashable leashable) {
@@ -61,20 +61,20 @@ public class LeashIntegration implements MobInteraction {
                     entity.playSound(SoundEvents.LEASH_KNOT_BREAK);
                 }
 
-                return InteractionResult.SUCCESS;
+                return InteractionResult.sidedSuccess(level.isClientSide());
             }
 
             if (heldItem.is(Items.LEAD) && !(leashable.getLeashHolder() instanceof Player)) {
+                if (level.isClientSide()) {
+                    return InteractionResult.CONSUME;
+                }
+
                 if (LeashPhysics.canAttachLeash(leashable, player)) {
-                    if (leashable.isLeashed()) {
-                        leashable.dropLeash(true, true);
-                    }
-
-                    if (!level.isClientSide()) leashable.setLeashedTo(player, true);
-
+                    if (leashable.isLeashed()) leashable.dropLeash(true, true);
+                    leashable.setLeashedTo(player, true);
                     entity.playSound(SoundEvents.LEASH_KNOT_PLACE);
                     if (!player.isCreative()) heldItem.shrink(1);
-                    return InteractionResult.sidedSuccess(level.isClientSide());
+                    return InteractionResult.SUCCESS;
                 }
             }
         }
@@ -85,7 +85,7 @@ public class LeashIntegration implements MobInteraction {
     private static boolean shearAllConnections(Entity entity, Player player) {
         boolean dropped = LeashPhysics.dropAllLeashConnections(entity, player);
         if (dropped && entity.level() instanceof ServerLevel server) {
-            server.playSound(null, entity.blockPosition(), SoundEvents.SHEEP_SHEAR, player != null ? player.getSoundSource() : entity.getSoundSource(), 1.0F, 1.0F);
+            server.playSound(null, entity.blockPosition(), SoundEvents.SHEEP_SHEAR, player != null ? player.getSoundSource() : entity.getSoundSource());
         }
 
         return dropped;

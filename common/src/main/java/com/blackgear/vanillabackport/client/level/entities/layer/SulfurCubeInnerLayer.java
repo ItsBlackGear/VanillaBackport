@@ -1,5 +1,6 @@
 package com.blackgear.vanillabackport.client.level.entities.layer;
 
+import com.blackgear.vanillabackport.client.level.entities.model.SmallSulfurCubeModel;
 import com.blackgear.vanillabackport.client.level.entities.model.SulfurCubeModel;
 import com.blackgear.vanillabackport.client.registries.ModModelLayers;
 import com.blackgear.vanillabackport.common.level.entities.sulfurcube.SulfurCube;
@@ -8,6 +9,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -26,15 +28,18 @@ import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.state.BlockState;
 
 @Environment(EnvType.CLIENT)
-public class SulfurCubeInnerLayer extends RenderLayer<SulfurCube, SulfurCubeModel<SulfurCube>> {
+public class SulfurCubeInnerLayer extends RenderLayer<SulfurCube, SulfurCubeModel> {
     private static final ResourceLocation SULFUR_CUBE_INNER_LOCATION = ResourceLocation.withDefaultNamespace("textures/entity/sulfur_cube/sulfur_cube_inner.png");
+    private static final ResourceLocation SULFUR_CUBE_INNER_SMALL_LOCATION = ResourceLocation.withDefaultNamespace("textures/entity/sulfur_cube/sulfur_cube_inner_small.png");
 
-    private final SulfurCubeModel<SulfurCube> model;
+    private final SulfurCubeModel normalModel;
+    private final SmallSulfurCubeModel smallModel;
     private final BlockRenderDispatcher blockRenderer;
 
-    public SulfurCubeInnerLayer(RenderLayerParent<SulfurCube, SulfurCubeModel<SulfurCube>> renderer, EntityModelSet modelSet, BlockRenderDispatcher blockRenderer) {
+    public SulfurCubeInnerLayer(RenderLayerParent<SulfurCube, SulfurCubeModel> renderer, EntityModelSet modelSet, BlockRenderDispatcher blockRenderer) {
         super(renderer);
-        this.model = new SulfurCubeModel<>(modelSet.bakeLayer(ModModelLayers.SULFUR_CUBE_INNER));
+        this.normalModel = new SulfurCubeModel(modelSet.bakeLayer(ModModelLayers.SULFUR_CUBE_INNER));
+        this.smallModel = new SmallSulfurCubeModel(modelSet.bakeLayer(ModModelLayers.SULFUR_CUBE_SMALL_INNER));
         this.blockRenderer = blockRenderer;
     }
 
@@ -55,17 +60,22 @@ public class SulfurCubeInnerLayer extends RenderLayer<SulfurCube, SulfurCubeMode
         int overlayCoords = fuse > 0.0F && isLit(fuse)
             ? OverlayTexture.pack(OverlayTexture.u(1.0F), 10)
             : LivingEntityRenderer.getOverlayCoords(cube, 0.0F);
+
         ItemStack containedBlock = cube.getContainedBlock();
         if (!containedBlock.isEmpty()) {
             pose.pushPose();
             pose.mulPose(Axis.XP.rotationDegrees(180.0F));
+            if (cube.isBaby()) pose.scale(0.5F, 0.5F, 0.5F);
+
             pose.translate(-0.5F, -0.518F, -0.5F);
             BlockState state = Block.byItem(containedBlock.getItem()).defaultBlockState(); //TODO: apply matching properties from item
             renderSingleBlock(state, pose, buffer, packedLight, overlayCoords);
             pose.popPose();
         } else if (!cube.isInvisible()) {
-            RenderType renderType = RenderType.entitySolid(SULFUR_CUBE_INNER_LOCATION);
-            this.model.renderToBuffer(pose, buffer.getBuffer(renderType), packedLight, overlayCoords, -1);
+            ResourceLocation texture = cube.isBaby() ? SULFUR_CUBE_INNER_SMALL_LOCATION : SULFUR_CUBE_INNER_LOCATION;
+            EntityModel<SulfurCube> model = cube.isBaby() ? this.smallModel : this.normalModel;
+            RenderType renderType = RenderType.entitySolid(texture);
+            model.renderToBuffer(pose, buffer.getBuffer(renderType), packedLight, overlayCoords, -1);
         }
     }
 

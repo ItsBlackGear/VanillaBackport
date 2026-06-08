@@ -14,6 +14,7 @@ import com.blackgear.vanillabackport.core.registries.ModBuiltinRegistries;
 import com.blackgear.vanillabackport.core.util.MathUtils;
 import com.blackgear.vanillabackport.core.util.MobUtils;
 import com.blackgear.vanillabackport.core.util.SignalUtils;
+import com.blackgear.vanillabackport.core.util.VecUtils;
 import it.unimi.dsi.fastutil.doubles.DoubleDoubleImmutablePair;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
@@ -80,11 +81,13 @@ public class SulfurCube extends AbstractCubeMob implements Bucketable, Shearable
     private static final EntityDataAccessor<Integer> MAX_FUSE = SynchedEntityData.defineId(SulfurCube.class, EntityDataSerializers.INT);
     private static final Predicate<ItemEntity> ALLOWED_ITEMS = item -> !item.hasPickUpDelay() && item.isAlive() && isSwallowableItem(item.getItem());
     private int pickupTimer = 0;
+    private int pushSoundCooldown = 0;
     private boolean floatsInLiquids = false;
     private Optional<ExplosionData> explosionData = Optional.empty();
-    private KnockbackModifiers knockbackModifiers = DEFAULT_KNOCKBACK_MODIFIERS;
-    private final List<ContactDamage> contactDamages = new ArrayList<>();
+    private KnockbackModifiers knockbackModifier = DEFAULT_KNOCKBACK_MODIFIERS;
+    private SulfurCubeArchetype.SoundSettings soundSettings = SulfurCubeArchetype.DEFAULT_SOUND_SETTINGS;
     private int fuse = -1;
+    private final List<ContactDamage> contactDamages = new ArrayList<>();
 
     @Nullable private DamageSource pendingKnockbackSource = null;
     private float pendingKnockbackDamage = 0f;
@@ -261,6 +264,8 @@ public class SulfurCube extends AbstractCubeMob implements Bucketable, Shearable
 
     @Override
     public boolean hurt(DamageSource source, float damage) {
+        this.pendingKnockbackSource = null;
+        this.pendingKnockbackDamage = 0F;
         this.pendingKnockbackSource = source;
         this.pendingKnockbackDamage = damage;
 
@@ -342,6 +347,8 @@ public class SulfurCube extends AbstractCubeMob implements Bucketable, Shearable
                 this.dead = true;
                 if (this.level() instanceof ServerLevel level) {
                     if (VanillaBackport.COMMON_CONFIG.doSulfurCubesExplode.get()) {
+                        Level.ExplosionInteraction interaction = level.getGameRules().getBoolean(GameRules.RULE_MOBGRIEFING)
+                            ? Level.ExplosionInteraction.TNT : Level.ExplosionInteraction.NONE;
                         level.explode(
                             this,
                             level.damageSources().explosion(this, this),
@@ -351,7 +358,7 @@ public class SulfurCube extends AbstractCubeMob implements Bucketable, Shearable
                             this.getZ(),
                             this.explosionData.get().power(),
                             this.explosionData.get().causesFire(),
-                            Level.ExplosionInteraction.MOB
+                            interaction
                         );
                     }
 
@@ -396,6 +403,10 @@ public class SulfurCube extends AbstractCubeMob implements Bucketable, Shearable
         if (this.pickupTimer > 0) {
             this.pickupTimer--;
         }
+
+        if (this.pushSoundCooldown > 0) {
+            this.pushSoundCooldown--;
+        }
     }
 
     @Override @Nullable
@@ -423,7 +434,8 @@ public class SulfurCube extends AbstractCubeMob implements Bucketable, Shearable
             this.floatsInLiquids = false;
             this.explosionData = Optional.empty();
             this.contactDamages.clear();
-            this.knockbackModifiers = DEFAULT_KNOCKBACK_MODIFIERS;
+            this.knockbackModifier = DEFAULT_KNOCKBACK_MODIFIERS;
+            this.soundSettings = SulfurCubeArchetype.DEFAULT_SOUND_SETTINGS;
 
             for (SulfurCubeArchetype archetype : this.matchingArchetypes(current)) {
                 if (archetype.buoyant()) {
@@ -438,7 +450,8 @@ public class SulfurCube extends AbstractCubeMob implements Bucketable, Shearable
                     this.contactDamages.add(archetype.contactDamage().get());
                 }
 
-                this.knockbackModifiers = archetype.knockbackModifiers();
+                this.knockbackModifier = archetype.knockbackModifiers();
+                this.soundSettings = archetype.soundSettings();
 
                 for (AttributeEntry entry : archetype.attributeModifiers()) {
                     AttributeInstance attribute = this.getAttribute(entry.attribute());
@@ -478,6 +491,7 @@ public class SulfurCube extends AbstractCubeMob implements Bucketable, Shearable
             if (this.isFood(heldItem)) {
                 if (!player.getAbilities().instabuild) heldItem.shrink(1);
                 this.ageUp(getSpeedUpSecondsWhenFeeding(-this.age), true);
+                this.playSound(ModSoundEvents.SULFUR_CUBE_SMALL_EAT.get());
                 return InteractionResult.SUCCESS;
             } else {
                 return super.mobInteract(player, hand);
@@ -611,14 +625,6 @@ public class SulfurCube extends AbstractCubeMob implements Bucketable, Shearable
     @Override
     protected SoundEvent getJumpSound() {
         return this.isTiny() ? ModSoundEvents.SULFUR_CUBE_SMALL_JUMP.get() : ModSoundEvents.SULFUR_CUBE_JUMP.get();
-    }
-
-    private SoundEvent getHitSound() {
-        return ModSoundEvents.SULFUR_CUBE_HIT.get();
-    }
-
-    private SoundEvent getPushSound() {
-        return ModSoundEvents.SULFUR_CUBE_PUSH.get();
     }
 
     private SoundEvent getAbsorbSound() {
@@ -763,20 +769,24 @@ public class SulfurCube extends AbstractCubeMob implements Bucketable, Shearable
 
     private void playerPush(Player player) {
         if (this.hasBodyItem()) {
-            Vec3 cubeToPlayer = this.position().subtract(player.position());
-            double playerFeetPosition = player.getY();
+            Entity pusher = player.isPassenger() ? player.getRootVehicle() : player;
+            Vec3 cubeToPusher = this.position().subtract(pusher.position());
+            double pusherFeetPosition = pusher.getY();
             double sulfurCubeBottomPosition = this.getY();
             double sulfurCubeTopPosition = sulfurCubeBottomPosition + this.getBbHeight();
-            double playerTopPosition = playerFeetPosition + player.getBbHeight();
-            if (cubeToPlayer.horizontalDistance() < 1.3F && playerFeetPosition <= sulfurCubeTopPosition && playerTopPosition > sulfurCubeBottomPosition) {
+            double pusherTopPosition = pusherFeetPosition + pusher.getBbHeight();
+            if (cubeToPusher.horizontalDistance() < 1.3F && pusherFeetPosition <= sulfurCubeTopPosition && pusherTopPosition > sulfurCubeBottomPosition) {
                 double knockback = Math.max(0.0, 1.0 - this.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE));
-                Vec3 pushDirection = new Vec3(cubeToPlayer.x, 0.0, cubeToPlayer.z).normalize().scale(knockback);
-                double playerSpeed = ((MotionAwareEntity) player).getKnownSpeed().length() * 2.0 * 0.3F;
+                Vec3 pushDirection = VecUtils.horizontal(cubeToPusher).normalize().scale(knockback);
+                float pushSpeedScale = player.isPassenger() ? 0.16F : 0.3F;
+                double playerSpeed = ((MotionAwareEntity) player).getKnownSpeed().length() * 2.0 * pushSpeedScale;
                 playerSpeed = Mth.clamp(playerSpeed, 0.0, 0.5);
                 Vec3 pushVelocity = new Vec3(pushDirection.x, this.onGround() ? knockback * 0.3F : 0.0, pushDirection.z).scale(playerSpeed);
                 this.hasImpulse = true;
-                if (pushVelocity.lengthSqr() > 0.25) {
-                    this.playSound(this.getPushSound());
+                float pushSoundThreshold = this.soundSettings.pushSoundImpulseThreshold();
+                if (pushVelocity.lengthSqr() > pushSoundThreshold * pushSoundThreshold && this.pushSoundCooldown <= 0) {
+                    this.pushSoundCooldown = (int)(this.soundSettings.pushSoundCooldown() * 20.0F);
+                    this.playSound(this.soundSettings.pushSound().value());
                 }
 
                 this.addDeltaMovement(pushVelocity);
@@ -791,10 +801,7 @@ public class SulfurCube extends AbstractCubeMob implements Bucketable, Shearable
             attackerAimDirection.x * attackerToTarget.z - attackerAimDirection.z * attackerToTarget.x,
             attackerAimDirection.x * attackerToTarget.x + attackerAimDirection.z * attackerToTarget.z
         );
-
-        float cosine = Mth.cos(angleDiff * horizontalAngleScale);
-        float sine = Mth.sin(angleDiff * horizontalAngleScale);
-        return new Vec2(originalAngle.x * cosine - originalAngle.y * sine, originalAngle.y * cosine + originalAngle.x * sine);
+        return VecUtils.rotate(originalAngle, angleDiff * horizontalAngleScale);
     }
 
     private Vec2 applyVerticalHitAnglePowerTransfer(
@@ -826,68 +833,77 @@ public class SulfurCube extends AbstractCubeMob implements Bucketable, Shearable
         float verticalPositionAngleScale,
         float horizontalPower,
         float verticalPower,
+        float originalHorizontalPower,
+        float originalVerticalPower,
         Vec3 attackerFeetPosition,
         Vec3 targetFeetPosition
     ) {
         Vec3 attackerFeetToTargetFeet = targetFeetPosition.subtract(attackerFeetPosition);
         float verticalPositionAngle = (float) Math.atan2(-attackerFeetToTargetFeet.y, attackerFeetToTargetFeet.horizontalDistance());
         Vec2 powerBeforeRotation = new Vec2(horizontalPower, verticalPower);
+        Vec2 rotatedPower = VecUtils.rotate(powerBeforeRotation, -verticalPositionAngle * verticalPositionAngleScale);
+        float horizontalRatio = originalHorizontalPower > 0.0F ? Mth.abs(rotatedPower.x) / originalHorizontalPower : 0.0F;
+        float verticalRatio = originalVerticalPower > 0.0F ? Mth.abs(rotatedPower.y) / originalVerticalPower : 0.0F;
+        float maxRatio = Math.max(horizontalRatio, verticalRatio);
+        if (maxRatio > 1.0F) {
+            rotatedPower = rotatedPower.scale(1.0F / maxRatio);
+        }
 
-        float cosine = Mth.cos(-verticalPositionAngle * verticalPositionAngle);
-        float sine = Mth.sin(-verticalPositionAngle * verticalPositionAngleScale);
-        return new Vec2(powerBeforeRotation.x * cosine - powerBeforeRotation.y * sine, powerBeforeRotation.y * cosine + powerBeforeRotation.x * sine);
+        return rotatedPower;
     }
 
     @Override
     public void knockback(double power, double xd, double zd) {
         Entity attacker = this.pendingKnockbackSource != null ? this.pendingKnockbackSource.getEntity() : null;
         float damage = this.pendingKnockbackDamage;
-        this.pendingKnockbackSource = null;
-        this.pendingKnockbackDamage = 0f;
 
         if (attacker != null && this.hasBodyItem()) {
-            float horizontalPower = this.knockbackModifiers.horizontalPower();
-            float verticalPower   = this.knockbackModifiers.verticalPower();
-
+            float horizontalPower = this.knockbackModifier.horizontalPower();
+            float verticalPower = this.knockbackModifier.verticalPower();
             Vec2 originalAngle = new Vec2((float) xd, (float) zd);
-            Vec3 attackerEye = attacker.getEyePosition();
-            Vec3 attackerLook = attacker.getLookAngle().normalize();
-            Vec3 cubeCenter = this.getBoundingBox().getCenter();
-            Vec2 newAngle = applyHorizontalHitAngleScale(1.6F, originalAngle, attackerEye, attackerLook, cubeCenter);
-            Vec2 newPower = applyVerticalHitAnglePowerTransfer(
-                0.5F, horizontalPower, verticalPower,
-                attackerEye, attackerLook, cubeCenter, this.getBbHeight()
+            Vec2 newAngle = this.applyHorizontalHitAngleScale(
+                1.6F,
+                originalAngle,
+                attacker.getEyePosition(),
+                attacker.getLookAngle().normalize(),
+                this.getBoundingBox().getCenter()
+            );
+            Vec2 newPower = this.applyVerticalHitAnglePowerTransfer(
+                0.5F,
+                horizontalPower,
+                verticalPower,
+                attacker.getEyePosition(),
+                attacker.getLookAngle().normalize(),
+                this.getBoundingBox().getCenter(),
+                this.getBbHeight()
+            );
+            newPower = this.applyVerticalPositionAnglePowerRotation(
+                0.8F,
+                newPower.x,
+                newPower.y,
+                horizontalPower,
+                verticalPower,
+                attacker.position(),
+                this.position()
             );
             horizontalPower = newPower.x;
-            verticalPower   = newPower.y;
-            newPower = applyVerticalPositionAnglePowerRotation(
-                0.8F, horizontalPower, verticalPower,
-                attacker.position(), this.position()
-            );
-            horizontalPower = newPower.x;
-            verticalPower   = newPower.y;
-
+            verticalPower = newPower.y;
             xd = newAngle.x;
             zd = newAngle.y;
-
-            float sqrtDamage = Mth.sqrt(damage);
-            horizontalPower *= sqrtDamage;
-            verticalPower   *= sqrtDamage;
-
-            float resistance = (float)(1.0 - this.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE));
-            horizontalPower *= resistance;
-            verticalPower   *= resistance;
-
-            horizontalPower *= 0.4F;
-
+            float powerMultiplier = Mth.sqrt(damage);
+            horizontalPower *= powerMultiplier;
+            verticalPower *= powerMultiplier;
+            float knockbackResistance = (float) (1.0 - this.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE));
+            horizontalPower *= knockbackResistance;
+            verticalPower *= knockbackResistance;
             this.hasImpulse = true;
-            Vec3 current = this.getDeltaMovement();
-            Vec3 horizontal = new Vec3(xd, 0.0, zd).normalize().scale(horizontalPower);
-            this.setDeltaMovement(
-                current.x - horizontal.x,
-                current.y + verticalPower * 1.2,
-                current.z - horizontal.z
-            );
+            Vec3 deltaMovement = this.getDeltaMovement();
+            horizontalPower *= 0.4F;
+            horizontalPower = Mth.clamp(horizontalPower, -128.0F, 128.0F);
+            verticalPower = Mth.clamp(verticalPower, -128.0F, 128.0F);
+            Vec3 horizontalKnockback = new Vec3(xd, 0.0, zd).normalize().scale(horizontalPower);
+            this.setDeltaMovement(deltaMovement.x - horizontalKnockback.x, deltaMovement.y + verticalPower * 1.2, deltaMovement.z - horizontalKnockback.z);
+            this.playSound(this.soundSettings.hitSound().value());
         } else {
             super.knockback(power, xd, zd);
         }

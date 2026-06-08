@@ -1,6 +1,7 @@
 package com.blackgear.vanillabackport.common.level.entities.sulfurcube;
 
 import com.blackgear.platform.core.BuiltInCoreRegistry;
+import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
 import com.blackgear.vanillabackport.common.level.entities.sulfurcube.SulfurCubeArchetype.AttributeEntry;
 import com.blackgear.vanillabackport.common.registries.ModAttributes;
 import com.blackgear.vanillabackport.common.registries.ModDamageTypes;
@@ -10,6 +11,7 @@ import com.blackgear.vanillabackport.core.registries.ModRegistries;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.valueproviders.ConstantFloat;
 import net.minecraft.util.valueproviders.FloatProvider;
@@ -34,7 +36,8 @@ public class SulfurCubeArchetypes {
         true,
         Optional.empty(),
         Optional.empty(),
-        knockbackHitScale(0.33F, 0.06F)
+        knockbackHitScale(0.4125F, 0.09F),
+        soundSettings(ModSoundEvents.SULFUR_CUBE_REGULAR_HIT, ModSoundEvents.SULFUR_CUBE_REGULAR_PUSH, 0.2F, 0.5F)
     );
     public static final ResourceKey<SulfurCubeArchetype> BOUNCY = register(
         "bouncy",
@@ -43,7 +46,8 @@ public class SulfurCubeArchetypes {
         true,
         Optional.empty(),
         Optional.empty(),
-        knockbackHitScale(0.33F, 0.07F)
+        knockbackHitScale(0.4125F, 0.105F),
+        soundSettings(ModSoundEvents.SULFUR_CUBE_BOUNCY_HIT, ModSoundEvents.SULFUR_CUBE_BOUNCY_PUSH, 0.3F, 0.7F)
     );
     public static final ResourceKey<SulfurCubeArchetype> SLOW_BOUNCY = register(
         "slow_bouncy",
@@ -52,7 +56,8 @@ public class SulfurCubeArchetypes {
         false,
         Optional.empty(),
         Optional.empty(),
-        knockbackHitScale(0.33F, 0.16F)
+        knockbackHitScale(0.4125F, 0.24F),
+        soundSettings(ModSoundEvents.SULFUR_CUBE_SLOW_BOUNCY_HIT, ModSoundEvents.SULFUR_CUBE_SLOW_BOUNCY_PUSH, 0.05F, 0.5F)
     );
     public static final ResourceKey<SulfurCubeArchetype> SLOW_FLAT = register(
         "slow_flat",
@@ -61,7 +66,8 @@ public class SulfurCubeArchetypes {
         false,
         Optional.empty(),
         Optional.empty(),
-        knockbackHitScale(0.33F, 0.07F)
+        knockbackHitScale(0.4125F, 0.105F),
+        soundSettings(ModSoundEvents.SULFUR_CUBE_SLOW_FLAT_HIT, ModSoundEvents.SULFUR_CUBE_SLOW_FLAT_PUSH, 0.03F, 0.9F)
     );
     public static final ResourceKey<SulfurCubeArchetype> FAST_FLAT = register(
         "fast_flat",
@@ -70,7 +76,8 @@ public class SulfurCubeArchetypes {
         false,
         Optional.empty(),
         Optional.empty(),
-        knockbackHitScale(0.73F, 0.06F)
+        knockbackHitScale(0.9125F, 0.09F),
+        soundSettings(ModSoundEvents.SULFUR_CUBE_FAST_FLAT_HIT, ModSoundEvents.SULFUR_CUBE_FAST_FLAT_PUSH, 0.03F, 0.9F)
     );
     public static final ResourceKey<SulfurCubeArchetype> LIGHT = register(
         "light",
@@ -79,7 +86,8 @@ public class SulfurCubeArchetypes {
         true,
         Optional.empty(),
         Optional.empty(),
-        knockbackHitScale(0.33F, 0.12F)
+        knockbackHitScale(0.4125F, 0.18F),
+        soundSettings(ModSoundEvents.SULFUR_CUBE_LIGHT_HIT, ModSoundEvents.SULFUR_CUBE_LIGHT_PUSH, 0.2F, 0.7F)
     );
     public static final ResourceKey<SulfurCubeArchetype> FAST_SLIDING = register(
         "fast_sliding",
@@ -88,7 +96,8 @@ public class SulfurCubeArchetypes {
         false,
         Optional.empty(),
         Optional.empty(),
-        knockbackHitScale(0.53F, 0.06F)
+        knockbackHitScale(0.6625F, 0.09F),
+        soundSettings(ModSoundEvents.SULFUR_CUBE_FAST_SLIDING_HIT, ModSoundEvents.SULFUR_CUBE_FAST_SLIDING_PUSH, 0.05F, 1.0F)
     );
     public static final ResourceKey<SulfurCubeArchetype> SLOW_SLIDING = register(
         "slow_sliding",
@@ -97,7 +106,8 @@ public class SulfurCubeArchetypes {
         false,
         Optional.empty(),
         Optional.empty(),
-        knockbackHitScale(0.33F, 0.06F)
+        knockbackHitScale(0.4125F, 0.09F),
+        soundSettings(ModSoundEvents.SULFUR_CUBE_SLOW_SLIDING_HIT, ModSoundEvents.SULFUR_CUBE_SLOW_SLIDING_PUSH, 0.02F, 1.0F)
     );
     public static final ResourceKey<SulfurCubeArchetype> STICKY = register(
         "sticky",
@@ -106,7 +116,8 @@ public class SulfurCubeArchetypes {
         false,
         Optional.empty(),
         Optional.empty(),
-        knockbackHitScale(0.33F, 0.06F)
+        knockbackHitScale(0.4125F, 0.09F),
+        soundSettings(ModSoundEvents.SULFUR_CUBE_STICKY_HIT, ModSoundEvents.SULFUR_CUBE_STICKY_PUSH, 0.05F, 0.5F)
     );
     public static final ResourceKey<SulfurCubeArchetype> HIGH_RESISTANCE = register(
         "high_resistance",
@@ -115,7 +126,8 @@ public class SulfurCubeArchetypes {
         false,
         Optional.empty(),
         Optional.empty(),
-        knockbackHitScale(0.33F, 0.06F)
+        knockbackHitScale(0.4125F, 0.09F),
+        soundSettings(ModSoundEvents.SULFUR_CUBE_HIGH_RESISTANCE_HIT, ModSoundEvents.SULFUR_CUBE_HIGH_RESISTANCE_PUSH, 0.03F, 0.7F)
     );
     public static final ResourceKey<SulfurCubeArchetype> EXPLOSIVE = register(
         "explosive",
@@ -124,7 +136,8 @@ public class SulfurCubeArchetypes {
         true,
         Optional.of(new ExplosionData(3, false, 120)),
         Optional.empty(),
-        knockbackHitScale(0.33F, 0.06F)
+        knockbackHitScale(0.4125F, 0.09F),
+        soundSettings(ModSoundEvents.SULFUR_CUBE_EXPLOSIVE_HIT, ModSoundEvents.SULFUR_CUBE_EXPLOSIVE_PUSH, 0.1F,0.7F)
     );
     public static final ResourceKey<SulfurCubeArchetype> HOT = register(
         "hot",
@@ -133,7 +146,8 @@ public class SulfurCubeArchetypes {
         true,
         Optional.empty(),
         Optional.of(contactDamage(ModDamageTypes.SULFUR_CUBE_HOT, ConstantFloat.of(1.0F), false)),
-        knockbackHitScale(0.33F, 0.06F)
+        knockbackHitScale(0.4125F, 0.09F),
+        soundSettings(ModSoundEvents.SULFUR_CUBE_HOT_HIT, ModSoundEvents.SULFUR_CUBE_HOT_PUSH, 0.2F,0.7F)
     );
 
     private static Function<ResourceKey<SulfurCubeArchetype>, AttributeEntry> add(Holder<Attribute> attribute, double amount) {
@@ -167,6 +181,10 @@ public class SulfurCubeArchetypes {
         return new KnockbackModifiers(horizontalPower, verticalPower);
     }
 
+    private static SoundSettings soundSettings(Holder<SoundEvent> hitSound, Holder<SoundEvent> pushSound, float threshold, float cooldown) {
+        return new SoundSettings(hitSound, pushSound, threshold, cooldown);
+    }
+
     private static ResourceKey<SulfurCubeArchetype> register(
         String name,
         TagKey<Item> blocks,
@@ -174,7 +192,8 @@ public class SulfurCubeArchetypes {
         boolean floats,
         Optional<ExplosionData> maxFuse,
         Optional<ContactDamage> contactDamage,
-        KnockbackModifiers knockbackModifiers
+        KnockbackModifiers knockbackModifiers,
+        SoundSettings soundSettings
     ) {
         ResourceKey<SulfurCubeArchetype> key = ResourceKey.create(ModRegistries.SULFUR_CUBE_ARCHETYPES_KEY, ResourceLocation.withDefaultNamespace(name));
         REGISTRY.register(
@@ -185,7 +204,8 @@ public class SulfurCubeArchetypes {
                 floats,
                 maxFuse,
                 contactDamage,
-                knockbackModifiers
+                knockbackModifiers,
+                soundSettings
             )
         );
         return key;

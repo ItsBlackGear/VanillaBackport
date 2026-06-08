@@ -27,6 +27,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import org.jetbrains.annotations.Nullable;
 
@@ -78,19 +79,24 @@ public class PotentSulfurBlock extends BaseEntityBlock {
             return state.setValue(STATE, PotentSulfurState.DRY);
         } else {
             BlockState belowState = level.getBlockState(pos.below());
-            if (belowState.is(ModBlockTags.CAUSES_CONTINUOUS_GEYSER_ERUPTIONS)) {
+            if (belowState.is(ModBlockTags.CAUSES_CONTINUOUS_GEYSER_ERUPTIONS) && isSourceIfFluid(belowState)) {
                 return state.setValue(STATE, PotentSulfurState.CONTINUOUS);
-            } else if (!belowState.is(ModBlockTags.CAUSES_PERIODIC_GEYSER_ERUPTIONS)) {
-                return state.setValue(STATE, PotentSulfurState.WET);
-            } else {
+            } else if (belowState.is(ModBlockTags.CAUSES_PERIODIC_GEYSER_ERUPTIONS) && isSourceIfFluid(belowState)) {
                 boolean isGeyser = state.getValue(STATE) == PotentSulfurState.ERUPTING || state.getValue(STATE) == PotentSulfurState.DORMANT;
                 if (!isGeyser && level.getBlockEntity(pos) instanceof PotentSulfurBlockEntity potentSulfur) {
                     potentSulfur.resetCountdown();
                 }
 
                 return state.getValue(STATE) == PotentSulfurState.ERUPTING ? state : state.setValue(STATE, PotentSulfurState.DORMANT);
+            } else {
+                return state.setValue(STATE, PotentSulfurState.WET);
             }
         }
+    }
+
+    private static boolean isSourceIfFluid(BlockState belowState) {
+        FluidState fluidState = belowState.getFluidState();
+        return fluidState.isEmpty() || fluidState.isSource();
     }
 
     @Override

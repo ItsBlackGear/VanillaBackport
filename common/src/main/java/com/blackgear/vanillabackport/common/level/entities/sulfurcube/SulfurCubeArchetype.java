@@ -1,5 +1,6 @@
 package com.blackgear.vanillabackport.common.level.entities.sulfurcube;
 
+import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
 import com.blackgear.vanillabackport.core.util.AdditionalCodecs;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -8,6 +9,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.util.valueproviders.FloatProvider;
@@ -25,7 +27,8 @@ public record SulfurCubeArchetype(
     boolean buoyant,
     Optional<ExplosionData> explosion,
     Optional<ContactDamage> contactDamage,
-    KnockbackModifiers knockbackModifiers
+    KnockbackModifiers knockbackModifiers,
+    SoundSettings soundSettings
 ) {
     public static final Codec<SulfurCubeArchetype> DIRECT_CODEC = RecordCodecBuilder.create(instance -> instance.group(
         TagKey.hashedCodec(Registries.ITEM).fieldOf("items").forGetter(SulfurCubeArchetype::items),
@@ -33,10 +36,12 @@ public record SulfurCubeArchetype(
         Codec.BOOL.fieldOf("buoyant").forGetter(SulfurCubeArchetype::buoyant),
         ExplosionData.CODEC.optionalFieldOf("explosion").forGetter(SulfurCubeArchetype::explosion),
         ContactDamage.CODEC.optionalFieldOf("contact_damage").forGetter(SulfurCubeArchetype::contactDamage),
-        KnockbackModifiers.CODEC.fieldOf("knockback_modifiers").forGetter(SulfurCubeArchetype::knockbackModifiers)
+        KnockbackModifiers.CODEC.fieldOf("knockback_modifiers").forGetter(SulfurCubeArchetype::knockbackModifiers),
+        SoundSettings.CODEC.fieldOf("sound_settings").forGetter(SulfurCubeArchetype::soundSettings)
     ).apply(instance, SulfurCubeArchetype::new));
 
     public static final KnockbackModifiers DEFAULT_KNOCKBACK_MODIFIERS = new KnockbackModifiers(0.33F, 0.06F);
+    public static final SoundSettings DEFAULT_SOUND_SETTINGS = new SoundSettings(ModSoundEvents.SULFUR_CUBE_REGULAR_HIT, ModSoundEvents.SULFUR_CUBE_REGULAR_PUSH, 0.2F, 0.5F);
 
     public record AttributeEntry(Holder<Attribute> attribute, AttributeModifier modifier) {
         public static final Codec<AttributeEntry> CODEC = RecordCodecBuilder.create(instance -> instance.group(
@@ -94,5 +99,14 @@ public record SulfurCubeArchetype(
             Codec.FLOAT.fieldOf("horizontal_power").forGetter(KnockbackModifiers::horizontalPower),
             Codec.FLOAT.fieldOf("vertical_power").forGetter(KnockbackModifiers::verticalPower)
         ).apply(instance, KnockbackModifiers::new));
+    }
+
+    public record SoundSettings(Holder<SoundEvent> hitSound, Holder<SoundEvent> pushSound, float pushSoundImpulseThreshold, float pushSoundCooldown) {
+        public static final Codec<SoundSettings> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+                SoundEvent.CODEC.fieldOf("hit_sound").forGetter(SoundSettings::hitSound),
+                SoundEvent.CODEC.fieldOf("push_sound").forGetter(SoundSettings::pushSound),
+                Codec.FLOAT.fieldOf("push_sound_impulse_threshold").forGetter(SoundSettings::pushSoundImpulseThreshold),
+                Codec.FLOAT.fieldOf("push_sound_cooldown").forGetter(SoundSettings::pushSoundCooldown)
+        ).apply(instance, SoundSettings::new));
     }
 }

@@ -1,5 +1,6 @@
 package com.blackgear.vanillabackport.client.level.entities.layer;
 
+import com.blackgear.vanillabackport.client.level.entities.model.SmallSulfurCubeModel;
 import com.blackgear.vanillabackport.client.level.entities.model.SulfurCubeModel;
 import com.blackgear.vanillabackport.client.registries.ModModelLayers;
 import com.blackgear.vanillabackport.common.level.entities.sulfurcube.SulfurCube;
@@ -18,14 +19,17 @@ import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.resources.ResourceLocation;
 
 @Environment(EnvType.CLIENT)
-public class SulfurCubeOuterLayer extends RenderLayer<SulfurCube, SulfurCubeModel<SulfurCube>> {
+public class SulfurCubeOuterLayer extends RenderLayer<SulfurCube, SulfurCubeModel> {
     private static final ResourceLocation SULFUR_CUBE_OUTER_LOCATION = ResourceLocation.withDefaultNamespace("textures/entity/sulfur_cube/sulfur_cube_outer.png");
+    private static final ResourceLocation SULFUR_CUBE_OUTER_SMALL_LOCATION = ResourceLocation.withDefaultNamespace("textures/entity/sulfur_cube/sulfur_cube_outer_small.png");
 
-    private final EntityModel<SulfurCube> model;
+    private final SulfurCubeModel normalModel;
+    private final SmallSulfurCubeModel smallModel;
 
-    public SulfurCubeOuterLayer(RenderLayerParent<SulfurCube, SulfurCubeModel<SulfurCube>> renderer, EntityModelSet modelSet) {
+    public SulfurCubeOuterLayer(RenderLayerParent<SulfurCube, SulfurCubeModel> renderer, EntityModelSet modelSet) {
         super(renderer);
-        this.model = new SulfurCubeModel<>(modelSet.bakeLayer(ModModelLayers.SULFUR_CUBE));
+        this.normalModel = new SulfurCubeModel(modelSet.bakeLayer(ModModelLayers.SULFUR_CUBE));
+        this.smallModel = new SmallSulfurCubeModel(modelSet.bakeLayer(ModModelLayers.SULFUR_CUBE_SMALL));
     }
 
     @Override
@@ -44,17 +48,18 @@ public class SulfurCubeOuterLayer extends RenderLayer<SulfurCube, SulfurCubeMode
         Minecraft minecraft = Minecraft.getInstance();
         boolean glowing = minecraft.shouldEntityAppearGlowing(cube) && cube.isInvisible();
         if (!cube.isInvisible() || glowing) {
-            VertexConsumer vertexConsumer;
+            EntityModel<SulfurCube> model = cube.isBaby() ? this.smallModel : this.normalModel;
+            ResourceLocation texture = cube.isBaby() ? SULFUR_CUBE_OUTER_SMALL_LOCATION : SULFUR_CUBE_OUTER_LOCATION;
+            VertexConsumer vertexConsumer = buffer.getBuffer(RenderType.entityTranslucent(texture));
+
             if (glowing) {
                 vertexConsumer = buffer.getBuffer(RenderType.outline(this.getTextureLocation(cube)));
-            } else {
-                vertexConsumer = buffer.getBuffer(RenderType.entityTranslucent(SULFUR_CUBE_OUTER_LOCATION));
             }
 
-            this.getParentModel().copyPropertiesTo(this.model);
-            this.model.prepareMobModel(cube, limbSwing, limbSwingAmount, partialTick);
-            this.model.setupAnim(cube, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
-            this.model.renderToBuffer(poseStack, vertexConsumer, packedLight, LivingEntityRenderer.getOverlayCoords(cube, 0.0F), -1);
+            this.getParentModel().copyPropertiesTo(model);
+            model.prepareMobModel(cube, limbSwing, limbSwingAmount, partialTick);
+            model.setupAnim(cube, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+            model.renderToBuffer(poseStack, vertexConsumer, packedLight, LivingEntityRenderer.getOverlayCoords(cube, 0.0F), -1);
         }
     }
 }

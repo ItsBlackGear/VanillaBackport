@@ -58,5 +58,10 @@ public class EntityTypeTagGenerator extends FabricTagProvider.EntityTypeTagProvi
                 EntityType.HOGLIN,
                 ModEntityTypes.SULFUR_CUBE
             );
+
+        this.getOrCreateTagBuilder(ModEntityTypeTags.NOT_AFFECTED_BY_GEYSERS)
+            .add(
+                EntityType.ENDER_DRAGON
+            );
     }
 }

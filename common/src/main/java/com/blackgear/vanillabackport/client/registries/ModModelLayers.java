@@ -23,6 +23,8 @@ public class ModModelLayers {
     // CHAOS CUBED
     public static final ModelLayerLocation SULFUR_CUBE = register("sulfur_cube");
     public static final ModelLayerLocation SULFUR_CUBE_INNER = register("sulfur_cube", "inner");
+    public static final ModelLayerLocation SULFUR_CUBE_SMALL = register("sulfur_cube_small");
+    public static final ModelLayerLocation SULFUR_CUBE_SMALL_INNER = register("sulfur_cube_small", "inner");
 
     private static ModelLayerLocation register(String name) {
         return register(name, "main");
