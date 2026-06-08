@@ -1,5 +1,6 @@
 package com.blackgear.vanillabackport.client.level.entities.model;
 
+import com.blackgear.vanillabackport.common.level.entities.sulfurcube.SulfurCube;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.fabricmc.api.EnvType;
@@ -11,10 +12,9 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
-import net.minecraft.world.entity.Entity;
 
 @Environment(EnvType.CLIENT)
-public class SulfurCubeModel<T extends Entity> extends HierarchicalModel<T> {
+public class SulfurCubeModel extends HierarchicalModel<SulfurCube> {
     private final ModelPart root;
     private final boolean skipRendering;
 
@@ -56,7 +56,7 @@ public class SulfurCubeModel<T extends Entity> extends HierarchicalModel<T> {
     }
 
     @Override
-    public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+    public void setupAnim(SulfurCube entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 
     }
 

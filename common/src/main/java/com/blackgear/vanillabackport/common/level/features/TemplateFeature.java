@@ -33,7 +33,7 @@ public class TemplateFeature extends Feature<TemplateFeatureConfiguration> {
         Vec3i offsetZ = this.getRotatedOffset(rotation, Direction.Axis.Z, template);
         BlockPos pos = context.origin().offset(offsetX).offset(offsetZ);
         StructurePlaceSettings settings = new StructurePlaceSettings().setRotation(rotation).setRandom(random);
-        return template.placeInWorld(level, pos, pos, settings, random, 260);
+        return template.placeInWorld(level, pos, pos, settings, random, 3);
     }
 
     private Vec3i getRotatedOffset(Rotation rotation, Direction.Axis axis, StructureTemplate template) {

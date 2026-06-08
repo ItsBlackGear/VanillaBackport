@@ -8,6 +8,7 @@ import com.blackgear.vanillabackport.common.worldgen.placements.ChaosCubedPlacem
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.MobSpawnSettings;
+import net.minecraft.world.level.levelgen.GenerationStep;
 
 public class ChaosCubedFeatureManager extends FeatureManager {
     public ChaosCubedFeatureManager(BiomeContext context, BiomeWriter writer) {
@@ -18,7 +19,7 @@ public class ChaosCubedFeatureManager extends FeatureManager {
     public void bootstrap() {
         this.addIf(VanillaBackport.COMMON_CONFIG.hasSulfurSprings.get(), (context, writer) -> {
             this.getOrCreateBiomeBuilder(ModBiomes.SULFUR_CAVES)
-                .add(() -> this.addVegetation(ChaosCubedPlacements.ROOTED_SULFUR_SPRING));
+                .add(() -> writer.addFeature(GenerationStep.Decoration.LAKES, ChaosCubedPlacements.ROOTED_SULFUR_SPRING));
         });
 
         this.addIf(VanillaBackport.COMMON_CONFIG.hasSulfurCubes.get(), (context, writer) -> {

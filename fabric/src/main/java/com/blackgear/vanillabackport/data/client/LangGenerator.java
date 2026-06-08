@@ -277,6 +277,11 @@ public class LangGenerator extends FabricLanguageProvider {
         builder.add("subtitles.entity.sulfur_cube.push", "Sulfur Cube pushed");
         builder.add("subtitles.entity.sulfur_cube.squish", "Sulfur Cube bounces");
 
+        builder.add("subtitles.entity.small_sulfur_cube.death", "Small Sulfur Cube dies");
+        builder.add("subtitles.entity.small_sulfur_cube.eat", "Small Sulfur Cube puts on mass");
+        builder.add("subtitles.entity.small_sulfur_cube.hurt", "Small Sulfur Cube hurts");
+        builder.add("subtitles.entity.small_sulfur_cube.jump", "Small Sulfur Cube bounces");
+
         builder.add("subtitles.item.bucket.fill_sulfur_cube", "Sulfur Cube scooped");
 
         builder.add("subtitles.block.potent_sulfur.geyser_eruption", "Sulfur spring bursts");

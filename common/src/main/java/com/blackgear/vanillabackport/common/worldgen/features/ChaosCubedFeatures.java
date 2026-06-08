@@ -84,7 +84,6 @@ public class ChaosCubedFeatures {
         Function<SimpleWeightedRandomList<TemplateEntry>, Holder<PlacedFeature>> sulfurSprings = entries -> PlacementUtils.inlinePlaced(
             ModFeatures.TEMPLATE.get(), new TemplateFeatureConfiguration(entries), RandomOffsetPlacement.vertical(ConstantInt.of(-7))
         );
-
         FEATURES.register(
             context,
             SULFUR_SPRING,
@@ -159,7 +158,6 @@ public class ChaosCubedFeatures {
                         ),
                         5
                     )
-
                     .build()
             )
         );
