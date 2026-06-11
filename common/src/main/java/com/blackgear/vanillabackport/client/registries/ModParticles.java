@@ -74,39 +74,28 @@ public class ModParticles {
         GeyserParticleOptions::codec
     );
 
-    public static <T extends ParticleOptions> int sendParticles(ServerLevel level, T particle, double x, double y, double z, int particleCount, double xOffset, double yOffset, double zOffset, double speed) {
-        return sendParticles(level, particle, false, false, x, y, z, particleCount, xOffset, yOffset, zOffset, speed);
+    public static <T extends ParticleOptions> void sendParticles(ServerLevel level, T particle, double x, double y, double z, int particleCount, double xOffset, double yOffset, double zOffset, double speed) {
+        sendParticles(level, particle, false, false, x, y, z, particleCount, xOffset, yOffset, zOffset, speed);
     }
 
-    public static <T extends ParticleOptions> int sendParticles(ServerLevel level, T particle, boolean longDistance, boolean overrideLimiter, double x, double y, double z, int particleCount, double xOffset, double yOffset, double zOffset, double speed) {
+    public static <T extends ParticleOptions> void sendParticles(ServerLevel level, T particle, boolean longDistance, boolean overrideLimiter, double x, double y, double z, int particleCount, double xOffset, double yOffset, double zOffset, double speed) {
         ClientboundLevelParticlesPacket packet = new ClientboundLevelParticlesPacket(particle, overrideLimiter, x, y, z, (float) xOffset, (float) yOffset, (float) zOffset, (float) speed, particleCount);
-        int sent = 0;
-
         for (int i = 0; i < level.players().size(); i++) {
             ServerPlayer player = level.players().get(i);
-            if (sendParticles(level, player, longDistance, x, y, z, packet)) {
-                sent++;
-            }
+            sendParticles(level, player, longDistance, x, y, z, packet);
         }
-
-        return sent;
     }
 
-    public static <T extends ParticleOptions> boolean sendParticles(ServerLevel level, ServerPlayer player, T particle, boolean longDistance, boolean overrideLimiter, double x, double y, double z, int particleCount, double xOffset, double yOffset, double zOffset, double speed) {
+    public static <T extends ParticleOptions> void sendParticles(ServerLevel level, ServerPlayer player, T particle, boolean longDistance, boolean overrideLimiter, double x, double y, double z, int particleCount, double xOffset, double yOffset, double zOffset, double speed) {
         ClientboundLevelParticlesPacket packet = new ClientboundLevelParticlesPacket(particle, overrideLimiter, x, y, z, (float) xOffset, (float) yOffset, (float) zOffset, (float) speed, particleCount);
-        return sendParticles(level, player, longDistance, x, y, z, packet);
+        sendParticles(level, player, longDistance, x, y, z, packet);
     }
 
-    private static boolean sendParticles(ServerLevel level, ServerPlayer player, boolean longDistance, double x, double y, double z, Packet<?> packet) {
-        if (player.level() != level) {
-            return false;
-        } else {
+    private static void sendParticles(ServerLevel level, ServerPlayer player, boolean longDistance, double x, double y, double z, Packet<?> packet) {
+        if (player.level() == level) {
             BlockPos pos = player.blockPosition();
             if (pos.closerToCenterThan(new Vec3(x, y, z), longDistance ? 512.0 : 32.0)) {
                 player.connection.send(packet);
-                return true;
-            } else {
-                return false;
             }
         }
     }

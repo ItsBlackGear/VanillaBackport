@@ -68,7 +68,6 @@ public final class VanillaBackport {
         ModBlocks.BLOCKS.register();
         ModItems.ITEMS.register();
         ModBlockEntities.BLOCK_ENTITIES.register();
-        ModEntities.ENTITIES.register();
         Registrar.bind(BuiltInRegistries.ENTITY_TYPE, ModEntityTypes::bootstrap);
         ModMemoryModules.REGISTRAR.register();
         ModSensorTypes.SENSOR_TYPES.register();

@@ -7,6 +7,7 @@ import com.blackgear.vanillabackport.common.registries.ModBlockEntities;
 import com.blackgear.vanillabackport.common.registries.ModBlockStateProperties;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.blackgear.vanillabackport.core.data.tags.ModBlockTags;
+import com.blackgear.vanillabackport.core.util.DirectionUtils;
 import com.blackgear.vanillabackport.core.util.LevelUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -105,7 +106,7 @@ public class CreakingHeartBlock extends BaseEntityBlock {
     public static boolean hasRequiredLogs(BlockState state, LevelReader level, BlockPos pos) {
         Direction.Axis axis = state.getValue(AXIS);
 
-        for (Direction direction : directions(axis)) {
+        for (Direction direction : DirectionUtils.getDirections(axis)) {
             BlockPos neighborPos = pos.relative(direction);
             BlockState neighborState = level.getBlockState(neighborPos);
             if (!neighborState.is(ModBlockTags.CREAKING_HEART_HOLDERS)) return false;
@@ -113,14 +114,6 @@ public class CreakingHeartBlock extends BaseEntityBlock {
         }
 
         return true;
-    }
-
-    private static Direction[] directions(Direction.Axis axis) {
-        return switch (axis) {
-            case X -> new Direction[]{Direction.EAST, Direction.WEST};
-            case Y -> new Direction[]{Direction.UP, Direction.DOWN};
-            case Z -> new Direction[]{Direction.NORTH, Direction.SOUTH};
-        };
     }
 
     private static boolean isSurroundedByLogs(LevelAccessor level, BlockPos pos) {

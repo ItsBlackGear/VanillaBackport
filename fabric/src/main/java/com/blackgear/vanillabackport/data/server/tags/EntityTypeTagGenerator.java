@@ -1,6 +1,5 @@
 package com.blackgear.vanillabackport.data.server.tags;
 
-import com.blackgear.vanillabackport.common.registries.ModEntities;
 import com.blackgear.vanillabackport.common.registries.ModEntityTypes;
 import com.blackgear.vanillabackport.core.data.tags.ModEntityTypeTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -19,10 +18,10 @@ public class EntityTypeTagGenerator extends FabricTagProvider.EntityTypeTagProvi
     @Override
     protected void addTags(HolderLookup.Provider provider) {
         this.getOrCreateTagBuilder(EntityTypeTags.FALL_DAMAGE_IMMUNE)
-            .add(ModEntities.HAPPY_GHAST.get());
+            .add(ModEntityTypes.HAPPY_GHAST);
 
         this.getOrCreateTagBuilder(EntityTypeTags.DISMOUNTS_UNDERWATER)
-            .add(ModEntities.HAPPY_GHAST.get());
+            .add(ModEntityTypes.HAPPY_GHAST);
 
         this.getOrCreateTagBuilder(ModEntityTypeTags.FOLLOWABLE_FRIENDLY_MOBS)
             .add(
@@ -34,7 +33,7 @@ public class EntityTypeTagGenerator extends FabricTagProvider.EntityTypeTagProvi
                 EntityType.DONKEY,
                 EntityType.FOX,
                 EntityType.GOAT,
-                ModEntities.HAPPY_GHAST.get(),
+                ModEntityTypes.HAPPY_GHAST,
                 EntityType.HORSE,
                 EntityType.SKELETON_HORSE,
                 EntityType.LLAMA,

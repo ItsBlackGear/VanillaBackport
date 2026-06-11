@@ -2,7 +2,7 @@ package com.blackgear.vanillabackport.common.worldgen.generation;
 
 import com.blackgear.platform.common.worldgen.modifier.BiomeContext;
 import com.blackgear.platform.common.worldgen.modifier.BiomeWriter;
-import com.blackgear.vanillabackport.common.registries.ModEntities;
+import com.blackgear.vanillabackport.common.registries.ModEntityTypes;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.blackgear.vanillabackport.core.data.tags.ModBiomeTags;
 import net.minecraft.tags.BiomeTags;
@@ -20,10 +20,10 @@ public class ArmoredPawsFeatureManager extends FeatureManager {
     public void bootstrap() {
         this.addIf(VanillaBackport.COMMON_CONFIG.hasArmadillos.get(), (context, writer) -> {
             this.getOrCreateBiomeBuilder(ModBiomeTags.SPAWNS_ARMADILLOS_FREQUENTLY)
-                .add(() -> writer.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(ModEntities.ARMADILLO.get(), 10, 2, 3)));
+                .add(() -> writer.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(ModEntityTypes.ARMADILLO, 10, 2, 3)));
 
             this.getOrCreateBiomeBuilder(ModBiomeTags.SPAWNS_ARMADILLOS)
-                .add(() -> writer.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(ModEntities.ARMADILLO.get(), 6, 1, 2)));
+                .add(() -> writer.addSpawn(MobCategory.CREATURE, new MobSpawnSettings.SpawnerData(ModEntityTypes.ARMADILLO, 6, 1, 2)));
         });
 
         this.addIf(VanillaBackport.COMMON_CONFIG.updatedWolfSpawns.get(), (context, writer) -> {

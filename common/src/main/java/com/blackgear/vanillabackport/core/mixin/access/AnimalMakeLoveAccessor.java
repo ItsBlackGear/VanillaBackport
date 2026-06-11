@@ -10,12 +10,11 @@ import java.util.Optional;
 
 @Mixin(AnimalMakeLove.class)
 public interface AnimalMakeLoveAccessor {
-    @Invoker
-    Optional<? extends Animal> callFindValidBreedPartner(Animal animal);
-
-    @Accessor
-    float getSpeedModifier();
-
-    @Accessor
-    void setSpawnChildAtTime(long spawnChildAtTime);
+    @Accessor float getSpeedModifier();
+    
+    @Accessor void setSpawnChildAtTime(long spawnChildAtTime);
+    @Accessor long getSpawnChildAtTime();
+    
+    @Invoker Optional<? extends Animal> callFindValidBreedPartner(Animal animal);
+    @Invoker Animal callGetBreedTarget(Animal animal);
 }

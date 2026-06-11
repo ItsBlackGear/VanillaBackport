@@ -39,14 +39,15 @@ import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.Nullable;
 
 public class Armadillo extends Animal {
-    public static final EntityDataAccessor<ArmadilloState> ARMADILLO_STATE = SynchedEntityData.defineId(Armadillo.class, ModEntityDataSerializers.ARMADILLO_STATE.get());
-    public static final Ingredient IS_FOOD = Ingredient.of(ModItemTags.ARMADILLO_FOOD);
+    private static final EntityDimensions BABY_DIMENSIONS = ModEntityTypes.ARMADILLO.getDimensions().scale(0.6F);
+    private static final EntityDataAccessor<ArmadilloState> ARMADILLO_STATE = SynchedEntityData.defineId(Armadillo.class, ModEntityDataSerializers.ARMADILLO_STATE.get());
     private long inStateTicks = 0L;
     public final AnimationState rollOutAnimationState = new AnimationState();
     public final AnimationState rollUpAnimationState = new AnimationState();
     public final AnimationState peekAnimationState = new AnimationState();
     private int scuteTime;
     private boolean peekReceivedClient = false;
+    public static final Ingredient IS_FOOD = Ingredient.of(ModItemTags.ARMADILLO_FOOD);
 
     public Armadillo(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
@@ -56,7 +57,7 @@ public class Armadillo extends Animal {
 
     @Override @Nullable
     public AgeableMob getBreedOffspring(ServerLevel level, AgeableMob otherParent) {
-        return ModEntities.ARMADILLO.get().create(level);
+        return ModEntityTypes.ARMADILLO.create(level);
     }
 
     public static AttributeSupplier.Builder createAttributes() {
@@ -99,20 +100,20 @@ public class Armadillo extends Animal {
 
         super.onSyncedDataUpdated(key);
     }
-
-    @Override @SuppressWarnings("unchecked")
-    public Brain<Armadillo> getBrain() {
-        return (Brain<Armadillo>) super.getBrain();
+    
+    @Override
+    protected Brain<?> makeBrain(Dynamic<?> dynamic) {
+        return ArmadilloAi.makeBrain(this.brainProvider().makeBrain(dynamic));
     }
-
+    
     @Override
     protected Brain.Provider<Armadillo> brainProvider() {
         return ArmadilloAi.brainProvider();
     }
-
-    @Override
-    protected Brain<?> makeBrain(Dynamic<?> dynamic) {
-        return ArmadilloAi.makeBrain(this.brainProvider().makeBrain(dynamic));
+    
+    @Override @SuppressWarnings("unchecked")
+    public Brain<Armadillo> getBrain() {
+        return (Brain<Armadillo>) super.getBrain();
     }
 
     @Override
@@ -125,7 +126,7 @@ public class Armadillo extends Animal {
         ArmadilloAi.updateActivity(this);
         profiler.pop();
 
-        if (this.isAlive() && !this.isBaby() && --this.scuteTime <= 0) {
+        if (this.isAlive() && --this.scuteTime <= 0 && this.shouldDropLoot()) {
             if (LootUtils.dropFromGiftLootTable(this, level, ModBuiltInLootTables.ARMADILLO_SHED, (serverLevel, stack) -> this.spawnAtLocation(stack))) {
                 this.playSound(ModSoundEvents.ARMADILLO_SCUTE_DROP.get(), 1.0F, (this.random.nextFloat() - this.random.nextFloat()) * 0.2F + 1.0F);
                 this.gameEvent(GameEvent.ENTITY_PLACE);
@@ -149,12 +150,12 @@ public class Armadillo extends Animal {
         }
 
         if (this.isScared()) {
-            float f = this.getMaxHeadYRot();
-            float g = this.getYHeadRot();
-            float h = Mth.wrapDegrees(this.yBodyRot - g);
-            float i = Mth.clamp(Mth.wrapDegrees(this.yBodyRot - g), -f, f);
-            float j = g + h - i;
-            this.setYHeadRot(j);
+            float limit = this.getMaxHeadYRot();
+            float headYRot = this.getYHeadRot();
+            float delta = Mth.wrapDegrees(this.yBodyRot - headYRot);
+            float targetDelta = Mth.clamp(Mth.wrapDegrees(this.yBodyRot - headYRot), -limit, limit);
+            float newHeadYRot = headYRot + delta - targetDelta;
+            this.setYHeadRot(newHeadYRot);
         }
 
         this.inStateTicks++;
@@ -164,7 +165,12 @@ public class Armadillo extends Animal {
     public float getScale() {
         return this.isBaby() ? 0.6F : 1.0F;
     }
-
+    
+    @Override
+    public EntityDimensions getDimensions(Pose pose) {
+        return this.isBaby() ? BABY_DIMENSIONS : super.getDimensions(pose);
+    }
+    
     private void setupAnimationStates() {
         switch (this.getState()) {
             case IDLE:
@@ -191,7 +197,6 @@ public class Armadillo extends Animal {
                 } else {
                     this.peekAnimationState.startIfStopped(this.tickCount);
                 }
-
                 break;
             case UNROLLING:
                 this.rollOutAnimationState.startIfStopped(this.tickCount);
@@ -202,7 +207,7 @@ public class Armadillo extends Animal {
 
     @Override
     public void handleEntityEvent(byte id) {
-        if (id == 64 && this.level().isClientSide) {
+        if (id == 64 && this.level().isClientSide()) {
             this.peekReceivedClient = true;
             this.level().playLocalSound(this.getX(), this.getY(), this.getZ(), ModSoundEvents.ARMADILLO_PEEK.get(), this.getSoundSource(), 1.0F, 1.0F, false);
         } else {
@@ -249,7 +254,7 @@ public class Armadillo extends Animal {
 
     public void rollUp() {
         if (!this.isScared()) {
-            this.stopInPlace();
+            MobUtils.stopInPlace(this);
             this.resetLove();
             this.gameEvent(GameEvent.ENTITY_INTERACT);
             this.playSound(ModSoundEvents.ARMADILLO_ROLL.get());
@@ -266,9 +271,9 @@ public class Armadillo extends Animal {
     }
 
     @Override
-    public boolean hurt(DamageSource source, float amount) {
-        if (this.isScared()) amount = (amount - 1.0F) / 2.0F;
-        return super.hurt(source, amount);
+    public boolean hurt(DamageSource source, float damage) {
+        if (this.isScared()) damage = (damage - 1.0F) / 2.0F;
+        return super.hurt(source, damage);
     }
 
     @Override
@@ -309,7 +314,7 @@ public class Armadillo extends Animal {
     }
 
     public boolean canStayRolledUp() {
-        return !MobUtils.isPanicking(this) && !this.isInWaterOrBubble() && !this.isInLava() && !this.isLeashed() && !this.isPassenger() && !this.isVehicle();
+        return !MobUtils.isPanicking(this) && !MobUtils.isInLiquid(this) && !this.isLeashed() && !this.isPassenger() && !this.isVehicle();
     }
 
     @Override
@@ -355,13 +360,6 @@ public class Armadillo extends Animal {
                 if (!Armadillo.this.isScared()) super.clientTick();
             }
         };
-    }
-
-    public void stopInPlace() {
-        this.getNavigation().stop();
-        this.setXxa(0.0F);
-        this.setYya(0.0F);
-        this.setSpeed(0.0F);
     }
 
     @Override

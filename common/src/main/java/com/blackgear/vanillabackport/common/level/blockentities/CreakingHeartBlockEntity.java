@@ -8,9 +8,10 @@ import com.blackgear.vanillabackport.common.level.blocks.states.CreakingHeartSta
 import com.blackgear.vanillabackport.common.level.entities.creaking.Creaking;
 import com.blackgear.vanillabackport.common.registries.ModBlockEntities;
 import com.blackgear.vanillabackport.common.registries.ModBlocks;
-import com.blackgear.vanillabackport.common.registries.ModEntities;
+import com.blackgear.vanillabackport.common.registries.ModEntityTypes;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.blackgear.vanillabackport.core.data.tags.ModBlockTags;
+import com.blackgear.vanillabackport.core.util.CollisionUtils;
 import com.blackgear.vanillabackport.core.util.SpawnExtras;
 import com.mojang.datafixers.util.Either;
 import net.minecraft.Util;
@@ -197,7 +198,7 @@ public class CreakingHeartBlockEntity extends BlockEntity {
         if (!VanillaBackport.COMMON_CONFIG.hasCreaking.get()) return null;
 
         BlockPos pos = heart.getBlockPos();
-        Optional<Creaking> protector = SpawnExtras.trySpawnMob(ModEntities.CREAKING.get(), MobSpawnType.SPAWNER, level, pos, 5, 16, 8, SpawnExtras.ON_TOP_OF_COLLIDER_NO_LEAVES, true);
+        Optional<Creaking> protector = SpawnExtras.trySpawnMob(ModEntityTypes.CREAKING, MobSpawnType.SPAWNER, level, pos, 5, 16, 8, SpawnExtras.ON_TOP_OF_COLLIDER_NO_LEAVES, true);
 
         if (protector.isEmpty()) {
             return null;
@@ -293,7 +294,7 @@ public class CreakingHeartBlockEntity extends BlockEntity {
 
             for (double i = 0.0; i < count; i++) {
                 AABB creakingBounds = creaking.getBoundingBox();
-                Vec3 currentPos = new Vec3(creakingBounds.minX, creakingBounds.minY, creakingBounds.minZ)
+                Vec3 currentPos = CollisionUtils.getMinPosition(creakingBounds)
                     .add(random.nextDouble() * creakingBounds.getXsize(), random.nextDouble() * creakingBounds.getYsize(), random.nextDouble() * creakingBounds.getZsize());
                 Vec3 heartPos = Vec3.atLowerCornerOf(this.getBlockPos()).add(random.nextDouble(), random.nextDouble(), random.nextDouble());
 

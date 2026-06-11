@@ -19,7 +19,6 @@ import com.blackgear.vanillabackport.client.registries.ModModelLayers;
 import com.blackgear.vanillabackport.client.registries.ModParticles;
 import com.blackgear.vanillabackport.common.level.items.WolfArmorItem;
 import com.blackgear.vanillabackport.common.registries.ModBlocks;
-import com.blackgear.vanillabackport.common.registries.ModEntities;
 import com.blackgear.vanillabackport.common.registries.ModEntityTypes;
 import com.blackgear.vanillabackport.common.registries.ModItems;
 import net.fabricmc.api.EnvType;
@@ -85,11 +84,11 @@ public class Rendering {
     }
 
     public static void entityRendering(GameRendering.EntityRendererEvent event) {
-        event.register(ModEntities.ARMADILLO.get(), ArmadilloRenderer::new);
-        event.register(ModEntities.CREAKING.get(), CreakingRenderer::new);
-        event.register(ModEntities.HAPPY_GHAST.get(), HappyGhastRenderer::new);
-        event.register(ModEntities.PALE_OAK_BOAT.get(), context -> new PaleOakBoatRenderer(context, false));
-        event.register(ModEntities.PALE_OAK_CHEST_BOAT.get(), context -> new PaleOakBoatRenderer(context, true));
+        event.register(ModEntityTypes.ARMADILLO, ArmadilloRenderer::new);
+        event.register(ModEntityTypes.CREAKING, CreakingRenderer::new);
+        event.register(ModEntityTypes.HAPPY_GHAST, HappyGhastRenderer::new);
+        event.register(ModEntityTypes.PALE_OAK_BOAT, context -> new PaleOakBoatRenderer(context, false));
+        event.register(ModEntityTypes.PALE_OAK_CHEST_BOAT, context -> new PaleOakBoatRenderer(context, true));
         event.register(ModEntityTypes.SULFUR_CUBE, SulfurCubeRenderer::new);
     }
 

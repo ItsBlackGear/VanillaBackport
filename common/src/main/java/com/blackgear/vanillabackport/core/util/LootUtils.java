@@ -14,22 +14,6 @@ import java.util.function.BiConsumer;
 import java.util.function.Function;
 
 public class LootUtils {
-    public static boolean dropFromGiftLootTable(
-        Entity entity,
-        ServerLevel level,
-        ResourceLocation key,
-        BiConsumer<ServerLevel, ItemStack> consumer
-    ) {
-        return dropFromLootTable(
-            level,
-            key,
-            builder -> builder.withParameter(LootContextParams.ORIGIN, entity.position())
-                .withParameter(LootContextParams.THIS_ENTITY, entity)
-                .create(LootContextParamSets.GIFT),
-            consumer
-        );
-    }
-
     private static boolean dropFromLootTable(
         ServerLevel level,
         ResourceLocation key,
@@ -45,5 +29,21 @@ public class LootUtils {
         } else {
             return false;
         }
+    }
+    
+    public static boolean dropFromGiftLootTable(
+        Entity entity,
+        ServerLevel level,
+        ResourceLocation key,
+        BiConsumer<ServerLevel, ItemStack> consumer
+    ) {
+        return dropFromLootTable(
+            level,
+            key,
+            builder -> builder.withParameter(LootContextParams.ORIGIN, entity.position())
+                .withParameter(LootContextParams.THIS_ENTITY, entity)
+                .create(LootContextParamSets.GIFT),
+            consumer
+        );
     }
 }

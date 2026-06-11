@@ -11,6 +11,8 @@ public class CommonConfig {
     // Bundles of Bravery
     public final ConfigBuilder.ConfigValue<Boolean> hasUpdatedBundles;
     public final ConfigBuilder.ConfigValue<Boolean> hasBundleLoot;
+    public final ConfigBuilder.ConfigValue<Boolean> hasModernBundleGraphics;
+    public final ConfigBuilder.ConfigValue<Boolean> hasDyeableBundleRecipe;
 
     // The Garden Awakens
     public final ConfigBuilder.ConfigValue<Boolean> hasResin;
@@ -70,6 +72,10 @@ public class CommonConfig {
             .define("has_updated_bundles", true);
         this.hasBundleLoot = builder.comment("allow bundles to appear on chests at villages")
             .define("bundle_loot", true);
+        this.hasModernBundleGraphics = builder.comment("toggle the modern rendering for bundles")
+            .define("has_modern_bundle_graphics", true);
+        this.hasDyeableBundleRecipe = builder.comment("toggle whether bundles should be dyeable")
+            .define("has_dyeable_bundle_recipe", true);
         builder.pop();
 
         builder.push("The Garden Awakens");

@@ -1,6 +1,5 @@
 package com.blackgear.vanillabackport.data.server.loot;
 
-import com.blackgear.vanillabackport.common.registries.ModEntities;
 import com.blackgear.vanillabackport.common.registries.ModEntityTypes;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider;
@@ -17,9 +16,9 @@ public class EntityLootGenerator extends SimpleFabricLootTableProvider {
 
     @Override
     public void generate(BiConsumer<ResourceLocation, LootTable.Builder> output) {
-        output.accept(ModEntities.CREAKING.get().getDefaultLootTable(), LootTable.lootTable());
-        output.accept(ModEntities.HAPPY_GHAST.get().getDefaultLootTable(), LootTable.lootTable());
-        output.accept(ModEntities.ARMADILLO.get().getDefaultLootTable(), LootTable.lootTable());
+        output.accept(ModEntityTypes.CREAKING.getDefaultLootTable(), LootTable.lootTable());
+        output.accept(ModEntityTypes.HAPPY_GHAST.getDefaultLootTable(), LootTable.lootTable());
+        output.accept(ModEntityTypes.ARMADILLO.getDefaultLootTable(), LootTable.lootTable());
         output.accept(ModEntityTypes.SULFUR_CUBE.getDefaultLootTable(), LootTable.lootTable());
     }
 }

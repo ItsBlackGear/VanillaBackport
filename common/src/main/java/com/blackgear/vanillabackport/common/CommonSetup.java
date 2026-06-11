@@ -23,7 +23,6 @@ import com.blackgear.vanillabackport.common.level.entities.creaking.Creaking;
 import com.blackgear.vanillabackport.common.level.entities.happyghast.HappyGhast;
 import com.blackgear.vanillabackport.common.level.entities.sulfurcube.SulfurCube;
 import com.blackgear.vanillabackport.common.registries.ModBlocks;
-import com.blackgear.vanillabackport.common.registries.ModEntities;
 import com.blackgear.vanillabackport.common.registries.ModEntityTypes;
 import com.blackgear.vanillabackport.common.registries.ModItems;
 import com.blackgear.vanillabackport.common.resource.SulfurCubeArchetypeReloadListener;
@@ -72,7 +71,7 @@ public class CommonSetup {
             BiomePlacement.registerBiomePlacements(BiomeGeneration::bootstrap);
             BlockIntegration.registerIntegrations(CommonSetup::blockIntegrations);
             TradeIntegration.registerVillagerTrades(CommonSetup::tradeIntegrations);
-            Parrot.MOB_SOUND_MAP.put(ModEntities.CREAKING.get(), ModSoundEvents.PARROT_IMITATE_CREAKING.get());
+            Parrot.MOB_SOUND_MAP.put(ModEntityTypes.CREAKING, ModSoundEvents.PARROT_IMITATE_CREAKING.get());
         });
 
         LootModifier.modify(new LootIntegrations());
@@ -182,13 +181,13 @@ public class CommonSetup {
         event.registerMobInteraction(new WolfArmorInteraction());
         event.registerMobInteraction(new GhastHarnessInteraction());
 
-        event.registerPlacement(ModEntities.ARMADILLO, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (type, level, reason, pos, random) -> level.getBlockState(pos.below()).is(ModBlockTags.ARMADILLO_SPAWNABLE_ON) && level.getRawBrightness(pos, 0) > 8);
+        event.registerPlacement(() -> ModEntityTypes.ARMADILLO, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Armadillo::checkArmadilloSpawnRules);
         event.registerPlacement(() -> EntityType.CAMEL, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (type, level, reason, pos, random) -> level.getBlockState(pos.below()).is(ModBlockTags.CAMELS_SPAWNABLE_ON) && level.getRawBrightness(pos, 0) > 8);
         event.registerPlacement(() -> ModEntityTypes.SULFUR_CUBE, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SulfurCube::checkSulfurCubeSpawnRules);
 
-        event.registerAttributes(ModEntities.ARMADILLO, Armadillo::createAttributes);
-        event.registerAttributes(ModEntities.CREAKING, Creaking::createAttributes);
-        event.registerAttributes(ModEntities.HAPPY_GHAST, HappyGhast::createAttributes);
+        event.registerAttributes(() -> ModEntityTypes.ARMADILLO, Armadillo::createAttributes);
+        event.registerAttributes(() -> ModEntityTypes.CREAKING, Creaking::createAttributes);
+        event.registerAttributes(() -> ModEntityTypes.HAPPY_GHAST, HappyGhast::createAttributes);
         event.registerAttributes(() -> ModEntityTypes.SULFUR_CUBE, SulfurCube::createSulfurCubeAttributes);
 
         event.registerGoal(EntityType.VINDICATOR, 1, mob -> new AvoidEntityGoal<>((PathfinderMob) mob, Creaking.class, 8.0F, 0.6, 1.2));

@@ -114,7 +114,7 @@ public class PotentSulfurBlockEntity extends BlockEntity {
             }
         }
     };
-
+    
     public static final BlockEntityTicker<PotentSulfurBlockEntity> SERVER_LAUNCH_ENTITY_TICKER = (level, pos, state, sulfur) -> {
         BlockPos source = findNoxiousGasSourceBlock(level, pos);
         if (source != null) {
@@ -123,19 +123,19 @@ public class PotentSulfurBlockEntity extends BlockEntity {
             AABB aabb = new AABB(pos.above()).expandTowards(0.0, geyserForceHeight - 1, 0.0);
 
             for (Entity target : level.getEntitiesOfClass(Entity.class, aabb, EFFECT_PREDICATE)) {
-                Vec3 velocity = target.getDeltaMovement();
-                target.checkSlowFallDistance();
-                if (target.isControlledByLocalInstance()
-                    && !(target instanceof Player player && player.getAbilities().flying)
-                    && !target.isPassenger()
-                    && !target.getType().is(ModEntityTypeTags.NOT_AFFECTED_BY_GEYSERS)
+                Entity entityToBeLaunched = target.isPassenger() ? target.getRootVehicle() : target;
+                Vec3 velocity = entityToBeLaunched.getDeltaMovement();
+                entityToBeLaunched.checkSlowFallDistance();
+                if (!(entityToBeLaunched instanceof Player player && player.getAbilities().flying)
+                    && !entityToBeLaunched.getType().is(ModEntityTypeTags.NOT_AFFECTED_BY_GEYSERS)
                     && velocity.y < 0.3F + waterBlocks * 0.1) {
-                    target.addDeltaMovement(new Vec3(0.0, 0.2F, 0.0));
+                    entityToBeLaunched.addDeltaMovement(new Vec3(0.0, 0.2F, 0.0));
+                    entityToBeLaunched.hurtMarked = true;
                 }
             }
         }
     };
-
+    
     public static BlockEntityTicker<PotentSulfurBlockEntity> sequence(BlockEntityTicker<PotentSulfurBlockEntity> first, BlockEntityTicker<PotentSulfurBlockEntity> second) {
         return (level, pos, state, sulfur) -> {
             first.tick(level, pos, state, sulfur);

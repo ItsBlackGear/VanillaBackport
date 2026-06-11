@@ -3,7 +3,7 @@ package com.blackgear.vanillabackport.common.level.blocks;
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
 import com.blackgear.vanillabackport.common.level.entities.happyghast.HappyGhast;
 import com.blackgear.vanillabackport.common.registries.ModBlockStateProperties;
-import com.blackgear.vanillabackport.common.registries.ModEntities;
+import com.blackgear.vanillabackport.common.registries.ModEntityTypes;
 import com.blackgear.vanillabackport.core.data.tags.ModBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -27,7 +27,6 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.pathfinder.PathComputationType;
@@ -106,7 +105,7 @@ public class DriedGhastBlock extends HorizontalDirectionalBlock implements Simpl
 
     private void spawnGhastling(ServerLevel level, BlockPos pos, BlockState state) {
         level.removeBlock(pos, false);
-        HappyGhast ghast = ModEntities.HAPPY_GHAST.get().create(level);
+        HappyGhast ghast = ModEntityTypes.HAPPY_GHAST.create(level);
         if (ghast != null) {
             Vec3 center = Vec3.atBottomCenterOf(pos);
             ghast.setBaby(true);

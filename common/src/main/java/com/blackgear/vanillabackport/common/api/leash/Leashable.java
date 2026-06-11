@@ -2,6 +2,7 @@ package com.blackgear.vanillabackport.common.api.leash;
 
 import com.blackgear.vanillabackport.core.mixin.access.EntityAccessor;
 import com.blackgear.vanillabackport.core.mixin.access.PathfinderMobAccessor;
+import com.blackgear.vanillabackport.core.util.MobUtils;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.Util;
@@ -122,7 +123,7 @@ public interface Leashable {
         if (entity.onGround()) {
             return entity.level().getBlockState(((EntityAccessor) entity).callGetBlockPosBelowThatAffectsMyMovement()).getBlock().getFriction() * 0.91F;
         } else {
-            return (entity.isInWater() || entity.isInLava()) ? 0.8F : 0.91F;
+            return MobUtils.isInLiquid(entity) ? 0.8F : 0.91F;
         }
     }
 

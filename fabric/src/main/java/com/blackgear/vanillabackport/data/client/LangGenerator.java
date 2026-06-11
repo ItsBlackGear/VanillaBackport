@@ -64,9 +64,9 @@ public class LangGenerator extends FabricLanguageProvider {
         builder.add(ModItems.CREAKING_SPAWN_EGG.get(), "Creaking Spawn Egg");
 
         // Entities
-        builder.add(ModEntities.CREAKING.get(), "Creaking");
-        builder.add(ModEntities.PALE_OAK_BOAT.get(), "Pale Oak Boat");
-        builder.add(ModEntities.PALE_OAK_CHEST_BOAT.get(), "Pale Oak Boat with Chest");
+        builder.add(ModEntityTypes.CREAKING, "Creaking");
+        builder.add(ModEntityTypes.PALE_OAK_BOAT, "Pale Oak Boat");
+        builder.add(ModEntityTypes.PALE_OAK_CHEST_BOAT, "Pale Oak Boat with Chest");
 
         // Trims
         builder.add("trim_material.minecraft.resin", "Resin Material");
@@ -131,7 +131,7 @@ public class LangGenerator extends FabricLanguageProvider {
         builder.add("painting.minecraft.dennis.author", "Sarah Boeving");
         builder.add("painting.minecraft.dennis.title", "Dennis");
 
-        builder.add(ModEntities.HAPPY_GHAST.get(), "Happy Ghast");
+        builder.add(ModEntityTypes.HAPPY_GHAST, "Happy Ghast");
 
         builder.add("subtitles.block.dried_ghast.ambient", "Sounds of dryness");
         builder.add("subtitles.block.dried_ghast.ambient_water", "Dried Ghast rehydrates");
@@ -198,7 +198,7 @@ public class LangGenerator extends FabricLanguageProvider {
         builder.add(ModItems.ORANGE_BUNDLE.get(), "Orange Bundle");
 
         // Armored Paws
-        builder.add(ModEntities.ARMADILLO.get(), "Armadillo");
+        builder.add(ModEntityTypes.ARMADILLO, "Armadillo");
 
         builder.add(ModItems.WOLF_ARMOR.get(), "Wolf Armor");
         builder.add(ModItems.ARMADILLO_SCUTE.get(), "Armadillo Scute");

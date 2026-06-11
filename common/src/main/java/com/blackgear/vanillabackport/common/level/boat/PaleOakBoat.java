@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.common.level.boat;
 
-import com.blackgear.vanillabackport.common.registries.ModEntities;
+import com.blackgear.vanillabackport.common.registries.ModEntityTypes;
 import com.blackgear.vanillabackport.common.registries.ModItems;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.protocol.Packet;
@@ -18,7 +18,7 @@ public class PaleOakBoat extends Boat implements PaleOakBoatBehavior {
     }
 
     public PaleOakBoat(Level level, double x, double y, double z) {
-        this(ModEntities.PALE_OAK_BOAT.get(), level);
+        this(ModEntityTypes.PALE_OAK_BOAT, level);
         this.setPos(x, y, z);
         this.xo = x;
         this.yo = y;

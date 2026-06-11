@@ -1,7 +1,7 @@
 package com.blackgear.vanillabackport.common.level.entities.armadillo;
 
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
-import com.blackgear.vanillabackport.common.registries.ModEntities;
+import com.blackgear.vanillabackport.common.registries.ModEntityTypes;
 import com.blackgear.vanillabackport.common.registries.ModMemoryModules;
 import com.blackgear.vanillabackport.common.registries.ModSensorTypes;
 import com.blackgear.vanillabackport.core.mixin.access.AnimalMakeLoveAccessor;
@@ -30,7 +30,6 @@ import java.util.Set;
 
 public class ArmadilloAi {
     private static final UniformInt ADULT_FOLLOW_RANGE = UniformInt.of(5, 16);
-
     private static final ImmutableList<SensorType<? extends Sensor<? super Armadillo>>> SENSOR_TYPES = ImmutableList.of(
         SensorType.NEAREST_LIVING_ENTITIES,
         SensorType.HURT_BY,
@@ -57,7 +56,7 @@ public class ArmadilloAi {
     );
 
     private static final OneShot<Armadillo> ARMADILLO_ROLLING_OUT = BehaviorBuilder.create(instance ->
-        instance.group(instance.absent(ModMemoryModules.DANGER_DETECTED_RECENTLY.get())).apply(instance, accessor -> (level, armadillo, gameTime) -> {
+        instance.group(instance.absent(ModMemoryModules.DANGER_DETECTED_RECENTLY.get())).apply(instance, location -> (level, armadillo, timestamp) -> {
             if (armadillo.isScared()) {
                 armadillo.rollOut();
                 return true;
@@ -91,8 +90,8 @@ public class ArmadilloAi {
                 new LookAtTargetSink(45, 90),
                 new MoveToTargetSink() {
                     @Override
-                    protected boolean checkExtraStartConditions(ServerLevel level, Mob owner) {
-                        return !((Armadillo) owner).isScared() && super.checkExtraStartConditions(level, owner);
+                    protected boolean checkExtraStartConditions(ServerLevel level, Mob mob) {
+                        return (!(mob instanceof Armadillo armadillo) || !armadillo.isScared()) && super.checkExtraStartConditions(level, mob);
                     }
                 },
                 new CountDownCooldownTicks(MemoryModuleType.TEMPTATION_COOLDOWN_TICKS),
@@ -107,10 +106,10 @@ public class ArmadilloAi {
             Activity.IDLE,
             ImmutableList.of(
                 Pair.of(0, SetEntityLookTargetSometimes.create(EntityType.PLAYER, 6.0F, UniformInt.of(30, 60))),
-                Pair.of(1, new ArmadilloMakeLove(ModEntities.ARMADILLO.get(), 1.0F, 1)),
+                Pair.of(1, new ArmadilloMakeLove(ModEntityTypes.ARMADILLO, 1.0F, 1)),
                 Pair.of(2, new RunOne<>(
                     ImmutableList.of(
-                        Pair.of(new FollowTemptation(entity -> 1.25F, entity -> entity.isBaby() ? 1.0 : 2.0), 1),
+                        Pair.of(new FollowTemptation(armadillo -> 1.25F, armadillo -> armadillo.isBaby() ? 1.0 : 2.0), 1),
                         Pair.of(BabyFollowAdult.create(ADULT_FOLLOW_RANGE, 1.25F), 1)
                     )
                 )),
@@ -152,8 +151,8 @@ public class ArmadilloAi {
         }
 
         @Override
-        protected void tick(ServerLevel level, Armadillo armadillo, long gameTime) {
-            super.tick(level, armadillo, gameTime);
+        protected void tick(ServerLevel level, Armadillo armadillo, long timestamp) {
+            super.tick(level, armadillo, timestamp);
             if (this.nextPeekTimer > 0) {
                 this.nextPeekTimer--;
             }
@@ -165,24 +164,24 @@ public class ArmadilloAi {
                 }
             } else {
                 ArmadilloState state = armadillo.getState();
-                long l = armadillo.getBrain().getTimeUntilExpiry(ModMemoryModules.DANGER_DETECTED_RECENTLY.get());
-                boolean bl = l > 75L;
-                if (bl != this.dangerWasAround) {
+                long dangerTickCounter = armadillo.getBrain().getTimeUntilExpiry(ModMemoryModules.DANGER_DETECTED_RECENTLY.get());
+                boolean dangerIsAround = dangerTickCounter > 75L;
+                if (dangerIsAround != this.dangerWasAround) {
                     this.nextPeekTimer = this.pickNextPeekTimer(armadillo);
                 }
 
-                this.dangerWasAround = bl;
+                this.dangerWasAround = dangerIsAround;
                 if (state == ArmadilloState.SCARED) {
-                    if (this.nextPeekTimer == 0 && armadillo.onGround() && bl) {
+                    if (this.nextPeekTimer == 0 && armadillo.onGround() && dangerIsAround) {
                         level.broadcastEntityEvent(armadillo, (byte) 64);
                         this.nextPeekTimer = this.pickNextPeekTimer(armadillo);
                     }
 
-                    if (l < ArmadilloState.UNROLLING.animationDuration()) {
+                    if (dangerTickCounter < ArmadilloState.UNROLLING.animationDuration()) {
                         armadillo.playSound(ModSoundEvents.ARMADILLO_UNROLL_START.get());
                         armadillo.switchToState(ArmadilloState.UNROLLING);
                     }
-                } else if (state == ArmadilloState.UNROLLING && l > ArmadilloState.UNROLLING.animationDuration()) {
+                } else if (state == ArmadilloState.UNROLLING && dangerTickCounter > ArmadilloState.UNROLLING.animationDuration()) {
                     armadillo.switchToState(ArmadilloState.SCARED);
                 }
             }
@@ -235,27 +234,41 @@ public class ArmadilloAi {
 
         @Override
         protected void start(ServerLevel level, Animal entity, long gameTime) {
-            Animal animal = ((AnimalMakeLoveAccessor) this).callFindValidBreedPartner(entity).get();
-            entity.getBrain().setMemory(MemoryModuleType.BREED_TARGET, animal);
-            animal.getBrain().setMemory(MemoryModuleType.BREED_TARGET, entity);
-            lockGazeAndWalkToEachOther(entity, animal, ((AnimalMakeLoveAccessor) this).getSpeedModifier(), this.closeEnoughDistance);
-            int i = 60 + entity.getRandom().nextInt(50);
-            ((AnimalMakeLoveAccessor) this).setSpawnChildAtTime(gameTime + (long) i);
+            ((AnimalMakeLoveAccessor) this).callFindValidBreedPartner(entity).ifPresent(partner -> {
+                entity.getBrain().setMemory(MemoryModuleType.BREED_TARGET, partner);
+                partner.getBrain().setMemory(MemoryModuleType.BREED_TARGET, entity);
+                lockGazeAndWalkToEachOther(entity, partner, ((AnimalMakeLoveAccessor) this).getSpeedModifier(), this.closeEnoughDistance);
+                int duration = 60 + entity.getRandom().nextInt(50);
+                ((AnimalMakeLoveAccessor) this).setSpawnChildAtTime(gameTime + (long) duration);
+            });
+        }
+        
+        @Override
+        protected void tick(ServerLevel level, Animal owner, long gameTime) {
+            Animal animal = ((AnimalMakeLoveAccessor) this).callGetBreedTarget(owner);
+            lockGazeAndWalkToEachOther(owner, animal, ((AnimalMakeLoveAccessor) this).getSpeedModifier(), this.closeEnoughDistance);
+            if (owner.closerThan(animal, 3.0F)) {
+                if (gameTime >= ((AnimalMakeLoveAccessor) this).getSpawnChildAtTime()) {
+                    owner.spawnChildFromBreeding(level, animal);
+                    owner.getBrain().eraseMemory(MemoryModuleType.BREED_TARGET);
+                    animal.getBrain().eraseMemory(MemoryModuleType.BREED_TARGET);
+                }
+            }
         }
 
-        public static void lockGazeAndWalkToEachOther(LivingEntity firstEntity, LivingEntity secondEntity, float speed, int distance) {
-            lookAtEachOther(firstEntity, secondEntity);
-            setWalkAndLookTargetMemoriesToEachOther(firstEntity, secondEntity, speed, distance);
+        private static void lockGazeAndWalkToEachOther(LivingEntity entity1, LivingEntity entity2, float speedModifier, int closeEnoughDistance) {
+            lookAtEachOther(entity1, entity2);
+            setWalkAndLookTargetMemoriesToEachOther(entity1, entity2, speedModifier, closeEnoughDistance);
         }
 
-        private static void lookAtEachOther(LivingEntity firstEntity, LivingEntity secondEntity) {
-            BehaviorUtils.lookAtEntity(firstEntity, secondEntity);
-            BehaviorUtils.lookAtEntity(secondEntity, firstEntity);
+        private static void lookAtEachOther(LivingEntity entity1, LivingEntity entity2) {
+            BehaviorUtils.lookAtEntity(entity1, entity2);
+            BehaviorUtils.lookAtEntity(entity2, entity1);
         }
 
-        private static void setWalkAndLookTargetMemoriesToEachOther(LivingEntity firstEntity, LivingEntity secondEntity, float speed, int distance) {
-            BehaviorUtils.setWalkAndLookTargetMemories(firstEntity, secondEntity, speed, distance);
-            BehaviorUtils.setWalkAndLookTargetMemories(secondEntity, firstEntity, speed, distance);
+        private static void setWalkAndLookTargetMemoriesToEachOther(LivingEntity entity1, LivingEntity entity2, float speedModifier, int closeEnoughDistance) {
+            BehaviorUtils.setWalkAndLookTargetMemories(entity1, entity2, speedModifier, closeEnoughDistance);
+            BehaviorUtils.setWalkAndLookTargetMemories(entity2, entity1, speedModifier, closeEnoughDistance);
         }
     }
 }

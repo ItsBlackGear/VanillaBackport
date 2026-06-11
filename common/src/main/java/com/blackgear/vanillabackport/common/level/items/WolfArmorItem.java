@@ -21,11 +21,9 @@ public class WolfArmorItem extends Item implements DyeableLeatherItem {
     }
 
     public static int getColorOrDefault(ItemStack stack, int fallback) {
-        if (stack.getItem() instanceof DyeableLeatherItem item) {
-            return item.getColor(stack);
-        }
-
-        return fallback;
+        return stack.getItem() instanceof DyeableLeatherItem item
+            ? item.getColor(stack)
+            : fallback;
     }
 
     public ResourceLocation getTexture() {

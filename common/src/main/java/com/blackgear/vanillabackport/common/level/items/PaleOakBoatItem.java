@@ -72,6 +72,8 @@ public class PaleOakBoatItem extends Item {
     }
 
     private Boat getBoat(Level level, HitResult hitResult) {
-        return this.hasChest ? new PaleOakChestBoat(level, hitResult.getLocation().x, hitResult.getLocation().y, hitResult.getLocation().z) : new PaleOakBoat(level, hitResult.getLocation().x, hitResult.getLocation().y, hitResult.getLocation().z);
+        return this.hasChest
+            ? new PaleOakChestBoat(level, hitResult.getLocation().x, hitResult.getLocation().y, hitResult.getLocation().z)
+            : new PaleOakBoat(level, hitResult.getLocation().x, hitResult.getLocation().y, hitResult.getLocation().z);
     }
 }

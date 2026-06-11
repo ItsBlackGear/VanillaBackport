@@ -3,6 +3,7 @@ package com.blackgear.vanillabackport.core.mixin.common.entities;
 import com.blackgear.vanillabackport.common.api.extensions.TravelAwareEntity;
 import com.blackgear.vanillabackport.common.registries.ModAttributes;
 import com.blackgear.vanillabackport.core.mixin.access.EntityAccessor;
+import com.blackgear.vanillabackport.core.util.MobUtils;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
@@ -48,7 +49,7 @@ public abstract class LivingEntityMixin extends EntityMixin {
         LivingEntity self = (LivingEntity) (Object) this;
         if (self instanceof TravelAwareEntity traveller && self.isControlledByLocalInstance()) {
             FluidState fluidState = self.level().getFluidState(self.blockPosition());
-            if ((self.isInWater() || self.isInLava()) && this.isAffectedByFluids() && !self.canStandOnFluid(fluidState)) {
+            if (MobUtils.isInLiquid(self) && this.isAffectedByFluids() && !self.canStandOnFluid(fluidState)) {
                 traveller.postTravelInFluid();
             }
         }

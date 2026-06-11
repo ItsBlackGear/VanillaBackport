@@ -1,6 +1,7 @@
 package com.blackgear.vanillabackport.common.level.features;
 
 import com.blackgear.vanillabackport.common.level.features.TemplateFeatureConfiguration.TemplateEntry;
+import com.blackgear.vanillabackport.core.util.DirectionUtils;
 import com.mojang.serialization.Codec;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
@@ -37,14 +38,6 @@ public class TemplateFeature extends Feature<TemplateFeatureConfiguration> {
     }
 
     private Vec3i getRotatedOffset(Rotation rotation, Direction.Axis axis, StructureTemplate template) {
-        return rotation.rotate(getNegative(axis)).getNormal().multiply(template.getSize().get(axis) / 2);
-    }
-
-    private Direction getNegative(Direction.Axis axis) {
-        return switch (axis) {
-            case X -> Direction.WEST;
-            case Y -> Direction.DOWN;
-            case Z -> Direction.NORTH;
-        };
+        return rotation.rotate(DirectionUtils.getNegative(axis)).getNormal().multiply(template.getSize().get(axis) / 2);
     }
 }

@@ -1,6 +1,7 @@
 package com.blackgear.vanillabackport.common.level.entities.sulfurcube;
 
 import com.blackgear.vanillabackport.common.api.extensions.TravelAwareEntity;
+import com.blackgear.vanillabackport.core.util.MobUtils;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -371,7 +372,7 @@ public abstract class AbstractCubeMob extends AgeableMob implements TravelAwareE
 
         @Override
         public boolean canUse() {
-            return (this.cube.isInWater() || this.cube.isInLava()) && this.cube.getMoveControl() instanceof CubeMobMoveControl;
+            return MobUtils.isInLiquid(this.cube) && this.cube.getMoveControl() instanceof CubeMobMoveControl;
         }
 
         @Override
@@ -480,7 +481,7 @@ public abstract class AbstractCubeMob extends AgeableMob implements TravelAwareE
         @Override
         public boolean canUse() {
             return this.cube.getTarget() == null
-                && (this.cube.onGround() || this.cube.isInWater() || this.cube.isInLava() || this.cube.hasEffect(MobEffects.LEVITATION))
+                && (this.cube.onGround() || MobUtils.isInLiquid(this.cube) || this.cube.hasEffect(MobEffects.LEVITATION))
                 && this.cube.getMoveControl() instanceof CubeMobMoveControl;
         }
 
