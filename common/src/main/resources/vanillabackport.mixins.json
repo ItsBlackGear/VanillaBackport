@@ -69,6 +69,8 @@
     "common.item.BundleItemMixin",
     "common.item.MutableBundleContentsMixin",
     "common.level.ChunkSerializerMixin",
+    "common.spawning.EntityTypeMixin",
+    "common.spawning.SpawnPlacementsMixin",
     "common.worldgen.feature.LakeFeatureMixin",
     "common.worldgen.feature.SimpleBlockFeatureMixin",
     "common.worldgen.structure.NetherFossilPieceMixin",

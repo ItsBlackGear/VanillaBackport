@@ -51,7 +51,7 @@ public class BundleRenderer implements ItemRendererRegistry.Renderer {
 
     @Override
     public boolean shouldUse() {
-        return VanillaBackport.COMMON_CONFIG.hasUpdatedBundles.get();
+        return VanillaBackport.COMMON_CONFIG.hasModernBundleGraphics.get();
     }
 
     @Override

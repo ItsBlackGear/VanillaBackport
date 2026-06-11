@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 
 @Mixin(NaturalSpawner.SpawnState.class)
 public interface SpawnStateAccessor {
-    @Invoker("canSpawnForCategory")
+    @Invoker
     boolean callCanSpawnForCategory(MobCategory category, ChunkPos pos);
 
     @Invoker("canSpawn")

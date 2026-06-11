@@ -2,6 +2,7 @@ package com.blackgear.vanillabackport.common.level.crafting;
 
 import com.blackgear.vanillabackport.common.api.bundle.BundleFeatures;
 import com.blackgear.vanillabackport.common.registries.ModRecipeSerializers;
+import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
@@ -17,6 +18,8 @@ public class BundleColoring extends CustomRecipe {
 
     @Override
     public boolean matches(CraftingInput input, Level level) {
+        if (!VanillaBackport.COMMON_CONFIG.hasDyeableBundleRecipe.get()) return false;
+        
         int bundles = 0;
         int dyes = 0;
 
