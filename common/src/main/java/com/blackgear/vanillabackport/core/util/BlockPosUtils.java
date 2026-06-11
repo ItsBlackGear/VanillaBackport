@@ -1,14 +1,17 @@
 package com.blackgear.vanillabackport.core.util;
 
+import com.google.common.collect.AbstractIterator;
 import it.unimi.dsi.fastutil.longs.LongOpenHashSet;
 import it.unimi.dsi.fastutil.longs.LongSet;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Vec3i;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
 import java.util.Optional;
 
 public class BlockPosUtils {
@@ -21,33 +24,32 @@ public class BlockPosUtils {
         return BlockPos.betweenClosed(min, max);
     }
 
-    /**
-     * Traverses all block positions between two points that intersect with a bounding box.
-     * Visits each position with a visitor function that can control traversal.
-     */
-    public static boolean forEachBlockIntersectedBetween(Vec3 start, Vec3 end, AABB aabb, BlockStepVisitor visitor) {
-        Vec3 direction = end.subtract(start);
-
-        // For very small movements, just check blocks in the current bounding box
-        if (direction.lengthSqr() < (double) Mth.square(0.99999F)) {
-            for (BlockPos pos : betweenClosed(aabb)) {
+    public static boolean forEachBlockIntersectedBetween(Vec3 from, Vec3 to, AABB aabbAtTarget, BlockStepVisitor visitor) {
+        Vec3 travel = to.subtract(from);
+        if (travel.lengthSqr() < Mth.square(Mth.EPSILON)) {
+            for (BlockPos pos : betweenClosed(aabbAtTarget)) {
                 if (!visitor.visit(pos, 0)) {
                     return false;
                 }
             }
 
             return true;
-        } else { // For longer movements, trace along the path
-            LongSet visitedPositions = new LongOpenHashSet();
-            Vec3 minPosition = new Vec3(aabb.minX, aabb.minY, aabb.minZ);
-            Vec3 startOffset = minPosition.subtract(direction);
+        } else {
+            LongSet visitedBlocks = new LongOpenHashSet();
+            for (BlockPos pos : betweenCornersInDirection(aabbAtTarget.move(travel.scale(-1.0)), travel)) {
+                if (!visitor.visit(pos, 0)) {
+                    return false;
+                }
+                
+                visitedBlocks.add(pos.asLong());
+            }
 
-            int stepCount = addCollisionsAlongTravel(visitedPositions, startOffset, minPosition, aabb, visitor);
-            if (stepCount < 0) {
+            int iterations = addCollisionsAlongTravel(visitedBlocks, travel, aabbAtTarget, visitor);
+            if (iterations < 0) {
                 return false;
-            } else { // Check any remaining positions in the final bounding box
-                for (BlockPos pos : betweenClosed(aabb)) {
-                    if (!visitedPositions.contains(pos.asLong()) && !visitor.visit(pos, stepCount + 1)) {
+            } else {
+                for (BlockPos pos : betweenCornersInDirection(aabbAtTarget, travel)) {
+                    if (!visitedBlocks.contains(pos.asLong()) && !visitor.visit(pos, iterations + 1)) {
                         return false;
                     }
                 }
@@ -56,100 +58,176 @@ public class BlockPosUtils {
             }
         }
     }
-
-    /**
-     * Traces collisions along a path and tracks visited block positions.
-     */
+    
+    public static Iterable<BlockPos> betweenCornersInDirection(AABB aabb, Vec3 direction) {
+        Vec3 minCorner = CollisionUtils.getMinPosition(aabb);
+        int firstCornerX = Mth.floor(minCorner.x());
+        int firstCornerY = Mth.floor(minCorner.y());
+        int firstCornerZ = Mth.floor(minCorner.z());
+        Vec3 maxCorner = CollisionUtils.getMaxPosition(aabb);
+        int secondCornerX = Mth.floor(maxCorner.x());
+        int secondCornerY = Mth.floor(maxCorner.y());
+        int secondCornerZ = Mth.floor(maxCorner.z());
+        return betweenCornersInDirection(firstCornerX, firstCornerY, firstCornerZ, secondCornerX, secondCornerY, secondCornerZ, direction);
+    }
+    
+    public static Iterable<BlockPos> betweenCornersInDirection(
+        int firstCornerX,
+        int firstCornerY,
+        int firstCornerZ,
+        int secondCornerX,
+        int secondCornerY,
+        int secondCornerZ,
+        Vec3 direction
+    ) {
+        int minCornerX = Math.min(firstCornerX, secondCornerX);
+        int minCornerY = Math.min(firstCornerY, secondCornerY);
+        int minCornerZ = Math.min(firstCornerZ, secondCornerZ);
+        int maxCornerX = Math.max(firstCornerX, secondCornerX);
+        int maxCornerY = Math.max(firstCornerY, secondCornerY);
+        int maxCornerZ = Math.max(firstCornerZ, secondCornerZ);
+        int diffX = maxCornerX - minCornerX;
+        int diffY = maxCornerY - minCornerY;
+        int diffZ = maxCornerZ - minCornerZ;
+        int startCornerX = direction.x >= 0.0 ? minCornerX : maxCornerX;
+        int startCornerY = direction.y >= 0.0 ? minCornerY : maxCornerY;
+        int startCornerZ = direction.z >= 0.0 ? minCornerZ : maxCornerZ;
+        List<Direction.Axis> axes = DirectionUtils.axisStepOrder(direction);
+        Direction.Axis firstVisitAxis = axes.get(0);
+        Direction.Axis secondVisitAxis = axes.get(1);
+        Direction.Axis thirdVisitAxis = axes.get(2);
+        Direction firstVisitDir = direction.get(firstVisitAxis) >= 0.0 ? DirectionUtils.getPositive(firstVisitAxis) : DirectionUtils.getNegative(firstVisitAxis);
+        Direction secondVisitDir = direction.get(secondVisitAxis) >= 0.0 ? DirectionUtils.getPositive(secondVisitAxis) : DirectionUtils.getNegative(secondVisitAxis);
+        Direction thirdVisitDir = direction.get(thirdVisitAxis) >= 0.0 ? DirectionUtils.getPositive(thirdVisitAxis) : DirectionUtils.getNegative(thirdVisitAxis);
+        int firstMax = firstVisitAxis.choose(diffX, diffY, diffZ);
+        int secondMax = secondVisitAxis.choose(diffX, diffY, diffZ);
+        int thirdMax = thirdVisitAxis.choose(diffX, diffY, diffZ);
+        return () -> new AbstractIterator<>() {
+            private final BlockPos.MutableBlockPos cursor = new BlockPos.MutableBlockPos();
+            private int firstIndex;
+            private int secondIndex;
+            private int thirdIndex;
+            private boolean end;
+            private final int firstDirX = firstVisitDir.getStepX();
+            private final int firstDirY = firstVisitDir.getStepY();
+            private final int firstDirZ = firstVisitDir.getStepZ();
+            private final int secondDirX = secondVisitDir.getStepX();
+            private final int secondDirY = secondVisitDir.getStepY();
+            private final int secondDirZ = secondVisitDir.getStepZ();
+            private final int thirdDirX = thirdVisitDir.getStepX();
+            private final int thirdDirY = thirdVisitDir.getStepY();
+            private final int thirdDirZ = thirdVisitDir.getStepZ();
+            
+            protected BlockPos computeNext() {
+                if (this.end) {
+                    return this.endOfData();
+                } else {
+                    this.cursor
+                        .set(
+                            startCornerX + this.firstDirX * this.firstIndex + this.secondDirX * this.secondIndex + this.thirdDirX * this.thirdIndex,
+                            startCornerY + this.firstDirY * this.firstIndex + this.secondDirY * this.secondIndex + this.thirdDirY * this.thirdIndex,
+                            startCornerZ + this.firstDirZ * this.firstIndex + this.secondDirZ * this.secondIndex + this.thirdDirZ * this.thirdIndex
+                        );
+                    if (this.thirdIndex < thirdMax) {
+                        this.thirdIndex++;
+                    } else if (this.secondIndex < secondMax) {
+                        this.secondIndex++;
+                        this.thirdIndex = 0;
+                    } else if (this.firstIndex < firstMax) {
+                        this.firstIndex++;
+                        this.thirdIndex = 0;
+                        this.secondIndex = 0;
+                    } else {
+                        this.end = true;
+                    }
+                    
+                    return this.cursor;
+                }
+            }
+        };
+    }
+    
     private static int addCollisionsAlongTravel(
-        LongSet visitedPositions,
-        Vec3 startPos,
-        Vec3 endPos,
+        LongSet visitedBlocks,
+        Vec3 deltaMove,
         AABB box,
         BlockStepVisitor visitor
     ) {
-        Vec3 travel = endPos.subtract(startPos);
+        double boxSizeX = box.getXsize();
+        double boxSizeY = box.getYsize();
+        double boxSizeZ = box.getZsize();
+        Vec3i cornerDir = getFurthestCorner(deltaMove);
+        Vec3 toCenter = box.getCenter();
+        Vec3 toCorner = new Vec3(
+            toCenter.x() + boxSizeX * 0.5 * cornerDir.getX(),
+            toCenter.y() + boxSizeY * 0.5 * cornerDir.getY(),
+            toCenter.z() + boxSizeZ * 0.5 * cornerDir.getZ()
+        );
+        Vec3 fromCorner = toCorner.subtract(deltaMove);
+        int cornerVisitedBlockX = Mth.floor(fromCorner.x);
+        int cornerVisitedBlockY = Mth.floor(fromCorner.y);
+        int cornerVisitedBlockZ = Mth.floor(fromCorner.z);
+        int signX = Mth.sign(deltaMove.x);
+        int signY = Mth.sign(deltaMove.y);
+        int signZ = Mth.sign(deltaMove.z);
+        double tDeltaX = signX == 0 ? Double.MAX_VALUE : signX / deltaMove.x;
+        double tDeltaY = signY == 0 ? Double.MAX_VALUE : signY / deltaMove.y;
+        double tDeltaZ = signZ == 0 ? Double.MAX_VALUE : signZ / deltaMove.z;
+        double tX = tDeltaX * (signX > 0 ? 1.0 - Mth.frac(fromCorner.x) : Mth.frac(fromCorner.x));
+        double tY = tDeltaY * (signY > 0 ? 1.0 - Mth.frac(fromCorner.y) : Mth.frac(fromCorner.y));
+        double tZ = tDeltaZ * (signZ > 0 ? 1.0 - Mth.frac(fromCorner.z) : Mth.frac(fromCorner.z));
+        int iterations = 0;
 
-        // Current block coordinates
-        int startX = Mth.floor(startPos.x);
-        int startY = Mth.floor(startPos.y);
-        int startZ = Mth.floor(startPos.z);
-
-        // Direction signs for each axis
-        int signX = Mth.sign(travel.x);
-        int signY = Mth.sign(travel.y);
-        int signZ = Mth.sign(travel.z);
-
-        // Calculate inverse directions for DDA algorithm
-        double invDirX = signX == 0 ? Double.MAX_VALUE : (double)signX / travel.x;
-        double invDirY = signY == 0 ? Double.MAX_VALUE : (double)signY / travel.y;
-        double invDirZ = signZ == 0 ? Double.MAX_VALUE : (double)signZ / travel.z;
-
-        // Calculate initial intersection distances
-        double targetMaxX = invDirX * (signX > 0 ? 1.0 - Mth.frac(startPos.x) : Mth.frac(startPos.x));
-        double targetMaxY = invDirY * (signY > 0 ? 1.0 - Mth.frac(startPos.y) : Mth.frac(startPos.y));
-        double targetMaxZ = invDirZ * (signZ > 0 ? 1.0 - Mth.frac(startPos.z) : Mth.frac(startPos.z));
-
-        int stepsTaken = 0;
-        BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
-
-        // Digital Differential Analysis (DDA) algorithm for 3D line traversal
-        while (targetMaxX <= 1.0 || targetMaxY <= 1.0 || targetMaxZ <= 1.0) {
-            // Find axis with the closest intersection
-            if (targetMaxX < targetMaxY) {
-                if (targetMaxX < targetMaxZ) {
-                    // X-axis is closest
-                    startX += signX;
-                    targetMaxX += invDirX;
+        while (tX <= 1.0 || tY <= 1.0 || tZ <= 1.0) {
+            if (tX < tY) {
+                if (tX < tZ) {
+                    cornerVisitedBlockX += signX;
+                    tX += tDeltaX;
                 } else {
-                    // Z-axis is closest
-                    startZ += signZ;
-                    targetMaxZ += invDirZ;
+                    cornerVisitedBlockZ += signZ;
+                    tZ += tDeltaZ;
                 }
-            } else if (targetMaxY < targetMaxZ) {
-                // Y-axis is closest
-                startY += signY;
-                targetMaxY += invDirY;
+            } else if (tY < tZ) {
+                cornerVisitedBlockY += signY;
+                tY += tDeltaY;
             } else {
-                // Z-axis is closest
-                startZ += signZ;
-                targetMaxZ += invDirZ;
+                cornerVisitedBlockZ += signZ;
+                tZ += tDeltaZ;
             }
 
-            // Limit max steps to avoid infinite loops
-            if (stepsTaken++ > 16) break;
-
-            Optional<Vec3> intersectionPoint = clip(
-                startX, startY, startZ,
-                startX + 1, startY + 1, startZ + 1,
-                startPos, endPos
+            Optional<Vec3> hitPointOpt = clip(
+                cornerVisitedBlockX,
+                cornerVisitedBlockY,
+                cornerVisitedBlockZ,
+                cornerVisitedBlockX + 1,
+                cornerVisitedBlockY + 1,
+                cornerVisitedBlockZ + 1,
+                fromCorner,
+                toCorner
             );
 
-            if (intersectionPoint.isEmpty()) continue;
-
-            Vec3 hitPoint = intersectionPoint.get();
-            // Ensure hit point is slightly inside the block
-            double x = Mth.clamp(hitPoint.x, (double)startX + (double) Mth.EPSILON, (double)startX + 1.0 - (double) Mth.EPSILON);
-            double y = Mth.clamp(hitPoint.y, (double)startY + (double) Mth.EPSILON, (double)startY + 1.0 - (double) Mth.EPSILON);
-            double z = Mth.clamp(hitPoint.z, (double)startZ + (double) Mth.EPSILON, (double)startZ + 1.0 - (double) Mth.EPSILON);
-
-            // Calculate bounds of potential overlapping blocks
-            int maxX = Mth.floor(x + box.getXsize());
-            int maxY = Mth.floor(y + box.getYsize());
-            int maxZ = Mth.floor(z + box.getZsize());
-
-            // Visit all overlapping blocks
-            for (int localX = startX; localX <= maxX; ++localX) {
-                for (int localY = startY; localY <= maxY; ++localY) {
-                    for (int localZ = startZ; localZ <= maxZ; ++localZ) {
-                        if (visitedPositions.add(BlockPos.asLong(localX, localY, localZ)) && !visitor.visit(mutable.set(localX, localY, localZ), stepsTaken)) {
-                            return -1;
-                        }
+            if (hitPointOpt.isPresent()) {
+                iterations++;
+                Vec3 hitPoint = hitPointOpt.get();
+                double cornerHitX = Mth.clamp(hitPoint.x, cornerVisitedBlockX + Mth.EPSILON, cornerVisitedBlockX + 1.0 - Mth.EPSILON);
+                double cornerHitY = Mth.clamp(hitPoint.y, cornerVisitedBlockY + Mth.EPSILON, cornerVisitedBlockY + 1.0 - Mth.EPSILON);
+                double cornerHitZ = Mth.clamp(hitPoint.z, cornerVisitedBlockZ + Mth.EPSILON, cornerVisitedBlockZ + 1.0 - Mth.EPSILON);
+                int oppositeCornerX = Mth.floor(cornerHitX - boxSizeX * cornerDir.getX());
+                int oppositeCornerY = Mth.floor(cornerHitY - boxSizeY * cornerDir.getY());
+                int oppositeCornerZ = Mth.floor(cornerHitZ - boxSizeZ * cornerDir.getZ());
+                int currentIteration = iterations;
+                
+                for (BlockPos pos : betweenCornersInDirection(
+                    cornerVisitedBlockX, cornerVisitedBlockY, cornerVisitedBlockZ, oppositeCornerX, oppositeCornerY, oppositeCornerZ, deltaMove
+                )) {
+                    if (visitedBlocks.add(pos.asLong()) && !visitor.visit(pos, currentIteration)) {
+                        return -1;
                     }
                 }
             }
         }
 
-        return stepsTaken;
+        return iterations;
     }
 
     /**
@@ -245,16 +323,23 @@ public class BlockPosUtils {
 
         return prevDirection;
     }
+    
+    private static Vec3i getFurthestCorner(final Vec3 direction) {
+        double xDot = Math.abs(VecUtils.X_AXIS.dot(direction));
+        double yDot = Math.abs(VecUtils.Y_AXIS.dot(direction));
+        double zDot = Math.abs(VecUtils.Z_AXIS.dot(direction));
+        int xSign = direction.x >= 0.0 ? 1 : -1;
+        int ySign = direction.y >= 0.0 ? 1 : -1;
+        int zSign = direction.z >= 0.0 ? 1 : -1;
+        if (xDot <= yDot && xDot <= zDot) {
+            return new Vec3i(-xSign, -zSign, ySign);
+        } else {
+            return yDot <= zDot ? new Vec3i(zSign, -ySign, -xSign) : new Vec3i(-ySign, xSign, -zSign);
+        }
+    }
 
     @FunctionalInterface
     public interface BlockStepVisitor {
-        /**
-         * Called for each block position visited during traversal.
-         *
-         * @param pos The block position being visited
-         * @param step The step count in the traversal
-         * @return true to continue traversal, false to interrupt
-         */
-        boolean visit(BlockPos pos, int step);
+        boolean visit(BlockPos pos, int iteration);
     }
 }

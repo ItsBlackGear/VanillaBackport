@@ -7,6 +7,7 @@ import com.blackgear.vanillabackport.common.registries.ModBlockEntities;
 import com.blackgear.vanillabackport.common.registries.ModBlockStateProperties;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.blackgear.vanillabackport.core.data.tags.ModBlockTags;
+import com.blackgear.vanillabackport.core.util.DirectionUtils;
 import com.blackgear.vanillabackport.core.util.LevelUtils;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
@@ -108,26 +109,18 @@ public class CreakingHeartBlock extends BaseEntityBlock {
             ? state.setValue(STATE, VanillaBackport.COMMON_CONFIG.doCreakingHeartsWorkOnDay.get() || isNaturalNight(level) ? CreakingHeartState.AWAKE : CreakingHeartState.DORMANT)
             : state;
     }
-
+    
     public static boolean hasRequiredLogs(BlockState state, LevelReader level, BlockPos pos) {
         Direction.Axis axis = state.getValue(AXIS);
-
-        for (Direction direction : directions(axis)) {
+        
+        for (Direction direction : DirectionUtils.getDirections(axis)) {
             BlockPos neighborPos = pos.relative(direction);
             BlockState neighborState = level.getBlockState(neighborPos);
             if (!neighborState.is(ModBlockTags.CREAKING_HEART_HOLDERS)) return false;
             if (neighborState.hasProperty(AXIS) && neighborState.getValue(AXIS) != axis) return false;
         }
-
+        
         return true;
-    }
-
-    private static Direction[] directions(Direction.Axis axis) {
-        return switch (axis) {
-            case X -> new Direction[]{Direction.NORTH, Direction.SOUTH};
-            case Y -> new Direction[]{Direction.UP, Direction.DOWN};
-            case Z -> new Direction[]{Direction.EAST, Direction.WEST};
-        };
     }
 
     private static boolean isSurroundedByLogs(LevelAccessor level, BlockPos pos) {

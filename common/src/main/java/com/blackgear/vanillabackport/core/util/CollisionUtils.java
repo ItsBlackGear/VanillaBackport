@@ -18,6 +18,14 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class CollisionUtils {
+    public static Vec3 getMinPosition(AABB aabb) {
+        return new Vec3(aabb.minX, aabb.minY, aabb.minZ);
+    }
+    
+    public static Vec3 getMaxPosition(AABB aabb) {
+        return new Vec3(aabb.maxX, aabb.maxY, aabb.maxZ);
+    }
+    
     public static boolean intersects(AABB box, BlockPos pos) {
         return box.intersects(pos.getX(), pos.getY(), pos.getZ(), pos.getX() + 1, pos.getY() + 1, pos.getZ() + 1);
     }
@@ -30,9 +38,6 @@ public class CollisionUtils {
         return box != null && collidedWithShapeMovingFrom(entity, origin, target, List.of(box));
     }
 
-    /**
-     * Checks if an entity would collide with any shapes when moving between positions
-     */
     public static boolean collidedWithShapeMovingFrom(LivingEntity entity, Vec3 origin, Vec3 target, List<AABB> boxes) {
         AABB box = entity.dimensions.makeBoundingBox(origin);
         Vec3 distance = target.subtract(origin);
@@ -56,20 +61,19 @@ public class CollisionUtils {
     /**
      * Determines if an entity box would collide with any obstacles when moving along a vector
      */
-    public static boolean collidedAlongVector(AABB entityBox, Vec3 origin, List<AABB> obstacles) {
-        Vec3 center = entityBox.getCenter();
+    public static boolean collidedAlongVector(AABB box, Vec3 origin, List<AABB> obstacles) {
+        Vec3 center = box.getCenter();
         Vec3 distance = center.add(origin);
 
         for (AABB obstacle : obstacles) {
-            AABB box = obstacle.inflate(
-                entityBox.getXsize() * 0.5,
-                entityBox.getYsize() * 0.5,
-                entityBox.getZsize() * 0.5
-            );
+            AABB inflated = obstacle.inflate(box.getXsize() * 0.5 - 1.0E-7, box.getYsize() * 0.5 - 1.0E-7, box.getZsize() * 0.5 - 1.0E-7);
+            if (inflated.contains(distance) || inflated.contains(center)) {
+                return true;
+            }
 
-            if (box.contains(distance) || box.contains(center)) return true;
-
-            if (box.clip(center, distance).isPresent()) return true;
+            if (inflated.clip(center, distance).isPresent()) {
+                return true;
+            }
         }
 
         return false;

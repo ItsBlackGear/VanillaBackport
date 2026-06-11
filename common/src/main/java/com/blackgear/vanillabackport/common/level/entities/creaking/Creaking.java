@@ -6,6 +6,7 @@ import com.blackgear.vanillabackport.common.level.blockentities.CreakingHeartBlo
 import com.blackgear.vanillabackport.common.level.blocks.CreakingHeartBlock;
 import com.blackgear.vanillabackport.common.level.blocks.states.CreakingHeartState;
 import com.blackgear.vanillabackport.common.registries.ModBlocks;
+import com.blackgear.vanillabackport.core.util.MobUtils;
 import com.mojang.serialization.Dynamic;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Vec3i;
@@ -237,10 +238,7 @@ public class Creaking extends Monster {
                 if (checkCanMove) {
                     this.playSound(ModSoundEvents.CREAKING_UNFREEZE.get());
                 } else {
-                    this.getNavigation().stop();
-                    this.setXxa(0.0F);
-                    this.setYya(0.0F);
-                    this.setSpeed(0.0F);
+                    MobUtils.stopInPlace(this);
                     this.playSound(ModSoundEvents.CREAKING_FREEZE.get());
                 }
             }

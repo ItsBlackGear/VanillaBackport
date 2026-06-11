@@ -11,6 +11,8 @@ import com.blackgear.vanillabackport.core.data.tags.ModItemTags;
 import com.blackgear.vanillabackport.core.mixin.access.LivingEntityAccessor;
 import com.blackgear.vanillabackport.core.util.BlockPosUtils;
 import com.blackgear.vanillabackport.core.util.CollisionUtils;
+import com.blackgear.vanillabackport.core.util.MathUtils;
+import com.blackgear.vanillabackport.core.util.MobUtils;
 import com.mojang.serialization.Dynamic;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -161,15 +163,6 @@ public class HappyGhast extends Animal implements PlayerRideable, LeashableCallb
         this.requiresPrecisePosition = requiresPrecisePosition;
     }
 
-    public void stopInPlace() {
-        this.getNavigation().stop();
-        this.setXxa(0.0F);
-        this.setYya(0.0F);
-        this.setSpeed(0.0F);
-        this.setDeltaMovement(0.0, 0.0, 0.0);
-        LeashPhysics.resetAngularMomentum(this);
-    }
-
     @Override
     protected void checkFallDamage(double y, boolean onGround, BlockState state, BlockPos pos) {
     }
@@ -233,12 +226,7 @@ public class HappyGhast extends Animal implements PlayerRideable, LeashableCallb
     public float getVoicePitch() {
         return 1.0F;
     }
-
-    @Override
-    public SoundSource getSoundSource() {
-        return SoundSource.NEUTRAL;
-    }
-
+    
     @Override
     public int getAmbientSoundInterval() {
         int interval = super.getAmbientSoundInterval();
@@ -607,8 +595,8 @@ public class HappyGhast extends Animal implements PlayerRideable, LeashableCallb
     }
 
     private boolean scanPlayerAboveGhast() {
-        AABB bb = this.getBoundingBox();
-        AABB ghastDetectionBox = new AABB(bb.minX - 1.0, bb.maxY - Mth.EPSILON, bb.minZ - 1.0, bb.maxX + 1.0, bb.maxY + bb.getYsize() / 2.0, bb.maxZ + 1.0);
+        AABB happyGhastBb = this.getBoundingBox();
+        AABB ghastDetectionBox = new AABB(happyGhastBb.minX - 1.0, happyGhastBb.maxY - Mth.EPSILON, happyGhastBb.minZ - 1.0, happyGhastBb.maxX + 1.0, happyGhastBb.maxY + happyGhastBb.getYsize() / 2.0, happyGhastBb.maxZ + 1.0);
 
         for (Player player : this.level().players()) {
             if (!player.isSpectator()) {
@@ -635,12 +623,7 @@ public class HappyGhast extends Animal implements PlayerRideable, LeashableCallb
             return false;
         }
     }
-
-    @Override
-    public Vec3 getDismountLocationForPassenger(LivingEntity passenger) {
-        return new Vec3(this.getX(), this.getBoundingBox().maxY, this.getZ());
-    }
-
+    
     static class BabyFlyingPathNavigation extends FlyingPathNavigation {
         public BabyFlyingPathNavigation(Mob mob, Level level) {
             super(mob, level);
@@ -694,7 +677,7 @@ public class HappyGhast extends Animal implements PlayerRideable, LeashableCallb
         @Override
         public void tick() {
             if (HappyGhast.this.isOnStillTimeout()) {
-                float closeAngle = wrapDegrees90(HappyGhast.this.getYRot());
+                float closeAngle = MathUtils.wrapDegrees90(HappyGhast.this.getYRot());
                 HappyGhast.this.setYRot(HappyGhast.this.getYRot() - closeAngle);
                 HappyGhast.this.setYHeadRot(HappyGhast.this.getYRot());
             } else if (this.lookAtCooldown > 0) {
@@ -713,13 +696,6 @@ public class HappyGhast extends Animal implements PlayerRideable, LeashableCallb
                 this.mob.setYRot(-((float) Mth.atan2(movement.x, movement.z)) * Mth.RAD_TO_DEG);
                 this.mob.yBodyRot = this.mob.getYRot();
             }
-        }
-
-        public static float wrapDegrees90(float degrees) {
-            float result = degrees % 90.0F;
-            if (result >= 45.0F) result -= 90.0F;
-            if (result < -45.0F) result += 90.0F;
-            return result;
         }
     }
 
@@ -740,7 +716,7 @@ public class HappyGhast extends Animal implements PlayerRideable, LeashableCallb
         public void tick() {
             if (this.shouldBeStopped.getAsBoolean()) {
                 this.operation = Operation.WAIT;
-                this.ghast.stopInPlace();
+                MobUtils.stopInPlace(this.ghast);
             }
 
             if (this.operation == Operation.MOVE_TO) {
@@ -770,44 +746,50 @@ public class HappyGhast extends Animal implements PlayerRideable, LeashableCallb
 
             boolean inWater = this.ghast.isInWater();
             boolean inLava = this.ghast.isInLava();
-            Vec3 currentPos = this.ghast.position();
-            Vec3 targetPos = currentPos.add(target);
+            Vec3 start = this.ghast.position();
+            Vec3 end = start.add(target);
 
             return BlockPosUtils.forEachBlockIntersectedBetween(
-                currentPos,
-                targetPos,
+                start,
+                end,
                 targetBox,
-                (pos, step) -> CollisionUtils.intersects(entityBox, pos) || this.blockTraversalPossible(this.ghast.level(), currentPos, targetPos, pos, inWater, inLava)
+                (pos, step) -> CollisionUtils.intersects(entityBox, pos) || this.blockTraversalPossible(this.ghast.level(), start, end, pos, inWater, inLava)
             );
         }
 
-        private boolean blockTraversalPossible(BlockGetter level, @Nullable Vec3 origin, @Nullable Vec3 target, BlockPos pos, boolean inWater, boolean inLava) {
+        private boolean blockTraversalPossible(
+            BlockGetter level,
+            @Nullable Vec3 start,
+            @Nullable Vec3 end,
+            BlockPos pos,
+            boolean canPathThroughWater,
+            boolean canPathThroughLava
+        ) {
             BlockState state = level.getBlockState(pos);
             if (state.isAir()) {
                 return true;
             } else {
-                boolean hasValidPath = origin != null && target != null;
-                boolean noCollisionDetected = hasValidPath
-                    ? !CollisionUtils.collidedWithShapeMovingFrom(this.ghast, origin, target, state.getCollisionShape(level, pos).move(pos.getX(), pos.getY(), pos.getZ()).toAabbs())
+                boolean preciseBlockCollisions = start != null && end != null;
+                boolean pathNoCollisions = preciseBlockCollisions
+                    ? !CollisionUtils.collidedWithShapeMovingFrom(this.ghast, start, end, state.getCollisionShape(level, pos).move(pos.getX(), pos.getY(), pos.getZ()).toAabbs())
                     : state.getCollisionShape(level, pos).isEmpty();
-
                 if (!this.careful) {
-                    return noCollisionDetected;
+                    return pathNoCollisions;
                 } else if (state.is(ModBlockTags.HAPPY_GHAST_AVOIDS)) {
                     return false;
                 } else {
                     FluidState fluidState = level.getFluidState(pos);
-                    if (!fluidState.isEmpty() && (!hasValidPath || CollisionUtils.collidedWithFluid(this.ghast, fluidState, pos, origin, target))) {
+                    if (!fluidState.isEmpty() && (!preciseBlockCollisions || CollisionUtils.collidedWithFluid(this.ghast, fluidState, pos, start, end))) {
                         if (fluidState.is(FluidTags.WATER)) {
-                            return inWater;
+                            return canPathThroughWater;
                         }
 
                         if (fluidState.is(FluidTags.LAVA)) {
-                            return inLava;
+                            return canPathThroughLava;
                         }
                     }
 
-                    return noCollisionDetected;
+                    return pathNoCollisions;
                 }
             }
         }
