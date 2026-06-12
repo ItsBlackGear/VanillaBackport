@@ -1,7 +1,7 @@
 package com.blackgear.vanillabackport.core.mixin.common.item;
 
 import com.blackgear.vanillabackport.common.api.bundle.BundleFeatures;
-import com.blackgear.vanillabackport.common.api.bundle.IBundle;
+import com.blackgear.vanillabackport.common.api.bundle.ModernBundle;
 import com.blackgear.vanillabackport.core.mixin.access.BundleContentsAccessor;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.Slot;
@@ -20,7 +20,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.util.List;
 
 @Mixin(BundleContents.Mutable.class)
-public abstract class MutableBundleContentsMixin implements IBundle.Mutable {
+public abstract class MutableBundleContentsMixin implements ModernBundle.Mutable {
     @Shadow protected abstract int getMaxAmountToAdd(ItemStack stack);
     @Shadow public abstract int tryInsert(ItemStack stack);
     @Shadow @Final private List<ItemStack> items;
@@ -30,7 +30,7 @@ public abstract class MutableBundleContentsMixin implements IBundle.Mutable {
     @Inject(method = "<init>", at = @At("RETURN"))
     private void vb$onInit(BundleContents contents, CallbackInfo ci) {
         if (BundleFeatures.onBundleUpdate()) {
-            this.selectedItem = ((IBundle)(Object)contents).getSelectedItem();
+            this.selectedItem = ((ModernBundle)(Object)contents).getSelectedItem();
         }
     }
 
@@ -74,7 +74,7 @@ public abstract class MutableBundleContentsMixin implements IBundle.Mutable {
         if (!BundleFeatures.onBundleUpdate()) return;
 
         BundleContents original = cir.getReturnValue();
-        ((IBundle)(Object)original).setSelectedItem(this.selectedItem);
+        ((ModernBundle)(Object)original).setSelectedItem(this.selectedItem);
         cir.setReturnValue(original);
     }
 }

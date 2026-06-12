@@ -14,9 +14,7 @@
       "max_delay": 24000,
       "min_delay": 12000,
       "replace_current_music": false,
-      "sound": {
-        "sound_id": "minecraft:music.overworld.sulfur_caves"
-      }
+      "sound": "minecraft:music.overworld.sulfur_caves"
     },
     "sky_color": 7907327,
     "water_color": -13320311,

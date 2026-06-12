@@ -1,9 +1,9 @@
 package com.blackgear.vanillabackport.client.level.entities.layer;
 
-import com.blackgear.vanillabackport.client.level.entities.model.SmallSulfurCubeModel;
-import com.blackgear.vanillabackport.client.level.entities.model.SulfurCubeModel;
+import com.blackgear.vanillabackport.client.level.entities.model.sulfur_cube.SmallSulfurCubeModel;
+import com.blackgear.vanillabackport.client.level.entities.model.sulfur_cube.SulfurCubeModel;
 import com.blackgear.vanillabackport.client.registries.ModModelLayers;
-import com.blackgear.vanillabackport.common.level.entities.sulfurcube.SulfurCube;
+import com.blackgear.vanillabackport.common.level.entity.mob.monster.sulfurcube.SulfurCube;
 import com.blackgear.vanillabackport.core.mixin.access.BlockRenderDispatcherAccessor;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;

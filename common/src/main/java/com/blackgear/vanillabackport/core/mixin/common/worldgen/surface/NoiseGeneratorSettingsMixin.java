@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.core.mixin.common.worldgen.surface;
 
-import com.blackgear.vanillabackport.common.worldgen.ModSurfaceRuleData;
+import com.blackgear.vanillabackport.common.worldgen.surface.ModSurfaceRuleData;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;

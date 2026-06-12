@@ -1,9 +1,9 @@
 package com.blackgear.vanillabackport.core.mixin.common.entities;
 
-import com.blackgear.vanillabackport.common.api.extensions.TravelAwareEntity;
-import com.blackgear.vanillabackport.common.api.extensions.MotionAwareEntity;
+import com.blackgear.vanillabackport.common.api.extensions.entities.TravelAwareEntity;
+import com.blackgear.vanillabackport.common.api.extensions.entities.MotionAwareEntity;
 import com.blackgear.vanillabackport.common.api.leash.LeashableCallback;
-import com.blackgear.vanillabackport.common.registries.ModAttributes;
+import com.blackgear.vanillabackport.common.registries.entities.ModAttributes;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.core.BlockPos;

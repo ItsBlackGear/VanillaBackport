@@ -1,7 +1,7 @@
 package com.blackgear.vanillabackport.client.level.sound;
 
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
-import com.blackgear.vanillabackport.common.level.entities.happyghast.HappyGhast;
+import com.blackgear.vanillabackport.common.level.entity.mob.animal.happy_ghast.HappyGhast;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.resources.sounds.AbstractTickableSoundInstance;

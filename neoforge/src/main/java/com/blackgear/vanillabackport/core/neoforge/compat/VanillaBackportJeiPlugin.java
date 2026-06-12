@@ -1,7 +1,7 @@
 package com.blackgear.vanillabackport.core.neoforge.compat;
 
 import com.blackgear.vanillabackport.common.api.bundle.BundleFeatures;
-import com.blackgear.vanillabackport.common.level.crafting.BundleColoring;
+import com.blackgear.vanillabackport.common.api.bundle.BundleColoring;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;

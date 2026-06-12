@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.core.mixin.client;
 
-import com.blackgear.vanillabackport.common.level.entities.happyghast.HappyGhast;
+import com.blackgear.vanillabackport.common.level.entity.mob.animal.happy_ghast.HappyGhast;
 import net.minecraft.client.Camera;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.BlockGetter;

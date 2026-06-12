@@ -1,10 +1,10 @@
 package com.blackgear.vanillabackport.data.server.advancement;
 
-import com.blackgear.vanillabackport.common.level.blocks.CreakingHeartBlock;
-import com.blackgear.vanillabackport.common.level.blocks.states.CreakingHeartState;
-import com.blackgear.vanillabackport.common.registries.ModBlockStateProperties;
-import com.blackgear.vanillabackport.common.registries.ModBlocks;
-import com.blackgear.vanillabackport.common.registries.ModEntityTypes;
+import com.blackgear.vanillabackport.common.level.block.CreakingHeartBlock;
+import com.blackgear.vanillabackport.common.level.block.states.CreakingHeartState;
+import com.blackgear.vanillabackport.common.registries.blocks.ModBlockStateProperties;
+import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
+import com.blackgear.vanillabackport.common.registries.entities.ModEntityTypes;
 import com.blackgear.vanillabackport.core.data.tags.ModBlockTags;
 import com.blackgear.vanillabackport.core.data.tags.ModItemTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -109,7 +109,7 @@ public class AdvancementGenerator extends FabricAdvancementProvider {
                     Optional.of(ItemPredicate.Builder.item().of(ModItemTags.SULFUR_CUBE_ARCHETYPE_EXPLOSIVE).build()),
                     Optional.of(EntityPredicate.wrap(
                         EntityPredicate.Builder.entity()
-                            .of(ModEntityTypes.SULFUR_CUBE)
+                            .of(ModEntityTypes.SULFUR_CUBE.get())
                             .flags(EntityFlagsPredicate.Builder.flags().setIsBaby(false))
                             .build()
                     ))
@@ -122,7 +122,7 @@ public class AdvancementGenerator extends FabricAdvancementProvider {
                     ItemPredicate.Builder.item().of(ModItemTags.SULFUR_CUBE_ARCHETYPE_EXPLOSIVE),
                     Optional.of(EntityPredicate.wrap(
                         EntityPredicate.Builder.entity()
-                            .of(ModEntityTypes.SULFUR_CUBE)
+                            .of(ModEntityTypes.SULFUR_CUBE.get())
                             .flags(EntityFlagsPredicate.Builder.flags().setIsBaby(false))
                             .build()
                     ))

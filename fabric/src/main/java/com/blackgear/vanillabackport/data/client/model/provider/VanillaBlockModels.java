@@ -1,12 +1,12 @@
 package com.blackgear.vanillabackport.data.client.model.provider;
 
-import com.blackgear.vanillabackport.common.level.blocks.CreakingHeartBlock;
-import com.blackgear.vanillabackport.common.level.blocks.DriedGhastBlock;
-import com.blackgear.vanillabackport.common.level.blocks.HangingMossBlock;
-import com.blackgear.vanillabackport.common.level.blocks.MossyCarpetBlock;
-import com.blackgear.vanillabackport.common.level.blocks.states.CreakingHeartState;
-import com.blackgear.vanillabackport.common.registries.ModBlockStateProperties;
-import com.blackgear.vanillabackport.common.registries.ModBlocks;
+import com.blackgear.vanillabackport.common.level.block.CreakingHeartBlock;
+import com.blackgear.vanillabackport.common.level.block.DriedGhastBlock;
+import com.blackgear.vanillabackport.common.level.block.HangingMossBlock;
+import com.blackgear.vanillabackport.common.level.block.MossyCarpetBlock;
+import com.blackgear.vanillabackport.common.level.block.states.CreakingHeartState;
+import com.blackgear.vanillabackport.common.registries.blocks.ModBlockStateProperties;
+import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
 import com.blackgear.vanillabackport.data.client.model.ModelTemplates;
 import com.blackgear.vanillabackport.data.client.model.TextureMappings;
 import com.blackgear.vanillabackport.data.client.model.TexturedModels;

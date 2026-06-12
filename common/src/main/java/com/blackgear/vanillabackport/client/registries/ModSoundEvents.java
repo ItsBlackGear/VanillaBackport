@@ -205,12 +205,12 @@ public class ModSoundEvents {
     public static final Supplier<SoundEvent> SULFUR_CUBE_SMALL_SQUISH = SOUNDS.soundEvent("entity.small_sulfur_cube.squish");
     public static final Supplier<SoundEvent> SULFUR_CUBE_SMALL_EAT = SOUNDS.soundEvent("entity.small_sulfur_cube.eat");
 
-    public static final Supplier<SoundEvent> MUSIC_BIOME_SULFUR_CAVES = SOUNDS.soundEvent("music.overworld.sulfur_caves");
+    public static final Holder<SoundEvent> MUSIC_BIOME_SULFUR_CAVES = registerForHolder("music.overworld.sulfur_caves");
 
     // RECORDS
-    public static final Supplier<SoundEvent> MUSIC_DISC_TEARS = SOUNDS.soundEvent("music_disc.tears");
-    public static final Supplier<SoundEvent> MUSIC_DISC_LAVA_CHICKEN = SOUNDS.soundEvent("music_disc.lava_chicken");
-    public static final Supplier<SoundEvent> MUSIC_DISC_BOUNCE = SOUNDS.soundEvent("music_disc.bounce");
+    public static final Holder<SoundEvent> MUSIC_DISC_TEARS = registerForHolder("music_disc.tears");
+    public static final Holder<SoundEvent> MUSIC_DISC_LAVA_CHICKEN = registerForHolder("music_disc.lava_chicken");
+    public static final Holder<SoundEvent> MUSIC_DISC_BOUNCE = registerForHolder("music_disc.bounce");
 
     private static Holder<SoundEvent> registerForHolder(String id) {
         return SOUNDS.registry().holder(id, () -> SoundEvent.createVariableRangeEvent(ResourceLocation.withDefaultNamespace(id)));

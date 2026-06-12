@@ -1,10 +1,15 @@
 package com.blackgear.vanillabackport.core.registries;
 
 import com.blackgear.platform.core.RegistryBuilder;
-import com.blackgear.vanillabackport.common.api.variant.spawn.SpawnCondition;
-import com.blackgear.vanillabackport.common.api.wolf.WolfSoundVariant;
-import com.blackgear.vanillabackport.common.level.entities.animal.*;
-import com.blackgear.vanillabackport.common.level.entities.sulfurcube.SulfurCubeArchetype;
+import com.blackgear.vanillabackport.common.api.variants.spawn.SpawnCondition;
+import com.blackgear.vanillabackport.common.api.sound.WolfSoundVariant;
+import com.blackgear.vanillabackport.common.level.entity.mob.animal.cat.CatDataVariant;
+import com.blackgear.vanillabackport.common.level.entity.mob.animal.chicken.ChickenVariant;
+import com.blackgear.vanillabackport.common.level.entity.mob.animal.cow.CowVariant;
+import com.blackgear.vanillabackport.common.level.entity.mob.animal.frog.FrogDataVariant;
+import com.blackgear.vanillabackport.common.level.entity.mob.animal.pig.PigVariant;
+import com.blackgear.vanillabackport.common.level.entity.mob.animal.wolf.WolfDataVariant;
+import com.blackgear.vanillabackport.common.level.entity.mob.monster.sulfurcube.SulfurCubeArchetype;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.Registry;

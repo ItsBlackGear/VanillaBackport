@@ -1,10 +1,10 @@
 package com.blackgear.vanillabackport.core.mixin.common.entities;
 
-import com.blackgear.vanillabackport.common.api.variant.VariantSpawner;
-import com.blackgear.vanillabackport.common.api.variant.spawn.SpawnContext;
-import com.blackgear.vanillabackport.common.api.variant.VariantDataHolder;
-import com.blackgear.vanillabackport.common.api.variant.VariantUtils;
-import com.blackgear.vanillabackport.common.level.entities.animal.PigVariant;
+import com.blackgear.vanillabackport.common.api.variants.VariantSpawner;
+import com.blackgear.vanillabackport.common.api.variants.spawn.SpawnContext;
+import com.blackgear.vanillabackport.common.api.variants.VariantDataHolder;
+import com.blackgear.vanillabackport.common.api.variants.VariantUtils;
+import com.blackgear.vanillabackport.common.level.entity.mob.animal.pig.PigVariant;
 import com.blackgear.vanillabackport.core.registries.ModBuiltinRegistries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;

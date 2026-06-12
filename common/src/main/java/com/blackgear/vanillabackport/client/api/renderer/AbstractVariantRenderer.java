@@ -2,8 +2,8 @@ package com.blackgear.vanillabackport.client.api.renderer;
 
 
 import com.blackgear.platform.core.BuiltInCoreRegistry;
-import com.blackgear.vanillabackport.common.api.variant.VariantDataHolder;
-import com.blackgear.vanillabackport.common.api.variant.VariantUtils;
+import com.blackgear.vanillabackport.common.api.variants.VariantDataHolder;
+import com.blackgear.vanillabackport.common.api.variants.VariantUtils;
 import com.blackgear.vanillabackport.core.ModChecker;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

@@ -1,6 +1,9 @@
 package com.blackgear.vanillabackport.data.client;
 
-import com.blackgear.vanillabackport.common.registries.*;
+import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
+import com.blackgear.vanillabackport.common.registries.entities.ModAttributes;
+import com.blackgear.vanillabackport.common.registries.entities.ModEntityTypes;
+import com.blackgear.vanillabackport.common.registries.items.ModItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 import net.minecraft.core.HolderLookup;
@@ -67,9 +70,9 @@ public class LangGenerator extends FabricLanguageProvider {
         builder.add(ModItems.CREAKING_SPAWN_EGG.get(), "Creaking Spawn Egg");
 
         // Entities
-        builder.add(ModEntities.CREAKING.get(), "Creaking");
-        builder.add(ModEntities.PALE_OAK_BOAT.get(), "Pale Oak Boat");
-        builder.add(ModEntities.PALE_OAK_CHEST_BOAT.get(), "Pale Oak Boat with Chest");
+        builder.add(ModEntityTypes.CREAKING.get(), "Creaking");
+        builder.add(ModEntityTypes.PALE_OAK_BOAT.get(), "Pale Oak Boat");
+        builder.add(ModEntityTypes.PALE_OAK_CHEST_BOAT.get(), "Pale Oak Boat with Chest");
 
         // Trims
         builder.add("trim_material.minecraft.resin", "Resin Material");
@@ -134,7 +137,7 @@ public class LangGenerator extends FabricLanguageProvider {
         builder.add("painting.minecraft.dennis.author", "Sarah Boeving");
         builder.add("painting.minecraft.dennis.title", "Dennis");
 
-        builder.add(ModEntities.HAPPY_GHAST.get(), "Happy Ghast");
+        builder.add(ModEntityTypes.HAPPY_GHAST.get(), "Happy Ghast");
 
         builder.add("subtitles.block.dried_ghast.ambient", "Sounds of dryness");
         builder.add("subtitles.block.dried_ghast.ambient_water", "Dried Ghast rehydrates");
@@ -233,7 +236,7 @@ public class LangGenerator extends FabricLanguageProvider {
         builder.add(ModBlocks.SULFUR_BRICK_WALL.get(), "Sulfur Brick Wall");
         builder.add(ModBlocks.CHISELED_SULFUR.get(), "Chiseled Sulfur");
 
-        builder.add(ModEntityTypes.SULFUR_CUBE, "Sulfur Cube");
+        builder.add(ModEntityTypes.SULFUR_CUBE.get(), "Sulfur Cube");
         builder.add("entity.minecraft.sulfur_cube.content", "Contains: %s");
         builder.add("entity.minecraft.sulfur_cube.explosion_disabled", "Sulfur Cube explosions are disabled");
 

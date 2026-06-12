@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.core.mixin.common;
 
-import com.blackgear.vanillabackport.common.level.entities.happyghast.HappyGhast;
+import com.blackgear.vanillabackport.common.level.entity.mob.animal.happy_ghast.HappyGhast;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
 import net.minecraft.world.entity.Entity;

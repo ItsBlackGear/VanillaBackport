@@ -1,9 +1,9 @@
 package com.blackgear.vanillabackport.core.mixin.common.entities;
 
-import com.blackgear.vanillabackport.common.api.variant.VariantDataHolder;
-import com.blackgear.vanillabackport.common.api.variant.VariantUtils;
-import com.blackgear.vanillabackport.common.level.entities.animal.ChickenVariant;
-import com.blackgear.vanillabackport.common.registries.ModDataComponents;
+import com.blackgear.vanillabackport.common.api.variants.VariantDataHolder;
+import com.blackgear.vanillabackport.common.api.variants.VariantUtils;
+import com.blackgear.vanillabackport.common.level.entity.mob.animal.chicken.ChickenVariant;
+import com.blackgear.vanillabackport.common.registries.items.ModDataComponents;
 import com.blackgear.vanillabackport.core.registries.ModBuiltinRegistries;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.world.entity.EntityType;

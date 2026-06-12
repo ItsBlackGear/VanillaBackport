@@ -1,14 +1,12 @@
 package com.blackgear.vanillabackport.data.server.builder;
 
-import com.blackgear.vanillabackport.common.registries.ModJukeboxSongs;
-import com.blackgear.vanillabackport.common.registries.ModTrimMaterials;
+import com.blackgear.vanillabackport.common.registries.items.ModJukeboxSongs;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.JukeboxSong;
-import net.minecraft.world.item.armortrim.TrimMaterial;
 
 import java.util.concurrent.CompletableFuture;
 

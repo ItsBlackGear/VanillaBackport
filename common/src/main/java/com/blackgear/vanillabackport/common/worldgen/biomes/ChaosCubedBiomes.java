@@ -3,7 +3,6 @@ package com.blackgear.vanillabackport.common.worldgen.biomes;
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
 import com.blackgear.vanillabackport.common.worldgen.placements.ChaosCubedPlacements;
 import com.blackgear.vanillabackport.core.mixin.access.OverworldBiomesAccessor;
-import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.sounds.Musics;
@@ -57,7 +56,7 @@ public class ChaosCubedBiomes {
                     .skyColor(calculateSkyColor(0.8F))
                     .fogColor(12638463)
                     .grassColorOverride(11249231)
-                    .backgroundMusic(Musics.createGameMusic(Holder.direct(ModSoundEvents.MUSIC_BIOME_SULFUR_CAVES.get())))
+                    .backgroundMusic(Musics.createGameMusic(ModSoundEvents.MUSIC_BIOME_SULFUR_CAVES))
                     .build()
             )
             .mobSpawnSettings(mobs.build())

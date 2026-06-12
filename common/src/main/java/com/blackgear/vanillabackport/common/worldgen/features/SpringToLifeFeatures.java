@@ -1,16 +1,14 @@
 package com.blackgear.vanillabackport.common.worldgen.features;
 
-import com.blackgear.platform.common.worldgen.WorldGenRegistry;
-import com.blackgear.vanillabackport.common.level.blocks.LeafLitterBlock;
-import com.blackgear.vanillabackport.common.level.features.FallenTreeConfiguration;
-import com.blackgear.vanillabackport.common.registries.ModBlocks;
-import com.blackgear.vanillabackport.common.registries.ModFeatures;
-import com.blackgear.vanillabackport.common.worldgen.treedecorators.AttachedToLogsDecorator;
+import com.blackgear.platform.core.api.registrar.bootstrap.ConfiguredFeatureRegistrar;
+import com.blackgear.vanillabackport.common.level.block.LeafLitterBlock;
+import com.blackgear.vanillabackport.common.level.worldgen.features.FallenTreeConfiguration;
+import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
+import com.blackgear.vanillabackport.common.registries.worldgen.ModFeatures;
+import com.blackgear.vanillabackport.common.level.worldgen.tree_decorators.AttachedToLogsDecorator;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.core.Direction;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
@@ -33,31 +31,12 @@ import net.minecraft.world.level.levelgen.feature.treedecorators.TrunkVineDecora
 import java.util.List;
 
 public class SpringToLifeFeatures {
-    public static final WorldGenRegistry<ConfiguredFeature<?, ?>> FEATURES = WorldGenRegistry.of(Registries.CONFIGURED_FEATURE, VanillaBackport.NAMESPACE);
-
+    public static final ConfiguredFeatureRegistrar REGISTRIES = ConfiguredFeatureRegistrar.create(VanillaBackport.NAMESPACE);
+    
     // VEGETATION FEATURES
-    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_BUSH = FEATURES.create("patch_bush");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_FIREFLY_BUSH = FEATURES.create("patch_firefly_bush");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> WILDFLOWERS_BIRCH_FOREST = FEATURES.create("wildflowers_birch_forest");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> WILDFLOWERS_MEADOW = FEATURES.create("wildflowers_meadow");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_DRY_GRASS = FEATURES.create("patch_dry_grass");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_LEAF_LITTER = FEATURES.create("patch_leaf_litter");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> LEAF_LITTER = FEATURES.create("leaf_litter");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> CACTUS_FLOWER = FEATURES.create("cactus_flower");
-
-    // TREE FEATURES
-    public static final ResourceKey<ConfiguredFeature<?, ?>> FALLEN_OAK_TREE = FEATURES.create("fallen_oak_tree");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> FALLEN_BIRCH_TREE = FEATURES.create("fallen_birch_tree");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> FALLEN_SUPER_BIRCH_TREE = FEATURES.create("fallen_super_birch_tree");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> FALLEN_JUNGLE_TREE = FEATURES.create("fallen_jungle_tree");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> FALLEN_SPRUCE_TREE = FEATURES.create("fallen_spruce_tree");
-
-    public static void bootstrap(BootstrapContext<ConfiguredFeature<?, ?>> context) {
-        // VEGETATION FEATURES
-        FEATURES.register(
-            context,
-            PATCH_BUSH,
-            Feature.RANDOM_PATCH,
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_BUSH = REGISTRIES.register("patch_bush",
+        Feature.RANDOM_PATCH,
+        (features, placements) ->
             new RandomPatchConfiguration(
                 25,
                 5,
@@ -68,12 +47,10 @@ public class SpringToLifeFeatures {
                         BlockStateProvider.simple(ModBlocks.BUSH.get())
                     )
                 )
-            )
-        );
-        FEATURES.register(
-            context,
-            PATCH_FIREFLY_BUSH,
-            Feature.RANDOM_PATCH,
+            ));
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_FIREFLY_BUSH = REGISTRIES.register("patch_firefly_bush",
+        Feature.RANDOM_PATCH,
+        (features, placements) ->
             new RandomPatchConfiguration(
                 20,
                 4,
@@ -84,12 +61,10 @@ public class SpringToLifeFeatures {
                         BlockStateProvider.simple(ModBlocks.FIREFLY_BUSH.get())
                     )
                 )
-            )
-        );
-        FEATURES.register(
-            context,
-            WILDFLOWERS_BIRCH_FOREST,
-            Feature.FLOWER,
+            ));
+    public static final ResourceKey<ConfiguredFeature<?, ?>> WILDFLOWERS_BIRCH_FOREST = REGISTRIES.register("wildflowers_birch_forest",
+        Feature.FLOWER,
+        (features, placements) ->
             new RandomPatchConfiguration(
                 64,
                 6,
@@ -100,12 +75,10 @@ public class SpringToLifeFeatures {
                         new WeightedStateProvider(flowerBedPatchBuilder(ModBlocks.WILDFLOWERS.get()))
                     )
                 )
-            )
-        );
-        FEATURES.register(
-            context,
-            WILDFLOWERS_MEADOW,
-            Feature.FLOWER,
+            ));
+    public static final ResourceKey<ConfiguredFeature<?, ?>> WILDFLOWERS_MEADOW = REGISTRIES.register("wildflowers_meadow",
+        Feature.FLOWER,
+        (features, placements) ->
             new RandomPatchConfiguration(
                 8,
                 6,
@@ -116,12 +89,10 @@ public class SpringToLifeFeatures {
                         new WeightedStateProvider(flowerBedPatchBuilder(ModBlocks.WILDFLOWERS.get()))
                     )
                 )
-            )
-        );
-        FEATURES.register(
-            context,
-            PATCH_DRY_GRASS,
-            Feature.RANDOM_PATCH,
+            ));
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_DRY_GRASS = REGISTRIES.register("patch_dry_grass",
+        Feature.RANDOM_PATCH,
+        (features, placements) ->
             grassPatch(
                 new WeightedStateProvider(
                     SimpleWeightedRandomList.<BlockState>builder()
@@ -130,12 +101,10 @@ public class SpringToLifeFeatures {
                         .build()
                 ),
                 64
-            )
-        );
-        FEATURES.register(
-            context,
-            PATCH_LEAF_LITTER,
-            Feature.RANDOM_PATCH,
+            ));
+    public static final ResourceKey<ConfiguredFeature<?, ?>> PATCH_LEAF_LITTER = REGISTRIES.register("patch_leaf_litter",
+        Feature.RANDOM_PATCH,
+        (features, placements) ->
             FeatureUtils.simpleRandomPatchConfiguration(
                 32,
                 PlacementUtils.filtered(
@@ -146,53 +115,28 @@ public class SpringToLifeFeatures {
                         BlockPredicate.matchesBlocks(Direction.DOWN.getNormal(), Blocks.GRASS_BLOCK)
                     )
                 )
-            )
-        );
-        FEATURES.register(
-            context,
-            FALLEN_OAK_TREE,
-            ModFeatures.FALLEN_TREE.get(),
-            createFallenOak().build()
-        );
-        FEATURES.register(
-            context,
-            FALLEN_BIRCH_TREE,
-            ModFeatures.FALLEN_TREE.get(),
-            createFallenBirch(8).build()
-        );
-        FEATURES.register(
-            context,
-            FALLEN_SUPER_BIRCH_TREE,
-            ModFeatures.FALLEN_TREE.get(),
-            createFallenBirch(15).build()
-        );
-        FEATURES.register(
-            context,
-            FALLEN_JUNGLE_TREE,
-            ModFeatures.FALLEN_TREE.get(),
-            createFallenJungle().build()
-        );
-        FEATURES.register(
-            context,
-            FALLEN_SPRUCE_TREE,
-            ModFeatures.FALLEN_TREE.get(),
-            createFallenSpruce().build()
-        );
+            ));
+    public static final ResourceKey<ConfiguredFeature<?, ?>> LEAF_LITTER = REGISTRIES.register("leaf_litter",
+        ModFeatures.LEAF_LITTER.get());
+    public static final ResourceKey<ConfiguredFeature<?, ?>> CACTUS_FLOWER = REGISTRIES.register("cactus_flower",
+        ModFeatures.CACTUS_FLOWER.get());
 
-        FEATURES.register(
-            context,
-            LEAF_LITTER,
-            ModFeatures.LEAF_LITTER.get(),
-            FeatureConfiguration.NONE
-        );
-
-        FEATURES.register(
-            context,
-            CACTUS_FLOWER,
-            ModFeatures.CACTUS_FLOWER.get(),
-            FeatureConfiguration.NONE
-        );
-    }
+    // TREE FEATURES
+    public static final ResourceKey<ConfiguredFeature<?, ?>> FALLEN_OAK_TREE = REGISTRIES.register("fallen_oak_tree",
+        ModFeatures.FALLEN_TREE.get(),
+        (features, placements) -> createFallenOak().build());
+    public static final ResourceKey<ConfiguredFeature<?, ?>> FALLEN_BIRCH_TREE = REGISTRIES.register("fallen_birch_tree",
+        ModFeatures.FALLEN_TREE.get(),
+        (features, placements) -> createFallenBirch(8).build());
+    public static final ResourceKey<ConfiguredFeature<?, ?>> FALLEN_SUPER_BIRCH_TREE = REGISTRIES.register("fallen_super_birch_tree",
+        ModFeatures.FALLEN_TREE.get(),
+        (features, placements) -> createFallenBirch(15).build());
+    public static final ResourceKey<ConfiguredFeature<?, ?>> FALLEN_JUNGLE_TREE = REGISTRIES.register("fallen_jungle_tree",
+        ModFeatures.FALLEN_TREE.get(),
+        (features, placements) -> createFallenJungle().build());
+    public static final ResourceKey<ConfiguredFeature<?, ?>> FALLEN_SPRUCE_TREE = REGISTRIES.register("fallen_spruce_tree",
+        ModFeatures.FALLEN_TREE.get(),
+        (features, placements) -> createFallenSpruce().build());
 
     private static RandomPatchConfiguration grassPatch(BlockStateProvider provider, int tries) {
         return FeatureUtils.simpleRandomPatchConfiguration(tries, PlacementUtils.onlyWhenEmpty(Feature.SIMPLE_BLOCK, new SimpleBlockConfiguration(provider)));

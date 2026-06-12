@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.data.client;
 
-import com.blackgear.vanillabackport.common.registries.ModBlocks;
+import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
 import com.google.common.collect.Maps;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.BlockFamily;

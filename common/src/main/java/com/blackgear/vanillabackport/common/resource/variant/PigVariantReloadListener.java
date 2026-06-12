@@ -1,7 +1,7 @@
 package com.blackgear.vanillabackport.common.resource.variant;
 
 import com.blackgear.platform.common.resource.RegistryAwareJsonReloadListener;
-import com.blackgear.vanillabackport.common.level.entities.animal.PigVariant;
+import com.blackgear.vanillabackport.common.level.entity.mob.animal.pig.PigVariant;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.blackgear.vanillabackport.core.registries.ModBuiltinRegistries;
 import com.google.gson.Gson;

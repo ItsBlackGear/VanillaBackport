@@ -1,7 +1,6 @@
 package com.blackgear.vanillabackport.core.mixin.leash;
 
 import com.blackgear.vanillabackport.common.api.leash.LeashFeatureRenderer;
-import com.blackgear.vanillabackport.common.api.leash.LeashPhysics;
 import com.blackgear.vanillabackport.common.api.leash.LeashableCallback;
 import com.blackgear.vanillabackport.core.ModChecker;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -34,18 +33,19 @@ public class EntityRendererMixin<T extends Entity> {
 
     @Inject(method = "render", at = @At("HEAD"))
     private void renderAdditional(T entity, float entityYaw, float partialTick, PoseStack poseStack, MultiBufferSource buffer, int packedLight, CallbackInfo ci) {
-        if (ModChecker.SABLE_LOADED) return;
-        this.leashRenderer.render(entity, partialTick, poseStack, buffer);
+        if (!ModChecker.SABLE_LOADED)
+            this.leashRenderer.render(entity, partialTick, poseStack, buffer);
     }
 
     @Inject(method = "renderLeash", at = @At("HEAD"), cancellable = true)
     private <E extends Entity & Leashable> void vb$cancelVanillaLeash(E entity, float partialTick, PoseStack poseStack, MultiBufferSource buffer, Entity leashHolder, CallbackInfo ci) {
-        if (!ModChecker.SABLE_LOADED && ((LeashableCallback) entity).vb$supportsQuadLeash()) ci.cancel();
+        if (!ModChecker.SABLE_LOADED && ((LeashableCallback) entity).vb$supportsQuadLeash())
+            ci.cancel();
     }
 
     @Inject(method = "shouldRender", at = @At("TAIL"), cancellable = true)
     private void vb$shouldRender(T entity, Frustum camera, double camX, double camY, double camZ, CallbackInfoReturnable<Boolean> cir) {
-        if (ModChecker.SABLE_LOADED) return;
-        cir.setReturnValue(this.leashRenderer.shouldRender(entity, camera, cir.getReturnValue()));
+        if (!ModChecker.SABLE_LOADED)
+            cir.setReturnValue(this.leashRenderer.shouldRender(entity, camera, cir.getReturnValue()));
     }
 }

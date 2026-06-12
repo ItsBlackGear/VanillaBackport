@@ -1,14 +1,12 @@
 package com.blackgear.vanillabackport.data.server.builder;
 
-import com.blackgear.vanillabackport.common.registries.ModPaintingVariants;
-import com.blackgear.vanillabackport.common.registries.ModTrimMaterials;
+import com.blackgear.vanillabackport.common.registries.items.ModPaintingVariants;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.decoration.PaintingVariant;
-import net.minecraft.world.item.armortrim.TrimMaterial;
 
 import java.util.concurrent.CompletableFuture;
 

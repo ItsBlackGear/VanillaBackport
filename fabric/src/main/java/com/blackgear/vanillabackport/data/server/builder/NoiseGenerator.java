@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.data.server.builder;
 
-import com.blackgear.vanillabackport.common.registries.ModNoises;
+import com.blackgear.vanillabackport.common.registries.worldgen.ModNoises;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
 import net.minecraft.core.HolderLookup;

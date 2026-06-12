@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.common.resource.sound;
 
-import com.blackgear.vanillabackport.common.api.wolf.WolfSoundVariant;
+import com.blackgear.vanillabackport.common.api.sound.WolfSoundVariant;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.blackgear.vanillabackport.core.registries.ModBuiltinRegistries;
 import com.google.gson.Gson;

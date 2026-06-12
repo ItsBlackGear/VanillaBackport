@@ -1,7 +1,7 @@
 package com.blackgear.vanillabackport.common.api.bundle;
 
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
-import com.blackgear.vanillabackport.common.registries.ModItems;
+import com.blackgear.vanillabackport.common.registries.items.ModItems;
 import com.blackgear.vanillabackport.core.ModChecker;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.core.component.DataComponents;
@@ -17,7 +17,6 @@ import java.util.Map;
 import java.util.Optional;
 
 public class BundleFeatures {
-
     public static final Map<DyeColor, Item> BUNDLES_BY_DYE = new HashMap<>();
 
     static {
@@ -55,19 +54,19 @@ public class BundleFeatures {
         BundleContents contents = stack.get(DataComponents.BUNDLE_CONTENTS);
         if (contents != null) {
             BundleContents.Mutable mutable = new BundleContents.Mutable(contents);
-            ((IBundle.Mutable) mutable).toggleSelectedItem(index);
+            ((ModernBundle.Mutable) mutable).toggleSelectedItem(index);
             stack.set(DataComponents.BUNDLE_CONTENTS, mutable.toImmutable());
         }
     }
 
     public static int getSelectedItem(ItemStack stack) {
         BundleContents contents = stack.getOrDefault(DataComponents.BUNDLE_CONTENTS, BundleContents.EMPTY);
-        return ((IBundle) (Object) contents).getSelectedItem();
+        return ((ModernBundle) (Object) contents).getSelectedItem();
     }
 
     public static ItemStack getSelectedItemStack(ItemStack stack) {
         BundleContents contents = stack.get(DataComponents.BUNDLE_CONTENTS);
-        IBundle ibundle = (IBundle) (Object) contents;
+        ModernBundle ibundle = (ModernBundle) (Object) contents;
         return contents != null && ibundle.getSelectedItem() != -1
                 ? contents.getItemUnsafe(ibundle.getSelectedItem())
                 : ItemStack.EMPTY;
@@ -75,7 +74,7 @@ public class BundleFeatures {
 
     public static int getNumberOfItemsToShow(ItemStack stack) {
         BundleContents contents = stack.getOrDefault(DataComponents.BUNDLE_CONTENTS, BundleContents.EMPTY);
-        return ((IBundle) (Object) contents).getNumberOfItemsToShow();
+        return ((ModernBundle) (Object) contents).getNumberOfItemsToShow();
     }
 
     public static Optional<ItemStack> removeOneItemFromBundle(ItemStack stack, Player player, BundleContents contents) {

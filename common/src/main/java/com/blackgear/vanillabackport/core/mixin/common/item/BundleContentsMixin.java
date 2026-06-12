@@ -1,13 +1,13 @@
 package com.blackgear.vanillabackport.core.mixin.common.item;
 
-import com.blackgear.vanillabackport.common.api.bundle.IBundle;
+import com.blackgear.vanillabackport.common.api.bundle.ModernBundle;
 import net.minecraft.world.item.component.BundleContents;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 
 @Mixin(BundleContents.class)
-public abstract class BundleContentsMixin implements IBundle {
+public abstract class BundleContentsMixin implements ModernBundle {
     @Shadow public abstract int size();
 
     @Unique private int selectedItem = -1;

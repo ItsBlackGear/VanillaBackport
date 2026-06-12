@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.data.server.tags;
 
-import com.blackgear.vanillabackport.common.registries.ModBiomes;
+import com.blackgear.vanillabackport.common.registries.worldgen.ModBiomes;
 import com.blackgear.vanillabackport.core.data.tags.ModBiomeTags;
 import com.blackgear.vanillabackport.core.data.tags.fabric.FabricBiomeTags;
 import com.blackgear.vanillabackport.core.data.tags.forge.ForgeBiomeTags;

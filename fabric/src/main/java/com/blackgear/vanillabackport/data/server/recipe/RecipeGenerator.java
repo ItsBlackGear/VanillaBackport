@@ -1,8 +1,8 @@
 package com.blackgear.vanillabackport.data.server.recipe;
 
-import com.blackgear.vanillabackport.common.level.crafting.BundleColoring;
-import com.blackgear.vanillabackport.common.registries.ModBlocks;
-import com.blackgear.vanillabackport.common.registries.ModItems;
+import com.blackgear.vanillabackport.common.api.bundle.BundleColoring;
+import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
+import com.blackgear.vanillabackport.common.registries.items.ModItems;
 import com.blackgear.vanillabackport.core.data.tags.ModItemTags;
 import com.blackgear.vanillabackport.data.client.BlockFamilies;
 import com.google.common.collect.ImmutableMap;

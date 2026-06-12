@@ -1,7 +1,7 @@
 package com.blackgear.vanillabackport.client.level.particles;
 
 import com.blackgear.vanillabackport.client.registries.ModParticles;
-import com.blackgear.vanillabackport.common.level.blockentities.PotentSulfurBlockEntity;
+import com.blackgear.vanillabackport.common.level.block_entity.PotentSulfurBlockEntity;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.multiplayer.ClientLevel;

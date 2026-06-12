@@ -10,7 +10,7 @@ import com.blackgear.vanillabackport.client.api.bundle.BundleMouseActions;
 import com.blackgear.vanillabackport.client.api.tabs.BundledTabSelector;
 import com.blackgear.vanillabackport.client.resources.color.DryFoliageColorReloadListener;
 import com.blackgear.vanillabackport.client.resources.color.LeafColorReloadListener;
-import com.blackgear.vanillabackport.common.registries.ModWoodTypes;
+import com.blackgear.vanillabackport.common.registries.blocks.ModWoodTypes;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.resources.ResourceLocation;
 

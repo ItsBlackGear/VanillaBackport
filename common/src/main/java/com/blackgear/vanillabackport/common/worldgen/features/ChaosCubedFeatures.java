@@ -1,21 +1,18 @@
 package com.blackgear.vanillabackport.common.worldgen.features;
 
-import com.blackgear.platform.common.worldgen.WorldGenRegistry;
-import com.blackgear.vanillabackport.common.level.blocks.PotentSulfurBlock;
-import com.blackgear.vanillabackport.common.level.blocks.states.PotentSulfurState;
-import com.blackgear.vanillabackport.common.level.features.*;
-import com.blackgear.vanillabackport.common.level.features.TemplateFeatureConfiguration.TemplateEntry;
-import com.blackgear.vanillabackport.common.registries.ModBlocks;
-import com.blackgear.vanillabackport.common.registries.ModFeatures;
+import com.blackgear.platform.core.api.registrar.bootstrap.ConfiguredFeatureRegistrar;
+import com.blackgear.vanillabackport.common.level.block.PotentSulfurBlock;
+import com.blackgear.vanillabackport.common.level.block.states.PotentSulfurState;
+import com.blackgear.vanillabackport.common.level.worldgen.features.*;
+import com.blackgear.vanillabackport.common.level.worldgen.features.TemplateFeatureConfiguration.TemplateEntry;
+import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
+import com.blackgear.vanillabackport.common.registries.worldgen.ModFeatures;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.blackgear.vanillabackport.core.data.tags.ModBlockTags;
-import com.blackgear.vanillabackport.core.util.valueproviders.TrapezoidInt;
+import com.blackgear.vanillabackport.common.value_providers.TrapezoidInt;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
-import net.minecraft.core.HolderGetter;
 import net.minecraft.core.HolderSet;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -39,22 +36,11 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 
 public class ChaosCubedFeatures {
-    public static final WorldGenRegistry<ConfiguredFeature<?, ?>> FEATURES = WorldGenRegistry.of(Registries.CONFIGURED_FEATURE, VanillaBackport.NAMESPACE);
+    public static final ConfiguredFeatureRegistrar REGISTRIES = ConfiguredFeatureRegistrar.create(VanillaBackport.NAMESPACE);
 
-    public static final ResourceKey<ConfiguredFeature<?, ?>> SULFUR_POOL = FEATURES.create("sulfur_pool");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> SULFUR_SPRING = FEATURES.create("sulfur_spring");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> ROOTED_SULFUR_SPRING = FEATURES.create("rooted_sulfur_spring");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> SULFUR_SPIKE_CLUSTER = FEATURES.create("sulfur_spike_cluster");
-    public static final ResourceKey<ConfiguredFeature<?, ?>> SULFUR_SPIKE = FEATURES.create("sulfur_spike");
-
-    public static void bootstrap(BootstrapContext<ConfiguredFeature<?, ?>> context) {
-        HolderGetter<ConfiguredFeature<?, ?>> features = context.lookup(Registries.CONFIGURED_FEATURE);
-        HolderGetter<PlacedFeature> placements = context.lookup(Registries.PLACED_FEATURE);
-
-        FEATURES.register(
-            context,
-            SULFUR_POOL,
-            ModFeatures.SEQUENCE.get(),
+    public static final ResourceKey<ConfiguredFeature<?, ?>> SULFUR_POOL = REGISTRIES.register("sulfur_pool",
+        ModFeatures.SEQUENCE.get(),
+        (features, placements) ->
             new SimpleRandomFeatureConfiguration(
                 HolderSet.direct(
                     PlacementUtils.inlinePlaced(
@@ -70,25 +56,23 @@ public class ChaosCubedFeatures {
                         EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.allOf(BlockPredicate.solid(), BlockPredicate.matchesFluids(Direction.UP.getNormal(), Fluids.WATER)), 4)
                     )
                 )
-            )
-        );
-
-        BiFunction<Integer, Integer, Holder<PlacedFeature>> tuffCover = (count, spread) -> PlacementUtils.inlinePlaced(
-            Feature.SIMPLE_BLOCK,
-            new SimpleBlockConfiguration(BlockStateProvider.simple(Blocks.TUFF)),
-            CountPlacement.of(count),
-            RandomOffsetPlacement.of(TrapezoidInt.triangle(spread), TrapezoidInt.triangle(3)),
-            EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), 4),
-            BlockPredicateFilter.forPredicate(BlockPredicate.solid())
-        );
-        Function<SimpleWeightedRandomList<TemplateEntry>, Holder<PlacedFeature>> sulfurSprings = entries -> PlacementUtils.inlinePlaced(
-            ModFeatures.TEMPLATE.get(), new TemplateFeatureConfiguration(entries), RandomOffsetPlacement.vertical(ConstantInt.of(-7))
-        );
-        FEATURES.register(
-            context,
-            SULFUR_SPRING,
-            ModFeatures.WEIGHTED_RANDOM_SELECTOR.get(),
-            new WeightedRandomFeatureConfiguration(
+            ));
+    public static final ResourceKey<ConfiguredFeature<?, ?>> SULFUR_SPRING = REGISTRIES.register("sulfur_spring",
+        ModFeatures.WEIGHTED_RANDOM_SELECTOR.get(),
+        (features, placements) -> {
+            BiFunction<Integer, Integer, Holder<PlacedFeature>> tuffCover = (count, spread) -> PlacementUtils.inlinePlaced(
+                Feature.SIMPLE_BLOCK,
+                new SimpleBlockConfiguration(BlockStateProvider.simple(Blocks.TUFF)),
+                CountPlacement.of(count),
+                RandomOffsetPlacement.of(TrapezoidInt.triangle(spread), TrapezoidInt.triangle(3)),
+                EnvironmentScanPlacement.scanningFor(Direction.DOWN, BlockPredicate.solid(), 4),
+                BlockPredicateFilter.forPredicate(BlockPredicate.solid())
+            );
+            Function<SimpleWeightedRandomList<TemplateEntry>, Holder<PlacedFeature>> sulfurSprings = entries -> PlacementUtils.inlinePlaced(
+                ModFeatures.TEMPLATE.get(), new TemplateFeatureConfiguration(entries), RandomOffsetPlacement.vertical(ConstantInt.of(-7))
+            );
+            
+            return new WeightedRandomFeatureConfiguration(
                 SimpleWeightedRandomList.<Holder<PlacedFeature>>builder()
                     .add(
                         PlacementUtils.inlinePlaced(
@@ -158,14 +142,11 @@ public class ChaosCubedFeatures {
                         ),
                         5
                     )
-                    .build()
-            )
-        );
-
-        FEATURES.register(
-            context,
-            ROOTED_SULFUR_SPRING,
-            ModFeatures.SULFUR_ROOT_SYSTEM.get(),
+                    .build());
+        });
+    public static final ResourceKey<ConfiguredFeature<?, ?>> ROOTED_SULFUR_SPRING = REGISTRIES.register("rooted_sulfur_spring",
+        ModFeatures.SULFUR_ROOT_SYSTEM.get(),
+        (features, placements) ->
             new SulfurRootSystemConfiguration(
                 PlacementUtils.inlinePlaced(features.getOrThrow(SULFUR_SPRING)),
                 5,
@@ -182,13 +163,10 @@ public class ChaosCubedFeatures {
                 1,
                 1,
                 BlockPredicate.ONLY_IN_AIR_PREDICATE
-            )
-        );
-
-        FEATURES.register(
-            context,
-            SULFUR_SPIKE_CLUSTER,
-            ModFeatures.SPELEOTHEM_CLUSTER.get(),
+            ));
+    public static final ResourceKey<ConfiguredFeature<?, ?>> SULFUR_SPIKE_CLUSTER = REGISTRIES.register("sulfur_spike_cluster",
+        ModFeatures.SPELEOTHEM_CLUSTER.get(),
+        (features, placements) ->
             new SpeleothemClusterConfiguration(
                 ModBlocks.SULFUR.get().defaultBlockState(),
                 ModBlocks.SULFUR_SPIKE.get().defaultBlockState(),
@@ -204,13 +182,10 @@ public class ChaosCubedFeatures {
                 0.1F,
                 3,
                 8
-            )
-        );
-
-        FEATURES.register(
-            context,
-            SULFUR_SPIKE,
-            Feature.SIMPLE_RANDOM_SELECTOR,
+            ));
+    public static final ResourceKey<ConfiguredFeature<?, ?>> SULFUR_SPIKE = REGISTRIES.register("sulfur_spike",
+        Feature.SIMPLE_RANDOM_SELECTOR,
+        (features, placements) ->
             new SimpleRandomFeatureConfiguration(
                 HolderSet.direct(
                     PlacementUtils.inlinePlaced(
@@ -242,7 +217,5 @@ public class ChaosCubedFeatures {
                         RandomOffsetPlacement.vertical(ConstantInt.of(-1))
                     )
                 )
-            )
-        );
-    }
+            ));
 }

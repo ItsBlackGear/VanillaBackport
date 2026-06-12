@@ -1,7 +1,7 @@
 package com.blackgear.vanillabackport.core.neoforge;
 
-import com.blackgear.vanillabackport.common.worldgen.ModSurfaceRuleData;
-import com.blackgear.vanillabackport.common.worldgen.biomes.terrablender.OverworldRegion;
+import com.blackgear.vanillabackport.common.worldgen.surface.ModSurfaceRuleData;
+import com.blackgear.vanillabackport.common.api.integration.compat.terrablender.OverworldRegion;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import terrablender.api.RegionType;
 import terrablender.api.Regions;

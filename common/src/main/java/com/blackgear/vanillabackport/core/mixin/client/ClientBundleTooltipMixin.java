@@ -1,7 +1,7 @@
 package com.blackgear.vanillabackport.core.mixin.client;
 
 import com.blackgear.vanillabackport.common.api.bundle.BundleFeatures;
-import com.blackgear.vanillabackport.common.api.bundle.IBundle;
+import com.blackgear.vanillabackport.common.api.bundle.ModernBundle;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.Font;
@@ -45,7 +45,7 @@ public abstract class ClientBundleTooltipMixin implements ClientTooltipComponent
 
     @Inject(method = "<init>", at = @At("TAIL"))
     private void vb$onInit(BundleContents contents, CallbackInfo ci) {
-        this.selectedItem = ((IBundle)(Object)contents).getSelectedItem();
+        this.selectedItem = ((ModernBundle)(Object)contents).getSelectedItem();
     }
 
     @Unique
@@ -115,7 +115,7 @@ public abstract class ClientBundleTooltipMixin implements ClientTooltipComponent
     @Unique
     private void renderBundleWithItemsTooltip(Font font, int x, int y, int width, GuiGraphics graphics) {
         boolean maxDisplay = this.contents.size() > 12;
-        List<ItemStack> stacks = this.getShownItems(((IBundle)(Object)this.contents).getNumberOfItemsToShow());
+        List<ItemStack> stacks = this.getShownItems(((ModernBundle)(Object)this.contents).getNumberOfItemsToShow());
         int xOffset = x + this.getContentXOffset(width) + 96;
         int yOffset = y + this.gridSizeY() * 24;
         int index = 1;

@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.common.level.items;
 
-import com.blackgear.vanillabackport.common.registries.ModEntityTypes;
+import com.blackgear.vanillabackport.common.registries.entities.ModEntityTypes;
 import net.minecraft.ChatFormatting;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
@@ -36,12 +36,13 @@ import net.minecraft.world.phys.HitResult;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.function.Supplier;
 
-public class SulfurCubeBucketItem extends BucketItem {
-    private final EntityType<?> type;
+public class SulfurCubeBucketItem<T extends Entity> extends BucketItem {
+    private final Supplier<EntityType<T>> type;
     private final SoundEvent emptySound;
 
-    public SulfurCubeBucketItem(EntityType<?> type, SoundEvent emptySound, Item.Properties properties) {
+    public SulfurCubeBucketItem(Supplier<EntityType<T>> type, SoundEvent emptySound, Item.Properties properties) {
         super(Fluids.EMPTY, properties);
         this.type = type;
         this.emptySound = emptySound;
@@ -96,7 +97,7 @@ public class SulfurCubeBucketItem extends BucketItem {
     }
 
     private void spawn(ServerLevel level, ItemStack stack, BlockPos pos) {
-        Entity entity = this.type.spawn(level, stack, null, pos, MobSpawnType.BUCKET, true, false);
+        Entity entity = this.type.get().spawn(level, stack, null, pos, MobSpawnType.BUCKET, true, false);
         if (entity instanceof Bucketable bucketable) {
             CustomData customData = stack.getOrDefault(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY);
             bucketable.loadFromBucketTag(customData.copyTag());
@@ -106,7 +107,7 @@ public class SulfurCubeBucketItem extends BucketItem {
 
     @Override
     public void appendHoverText(ItemStack stack, TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
-        if (this.type == ModEntityTypes.SULFUR_CUBE) {
+        if (this.type.get() == ModEntityTypes.SULFUR_CUBE.get()) {
             CustomData customData = stack.getOrDefault(DataComponents.BUCKET_ENTITY_DATA, CustomData.EMPTY);
             HolderLookup.Provider registries = context.registries();
             if (customData.isEmpty() || registries == null) return;

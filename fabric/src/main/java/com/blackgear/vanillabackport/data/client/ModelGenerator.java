@@ -1,7 +1,7 @@
 package com.blackgear.vanillabackport.data.client;
 
-import com.blackgear.vanillabackport.common.registries.ModBlocks;
-import com.blackgear.vanillabackport.common.registries.ModItems;
+import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
+import com.blackgear.vanillabackport.common.registries.items.ModItems;
 import com.blackgear.vanillabackport.data.client.model.provider.VanillaBlockModels;
 import com.blackgear.vanillabackport.data.client.model.provider.VanillaItemModels;
 import com.blackgear.vanillabackport.data.client.model.provider.VanillaModelGenerator;

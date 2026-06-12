@@ -1,7 +1,7 @@
 package com.blackgear.vanillabackport.core.mixin.common.entities;
 
-import com.blackgear.vanillabackport.common.api.extensions.PositionAwareEntity;
-import com.blackgear.vanillabackport.core.util.MathUtils;
+import com.blackgear.vanillabackport.common.api.extensions.entities.PositionAwareEntity;
+import com.blackgear.vanillabackport.core.util.Utilities.MthUtils;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.*;
 import net.minecraft.server.level.ServerEntity;
@@ -61,8 +61,8 @@ public abstract class ServerEntityMixin {
             }
 
             if (this.tickCount % this.updateInterval == 0 || this.entity.hasImpulse || this.entity.getEntityData().isDirty()) {
-                byte yRot = MathUtils.packDegrees(this.entity.getYRot());
-                byte xRot = MathUtils.packDegrees(this.entity.getXRot());
+                byte yRot = MthUtils.packDegrees(this.entity.getYRot());
+                byte xRot = MthUtils.packDegrees(this.entity.getXRot());
                 boolean shouldSendRotation = Math.abs(yRot - this.lastSentYRot) >= 1 || Math.abs(xRot - this.lastSentXRot) >= 1;
                 if (this.entity.isPassenger()) {
                     if (shouldSendRotation) {
@@ -110,7 +110,7 @@ public abstract class ServerEntityMixin {
                         Vec3 movement = this.entity.getDeltaMovement();
                         double diff = movement.distanceToSqr(this.lastSentMovement);
 
-                        if (diff > 1.0E-7 || diff > 0.0 && movement.lengthSqr() == 0.0) {
+                        if (diff > MthUtils.EPSILON || diff > 0.0 && movement.lengthSqr() == 0.0) {
                             this.lastSentMovement = movement;
                             this.broadcast.accept(new ClientboundSetEntityMotionPacket(this.entity.getId(), this.lastSentMovement));
                         }
@@ -129,7 +129,7 @@ public abstract class ServerEntityMixin {
                     this.wasRiding = false;
                 }
 
-                byte yHeadRot = MathUtils.packDegrees(this.entity.getYHeadRot());
+                byte yHeadRot = MthUtils.packDegrees(this.entity.getYHeadRot());
                 if (Math.abs(yHeadRot - this.lastSentYHeadRot) >= 1) {
                     this.broadcast.accept(new ClientboundRotateHeadPacket(this.entity, yHeadRot));
                     this.lastSentYHeadRot = yHeadRot;

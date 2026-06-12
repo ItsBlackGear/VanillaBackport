@@ -1,7 +1,7 @@
 package com.blackgear.vanillabackport.common.level.items;
 
-import com.blackgear.vanillabackport.common.level.boat.PaleOakBoat;
-import com.blackgear.vanillabackport.common.level.boat.PaleOakChestBoat;
+import com.blackgear.vanillabackport.common.level.entity.boat.PaleOakBoat;
+import com.blackgear.vanillabackport.common.level.entity.boat.PaleOakChestBoat;
 import net.minecraft.core.BlockPos;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;

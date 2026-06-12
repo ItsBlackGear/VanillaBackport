@@ -1,7 +1,7 @@
 package com.blackgear.vanillabackport.core.mixin.client;
 
 import com.blackgear.vanillabackport.client.level.sound.RidingHappyGhastSoundInstance;
-import com.blackgear.vanillabackport.common.level.entities.happyghast.HappyGhast;
+import com.blackgear.vanillabackport.common.level.entity.mob.animal.happy_ghast.HappyGhast;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;

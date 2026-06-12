@@ -1,8 +1,8 @@
 package com.blackgear.vanillabackport.data.server.loot;
 
-import com.blackgear.vanillabackport.common.level.blocks.LeafLitterBlock;
-import com.blackgear.vanillabackport.common.level.blocks.MossyCarpetBlock;
-import com.blackgear.vanillabackport.common.registries.ModBlocks;
+import com.blackgear.vanillabackport.common.level.block.LeafLitterBlock;
+import com.blackgear.vanillabackport.common.level.block.MossyCarpetBlock;
+import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
 import net.minecraft.advancements.critereon.StatePropertiesPredicate;

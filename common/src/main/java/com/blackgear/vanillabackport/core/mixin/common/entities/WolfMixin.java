@@ -1,16 +1,16 @@
 package com.blackgear.vanillabackport.core.mixin.common.entities;
 
-import com.blackgear.vanillabackport.common.api.variant.VariantDataHolder;
-import com.blackgear.vanillabackport.common.api.variant.VariantUtils;
-import com.blackgear.vanillabackport.common.api.variant.spawn.SpawnContext;
-import com.blackgear.vanillabackport.common.api.wolf.WolfSoundVariant;
-import com.blackgear.vanillabackport.common.api.wolf.WolfSoundVariantHolder;
-import com.blackgear.vanillabackport.common.api.wolf.WolfSoundVariants;
-import com.blackgear.vanillabackport.common.level.entities.animal.WolfDataVariant;
-import com.blackgear.vanillabackport.common.level.entities.animal.modules.WolfSoundVariantsModule;
+import com.blackgear.vanillabackport.common.api.variants.VariantDataHolder;
+import com.blackgear.vanillabackport.common.api.variants.VariantUtils;
+import com.blackgear.vanillabackport.common.api.variants.spawn.SpawnContext;
+import com.blackgear.vanillabackport.common.api.sound.WolfSoundVariant;
+import com.blackgear.vanillabackport.common.api.sound.WolfSoundVariantHolder;
+import com.blackgear.vanillabackport.common.api.sound.WolfSoundVariants;
+import com.blackgear.vanillabackport.common.level.entity.mob.animal.wolf.WolfDataVariant;
+import com.blackgear.vanillabackport.common.api.sound.WolfSoundVariantsModule;
 import com.blackgear.vanillabackport.core.mixin.access.WolfAccessor;
 import com.blackgear.vanillabackport.core.registries.ModBuiltinRegistries;
-import com.blackgear.vanillabackport.core.util.ColorUtils;
+import com.blackgear.vanillabackport.core.util.Utilities.ColorUtils;
 import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;

@@ -1,8 +1,8 @@
 package com.blackgear.vanillabackport.client.level.entities.layer;
 
-import com.blackgear.vanillabackport.client.level.entities.model.HappyGhastModel;
+import com.blackgear.vanillabackport.client.level.entities.model.happy_ghast.HappyGhastModel;
 import com.blackgear.vanillabackport.client.registries.ModModelLayers;
-import com.blackgear.vanillabackport.common.level.entities.happyghast.HappyGhast;
+import com.blackgear.vanillabackport.common.level.entity.mob.animal.happy_ghast.HappyGhast;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

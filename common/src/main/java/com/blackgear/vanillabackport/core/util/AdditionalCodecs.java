@@ -1,5 +1,6 @@
 package com.blackgear.vanillabackport.core.util;
 
+import com.blackgear.vanillabackport.core.util.Utilities.ColorUtils;
 import com.mojang.datafixers.util.Either;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
