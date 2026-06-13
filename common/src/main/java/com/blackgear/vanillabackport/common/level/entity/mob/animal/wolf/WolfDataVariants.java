@@ -4,14 +4,15 @@ import com.blackgear.platform.core.BuiltInCoreRegistry;
 import com.blackgear.vanillabackport.common.api.variants.ClientAsset;
 import com.blackgear.vanillabackport.common.api.variants.spawn.SpawnPrioritySelectors;
 import com.blackgear.vanillabackport.common.api.variants.spawn.check.raw.RawBiomeCheck;
-import com.blackgear.vanillabackport.core.registries.ModBuiltinRegistries;
+import com.blackgear.vanillabackport.core.VanillaBackport;
+import com.blackgear.vanillabackport.core.registries.ModRegistries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
 
 public class WolfDataVariants {
-    public static final BuiltInCoreRegistry<WolfDataVariant> REGISTRY = ModBuiltinRegistries.WOLF_VARIANTS;
+    public static final BuiltInCoreRegistry<WolfDataVariant> REGISTRIES = new BuiltInCoreRegistry<>(ModRegistries.WOLF_VARIANT.get(), VanillaBackport.NAMESPACE);
 
 //    public static final ResourceKey<WolfDataVariant> TEST = register("test", "test_wolf", SpawnPrioritySelectors.fallback(0));
 
@@ -23,7 +24,7 @@ public class WolfDataVariants {
         ResourceLocation wild = ResourceLocation.withDefaultNamespace("entity/wolf/" + assetId);
         ResourceLocation tame = ResourceLocation.withDefaultNamespace("entity/wolf/" + assetId + "_tame");
         ResourceLocation angry = ResourceLocation.withDefaultNamespace("entity/wolf/" + assetId + "_angry");
-        return REGISTRY.resource(
+        return REGISTRIES.resource(
             key,
             new WolfDataVariant(
                 new WolfDataVariant.AssetInfo(new ClientAsset(wild), new ClientAsset(tame), new ClientAsset(angry)),

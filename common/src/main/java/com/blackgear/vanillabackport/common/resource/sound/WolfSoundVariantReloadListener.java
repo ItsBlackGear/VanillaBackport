@@ -1,8 +1,8 @@
 package com.blackgear.vanillabackport.common.resource.sound;
 
 import com.blackgear.vanillabackport.common.api.sound.WolfSoundVariant;
+import com.blackgear.vanillabackport.common.api.sound.WolfSoundVariants;
 import com.blackgear.vanillabackport.core.VanillaBackport;
-import com.blackgear.vanillabackport.core.registries.ModBuiltinRegistries;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
@@ -28,7 +28,7 @@ public class WolfSoundVariantReloadListener extends SimpleJsonResourceReloadList
     protected void apply(Map<ResourceLocation, JsonElement> resources, ResourceManager manager, ProfilerFiller profiler) {
         profiler.push("Loading wolf sound variants");
 
-        ModBuiltinRegistries.WOLF_SOUND_VARIANTS.clearDataDrivenEntries();
+        WolfSoundVariants.WOLF_SOUND_VARIANTS.clearDataDrivenEntries();
 
         for (Map.Entry<ResourceLocation, JsonElement> entry : resources.entrySet()) {
             ResourceLocation name = entry.getKey();
@@ -36,7 +36,7 @@ public class WolfSoundVariantReloadListener extends SimpleJsonResourceReloadList
             try {
                 WolfSoundVariant.CODEC.parse(JsonOps.INSTANCE, entry.getValue())
                     .resultOrPartial(error -> VanillaBackport.LOGGER.error("Failed to parse wolf sound variant {}: {}", name, error))
-                    .ifPresent(variant -> ModBuiltinRegistries.WOLF_SOUND_VARIANTS.registerDataDriven(name, variant));
+                    .ifPresent(variant -> WolfSoundVariants.WOLF_SOUND_VARIANTS.registerDataDriven(name, variant));
             } catch (JsonParseException exception) {
                 VanillaBackport.LOGGER.error("Failed to parse wolf sound variant JSON {}: {}", name, exception.getMessage(), exception);
             } catch (Exception exception) {

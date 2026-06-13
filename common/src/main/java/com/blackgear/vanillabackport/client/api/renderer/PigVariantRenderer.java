@@ -5,7 +5,6 @@ import com.blackgear.vanillabackport.client.level.entities.model.pig.ColdPigMode
 import com.blackgear.vanillabackport.client.registries.ModModelLayers;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.pig.PigVariant;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.pig.PigVariants;
-import com.blackgear.vanillabackport.core.registries.ModBuiltinRegistries;
 import com.google.common.collect.Maps;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -42,7 +41,7 @@ public class PigVariantRenderer extends AbstractVariantRenderer<Pig, PigModel<Pi
 
     @Override
     protected BuiltInCoreRegistry<PigVariant> getRegistry() {
-        return ModBuiltinRegistries.PIG_VARIANTS;
+        return PigVariants.REGISTRIES;
     }
 
     @Override

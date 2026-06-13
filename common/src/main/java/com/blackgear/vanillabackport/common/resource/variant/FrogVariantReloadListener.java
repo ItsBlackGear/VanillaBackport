@@ -2,8 +2,8 @@ package com.blackgear.vanillabackport.common.resource.variant;
 
 import com.blackgear.platform.common.resource.RegistryAwareJsonReloadListener;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.frog.FrogDataVariant;
+import com.blackgear.vanillabackport.common.level.entity.mob.animal.frog.FrogDataVariants;
 import com.blackgear.vanillabackport.core.VanillaBackport;
-import com.blackgear.vanillabackport.core.registries.ModBuiltinRegistries;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
@@ -29,8 +29,8 @@ public class FrogVariantReloadListener extends RegistryAwareJsonReloadListener {
     @Override
     public void parse(Map<ResourceLocation, JsonElement> resources, RegistryAccess registryAccess, ResourceManager manager, ProfilerFiller profiler) {
         profiler.push("Loading frog variants");
-
-        ModBuiltinRegistries.FROG_VARIANTS.clearDataDrivenEntries();
+        
+        FrogDataVariants.REGISTRIES.clearDataDrivenEntries();
 
         DynamicOps<JsonElement> ops = RegistryOps.create(JsonOps.INSTANCE, registryAccess);
         for (Map.Entry<ResourceLocation, JsonElement> entry : resources.entrySet()) {
@@ -40,7 +40,7 @@ public class FrogVariantReloadListener extends RegistryAwareJsonReloadListener {
             try {
                 FrogDataVariant.CODEC.parse(ops, element)
                     .resultOrPartial(error -> VanillaBackport.LOGGER.error("Failed to parse frog variant {}: {}", name, error))
-                    .ifPresent(variant -> ModBuiltinRegistries.FROG_VARIANTS.registerDataDriven(name, variant));
+                    .ifPresent(variant -> FrogDataVariants.REGISTRIES.registerDataDriven(name, variant));
             } catch (JsonParseException exception) {
                 VanillaBackport.LOGGER.error("Failed to parse frog variant JSON {}: {}", name, exception.getMessage(), exception);
             } catch (Exception exception) {

@@ -5,7 +5,6 @@ import com.blackgear.vanillabackport.client.level.entities.model.chicken.ColdChi
 import com.blackgear.vanillabackport.client.registries.ModModelLayers;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.chicken.ChickenVariant;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.chicken.ChickenVariants;
-import com.blackgear.vanillabackport.core.registries.ModBuiltinRegistries;
 import com.google.common.collect.Maps;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -43,7 +42,7 @@ public class ChickenVariantRenderer extends AbstractVariantRenderer<Chicken, Chi
 
     @Override
     protected BuiltInCoreRegistry<ChickenVariant> getRegistry() {
-        return ModBuiltinRegistries.CHICKEN_VARIANTS;
+        return ChickenVariants.REGISTRIES;
     }
 
     @Override

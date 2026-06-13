@@ -18,8 +18,7 @@ import net.minecraft.resources.ResourceKey;
 import java.util.function.Supplier;
 
 public class ModRegistries {
-    public static final RegistryBuilder BUILDER = RegistryBuilder.create(VanillaBackport.NAMESPACE);
-    public static final RegistryBuilder INTERNAL = RegistryBuilder.create(VanillaBackport.MOD_ID);
+    public static final RegistryBuilder BUILDER = RegistryBuilder.create(VanillaBackport.MOD_ID);
 
     public static final ResourceKey<Registry<WolfSoundVariant>> WOLF_SOUND_VARIANT_KEY = BUILDER.resource("wolf_sound_variant");
     public static final Supplier<Registry<WolfSoundVariant>> WOLF_SOUND_VARIANT = BUILDER.registry(WOLF_SOUND_VARIANT_KEY);
@@ -33,18 +32,18 @@ public class ModRegistries {
     public static final ResourceKey<Registry<PigVariant>> PIG_VARIANT_KEY = BUILDER.resource("pig_variant");
     public static final Supplier<Registry<PigVariant>> PIG_VARIANT = BUILDER.registry(PIG_VARIANT_KEY);
 
-    public static final ResourceKey<Registry<WolfDataVariant>> WOLF_VARIANT_KEY = INTERNAL.resource("wolf_variant");
-    public static final Supplier<Registry<WolfDataVariant>> WOLF_VARIANT = INTERNAL.registry(WOLF_VARIANT_KEY);
+    public static final ResourceKey<Registry<WolfDataVariant>> WOLF_VARIANT_KEY = BUILDER.resource("wolf_variant");
+    public static final Supplier<Registry<WolfDataVariant>> WOLF_VARIANT = BUILDER.registry(WOLF_VARIANT_KEY);
 
-    public static final ResourceKey<Registry<FrogDataVariant>> FROG_VARIANT_KEY = INTERNAL.resource("frog_variant");
-    public static final Supplier<Registry<FrogDataVariant>> FROG_VARIANT = INTERNAL.registry(FROG_VARIANT_KEY);
+    public static final ResourceKey<Registry<FrogDataVariant>> FROG_VARIANT_KEY = BUILDER.resource("frog_variant");
+    public static final Supplier<Registry<FrogDataVariant>> FROG_VARIANT = BUILDER.registry(FROG_VARIANT_KEY);
 
-    public static final ResourceKey<Registry<CatDataVariant>> CAT_VARIANT_KEY = INTERNAL.resource("cat_variant");
-    public static final Supplier<Registry<CatDataVariant>> CAT_VARIANT = INTERNAL.registry(CAT_VARIANT_KEY);
+    public static final ResourceKey<Registry<CatDataVariant>> CAT_VARIANT_KEY = BUILDER.resource("cat_variant");
+    public static final Supplier<Registry<CatDataVariant>> CAT_VARIANT = BUILDER.registry(CAT_VARIANT_KEY);
 
     public static final ResourceKey<Registry<MapCodec<? extends SpawnCondition>>> SPAWN_CONDITION_TYPE_KEY = BUILDER.resource("spawn_condition_type");
     public static final Supplier<Registry<MapCodec<? extends SpawnCondition>>> SPAWN_CONDITION_TYPE = BUILDER.registry(SPAWN_CONDITION_TYPE_KEY);
 
-    public static final ResourceKey<Registry<SulfurCubeArchetype>> SULFUR_CUBE_ARCHETYPES_KEY = INTERNAL.resource("sulfur_cube_archetypes");
-    public static final Supplier<Registry<SulfurCubeArchetype>> SULFUR_CUBE_ARCHETYPE = INTERNAL.registry(SULFUR_CUBE_ARCHETYPES_KEY);
+    public static final ResourceKey<Registry<SulfurCubeArchetype>> SULFUR_CUBE_ARCHETYPES_KEY = BUILDER.resource("sulfur_cube_archetypes");
+    public static final Supplier<Registry<SulfurCubeArchetype>> SULFUR_CUBE_ARCHETYPE = BUILDER.registry(SULFUR_CUBE_ARCHETYPES_KEY);
 }

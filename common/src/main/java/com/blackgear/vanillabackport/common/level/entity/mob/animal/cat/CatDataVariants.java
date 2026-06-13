@@ -3,12 +3,13 @@ package com.blackgear.vanillabackport.common.level.entity.mob.animal.cat;
 import com.blackgear.platform.core.BuiltInCoreRegistry;
 import com.blackgear.vanillabackport.common.api.variants.ClientAsset;
 import com.blackgear.vanillabackport.common.api.variants.spawn.SpawnPrioritySelectors;
-import com.blackgear.vanillabackport.core.registries.ModBuiltinRegistries;
+import com.blackgear.vanillabackport.core.VanillaBackport;
+import com.blackgear.vanillabackport.core.registries.ModRegistries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 
 public class CatDataVariants {
-    public static final BuiltInCoreRegistry<CatDataVariant> REGISTRY = ModBuiltinRegistries.CAT_VARIANTS;
+    public static final BuiltInCoreRegistry<CatDataVariant> REGISTRIES = new BuiltInCoreRegistry<>(ModRegistries.CAT_VARIANT.get(), VanillaBackport.NAMESPACE);
 
 //    public static final ResourceKey<CatDataVariant> TEST = register("test", SpawnPrioritySelectors.single(new RawBiomeCheck(BiomeTags.IS_FOREST), 1));
 
@@ -18,6 +19,6 @@ public class CatDataVariants {
 
     private static ResourceKey<CatDataVariant> register(String key, SpawnPrioritySelectors selectors) {
         ResourceLocation texture = ResourceLocation.withDefaultNamespace("entity/cat/" + key);
-        return REGISTRY.resource(key, new CatDataVariant(new ClientAsset(texture), selectors));
+        return REGISTRIES.resource(key, new CatDataVariant(new ClientAsset(texture), selectors));
     }
 }

@@ -11,7 +11,7 @@ import net.neoforged.neoforge.client.event.ModelEvent;
 
 import java.util.Map;
 
-@EventBusSubscriber(modid = VanillaBackport.MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+@EventBusSubscriber(modid = VanillaBackport.MOD_ID, value = Dist.CLIENT)
 public class EmissiveModelHandler {
     private static final String[] EMISSIVE_BLOCKS = {
         "open_eyeblossom",

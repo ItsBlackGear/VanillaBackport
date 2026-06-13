@@ -15,12 +15,6 @@ import com.blackgear.vanillabackport.client.registries.ModSoundTypes;
 import com.blackgear.vanillabackport.common.CommonConfig;
 import com.blackgear.vanillabackport.common.CommonSetup;
 import com.blackgear.vanillabackport.common.api.variants.spawn.SpawnConditions;
-import com.blackgear.vanillabackport.common.level.entity.mob.animal.cat.CatDataVariants;
-import com.blackgear.vanillabackport.common.level.entity.mob.animal.chicken.ChickenVariants;
-import com.blackgear.vanillabackport.common.level.entity.mob.animal.cow.CowVariants;
-import com.blackgear.vanillabackport.common.level.entity.mob.animal.frog.FrogDataVariants;
-import com.blackgear.vanillabackport.common.level.entity.mob.animal.pig.PigVariants;
-import com.blackgear.vanillabackport.common.level.entity.mob.animal.wolf.WolfDataVariants;
 import com.blackgear.vanillabackport.common.level.entity.mob.monster.sulfurcube.SulfurCubeArchetypes;
 import com.blackgear.vanillabackport.common.registries.*;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlockEntities;
@@ -34,7 +28,6 @@ import com.blackgear.vanillabackport.common.registries.worldgen.*;
 import com.blackgear.vanillabackport.common.api.integration.worldgen.BiomeGeneration;
 import com.blackgear.vanillabackport.core.data.tags.*;
 import com.blackgear.vanillabackport.core.network.ServerboundSelectBundleItemPacket;
-import com.blackgear.vanillabackport.core.registries.ModBuiltinRegistries;
 import com.mojang.logging.LogUtils;
 import net.minecraft.resources.ResourceLocation;
 import org.slf4j.Logger;
@@ -83,13 +76,6 @@ public final class VanillaBackport {
 
         ModRecipeSerializers.REGISTRIES.register();
         ModCreativeTabs.TABS.register();
-        ModBuiltinRegistries.WOLF_SOUND_VARIANTS.register();
-        CowVariants.REGISTRY.register();
-        ChickenVariants.REGISTRY.register();
-        PigVariants.REGISTRY.register();
-        WolfDataVariants.REGISTRY.register();
-        CatDataVariants.REGISTRY.register();
-        FrogDataVariants.REGISTRY.register();
         SpawnConditions.CONDITIONS.register();
 
         ModFeatures.REGISTRIES.register();

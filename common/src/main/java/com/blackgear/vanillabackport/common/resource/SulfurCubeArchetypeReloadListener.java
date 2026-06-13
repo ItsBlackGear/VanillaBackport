@@ -2,8 +2,8 @@ package com.blackgear.vanillabackport.common.resource;
 
 import com.blackgear.platform.common.resource.RegistryAwareJsonReloadListener;
 import com.blackgear.vanillabackport.common.level.entity.mob.monster.sulfurcube.SulfurCubeArchetype;
+import com.blackgear.vanillabackport.common.level.entity.mob.monster.sulfurcube.SulfurCubeArchetypes;
 import com.blackgear.vanillabackport.core.VanillaBackport;
-import com.blackgear.vanillabackport.core.registries.ModBuiltinRegistries;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
@@ -30,7 +30,7 @@ public class SulfurCubeArchetypeReloadListener extends RegistryAwareJsonReloadLi
     public void parse(Map<ResourceLocation, JsonElement> resources, RegistryAccess registryAccess, ResourceManager manager, ProfilerFiller profiler) {
         profiler.push("Loading archetypes");
 
-        ModBuiltinRegistries.SULFUR_CUBE_ARCHETYPES.clearDataDrivenEntries();
+        SulfurCubeArchetypes.REGISTRIES.clearDataDrivenEntries();
 
         DynamicOps<JsonElement> ops = RegistryOps.create(JsonOps.INSTANCE, registryAccess);
         for (Map.Entry<ResourceLocation, JsonElement> entry : resources.entrySet()) {
@@ -40,7 +40,7 @@ public class SulfurCubeArchetypeReloadListener extends RegistryAwareJsonReloadLi
             try {
                 SulfurCubeArchetype.DIRECT_CODEC.parse(ops, element)
                     .resultOrPartial(error -> VanillaBackport.LOGGER.error("Failed to parse archetype {}: {}", name, error))
-                    .ifPresent(archetype -> ModBuiltinRegistries.SULFUR_CUBE_ARCHETYPES.registerDataDriven(name, archetype));
+                    .ifPresent(archetype -> SulfurCubeArchetypes.REGISTRIES.registerDataDriven(name, archetype));
             } catch (JsonParseException exception) {
                 VanillaBackport.LOGGER.error("Failed to parse archetype JSON {}: {}", name, exception.getMessage(), exception);
             } catch (Exception exception) {

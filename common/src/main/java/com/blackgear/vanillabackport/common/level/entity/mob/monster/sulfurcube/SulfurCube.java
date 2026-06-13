@@ -11,7 +11,6 @@ import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.blackgear.vanillabackport.core.data.tags.ModDamageTypeTags;
 import com.blackgear.vanillabackport.core.data.tags.ModItemTags;
 import com.blackgear.vanillabackport.core.mixin.access.LivingEntityAccessor;
-import com.blackgear.vanillabackport.core.registries.ModBuiltinRegistries;
 import com.blackgear.vanillabackport.core.util.Utilities.*;
 import com.blackgear.vanillabackport.core.util.WorldUtilities.*;
 import it.unimi.dsi.fastutil.doubles.DoubleDoubleImmutablePair;
@@ -322,7 +321,7 @@ public class SulfurCube extends AbstractCubeMob implements Bucketable, Shearable
     }
 
     public List<SulfurCubeArchetype> matchingArchetypes(ItemStack stack) {
-        return ModBuiltinRegistries.SULFUR_CUBE_ARCHETYPES.values()
+        return SulfurCubeArchetypes.REGISTRIES.values()
             .stream()
             .filter(archetype -> stack.is(archetype.items()))
             .collect(Collectors.toCollection(ArrayList::new));

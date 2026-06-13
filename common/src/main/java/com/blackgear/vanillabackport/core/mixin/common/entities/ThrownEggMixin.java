@@ -3,8 +3,8 @@ package com.blackgear.vanillabackport.core.mixin.common.entities;
 import com.blackgear.vanillabackport.common.api.variants.VariantDataHolder;
 import com.blackgear.vanillabackport.common.api.variants.VariantUtils;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.chicken.ChickenVariant;
+import com.blackgear.vanillabackport.common.level.entity.mob.animal.chicken.ChickenVariants;
 import com.blackgear.vanillabackport.common.registries.items.ModDataComponents;
-import com.blackgear.vanillabackport.core.registries.ModBuiltinRegistries;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.animal.Chicken;
@@ -35,7 +35,7 @@ public abstract class ThrownEggMixin extends ThrowableItemProjectile {
     )
     private void setChickenVariant(HitResult result, CallbackInfo ci, @Local Chicken chicken) {
         Optional.ofNullable(this.getItem().get(ModDataComponents.CHICKEN_VARIANT.get()))
-            .map(key -> VariantUtils.getDefault(ModBuiltinRegistries.CHICKEN_VARIANTS, key))
+            .map(key -> VariantUtils.getDefault(ChickenVariants.REGISTRIES, key))
             .ifPresent(variant -> VariantDataHolder.<ChickenVariant>getHolder(chicken).setVariantData(variant));
     }
 }

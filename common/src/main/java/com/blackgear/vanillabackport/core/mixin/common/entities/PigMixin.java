@@ -5,7 +5,7 @@ import com.blackgear.vanillabackport.common.api.variants.spawn.SpawnContext;
 import com.blackgear.vanillabackport.common.api.variants.VariantDataHolder;
 import com.blackgear.vanillabackport.common.api.variants.VariantUtils;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.pig.PigVariant;
-import com.blackgear.vanillabackport.core.registries.ModBuiltinRegistries;
+import com.blackgear.vanillabackport.common.level.entity.mob.animal.pig.PigVariants;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -52,27 +52,27 @@ public abstract class PigMixin extends MobMixin implements VariantDataHolder<Pig
 
     @Override
     public void setVariantData(PigVariant variant) {
-        this.entityData.set(DATA_VARIANT_ID, VariantUtils.getID(ModBuiltinRegistries.PIG_VARIANTS, variant));
+        this.entityData.set(DATA_VARIANT_ID, VariantUtils.getID(PigVariants.REGISTRIES, variant));
     }
 
     @Override
     public Optional<PigVariant> getVariantData() {
-        return VariantUtils.getOrDefault(ModBuiltinRegistries.PIG_VARIANTS, this.entityData.get(DATA_VARIANT_ID));
+        return VariantUtils.getOrDefault(PigVariants.REGISTRIES, this.entityData.get(DATA_VARIANT_ID));
     }
 
     @Override
     protected void vb$addAdditionalSaveData(CompoundTag tag, CallbackInfo ci) {
-        VariantUtils.addVariantSaveData(this, tag, ModBuiltinRegistries.PIG_VARIANTS);
+        VariantUtils.addVariantSaveData(this, tag, PigVariants.REGISTRIES);
     }
 
     @Override
     protected void vb$readAdditionalSaveData(CompoundTag tag, CallbackInfo ci) {
-        VariantUtils.readVariantSaveData(this, tag, ModBuiltinRegistries.PIG_VARIANTS);
+        VariantUtils.readVariantSaveData(this, tag, PigVariants.REGISTRIES);
     }
 
     @Override
     protected void vb$finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, SpawnGroupData spawnData, CallbackInfoReturnable<SpawnGroupData> cir) {
-        VariantUtils.selectVariantToSpawn(SpawnContext.create(level, this.blockPosition()), ModBuiltinRegistries.PIG_VARIANTS, VariantSpawner.FARM_ANIMALS)
+        VariantUtils.selectVariantToSpawn(SpawnContext.create(level, this.blockPosition()), PigVariants.REGISTRIES, VariantSpawner.FARM_ANIMALS)
             .ifPresent(this::setVariantData);
     }
 }

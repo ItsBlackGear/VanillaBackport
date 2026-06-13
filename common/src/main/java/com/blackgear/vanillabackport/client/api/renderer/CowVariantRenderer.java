@@ -6,7 +6,6 @@ import com.blackgear.vanillabackport.client.level.entities.model.cow.WarmCowMode
 import com.blackgear.vanillabackport.client.registries.ModModelLayers;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.cow.CowVariant;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.cow.CowVariants;
-import com.blackgear.vanillabackport.core.registries.ModBuiltinRegistries;
 import com.google.common.collect.Maps;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -44,7 +43,7 @@ public class CowVariantRenderer extends AbstractVariantRenderer<Cow, CowModel<Co
 
     @Override
     protected BuiltInCoreRegistry<CowVariant> getRegistry() {
-        return ModBuiltinRegistries.COW_VARIANTS;
+        return CowVariants.REGISTRIES;
     }
 
     @Override

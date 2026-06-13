@@ -5,8 +5,8 @@ import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
 import com.blackgear.vanillabackport.common.level.entity.mob.monster.sulfurcube.SulfurCubeArchetype.AttributeEntry;
 import com.blackgear.vanillabackport.common.registries.entities.ModAttributes;
 import com.blackgear.vanillabackport.common.registries.entities.ModDamageTypes;
+import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.blackgear.vanillabackport.core.data.tags.ModItemTags;
-import com.blackgear.vanillabackport.core.registries.ModBuiltinRegistries;
 import com.blackgear.vanillabackport.core.registries.ModRegistries;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceKey;
@@ -27,7 +27,7 @@ import java.util.function.Function;
 import static com.blackgear.vanillabackport.common.level.entity.mob.monster.sulfurcube.SulfurCubeArchetype.*;
 
 public class SulfurCubeArchetypes {
-    public static final BuiltInCoreRegistry<SulfurCubeArchetype> REGISTRIES = ModBuiltinRegistries.SULFUR_CUBE_ARCHETYPES;
+    public static final BuiltInCoreRegistry<SulfurCubeArchetype> REGISTRIES = new BuiltInCoreRegistry<>(ModRegistries.SULFUR_CUBE_ARCHETYPE.get(), VanillaBackport.NAMESPACE);
 
     public static final ResourceKey<SulfurCubeArchetype> REGULAR = register("regular",
         ModItemTags.SULFUR_CUBE_ARCHETYPE_REGULAR,

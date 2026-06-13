@@ -2,8 +2,8 @@ package com.blackgear.vanillabackport.common.resource.variant;
 
 import com.blackgear.platform.common.resource.RegistryAwareJsonReloadListener;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.cow.CowVariant;
+import com.blackgear.vanillabackport.common.level.entity.mob.animal.cow.CowVariants;
 import com.blackgear.vanillabackport.core.VanillaBackport;
-import com.blackgear.vanillabackport.core.registries.ModBuiltinRegistries;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
@@ -29,8 +29,8 @@ public class CowVariantReloadListener extends RegistryAwareJsonReloadListener {
     @Override
     public void parse(Map<ResourceLocation, JsonElement> resources, RegistryAccess registryAccess, ResourceManager manager, ProfilerFiller profiler) {
         profiler.push("Loading cow variants");
-
-        ModBuiltinRegistries.COW_VARIANTS.clearDataDrivenEntries();
+        
+        CowVariants.REGISTRIES.clearDataDrivenEntries();
 
         DynamicOps<JsonElement> ops = RegistryOps.create(JsonOps.INSTANCE, registryAccess);
         for (Map.Entry<ResourceLocation, JsonElement> entry : resources.entrySet()) {
@@ -40,7 +40,7 @@ public class CowVariantReloadListener extends RegistryAwareJsonReloadListener {
             try {
                 CowVariant.CODEC.parse(ops, element)
                     .resultOrPartial(error -> VanillaBackport.LOGGER.error("Failed to parse cow variant {}: {}", name, error))
-                    .ifPresent(variant -> ModBuiltinRegistries.COW_VARIANTS.registerDataDriven(name, variant));
+                    .ifPresent(variant -> CowVariants.REGISTRIES.registerDataDriven(name, variant));
             } catch (JsonParseException exception) {
                 VanillaBackport.LOGGER.error("Failed to parse cow variant JSON {}: {}", name, exception.getMessage(), exception);
             } catch (Exception exception) {
