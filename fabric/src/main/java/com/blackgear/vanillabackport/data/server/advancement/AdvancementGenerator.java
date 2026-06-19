@@ -1,15 +1,15 @@
 package com.blackgear.vanillabackport.data.server.advancement;
 
 import com.blackgear.vanillabackport.common.criterion.PlayerShearedEquipmentTrigger;
-import com.blackgear.vanillabackport.common.level.blocks.CreakingHeartBlock;
-import com.blackgear.vanillabackport.common.level.blocks.states.CreakingHeartState;
-import com.blackgear.vanillabackport.common.registries.ModBlockStateProperties;
-import com.blackgear.vanillabackport.common.registries.ModBlocks;
-import com.blackgear.vanillabackport.common.registries.ModEntityTypes;
-import com.blackgear.vanillabackport.common.registries.ModItems;
+import com.blackgear.vanillabackport.common.level.block.CreakingHeartBlock;
+import com.blackgear.vanillabackport.common.level.block.states.CreakingHeartState;
+import com.blackgear.vanillabackport.common.level.entity.mob.animal.wolf.WolfVariants;
+import com.blackgear.vanillabackport.common.registries.blocks.ModBlockStateProperties;
+import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
+import com.blackgear.vanillabackport.common.registries.entities.ModEntityTypes;
+import com.blackgear.vanillabackport.common.registries.items.ModItems;
 import com.blackgear.vanillabackport.core.data.tags.ModBlockTags;
 import com.blackgear.vanillabackport.core.data.tags.ModItemTags;
-import com.blackgear.vanillabackport.core.registries.ModBuiltinRegistries;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricAdvancementProvider;
 import net.minecraft.advancements.*;
@@ -183,7 +183,7 @@ public class AdvancementGenerator extends FabricAdvancementProvider {
                     ItemPredicate.Builder.item().of(ModItemTags.SULFUR_CUBE_ARCHETYPE_EXPLOSIVE).build(),
                     EntityPredicate.wrap(
                         EntityPredicate.Builder.entity()
-                            .of(ModEntityTypes.SULFUR_CUBE)
+                            .of(ModEntityTypes.SULFUR_CUBE.get())
                             .flags(EntityFlagsPredicate.Builder.flags().setIsBaby(false).build())
                             .build()
                     )
@@ -196,7 +196,7 @@ public class AdvancementGenerator extends FabricAdvancementProvider {
                     ItemPredicate.Builder.item().of(ModItemTags.SULFUR_CUBE_ARCHETYPE_EXPLOSIVE),
                     EntityPredicate.wrap(
                         EntityPredicate.Builder.entity()
-                            .of(ModEntityTypes.SULFUR_CUBE)
+                            .of(ModEntityTypes.SULFUR_CUBE.get())
                             .flags(EntityFlagsPredicate.Builder.flags().setIsBaby(false).build())
                             .build()
                     )
@@ -211,7 +211,7 @@ public class AdvancementGenerator extends FabricAdvancementProvider {
     }
 
     private static Advancement.Builder addWolfVariants(Advancement.Builder builder) {
-        ModBuiltinRegistries.WOLF_VARIANTS.entries()
+        WolfVariants.REGISTRIES.entries()
             .forEach((key, value) -> {
                 CompoundTag nbt = getNbt(tag -> tag.putString("variant", key.toString()));
                 builder.addCriterion(

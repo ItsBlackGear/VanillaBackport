@@ -1,7 +1,7 @@
 package com.blackgear.vanillabackport.client;
 
 import com.blackgear.platform.common.item.ItemPropertyRegistry;
-import com.blackgear.vanillabackport.common.registries.ModItems;
+import com.blackgear.vanillabackport.common.registries.items.ModItems;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;

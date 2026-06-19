@@ -17,10 +17,10 @@ import com.blackgear.vanillabackport.client.level.item.SpawnEggRenderer;
 import com.blackgear.vanillabackport.client.level.particles.*;
 import com.blackgear.vanillabackport.client.registries.ModModelLayers;
 import com.blackgear.vanillabackport.client.registries.ModParticles;
-import com.blackgear.vanillabackport.common.level.items.WolfArmorItem;
-import com.blackgear.vanillabackport.common.registries.ModBlocks;
-import com.blackgear.vanillabackport.common.registries.ModEntityTypes;
-import com.blackgear.vanillabackport.common.registries.ModItems;
+import com.blackgear.vanillabackport.common.level.item.WolfArmorItem;
+import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
+import com.blackgear.vanillabackport.common.registries.entities.ModEntityTypes;
+import com.blackgear.vanillabackport.common.registries.items.ModItems;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.BoatModel;
@@ -84,12 +84,12 @@ public class Rendering {
     }
 
     public static void entityRendering(GameRendering.EntityRendererEvent event) {
-        event.register(ModEntityTypes.ARMADILLO, ArmadilloRenderer::new);
-        event.register(ModEntityTypes.CREAKING, CreakingRenderer::new);
-        event.register(ModEntityTypes.HAPPY_GHAST, HappyGhastRenderer::new);
-        event.register(ModEntityTypes.PALE_OAK_BOAT, context -> new PaleOakBoatRenderer(context, false));
-        event.register(ModEntityTypes.PALE_OAK_CHEST_BOAT, context -> new PaleOakBoatRenderer(context, true));
-        event.register(ModEntityTypes.SULFUR_CUBE, SulfurCubeRenderer::new);
+        event.register(ModEntityTypes.ARMADILLO.get(), ArmadilloRenderer::new);
+        event.register(ModEntityTypes.CREAKING.get(), CreakingRenderer::new);
+        event.register(ModEntityTypes.HAPPY_GHAST.get(), HappyGhastRenderer::new);
+        event.register(ModEntityTypes.PALE_OAK_BOAT.get(), context -> new PaleOakBoatRenderer(context, false));
+        event.register(ModEntityTypes.PALE_OAK_CHEST_BOAT.get(), context -> new PaleOakBoatRenderer(context, true));
+        event.register(ModEntityTypes.SULFUR_CUBE.get(), SulfurCubeRenderer::new);
     }
 
     public static void blockRendering(GameRendering.BlockRendererEvent event) {

@@ -3,9 +3,9 @@ package com.blackgear.vanillabackport.core.mixin.common.entities;
 import com.blackgear.vanillabackport.common.api.variant.VariantDataHolder;
 import com.blackgear.vanillabackport.common.api.variant.VariantUtils;
 import com.blackgear.vanillabackport.common.api.variant.spawn.SpawnContext;
-import com.blackgear.vanillabackport.common.level.entities.animal.CatDataVariant;
-import com.blackgear.vanillabackport.core.registries.ModBuiltinRegistries;
-import com.blackgear.vanillabackport.core.util.ColorUtils;
+import com.blackgear.vanillabackport.common.level.entity.mob.animal.cat.CatDataVariant;
+import com.blackgear.vanillabackport.common.level.entity.mob.animal.cat.CatDataVariants;
+import com.blackgear.vanillabackport.core.util.Utilities.*;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -46,27 +46,27 @@ public abstract class CatMixin extends TamableAnimalMixin implements VariantData
 
     @Override
     public void setVariantData(CatDataVariant variant) {
-        this.entityData.set(DATA_VARIANT_ID, VariantUtils.getID(ModBuiltinRegistries.CAT_VARIANTS, variant));
+        this.entityData.set(DATA_VARIANT_ID, VariantUtils.getID(CatDataVariants.REGISTRIES, variant));
     }
 
     @Override
     public Optional<CatDataVariant> getVariantData() {
-        return VariantUtils.getOrDefault(ModBuiltinRegistries.CAT_VARIANTS, this.entityData.get(DATA_VARIANT_ID));
+        return VariantUtils.getOrDefault(CatDataVariants.REGISTRIES, this.entityData.get(DATA_VARIANT_ID));
     }
 
     @Inject(method = "addAdditionalSaveData", at = @At("RETURN"))
     private void vb$addAdditionalData(CompoundTag tag, CallbackInfo ci) {
-        VariantUtils.addVariantSaveData(this, tag, ModBuiltinRegistries.CAT_VARIANTS);
+        VariantUtils.addVariantSaveData(this, tag, CatDataVariants.REGISTRIES);
     }
 
     @Inject(method = "readAdditionalSaveData", at = @At("HEAD"))
     private void vb$readAdditionalData(CompoundTag tag, CallbackInfo ci) {
-        VariantUtils.readVariantSaveData(this, tag, ModBuiltinRegistries.CAT_VARIANTS);
+        VariantUtils.readVariantSaveData(this, tag, CatDataVariants.REGISTRIES);
     }
 
     @Override
     protected void vb$finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, SpawnGroupData spawnData, CompoundTag dataTag, CallbackInfoReturnable<SpawnGroupData> cir) {
-        VariantUtils.selectVariantToSpawn(SpawnContext.create(level, this.blockPosition()), ModBuiltinRegistries.CAT_VARIANTS)
+        VariantUtils.selectVariantToSpawn(SpawnContext.create(level, this.blockPosition()), CatDataVariants.REGISTRIES)
             .ifPresent(this::setVariantData);
     }
 

@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.core.mixin.common.worldgen.surface;
 
-import com.blackgear.vanillabackport.common.api.worldgen.ContextNoiseSampler;
+import com.blackgear.vanillabackport.common.api.extensions.worldgen.ContextNoiseSampler;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.levelgen.RandomState;
 import net.minecraft.world.level.levelgen.SurfaceRules;

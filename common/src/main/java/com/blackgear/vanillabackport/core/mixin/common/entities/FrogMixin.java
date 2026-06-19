@@ -3,8 +3,8 @@ package com.blackgear.vanillabackport.core.mixin.common.entities;
 import com.blackgear.vanillabackport.common.api.variant.spawn.SpawnContext;
 import com.blackgear.vanillabackport.common.api.variant.VariantDataHolder;
 import com.blackgear.vanillabackport.common.api.variant.VariantUtils;
-import com.blackgear.vanillabackport.common.level.entities.animal.FrogDataVariant;
-import com.blackgear.vanillabackport.core.registries.ModBuiltinRegistries;
+import com.blackgear.vanillabackport.common.level.entity.mob.animal.frog.FrogDataVariant;
+import com.blackgear.vanillabackport.common.level.entity.mob.animal.frog.FrogDataVariants;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -41,27 +41,27 @@ public abstract class FrogMixin extends MobMixin implements VariantDataHolder<Fr
 
     @Override
     public void setVariantData(FrogDataVariant variant) {
-        this.entityData.set(DATA_VARIANT_ID, VariantUtils.getID(ModBuiltinRegistries.FROG_VARIANTS, variant));
+        this.entityData.set(DATA_VARIANT_ID, VariantUtils.getID(FrogDataVariants.REGISTRIES, variant));
     }
 
     @Override
     public Optional<FrogDataVariant> getVariantData() {
-        return VariantUtils.getOrDefault(ModBuiltinRegistries.FROG_VARIANTS, this.entityData.get(DATA_VARIANT_ID));
+        return VariantUtils.getOrDefault(FrogDataVariants.REGISTRIES, this.entityData.get(DATA_VARIANT_ID));
     }
 
     @Inject(method = "addAdditionalSaveData", at = @At("RETURN"))
     private void vb$addAdditionalData(CompoundTag tag, CallbackInfo ci) {
-        VariantUtils.addVariantSaveData(this, tag, ModBuiltinRegistries.FROG_VARIANTS);
+        VariantUtils.addVariantSaveData(this, tag, FrogDataVariants.REGISTRIES);
     }
 
     @Inject(method = "readAdditionalSaveData", at = @At("HEAD"))
     private void vb$readAdditionalData(CompoundTag tag, CallbackInfo ci) {
-        VariantUtils.readVariantSaveData(this, tag, ModBuiltinRegistries.FROG_VARIANTS);
+        VariantUtils.readVariantSaveData(this, tag, FrogDataVariants.REGISTRIES);
     }
 
     @Override
     protected void vb$finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, SpawnGroupData spawnData, CompoundTag dataTag, CallbackInfoReturnable<SpawnGroupData> cir) {
-        VariantUtils.selectVariantToSpawn(SpawnContext.create(level, this.blockPosition()), ModBuiltinRegistries.FROG_VARIANTS)
+        VariantUtils.selectVariantToSpawn(SpawnContext.create(level, this.blockPosition()), FrogDataVariants.REGISTRIES)
             .ifPresent(this::setVariantData);
     }
 }

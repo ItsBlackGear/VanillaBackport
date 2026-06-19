@@ -11,12 +11,12 @@ import com.blackgear.vanillabackport.core.registries.ModRegistries;
 import com.mojang.serialization.Codec;
 
 public class SpawnConditions {
-    public static final Registrar<Codec<? extends SpawnCondition>> CONDITIONS = Registrar.create(ModRegistries.SPAWN_CONDITION_TYPE_KEY, VanillaBackport.NAMESPACE);
+    public static final Registrar<Codec<? extends SpawnCondition>> REGISTRIES = Registrar.create(ModRegistries.SPAWN_CONDITION_TYPE_KEY, VanillaBackport.NAMESPACE);
 
-    public static final Codec<? extends SpawnCondition> STRUCTURE = CONDITIONS.register("structure", StructureCheck.CODEC);
-    public static final Codec<? extends SpawnCondition> MOON_BRIGHTNESS = CONDITIONS.register("moon_brightness", MoonBrightnessCheck.CODEC);
-    public static final Codec<? extends SpawnCondition> BIOME = CONDITIONS.register("biome", BiomeCheck.CODEC);
+    public static final Codec<? extends SpawnCondition> STRUCTURE = REGISTRIES.register("structure", StructureCheck.CODEC);
+    public static final Codec<? extends SpawnCondition> MOON_BRIGHTNESS = REGISTRIES.register("moon_brightness", MoonBrightnessCheck.CODEC);
+    public static final Codec<? extends SpawnCondition> BIOME = REGISTRIES.register("biome", BiomeCheck.CODEC);
 
-    public static final Codec<? extends SpawnCondition> RAW_BIOME = CONDITIONS.register("raw_biome", RawBiomeCheck.CODEC);
-    public static final Codec<? extends SpawnCondition> RAW_STRUCTURE = CONDITIONS.register("raw_structure", RawStructureCheck.CODEC);
+    public static final Codec<? extends SpawnCondition> RAW_BIOME = REGISTRIES.register("raw_biome", RawBiomeCheck.CODEC);
+    public static final Codec<? extends SpawnCondition> RAW_STRUCTURE = REGISTRIES.register("raw_structure", RawStructureCheck.CODEC);
 }

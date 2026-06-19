@@ -9,30 +9,30 @@ import com.blackgear.platform.common.worldgen.placement.BiomePlacement;
 import com.blackgear.platform.core.ParallelDispatch;
 import com.blackgear.platform.core.events.ResourceReloadManager;
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
-import com.blackgear.vanillabackport.common.api.interactions.mob.GhastHarnessInteraction;
-import com.blackgear.vanillabackport.common.api.interactions.mob.ShearEquipmentInteraction;
-import com.blackgear.vanillabackport.common.api.interactions.mob.LeashIntegration;
-import com.blackgear.vanillabackport.common.api.interactions.mob.WolfArmorInteraction;
+import com.blackgear.vanillabackport.common.api.integration.LootIntegrations;
+import com.blackgear.vanillabackport.common.api.integration.interactions.GhastHarnessInteraction;
+import com.blackgear.vanillabackport.common.api.integration.interactions.ShearEquipmentInteraction;
+import com.blackgear.vanillabackport.common.api.integration.interactions.LeashIntegration;
+import com.blackgear.vanillabackport.common.api.integration.interactions.WolfArmorInteraction;
 import com.blackgear.vanillabackport.common.api.variant.VariantDataHolder;
 import com.blackgear.vanillabackport.common.api.variant.VariantUtils;
-import com.blackgear.vanillabackport.common.level.entities.animal.ChickenVariant;
-import com.blackgear.vanillabackport.common.level.entities.animal.ChickenVariants;
-import com.blackgear.vanillabackport.common.level.dispenser.PaleOakBoatDispenseBehavior;
-import com.blackgear.vanillabackport.common.level.entities.armadillo.Armadillo;
-import com.blackgear.vanillabackport.common.level.entities.creaking.Creaking;
-import com.blackgear.vanillabackport.common.level.entities.happyghast.HappyGhast;
-import com.blackgear.vanillabackport.common.level.entities.sulfurcube.SulfurCube;
-import com.blackgear.vanillabackport.common.registries.ModBlocks;
-import com.blackgear.vanillabackport.common.registries.ModEntityTypes;
-import com.blackgear.vanillabackport.common.registries.ModItems;
+import com.blackgear.vanillabackport.common.level.entity.mob.animal.chicken.ChickenVariant;
+import com.blackgear.vanillabackport.common.level.entity.mob.animal.chicken.ChickenVariants;
+import com.blackgear.vanillabackport.common.api.integration.dispenser.PaleOakBoatDispenseBehavior;
+import com.blackgear.vanillabackport.common.level.entity.mob.animal.armadillo.Armadillo;
+import com.blackgear.vanillabackport.common.level.entity.mob.monster.creaking.Creaking;
+import com.blackgear.vanillabackport.common.level.entity.mob.animal.happy_ghast.HappyGhast;
+import com.blackgear.vanillabackport.common.level.entity.mob.monster.sulfur_cube.SulfurCube;
+import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
+import com.blackgear.vanillabackport.common.registries.entities.ModEntityTypes;
+import com.blackgear.vanillabackport.common.registries.items.ModItems;
 import com.blackgear.vanillabackport.common.resource.SulfurCubeArchetypeReloadListener;
 import com.blackgear.vanillabackport.common.resource.sound.WolfSoundVariantReloadListener;
-import com.blackgear.vanillabackport.common.resource.variants.*;
-import com.blackgear.vanillabackport.common.worldgen.BiomeGeneration;
-import com.blackgear.vanillabackport.common.worldgen.WorldGeneration;
+import com.blackgear.vanillabackport.common.resource.variant.*;
+import com.blackgear.vanillabackport.common.api.integration.worldgen.BiomeGeneration;
+import com.blackgear.vanillabackport.common.api.integration.worldgen.WorldGeneration;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.blackgear.vanillabackport.core.data.tags.ModBlockTags;
-import com.blackgear.vanillabackport.core.registries.ModBuiltinRegistries;
 import net.minecraft.Util;
 import net.minecraft.core.Position;
 import net.minecraft.core.dispenser.AbstractProjectileDispenseBehavior;
@@ -71,7 +71,7 @@ public class CommonSetup {
             BiomePlacement.registerBiomePlacements(BiomeGeneration::bootstrap);
             BlockIntegration.registerIntegrations(CommonSetup::blockIntegrations);
             TradeIntegration.registerVillagerTrades(CommonSetup::tradeIntegrations);
-            Parrot.MOB_SOUND_MAP.put(ModEntityTypes.CREAKING, ModSoundEvents.PARROT_IMITATE_CREAKING.get());
+            Parrot.MOB_SOUND_MAP.put(ModEntityTypes.CREAKING.get(), ModSoundEvents.PARROT_IMITATE_CREAKING.get());
         });
 
         LootModifier.modify(new LootIntegrations());
@@ -129,7 +129,7 @@ public class CommonSetup {
             @Override
             protected Projectile getProjectile(Level level, Position position, ItemStack stack) {
                 ThrownEgg thrownEgg = new ThrownEgg(level, position.x(), position.y(), position.z());
-                VariantDataHolder.<ChickenVariant>getHolder(thrownEgg).setVariantData(VariantUtils.getDefault(ModBuiltinRegistries.CHICKEN_VARIANTS, ChickenVariants.COLD));
+                VariantDataHolder.<ChickenVariant>getHolder(thrownEgg).setVariantData(VariantUtils.getDefault(ChickenVariants.REGISTRIES, ChickenVariants.COLD));
                 return Util.make(thrownEgg, egg -> egg.setItem(stack));
             }
         });
@@ -137,7 +137,7 @@ public class CommonSetup {
             @Override
             protected Projectile getProjectile(Level level, Position position, ItemStack stack) {
                 ThrownEgg thrownEgg = new ThrownEgg(level, position.x(), position.y(), position.z());
-                VariantDataHolder.<ChickenVariant>getHolder(thrownEgg).setVariantData(VariantUtils.getDefault(ModBuiltinRegistries.CHICKEN_VARIANTS, ChickenVariants.WARM));
+                VariantDataHolder.<ChickenVariant>getHolder(thrownEgg).setVariantData(VariantUtils.getDefault(ChickenVariants.REGISTRIES, ChickenVariants.WARM));
                 return Util.make(thrownEgg, egg -> egg.setItem(stack));
             }
         });
@@ -181,14 +181,14 @@ public class CommonSetup {
         event.registerMobInteraction(new WolfArmorInteraction());
         event.registerMobInteraction(new GhastHarnessInteraction());
 
-        event.registerPlacement(() -> ModEntityTypes.ARMADILLO, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Armadillo::checkArmadilloSpawnRules);
+        event.registerPlacement(ModEntityTypes.ARMADILLO, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Armadillo::checkArmadilloSpawnRules);
         event.registerPlacement(() -> EntityType.CAMEL, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (type, level, reason, pos, random) -> level.getBlockState(pos.below()).is(ModBlockTags.CAMELS_SPAWNABLE_ON) && level.getRawBrightness(pos, 0) > 8);
-        event.registerPlacement(() -> ModEntityTypes.SULFUR_CUBE, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SulfurCube::checkSulfurCubeSpawnRules);
+        event.registerPlacement(ModEntityTypes.SULFUR_CUBE, SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SulfurCube::checkSulfurCubeSpawnRules);
 
-        event.registerAttributes(() -> ModEntityTypes.ARMADILLO, Armadillo::createAttributes);
-        event.registerAttributes(() -> ModEntityTypes.CREAKING, Creaking::createAttributes);
-        event.registerAttributes(() -> ModEntityTypes.HAPPY_GHAST, HappyGhast::createAttributes);
-        event.registerAttributes(() -> ModEntityTypes.SULFUR_CUBE, SulfurCube::createSulfurCubeAttributes);
+        event.registerAttributes(ModEntityTypes.ARMADILLO, Armadillo::createAttributes);
+        event.registerAttributes(ModEntityTypes.CREAKING, Creaking::createAttributes);
+        event.registerAttributes(ModEntityTypes.HAPPY_GHAST, HappyGhast::createAttributes);
+        event.registerAttributes(ModEntityTypes.SULFUR_CUBE, SulfurCube::createSulfurCubeAttributes);
 
         event.registerGoal(EntityType.VINDICATOR, 1, mob -> new AvoidEntityGoal<>((PathfinderMob) mob, Creaking.class, 8.0F, 0.6, 1.2));
         event.registerGoal(EntityType.PILLAGER, 1, mob -> new AvoidEntityGoal<>((PathfinderMob) mob, Creaking.class, 8.0F, 0.6, 1.2));

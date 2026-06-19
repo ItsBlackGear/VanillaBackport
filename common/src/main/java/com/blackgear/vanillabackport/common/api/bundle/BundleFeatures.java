@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.common.api.bundle;
 
-import com.blackgear.vanillabackport.common.registries.ModItems;
+import com.blackgear.vanillabackport.common.registries.items.ModItems;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.blackgear.vanillabackport.core.data.tags.ModItemTags;
 import net.minecraft.nbt.CompoundTag;

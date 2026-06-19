@@ -1,7 +1,7 @@
 package com.blackgear.vanillabackport.core.mixin.common;
 
-import com.blackgear.vanillabackport.common.api.extensions.MotionAwareEntity;
-import com.blackgear.vanillabackport.common.level.entities.happyghast.HappyGhast;
+import com.blackgear.vanillabackport.common.api.extensions.entity.MotionAwareEntity;
+import com.blackgear.vanillabackport.common.level.entity.mob.animal.happy_ghast.HappyGhast;
 import com.blackgear.vanillabackport.core.network.ServerboundClientTickEndPacket;
 import net.minecraft.network.protocol.game.ServerboundMovePlayerPacket;
 import net.minecraft.network.protocol.game.ServerboundMoveVehiclePacket;

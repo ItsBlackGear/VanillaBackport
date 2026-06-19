@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.client.api.music;
 
-import com.blackgear.vanillabackport.common.registries.ModBiomes;
+import com.blackgear.vanillabackport.common.registries.worldgen.ModBiomes;
 import com.blackgear.vanillabackport.core.mixin.access.SoundEngineAccessor;
 import com.blackgear.vanillabackport.core.mixin.access.SoundManagerAccessor;
 import net.minecraft.client.Minecraft;

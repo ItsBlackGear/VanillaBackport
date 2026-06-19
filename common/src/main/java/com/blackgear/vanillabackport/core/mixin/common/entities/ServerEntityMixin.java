@@ -1,8 +1,8 @@
 package com.blackgear.vanillabackport.core.mixin.common.entities;
 
-import com.blackgear.vanillabackport.common.api.extensions.PositionAwareEntity;
+import com.blackgear.vanillabackport.common.api.extensions.entity.PositionAwareEntity;
 import com.blackgear.vanillabackport.common.api.leash.Leashable;
-import com.blackgear.vanillabackport.core.util.MathUtils;
+import com.blackgear.vanillabackport.core.util.Utilities.*;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.*;
 import net.minecraft.server.level.ServerEntity;
@@ -63,8 +63,8 @@ public abstract class ServerEntityMixin {
             }
 
             if (this.tickCount % this.updateInterval == 0 || this.entity.hasImpulse || this.entity.getEntityData().isDirty()) {
-                byte yRot = MathUtils.packDegrees(this.entity.getYRot());
-                byte xRot = MathUtils.packDegrees(this.entity.getXRot());
+                byte yRot = MthUtils.packDegrees(this.entity.getYRot());
+                byte xRot = MthUtils.packDegrees(this.entity.getXRot());
                 boolean shouldSendRotation = Math.abs(yRot - this.yRotp) >= 1 || Math.abs(xRot - this.xRotp) >= 1;
                 if (this.entity.isPassenger()) {
                     if (shouldSendRotation) {
@@ -131,7 +131,7 @@ public abstract class ServerEntityMixin {
                     this.wasRiding = false;
                 }
 
-                byte yHeadRot = MathUtils.packDegrees(this.entity.getYHeadRot());
+                byte yHeadRot = MthUtils.packDegrees(this.entity.getYHeadRot());
                 if (Math.abs(yHeadRot - this.yHeadRotp) >= 1) {
                     this.broadcast.accept(new ClientboundRotateHeadPacket(this.entity, yHeadRot));
                     this.yHeadRotp = yHeadRot;

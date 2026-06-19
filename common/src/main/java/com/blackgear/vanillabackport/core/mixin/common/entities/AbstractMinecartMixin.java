@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.core.mixin.common.entities;
 
-import com.blackgear.vanillabackport.common.api.extensions.MotionAwareEntity;
+import com.blackgear.vanillabackport.common.api.extensions.entity.MotionAwareEntity;
 import net.minecraft.world.entity.vehicle.AbstractMinecart;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

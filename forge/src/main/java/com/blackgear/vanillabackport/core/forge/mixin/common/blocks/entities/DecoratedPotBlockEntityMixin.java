@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.core.forge.mixin.common.blocks.entities;
 
-import com.blackgear.vanillabackport.common.api.block.RandomizableContainer;
+import com.blackgear.vanillabackport.common.api.extensions.block.RandomizableContainer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.entity.BlockEntity;

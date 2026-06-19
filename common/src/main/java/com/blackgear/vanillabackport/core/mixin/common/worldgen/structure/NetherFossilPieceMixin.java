@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.core.mixin.common.worldgen.structure;
 
-import com.blackgear.vanillabackport.common.registries.ModBlocks;
+import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;

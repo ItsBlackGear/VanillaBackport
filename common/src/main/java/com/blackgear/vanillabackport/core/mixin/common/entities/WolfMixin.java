@@ -5,17 +5,17 @@ import com.blackgear.vanillabackport.common.api.variant.VariantSpawner;
 import com.blackgear.vanillabackport.common.api.variant.spawn.SpawnContext;
 import com.blackgear.vanillabackport.common.api.variant.VariantDataHolder;
 import com.blackgear.vanillabackport.common.api.variant.VariantUtils;
-import com.blackgear.vanillabackport.common.api.wolf.BackportedWolvesConversion;
-import com.blackgear.vanillabackport.common.api.wolf.WolfSoundVariant;
-import com.blackgear.vanillabackport.common.api.wolf.WolfSoundVariantHolder;
-import com.blackgear.vanillabackport.common.api.wolf.WolfSoundVariants;
-import com.blackgear.vanillabackport.common.level.entities.wolf.ModCrackiness;
-import com.blackgear.vanillabackport.common.level.entities.wolf.WolfVariant;
-import com.blackgear.vanillabackport.common.level.entities.wolf.WolfSoundVariantsModule;
-import com.blackgear.vanillabackport.common.level.items.WolfArmorItem;
-import com.blackgear.vanillabackport.common.registries.ModItems;
-import com.blackgear.vanillabackport.core.registries.ModBuiltinRegistries;
-import com.blackgear.vanillabackport.core.util.ColorUtils;
+import com.blackgear.vanillabackport.common.api.integration.compat.BackportedWolvesConversion;
+import com.blackgear.vanillabackport.common.api.sound.WolfSoundVariant;
+import com.blackgear.vanillabackport.common.api.sound.WolfSoundVariantHolder;
+import com.blackgear.vanillabackport.common.api.sound.WolfSoundVariants;
+import com.blackgear.vanillabackport.common.level.entity.mob.animal.wolf.ModCrackiness;
+import com.blackgear.vanillabackport.common.level.entity.mob.animal.wolf.WolfVariant;
+import com.blackgear.vanillabackport.common.level.entity.mob.animal.wolf.WolfSoundVariantsModule;
+import com.blackgear.vanillabackport.common.level.entity.mob.animal.wolf.WolfVariants;
+import com.blackgear.vanillabackport.common.level.item.WolfArmorItem;
+import com.blackgear.vanillabackport.common.registries.items.ModItems;
+import com.blackgear.vanillabackport.core.util.Utilities.*;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -68,56 +68,56 @@ public abstract class WolfMixin extends TamableAnimalMixin implements NeutralMob
                 child.setCollarColor(ColorUtils.getMixedColor(level, fatherColor, motherColor));
             }
 
-            WolfSoundVariantHolder.of(child).vb$setSoundVariant(ModBuiltinRegistries.WOLF_SOUND_VARIANTS.getRandomElement(this.getRandom()));
+            WolfSoundVariantHolder.of(child).vb$setSoundVariant(WolfSoundVariants.REGISTRIES.getRandomElement(this.getRandom()));
             VariantDataHolder.trySetOffspringVariant(child, this, mate);
         }
     }
 
     @Override
     protected void vb$defineSynchedData(CallbackInfo ci) {
-        this.entityData.define(DATA_SOUND_VARIANT_ID, VariantUtils.getDefaultID(ModBuiltinRegistries.WOLF_SOUND_VARIANTS, WolfSoundVariants.CLASSIC));
+        this.entityData.define(DATA_SOUND_VARIANT_ID, VariantUtils.getDefaultID(WolfSoundVariants.REGISTRIES, WolfSoundVariants.CLASSIC));
         this.entityData.define(DATA_VARIANT_ID, "minecraft:pale");
     }
 
     @Override
     public Optional<WolfVariant> getVariantData() {
-        return VariantUtils.getOrDefault(ModBuiltinRegistries.WOLF_VARIANTS, this.entityData.get(DATA_VARIANT_ID));
+        return VariantUtils.getOrDefault(WolfVariants.REGISTRIES, this.entityData.get(DATA_VARIANT_ID));
     }
 
     @Override
     public void setVariantData(WolfVariant variant) {
-        this.entityData.set(DATA_VARIANT_ID, VariantUtils.getID(ModBuiltinRegistries.WOLF_VARIANTS, variant));
+        this.entityData.set(DATA_VARIANT_ID, VariantUtils.getID(WolfVariants.REGISTRIES, variant));
     }
 
     @Override
     public WolfSoundVariant vb$getSoundVariant() {
-        return VariantUtils.getVariant(ModBuiltinRegistries.WOLF_SOUND_VARIANTS, this.entityData.get(DATA_SOUND_VARIANT_ID));
+        return VariantUtils.getVariant(WolfSoundVariants.REGISTRIES, this.entityData.get(DATA_SOUND_VARIANT_ID));
     }
 
     @Override
     public void vb$setSoundVariant(WolfSoundVariant variant) {
-        this.entityData.set(DATA_SOUND_VARIANT_ID, VariantUtils.getID(ModBuiltinRegistries.WOLF_SOUND_VARIANTS, variant));
+        this.entityData.set(DATA_SOUND_VARIANT_ID, VariantUtils.getID(WolfSoundVariants.REGISTRIES, variant));
     }
 
     @Override
     protected void vb$addAdditionalSaveData(CompoundTag tag, CallbackInfo ci) {
-        VariantUtils.addVariantSaveData(this, tag, ModBuiltinRegistries.WOLF_VARIANTS);
-        tag.putString("sound_variant", ModBuiltinRegistries.WOLF_SOUND_VARIANTS.getKey(this.vb$getSoundVariant()).toString());
+        VariantUtils.addVariantSaveData(this, tag, WolfVariants.REGISTRIES);
+        tag.putString("sound_variant", WolfSoundVariants.REGISTRIES.getKey(this.vb$getSoundVariant()).toString());
     }
 
     @Override
     protected void vb$readAdditionalSaveData(CompoundTag tag, CallbackInfo ci) {
-        BackportedWolvesConversion.migrateWolfVariant(this, tag, ModBuiltinRegistries.WOLF_VARIANTS);
+        BackportedWolvesConversion.migrateWolfVariant(this, tag, WolfVariants.REGISTRIES);
 
-        VariantUtils.readVariantSaveData(this, tag, ModBuiltinRegistries.WOLF_VARIANTS);
-        WolfSoundVariant soundVariant = ModBuiltinRegistries.WOLF_SOUND_VARIANTS.get(ResourceLocation.tryParse(tag.getString("sound_variant")));
+        VariantUtils.readVariantSaveData(this, tag, WolfVariants.REGISTRIES);
+        WolfSoundVariant soundVariant = WolfSoundVariants.REGISTRIES.get(ResourceLocation.tryParse(tag.getString("sound_variant")));
         if (soundVariant != null) this.vb$setSoundVariant(soundVariant);
     }
 
     @Override
     protected void vb$finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, SpawnGroupData spawnData, CompoundTag dataTag, CallbackInfoReturnable<SpawnGroupData> cir) {
-        this.vb$setSoundVariant(ModBuiltinRegistries.WOLF_SOUND_VARIANTS.getRandomElement(level.getRandom()));
-        VariantUtils.selectVariantToSpawn(SpawnContext.create(level, this.blockPosition()), ModBuiltinRegistries.WOLF_VARIANTS, VariantSpawner.WOLF_VARIANTS)
+        this.vb$setSoundVariant(WolfSoundVariants.REGISTRIES.getRandomElement(level.getRandom()));
+        VariantUtils.selectVariantToSpawn(SpawnContext.create(level, this.blockPosition()), WolfVariants.REGISTRIES, VariantSpawner.WOLF_VARIANTS)
             .ifPresent(this::setVariantData);
     }
 

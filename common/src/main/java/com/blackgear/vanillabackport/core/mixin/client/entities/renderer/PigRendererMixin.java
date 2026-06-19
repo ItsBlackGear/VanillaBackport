@@ -1,7 +1,7 @@
 package com.blackgear.vanillabackport.core.mixin.client.entities.renderer;
 
 import com.blackgear.vanillabackport.client.api.renderer.SpecialMobRenderer;
-import com.blackgear.vanillabackport.client.api.renderer.renderers.PigSpecialRenderer;
+import com.blackgear.vanillabackport.client.api.renderer.renderers.PigVariantlRenderer;
 import com.blackgear.vanillabackport.client.api.renderer.RenderConditions;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.PigModel;
@@ -22,7 +22,7 @@ import java.util.function.Supplier;
 
 @Mixin(PigRenderer.class)
 public abstract class PigRendererMixin extends MobRendererMixin<Pig, PigModel<Pig>> {
-    @Unique private Optional<Supplier<PigSpecialRenderer>> renderer;
+    @Unique private Optional<Supplier<PigVariantlRenderer>> renderer;
 
     public PigRendererMixin(EntityRendererProvider.Context context, PigModel<Pig> model, float shadowRadius) {
         super(context, model, shadowRadius);
@@ -30,7 +30,7 @@ public abstract class PigRendererMixin extends MobRendererMixin<Pig, PigModel<Pi
 
     @Inject(method = "<init>", at = @At("TAIL"))
     private void onInit(EntityRendererProvider.Context context, CallbackInfo ci) {
-        this.renderer = SpecialMobRenderer.create(context, PigSpecialRenderer::new, RenderConditions.FARM_ANIMALS);
+        this.renderer = SpecialMobRenderer.create(context, PigVariantlRenderer::new, RenderConditions.FARM_ANIMALS);
     }
 
     @Inject(

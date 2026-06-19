@@ -1,7 +1,7 @@
 package com.blackgear.vanillabackport.client.level.entities.model;
 
 import com.blackgear.vanillabackport.client.level.entities.animation.ArmadilloAnimation;
-import com.blackgear.vanillabackport.common.level.entities.armadillo.Armadillo;
+import com.blackgear.vanillabackport.common.level.entity.mob.animal.armadillo.Armadillo;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.AgeableHierarchicalModel;

@@ -1,7 +1,7 @@
 package com.blackgear.vanillabackport.core.mixin.client.entities.renderer;
 
 import com.blackgear.vanillabackport.client.api.renderer.SpecialMobRenderer;
-import com.blackgear.vanillabackport.client.api.renderer.renderers.ChickenSpecialRenderer;
+import com.blackgear.vanillabackport.client.api.renderer.renderers.ChickenVariantRenderer;
 import com.blackgear.vanillabackport.client.api.renderer.RenderConditions;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.ChickenModel;
@@ -22,7 +22,7 @@ import java.util.function.Supplier;
 
 @Mixin(ChickenRenderer.class)
 public abstract class ChickenRendererMixin extends MobRendererMixin<Chicken, ChickenModel<Chicken>> {
-    @Unique private Optional<Supplier<ChickenSpecialRenderer>> renderer;
+    @Unique private Optional<Supplier<ChickenVariantRenderer>> renderer;
 
     public ChickenRendererMixin(EntityRendererProvider.Context context, ChickenModel<Chicken> model, float shadowRadius) {
         super(context, model, shadowRadius);
@@ -30,7 +30,7 @@ public abstract class ChickenRendererMixin extends MobRendererMixin<Chicken, Chi
 
     @Inject(method = "<init>", at = @At("TAIL"))
     private void onInit(EntityRendererProvider.Context context, CallbackInfo ci) {
-        this.renderer = SpecialMobRenderer.create(context, ChickenSpecialRenderer::new, RenderConditions.FARM_ANIMALS);
+        this.renderer = SpecialMobRenderer.create(context, ChickenVariantRenderer::new, RenderConditions.FARM_ANIMALS);
     }
 
     @Inject(

@@ -3,7 +3,7 @@ package com.blackgear.vanillabackport.core.network;
 import com.blackgear.platform.core.network.base.Packet;
 import com.blackgear.platform.core.network.base.PacketContext;
 import com.blackgear.platform.core.network.base.PacketHandler;
-import com.blackgear.vanillabackport.common.api.extensions.MotionAwareEntity;
+import com.blackgear.vanillabackport.common.api.extensions.entity.MotionAwareEntity;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;

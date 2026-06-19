@@ -3,7 +3,7 @@ package com.blackgear.vanillabackport.core.mixin.common.items;
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
 import com.blackgear.vanillabackport.common.api.bundle.BundleFeatures;
 import com.blackgear.vanillabackport.common.api.bundle.BundleSelectionTooltip;
-import com.blackgear.vanillabackport.core.util.ColorUtils;
+import com.blackgear.vanillabackport.core.util.Utilities.*;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;

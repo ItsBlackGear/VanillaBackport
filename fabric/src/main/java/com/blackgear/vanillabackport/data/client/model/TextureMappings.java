@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.data.client.model;
 
-import com.blackgear.vanillabackport.common.registries.ModBlocks;
+import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
 import net.minecraft.data.models.model.TextureMapping;
 import net.minecraft.data.models.model.TextureSlot;
 import net.minecraft.world.level.block.Block;

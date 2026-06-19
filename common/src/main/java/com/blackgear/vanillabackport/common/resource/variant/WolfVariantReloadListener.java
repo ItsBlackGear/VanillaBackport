@@ -1,0 +1,53 @@
+package com.blackgear.vanillabackport.common.resource.variant;
+
+import com.blackgear.platform.common.resource.RegistryAwareJsonReloadListener;
+import com.blackgear.vanillabackport.common.level.entity.mob.animal.wolf.WolfVariant;
+import com.blackgear.vanillabackport.common.level.entity.mob.animal.wolf.WolfVariants;
+import com.blackgear.vanillabackport.core.VanillaBackport;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParseException;
+import com.mojang.serialization.DynamicOps;
+import com.mojang.serialization.JsonOps;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.resources.RegistryOps;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.resources.ResourceManager;
+import net.minecraft.util.profiling.ProfilerFiller;
+
+import java.util.Map;
+
+public class WolfVariantReloadListener extends RegistryAwareJsonReloadListener {
+    private static final Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
+    private static final String DIRECTORY = "wolf_variant";
+
+    public WolfVariantReloadListener() {
+        super(GSON, DIRECTORY);
+    }
+
+    @Override
+    public void parse(Map<ResourceLocation, JsonElement> resources, RegistryAccess registryAccess, ResourceManager manager, ProfilerFiller profiler) {
+        profiler.push("Loading wolf variants");
+
+        WolfVariants.REGISTRIES.clearDataDrivenEntries();
+
+        DynamicOps<JsonElement> ops = RegistryOps.create(JsonOps.INSTANCE, registryAccess);
+        for (Map.Entry<ResourceLocation, JsonElement> entry : resources.entrySet()) {
+            ResourceLocation name = entry.getKey();
+            JsonElement element = entry.getValue();
+
+            try {
+                WolfVariant.CODEC.parse(ops, element)
+                    .resultOrPartial(error -> VanillaBackport.LOGGER.error("Failed to parse wolf variant {}: {}", name, error))
+                    .ifPresent(variant -> WolfVariants.REGISTRIES.registerDataDriven(name, variant));
+            } catch (JsonParseException exception) {
+                VanillaBackport.LOGGER.error("Failed to parse wolf variant JSON {}: {}", name, exception.getMessage(), exception);
+            } catch (Exception exception) {
+                VanillaBackport.LOGGER.error("Unexpected error processing wolf variant {}", name, exception);
+            }
+        }
+
+        profiler.pop();
+    }
+}

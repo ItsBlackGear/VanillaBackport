@@ -2,10 +2,10 @@ package com.blackgear.vanillabackport.client.level.entities.layer;
 
 import com.blackgear.vanillabackport.client.registries.ModModelLayers;
 import com.blackgear.vanillabackport.client.util.LazyModel;
-import com.blackgear.vanillabackport.common.level.entities.wolf.ModCrackiness;
-import com.blackgear.vanillabackport.common.level.entities.wolf.ModCrackiness.Level;
-import com.blackgear.vanillabackport.common.level.items.WolfArmorItem;
-import com.blackgear.vanillabackport.common.registries.ModItems;
+import com.blackgear.vanillabackport.common.level.entity.mob.animal.wolf.ModCrackiness;
+import com.blackgear.vanillabackport.common.level.entity.mob.animal.wolf.ModCrackiness.Level;
+import com.blackgear.vanillabackport.common.level.item.WolfArmorItem;
+import com.blackgear.vanillabackport.common.registries.items.ModItems;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.fabricmc.api.EnvType;

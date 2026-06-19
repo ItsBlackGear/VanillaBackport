@@ -1,7 +1,7 @@
 package com.blackgear.vanillabackport.core.mixin.client.blockentities.renderer;
 
-import com.blackgear.vanillabackport.common.api.block.entity.DecoratedPot;
-import com.blackgear.vanillabackport.common.level.blockentities.decoratedpot.WobbleStyle;
+import com.blackgear.vanillabackport.common.api.extensions.block.entity.DecoratedPot;
+import com.blackgear.vanillabackport.common.level.block_entity.decorated_pot.WobbleStyle;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.minecraft.client.renderer.MultiBufferSource;

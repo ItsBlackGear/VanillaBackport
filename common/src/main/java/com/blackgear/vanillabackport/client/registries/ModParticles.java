@@ -19,55 +19,55 @@ import net.minecraft.world.phys.Vec3;
 import java.util.function.Supplier;
 
 public class ModParticles {
-    public static final ParticleRegistry PARTICLES = ParticleRegistry.create(VanillaBackport.NAMESPACE);
+    public static final ParticleRegistry REGISTRIES = ParticleRegistry.create(VanillaBackport.NAMESPACE);
 
-    public static final Supplier<SimpleParticleType> PALE_OAK_LEAVES = PARTICLES.register("pale_oak_leaves", false);
-    public static final Supplier<ParticleType<TrailParticleOption>> TRAIL = PARTICLES.register(
+    public static final Supplier<SimpleParticleType> PALE_OAK_LEAVES = REGISTRIES.register("pale_oak_leaves", false);
+    public static final Supplier<ParticleType<TrailParticleOption>> TRAIL = REGISTRIES.register(
         "trail",
         false,
         TrailParticleOption.DESERIALIZER,
         particle -> TrailParticleOption.CODEC
     );
 
-    public static final Supplier<SimpleParticleType> FIREFLY = PARTICLES.register("firefly", false);
-    public static final Supplier<ParticleType<ColorParticleOption>> TINTED_LEAVES = PARTICLES.register(
+    public static final Supplier<SimpleParticleType> FIREFLY = REGISTRIES.register("firefly", false);
+    public static final Supplier<ParticleType<ColorParticleOption>> TINTED_LEAVES = REGISTRIES.register(
         "tinted_leaves",
         false,
         ColorParticleOption.DESERIALIZER,
         ColorParticleOption::codec
     );
-    public static final Supplier<ParticleType<ColorParticleOption>> TINTED_NEEDLES = PARTICLES.register(
+    public static final Supplier<ParticleType<ColorParticleOption>> TINTED_NEEDLES = REGISTRIES.register(
         "tinted_needles",
         false,
         ColorParticleOption.DESERIALIZER,
         ColorParticleOption::codec
     );
 
-    public static final Supplier<SimpleParticleType> DUST_PLUME = PARTICLES.register("dust_plume",false);
-    public static final Supplier<SimpleParticleType> SULFUR_BUBBLES = PARTICLES.register("sulfur_bubbles", false);
-    public static final Supplier<SimpleParticleType> NOXIOUS_GAS = PARTICLES.register("noxious_gas", false);
-    public static final Supplier<SimpleParticleType> NOXIOUS_GAS_CLOUD = PARTICLES.register("noxious_gas_cloud", false);
-    public static final Supplier<SimpleParticleType> SULFUR_CUBE_GOO = PARTICLES.register("sulfur_cube_goo", false);
+    public static final Supplier<SimpleParticleType> DUST_PLUME = REGISTRIES.register("dust_plume",false);
+    public static final Supplier<SimpleParticleType> SULFUR_BUBBLES = REGISTRIES.register("sulfur_bubbles", false);
+    public static final Supplier<SimpleParticleType> NOXIOUS_GAS = REGISTRIES.register("noxious_gas", false);
+    public static final Supplier<SimpleParticleType> NOXIOUS_GAS_CLOUD = REGISTRIES.register("noxious_gas_cloud", false);
+    public static final Supplier<SimpleParticleType> SULFUR_CUBE_GOO = REGISTRIES.register("sulfur_cube_goo", false);
 
-    public static final Supplier<ParticleType<GeyserParticleOptions>> GEYSER = PARTICLES.register(
+    public static final Supplier<ParticleType<GeyserParticleOptions>> GEYSER = REGISTRIES.register(
         "geyser",
         true,
         GeyserParticleOptions.DESERIALIZER,
         GeyserParticleOptions::codec
     );
-    public static final Supplier<ParticleType<GeyserBaseParticleOptions>> GEYSER_BASE = PARTICLES.register(
+    public static final Supplier<ParticleType<GeyserBaseParticleOptions>> GEYSER_BASE = REGISTRIES.register(
         "geyser_base",
         true,
         GeyserBaseParticleOptions.DESERIALIZER,
         GeyserBaseParticleOptions::codec
     );
-    public static final Supplier<ParticleType<GeyserBaseParticleOptions>> GEYSER_POOF = PARTICLES.register(
+    public static final Supplier<ParticleType<GeyserBaseParticleOptions>> GEYSER_POOF = REGISTRIES.register(
         "geyser_poof",
         true,
         GeyserBaseParticleOptions.DESERIALIZER,
         GeyserBaseParticleOptions::codec
     );
-    public static final Supplier<ParticleType<GeyserParticleOptions>> GEYSER_PLUME = PARTICLES.register(
+    public static final Supplier<ParticleType<GeyserParticleOptions>> GEYSER_PLUME = REGISTRIES.register(
         "geyser_plume",
         true,
         GeyserParticleOptions.DESERIALIZER,

@@ -1,8 +1,8 @@
 package com.blackgear.vanillabackport.core.mixin.common.blocks.entities;
 
-import com.blackgear.vanillabackport.common.api.block.RandomizableContainer;
-import com.blackgear.vanillabackport.common.api.block.entity.DecoratedPot;
-import com.blackgear.vanillabackport.common.level.blockentities.decoratedpot.WobbleStyle;
+import com.blackgear.vanillabackport.common.api.extensions.block.RandomizableContainer;
+import com.blackgear.vanillabackport.common.api.extensions.block.entity.DecoratedPot;
+import com.blackgear.vanillabackport.common.level.block_entity.decorated_pot.WobbleStyle;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;

@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.data.server.tags;
 
-import com.blackgear.vanillabackport.common.registries.ModPaintingVariants;
+import com.blackgear.vanillabackport.common.registries.items.ModPaintingVariants;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;

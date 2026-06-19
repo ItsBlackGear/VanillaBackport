@@ -1,7 +1,7 @@
 package com.blackgear.vanillabackport.client.level.particles.particleoptions;
 
 import com.blackgear.vanillabackport.core.util.codec.AdditionalCodecs;
-import com.blackgear.vanillabackport.core.util.ColorUtils;
+import com.blackgear.vanillabackport.core.util.Utilities.*;
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.serialization.Codec;

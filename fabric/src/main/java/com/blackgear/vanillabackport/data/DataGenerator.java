@@ -1,9 +1,9 @@
 package com.blackgear.vanillabackport.data;
 
-import com.blackgear.vanillabackport.common.registries.ModBiomes;
-import com.blackgear.vanillabackport.common.registries.ModDamageTypes;
-import com.blackgear.vanillabackport.common.registries.ModNoises;
-import com.blackgear.vanillabackport.common.registries.ModTrimMaterials;
+import com.blackgear.vanillabackport.common.registries.worldgen.ModBiomes;
+import com.blackgear.vanillabackport.common.registries.entities.ModDamageTypes;
+import com.blackgear.vanillabackport.common.registries.worldgen.ModNoises;
+import com.blackgear.vanillabackport.common.registries.items.ModTrimMaterials;
 import com.blackgear.vanillabackport.common.worldgen.features.ChaosCubedFeatures;
 import com.blackgear.vanillabackport.common.worldgen.features.SpringToLifeFeatures;
 import com.blackgear.vanillabackport.common.worldgen.features.TheGardenAwakensFeatures;
@@ -61,15 +61,15 @@ public class DataGenerator implements DataGeneratorEntrypoint {
 
     @Override
     public void buildRegistry(RegistrySetBuilder builder) {
-        builder.add(Registries.TRIM_MATERIAL, ModTrimMaterials::bootstrap);
-        builder.add(Registries.BIOME, ModBiomes::bootstrap);
-        builder.add(Registries.NOISE, ModNoises.NOISES::bootstrap);
+        builder.add(Registries.TRIM_MATERIAL, ModTrimMaterials.REGISTRIES::bootstrap);
+        builder.add(Registries.BIOME, ModBiomes.REGISTRIES::bootstrap);
+        builder.add(Registries.NOISE, ModNoises.REGISTRIES::bootstrap);
         builder.add(Registries.DAMAGE_TYPE, ModDamageTypes.REGISTRIES::bootstrap);
-        builder.add(Registries.CONFIGURED_FEATURE, SpringToLifeFeatures::bootstrap);
-        builder.add(Registries.CONFIGURED_FEATURE, TheGardenAwakensFeatures::bootstrap);
-        builder.add(Registries.CONFIGURED_FEATURE, ChaosCubedFeatures::bootstrap);
-        builder.add(Registries.PLACED_FEATURE, SpringToLifePlacements::bootstrap);
-        builder.add(Registries.PLACED_FEATURE, TheGardenAwakensPlacements::bootstrap);
-        builder.add(Registries.PLACED_FEATURE, ChaosCubedPlacements::bootstrap);
+        builder.add(Registries.CONFIGURED_FEATURE, TheGardenAwakensFeatures.REGISTRIES::bootstrap);
+        builder.add(Registries.CONFIGURED_FEATURE, SpringToLifeFeatures.REGISTRIES::bootstrap);
+        builder.add(Registries.CONFIGURED_FEATURE, ChaosCubedFeatures.REGISTRIES::bootstrap);
+        builder.add(Registries.PLACED_FEATURE, TheGardenAwakensPlacements.REGISTRIES::bootstrap);
+        builder.add(Registries.PLACED_FEATURE, SpringToLifePlacements.REGISTRIES::bootstrap);
+        builder.add(Registries.PLACED_FEATURE, ChaosCubedPlacements.REGISTRIES::bootstrap);
     }
 }

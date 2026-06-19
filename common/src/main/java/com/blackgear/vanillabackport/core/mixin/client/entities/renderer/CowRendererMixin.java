@@ -1,7 +1,7 @@
 package com.blackgear.vanillabackport.core.mixin.client.entities.renderer;
 
 import com.blackgear.vanillabackport.client.api.renderer.SpecialMobRenderer;
-import com.blackgear.vanillabackport.client.api.renderer.renderers.CowSpecialRenderer;
+import com.blackgear.vanillabackport.client.api.renderer.renderers.CowVariantRenderer;
 import com.blackgear.vanillabackport.client.api.renderer.RenderConditions;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.CowModel;
@@ -22,7 +22,7 @@ import java.util.function.Supplier;
 
 @Mixin(CowRenderer.class)
 public abstract class CowRendererMixin extends MobRendererMixin<Cow, CowModel<Cow>> {
-    @Unique private Optional<Supplier<CowSpecialRenderer>> renderer;
+    @Unique private Optional<Supplier<CowVariantRenderer>> renderer;
 
     public CowRendererMixin(EntityRendererProvider.Context context, CowModel<Cow> model, float shadowRadius) {
         super(context, model, shadowRadius);
@@ -30,7 +30,7 @@ public abstract class CowRendererMixin extends MobRendererMixin<Cow, CowModel<Co
 
     @Inject(method = "<init>", at = @At("TAIL"))
     private void onInit(EntityRendererProvider.Context context, CallbackInfo ci) {
-        this.renderer = SpecialMobRenderer.create(context, CowSpecialRenderer::new, RenderConditions.FARM_ANIMALS);
+        this.renderer = SpecialMobRenderer.create(context, CowVariantRenderer::new, RenderConditions.FARM_ANIMALS);
     }
 
     @Inject(

@@ -2,7 +2,6 @@ package com.blackgear.vanillabackport.core;
 
 import com.blackgear.platform.core.Environment;
 import com.blackgear.platform.core.ModInstance;
-import com.blackgear.platform.core.api.registrar.Registrar;
 import com.blackgear.platform.core.util.config.ConfigLoader;
 import com.blackgear.platform.core.util.config.ModConfig;
 import com.blackgear.vanillabackport.client.ClientConfig;
@@ -14,30 +13,33 @@ import com.blackgear.vanillabackport.client.registries.ModSoundTypes;
 import com.blackgear.vanillabackport.common.CommonConfig;
 import com.blackgear.vanillabackport.common.CommonSetup;
 import com.blackgear.vanillabackport.common.api.variant.spawn.SpawnConditions;
-import com.blackgear.vanillabackport.common.level.entities.animal.*;
-import com.blackgear.vanillabackport.common.level.entities.sulfurcube.SulfurCubeArchetypes;
-import com.blackgear.vanillabackport.common.level.entities.wolf.WolfVariants;
 import com.blackgear.vanillabackport.common.registries.*;
-import com.blackgear.vanillabackport.common.worldgen.features.ChaosCubedFeatures;
-import com.blackgear.vanillabackport.common.worldgen.features.SpringToLifeFeatures;
-import com.blackgear.vanillabackport.common.worldgen.features.TheGardenAwakensFeatures;
-import com.blackgear.vanillabackport.common.worldgen.placements.ChaosCubedPlacements;
-import com.blackgear.vanillabackport.common.worldgen.placements.SpringToLifePlacements;
-import com.blackgear.vanillabackport.common.worldgen.placements.TheGardenAwakensPlacements;
+import com.blackgear.vanillabackport.common.registries.blocks.ModBlockEntities;
+import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
+import com.blackgear.vanillabackport.common.registries.entities.*;
+import com.blackgear.vanillabackport.common.registries.items.ModItems;
+import com.blackgear.vanillabackport.common.registries.items.ModPaintingVariants;
+import com.blackgear.vanillabackport.common.registries.worldgen.*;
 import com.blackgear.vanillabackport.core.data.tags.*;
 import com.blackgear.vanillabackport.core.network.NetworkHandler;
-import com.blackgear.vanillabackport.core.registries.ModBuiltinRegistries;
 import com.mojang.logging.LogUtils;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import org.slf4j.Logger;
 
 public final class VanillaBackport {
     public static final String MOD_ID = "vanillabackport";
-    public static final String NAMESPACE = "minecraft";
     public static final Logger LOGGER = LogUtils.getLogger();
+    
+    /**
+     * [WARNING] for registering custom features, ALWAYS use your own ID instead.
+     * <br><p>
+     * This mod attempts to make responsible use of the vanilla namespace, but it's highly encouraged to avoid this.
+     */
+    public static final String NAMESPACE = "minecraft";
+    
     public static final ClientConfig CLIENT_CONFIG = Environment.registerConfig(MOD_ID, ModConfig.Type.CLIENT, ClientConfig::new);
     public static final CommonConfig COMMON_CONFIG = Environment.registerConfig(MOD_ID, ModConfig.Type.COMMON, CommonConfig::new);
+    
     public static final ModInstance INSTANCE = ModInstance.create(MOD_ID)
         .client(ClientSetup::setup)
         .postClient(ClientSetup::asyncSetup)
@@ -48,7 +50,6 @@ public final class VanillaBackport {
     public static void bootstrap() {
         INSTANCE.bootstrap();
         ConfigLoader.bootstrap();
-        NetworkHandler.bootstrap();
 
         ModCriteriaTriggers.bootstrap();
 
@@ -59,51 +60,34 @@ public final class VanillaBackport {
         ModEntityTypeTags.TAGS.register();
         ModDamageTypeTags.TAGS.register();
 
-        ModValueProviders.VALUE_PROVIDERS.register();
-        ModMaterialRules.MATERIALS.registrar();
-        ModMaterialConditions.MATERIALS.registrar();
+        ModValueProviders.REGISTRIES.register();
+        ModMaterialRules.REGISTRIES.registrar();
+        ModMaterialConditions.REGISTRIES.registrar();
 
-        ModParticles.PARTICLES.register();
+        ModAttributes.REGISTRIES.registrar();
+        ModParticles.REGISTRIES.register();
 
-        ModBlocks.BLOCKS.register();
-        ModItems.ITEMS.register();
-        ModBlockEntities.BLOCK_ENTITIES.register();
-        Registrar.bind(BuiltInRegistries.ENTITY_TYPE, ModEntityTypes::bootstrap);
-        ModMemoryModules.REGISTRAR.register();
-        ModSensorTypes.SENSOR_TYPES.register();
-
-        ModAttributes.ATTRIBUTES.registrar();
-        SulfurCubeArchetypes.REGISTRY.register();
-
-        ModSoundEvents.SOUNDS.register();
-        ModSoundTypes.SOUNDS.register();
+        ModBlocks.REGISTRIES.register();
+        ModItems.REGISTRIES.register();
+        ModBlockEntities.REGISTRIES.register();
+        ModEntityTypes.REGISTRIES.register();
+        ModMemoryModules.REGISTRIES.register();
+        ModSensorTypes.REGISTRIES.register();
+        
+        ModSoundEvents.REGISTRIES.register();
+        ModSoundTypes.REGISTRIES.register();
 
         ModRecipeSerializers.SERIALIZERS.register();
-
         ModCreativeTabs.TABS.register();
-        ModPaintingVariants.VARIANTS.register();
-        ModBuiltinRegistries.WOLF_SOUND_VARIANTS.register();
-        WolfVariants.REGISTRY.register();
-        CowVariants.REGISTRY.register();
-        ChickenVariants.REGISTRY.register();
-        PigVariants.REGISTRY.register();
-        FrogDataVariants.REGISTRY.register();
-        CatDataVariants.REGISTRY.register();
-        SpawnConditions.CONDITIONS.registrar();
+        ModPaintingVariants.REGISTRIES.register();
+        SpawnConditions.REGISTRIES.registrar();
 
-        ModBiomes.BIOMES.register();
-        ModFeatures.FEATURES.register();
-        ModTreeDecorators.DECORATORS.register();
-
-        SpringToLifeFeatures.FEATURES.register();
-        TheGardenAwakensFeatures.FEATURES.register();
-        ChaosCubedFeatures.FEATURES.register();
-
-        SpringToLifePlacements.FEATURES.register();
-        TheGardenAwakensPlacements.FEATURES.register();
-        ChaosCubedPlacements.FEATURES.register();
+        ModFeatures.REGISTRIES.register();
+        ModTreeDecorators.REGISTRIES.register();
 
         ModEntityDataSerializers.SERIALIZERS.register();
+        
+        NetworkHandler.bootstrap();
     }
 
     public static ResourceLocation resource(String path) {

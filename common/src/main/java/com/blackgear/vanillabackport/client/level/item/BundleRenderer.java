@@ -2,7 +2,7 @@ package com.blackgear.vanillabackport.client.level.item;
 
 import com.blackgear.platform.client.v2.render.ItemRendererRegistry;
 import com.blackgear.platform.core.util.event.ResultHolder;
-import com.blackgear.vanillabackport.common.registries.ModItems;
+import com.blackgear.vanillabackport.common.registries.items.ModItems;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.google.common.collect.ImmutableSet;
 import net.minecraft.client.renderer.ItemModelShaper;

@@ -1,6 +1,9 @@
 package com.blackgear.vanillabackport.data.client;
 
-import com.blackgear.vanillabackport.common.registries.*;
+import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
+import com.blackgear.vanillabackport.common.registries.entities.ModAttributes;
+import com.blackgear.vanillabackport.common.registries.entities.ModEntityTypes;
+import com.blackgear.vanillabackport.common.registries.items.ModItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 
@@ -64,9 +67,9 @@ public class LangGenerator extends FabricLanguageProvider {
         builder.add(ModItems.CREAKING_SPAWN_EGG.get(), "Creaking Spawn Egg");
 
         // Entities
-        builder.add(ModEntityTypes.CREAKING, "Creaking");
-        builder.add(ModEntityTypes.PALE_OAK_BOAT, "Pale Oak Boat");
-        builder.add(ModEntityTypes.PALE_OAK_CHEST_BOAT, "Pale Oak Boat with Chest");
+        builder.add(ModEntityTypes.CREAKING.get(), "Creaking");
+        builder.add(ModEntityTypes.PALE_OAK_BOAT.get(), "Pale Oak Boat");
+        builder.add(ModEntityTypes.PALE_OAK_CHEST_BOAT.get(), "Pale Oak Boat with Chest");
 
         // Trims
         builder.add("trim_material.minecraft.resin", "Resin Material");
@@ -131,7 +134,7 @@ public class LangGenerator extends FabricLanguageProvider {
         builder.add("painting.minecraft.dennis.author", "Sarah Boeving");
         builder.add("painting.minecraft.dennis.title", "Dennis");
 
-        builder.add(ModEntityTypes.HAPPY_GHAST, "Happy Ghast");
+        builder.add(ModEntityTypes.HAPPY_GHAST.get(), "Happy Ghast");
 
         builder.add("subtitles.block.dried_ghast.ambient", "Sounds of dryness");
         builder.add("subtitles.block.dried_ghast.ambient_water", "Dried Ghast rehydrates");
@@ -198,7 +201,7 @@ public class LangGenerator extends FabricLanguageProvider {
         builder.add(ModItems.ORANGE_BUNDLE.get(), "Orange Bundle");
 
         // Armored Paws
-        builder.add(ModEntityTypes.ARMADILLO, "Armadillo");
+        builder.add(ModEntityTypes.ARMADILLO.get(), "Armadillo");
 
         builder.add(ModItems.WOLF_ARMOR.get(), "Wolf Armor");
         builder.add(ModItems.ARMADILLO_SCUTE.get(), "Armadillo Scute");
@@ -261,7 +264,7 @@ public class LangGenerator extends FabricLanguageProvider {
         builder.add(ModBlocks.SULFUR_BRICK_WALL.get(), "Sulfur Brick Wall");
         builder.add(ModBlocks.CHISELED_SULFUR.get(), "Chiseled Sulfur");
 
-        builder.add(ModEntityTypes.SULFUR_CUBE, "Sulfur Cube");
+        builder.add(ModEntityTypes.SULFUR_CUBE.get(), "Sulfur Cube");
         builder.add("entity.minecraft.sulfur_cube.content", "Contains: %s");
         builder.add("entity.minecraft.sulfur_cube.explosion_disabled", "Sulfur Cube explosions are disabled");
 
@@ -326,5 +329,93 @@ public class LangGenerator extends FabricLanguageProvider {
         builder.add("bundled_tab.chase_the_skies.title", "Chase The Skies");
         builder.add("bundled_tab.hot_as_lava.title", "Hot as Lava");
         builder.add("bundled_tab.chaos_cubed.title", "Chaos Cubed");
+        
+        // Options
+        builder.add("options.music_frequency", "Music Frequency");
+        builder.add("options.music_frequency.constant", "Constant");
+        builder.add("options.music_frequency.default", "Default");
+        builder.add("options.music_frequency.frequent", "Frequent");
+        builder.add("options.music_frequency.tooltip", "Changes how frequently music plays while in a game world.");
+        
+        builder.add("options.musicToast", "Music Toast");
+        builder.add("options.musicToast.never", "Never");
+        builder.add("options.musicToast.never.tooltip", "No music toast is shown.");
+        builder.add("options.musicToast.pauseMenu", "Pause Menu");
+        builder.add("options.musicToast.pauseMenu.tooltip", "A music toast is constantly displayed in the in-game pause menu while a song is playing.");
+        builder.add("options.musicToast.pauseMenuAndToast", "Pause Menu and Toast");
+        builder.add("options.musicToast.pauseMenuAndToast.tooltip", "Displays a toast when a song starts playing. The same toast is constantly displayed in the in-game pause menu while a song is playing.");
+        
+        // Music
+        builder.add("music.game.a_familiar_room", "Aaron Cherof - A Familiar Room");
+        builder.add("music.game.an_ordinary_day", "Kumi Tanioka - An Ordinary Day");
+        builder.add("music.game.ancestry", "Lena Raine - Ancestry");
+        builder.add("music.game.below_and_above", "Amos Roddy - Below and Above");
+        builder.add("music.game.broken_clocks", "Amos Roddy - Broken Clocks");
+        builder.add("music.game.bromeliad", "Aaron Cherof - Bromeliad");
+        builder.add("music.game.calm2", "C418 - Clark");
+        builder.add("music.game.comforting_memories", "Kumi Tanioka - Comforting Memories");
+        builder.add("music.game.creative.creative4", "C418 - Aria Math");
+        builder.add("music.game.creative.creative1", "C418 - Biome Fest");
+        builder.add("music.game.creative.creative2", "C418 - Blind Spots");
+        builder.add("music.game.creative.creative5", "C418 - Dreiton");
+        builder.add("music.game.creative.creative3", "C418 - Haunt Muskie");
+        builder.add("music.game.creative.creative6", "C418 - Taswell");
+        builder.add("music.game.crescent_dunes", "Aaron Cherof - Crescent Dunes");
+        builder.add("music.game.hal4", "C418 - Danny");
+        builder.add("music.game.deeper", "Lena Raine - Deeper");
+        builder.add("music.game.dry_hands", "C418 - Dry Hands");
+        builder.add("music.game.ebb", "fingerspit - Ebb");
+        builder.add("music.game.echo_in_the_wind", "Aaron Cherof - Echo in the Wind");
+        builder.add("music.game.eld_unknown", "Lena Raine - Eld Unknown");
+        builder.add("music.game.end.credits", "C418 - Alpha");
+        builder.add("music.game.end.boss", "C418 - Boss");
+        builder.add("music.game.end.end", "C418 - The End");
+        builder.add("music.game.endless", "Lena Raine - Endless");
+        builder.add("music.game.featherfall", "Aaron Cherof - Featherfall");
+        builder.add("music.game.fireflies", "Amos Roddy - Fireflies");
+        builder.add("music.game.floating_dream", "Kumi Tanioka - Floating Dream");
+        builder.add("music.game.hal3", "C418 - Haggstrom");
+        builder.add("music.game.home", "fingerspit - Home");
+        builder.add("music.game.infinite_amethyst", "Lena Raine - Infinite Amethyst");
+        builder.add("music.game.nuance1", "C418 - Key");
+        builder.add("music.game.komorebi", "Kumi Tanioka - komorebi");
+        builder.add("music.game.left_to_bloom", "Lena Raine - Left to Bloom");
+        builder.add("music.game.lilypad", "Amos Roddy - Lilypad");
+        builder.add("music.game.hal2", "C418 - Living Mice");
+        builder.add("music.game.memories", "fingerspit - Memories");
+        builder.add("music.game.piano3", "C418 - Mice on Venus");
+        builder.add("music.game.calm1", "C418 - Minecraft");
+        builder.add("music.game.nether.nether4", "C418 - Ballad of the Cats");
+        builder.add("music.game.nether.nether1", "C418 - Concrete Halls");
+        builder.add("music.game.nether.crimson_forest.chrysopoeia", "Lena Raine - Chrysopoeia");
+        builder.add("music.game.nether.nether2", "C418 - Dead Voxel");
+        builder.add("music.game.nether.nether_wastes.rubedo", "Lena Raine - Rubedo");
+        builder.add("music.game.nether.soulsand_valley.so_below", "Lena Raine - So Below");
+        builder.add("music.game.nether.nether3", "C418 - Warmth");
+        builder.add("music.game.nightly", "fingerspit - Nightly");
+        builder.add("music.game.one_more_day", "Lena Raine - One More Day");
+        builder.add("music.game.os_piano", "Amos Roddy - O's Piano");
+        builder.add("music.game.nuance2", "C418 - Oxygène");
+        builder.add("music.game.pokopoko", "Kumi Tanioka - pokopoko");
+        builder.add("music.game.puzzlebox", "Aaron Cherof - Puzzlebox");
+        builder.add("music.game.shores", "fingerspit - Shores");
+        builder.add("music.game.stand_tall", "Lena Raine - Stand Tall");
+        builder.add("music.game.hal1", "C418 - Subwoofer Lullaby");
+        builder.add("music.game.swamp.aerie", "Lena Raine - Aerie");
+        builder.add("music.game.swamp.firebugs", "Lena Raine - Firebugs");
+        builder.add("music.game.swamp.labyrinthine", "Lena Raine - Labyrinthine");
+        builder.add("music.game.calm3", "C418 - Sweden");
+        builder.add("music.game.watcher", "Aaron Cherof - Watcher");
+        builder.add("music.game.water.axolotl", "C418 - Axolotl");
+        builder.add("music.game.water.dragon_fish", "C418 - Dragon Fish");
+        builder.add("music.game.water.shuniji", "C418 - Shuniji");
+        builder.add("music.game.wending", "Lena Raine - Wending");
+        builder.add("music.game.piano2", "C418 - Wet Hands");
+        builder.add("music.game.yakusoku", "Kumi Tanioka - yakusoku");
+        
+        builder.add("music.menu.menu3", "C418 - Beginning 2");
+        builder.add("music.menu.menu4", "C418 - Floating Trees");
+        builder.add("music.menu.menu2", "C418 - Moog City 2");
+        builder.add("music.menu.menu1", "C418 - Mutation");
     }
 }

@@ -1,7 +1,7 @@
 package com.blackgear.vanillabackport.client.level.particles;
 
 import com.blackgear.vanillabackport.client.level.particles.particleoptions.TrailParticleOption;
-import com.blackgear.vanillabackport.core.util.ColorUtils;
+import com.blackgear.vanillabackport.core.util.Utilities.*;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.multiplayer.ClientLevel;
