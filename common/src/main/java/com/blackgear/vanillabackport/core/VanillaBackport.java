@@ -86,6 +86,7 @@ public final class VanillaBackport {
         ModTreeDecorators.REGISTRIES.register();
 
         ModEntityDataSerializers.SERIALIZERS.register();
+        ModGameRules.bootstrap();
         
         NetworkHandler.bootstrap();
     }

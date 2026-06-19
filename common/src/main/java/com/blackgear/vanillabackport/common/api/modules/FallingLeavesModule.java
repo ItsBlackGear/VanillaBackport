@@ -1,4 +1,4 @@
-package com.blackgear.vanillabackport.common.api;
+package com.blackgear.vanillabackport.common.api.modules;
 
 import com.blackgear.vanillabackport.client.api.color.LeafColors;
 import com.blackgear.vanillabackport.client.level.particles.particleoptions.ColorParticleOption;

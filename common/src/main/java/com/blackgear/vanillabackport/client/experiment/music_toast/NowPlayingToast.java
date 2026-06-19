@@ -16,6 +16,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.item.DyeColor;
 import org.jetbrains.annotations.Nullable;
 
+//TODO: FLICKERING MAY STILL OCURR
 public class NowPlayingToast implements Toast {
     private static final ResourceLocation NOW_PLAYING_BACKGROUND_SPRITE = new ResourceLocation("textures/gui/toast/now_playing.png");
     private static final ResourceLocation MUSIC_NOTES_SPRITE = new ResourceLocation("textures/gui/icon/music_notes.png");
