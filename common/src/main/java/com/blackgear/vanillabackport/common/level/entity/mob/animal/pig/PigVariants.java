@@ -1,9 +1,9 @@
 package com.blackgear.vanillabackport.common.level.entity.mob.animal.pig;
 
 import com.blackgear.platform.core.BuiltInCoreRegistry;
-import com.blackgear.vanillabackport.common.api.variants.ModelAndTexture;
-import com.blackgear.vanillabackport.common.api.variants.spawn.SpawnPrioritySelectors;
-import com.blackgear.vanillabackport.common.api.variants.spawn.check.raw.RawBiomeCheck;
+import com.blackgear.vanillabackport.common.api.variant.ModelAndTexture;
+import com.blackgear.vanillabackport.common.api.variant.spawn.SpawnPrioritySelectors;
+import com.blackgear.vanillabackport.common.api.variant.spawn.check.raw.RawBiomeCheck;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.blackgear.vanillabackport.core.data.tags.ModBiomeTags;
 import com.blackgear.vanillabackport.core.registries.ModRegistries;

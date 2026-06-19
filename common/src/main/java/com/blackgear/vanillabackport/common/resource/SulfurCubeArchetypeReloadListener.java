@@ -1,8 +1,8 @@
 package com.blackgear.vanillabackport.common.resource;
 
 import com.blackgear.platform.common.resource.RegistryAwareJsonReloadListener;
-import com.blackgear.vanillabackport.common.level.entity.mob.monster.sulfurcube.SulfurCubeArchetype;
-import com.blackgear.vanillabackport.common.level.entity.mob.monster.sulfurcube.SulfurCubeArchetypes;
+import com.blackgear.vanillabackport.common.level.entity.mob.monster.sulfur_cube.SulfurCubeArchetype;
+import com.blackgear.vanillabackport.common.level.entity.mob.monster.sulfur_cube.SulfurCubeArchetypes;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

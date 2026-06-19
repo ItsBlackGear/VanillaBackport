@@ -6,65 +6,65 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.level.block.SoundType;
 
 public class ModSoundTypes {
-    public static final SoundRegistry SOUNDS = SoundRegistry.create(VanillaBackport.NAMESPACE);
+    public static final SoundRegistry REGISTRIES = SoundRegistry.create(VanillaBackport.NAMESPACE);
 
-    public static final SoundType CREAKING_HEART = SOUNDS.soundType(
+    public static final SoundType CREAKING_HEART = REGISTRIES.soundType(
         ModSoundEvents.CREAKING_HEART_BREAK,
         ModSoundEvents.CREAKING_HEART_STEP,
         ModSoundEvents.CREAKING_HEART_PLACE,
         ModSoundEvents.CREAKING_HEART_HIT,
         ModSoundEvents.CREAKING_HEART_FALL
     );
-    public static final SoundType RESIN = SOUNDS.soundType(
+    public static final SoundType RESIN = REGISTRIES.soundType(
         ModSoundEvents.RESIN_BREAK,
         ModSoundEvents.RESIN_STEP,
         ModSoundEvents.RESIN_PLACE,
         () -> SoundEvents.EMPTY,
         ModSoundEvents.RESIN_FALL
     );
-    public static final SoundType RESIN_BRICKS = SOUNDS.soundType(
+    public static final SoundType RESIN_BRICKS = REGISTRIES.soundType(
         ModSoundEvents.RESIN_BRICKS_BREAK,
         ModSoundEvents.RESIN_BRICKS_STEP,
         ModSoundEvents.RESIN_BRICKS_PLACE,
         ModSoundEvents.RESIN_BRICKS_HIT,
         ModSoundEvents.RESIN_BRICKS_FALL
     );
-    public static final SoundType DRIED_GHAST = SOUNDS.soundType(
+    public static final SoundType DRIED_GHAST = REGISTRIES.soundType(
         ModSoundEvents.DRIED_GHAST_BREAK,
         ModSoundEvents.DRIED_GHAST_STEP,
         () -> SoundEvents.EMPTY,
         () -> SoundEvents.EMPTY,
         ModSoundEvents.DRIED_GHAST_FALL
     );
-    public static final SoundType LEAF_LITTER = SOUNDS.soundType(
+    public static final SoundType LEAF_LITTER = REGISTRIES.soundType(
         ModSoundEvents.LEAF_LITTER_BREAK,
         ModSoundEvents.LEAF_LITTER_STEP,
         ModSoundEvents.LEAF_LITTER_PLACE,
         ModSoundEvents.LEAF_LITTER_HIT,
         ModSoundEvents.LEAF_LITTER_FALL
     );
-    public static final SoundType CACTUS_FLOWER = SOUNDS.soundType(
+    public static final SoundType CACTUS_FLOWER = REGISTRIES.soundType(
         ModSoundEvents.CACTUS_FLOWER_BREAK,
         () -> SoundEvents.EMPTY,
         ModSoundEvents.CACTUS_FLOWER_PLACE,
         () -> SoundEvents.EMPTY,
         () -> SoundEvents.EMPTY
     );
-    public static final SoundType CINNABAR = SOUNDS.soundType(
+    public static final SoundType CINNABAR = REGISTRIES.soundType(
         ModSoundEvents.CINNABAR_BREAK,
         ModSoundEvents.CINNABAR_STEP,
         ModSoundEvents.CINNABAR_PLACE,
         ModSoundEvents.CINNABAR_HIT,
         ModSoundEvents.CINNABAR_FALL
     );
-    public static final SoundType SULFUR = SOUNDS.soundType(
+    public static final SoundType SULFUR = REGISTRIES.soundType(
         ModSoundEvents.SULFUR_BREAK,
         ModSoundEvents.SULFUR_STEP,
         ModSoundEvents.SULFUR_PLACE,
         ModSoundEvents.SULFUR_HIT,
         ModSoundEvents.SULFUR_FALL
     );
-    public static final SoundType POTENT_SULFUR = SOUNDS.soundType(
+    public static final SoundType POTENT_SULFUR = REGISTRIES.soundType(
         ModSoundEvents.POTENT_SULFUR_BREAK,
         ModSoundEvents.POTENT_SULFUR_STEP,
         ModSoundEvents.POTENT_SULFUR_PLACE,

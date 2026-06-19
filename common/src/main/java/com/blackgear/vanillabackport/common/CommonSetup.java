@@ -5,13 +5,15 @@ import com.blackgear.platform.common.integration.BlockIntegration;
 import com.blackgear.platform.common.integration.MobIntegration;
 import com.blackgear.platform.common.integration.TradeIntegration;
 import com.blackgear.platform.common.worldgen.modifier.BiomeManager;
+import com.blackgear.platform.common.worldgen.placement.BiomePlacement;
 import com.blackgear.platform.core.ParallelDispatch;
 import com.blackgear.platform.core.events.ResourceReloadManager;
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
 import com.blackgear.vanillabackport.common.api.integration.LootIntegrations;
 import com.blackgear.vanillabackport.common.api.integration.interactions.GhastHarnessInteraction;
+import com.blackgear.vanillabackport.common.api.integration.worldgen.BiomeGeneration;
 import com.blackgear.vanillabackport.common.api.leash.LeashIntegration;
-import com.blackgear.vanillabackport.common.level.entity.mob.monster.sulfurcube.SulfurCube;
+import com.blackgear.vanillabackport.common.level.entity.mob.monster.sulfur_cube.SulfurCube;
 import com.blackgear.vanillabackport.common.resource.SulfurCubeArchetypeReloadListener;
 import com.blackgear.vanillabackport.common.resource.sound.WolfSoundVariantReloadListener;
 import com.blackgear.vanillabackport.common.api.integration.dispenser.PaleOakBoatDispenseBehavior;
@@ -61,6 +63,7 @@ public class CommonSetup {
     public static void asyncSetup(ParallelDispatch dispatch) {
         dispatch.enqueueWork(() -> {
             BiomeManager.add(WorldGeneration::bootstrap);
+            BiomePlacement.registerBiomePlacements(BiomeGeneration::bootstrap);
             BlockIntegration.registerIntegrations(CommonSetup::blockIntegrations);
             TradeIntegration.registerVillagerTrades(CommonSetup::tradeIntegrations);
             Parrot.MOB_SOUND_MAP.put(ModEntityTypes.CREAKING.get(), ModSoundEvents.PARROT_IMITATE_CREAKING.get());

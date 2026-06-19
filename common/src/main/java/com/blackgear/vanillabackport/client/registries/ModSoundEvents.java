@@ -9,168 +9,168 @@ import net.minecraft.sounds.SoundEvent;
 import java.util.function.Supplier;
 
 public class ModSoundEvents {
-    public static final SoundRegistry SOUNDS = SoundRegistry.create(VanillaBackport.NAMESPACE);
+    public static final SoundRegistry REGISTRIES = SoundRegistry.create(VanillaBackport.NAMESPACE);
 
     // BLOCKS
-    public static final Supplier<SoundEvent> EYEBLOSSOM_OPEN_LONG = SOUNDS.soundEvent("block.eyeblossom.open_long");
-    public static final Supplier<SoundEvent> EYEBLOSSOM_OPEN = SOUNDS.soundEvent("block.eyeblossom.open");
-    public static final Supplier<SoundEvent> EYEBLOSSOM_CLOSE_LONG = SOUNDS.soundEvent("block.eyeblossom.close_long");
-    public static final Supplier<SoundEvent> EYEBLOSSOM_CLOSE = SOUNDS.soundEvent("block.eyeblossom.close");
-    public static final Supplier<SoundEvent> EYEBLOSSOM_IDLE = SOUNDS.soundEvent("block.eyeblossom.idle");
+    public static final Supplier<SoundEvent> EYEBLOSSOM_OPEN_LONG = REGISTRIES.soundEvent("block.eyeblossom.open_long");
+    public static final Supplier<SoundEvent> EYEBLOSSOM_OPEN = REGISTRIES.soundEvent("block.eyeblossom.open");
+    public static final Supplier<SoundEvent> EYEBLOSSOM_CLOSE_LONG = REGISTRIES.soundEvent("block.eyeblossom.close_long");
+    public static final Supplier<SoundEvent> EYEBLOSSOM_CLOSE = REGISTRIES.soundEvent("block.eyeblossom.close");
+    public static final Supplier<SoundEvent> EYEBLOSSOM_IDLE = REGISTRIES.soundEvent("block.eyeblossom.idle");
 
-    public static final Supplier<SoundEvent> PALE_HANGING_MOSS_IDLE = SOUNDS.soundEvent("block.pale_hanging_moss.idle");
+    public static final Supplier<SoundEvent> PALE_HANGING_MOSS_IDLE = REGISTRIES.soundEvent("block.pale_hanging_moss.idle");
 
-    public static final Supplier<SoundEvent> CREAKING_HEART_BREAK = SOUNDS.soundEvent("block.creaking_heart.break");
-    public static final Supplier<SoundEvent> CREAKING_HEART_FALL = SOUNDS.soundEvent("block.creaking_heart.fall");
-    public static final Supplier<SoundEvent> CREAKING_HEART_HIT = SOUNDS.soundEvent("block.creaking_heart.hit");
-    public static final Supplier<SoundEvent> CREAKING_HEART_HURT = SOUNDS.soundEvent("block.creaking_heart.hurt");
-    public static final Supplier<SoundEvent> CREAKING_HEART_PLACE = SOUNDS.soundEvent("block.creaking_heart.place");
-    public static final Supplier<SoundEvent> CREAKING_HEART_STEP = SOUNDS.soundEvent("block.creaking_heart.step");
-    public static final Supplier<SoundEvent> CREAKING_HEART_IDLE = SOUNDS.soundEvent("block.creaking_heart.idle");
-    public static final Supplier<SoundEvent> CREAKING_HEART_SPAWN = SOUNDS.soundEvent("block.creaking_heart.spawn");
+    public static final Supplier<SoundEvent> CREAKING_HEART_BREAK = REGISTRIES.soundEvent("block.creaking_heart.break");
+    public static final Supplier<SoundEvent> CREAKING_HEART_FALL = REGISTRIES.soundEvent("block.creaking_heart.fall");
+    public static final Supplier<SoundEvent> CREAKING_HEART_HIT = REGISTRIES.soundEvent("block.creaking_heart.hit");
+    public static final Supplier<SoundEvent> CREAKING_HEART_HURT = REGISTRIES.soundEvent("block.creaking_heart.hurt");
+    public static final Supplier<SoundEvent> CREAKING_HEART_PLACE = REGISTRIES.soundEvent("block.creaking_heart.place");
+    public static final Supplier<SoundEvent> CREAKING_HEART_STEP = REGISTRIES.soundEvent("block.creaking_heart.step");
+    public static final Supplier<SoundEvent> CREAKING_HEART_IDLE = REGISTRIES.soundEvent("block.creaking_heart.idle");
+    public static final Supplier<SoundEvent> CREAKING_HEART_SPAWN = REGISTRIES.soundEvent("block.creaking_heart.spawn");
 
-    public static final Supplier<SoundEvent> RESIN_BREAK = SOUNDS.soundEvent("block.resin.break");
-    public static final Supplier<SoundEvent> RESIN_FALL = SOUNDS.soundEvent("block.resin.fall");
-    public static final Supplier<SoundEvent> RESIN_PLACE = SOUNDS.soundEvent("block.resin.place");
-    public static final Supplier<SoundEvent> RESIN_STEP = SOUNDS.soundEvent("block.resin.step");
+    public static final Supplier<SoundEvent> RESIN_BREAK = REGISTRIES.soundEvent("block.resin.break");
+    public static final Supplier<SoundEvent> RESIN_FALL = REGISTRIES.soundEvent("block.resin.fall");
+    public static final Supplier<SoundEvent> RESIN_PLACE = REGISTRIES.soundEvent("block.resin.place");
+    public static final Supplier<SoundEvent> RESIN_STEP = REGISTRIES.soundEvent("block.resin.step");
 
-    public static final Supplier<SoundEvent> RESIN_BRICKS_BREAK = SOUNDS.soundEvent("block.resin_bricks.break");
-    public static final Supplier<SoundEvent> RESIN_BRICKS_FALL = SOUNDS.soundEvent("block.resin_bricks.fall");
-    public static final Supplier<SoundEvent> RESIN_BRICKS_HIT = SOUNDS.soundEvent("block.resin_bricks.hit");
-    public static final Supplier<SoundEvent> RESIN_BRICKS_PLACE = SOUNDS.soundEvent("block.resin_bricks.place");
-    public static final Supplier<SoundEvent> RESIN_BRICKS_STEP = SOUNDS.soundEvent("block.resin_bricks.step");
+    public static final Supplier<SoundEvent> RESIN_BRICKS_BREAK = REGISTRIES.soundEvent("block.resin_bricks.break");
+    public static final Supplier<SoundEvent> RESIN_BRICKS_FALL = REGISTRIES.soundEvent("block.resin_bricks.fall");
+    public static final Supplier<SoundEvent> RESIN_BRICKS_HIT = REGISTRIES.soundEvent("block.resin_bricks.hit");
+    public static final Supplier<SoundEvent> RESIN_BRICKS_PLACE = REGISTRIES.soundEvent("block.resin_bricks.place");
+    public static final Supplier<SoundEvent> RESIN_BRICKS_STEP = REGISTRIES.soundEvent("block.resin_bricks.step");
 
-    public static final Supplier<SoundEvent> DRIED_GHAST_BREAK = SOUNDS.soundEvent("block.dried_ghast.break");
-    public static final Supplier<SoundEvent> DRIED_GHAST_STEP = SOUNDS.soundEvent("block.dried_ghast.step");
-    public static final Supplier<SoundEvent> DRIED_GHAST_FALL = SOUNDS.soundEvent("block.dried_ghast.fall");
-    public static final Supplier<SoundEvent> DRIED_GHAST_AMBIENT = SOUNDS.soundEvent("block.dried_ghast.ambient");
-    public static final Supplier<SoundEvent> DRIED_GHAST_AMBIENT_WATER = SOUNDS.soundEvent("block.dried_ghast.ambient_water");
-    public static final Supplier<SoundEvent> DRIED_GHAST_PLACE = SOUNDS.soundEvent("block.dried_ghast.place");
-    public static final Supplier<SoundEvent> DRIED_GHAST_PLACE_IN_WATER = SOUNDS.soundEvent("block.dried_ghast.place_in_water");
-    public static final Supplier<SoundEvent> DRIED_GHAST_TRANSITION = SOUNDS.soundEvent("block.dried_ghast.transition");
+    public static final Supplier<SoundEvent> DRIED_GHAST_BREAK = REGISTRIES.soundEvent("block.dried_ghast.break");
+    public static final Supplier<SoundEvent> DRIED_GHAST_STEP = REGISTRIES.soundEvent("block.dried_ghast.step");
+    public static final Supplier<SoundEvent> DRIED_GHAST_FALL = REGISTRIES.soundEvent("block.dried_ghast.fall");
+    public static final Supplier<SoundEvent> DRIED_GHAST_AMBIENT = REGISTRIES.soundEvent("block.dried_ghast.ambient");
+    public static final Supplier<SoundEvent> DRIED_GHAST_AMBIENT_WATER = REGISTRIES.soundEvent("block.dried_ghast.ambient_water");
+    public static final Supplier<SoundEvent> DRIED_GHAST_PLACE = REGISTRIES.soundEvent("block.dried_ghast.place");
+    public static final Supplier<SoundEvent> DRIED_GHAST_PLACE_IN_WATER = REGISTRIES.soundEvent("block.dried_ghast.place_in_water");
+    public static final Supplier<SoundEvent> DRIED_GHAST_TRANSITION = REGISTRIES.soundEvent("block.dried_ghast.transition");
 
-    public static final Supplier<SoundEvent> LEAF_LITTER_BREAK = SOUNDS.soundEvent("block.leaf_litter.break");
-    public static final Supplier<SoundEvent> LEAF_LITTER_STEP = SOUNDS.soundEvent("block.leaf_litter.step");
-    public static final Supplier<SoundEvent> LEAF_LITTER_PLACE = SOUNDS.soundEvent("block.leaf_litter.place");
-    public static final Supplier<SoundEvent> LEAF_LITTER_HIT = SOUNDS.soundEvent("block.leaf_litter.hit");
-    public static final Supplier<SoundEvent> LEAF_LITTER_FALL = SOUNDS.soundEvent("block.leaf_litter.fall");
+    public static final Supplier<SoundEvent> LEAF_LITTER_BREAK = REGISTRIES.soundEvent("block.leaf_litter.break");
+    public static final Supplier<SoundEvent> LEAF_LITTER_STEP = REGISTRIES.soundEvent("block.leaf_litter.step");
+    public static final Supplier<SoundEvent> LEAF_LITTER_PLACE = REGISTRIES.soundEvent("block.leaf_litter.place");
+    public static final Supplier<SoundEvent> LEAF_LITTER_HIT = REGISTRIES.soundEvent("block.leaf_litter.hit");
+    public static final Supplier<SoundEvent> LEAF_LITTER_FALL = REGISTRIES.soundEvent("block.leaf_litter.fall");
 
-    public static final Supplier<SoundEvent> CACTUS_FLOWER_BREAK = SOUNDS.soundEvent("block.cactus_flower.break");
-    public static final Supplier<SoundEvent> CACTUS_FLOWER_PLACE = SOUNDS.soundEvent("block.cactus_flower.place");
+    public static final Supplier<SoundEvent> CACTUS_FLOWER_BREAK = REGISTRIES.soundEvent("block.cactus_flower.break");
+    public static final Supplier<SoundEvent> CACTUS_FLOWER_PLACE = REGISTRIES.soundEvent("block.cactus_flower.place");
 
-    public static final Supplier<SoundEvent> FIREFLY_BUSH_IDLE = SOUNDS.soundEvent("block.firefly_bush.idle");
-    public static final Supplier<SoundEvent> SAND_IDLE = SOUNDS.soundEvent("block.sand.idle");
-    public static final Supplier<SoundEvent> DEAD_BUSH_IDLE = SOUNDS.soundEvent("block.deadbush.idle");
-    public static final Supplier<SoundEvent> DRY_GRASS = SOUNDS.soundEvent("block.dry_grass.ambient");
+    public static final Supplier<SoundEvent> FIREFLY_BUSH_IDLE = REGISTRIES.soundEvent("block.firefly_bush.idle");
+    public static final Supplier<SoundEvent> SAND_IDLE = REGISTRIES.soundEvent("block.sand.idle");
+    public static final Supplier<SoundEvent> DEAD_BUSH_IDLE = REGISTRIES.soundEvent("block.deadbush.idle");
+    public static final Supplier<SoundEvent> DRY_GRASS = REGISTRIES.soundEvent("block.dry_grass.ambient");
 
-    public static final Supplier<SoundEvent> SULFUR_BREAK = SOUNDS.soundEvent("block.sulfur.break");
-    public static final Supplier<SoundEvent> SULFUR_STEP = SOUNDS.soundEvent("block.sulfur.step");
-    public static final Supplier<SoundEvent> SULFUR_PLACE = SOUNDS.soundEvent("block.sulfur.place");
-    public static final Supplier<SoundEvent> SULFUR_HIT = SOUNDS.soundEvent("block.sulfur.hit");
-    public static final Supplier<SoundEvent> SULFUR_FALL = SOUNDS.soundEvent("block.sulfur.fall");
+    public static final Supplier<SoundEvent> SULFUR_BREAK = REGISTRIES.soundEvent("block.sulfur.break");
+    public static final Supplier<SoundEvent> SULFUR_STEP = REGISTRIES.soundEvent("block.sulfur.step");
+    public static final Supplier<SoundEvent> SULFUR_PLACE = REGISTRIES.soundEvent("block.sulfur.place");
+    public static final Supplier<SoundEvent> SULFUR_HIT = REGISTRIES.soundEvent("block.sulfur.hit");
+    public static final Supplier<SoundEvent> SULFUR_FALL = REGISTRIES.soundEvent("block.sulfur.fall");
 
-    public static final Supplier<SoundEvent> POTENT_SULFUR_BREAK = SOUNDS.soundEvent("block.potent_sulfur.break");
-    public static final Supplier<SoundEvent> POTENT_SULFUR_STEP = SOUNDS.soundEvent("block.potent_sulfur.step");
-    public static final Supplier<SoundEvent> POTENT_SULFUR_PLACE = SOUNDS.soundEvent("block.potent_sulfur.place");
-    public static final Supplier<SoundEvent> POTENT_SULFUR_HIT = SOUNDS.soundEvent("block.potent_sulfur.hit");
-    public static final Supplier<SoundEvent> POTENT_SULFUR_FALL = SOUNDS.soundEvent("block.potent_sulfur.fall");
+    public static final Supplier<SoundEvent> POTENT_SULFUR_BREAK = REGISTRIES.soundEvent("block.potent_sulfur.break");
+    public static final Supplier<SoundEvent> POTENT_SULFUR_STEP = REGISTRIES.soundEvent("block.potent_sulfur.step");
+    public static final Supplier<SoundEvent> POTENT_SULFUR_PLACE = REGISTRIES.soundEvent("block.potent_sulfur.place");
+    public static final Supplier<SoundEvent> POTENT_SULFUR_HIT = REGISTRIES.soundEvent("block.potent_sulfur.hit");
+    public static final Supplier<SoundEvent> POTENT_SULFUR_FALL = REGISTRIES.soundEvent("block.potent_sulfur.fall");
 
-    public static final Supplier<SoundEvent> CINNABAR_BREAK = SOUNDS.soundEvent("block.cinnabar.break");
-    public static final Supplier<SoundEvent> CINNABAR_STEP = SOUNDS.soundEvent("block.cinnabar.step");
-    public static final Supplier<SoundEvent> CINNABAR_PLACE = SOUNDS.soundEvent("block.cinnabar.place");
-    public static final Supplier<SoundEvent> CINNABAR_HIT = SOUNDS.soundEvent("block.cinnabar.hit");
-    public static final Supplier<SoundEvent> CINNABAR_FALL = SOUNDS.soundEvent("block.cinnabar.fall");
+    public static final Supplier<SoundEvent> CINNABAR_BREAK = REGISTRIES.soundEvent("block.cinnabar.break");
+    public static final Supplier<SoundEvent> CINNABAR_STEP = REGISTRIES.soundEvent("block.cinnabar.step");
+    public static final Supplier<SoundEvent> CINNABAR_PLACE = REGISTRIES.soundEvent("block.cinnabar.place");
+    public static final Supplier<SoundEvent> CINNABAR_HIT = REGISTRIES.soundEvent("block.cinnabar.hit");
+    public static final Supplier<SoundEvent> CINNABAR_FALL = REGISTRIES.soundEvent("block.cinnabar.fall");
 
-    public static final Supplier<SoundEvent> NOXIOUS_GAS = SOUNDS.soundEvent("block.potent_sulfur.noxious_gas");
-    public static final Supplier<SoundEvent> GEYSER_ERUPTION_START = SOUNDS.soundEvent("block.potent_sulfur.geyser_eruption");
-    public static final Supplier<SoundEvent> GEYSER_ERUPTION_ACTIVE = SOUNDS.soundEvent("block.potent_sulfur.geyser_eruption_active");
-    public static final Supplier<SoundEvent> GEYSER_CONTINUOUS_START = SOUNDS.soundEvent("block.potent_sulfur.geyser_continuous_eruption_start");
-    public static final Supplier<SoundEvent> GEYSER_CONTINUOUS_ACTIVE = SOUNDS.soundEvent("block.potent_sulfur.geyser_continuous_eruption_active");
+    public static final Supplier<SoundEvent> NOXIOUS_GAS = REGISTRIES.soundEvent("block.potent_sulfur.noxious_gas");
+    public static final Supplier<SoundEvent> GEYSER_ERUPTION_START = REGISTRIES.soundEvent("block.potent_sulfur.geyser_eruption");
+    public static final Supplier<SoundEvent> GEYSER_ERUPTION_ACTIVE = REGISTRIES.soundEvent("block.potent_sulfur.geyser_eruption_active");
+    public static final Supplier<SoundEvent> GEYSER_CONTINUOUS_START = REGISTRIES.soundEvent("block.potent_sulfur.geyser_continuous_eruption_start");
+    public static final Supplier<SoundEvent> GEYSER_CONTINUOUS_ACTIVE = REGISTRIES.soundEvent("block.potent_sulfur.geyser_continuous_eruption_active");
 
     // ITEMS
-    public static final Supplier<SoundEvent> BUNDLE_INSERT_FAIL = SOUNDS.soundEvent("item.bundle.insert_fail");
+    public static final Supplier<SoundEvent> BUNDLE_INSERT_FAIL = REGISTRIES.soundEvent("item.bundle.insert_fail");
 
-    public static final Supplier<SoundEvent> BUCKET_EMPTY_SULFUR_CUBE = SOUNDS.soundEvent("item.bucket.empty_sulfur_cube");
-    public static final Supplier<SoundEvent> BUCKET_FILL_SULFUR_CUBE = SOUNDS.soundEvent("item.bucket.fill_sulfur_cube");
+    public static final Supplier<SoundEvent> BUCKET_EMPTY_SULFUR_CUBE = REGISTRIES.soundEvent("item.bucket.empty_sulfur_cube");
+    public static final Supplier<SoundEvent> BUCKET_FILL_SULFUR_CUBE = REGISTRIES.soundEvent("item.bucket.fill_sulfur_cube");
 
     // ENTITIES
-    public static final Supplier<SoundEvent> CREAKING_AMBIENT = SOUNDS.soundEvent("entity.creaking.ambient");
-    public static final Supplier<SoundEvent> CREAKING_ACTIVATE = SOUNDS.soundEvent("entity.creaking.activate");
-    public static final Supplier<SoundEvent> CREAKING_DEACTIVATE = SOUNDS.soundEvent("entity.creaking.deactivate");
-    public static final Supplier<SoundEvent> CREAKING_ATTACK = SOUNDS.soundEvent("entity.creaking.attack");
-    public static final Supplier<SoundEvent> CREAKING_DEATH = SOUNDS.soundEvent("entity.creaking.death");
-    public static final Supplier<SoundEvent> CREAKING_STEP = SOUNDS.soundEvent("entity.creaking.step");
-    public static final Supplier<SoundEvent> CREAKING_FREEZE = SOUNDS.soundEvent("entity.creaking.freeze");
-    public static final Supplier<SoundEvent> CREAKING_UNFREEZE = SOUNDS.soundEvent("entity.creaking.unfreeze");
-    public static final Supplier<SoundEvent> CREAKING_SPAWN = SOUNDS.soundEvent("entity.creaking.spawn");
-    public static final Supplier<SoundEvent> CREAKING_SWAY = SOUNDS.soundEvent("entity.creaking.sway");
-    public static final Supplier<SoundEvent> CREAKING_TWITCH = SOUNDS.soundEvent("entity.creaking.twitch");
+    public static final Supplier<SoundEvent> CREAKING_AMBIENT = REGISTRIES.soundEvent("entity.creaking.ambient");
+    public static final Supplier<SoundEvent> CREAKING_ACTIVATE = REGISTRIES.soundEvent("entity.creaking.activate");
+    public static final Supplier<SoundEvent> CREAKING_DEACTIVATE = REGISTRIES.soundEvent("entity.creaking.deactivate");
+    public static final Supplier<SoundEvent> CREAKING_ATTACK = REGISTRIES.soundEvent("entity.creaking.attack");
+    public static final Supplier<SoundEvent> CREAKING_DEATH = REGISTRIES.soundEvent("entity.creaking.death");
+    public static final Supplier<SoundEvent> CREAKING_STEP = REGISTRIES.soundEvent("entity.creaking.step");
+    public static final Supplier<SoundEvent> CREAKING_FREEZE = REGISTRIES.soundEvent("entity.creaking.freeze");
+    public static final Supplier<SoundEvent> CREAKING_UNFREEZE = REGISTRIES.soundEvent("entity.creaking.unfreeze");
+    public static final Supplier<SoundEvent> CREAKING_SPAWN = REGISTRIES.soundEvent("entity.creaking.spawn");
+    public static final Supplier<SoundEvent> CREAKING_SWAY = REGISTRIES.soundEvent("entity.creaking.sway");
+    public static final Supplier<SoundEvent> CREAKING_TWITCH = REGISTRIES.soundEvent("entity.creaking.twitch");
 
-    public static final Supplier<SoundEvent> GHASTLING_AMBIENT = SOUNDS.soundEvent("entity.ghastling.ambient");
-    public static final Supplier<SoundEvent> GHASTLING_DEATH = SOUNDS.soundEvent("entity.ghastling.death");
-    public static final Supplier<SoundEvent> GHASTLING_HURT = SOUNDS.soundEvent("entity.ghastling.hurt");
-    public static final Supplier<SoundEvent> GHASTLING_SPAWN = SOUNDS.soundEvent("entity.ghastling.spawn");
+    public static final Supplier<SoundEvent> GHASTLING_AMBIENT = REGISTRIES.soundEvent("entity.ghastling.ambient");
+    public static final Supplier<SoundEvent> GHASTLING_DEATH = REGISTRIES.soundEvent("entity.ghastling.death");
+    public static final Supplier<SoundEvent> GHASTLING_HURT = REGISTRIES.soundEvent("entity.ghastling.hurt");
+    public static final Supplier<SoundEvent> GHASTLING_SPAWN = REGISTRIES.soundEvent("entity.ghastling.spawn");
 
-    public static final Supplier<SoundEvent> HAPPY_GHAST_AMBIENT = SOUNDS.soundEvent("entity.happy_ghast.ambient");
-    public static final Supplier<SoundEvent> HAPPY_GHAST_DEATH = SOUNDS.soundEvent("entity.happy_ghast.death");
-    public static final Supplier<SoundEvent> HAPPY_GHAST_HURT = SOUNDS.soundEvent("entity.happy_ghast.hurt");
-    public static final Supplier<SoundEvent> HAPPY_GHAST_RIDING = SOUNDS.soundEvent("entity.happy_ghast.riding");
+    public static final Supplier<SoundEvent> HAPPY_GHAST_AMBIENT = REGISTRIES.soundEvent("entity.happy_ghast.ambient");
+    public static final Supplier<SoundEvent> HAPPY_GHAST_DEATH = REGISTRIES.soundEvent("entity.happy_ghast.death");
+    public static final Supplier<SoundEvent> HAPPY_GHAST_HURT = REGISTRIES.soundEvent("entity.happy_ghast.hurt");
+    public static final Supplier<SoundEvent> HAPPY_GHAST_RIDING = REGISTRIES.soundEvent("entity.happy_ghast.riding");
 
-    public static final Supplier<SoundEvent> HARNESS_EQUIP = SOUNDS.soundEvent("entity.happy_ghast.equip");
-    public static final Supplier<SoundEvent> HARNESS_UNEQUIP = SOUNDS.soundEvent("entity.happy_ghast.unequip");
-    public static final Supplier<SoundEvent> HARNESS_GOGGLES_UP = SOUNDS.soundEvent("entity.happy_ghast.harness_goggles_up");
-    public static final Supplier<SoundEvent> HARNESS_GOGGLES_DOWN = SOUNDS.soundEvent("entity.happy_ghast.harness_goggles_down");
+    public static final Supplier<SoundEvent> HARNESS_EQUIP = REGISTRIES.soundEvent("entity.happy_ghast.equip");
+    public static final Supplier<SoundEvent> HARNESS_UNEQUIP = REGISTRIES.soundEvent("entity.happy_ghast.unequip");
+    public static final Supplier<SoundEvent> HARNESS_GOGGLES_UP = REGISTRIES.soundEvent("entity.happy_ghast.harness_goggles_up");
+    public static final Supplier<SoundEvent> HARNESS_GOGGLES_DOWN = REGISTRIES.soundEvent("entity.happy_ghast.harness_goggles_down");
 
-    public static final Supplier<SoundEvent> PARROT_IMITATE_CREAKING = SOUNDS.soundEvent("entity.parrot.imitate.creaking");
+    public static final Supplier<SoundEvent> PARROT_IMITATE_CREAKING = REGISTRIES.soundEvent("entity.parrot.imitate.creaking");
 
-    public static final Supplier<SoundEvent> WOLF_PUGLIN_AMBIENT = SOUNDS.soundEvent("entity.wolf_puglin.ambient");
-    public static final Supplier<SoundEvent> WOLF_PUGLIN_DEATH = SOUNDS.soundEvent("entity.wolf_puglin.death");
-    public static final Supplier<SoundEvent> WOLF_PUGLIN_GROWL = SOUNDS.soundEvent("entity.wolf_puglin.growl");
-    public static final Supplier<SoundEvent> WOLF_PUGLIN_HURT = SOUNDS.soundEvent("entity.wolf_puglin.hurt");
-    public static final Supplier<SoundEvent> WOLF_PUGLIN_PANT = SOUNDS.soundEvent("entity.wolf_puglin.pant");
-    public static final Supplier<SoundEvent> WOLF_PUGLIN_WHINE = SOUNDS.soundEvent("entity.wolf_puglin.whine");
+    public static final Supplier<SoundEvent> WOLF_PUGLIN_AMBIENT = REGISTRIES.soundEvent("entity.wolf_puglin.ambient");
+    public static final Supplier<SoundEvent> WOLF_PUGLIN_DEATH = REGISTRIES.soundEvent("entity.wolf_puglin.death");
+    public static final Supplier<SoundEvent> WOLF_PUGLIN_GROWL = REGISTRIES.soundEvent("entity.wolf_puglin.growl");
+    public static final Supplier<SoundEvent> WOLF_PUGLIN_HURT = REGISTRIES.soundEvent("entity.wolf_puglin.hurt");
+    public static final Supplier<SoundEvent> WOLF_PUGLIN_PANT = REGISTRIES.soundEvent("entity.wolf_puglin.pant");
+    public static final Supplier<SoundEvent> WOLF_PUGLIN_WHINE = REGISTRIES.soundEvent("entity.wolf_puglin.whine");
 
-    public static final Supplier<SoundEvent> WOLF_SAD_AMBIENT = SOUNDS.soundEvent("entity.wolf_sad.ambient");
-    public static final Supplier<SoundEvent> WOLF_SAD_DEATH = SOUNDS.soundEvent("entity.wolf_sad.death");
-    public static final Supplier<SoundEvent> WOLF_SAD_GROWL = SOUNDS.soundEvent("entity.wolf_sad.growl");
-    public static final Supplier<SoundEvent> WOLF_SAD_HURT = SOUNDS.soundEvent("entity.wolf_sad.hurt");
-    public static final Supplier<SoundEvent> WOLF_SAD_PANT = SOUNDS.soundEvent("entity.wolf_sad.pant");
-    public static final Supplier<SoundEvent> WOLF_SAD_WHINE = SOUNDS.soundEvent("entity.wolf_sad.whine");
+    public static final Supplier<SoundEvent> WOLF_SAD_AMBIENT = REGISTRIES.soundEvent("entity.wolf_sad.ambient");
+    public static final Supplier<SoundEvent> WOLF_SAD_DEATH = REGISTRIES.soundEvent("entity.wolf_sad.death");
+    public static final Supplier<SoundEvent> WOLF_SAD_GROWL = REGISTRIES.soundEvent("entity.wolf_sad.growl");
+    public static final Supplier<SoundEvent> WOLF_SAD_HURT = REGISTRIES.soundEvent("entity.wolf_sad.hurt");
+    public static final Supplier<SoundEvent> WOLF_SAD_PANT = REGISTRIES.soundEvent("entity.wolf_sad.pant");
+    public static final Supplier<SoundEvent> WOLF_SAD_WHINE = REGISTRIES.soundEvent("entity.wolf_sad.whine");
 
-    public static final Supplier<SoundEvent> WOLF_ANGRY_AMBIENT = SOUNDS.soundEvent("entity.wolf_angry.ambient");
-    public static final Supplier<SoundEvent> WOLF_ANGRY_DEATH = SOUNDS.soundEvent("entity.wolf_angry.death");
-    public static final Supplier<SoundEvent> WOLF_ANGRY_GROWL = SOUNDS.soundEvent("entity.wolf_angry.growl");
-    public static final Supplier<SoundEvent> WOLF_ANGRY_HURT = SOUNDS.soundEvent("entity.wolf_angry.hurt");
-    public static final Supplier<SoundEvent> WOLF_ANGRY_PANT = SOUNDS.soundEvent("entity.wolf_angry.pant");
-    public static final Supplier<SoundEvent> WOLF_ANGRY_WHINE = SOUNDS.soundEvent("entity.wolf_angry.whine");
+    public static final Supplier<SoundEvent> WOLF_ANGRY_AMBIENT = REGISTRIES.soundEvent("entity.wolf_angry.ambient");
+    public static final Supplier<SoundEvent> WOLF_ANGRY_DEATH = REGISTRIES.soundEvent("entity.wolf_angry.death");
+    public static final Supplier<SoundEvent> WOLF_ANGRY_GROWL = REGISTRIES.soundEvent("entity.wolf_angry.growl");
+    public static final Supplier<SoundEvent> WOLF_ANGRY_HURT = REGISTRIES.soundEvent("entity.wolf_angry.hurt");
+    public static final Supplier<SoundEvent> WOLF_ANGRY_PANT = REGISTRIES.soundEvent("entity.wolf_angry.pant");
+    public static final Supplier<SoundEvent> WOLF_ANGRY_WHINE = REGISTRIES.soundEvent("entity.wolf_angry.whine");
 
-    public static final Supplier<SoundEvent> WOLF_GRUMPY_AMBIENT = SOUNDS.soundEvent("entity.wolf_grumpy.ambient");
-    public static final Supplier<SoundEvent> WOLF_GRUMPY_DEATH = SOUNDS.soundEvent("entity.wolf_grumpy.death");
-    public static final Supplier<SoundEvent> WOLF_GRUMPY_GROWL = SOUNDS.soundEvent("entity.wolf_grumpy.growl");
-    public static final Supplier<SoundEvent> WOLF_GRUMPY_HURT = SOUNDS.soundEvent("entity.wolf_grumpy.hurt");
-    public static final Supplier<SoundEvent> WOLF_GRUMPY_PANT = SOUNDS.soundEvent("entity.wolf_grumpy.pant");
-    public static final Supplier<SoundEvent> WOLF_GRUMPY_WHINE = SOUNDS.soundEvent("entity.wolf_grumpy.whine");
+    public static final Supplier<SoundEvent> WOLF_GRUMPY_AMBIENT = REGISTRIES.soundEvent("entity.wolf_grumpy.ambient");
+    public static final Supplier<SoundEvent> WOLF_GRUMPY_DEATH = REGISTRIES.soundEvent("entity.wolf_grumpy.death");
+    public static final Supplier<SoundEvent> WOLF_GRUMPY_GROWL = REGISTRIES.soundEvent("entity.wolf_grumpy.growl");
+    public static final Supplier<SoundEvent> WOLF_GRUMPY_HURT = REGISTRIES.soundEvent("entity.wolf_grumpy.hurt");
+    public static final Supplier<SoundEvent> WOLF_GRUMPY_PANT = REGISTRIES.soundEvent("entity.wolf_grumpy.pant");
+    public static final Supplier<SoundEvent> WOLF_GRUMPY_WHINE = REGISTRIES.soundEvent("entity.wolf_grumpy.whine");
 
-    public static final Supplier<SoundEvent> WOLF_BIG_AMBIENT = SOUNDS.soundEvent("entity.wolf_big.ambient");
-    public static final Supplier<SoundEvent> WOLF_BIG_DEATH = SOUNDS.soundEvent("entity.wolf_big.death");
-    public static final Supplier<SoundEvent> WOLF_BIG_GROWL = SOUNDS.soundEvent("entity.wolf_big.growl");
-    public static final Supplier<SoundEvent> WOLF_BIG_HURT = SOUNDS.soundEvent("entity.wolf_big.hurt");
-    public static final Supplier<SoundEvent> WOLF_BIG_PANT = SOUNDS.soundEvent("entity.wolf_big.pant");
-    public static final Supplier<SoundEvent> WOLF_BIG_WHINE = SOUNDS.soundEvent("entity.wolf_big.whine");
+    public static final Supplier<SoundEvent> WOLF_BIG_AMBIENT = REGISTRIES.soundEvent("entity.wolf_big.ambient");
+    public static final Supplier<SoundEvent> WOLF_BIG_DEATH = REGISTRIES.soundEvent("entity.wolf_big.death");
+    public static final Supplier<SoundEvent> WOLF_BIG_GROWL = REGISTRIES.soundEvent("entity.wolf_big.growl");
+    public static final Supplier<SoundEvent> WOLF_BIG_HURT = REGISTRIES.soundEvent("entity.wolf_big.hurt");
+    public static final Supplier<SoundEvent> WOLF_BIG_PANT = REGISTRIES.soundEvent("entity.wolf_big.pant");
+    public static final Supplier<SoundEvent> WOLF_BIG_WHINE = REGISTRIES.soundEvent("entity.wolf_big.whine");
 
-    public static final Supplier<SoundEvent> WOLF_CUTE_AMBIENT = SOUNDS.soundEvent("entity.wolf_cute.ambient");
-    public static final Supplier<SoundEvent> WOLF_CUTE_DEATH = SOUNDS.soundEvent("entity.wolf_cute.death");
-    public static final Supplier<SoundEvent> WOLF_CUTE_GROWL = SOUNDS.soundEvent("entity.wolf_cute.growl");
-    public static final Supplier<SoundEvent> WOLF_CUTE_HURT = SOUNDS.soundEvent("entity.wolf_cute.hurt");
-    public static final Supplier<SoundEvent> WOLF_CUTE_PANT = SOUNDS.soundEvent("entity.wolf_cute.pant");
-    public static final Supplier<SoundEvent> WOLF_CUTE_WHINE = SOUNDS.soundEvent("entity.wolf_cute.whine");
+    public static final Supplier<SoundEvent> WOLF_CUTE_AMBIENT = REGISTRIES.soundEvent("entity.wolf_cute.ambient");
+    public static final Supplier<SoundEvent> WOLF_CUTE_DEATH = REGISTRIES.soundEvent("entity.wolf_cute.death");
+    public static final Supplier<SoundEvent> WOLF_CUTE_GROWL = REGISTRIES.soundEvent("entity.wolf_cute.growl");
+    public static final Supplier<SoundEvent> WOLF_CUTE_HURT = REGISTRIES.soundEvent("entity.wolf_cute.hurt");
+    public static final Supplier<SoundEvent> WOLF_CUTE_PANT = REGISTRIES.soundEvent("entity.wolf_cute.pant");
+    public static final Supplier<SoundEvent> WOLF_CUTE_WHINE = REGISTRIES.soundEvent("entity.wolf_cute.whine");
 
-    public static final Supplier<SoundEvent> SULFUR_CUBE_ABSORB = SOUNDS.soundEvent("entity.sulfur_cube.absorb");
-    public static final Supplier<SoundEvent> SULFUR_CUBE_BOUNCE = SOUNDS.soundEvent("entity.sulfur_cube.bounce");
-    public static final Supplier<SoundEvent> SULFUR_CUBE_DEATH = SOUNDS.soundEvent("entity.sulfur_cube.death");
-    public static final Supplier<SoundEvent> SULFUR_CUBE_EJECT = SOUNDS.soundEvent("entity.sulfur_cube.eject");
-    public static final Supplier<SoundEvent> SULFUR_CUBE_HURT = SOUNDS.soundEvent("entity.sulfur_cube.hurt");
-    public static final Supplier<SoundEvent> SULFUR_CUBE_JUMP = SOUNDS.soundEvent("entity.sulfur_cube.jump");
+    public static final Supplier<SoundEvent> SULFUR_CUBE_ABSORB = REGISTRIES.soundEvent("entity.sulfur_cube.absorb");
+    public static final Supplier<SoundEvent> SULFUR_CUBE_BOUNCE = REGISTRIES.soundEvent("entity.sulfur_cube.bounce");
+    public static final Supplier<SoundEvent> SULFUR_CUBE_DEATH = REGISTRIES.soundEvent("entity.sulfur_cube.death");
+    public static final Supplier<SoundEvent> SULFUR_CUBE_EJECT = REGISTRIES.soundEvent("entity.sulfur_cube.eject");
+    public static final Supplier<SoundEvent> SULFUR_CUBE_HURT = REGISTRIES.soundEvent("entity.sulfur_cube.hurt");
+    public static final Supplier<SoundEvent> SULFUR_CUBE_JUMP = REGISTRIES.soundEvent("entity.sulfur_cube.jump");
 
     public static final Holder<SoundEvent> SULFUR_CUBE_REGULAR_HIT = registerForHolder("entity.sulfur_cube.regular.hit");
     public static final Holder<SoundEvent> SULFUR_CUBE_REGULAR_PUSH = registerForHolder("entity.sulfur_cube.regular.push");
@@ -197,13 +197,13 @@ public class ModSoundEvents {
     public static final Holder<SoundEvent> SULFUR_CUBE_HOT_HIT = registerForHolder("entity.sulfur_cube.hot.hit");
     public static final Holder<SoundEvent> SULFUR_CUBE_HOT_PUSH = registerForHolder("entity.sulfur_cube.hot.push");
 
-    public static final Supplier<SoundEvent> SULFUR_CUBE_SQUISH = SOUNDS.soundEvent("entity.sulfur_cube.squish");
+    public static final Supplier<SoundEvent> SULFUR_CUBE_SQUISH = REGISTRIES.soundEvent("entity.sulfur_cube.squish");
 
-    public static final Supplier<SoundEvent> SULFUR_CUBE_SMALL_DEATH = SOUNDS.soundEvent("entity.small_sulfur_cube.death");
-    public static final Supplier<SoundEvent> SULFUR_CUBE_SMALL_HURT = SOUNDS.soundEvent("entity.small_sulfur_cube.hurt");
-    public static final Supplier<SoundEvent> SULFUR_CUBE_SMALL_JUMP = SOUNDS.soundEvent("entity.small_sulfur_cube.jump");
-    public static final Supplier<SoundEvent> SULFUR_CUBE_SMALL_SQUISH = SOUNDS.soundEvent("entity.small_sulfur_cube.squish");
-    public static final Supplier<SoundEvent> SULFUR_CUBE_SMALL_EAT = SOUNDS.soundEvent("entity.small_sulfur_cube.eat");
+    public static final Supplier<SoundEvent> SULFUR_CUBE_SMALL_DEATH = REGISTRIES.soundEvent("entity.small_sulfur_cube.death");
+    public static final Supplier<SoundEvent> SULFUR_CUBE_SMALL_HURT = REGISTRIES.soundEvent("entity.small_sulfur_cube.hurt");
+    public static final Supplier<SoundEvent> SULFUR_CUBE_SMALL_JUMP = REGISTRIES.soundEvent("entity.small_sulfur_cube.jump");
+    public static final Supplier<SoundEvent> SULFUR_CUBE_SMALL_SQUISH = REGISTRIES.soundEvent("entity.small_sulfur_cube.squish");
+    public static final Supplier<SoundEvent> SULFUR_CUBE_SMALL_EAT = REGISTRIES.soundEvent("entity.small_sulfur_cube.eat");
 
     public static final Holder<SoundEvent> MUSIC_BIOME_SULFUR_CAVES = registerForHolder("music.overworld.sulfur_caves");
 
@@ -213,6 +213,6 @@ public class ModSoundEvents {
     public static final Holder<SoundEvent> MUSIC_DISC_BOUNCE = registerForHolder("music_disc.bounce");
 
     private static Holder<SoundEvent> registerForHolder(String id) {
-        return SOUNDS.registry().holder(id, () -> SoundEvent.createVariableRangeEvent(ResourceLocation.withDefaultNamespace(id)));
+        return REGISTRIES.registry().holder(id, () -> SoundEvent.createVariableRangeEvent(ResourceLocation.withDefaultNamespace(id)));
     }
 }

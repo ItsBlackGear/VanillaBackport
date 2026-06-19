@@ -1,10 +1,10 @@
 package com.blackgear.vanillabackport.common.level.entity.mob.animal.cat;
 
-import com.blackgear.vanillabackport.common.api.variants.ClientAsset;
-import com.blackgear.vanillabackport.common.api.variants.spawn.PriorityProvider;
-import com.blackgear.vanillabackport.common.api.variants.spawn.SpawnCondition;
-import com.blackgear.vanillabackport.common.api.variants.spawn.SpawnContext;
-import com.blackgear.vanillabackport.common.api.variants.spawn.SpawnPrioritySelectors;
+import com.blackgear.vanillabackport.common.api.variant.ClientAsset;
+import com.blackgear.vanillabackport.common.api.variant.spawn.PriorityProvider;
+import com.blackgear.vanillabackport.common.api.variant.spawn.SpawnCondition;
+import com.blackgear.vanillabackport.common.api.variant.spawn.SpawnContext;
+import com.blackgear.vanillabackport.common.api.variant.spawn.SpawnPrioritySelectors;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 

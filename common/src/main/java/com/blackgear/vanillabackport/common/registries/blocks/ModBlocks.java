@@ -5,12 +5,11 @@ import com.blackgear.vanillabackport.client.registries.ModParticles;
 import com.blackgear.vanillabackport.client.registries.ModSoundTypes;
 import com.blackgear.vanillabackport.common.level.block.*;
 import com.blackgear.vanillabackport.common.level.block.properties.SharedBlockProperties;
-import com.blackgear.vanillabackport.common.worldgen.features.TheGardenAwakensFeatures;
+import com.blackgear.vanillabackport.common.registries.worldgen.ModTreeGrowers;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.grower.TreeGrower;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
@@ -18,7 +17,6 @@ import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 
-import java.util.Optional;
 import java.util.function.Supplier;
 
 public class ModBlocks {
@@ -156,7 +154,7 @@ public class ModBlocks {
             .isRedstoneConductor(REGISTRIES::never));
     
     public static final Supplier<Block> PALE_OAK_SAPLING = REGISTRIES.register("pale_oak_sapling",
-        properties -> new SaplingBlock(new TreeGrower("pale_oak", Optional.of(TheGardenAwakensFeatures.PALE_OAK_BONEMEAL), Optional.empty(), Optional.empty()), properties),
+        properties -> new SaplingBlock(ModTreeGrowers.PALE_OAK_TREE, properties),
         Properties.of()
             .mapColor(MapColor.COLOR_LIGHT_GRAY)
             .noCollission()

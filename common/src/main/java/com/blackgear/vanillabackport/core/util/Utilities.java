@@ -30,9 +30,6 @@ import java.util.List;
 import java.util.Optional;
 
 import static net.minecraft.util.FastColor.ARGB32.*;
-import static net.minecraft.util.FastColor.ARGB32.blue;
-import static net.minecraft.util.FastColor.ARGB32.color;
-import static net.minecraft.util.FastColor.ARGB32.green;
 
 public class Utilities {
     public static class MthUtils {
@@ -53,10 +50,6 @@ public class Utilities {
         
         public static byte packDegrees(float angle) {
             return (byte) Mth.floor(angle * 256.0F / 360.0F);
-        }
-        
-        public static float unpackDegrees(byte rot) {
-            return rot * 360 / 256.0F;
         }
     }
     
@@ -507,6 +500,14 @@ public class Utilities {
     }
     
     public static class ColorUtils {
+        public static int srgbLerp(float alpha, int p0, int p1) {
+            int a = Mth.lerpInt(alpha, alpha(p0), alpha(p1));
+            int red = Mth.lerpInt(alpha, red(p0), red(p1));
+            int green = Mth.lerpInt(alpha, green(p0), green(p1));
+            int blue = Mth.lerpInt(alpha, blue(p0), blue(p1));
+            return color(a, red, green, blue);
+        }
+        
         public static int scaleRGB(int color, float red, float green, float blue) {
             return color(
                 alpha(color),

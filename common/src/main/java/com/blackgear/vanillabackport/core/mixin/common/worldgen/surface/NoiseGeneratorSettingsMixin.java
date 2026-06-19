@@ -1,6 +1,7 @@
 package com.blackgear.vanillabackport.core.mixin.common.worldgen.surface;
 
 import com.blackgear.vanillabackport.common.worldgen.surface.ModSurfaceRuleData;
+import com.blackgear.vanillabackport.core.ModChecker;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
@@ -19,7 +20,7 @@ public class NoiseGeneratorSettingsMixin {
 
     @Inject(method = "<init>", at = @At("TAIL"))
     private void vb$injectSurfaceRules(CallbackInfo ci) {
-        if (this.vb$appliedRules) return;
+        if (this.vb$appliedRules || ModChecker.TERRABLENDER) return;
 
         if (vb$canLoad()) {
             this.surfaceRule = SurfaceRules.sequence(ModSurfaceRuleData.makeRules(), this.surfaceRule);

@@ -1,7 +1,7 @@
 package com.blackgear.vanillabackport.core.mixin.common.entities;
 
-import com.blackgear.vanillabackport.common.api.extensions.entities.TravelAwareEntity;
-import com.blackgear.vanillabackport.common.api.extensions.entities.MotionAwareEntity;
+import com.blackgear.vanillabackport.common.api.extensions.entity.TravelAwareEntity;
+import com.blackgear.vanillabackport.common.api.extensions.entity.MotionAwareEntity;
 import com.blackgear.vanillabackport.common.api.leash.LeashableCallback;
 import com.blackgear.vanillabackport.common.registries.entities.ModAttributes;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;

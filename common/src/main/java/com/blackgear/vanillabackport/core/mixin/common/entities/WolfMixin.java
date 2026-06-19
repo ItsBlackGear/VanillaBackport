@@ -1,8 +1,8 @@
 package com.blackgear.vanillabackport.core.mixin.common.entities;
 
-import com.blackgear.vanillabackport.common.api.variants.VariantDataHolder;
-import com.blackgear.vanillabackport.common.api.variants.VariantUtils;
-import com.blackgear.vanillabackport.common.api.variants.spawn.SpawnContext;
+import com.blackgear.vanillabackport.common.api.variant.VariantDataHolder;
+import com.blackgear.vanillabackport.common.api.variant.VariantUtils;
+import com.blackgear.vanillabackport.common.api.variant.spawn.SpawnContext;
 import com.blackgear.vanillabackport.common.api.sound.WolfSoundVariant;
 import com.blackgear.vanillabackport.common.api.sound.WolfSoundVariantHolder;
 import com.blackgear.vanillabackport.common.api.sound.WolfSoundVariants;

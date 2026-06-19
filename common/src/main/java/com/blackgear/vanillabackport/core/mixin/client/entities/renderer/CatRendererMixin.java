@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.core.mixin.client.entities.renderer;
 
-import com.blackgear.vanillabackport.common.api.variants.VariantDataHolder;
+import com.blackgear.vanillabackport.common.api.variant.VariantDataHolder;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.cat.CatDataVariant;
 import net.minecraft.client.model.CatModel;
 import net.minecraft.client.renderer.entity.CatRenderer;

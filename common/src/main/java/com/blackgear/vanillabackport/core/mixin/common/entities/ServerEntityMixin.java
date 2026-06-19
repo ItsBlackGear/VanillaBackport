@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.core.mixin.common.entities;
 
-import com.blackgear.vanillabackport.common.api.extensions.entities.PositionAwareEntity;
+import com.blackgear.vanillabackport.common.api.extensions.entity.PositionAwareEntity;
 import com.blackgear.vanillabackport.core.util.Utilities.MthUtils;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.*;
