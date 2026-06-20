@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.core.mixin.common.blocks;
 
-import com.blackgear.vanillabackport.common.api.FallingLeavesModule;
+import com.blackgear.vanillabackport.common.api.modules.FallingLeavesModule;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.core.BlockPos;
