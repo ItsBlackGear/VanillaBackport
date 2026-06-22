@@ -6,10 +6,15 @@ import com.blackgear.platform.common.block.WoodTypeRegistry;
 import com.blackgear.platform.core.ParallelDispatch;
 import com.blackgear.platform.core.events.ResourcePackManager;
 import com.blackgear.platform.core.events.ResourceReloadManager;
-import com.blackgear.vanillabackport.client.api.bundle.BundleMouseActions;
-import com.blackgear.vanillabackport.client.api.tabs.BundledTabSelector;
-import com.blackgear.vanillabackport.client.resources.color.DryFoliageColorReloadListener;
-import com.blackgear.vanillabackport.client.resources.color.LeafColorReloadListener;
+import com.blackgear.vanillabackport.client.api.modules.bundle_ui.BundleMouseActions;
+import com.blackgear.vanillabackport.client.api.bundled_tabs.BundledTabSelector;
+import com.blackgear.vanillabackport.client.api.modules.leaf_litter.DryFoliageColorReloadListener;
+import com.blackgear.vanillabackport.client.api.modules.falling_leaves.LeafColorReloadListener;
+import com.blackgear.vanillabackport.client.integrations.ItemPropertyIntegrations;
+import com.blackgear.vanillabackport.client.integrations.rendering.ColorRendering;
+import com.blackgear.vanillabackport.client.integrations.rendering.EntityRendering;
+import com.blackgear.vanillabackport.client.integrations.rendering.ItemLikeRendering;
+import com.blackgear.vanillabackport.client.integrations.rendering.ParticleRendering;
 import com.blackgear.vanillabackport.common.registries.blocks.ModWoodTypes;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.resources.ResourceLocation;
@@ -23,22 +28,22 @@ public class ClientSetup {
             event.register(new ResourceLocation("dry_foliage"), DryFoliageColorReloadListener.INSTANCE);
             event.register(new ResourceLocation("leaf_colors"), LeafColorReloadListener.INSTANCE);
         });
-
-        GameRendering.registerModelLayers(Rendering::modelLayers);
-        GameRendering.registerParticleFactories(Rendering::particleFactories);
-        GameRendering.registerBlockColors(Rendering::blockColors);
-        GameRendering.registerItemColors(Rendering::itemColors);
-        GameRendering.registerEntityRenderers(Rendering::entityRendering);
-        GameRendering.registerSpecialModels(Rendering::specialModels);
+        
+        GameRendering.registerParticleFactories(ParticleRendering::factories);
+        GameRendering.registerModelLayers(EntityRendering::modelLayers);
+        GameRendering.registerEntityRenderers(EntityRendering::remderers);
+        GameRendering.registerBlockColors(ColorRendering::blockColors);
+        GameRendering.registerItemColors(ColorRendering::itemColors);
+        GameRendering.registerSpecialModels(ItemLikeRendering::specialRendering);
     }
 
     public static void asyncSetup(ParallelDispatch dispatch) {
         dispatch.enqueueWork(() -> LocalPlayerEvents.ON_LOGIN.register(player -> BundledTabSelector.bootstrap()));
         BundleMouseActions.bootstrap();
-
-        GameRendering.registerBlockRenderers(Rendering::blockRendering);
+        
+        GameRendering.registerBlockRenderers(ItemLikeRendering::renderTypes);
         WoodTypeRegistry.registerWoodType(ModWoodTypes.PALE_OAK);
         CreativeTabIntegration.bootstrap();
-        ItemPropertyRegistrar.bootstrap();
+        ItemPropertyIntegrations.bootstrap();
     }
 }

@@ -7,6 +7,8 @@ import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.google.common.collect.ImmutableSet;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.color.item.ItemColors;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.ItemModelShaper;
@@ -28,6 +30,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+@Environment(EnvType.CLIENT)
 public class SpawnEggRenderer implements DynamicItemRenderer.Renderer {
     public static final Set<ItemLike> SPAWN_EGGS = Set.of(
         Items.ALLAY_SPAWN_EGG,

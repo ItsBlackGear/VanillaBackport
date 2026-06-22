@@ -1,7 +1,7 @@
 package com.blackgear.vanillabackport.core.mixin.leashable.common.entities;
 
-import com.blackgear.vanillabackport.common.api.leash.InterpolationHandler;
-import com.blackgear.vanillabackport.common.api.leash.Leashable;
+import com.blackgear.vanillabackport.common.api.modules.leash_behavior.InterpolationHandler;
+import com.blackgear.vanillabackport.common.api.modules.leash_behavior.Leashable;
 import com.blackgear.vanillabackport.common.registries.entities.ModEntityTypes;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;

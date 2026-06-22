@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.data.server.advancement;
 
-import com.blackgear.vanillabackport.common.criterion.PlayerShearedEquipmentTrigger;
+import com.blackgear.vanillabackport.common.api.criterion.PlayerShearedEquipmentTrigger;
 import com.blackgear.vanillabackport.common.level.block.CreakingHeartBlock;
 import com.blackgear.vanillabackport.common.level.block.states.CreakingHeartState;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.wolf.WolfVariants;

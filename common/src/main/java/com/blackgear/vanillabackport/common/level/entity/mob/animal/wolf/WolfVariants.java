@@ -1,9 +1,9 @@
 package com.blackgear.vanillabackport.common.level.entity.mob.animal.wolf;
 
 import com.blackgear.platform.core.BuiltInCoreRegistry;
-import com.blackgear.vanillabackport.common.api.variant.*;
-import com.blackgear.vanillabackport.common.api.variant.spawn.check.raw.RawBiomeCheck;
-import com.blackgear.vanillabackport.common.api.variant.spawn.SpawnPrioritySelectors;
+import com.blackgear.vanillabackport.common.api.modules.mob_variant.ClientAsset;
+import com.blackgear.vanillabackport.common.api.modules.mob_variant.spawn.check.raw.RawBiomeCheck;
+import com.blackgear.vanillabackport.common.api.modules.mob_variant.spawn.SpawnPrioritySelectors;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.blackgear.vanillabackport.core.data.tags.ModBiomeTags;
 import com.blackgear.vanillabackport.core.registries.ModRegistries;

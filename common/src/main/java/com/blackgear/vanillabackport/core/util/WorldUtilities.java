@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.core.util;
 
-import com.blackgear.vanillabackport.common.api.leash.Leashable;
+import com.blackgear.vanillabackport.common.api.modules.leash_behavior.Leashable;
 import com.blackgear.vanillabackport.core.mixin.access.AnimationStateAccessor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;

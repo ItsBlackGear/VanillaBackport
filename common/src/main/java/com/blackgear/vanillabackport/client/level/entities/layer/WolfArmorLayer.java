@@ -1,7 +1,7 @@
 package com.blackgear.vanillabackport.client.level.entities.layer;
 
 import com.blackgear.vanillabackport.client.registries.ModModelLayers;
-import com.blackgear.vanillabackport.client.util.LazyModel;
+import com.blackgear.vanillabackport.client.api.modules.emissive_models.LazyModel;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.wolf.ModCrackiness;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.wolf.ModCrackiness.Level;
 import com.blackgear.vanillabackport.common.level.item.WolfArmorItem;

@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.core.mixin.client;
 
-import com.blackgear.vanillabackport.common.api.bundle.BundleFeatures;
+import com.blackgear.vanillabackport.common.api.modules.bundle_behavior.BundleFeatures;
 import com.blackgear.vanillabackport.core.data.tags.ModItemTags;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.GuiGraphics;

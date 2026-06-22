@@ -1,9 +1,9 @@
 package com.blackgear.vanillabackport.core.mixin.common.entities;
 
-import com.blackgear.vanillabackport.common.api.variant.VariantSpawner;
-import com.blackgear.vanillabackport.common.api.variant.spawn.SpawnContext;
-import com.blackgear.vanillabackport.common.api.variant.VariantDataHolder;
-import com.blackgear.vanillabackport.common.api.variant.VariantUtils;
+import com.blackgear.vanillabackport.common.api.modules.mob_variant.VariantSpawner;
+import com.blackgear.vanillabackport.common.api.modules.mob_variant.spawn.SpawnContext;
+import com.blackgear.vanillabackport.common.api.modules.mob_variant.VariantDataHolder;
+import com.blackgear.vanillabackport.common.api.modules.mob_variant.VariantUtils;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.chicken.ChickenVariant;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.chicken.ChickenVariants;
 import com.blackgear.vanillabackport.core.data.ModBuiltInLootTables;

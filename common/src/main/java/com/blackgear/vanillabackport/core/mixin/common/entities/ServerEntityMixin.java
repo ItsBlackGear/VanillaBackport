@@ -1,7 +1,7 @@
 package com.blackgear.vanillabackport.core.mixin.common.entities;
 
 import com.blackgear.vanillabackport.common.api.extensions.entity.PositionAwareEntity;
-import com.blackgear.vanillabackport.common.api.leash.Leashable;
+import com.blackgear.vanillabackport.common.api.modules.leash_behavior.Leashable;
 import com.blackgear.vanillabackport.core.util.Utilities.*;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.*;

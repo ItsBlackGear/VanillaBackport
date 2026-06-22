@@ -1,5 +1,6 @@
 package com.blackgear.vanillabackport.core.mixin.common.ender_pearl_persistance;
 
+import com.blackgear.vanillabackport.common.api.extensions.entity.EntityRemoval;
 import com.blackgear.vanillabackport.common.api.modules.ender_pearl_persistance.EnderPearlAccess;
 import com.blackgear.vanillabackport.common.api.modules.ender_pearl_persistance.EnderPearlLoaderModule;
 import com.blackgear.vanillabackport.common.registries.ModGameRules;
@@ -28,7 +29,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.UUID;
 
 @Mixin(ThrownEnderpearl.class)
-public abstract class ThrownEnderpearlMixin extends ThrowableItemProjectile {
+public abstract class ThrownEnderpearlMixin extends ThrowableItemProjectile implements EntityRemoval {
     @Unique private long vb$ticketTimer = 0L;
     @Unique private int vb$startChunkX;
     @Unique private int vb$startChunkZ;
@@ -45,8 +46,7 @@ public abstract class ThrownEnderpearlMixin extends ThrowableItemProjectile {
     }
     
     @Override
-    public void setRemoved(RemovalReason reason) {
-        super.setRemoved(reason);
+    public void onRemoval(RemovalReason reason) {
         if (reason != RemovalReason.UNLOADED_WITH_PLAYER) {
             this.vb$deregisterFromCurrentOwner();
         }

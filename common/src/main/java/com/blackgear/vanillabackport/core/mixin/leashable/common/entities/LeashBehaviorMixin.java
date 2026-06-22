@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.core.mixin.leashable.common.entities;
 
-import com.blackgear.vanillabackport.common.api.leash.Leashable;
+import com.blackgear.vanillabackport.common.api.modules.leash_behavior.Leashable;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;

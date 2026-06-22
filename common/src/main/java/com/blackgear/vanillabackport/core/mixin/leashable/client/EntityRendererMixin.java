@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.core.mixin.leashable.client;
 
-import com.blackgear.vanillabackport.common.api.leash.LeashFeatureRenderer;
+import com.blackgear.vanillabackport.common.api.modules.leash_behavior.LeashFeatureRenderer;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.culling.Frustum;

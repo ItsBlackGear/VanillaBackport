@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.core.forge.emissive;
 
-import com.blackgear.vanillabackport.client.util.EmissiveQuad;
+import com.blackgear.vanillabackport.client.api.modules.emissive_models.EmissiveQuad;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.ItemOverrides;
 import net.minecraft.client.renderer.block.model.ItemTransforms;

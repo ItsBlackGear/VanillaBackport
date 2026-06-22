@@ -1,7 +1,7 @@
 package com.blackgear.vanillabackport.common.registries;
 
 import com.blackgear.platform.core.CoreRegistry;
-import com.blackgear.vanillabackport.common.api.bundle.BundleColoring;
+import com.blackgear.vanillabackport.common.api.modules.bundle_behavior.BundleColoring;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.crafting.RecipeSerializer;

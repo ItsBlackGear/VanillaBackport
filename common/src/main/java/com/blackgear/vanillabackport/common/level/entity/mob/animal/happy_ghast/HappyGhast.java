@@ -2,7 +2,7 @@ package com.blackgear.vanillabackport.common.level.entity.mob.animal.happy_ghast
 
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
 import com.blackgear.vanillabackport.common.api.extensions.entity.PositionAwareEntity;
-import com.blackgear.vanillabackport.common.api.leash.Leashable;
+import com.blackgear.vanillabackport.common.api.modules.leash_behavior.Leashable;
 import com.blackgear.vanillabackport.common.registries.entities.ModEntityTypes;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.blackgear.vanillabackport.core.data.tags.ModBlockTags;

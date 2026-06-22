@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.core.mixin.client;
 
-import com.blackgear.vanillabackport.client.util.RenderChunkStaleAccess;
+import com.blackgear.vanillabackport.client.api.extensions.chunk_render.RenderChunkStaleAccess;
 import com.mojang.blaze3d.vertex.VertexBuffer;
 import it.unimi.dsi.fastutil.objects.ObjectArraySet;
 import net.minecraft.client.renderer.RenderType;

@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.core.mixin.client.entities.renderer;
 
-import com.blackgear.vanillabackport.common.api.variant.VariantDataHolder;
+import com.blackgear.vanillabackport.common.api.modules.mob_variant.VariantDataHolder;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.frog.FrogDataVariant;
 import net.minecraft.client.model.FrogModel;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;

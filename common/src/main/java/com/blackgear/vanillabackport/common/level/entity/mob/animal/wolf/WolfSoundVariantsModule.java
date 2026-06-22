@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.common.level.entity.mob.animal.wolf;
 
-import com.blackgear.vanillabackport.common.api.sound.WolfSoundVariantHolder;
+import com.blackgear.vanillabackport.common.api.modules.sound_variant.WolfSoundVariantHolder;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.animal.Wolf;

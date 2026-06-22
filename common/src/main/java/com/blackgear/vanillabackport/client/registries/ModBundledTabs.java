@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.client.registries;
 
-import com.blackgear.vanillabackport.client.api.tabs.BundledTabs;
+import com.blackgear.vanillabackport.client.api.bundled_tabs.BundledTabs;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
 import com.blackgear.vanillabackport.common.registries.items.ModItems;
 import com.blackgear.vanillabackport.common.registries.items.ModPaintingVariants;

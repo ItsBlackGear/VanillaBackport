@@ -1,8 +1,8 @@
 package com.blackgear.vanillabackport.core.mixin.client.entities.renderer;
 
-import com.blackgear.vanillabackport.client.api.renderer.SpecialMobRenderer;
+import com.blackgear.vanillabackport.client.api.modules.mob_variants.SpecialMobRenderer;
 import com.blackgear.vanillabackport.client.level.entities.layer.WolfArmorLayer;
-import com.blackgear.vanillabackport.common.api.variant.VariantDataHolder;
+import com.blackgear.vanillabackport.common.api.modules.mob_variant.VariantDataHolder;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.wolf.WolfVariant;
 import net.minecraft.client.model.WolfModel;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;

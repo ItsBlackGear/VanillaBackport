@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.core.mixin.client.music_toast;
 
-import com.blackgear.vanillabackport.client.experiment.music_toast.MusicToastAccess;
+import com.blackgear.vanillabackport.client.api.modules.music_toast.MusicToastAccess;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.sounds.MusicManager;
 import net.minecraft.sounds.Music;

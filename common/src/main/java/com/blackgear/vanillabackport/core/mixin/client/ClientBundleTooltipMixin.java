@@ -1,7 +1,7 @@
 package com.blackgear.vanillabackport.core.mixin.client;
 
-import com.blackgear.vanillabackport.common.api.bundle.BundleFeatures;
-import com.blackgear.vanillabackport.common.api.bundle.BundleSelectionTooltip;
+import com.blackgear.vanillabackport.common.api.modules.bundle_behavior.BundleFeatures;
+import com.blackgear.vanillabackport.common.api.modules.bundle_behavior.BundleSelectionTooltip;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.Font;

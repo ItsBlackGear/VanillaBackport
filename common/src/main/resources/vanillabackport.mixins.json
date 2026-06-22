@@ -43,11 +43,11 @@
     "leashable.client.network.ClientPacketListenerMixin"
   ],
   "mixins": [
-    "access.BooleanValueAccessor",
     "access.AnimalMakeLoveAccessor",
     "access.AnimationStateAccessor",
     "access.BiomeAccessor",
     "access.BlockRenderDispatcherAccessor",
+    "access.BooleanValueAccessor",
     "access.EntityAccessor",
     "access.GameRulesAccessor",
     "access.LivingEntityAccessor",
@@ -90,6 +90,7 @@
     "common.entities.WolfMixin",
     "common.entities.projectile.ThrowableItemProjectileMixin",
     "common.entities.projectile.ThrownEggMixin",
+    "common.extensions.entity.EntityMixin",
     "common.items.BundleItemMixin",
     "common.level.ChunkSerializerMixin",
     "common.worldgen.feature.LakeFeatureMixin",

@@ -5,6 +5,8 @@ import com.blackgear.platform.core.util.event.ResultHolder;
 import com.blackgear.vanillabackport.common.registries.items.ModItems;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.google.common.collect.ImmutableSet;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.renderer.ItemModelShaper;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.ModelResourceLocation;
@@ -16,6 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+@Environment(EnvType.CLIENT)
 public class BundleRenderer implements ItemRendererRegistry.Renderer {
     public static final Set<ItemLike> BUNDLES = Set.of(
         Items.BUNDLE,

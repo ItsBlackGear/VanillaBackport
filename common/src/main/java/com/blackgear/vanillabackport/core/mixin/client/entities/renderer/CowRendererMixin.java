@@ -1,8 +1,8 @@
 package com.blackgear.vanillabackport.core.mixin.client.entities.renderer;
 
-import com.blackgear.vanillabackport.client.api.renderer.SpecialMobRenderer;
-import com.blackgear.vanillabackport.client.api.renderer.renderers.CowVariantRenderer;
-import com.blackgear.vanillabackport.client.api.renderer.RenderConditions;
+import com.blackgear.vanillabackport.client.api.modules.mob_variants.SpecialMobRenderer;
+import com.blackgear.vanillabackport.client.api.modules.mob_variants.CowVariantRenderer;
+import com.blackgear.vanillabackport.client.api.modules.mob_variants.RenderConditions;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.CowModel;
 import net.minecraft.client.renderer.MultiBufferSource;

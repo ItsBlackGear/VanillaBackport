@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.core.fabric.emissive;
 
-import com.blackgear.vanillabackport.client.util.EmissiveQuad;
+import com.blackgear.vanillabackport.client.api.modules.emissive_models.EmissiveQuad;
 import net.fabricmc.fabric.api.renderer.v1.model.ForwardingBakedModel;
 import net.fabricmc.fabric.api.renderer.v1.render.RenderContext;
 import net.minecraft.client.renderer.block.model.BakedQuad;

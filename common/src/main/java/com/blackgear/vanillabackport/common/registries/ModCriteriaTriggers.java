@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.common.registries;
 
-import com.blackgear.vanillabackport.common.criterion.PlayerShearedEquipmentTrigger;
+import com.blackgear.vanillabackport.common.api.criterion.PlayerShearedEquipmentTrigger;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.advancements.CriterionTrigger;
 
