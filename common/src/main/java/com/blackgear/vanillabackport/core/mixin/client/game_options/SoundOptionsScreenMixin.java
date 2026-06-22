@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.core.mixin.client.game_options;
 
-import com.blackgear.vanillabackport.client.experiment.options.OptionsAccess;
+import com.blackgear.vanillabackport.client.api.modules.options.OptionsAccess;
 import net.minecraft.client.Options;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.options.OptionsSubScreen;

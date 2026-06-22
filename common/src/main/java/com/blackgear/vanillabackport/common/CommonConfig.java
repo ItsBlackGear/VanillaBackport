@@ -14,7 +14,7 @@ public class CommonConfig {
     public final ConfigBuilder.ConfigValue<Boolean> hasResinLoot;
     public final ConfigBuilder.ConfigValue<Boolean> hasCreaking;
     public final ConfigBuilder.ConfigValue<Boolean> hasPaleGarden;
-    public final ConfigBuilder.ConfigValue<Boolean> hasPaleTrades;
+    public final ConfigBuilder.ConfigValue<Boolean> doMerchantTradeTheGardenAwakensContents;
     public final ConfigBuilder.ConfigValue<Integer> creakingParticleColor;
     public final ConfigBuilder.ConfigValue<Integer> creakingParticleReverseColor;
     public final ConfigBuilder.ConfigValue<Boolean> doCreakingHeartsWorkOnDay;
@@ -30,7 +30,7 @@ public class CommonConfig {
     public final ConfigBuilder.ConfigValue<Boolean> hasFarmAnimalVariants;
     public final ConfigBuilder.ConfigValue<Boolean> hasWolfSoundVariants;
     public final ConfigBuilder.ConfigValue<Boolean> hasCamelSpawns;
-    public final ConfigBuilder.ConfigValue<Boolean> hasSpringTrades;
+    public final ConfigBuilder.ConfigValue<Boolean> doMerchantTradeSpringToLifeContents;
     public final ConfigBuilder.ConfigValue<Boolean> hasLodestoneLoot;
 
     // Chase the Skies
@@ -73,7 +73,7 @@ public class CommonConfig {
             .define("creaking", true);
         this.hasPaleGarden = builder.comment("allow the pale garden to generate in the overworld")
             .define("pale_garden", true);
-        this.hasPaleTrades = builder.comment("allow features from 'The Garden Awakens' to be obtainable through wandering traders")
+        this.doMerchantTradeTheGardenAwakensContents = builder.comment("allow features from 'The Garden Awakens' to be obtainable through wandering traders")
             .define("pale_trades", true);
         this.creakingParticleColor = builder.comment("creaking heart trail particle color (gray by default)")
             .define("creaking_particle_color", 6250335);
@@ -102,7 +102,7 @@ public class CommonConfig {
             .define("farm_animal_variants", true);
         this.hasWolfSoundVariants = builder.comment("allow wolfs to have variants for their sounds")
             .define("wolf_sound_variants", true);
-        this.hasSpringTrades = builder.comment("allow features from 'Spring to Life' to be obtainable through wandering traders")
+        this.doMerchantTradeSpringToLifeContents = builder.comment("allow features from 'Spring to Life' to be obtainable through wandering traders")
             .define("spring_trades", true);
         this.hasCamelSpawns = builder.comment("allow camels to spawn outside of villages")
             .define("camel_spawns", true);

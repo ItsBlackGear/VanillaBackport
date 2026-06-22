@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.core.neoforge.emissive;
 
-import com.blackgear.vanillabackport.client.util.EmissiveQuad;
+import com.blackgear.vanillabackport.client.api.modules.emissive_models.EmissiveQuad;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.ItemOverrides;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
@@ -11,6 +11,8 @@ import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.client.model.data.ModelData;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -18,6 +20,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
+@OnlyIn(Dist.CLIENT)
 public class EmissiveModelWrapper implements BakedModel {
     private final BakedModel baseModel;
     private final BakedModel emissiveModel;

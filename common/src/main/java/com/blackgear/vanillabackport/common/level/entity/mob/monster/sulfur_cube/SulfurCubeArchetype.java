@@ -30,7 +30,7 @@ public record SulfurCubeArchetype(
     KnockbackModifiers knockbackModifiers,
     SoundSettings soundSettings
 ) {
-    public static final Codec<SulfurCubeArchetype> DIRECT_CODEC = RecordCodecBuilder.create(instance -> instance.group(
+    public static final Codec<SulfurCubeArchetype> CODEC = RecordCodecBuilder.create(instance -> instance.group(
         TagKey.hashedCodec(Registries.ITEM).fieldOf("items").forGetter(SulfurCubeArchetype::items),
         AttributeEntry.CODEC.listOf().fieldOf("attribute_modifiers").forGetter(SulfurCubeArchetype::attributeModifiers),
         Codec.BOOL.fieldOf("buoyant").forGetter(SulfurCubeArchetype::buoyant),

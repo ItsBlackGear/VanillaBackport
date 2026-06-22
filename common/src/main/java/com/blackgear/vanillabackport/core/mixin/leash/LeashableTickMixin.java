@@ -1,8 +1,8 @@
 package com.blackgear.vanillabackport.core.mixin.leash;
 
-import com.blackgear.vanillabackport.common.api.leash.LeashDataExtension;
-import com.blackgear.vanillabackport.common.api.leash.LeashPhysics;
-import com.blackgear.vanillabackport.common.api.leash.LeashableCallback;
+import com.blackgear.vanillabackport.common.api.modules.leash_behavior.LeashDataExtension;
+import com.blackgear.vanillabackport.common.api.modules.leash_behavior.LeashPhysics;
+import com.blackgear.vanillabackport.common.api.modules.leash_behavior.LeashableCallback;
 import com.blackgear.vanillabackport.core.ModChecker;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;

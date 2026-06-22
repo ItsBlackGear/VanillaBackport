@@ -51,12 +51,24 @@ public class Utilities {
         public static byte packDegrees(float angle) {
             return (byte) Mth.floor(angle * 256.0F / 360.0F);
         }
+        
+        public static float unpackDegrees(byte rot) {
+            return rot * 360 / 256.0F;
+        }
+        
+        public static Vec3 lerp(final double alpha, final Vec3 p1, final Vec3 p2) {
+            return new Vec3(Mth.lerp(alpha, p1.x, p2.x), Mth.lerp(alpha, p1.y, p2.y), Mth.lerp(alpha, p1.z, p2.z));
+        }
     }
     
     public static class VectorUtils {
         public static final Vec3 X_AXIS = new Vec3(1.0, 0.0, 0.0);
         public static final Vec3 Y_AXIS = new Vec3(0.0, 1.0, 0.0);
         public static final Vec3 Z_AXIS = new Vec3(0.0, 0.0, 1.0);
+        
+        public static Vec3 create(Vec3i vec) {
+            return new Vec3(vec.getX(), vec.getY(), vec.getZ());
+        }
         
         public static Vec3 horizontal(Vec3 source) {
             return new Vec3(source.x, 0.0, source.z);

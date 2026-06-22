@@ -9,185 +9,57 @@ import com.blackgear.platform.common.worldgen.placement.BiomePlacement;
 import com.blackgear.platform.core.ParallelDispatch;
 import com.blackgear.platform.core.events.ResourceReloadManager;
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
-import com.blackgear.vanillabackport.common.api.integration.LootIntegrations;
-import com.blackgear.vanillabackport.common.api.integration.interactions.GhastHarnessInteraction;
-import com.blackgear.vanillabackport.common.api.integration.worldgen.BiomeGeneration;
-import com.blackgear.vanillabackport.common.api.leash.LeashIntegration;
-import com.blackgear.vanillabackport.common.level.entity.mob.monster.sulfur_cube.SulfurCube;
-import com.blackgear.vanillabackport.common.resource.SulfurCubeArchetypeReloadListener;
-import com.blackgear.vanillabackport.common.resource.sound.WolfSoundVariantReloadListener;
-import com.blackgear.vanillabackport.common.api.integration.dispenser.PaleOakBoatDispenseBehavior;
-import com.blackgear.vanillabackport.common.level.entity.mob.monster.creaking.Creaking;
-import com.blackgear.vanillabackport.common.level.entity.mob.animal.happy_ghast.HappyGhast;
-import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
+import com.blackgear.vanillabackport.common.integrations.BlockIntegrations;
+import com.blackgear.vanillabackport.common.integrations.LootIntegrations;
+import com.blackgear.vanillabackport.common.integrations.MobIntegrations;
+import com.blackgear.vanillabackport.common.integrations.TradeIntegrations;
+import com.blackgear.vanillabackport.common.integrations.worldgen.BiomeGeneration;
+import com.blackgear.vanillabackport.common.api.modules.sound_variant.WolfSoundVariant;
+import com.blackgear.vanillabackport.common.api.modules.sound_variant.WolfSoundVariants;
+import com.blackgear.vanillabackport.common.level.entity.mob.animal.cat.CatDataVariant;
+import com.blackgear.vanillabackport.common.level.entity.mob.animal.cat.CatDataVariants;
+import com.blackgear.vanillabackport.common.level.entity.mob.animal.chicken.ChickenVariant;
+import com.blackgear.vanillabackport.common.level.entity.mob.animal.chicken.ChickenVariants;
+import com.blackgear.vanillabackport.common.level.entity.mob.animal.cow.CowVariant;
+import com.blackgear.vanillabackport.common.level.entity.mob.animal.cow.CowVariants;
+import com.blackgear.vanillabackport.common.level.entity.mob.animal.frog.FrogDataVariant;
+import com.blackgear.vanillabackport.common.level.entity.mob.animal.frog.FrogDataVariants;
+import com.blackgear.vanillabackport.common.level.entity.mob.animal.pig.PigVariant;
+import com.blackgear.vanillabackport.common.level.entity.mob.animal.pig.PigVariants;
+import com.blackgear.vanillabackport.common.level.entity.mob.animal.wolf.WolfDataVariant;
+import com.blackgear.vanillabackport.common.level.entity.mob.animal.wolf.WolfDataVariants;
+import com.blackgear.vanillabackport.common.level.entity.mob.monster.sulfur_cube.SulfurCubeArchetype;
+import com.blackgear.vanillabackport.common.level.entity.mob.monster.sulfur_cube.SulfurCubeArchetypes;
 import com.blackgear.vanillabackport.common.registries.entities.ModEntityTypes;
-import com.blackgear.vanillabackport.common.registries.items.ModItems;
-import com.blackgear.vanillabackport.common.resource.variant.*;
-import com.blackgear.vanillabackport.common.api.integration.worldgen.WorldGeneration;
+import com.blackgear.vanillabackport.common.integrations.worldgen.WorldGeneration;
 import com.blackgear.vanillabackport.core.VanillaBackport;
-import com.blackgear.vanillabackport.core.data.tags.ModBlockTags;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.dispenser.BlockSource;
-import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
-import net.minecraft.core.dispenser.DispenseItemBehavior;
-import net.minecraft.core.dispenser.ProjectileDispenseBehavior;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.PathfinderMob;
-import net.minecraft.world.entity.SpawnPlacementTypes;
-import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.animal.Parrot;
-import net.minecraft.world.entity.npc.VillagerTrades.ItemsForEmeralds;
-import net.minecraft.world.item.DispensibleContainerItem;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.DispenserBlock;
-import net.minecraft.world.level.levelgen.Heightmap;
 
 public class CommonSetup {
     public static void setup() {
         ResourceReloadManager.registerServer(event -> {
-            event.register(VanillaBackport.resource("wolf_sound_variants"), WolfSoundVariantReloadListener.INSTANCE);
-            event.register(VanillaBackport.resource("cow_variants"), new CowVariantReloadListener());
-            event.register(VanillaBackport.resource("chicken_variants"), new ChickenVariantReloadListener());
-            event.register(VanillaBackport.resource("pig_variants"), new PigVariantReloadListener());
-            event.register(VanillaBackport.resource("wolf_variants"), new WolfVariantReloadListener());
-            event.register(VanillaBackport.resource("frog_variants"), new FrogVariantReloadListener());
-            event.register(VanillaBackport.resource("cat_variants"), new CatVariantReloadListener());
-            event.register(VanillaBackport.resource("sulfur_cube_archetypes"), new SulfurCubeArchetypeReloadListener());
+            event.register(VanillaBackport.resource("wolf_sound_variant"), WolfSoundVariants.REGISTRIES, WolfSoundVariant.CODEC);
+            event.register(VanillaBackport.resource("cow_variant"), CowVariants.REGISTRIES, CowVariant.CODEC);
+            event.register(VanillaBackport.resource("chicken_variant"), ChickenVariants.REGISTRIES, ChickenVariant.CODEC);
+            event.register(VanillaBackport.resource("pig_variant"), PigVariants.REGISTRIES, PigVariant.CODEC);
+            event.register(VanillaBackport.resource("wolf_variants"), WolfDataVariants.REGISTRIES, WolfDataVariant.CODEC);
+            event.register(VanillaBackport.resource("frog_variants"), FrogDataVariants.REGISTRIES, FrogDataVariant.CODEC);
+            event.register(VanillaBackport.resource("cat_variants"), CatDataVariants.REGISTRIES, CatDataVariant.CODEC);
+            event.register(VanillaBackport.resource("sulfur_cube_archetype"), SulfurCubeArchetypes.REGISTRIES, SulfurCubeArchetype.CODEC);
         });
 
-        MobIntegration.registerIntegrations(CommonSetup::mobIntegrations);
+        MobIntegration.registerIntegrations(MobIntegrations::bootstrap);
     }
 
     public static void asyncSetup(ParallelDispatch dispatch) {
         dispatch.enqueueWork(() -> {
             BiomeManager.add(WorldGeneration::bootstrap);
             BiomePlacement.registerBiomePlacements(BiomeGeneration::bootstrap);
-            BlockIntegration.registerIntegrations(CommonSetup::blockIntegrations);
-            TradeIntegration.registerVillagerTrades(CommonSetup::tradeIntegrations);
+            BlockIntegration.registerIntegrations(BlockIntegrations::bootstrap);
+            TradeIntegration.registerVillagerTrades(TradeIntegrations::bootstrap);
             Parrot.MOB_SOUND_MAP.put(ModEntityTypes.CREAKING.get(), ModSoundEvents.PARROT_IMITATE_CREAKING.get());
         });
 
-        LootModifier.modify(new LootIntegrations());
-    }
-
-    public static void blockIntegrations(BlockIntegration.Event event) {
-        event.registerFuelItem(ModBlocks.SHORT_DRY_GRASS.get(), 100);
-        event.registerFuelItem(ModBlocks.TALL_DRY_GRASS.get(), 100);
-        event.registerFuelItem(ModBlocks.LEAF_LITTER.get(), 100);
-
-        event.registerFlammableBlock(ModBlocks.PALE_OAK_PLANKS.get(), 5, 20);
-        event.registerFlammableBlock(ModBlocks.PALE_OAK_SLAB.get(), 5, 20);
-        event.registerFlammableBlock(ModBlocks.PALE_OAK_FENCE_GATE.get(), 5, 20);
-        event.registerFlammableBlock(ModBlocks.PALE_OAK_FENCE.get(), 5, 20);
-        event.registerFlammableBlock(ModBlocks.PALE_OAK_STAIRS.get(), 5, 20);
-        event.registerFlammableBlock(ModBlocks.PALE_OAK_LOG.get(), 5, 5);
-        event.registerFlammableBlock(ModBlocks.STRIPPED_PALE_OAK_LOG.get(), 5, 5);
-        event.registerFlammableBlock(ModBlocks.STRIPPED_PALE_OAK_WOOD.get(), 5, 5);
-        event.registerFlammableBlock(ModBlocks.PALE_OAK_WOOD.get(), 5, 5);
-        event.registerFlammableBlock(ModBlocks.PALE_OAK_LEAVES.get(), 30, 60);
-        event.registerFlammableBlock(ModBlocks.PALE_MOSS_BLOCK.get(), 5, 100);
-        event.registerFlammableBlock(ModBlocks.PALE_MOSS_CARPET.get(), 5, 100);
-        event.registerFlammableBlock(ModBlocks.PALE_HANGING_MOSS.get(), 5, 100);
-        event.registerFlammableBlock(ModBlocks.OPEN_EYEBLOSSOM.get(), 60, 100);
-        event.registerFlammableBlock(ModBlocks.CLOSED_EYEBLOSSOM.get(), 60, 100);
-        event.registerFlammableBlock(ModBlocks.BUSH.get(), 60, 100);
-        event.registerFlammableBlock(ModBlocks.FIREFLY_BUSH.get(), 60, 100);
-        event.registerFlammableBlock(ModBlocks.WILDFLOWERS.get(), 60, 100);
-        event.registerFlammableBlock(ModBlocks.CACTUS_FLOWER.get(), 60, 100);
-        event.registerFlammableBlock(ModBlocks.SHORT_DRY_GRASS.get(), 60, 100);
-        event.registerFlammableBlock(ModBlocks.TALL_DRY_GRASS.get(), 60, 100);
-        event.registerFlammableBlock(ModBlocks.LEAF_LITTER.get(), 60, 100);
-
-        event.registerCompostableItem(ModBlocks.PALE_OAK_LEAVES.get(), 0.3F);
-        event.registerCompostableItem(ModBlocks.PALE_OAK_SAPLING.get(), 0.3F);
-        event.registerCompostableItem(ModBlocks.PALE_MOSS_CARPET.get(), 0.3F);
-        event.registerCompostableItem(ModBlocks.PALE_HANGING_MOSS.get(), 0.3F);
-        event.registerCompostableItem(ModBlocks.PALE_MOSS_BLOCK.get(), 0.3F);
-        event.registerCompostableItem(ModBlocks.BUSH.get(), 0.3F);
-        event.registerCompostableItem(ModBlocks.LEAF_LITTER.get(), 0.3F);
-        event.registerCompostableItem(ModBlocks.FIREFLY_BUSH.get(), 0.3F);
-        event.registerCompostableItem(ModBlocks.WILDFLOWERS.get(), 0.3F);
-        event.registerCompostableItem(ModBlocks.CACTUS_FLOWER.get(), 0.3F);
-        event.registerCompostableItem(ModBlocks.SHORT_DRY_GRASS.get(), 0.3F);
-        event.registerCompostableItem(ModBlocks.TALL_DRY_GRASS.get(), 0.3F);
-        event.registerCompostableItem(ModBlocks.OPEN_EYEBLOSSOM.get(), 0.65F);
-        event.registerCompostableItem(ModBlocks.CLOSED_EYEBLOSSOM.get(), 0.65F);
-
-        event.registerStrippableBlock(ModBlocks.PALE_OAK_LOG.get(), ModBlocks.STRIPPED_PALE_OAK_LOG.get());
-        event.registerStrippableBlock(ModBlocks.PALE_OAK_WOOD.get(), ModBlocks.STRIPPED_PALE_OAK_WOOD.get());
-
-        event.registerDispenserBehavior(ModItems.PALE_OAK_BOAT.get(), new PaleOakBoatDispenseBehavior());
-        event.registerDispenserBehavior(ModItems.PALE_OAK_CHEST_BOAT.get(), new PaleOakBoatDispenseBehavior(true));
-        event.registerDispenserBehavior(ModItems.BLUE_EGG.get(), new ProjectileDispenseBehavior(ModItems.BLUE_EGG.get()));
-        event.registerDispenserBehavior(ModItems.BROWN_EGG.get(), new ProjectileDispenseBehavior(ModItems.BROWN_EGG.get()));
-        DispenseItemBehavior dispenseItemBehavior = new DefaultDispenseItemBehavior() {
-            private final DefaultDispenseItemBehavior defaultDispenseItemBehavior = new DefaultDispenseItemBehavior();
-
-            @Override
-            public ItemStack execute(BlockSource blockSource, ItemStack item) {
-                DispensibleContainerItem dispensibleContainerItem = (DispensibleContainerItem) item.getItem();
-                BlockPos blockPos = blockSource.pos().relative(blockSource.state().getValue(DispenserBlock.FACING));
-                Level level = blockSource.level();
-                if (dispensibleContainerItem.emptyContents(null, level, blockPos, null)) {
-                    dispensibleContainerItem.checkExtraContent(null, level, item, blockPos);
-                    return this.consumeWithRemainder(blockSource, item, new ItemStack(Items.BUCKET));
-                } else {
-                    return this.defaultDispenseItemBehavior.dispense(blockSource, item);
-                }
-            }
-        };
-
-        event.registerDispenserBehavior(ModItems.SULFUR_CUBE_BUCKET.get(), dispenseItemBehavior);
-    }
-
-    public static void tradeIntegrations(TradeIntegration.Event event) {
-        if (VanillaBackport.COMMON_CONFIG.hasPaleTrades.get()) {
-            event.registerWandererTrade(
-                true,
-                new ItemsForEmeralds(ModBlocks.PALE_OAK_LOG.get(), 1, 8, 4, 1)
-            );
-            event.registerWandererTrade(
-                false,
-                new ItemsForEmeralds(ModBlocks.OPEN_EYEBLOSSOM.get(), 1, 1, 7, 1),
-                new ItemsForEmeralds(ModBlocks.PALE_OAK_SAPLING.get(), 5, 1, 8, 1),
-                new ItemsForEmeralds(ModBlocks.PALE_HANGING_MOSS.get(), 1, 3, 4, 1),
-                new ItemsForEmeralds(ModBlocks.PALE_MOSS_BLOCK.get(), 1, 2, 5, 1)
-            );
-        }
-
-        if (VanillaBackport.COMMON_CONFIG.hasSpringTrades.get()) {
-            event.registerWandererTrade(
-                false,
-                new ItemsForEmeralds(ModBlocks.WILDFLOWERS.get(), 1, 1, 12, 1),
-                new ItemsForEmeralds(ModBlocks.TALL_DRY_GRASS.get(), 1, 1, 12, 1),
-                new ItemsForEmeralds(ModBlocks.FIREFLY_BUSH.get(), 3, 1, 12, 1)
-            );
-        }
-
-        if (VanillaBackport.COMMON_CONFIG.doMerchantTradeChaosCubedContents.get()) {
-            event.registerWandererTrade(
-                false,
-                new ItemsForEmeralds(ModBlocks.SULFUR_SPIKE.get(), 1, 2, 5, 1)
-            );
-        }
-    }
-
-    public static void mobIntegrations(MobIntegration.Event event) {
-        event.registerMobInteraction(new GhastHarnessInteraction());
-        event.registerMobInteraction(new LeashIntegration());
-
-        event.registerPlacement(() -> EntityType.CAMEL, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (type, level, reason, pos, random) -> level.getBlockState(pos.below()).is(ModBlockTags.CAMELS_SPAWNABLE_ON) && level.getRawBrightness(pos, 0) > 8);
-        event.registerPlacement(ModEntityTypes.SULFUR_CUBE, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SulfurCube::checkSulfurCubeSpawnRules);
-
-        event.registerAttributes(ModEntityTypes.CREAKING, Creaking::createAttributes);
-        event.registerAttributes(ModEntityTypes.HAPPY_GHAST, HappyGhast::createAttributes);
-        event.registerAttributes(ModEntityTypes.SULFUR_CUBE, SulfurCube::createSulfurCubeAttributes);
-
-        event.registerGoal(EntityType.VINDICATOR, 1, mob -> new AvoidEntityGoal<>((PathfinderMob) mob, Creaking.class, 8.0F, 0.6, 1.2));
-        event.registerGoal(EntityType.PILLAGER, 1, mob -> new AvoidEntityGoal<>((PathfinderMob) mob, Creaking.class, 8.0F, 0.6, 1.2));
-        event.registerGoal(EntityType.ILLUSIONER, 3, mob -> new AvoidEntityGoal<>((PathfinderMob) mob, Creaking.class, 8.0F, 0.6, 1.2));
-        event.registerGoal(EntityType.EVOKER, 3, mob -> new AvoidEntityGoal<>((PathfinderMob) mob, Creaking.class, 8.0F, 0.6, 1.2));
+        LootModifier.modify(LootIntegrations.INSTANCE);
     }
 }

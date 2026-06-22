@@ -8,7 +8,6 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.item.JukeboxSong;
 
@@ -19,12 +18,12 @@ public class ModJukeboxSongs {
     public static final ResourceKey<JukeboxSong> LAVA_CHICKEN = register("lava_chicken", ModSoundEvents.MUSIC_DISC_LAVA_CHICKEN, 134, 9);
     public static final ResourceKey<JukeboxSong> BOUNCE = register("bounce", ModSoundEvents.MUSIC_DISC_BOUNCE, 234, 8);
 
-    private static ResourceKey<JukeboxSong> register(String key, Holder<SoundEvent> soundEvent, int lengthInSeconds, int comparatorOutput) {
-        return REGISTRIES.register(
-            key,
-            context -> new JukeboxSong(
+    private static ResourceKey<JukeboxSong> register(String name, Holder<SoundEvent> soundEvent, int lengthInSeconds, int comparatorOutput) {
+        return REGISTRIES.resource(
+            name,
+            (context, key) -> new JukeboxSong(
                 soundEvent,
-                Component.translatable(Util.makeDescriptionId("jukebox_song", ResourceLocation.withDefaultNamespace(key))),
+                Component.translatable(Util.makeDescriptionId("jukebox_song", key)),
                 (float) lengthInSeconds,
                 comparatorOutput
             ));

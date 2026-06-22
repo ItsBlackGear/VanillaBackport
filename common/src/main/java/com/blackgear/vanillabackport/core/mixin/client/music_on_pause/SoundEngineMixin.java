@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.core.mixin.client.music_on_pause;
 
-import com.blackgear.vanillabackport.client.experiment.music_on_pause.MusicTickAccess;
+import com.blackgear.vanillabackport.client.api.modules.music_on_pause.MusicTickAccess;
 import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.client.sounds.ChannelAccess;
 import net.minecraft.client.sounds.SoundEngine;

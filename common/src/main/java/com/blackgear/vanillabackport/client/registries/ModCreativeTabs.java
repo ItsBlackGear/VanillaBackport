@@ -1,7 +1,7 @@
 package com.blackgear.vanillabackport.client.registries;
 
 import com.blackgear.platform.core.CoreRegistry;
-import com.blackgear.vanillabackport.client.api.tabs.BundledTabs;
+import com.blackgear.vanillabackport.client.api.bundled_tabs.BundledTabs;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;

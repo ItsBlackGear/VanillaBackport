@@ -1,9 +1,9 @@
 package com.blackgear.vanillabackport.common.level.entity.mob.animal.chicken;
 
 import com.blackgear.platform.core.BuiltInCoreRegistry;
-import com.blackgear.vanillabackport.common.api.variant.ModelAndTexture;
-import com.blackgear.vanillabackport.common.api.variant.spawn.SpawnPrioritySelectors;
-import com.blackgear.vanillabackport.common.api.variant.spawn.check.raw.RawBiomeCheck;
+import com.blackgear.vanillabackport.common.api.modules.mob_variant.ModelAndTexture;
+import com.blackgear.vanillabackport.common.api.modules.mob_variant.spawn.SpawnPrioritySelectors;
+import com.blackgear.vanillabackport.common.api.modules.mob_variant.spawn.check.raw.RawBiomeCheck;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.blackgear.vanillabackport.core.data.tags.ModBiomeTags;
 import com.blackgear.vanillabackport.core.registries.ModRegistries;
@@ -13,7 +13,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.level.biome.Biome;
 
 public class ChickenVariants {
-    public static final BuiltInCoreRegistry<ChickenVariant> REGISTRIES = new BuiltInCoreRegistry<>(ModRegistries.CHICKEN_VARIANT.get(), VanillaBackport.NAMESPACE);
+    public static final BuiltInCoreRegistry<ChickenVariant> REGISTRIES = BuiltInCoreRegistry.create(ModRegistries.CHICKEN_VARIANT.get(), VanillaBackport.NAMESPACE);
 
     public static final ResourceKey<ChickenVariant> TEMPERATE = register("temperate",
         ChickenVariant.ModelType.NORMAL,

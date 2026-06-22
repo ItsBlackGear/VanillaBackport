@@ -1,10 +1,10 @@
 package com.blackgear.vanillabackport.common.level.entity.mob.animal.pig;
 
-import com.blackgear.vanillabackport.common.api.variant.*;
-import com.blackgear.vanillabackport.common.api.variant.spawn.PriorityProvider;
-import com.blackgear.vanillabackport.common.api.variant.spawn.SpawnCondition;
-import com.blackgear.vanillabackport.common.api.variant.spawn.SpawnContext;
-import com.blackgear.vanillabackport.common.api.variant.spawn.SpawnPrioritySelectors;
+import com.blackgear.vanillabackport.common.api.modules.mob_variant.ModelAndTexture;
+import com.blackgear.vanillabackport.common.api.modules.mob_variant.spawn.PriorityProvider;
+import com.blackgear.vanillabackport.common.api.modules.mob_variant.spawn.SpawnCondition;
+import com.blackgear.vanillabackport.common.api.modules.mob_variant.spawn.SpawnContext;
+import com.blackgear.vanillabackport.common.api.modules.mob_variant.spawn.SpawnPrioritySelectors;
 import com.blackgear.vanillabackport.core.registries.ModRegistries;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;

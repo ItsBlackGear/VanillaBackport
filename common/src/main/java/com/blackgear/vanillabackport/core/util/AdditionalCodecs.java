@@ -1,11 +1,13 @@
 package com.blackgear.vanillabackport.core.util;
 
 import com.blackgear.vanillabackport.core.util.Utilities.ColorUtils;
+import com.blackgear.vanillabackport.core.util.Utilities.MthUtils;
 import com.mojang.datafixers.util.Either;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.DataResult;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.util.valueproviders.FloatProvider;
@@ -28,6 +30,7 @@ public class AdditionalCodecs {
             new FriendlyByteBuf(byteBuf).writeVec3(vec3);
         }
     };
+    public static final StreamCodec<ByteBuf, Float> ROTATION_BYTE = ByteBufCodecs.BYTE.map(MthUtils::unpackDegrees, MthUtils::packDegrees);
 
     private static <T, U> Codec<T> withAlternative(Codec<T> primary, Codec<U> alternative, Function<U, T> converter) {
         return Codec.either(primary, alternative).xmap(either -> either.map(t -> t, converter), Either::left);

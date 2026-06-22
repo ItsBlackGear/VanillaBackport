@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.core.mixin.common.item;
 
-import com.blackgear.vanillabackport.common.api.bundle.BundleFeatures;
+import com.blackgear.vanillabackport.common.api.modules.bundle_behavior.BundleFeatures;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.FastColor;

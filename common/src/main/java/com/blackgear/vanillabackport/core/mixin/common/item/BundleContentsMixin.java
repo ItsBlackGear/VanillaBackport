@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.core.mixin.common.item;
 
-import com.blackgear.vanillabackport.common.api.bundle.ModernBundle;
+import com.blackgear.vanillabackport.common.api.modules.bundle_behavior.ModernBundle;
 import net.minecraft.world.item.component.BundleContents;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;

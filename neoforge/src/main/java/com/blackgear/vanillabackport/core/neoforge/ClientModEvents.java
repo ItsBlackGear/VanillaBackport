@@ -1,12 +1,8 @@
 package com.blackgear.vanillabackport.core.neoforge;
 
-import com.blackgear.vanillabackport.client.experiment.EnvironmentalFogRenderer;
 import com.blackgear.vanillabackport.core.VanillaBackport;
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.*;
 import net.minecraft.client.Camera;
 import net.minecraft.client.DeltaTracker;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.util.CubicSampler;
 import net.minecraft.util.Mth;

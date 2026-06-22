@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.data.server.recipe;
 
-import com.blackgear.vanillabackport.common.api.bundle.BundleColoring;
+import com.blackgear.vanillabackport.common.api.modules.bundle_behavior.BundleColoring;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
 import com.blackgear.vanillabackport.common.registries.items.ModItems;
 import com.blackgear.vanillabackport.core.data.tags.ModItemTags;

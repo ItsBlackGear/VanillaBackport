@@ -40,6 +40,7 @@
     "leash.EntityRendererMixin"
   ],
   "mixins": [
+    "access.AbstractMinecartAccessor",
     "access.BiomeAccessor",
     "access.BundleContentsAccessor",
     "access.EntityAccessor",

@@ -1,7 +1,7 @@
 package com.blackgear.vanillabackport.core.mixin.leash;
 
-import com.blackgear.vanillabackport.common.api.leash.LeashFeatureRenderer;
-import com.blackgear.vanillabackport.common.api.leash.LeashableCallback;
+import com.blackgear.vanillabackport.common.api.modules.leash_behavior.LeashFeatureRenderer;
+import com.blackgear.vanillabackport.common.api.modules.leash_behavior.LeashableCallback;
 import com.blackgear.vanillabackport.core.ModChecker;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.MultiBufferSource;

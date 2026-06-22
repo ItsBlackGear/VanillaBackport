@@ -4,7 +4,6 @@ import com.blackgear.platform.core.api.registrar.bootstrap.BootstrapRegistrar;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.decoration.PaintingVariant;
 
 public class ModPaintingVariants {
@@ -12,7 +11,9 @@ public class ModPaintingVariants {
     
     public static final ResourceKey<PaintingVariant> DENNIS = register("dennis", 3, 3);
     
-    private static ResourceKey<PaintingVariant> register(String key, int width, int height) {
-        return REGISTRIES.register(key, context -> new PaintingVariant(width, height, ResourceLocation.withDefaultNamespace(key)));
+    private static ResourceKey<PaintingVariant> register(String name, int width, int height) {
+        return REGISTRIES.resource(
+            name,
+            (context, key) -> new PaintingVariant(width, height, key));
     }
 }

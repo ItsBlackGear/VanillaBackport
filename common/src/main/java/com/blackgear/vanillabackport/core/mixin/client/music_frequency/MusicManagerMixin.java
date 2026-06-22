@@ -1,8 +1,8 @@
 package com.blackgear.vanillabackport.core.mixin.client.music_frequency;
 
-import com.blackgear.vanillabackport.client.experiment.music_frequency.MusicFrequency;
-import com.blackgear.vanillabackport.client.experiment.music_frequency.MusicFrequencyAccess;
-import com.blackgear.vanillabackport.client.experiment.options.OptionsAccess;
+import com.blackgear.vanillabackport.client.api.modules.music_frequency.MusicFrequency;
+import com.blackgear.vanillabackport.client.api.modules.music_frequency.MusicFrequencyAccess;
+import com.blackgear.vanillabackport.client.api.modules.options.OptionsAccess;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.client.sounds.MusicManager;

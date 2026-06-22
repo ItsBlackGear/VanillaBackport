@@ -1,7 +1,7 @@
 package com.blackgear.vanillabackport.core.mixin.common.item;
 
-import com.blackgear.vanillabackport.common.api.bundle.BundleFeatures;
-import com.blackgear.vanillabackport.common.api.bundle.ModernBundle;
+import com.blackgear.vanillabackport.common.api.modules.bundle_behavior.BundleFeatures;
+import com.blackgear.vanillabackport.common.api.modules.bundle_behavior.ModernBundle;
 import com.blackgear.vanillabackport.core.mixin.access.BundleContentsAccessor;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.Slot;

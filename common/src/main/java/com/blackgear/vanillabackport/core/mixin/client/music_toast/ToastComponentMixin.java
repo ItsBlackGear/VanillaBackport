@@ -1,9 +1,9 @@
 package com.blackgear.vanillabackport.core.mixin.client.music_toast;
 
-import com.blackgear.vanillabackport.client.experiment.music_toast.MusicToastAccess;
-import com.blackgear.vanillabackport.client.experiment.music_toast.MusicToastDisplayState;
-import com.blackgear.vanillabackport.client.experiment.music_toast.NowPlayingToast;
-import com.blackgear.vanillabackport.client.experiment.options.OptionsAccess;
+import com.blackgear.vanillabackport.client.api.modules.music_toast.MusicToastAccess;
+import com.blackgear.vanillabackport.client.api.modules.music_toast.MusicToastDisplayState;
+import com.blackgear.vanillabackport.client.api.modules.music_toast.NowPlayingToast;
+import com.blackgear.vanillabackport.client.api.modules.options.OptionsAccess;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.toasts.Toast;

@@ -1,13 +1,13 @@
 package com.blackgear.vanillabackport.core.mixin.common.entities;
 
-import com.blackgear.vanillabackport.common.api.variant.VariantDataHolder;
-import com.blackgear.vanillabackport.common.api.variant.VariantUtils;
-import com.blackgear.vanillabackport.common.api.variant.spawn.SpawnContext;
-import com.blackgear.vanillabackport.common.api.sound.WolfSoundVariant;
-import com.blackgear.vanillabackport.common.api.sound.WolfSoundVariantHolder;
-import com.blackgear.vanillabackport.common.api.sound.WolfSoundVariants;
+import com.blackgear.vanillabackport.common.api.modules.mob_variant.VariantDataHolder;
+import com.blackgear.vanillabackport.common.api.modules.mob_variant.VariantUtils;
+import com.blackgear.vanillabackport.common.api.modules.mob_variant.spawn.SpawnContext;
+import com.blackgear.vanillabackport.common.api.modules.sound_variant.WolfSoundVariant;
+import com.blackgear.vanillabackport.common.api.modules.sound_variant.WolfSoundVariantHolder;
+import com.blackgear.vanillabackport.common.api.modules.sound_variant.WolfSoundVariants;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.wolf.WolfDataVariant;
-import com.blackgear.vanillabackport.common.api.sound.WolfSoundVariantsModule;
+import com.blackgear.vanillabackport.common.api.modules.sound_variant.WolfSoundVariantsModule;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.wolf.WolfDataVariants;
 import com.blackgear.vanillabackport.core.mixin.access.WolfAccessor;
 import com.blackgear.vanillabackport.core.util.Utilities.ColorUtils;
@@ -56,31 +56,31 @@ public abstract class WolfMixin extends TamableAnimalMixin implements NeutralMob
 
     @Override
     protected void vb$defineSynchedData(SynchedEntityData.Builder builder, CallbackInfo ci) {
-        builder.define(DATA_SOUND_VARIANT_ID, VariantUtils.getDefaultID(WolfSoundVariants.WOLF_SOUND_VARIANTS, WolfSoundVariants.CLASSIC));
+        builder.define(DATA_SOUND_VARIANT_ID, VariantUtils.getDefaultID(WolfSoundVariants.REGISTRIES, WolfSoundVariants.CLASSIC));
         builder.define(DATA_VARIANT_ID, "minecraft:pale");
     }
 
     @Inject(method = "addAdditionalSaveData", at = @At("RETURN"))
     private void vb$addAdditionalData(CompoundTag tag, CallbackInfo ci) {
         VariantUtils.addVariantSaveData(this, tag, WolfDataVariants.REGISTRIES);
-        tag.putString("sound_variant", WolfSoundVariants.WOLF_SOUND_VARIANTS.getKey(this.getSoundVariant()).toString());
+        tag.putString("sound_variant", WolfSoundVariants.REGISTRIES.getKey(this.getSoundVariant()).toString());
     }
 
     @Inject(method = "readAdditionalSaveData", at = @At("HEAD"))
     private void vb$readAdditionalData(CompoundTag tag, CallbackInfo ci) {
         VariantUtils.readVariantSaveData(this, tag, WolfDataVariants.REGISTRIES);
-        WolfSoundVariant soundVariant = WolfSoundVariants.WOLF_SOUND_VARIANTS.get(ResourceLocation.tryParse(tag.getString("sound_variant")));
+        WolfSoundVariant soundVariant = WolfSoundVariants.REGISTRIES.get(ResourceLocation.tryParse(tag.getString("sound_variant")));
         if (soundVariant != null) this.setSoundVariant(soundVariant);
     }
 
     @Override
     public WolfSoundVariant getSoundVariant() {
-        return VariantUtils.getVariant(WolfSoundVariants.WOLF_SOUND_VARIANTS, this.entityData.get(DATA_SOUND_VARIANT_ID));
+        return VariantUtils.getVariant(WolfSoundVariants.REGISTRIES, this.entityData.get(DATA_SOUND_VARIANT_ID));
     }
 
     @Override
     public void setSoundVariant(WolfSoundVariant variant) {
-        this.entityData.set(DATA_SOUND_VARIANT_ID, VariantUtils.getID(WolfSoundVariants.WOLF_SOUND_VARIANTS, variant));
+        this.entityData.set(DATA_SOUND_VARIANT_ID, VariantUtils.getID(WolfSoundVariants.REGISTRIES, variant));
     }
 
     @Override
@@ -113,7 +113,7 @@ public abstract class WolfMixin extends TamableAnimalMixin implements NeutralMob
 
     @Override
     protected void vb$finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, SpawnGroupData spawnData, CallbackInfoReturnable<SpawnGroupData> cir) {
-        this.setSoundVariant(WolfSoundVariants.WOLF_SOUND_VARIANTS.getRandomElement(level.getRandom()));
+        this.setSoundVariant(WolfSoundVariants.REGISTRIES.getRandomElement(level.getRandom()));
 
         VariantUtils.selectVariantToSpawn(SpawnContext.create(level, this.blockPosition()), WolfDataVariants.REGISTRIES)
             .ifPresent(this::setVariantData);
@@ -131,7 +131,7 @@ public abstract class WolfMixin extends TamableAnimalMixin implements NeutralMob
                 ((WolfAccessor) child).callSetCollarColor(ColorUtils.getMixedColor(level, fatherColor, motherColor));
             }
 
-            WolfSoundVariantHolder.of(child).setSoundVariant(WolfSoundVariants.WOLF_SOUND_VARIANTS.getRandomElement(this.getRandom()));
+            WolfSoundVariantHolder.of(child).setSoundVariant(WolfSoundVariants.REGISTRIES.getRandomElement(this.getRandom()));
 
             VariantDataHolder.trySetOffspringVariant(child, this, mate);
         }

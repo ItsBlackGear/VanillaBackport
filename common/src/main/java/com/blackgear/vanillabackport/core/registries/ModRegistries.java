@@ -1,8 +1,8 @@
 package com.blackgear.vanillabackport.core.registries;
 
 import com.blackgear.platform.core.RegistryBuilder;
-import com.blackgear.vanillabackport.common.api.variant.spawn.SpawnCondition;
-import com.blackgear.vanillabackport.common.api.sound.WolfSoundVariant;
+import com.blackgear.vanillabackport.common.api.modules.mob_variant.spawn.SpawnCondition;
+import com.blackgear.vanillabackport.common.api.modules.sound_variant.WolfSoundVariant;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.cat.CatDataVariant;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.chicken.ChickenVariant;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.cow.CowVariant;

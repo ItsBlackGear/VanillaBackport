@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.core.util;
 
-import com.blackgear.vanillabackport.common.api.leash.LeashPhysics;
+import com.blackgear.vanillabackport.common.api.modules.leash_behavior.LeashPhysics;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceKey;
@@ -20,6 +20,7 @@ import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -53,6 +54,10 @@ public class WorldUtilities {
     }
     
     public static class EntityUtils {
+        public static Vec3 oldPosition(Entity entity) {
+            return new Vec3(entity.xOld, entity.yOld, entity.zOld);
+        }
+        
         @Nullable
         public static <T extends Entity> T getNearestEntity(List<? extends T> entities, double x, double y, double z) {
             double best = -1.0;
