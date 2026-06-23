@@ -1,12 +1,13 @@
 package com.blackgear.vanillabackport.core.mixin.common.mob_variants;
 
+import com.blackgear.vanillabackport.common.api.extensions.access.EntityDataHolder;
+import com.blackgear.vanillabackport.common.api.extensions.access.MobBehaviorAccess;
 import com.blackgear.vanillabackport.common.api.modules.mob_variant.VariantSpawner;
 import com.blackgear.vanillabackport.common.api.modules.mob_variant.spawn.SpawnContext;
 import com.blackgear.vanillabackport.common.api.modules.mob_variant.VariantDataHolder;
 import com.blackgear.vanillabackport.common.api.modules.mob_variant.VariantUtils;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.cow.CowVariant;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.cow.CowVariants;
-import com.blackgear.vanillabackport.core.mixin.common.extension.MobMixin;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -22,13 +23,12 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Optional;
 
 @Mixin(Cow.class)
-public abstract class CowMixin extends MobMixin implements VariantDataHolder<CowVariant> {
+public abstract class CowMixin extends Animal implements VariantDataHolder<CowVariant>, EntityDataHolder, MobBehaviorAccess {
     @Unique private static final EntityDataAccessor<String> DATA_VARIANT_ID = SynchedEntityData.defineId(Cow.class, EntityDataSerializers.STRING);
 
     protected CowMixin(EntityType<? extends Animal> entityType, Level level) {
@@ -47,7 +47,7 @@ public abstract class CowMixin extends MobMixin implements VariantDataHolder<Cow
     }
 
     @Override
-    protected void vb$defineSynchedData(SynchedEntityData.Builder builder, CallbackInfo ci) {
+    public void vb$defineSynchedData(SynchedEntityData.Builder builder) {
         builder.define(DATA_VARIANT_ID, "minecraft:temperate");
     }
 
@@ -62,17 +62,17 @@ public abstract class CowMixin extends MobMixin implements VariantDataHolder<Cow
     }
 
     @Override
-    protected void vb$addAdditionalSaveData(CompoundTag tag, CallbackInfo ci) {
+    public void vb$addAdditionalSaveData(CompoundTag tag) {
         VariantUtils.addVariantSaveData(this, tag, CowVariants.REGISTRIES);
     }
 
     @Override
-    protected void vb$readAdditionalSaveData(CompoundTag tag, CallbackInfo ci) {
+    public void vb$readAdditionalSaveData(CompoundTag tag) {
         VariantUtils.readVariantSaveData(this, tag, CowVariants.REGISTRIES);
     }
 
     @Override
-    protected void vb$finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, SpawnGroupData spawnData, CallbackInfoReturnable<SpawnGroupData> cir) {
+    public void vb$finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, SpawnGroupData spawnData) {
         VariantUtils.selectVariantToSpawn(SpawnContext.create(level, this.blockPosition()), CowVariants.REGISTRIES, VariantSpawner.FARM_ANIMALS)
             .ifPresent(this::setVariantData);
     }

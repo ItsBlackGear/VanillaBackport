@@ -69,7 +69,6 @@
     "common.entity_movement.ServerPlayerMixin",
     "common.extension.BlockMixin",
     "common.extension.MobMixin",
-    "common.extension.TamableAnimalMixin",
     "common.happy_ghast.NetherFossilPieceMixin",
     "common.happy_ghast.ServerEntityMixin",
     "common.happy_ghast.ServerGamePacketListenerImplMixin",

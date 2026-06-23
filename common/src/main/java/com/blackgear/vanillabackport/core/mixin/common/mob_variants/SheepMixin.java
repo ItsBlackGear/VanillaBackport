@@ -1,10 +1,9 @@
 package com.blackgear.vanillabackport.core.mixin.common.mob_variants;
 
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.sheep.SheepColorSpawnRules;
-import com.blackgear.vanillabackport.core.mixin.common.extension.MobMixin;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Sheep;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.Level;
@@ -13,8 +12,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(Sheep.class)
-public abstract class SheepMixin extends MobMixin {
-    protected SheepMixin(EntityType<? extends LivingEntity> entityType, Level level) {
+public abstract class SheepMixin extends Animal {
+    protected SheepMixin(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
     }
 

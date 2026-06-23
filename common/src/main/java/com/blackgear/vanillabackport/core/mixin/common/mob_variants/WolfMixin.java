@@ -1,5 +1,7 @@
 package com.blackgear.vanillabackport.core.mixin.common.mob_variants;
 
+import com.blackgear.vanillabackport.common.api.extensions.access.EntityDataHolder;
+import com.blackgear.vanillabackport.common.api.extensions.access.MobBehaviorAccess;
 import com.blackgear.vanillabackport.common.api.modules.mob_variant.VariantDataHolder;
 import com.blackgear.vanillabackport.common.api.modules.mob_variant.VariantUtils;
 import com.blackgear.vanillabackport.common.api.modules.mob_variant.spawn.SpawnContext;
@@ -10,9 +12,7 @@ import com.blackgear.vanillabackport.common.api.modules.sound_variant.WolfSoundV
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.wolf.WolfDataVariant;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.wolf.WolfDataVariants;
 import com.blackgear.vanillabackport.core.mixin.common.access.WolfAccessor;
-import com.blackgear.vanillabackport.core.mixin.common.extension.TamableAnimalMixin;
 import com.blackgear.vanillabackport.core.util.Utilities.ColorUtils;
-import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -23,7 +23,6 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.animal.Wolf;
-import net.minecraft.world.entity.animal.WolfVariant;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -38,14 +37,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.util.Optional;
 
 @Mixin(Wolf.class)
-public abstract class WolfMixin extends TamableAnimalMixin implements NeutralMob, WolfSoundVariantHolder, VariantDataHolder<WolfDataVariant> {
+public abstract class WolfMixin extends TamableAnimal implements WolfSoundVariantHolder, VariantDataHolder<WolfDataVariant>, EntityDataHolder, MobBehaviorAccess {
     @Unique private static EntityDataAccessor<String> DATA_SOUND_VARIANT_ID;
     @Unique private static EntityDataAccessor<String> DATA_VARIANT_ID;
     @Shadow public abstract DyeColor getCollarColor();
     
-    @Shadow public abstract Holder<WolfVariant> getVariant();
-    
-    protected WolfMixin(EntityType<? extends LivingEntity> entityType, Level level) {
+    protected WolfMixin(EntityType<? extends TamableAnimal> entityType, Level level) {
         super(entityType, level);
     }
     
@@ -56,19 +53,19 @@ public abstract class WolfMixin extends TamableAnimalMixin implements NeutralMob
     }
     
     @Override
-    protected void vb$defineSynchedData(SynchedEntityData.Builder builder, CallbackInfo ci) {
+    public void vb$defineSynchedData(SynchedEntityData.Builder builder) {
         builder.define(DATA_SOUND_VARIANT_ID, VariantUtils.getDefaultID(WolfSoundVariants.REGISTRIES, WolfSoundVariants.CLASSIC));
         builder.define(DATA_VARIANT_ID, "minecraft:pale");
     }
     
-    @Inject(method = "addAdditionalSaveData", at = @At("RETURN"))
-    private void vb$addAdditionalData(CompoundTag tag, CallbackInfo ci) {
+    @Override
+    public void vb$addAdditionalSaveData(CompoundTag tag) {
         VariantUtils.addVariantSaveData(this, tag, WolfDataVariants.REGISTRIES);
         tag.putString("sound_variant", WolfSoundVariants.REGISTRIES.getKey(this.getSoundVariant()).toString());
     }
     
-    @Inject(method = "readAdditionalSaveData", at = @At("HEAD"))
-    private void vb$readAdditionalData(CompoundTag tag, CallbackInfo ci) {
+    @Override
+    public void vb$readAdditionalSaveData(CompoundTag tag) {
         VariantUtils.readVariantSaveData(this, tag, WolfDataVariants.REGISTRIES);
         WolfSoundVariant soundVariant = WolfSoundVariants.REGISTRIES.get(ResourceLocation.tryParse(tag.getString("sound_variant")));
         if (soundVariant != null) this.setSoundVariant(soundVariant);
@@ -113,7 +110,7 @@ public abstract class WolfMixin extends TamableAnimalMixin implements NeutralMob
     }
     
     @Override
-    protected void vb$finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, SpawnGroupData spawnData, CallbackInfoReturnable<SpawnGroupData> cir) {
+    public void vb$finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, SpawnGroupData spawnData) {
         this.setSoundVariant(WolfSoundVariants.REGISTRIES.getRandomElement(level.getRandom()));
         
         VariantUtils.selectVariantToSpawn(SpawnContext.create(level, this.blockPosition()), WolfDataVariants.REGISTRIES)
