@@ -80,7 +80,6 @@
     "common.extension.EntityMixin",
     "common.extension.MobMixin",
     "common.extension.ThrowableItemProjectileMixin",
-    "common.extension.TamableAnimalMixin",
     "common.happy_ghast.NetherFossilPieceMixin",
     "common.happy_ghast.ServerEntityMixin",
     "common.happy_ghast.ServerGamePacketListenerImplMixin",
