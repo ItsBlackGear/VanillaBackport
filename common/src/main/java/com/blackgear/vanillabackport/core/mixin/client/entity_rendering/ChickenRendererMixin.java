@@ -18,12 +18,9 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import java.util.Optional;
-import java.util.function.Supplier;
-
 @Mixin(ChickenRenderer.class)
 public abstract class ChickenRendererMixin extends MobRendererMixin<Chicken, ChickenModel<Chicken>> {
-    @Unique private Optional<Supplier<ChickenVariantRenderer>> renderer;
+    @Unique private SpecialMobRenderer<Chicken, ChickenModel<Chicken>> renderer;
 
     public ChickenRendererMixin(EntityRendererProvider.Context context, ChickenModel<Chicken> model, float shadowRadius) {
         super(context, model, shadowRadius);
@@ -40,15 +37,12 @@ public abstract class ChickenRendererMixin extends MobRendererMixin<Chicken, Chi
         cancellable = true
     )
     private void vb$getTextureLocation(Chicken entity, CallbackInfoReturnable<ResourceLocation> cir) {
-        this.renderer.flatMap(renderer -> Optional.ofNullable(renderer.get()))
-            .flatMap(renderer -> renderer.getTexture(entity))
-            .ifPresent(cir::setReturnValue);
+        this.renderer.getTexture(entity).ifPresent(cir::setReturnValue);
     }
 
     @Override
     public void render(Chicken entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource buffer, int packedLight) {
-        this.renderer.flatMap(renderer -> Optional.ofNullable(renderer.get()))
-            .ifPresent(renderer -> this.model = renderer.getModel(entity).orElseGet(() -> this.defaultModel));
+        this.model = this.renderer.getModel(entity).orElseGet(() -> this.defaultModel);
         super.render(entity, entityYaw, partialTicks, poseStack, buffer, packedLight);
     }
 }

@@ -13,36 +13,64 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 @Environment(EnvType.CLIENT)
-public abstract class SpecialMobRenderer<T extends LivingEntity, M extends EntityModel<T>> {
-    public static <R> Optional<Supplier<R>> create(
+public abstract class SpecialMobRenderer <T extends LivingEntity, M extends EntityModel<T>> {
+    public static <T extends LivingEntity, M extends EntityModel<T>, R extends SpecialMobRenderer<T, M>> SpecialMobRenderer<T, M> create(
         EntityRendererProvider.Context context,
         Function<EntityRendererProvider.Context, R> factory,
         RenderConditions conditions
     ) {
-        return Optional.of(new Supplier<>() {
+        return new SpecialMobRenderer<>() {
             private R instance;
-
-            @Override
-            public R get() {
-                if (!conditions.apply()) return null;
-                if (this.instance == null) this.instance = factory.apply(context);
+            private boolean initialized = false;
+            
+            private R get() {
+                if (!this.initialized) {
+                    if (conditions.apply()) {
+                        this.instance = factory.apply(context);
+                    }
+                    
+                    this.initialized = true;
+                }
+                
                 return this.instance;
             }
-        });
+            
+            @Override
+            public Optional<ResourceLocation> getTexture(T entity) {
+                R renderer = this.get();
+                return renderer != null ? renderer.getTexture(entity) : Optional.empty();
+            }
+            
+            @Override
+            public Optional<M> getModel(T entity) {
+                R renderer = this.get();
+                return renderer != null ? renderer.getModel(entity) : Optional.empty();
+            }
+            
+            @Override
+            public void ifPresent(Consumer<SpecialMobRenderer<T, M>> consumer) {
+                R renderer = this.get();
+                if (renderer != null) {
+                    consumer.accept(renderer);
+                }
+            }
+        };
     }
-
-    public static <R> Optional<Supplier<R>> create(EntityRendererProvider.Context context, Function<EntityRendererProvider.Context, R> factory) {
+    
+    public static <T extends LivingEntity, M extends EntityModel<T>, R extends SpecialMobRenderer<T, M>> SpecialMobRenderer<T, M> create(
+        EntityRendererProvider.Context context,
+        Function<EntityRendererProvider.Context, R> factory
+    ) {
         return create(context, factory, RenderConditions.DEFAULT);
     }
-
-    public static <R> void addLayer(Optional<Supplier<R>> renderer, Consumer<R> consumer) {
-        renderer.ifPresent(supplier -> {
-            R value = supplier.get();
-            if (value != null) consumer.accept(value);
-        });
+    
+    public static <L> void addLayer(RenderConditions condition, Supplier<L> factory, Consumer<L> action) {
+        if (condition.apply()) action.accept(factory.get());
     }
-
+    
     public abstract Optional<ResourceLocation> getTexture(T entity);
-
+    
     public abstract Optional<M> getModel(T entity);
+    
+    public void ifPresent(Consumer<SpecialMobRenderer<T, M>> consumer) { /* NO-OP */ }
 }

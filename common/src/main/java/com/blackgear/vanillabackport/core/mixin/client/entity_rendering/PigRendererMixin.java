@@ -18,12 +18,9 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import java.util.Optional;
-import java.util.function.Supplier;
-
 @Mixin(PigRenderer.class)
 public abstract class PigRendererMixin extends MobRendererMixin<Pig, PigModel<Pig>> {
-    @Unique private Optional<Supplier<PigVariantRenderer>> renderer;
+    @Unique private SpecialMobRenderer<Pig, PigModel<Pig>> renderer;
 
     public PigRendererMixin(EntityRendererProvider.Context context, PigModel<Pig> model, float shadowRadius) {
         super(context, model, shadowRadius);
@@ -40,15 +37,12 @@ public abstract class PigRendererMixin extends MobRendererMixin<Pig, PigModel<Pi
         cancellable = true
     )
     private void vb$getTextureLocation(Pig entity, CallbackInfoReturnable<ResourceLocation> cir) {
-        this.renderer.flatMap(renderer -> Optional.ofNullable(renderer.get()))
-            .flatMap(renderer -> renderer.getTexture(entity))
-            .ifPresent(cir::setReturnValue);
+        this.renderer.getTexture(entity).ifPresent(cir::setReturnValue);
     }
 
     @Override
     public void render(Pig entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource buffer, int packedLight) {
-        this.renderer.flatMap(renderer -> Optional.ofNullable(renderer.get()))
-            .ifPresent(renderer -> this.model = renderer.getModel(entity).orElseGet(() -> this.defaultModel));
+        this.model = this.renderer.getModel(entity).orElseGet(() -> this.defaultModel);
         super.render(entity, entityYaw, partialTicks, poseStack, buffer, packedLight);
     }
 }
