@@ -1,12 +1,13 @@
 package com.blackgear.vanillabackport.core.mixin.common.mob_variants;
 
+import com.blackgear.vanillabackport.common.api.extensions.access.EntityDataHolder;
+import com.blackgear.vanillabackport.common.api.extensions.access.MobBehaviorAccess;
 import com.blackgear.vanillabackport.common.api.modules.mob_variant.VariantSpawner;
 import com.blackgear.vanillabackport.common.api.modules.mob_variant.spawn.SpawnContext;
 import com.blackgear.vanillabackport.common.api.modules.mob_variant.VariantDataHolder;
 import com.blackgear.vanillabackport.common.api.modules.mob_variant.VariantUtils;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.pig.PigVariant;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.pig.PigVariants;
-import com.blackgear.vanillabackport.core.mixin.common.extension.MobMixin;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -25,13 +26,12 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Optional;
 
 @Mixin(Pig.class)
-public abstract class PigMixin extends MobMixin implements VariantDataHolder<PigVariant> {
+public abstract class PigMixin extends Animal implements EntityDataHolder, MobBehaviorAccess, VariantDataHolder<PigVariant> {
     @Unique private static final EntityDataAccessor<String> DATA_VARIANT_ID = SynchedEntityData.defineId(Pig.class, EntityDataSerializers.STRING);
 
     protected PigMixin(EntityType<? extends Animal> entityType, Level level) {
@@ -50,7 +50,7 @@ public abstract class PigMixin extends MobMixin implements VariantDataHolder<Pig
     }
 
     @Override
-    protected void vb$defineSynchedData(CallbackInfo ci) {
+    public void vb$defineSynchedData() {
         this.entityData.define(DATA_VARIANT_ID, "minecraft:temperate");
     }
 
@@ -65,17 +65,17 @@ public abstract class PigMixin extends MobMixin implements VariantDataHolder<Pig
     }
 
     @Override
-    protected void vb$addAdditionalSaveData(CompoundTag tag, CallbackInfo ci) {
+    public void vb$addAdditionalSaveData(CompoundTag tag) {
         VariantUtils.addVariantSaveData(this, tag, PigVariants.REGISTRIES);
     }
 
     @Override
-    protected void vb$readAdditionalSaveData(CompoundTag tag, CallbackInfo ci) {
+    public void vb$readAdditionalSaveData(CompoundTag tag) {
         VariantUtils.readVariantSaveData(this, tag, PigVariants.REGISTRIES);
     }
 
     @Override
-    protected void vb$finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, SpawnGroupData spawnData, CompoundTag dataTag, CallbackInfoReturnable<SpawnGroupData> cir) {
+    public void vb$finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, SpawnGroupData spawnData, CompoundTag dataTag) {
         VariantUtils.selectVariantToSpawn(SpawnContext.create(level, this.blockPosition()), PigVariants.REGISTRIES, VariantSpawner.FARM_ANIMALS)
             .ifPresent(this::setVariantData);
     }

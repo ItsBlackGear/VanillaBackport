@@ -1,5 +1,7 @@
 package com.blackgear.vanillabackport.core.mixin.common.extension;
 
+import com.blackgear.vanillabackport.common.api.extensions.access.EntityDataHolder;
+import com.blackgear.vanillabackport.common.api.extensions.access.MobBehaviorAccess;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
@@ -18,7 +20,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Mob.class)
-public abstract class MobMixin extends LivingEntity {
+public abstract class MobMixin extends LivingEntity implements EntityDataHolder, MobBehaviorAccess {
     @Shadow public abstract InteractionResult interact(Player player, InteractionHand hand);
     @Shadow public abstract ItemStack getItemBySlot(EquipmentSlot slot);
     @Shadow public abstract void setItemSlot(EquipmentSlot slot, ItemStack stack);
@@ -36,39 +38,39 @@ public abstract class MobMixin extends LivingEntity {
         method = "defineSynchedData",
         at = @At("RETURN")
     )
-    protected void vb$defineSynchedData(CallbackInfo ci) {
-
+    protected void vb$onDefineSynchedData(CallbackInfo ci) {
+        this.vb$defineSynchedData();
     }
 
     @Inject(
         method = "addAdditionalSaveData",
         at = @At("RETURN")
     )
-    protected void vb$addAdditionalSaveData(CompoundTag tag, CallbackInfo ci) {
-
+    protected void vb$onAddAdditionalSaveData(CompoundTag tag, CallbackInfo ci) {
+        this.vb$addAdditionalSaveData(tag);
     }
 
     @Inject(
         method = "readAdditionalSaveData",
         at = @At("RETURN")
     )
-    protected void vb$readAdditionalSaveData(CompoundTag tag, CallbackInfo ci) {
-
+    protected void vb$onReadAdditionalSaveData(CompoundTag tag, CallbackInfo ci) {
+        this.vb$readAdditionalSaveData(tag);
     }
 
     @Inject(
         method = "finalizeSpawn",
         at = @At("HEAD")
     )
-    protected void vb$finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, SpawnGroupData spawnData, CompoundTag dataTag, CallbackInfoReturnable<SpawnGroupData> cir) {
-
+    protected void vb$onFinalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, SpawnGroupData spawnData, CompoundTag dataTag, CallbackInfoReturnable<SpawnGroupData> cir) {
+        this.vb$finalizeSpawn(level, difficulty, reason, spawnData, dataTag);
     }
 
     @Inject(
         method = "tick",
         at = @At("RETURN")
     )
-    protected void vb$tick(CallbackInfo ci) {
-
+    protected void vb$onTick(CallbackInfo ci) {
+        this.vb$tick();
     }
 }

@@ -82,7 +82,7 @@ public class Armadillo extends Animal {
     }
 
     public boolean shouldSwitchToScaredState() {
-        return this.getState() == ArmadilloState.ROLLING && this.inStateTicks > ArmadilloState.ROLLING.animationDuration();
+        return this.getState() == ArmadilloState.ROLLING && this.inStateTicks > (long) ArmadilloState.ROLLING.animationDuration();
     }
 
     public ArmadilloState getState() {
@@ -103,13 +103,13 @@ public class Armadillo extends Animal {
     }
     
     @Override
-    protected Brain<?> makeBrain(Dynamic<?> dynamic) {
-        return ArmadilloAi.makeBrain(this.brainProvider().makeBrain(dynamic));
+    protected Brain.Provider<Armadillo> brainProvider() {
+        return ArmadilloAi.brainProvider();
     }
     
     @Override
-    protected Brain.Provider<Armadillo> brainProvider() {
-        return ArmadilloAi.brainProvider();
+    protected Brain<?> makeBrain(Dynamic<?> dynamic) {
+        return ArmadilloAi.makeBrain(this.brainProvider().makeBrain(dynamic));
     }
     
     @Override @SuppressWarnings("unchecked")
@@ -272,9 +272,12 @@ public class Armadillo extends Animal {
     }
 
     @Override
-    public boolean hurt(DamageSource source, float damage) {
-        if (this.isScared()) damage = (damage - 1.0F) / 2.0F;
-        return super.hurt(source, damage);
+    public boolean hurt(DamageSource source, float amount) {
+        if (this.isScared()) {
+            amount = (amount - 1.0F) / 2.0F;
+        }
+        
+        return super.hurt(source, amount);
     }
 
     @Override
@@ -302,7 +305,7 @@ public class Armadillo extends Animal {
             return this.isScared() ? InteractionResult.FAIL : super.mobInteract(player, hand);
         }
     }
-
+    
     public boolean brushOffScute() {
         if (this.isBaby()) {
             return false;
@@ -317,7 +320,7 @@ public class Armadillo extends Animal {
     public boolean canStayRolledUp() {
         return !EntityUtils.isPanicking(this) && !EntityUtils.isInLiquid(this) && !this.isLeashed() && !this.isPassenger() && !this.isVehicle();
     }
-
+    
     @Override
     public boolean canFallInLove() {
         return super.canFallInLove() && !this.isScared();

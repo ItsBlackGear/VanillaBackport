@@ -1,10 +1,10 @@
 package com.blackgear.vanillabackport.core.mixin.common.mob_variants;
 
+import com.blackgear.vanillabackport.common.api.extensions.access.EntityDataHolder;
 import com.blackgear.vanillabackport.common.api.modules.mob_variant.VariantDataHolder;
 import com.blackgear.vanillabackport.common.api.modules.mob_variant.VariantUtils;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.chicken.ChickenVariant;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.chicken.ChickenVariants;
-import com.blackgear.vanillabackport.core.mixin.common.extension.ThrowableItemProjectileMixin;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -25,7 +25,7 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 import java.util.Optional;
 
 @Mixin(ThrownEgg.class)
-public abstract class ThrownEggMixin extends ThrowableItemProjectileMixin implements VariantDataHolder<ChickenVariant> {
+public abstract class ThrownEggMixin extends ThrowableItemProjectile implements EntityDataHolder, VariantDataHolder<ChickenVariant> {
     @Unique private static final EntityDataAccessor<String> DATA_VARIANT_ID = SynchedEntityData.defineId(ThrownEgg.class, EntityDataSerializers.STRING);
 
     public ThrownEggMixin(EntityType<? extends ThrowableItemProjectile> entityType, Level level) {
@@ -33,7 +33,7 @@ public abstract class ThrownEggMixin extends ThrowableItemProjectileMixin implem
     }
 
     @Override
-    protected void vb$defineSynchedData(CallbackInfo ci) {
+    public void vb$defineSynchedData() {
         this.entityData.define(DATA_VARIANT_ID, "minecraft:temperate");
     }
 
@@ -48,12 +48,12 @@ public abstract class ThrownEggMixin extends ThrowableItemProjectileMixin implem
     }
 
     @Override
-    protected void addAdditionalSaveData(CompoundTag tag) {
+    public void addAdditionalSaveData(CompoundTag tag) {
         VariantUtils.readVariantSaveData(this, tag, ChickenVariants.REGISTRIES);
     }
 
     @Override
-    protected void vb$readAdditionalSaveData(CompoundTag tag, CallbackInfo ci) {
+    public void vb$readAdditionalSaveData(CompoundTag tag) {
         VariantUtils.readVariantSaveData(this, tag, ChickenVariants.REGISTRIES);
     }
 

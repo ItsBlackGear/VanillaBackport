@@ -1,11 +1,12 @@
 package com.blackgear.vanillabackport.core.mixin.common.mob_variants;
 
+import com.blackgear.vanillabackport.common.api.extensions.access.EntityDataHolder;
+import com.blackgear.vanillabackport.common.api.extensions.access.MobBehaviorAccess;
 import com.blackgear.vanillabackport.common.api.modules.mob_variant.spawn.SpawnContext;
 import com.blackgear.vanillabackport.common.api.modules.mob_variant.VariantDataHolder;
 import com.blackgear.vanillabackport.common.api.modules.mob_variant.VariantUtils;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.frog.FrogDataVariant;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.frog.FrogDataVariants;
-import com.blackgear.vanillabackport.core.mixin.common.extension.MobMixin;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
@@ -20,15 +21,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Optional;
 
 @Mixin(Frog.class)
-public abstract class FrogMixin extends MobMixin implements VariantDataHolder<FrogDataVariant> {
+public abstract class FrogMixin extends Animal implements EntityDataHolder, MobBehaviorAccess, VariantDataHolder<FrogDataVariant> {
     @Unique private static final EntityDataAccessor<String> DATA_VARIANT_ID = SynchedEntityData.defineId(Frog.class, EntityDataSerializers.STRING);
 
     protected FrogMixin(EntityType<? extends Animal> entityType, Level level) {
@@ -36,7 +33,7 @@ public abstract class FrogMixin extends MobMixin implements VariantDataHolder<Fr
     }
 
     @Override
-    protected void vb$defineSynchedData(CallbackInfo ci) {
+    public void vb$defineSynchedData() {
         this.entityData.define(DATA_VARIANT_ID, "minecraft:temperate");
     }
 
@@ -50,18 +47,18 @@ public abstract class FrogMixin extends MobMixin implements VariantDataHolder<Fr
         return VariantUtils.getOrDefault(FrogDataVariants.REGISTRIES, this.entityData.get(DATA_VARIANT_ID));
     }
 
-    @Inject(method = "addAdditionalSaveData", at = @At("RETURN"))
-    private void vb$addAdditionalData(CompoundTag tag, CallbackInfo ci) {
+    @Override
+    public void vb$addAdditionalSaveData(CompoundTag tag) {
         VariantUtils.addVariantSaveData(this, tag, FrogDataVariants.REGISTRIES);
     }
 
-    @Inject(method = "readAdditionalSaveData", at = @At("HEAD"))
-    private void vb$readAdditionalData(CompoundTag tag, CallbackInfo ci) {
+    @Override
+    public void vb$readAdditionalSaveData(CompoundTag tag) {
         VariantUtils.readVariantSaveData(this, tag, FrogDataVariants.REGISTRIES);
     }
 
     @Override
-    protected void vb$finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, SpawnGroupData spawnData, CompoundTag dataTag, CallbackInfoReturnable<SpawnGroupData> cir) {
+    public void vb$finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, SpawnGroupData spawnData, CompoundTag dataTag) {
         VariantUtils.selectVariantToSpawn(SpawnContext.create(level, this.blockPosition()), FrogDataVariants.REGISTRIES)
             .ifPresent(this::setVariantData);
     }

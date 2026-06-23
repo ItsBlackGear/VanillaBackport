@@ -1,12 +1,14 @@
 package com.blackgear.vanillabackport.common.integrations;
 
 import com.blackgear.platform.common.integration.BlockIntegration.Event;
+import com.blackgear.vanillabackport.common.integrations.dispenser.ArmadilloBrushDispenseBehavior;
 import com.blackgear.vanillabackport.common.integrations.dispenser.BoatDispenseBehavior;
 import com.blackgear.vanillabackport.common.integrations.dispenser.EggVariantProjectileDispenseBehavior;
 import com.blackgear.vanillabackport.common.integrations.dispenser.SulfurCubeBucketDispenseBehavior;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.chicken.ChickenVariants;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
 import com.blackgear.vanillabackport.common.registries.items.ModItems;
+import net.minecraft.world.item.Items;
 
 public class BlockIntegrations {
     private static void registerFuel(Event event) {
@@ -71,6 +73,9 @@ public class BlockIntegrations {
     }
     
     private static void registerDispensables(Event event) {
+        // Armored Paws
+        event.registerDispenserBehavior(Items.BRUSH, new ArmadilloBrushDispenseBehavior());
+        
         // The Garden Awakens
         event.registerDispenserBehavior(ModItems.PALE_OAK_BOAT.get(), new BoatDispenseBehavior());
         event.registerDispenserBehavior(ModItems.PALE_OAK_CHEST_BOAT.get(), new BoatDispenseBehavior(true));

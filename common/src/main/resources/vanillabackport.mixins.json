@@ -32,6 +32,9 @@
     "client.game_patches.RenderChunkMixin",
     "client.happy_ghast.CameraMixin",
     "client.happy_ghast.LocalPlayerMixin",
+    "client.leash_behavior.BoatRendererMixin",
+    "client.leash_behavior.ClientPacketListenerMixin",
+    "client.leash_behavior.EntityRendererMixin",
     "client.music_fade.MusicManagerMixin",
     "client.music_frequency.MusicManagerMixin",
     "client.music_on_pause.MinecraftMixin",
@@ -39,10 +42,7 @@
     "client.music_on_pause.SoundManagerMixin",
     "client.music_toast.MusicManagerMixin",
     "client.music_toast.ToastComponentMixin",
-    "client.music_toast.ToastInstanceMixin",
-    "client.leash_behavior.BoatRendererMixin",
-    "client.leash_behavior.ClientPacketListenerMixin",
-    "client.leash_behavior.EntityRendererMixin"
+    "client.music_toast.ToastInstanceMixin"
   ],
   "mixins": [
     "common.access.AnimalMakeLoveAccessor",
@@ -79,8 +79,8 @@
     "common.extension.BlockMixin",
     "common.extension.EntityMixin",
     "common.extension.MobMixin",
-    "common.extension.TamableAnimalMixin",
     "common.extension.ThrowableItemProjectileMixin",
+    "common.extension.TamableAnimalMixin",
     "common.happy_ghast.NetherFossilPieceMixin",
     "common.happy_ghast.ServerEntityMixin",
     "common.happy_ghast.ServerGamePacketListenerImplMixin",

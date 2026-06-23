@@ -1,10 +1,10 @@
 package com.blackgear.vanillabackport.core.mixin.common.wolf_armor;
 
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
+import com.blackgear.vanillabackport.common.api.extensions.access.TamableAnimalAccess;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.wolf.ModCrackiness;
 import com.blackgear.vanillabackport.common.level.item.WolfArmorItem;
 import com.blackgear.vanillabackport.common.registries.items.ModItems;
-import com.blackgear.vanillabackport.core.mixin.common.extension.TamableAnimalMixin;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
@@ -24,8 +24,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Wolf.class)
-public abstract class WolfMixin extends TamableAnimalMixin implements NeutralMob {
-    protected WolfMixin(EntityType<? extends LivingEntity> entityType, Level level) {
+public abstract class WolfMixin extends TamableAnimal implements NeutralMob, TamableAnimalAccess {
+    protected WolfMixin(EntityType<? extends TamableAnimal> entityType, Level level) {
         super(entityType, level);
     }
     
@@ -60,7 +60,7 @@ public abstract class WolfMixin extends TamableAnimalMixin implements NeutralMob
     }
 
     @Override
-    protected void applyTamingSideEffects() {
+    public void applyTamingSideEffects() {
         if (this.isTame()) {
             this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(40.0);
             this.setHealth(40.0F);

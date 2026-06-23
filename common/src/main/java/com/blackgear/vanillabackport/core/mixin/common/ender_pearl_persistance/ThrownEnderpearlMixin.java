@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.core.mixin.common.ender_pearl_persistance;
 
-import com.blackgear.vanillabackport.common.api.extensions.entity.EntityRemoval;
+import com.blackgear.vanillabackport.common.api.extensions.access.EntityRemoval;
 import com.blackgear.vanillabackport.common.api.modules.ender_pearl_persistance.EnderPearlAccess;
 import com.blackgear.vanillabackport.common.api.modules.ender_pearl_persistance.EnderPearlLoaderModule;
 import com.blackgear.vanillabackport.common.registries.ModGameRules;

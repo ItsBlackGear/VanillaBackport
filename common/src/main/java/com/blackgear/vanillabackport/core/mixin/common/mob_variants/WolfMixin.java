@@ -1,5 +1,7 @@
 package com.blackgear.vanillabackport.core.mixin.common.mob_variants;
 
+import com.blackgear.vanillabackport.common.api.extensions.access.EntityDataHolder;
+import com.blackgear.vanillabackport.common.api.extensions.access.MobBehaviorAccess;
 import com.blackgear.vanillabackport.common.api.modules.mob_variant.VariantSpawner;
 import com.blackgear.vanillabackport.common.api.modules.mob_variant.spawn.SpawnContext;
 import com.blackgear.vanillabackport.common.api.modules.mob_variant.VariantDataHolder;
@@ -11,7 +13,6 @@ import com.blackgear.vanillabackport.common.integrations.compat.BackportedWolves
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.wolf.WolfSoundVariantsModule;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.wolf.WolfVariant;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.wolf.WolfVariants;
-import com.blackgear.vanillabackport.core.mixin.common.extension.TamableAnimalMixin;
 import com.blackgear.vanillabackport.core.util.Utilities.*;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -32,41 +33,22 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Optional;
 
 @Mixin(Wolf.class)
-public abstract class WolfMixin extends TamableAnimalMixin implements NeutralMob, WolfSoundVariantHolder, VariantDataHolder<WolfVariant> {
+public abstract class WolfMixin extends TamableAnimal implements EntityDataHolder, MobBehaviorAccess, WolfSoundVariantHolder, VariantDataHolder<WolfVariant> {
     @Unique private static final EntityDataAccessor<String> DATA_SOUND_VARIANT_ID = SynchedEntityData.defineId(Wolf.class, EntityDataSerializers.STRING);
     @Unique private static final EntityDataAccessor<String> DATA_VARIANT_ID = SynchedEntityData.defineId(Wolf.class, EntityDataSerializers.STRING);
     @Shadow public abstract DyeColor getCollarColor();
 
-    protected WolfMixin(EntityType<? extends LivingEntity> entityType, Level level) {
+    protected WolfMixin(EntityType<? extends TamableAnimal> entityType, Level level) {
         super(entityType, level);
     }
 
-    @Inject(
-        method = "getBreedOffspring(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/AgeableMob;)Lnet/minecraft/world/entity/animal/Wolf;",
-        at = @At("RETURN")
-    )
-    private void vb$getBreedOffspring(ServerLevel level, AgeableMob otherParent, CallbackInfoReturnable<Wolf> cir) {
-        Wolf child = cir.getReturnValue();
-        if (child != null && otherParent instanceof Wolf mate) {
-            if (this.isTame()) {
-                DyeColor fatherColor = this.getCollarColor();
-                DyeColor motherColor = mate.getCollarColor();
-                child.setCollarColor(ColorUtils.getMixedColor(level, fatherColor, motherColor));
-            }
-
-            WolfSoundVariantHolder.of(child).vb$setSoundVariant(WolfSoundVariants.REGISTRIES.getRandomElement(this.getRandom()));
-            VariantDataHolder.trySetOffspringVariant(child, this, mate);
-        }
-    }
-
     @Override
-    protected void vb$defineSynchedData(CallbackInfo ci) {
+    public void vb$defineSynchedData() {
         this.entityData.define(DATA_SOUND_VARIANT_ID, VariantUtils.getDefaultID(WolfSoundVariants.REGISTRIES, WolfSoundVariants.CLASSIC));
         this.entityData.define(DATA_VARIANT_ID, "minecraft:pale");
     }
@@ -92,13 +74,13 @@ public abstract class WolfMixin extends TamableAnimalMixin implements NeutralMob
     }
 
     @Override
-    protected void vb$addAdditionalSaveData(CompoundTag tag, CallbackInfo ci) {
+    public void vb$addAdditionalSaveData(CompoundTag tag) {
         VariantUtils.addVariantSaveData(this, tag, WolfVariants.REGISTRIES);
         tag.putString("sound_variant", WolfSoundVariants.REGISTRIES.getKey(this.vb$getSoundVariant()).toString());
     }
 
     @Override
-    protected void vb$readAdditionalSaveData(CompoundTag tag, CallbackInfo ci) {
+    public void vb$readAdditionalSaveData(CompoundTag tag) {
         BackportedWolvesConversion.migrateWolfVariant(this, tag, WolfVariants.REGISTRIES);
         VariantUtils.readVariantSaveData(this, tag, WolfVariants.REGISTRIES);
         WolfSoundVariant soundVariant = WolfSoundVariants.REGISTRIES.get(ResourceLocation.tryParse(tag.getString("sound_variant")));
@@ -106,7 +88,7 @@ public abstract class WolfMixin extends TamableAnimalMixin implements NeutralMob
     }
 
     @Override
-    protected void vb$finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, SpawnGroupData spawnData, CompoundTag dataTag, CallbackInfoReturnable<SpawnGroupData> cir) {
+    public void vb$finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, SpawnGroupData spawnData, CompoundTag dataTag) {
         this.vb$setSoundVariant(WolfSoundVariants.REGISTRIES.getRandomElement(level.getRandom()));
         VariantUtils.selectVariantToSpawn(SpawnContext.create(level, this.blockPosition()), WolfVariants.REGISTRIES, VariantSpawner.WOLF_VARIANTS)
             .ifPresent(this::setVariantData);
@@ -129,5 +111,23 @@ public abstract class WolfMixin extends TamableAnimalMixin implements NeutralMob
         SoundEvent result = WolfSoundVariantsModule.getDeathSound((Wolf & WolfSoundVariantHolder) (Object) this);
         if (result != null) cir.setReturnValue(result);
     }
-
+    
+    @Inject(
+        method = "getBreedOffspring(Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/entity/AgeableMob;)Lnet/minecraft/world/entity/animal/Wolf;",
+        at = @At("RETURN")
+    )
+    private void vb$getBreedOffspring(ServerLevel level, AgeableMob otherParent, CallbackInfoReturnable<Wolf> cir) {
+        Wolf baby = cir.getReturnValue();
+        if (baby != null && otherParent instanceof Wolf mate) {
+            VariantDataHolder.trySetOffspringVariant(baby, this, mate);
+            
+            if (this.isTame()) {
+                DyeColor fatherColor = this.getCollarColor();
+                DyeColor motherColor = mate.getCollarColor();
+                baby.setCollarColor(ColorUtils.getMixedColor(level, fatherColor, motherColor));
+            }
+            
+            WolfSoundVariantHolder.of(baby).vb$setSoundVariant(WolfSoundVariants.REGISTRIES.getRandomElement(this.getRandom()));
+        }
+    }
 }
