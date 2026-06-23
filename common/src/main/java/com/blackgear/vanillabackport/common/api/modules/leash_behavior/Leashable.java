@@ -1,7 +1,7 @@
 package com.blackgear.vanillabackport.common.api.modules.leash_behavior;
 
-import com.blackgear.vanillabackport.core.mixin.access.EntityAccessor;
-import com.blackgear.vanillabackport.core.mixin.access.PathfinderMobAccessor;
+import com.blackgear.vanillabackport.core.mixin.common.access.EntityAccessor;
+import com.blackgear.vanillabackport.core.mixin.common.access.PathfinderMobAccessor;
 import com.blackgear.vanillabackport.core.util.WorldUtilities.*;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;

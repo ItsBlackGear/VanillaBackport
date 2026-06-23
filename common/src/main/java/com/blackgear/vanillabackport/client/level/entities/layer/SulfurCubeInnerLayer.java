@@ -4,7 +4,7 @@ import com.blackgear.vanillabackport.client.level.entities.model.sulfur_cube.Sma
 import com.blackgear.vanillabackport.client.level.entities.model.sulfur_cube.SulfurCubeModel;
 import com.blackgear.vanillabackport.client.registries.ModModelLayers;
 import com.blackgear.vanillabackport.common.level.entity.mob.monster.sulfur_cube.SulfurCube;
-import com.blackgear.vanillabackport.core.mixin.access.BlockRenderDispatcherAccessor;
+import com.blackgear.vanillabackport.core.mixin.client.access.BlockRenderDispatcherAccessor;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.fabricmc.api.EnvType;

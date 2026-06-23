@@ -1,7 +1,7 @@
 package com.blackgear.vanillabackport.common.registries;
 
-import com.blackgear.vanillabackport.core.mixin.access.BooleanValueAccessor;
-import com.blackgear.vanillabackport.core.mixin.access.GameRulesAccessor;
+import com.blackgear.vanillabackport.core.mixin.common.access.BooleanValueAccessor;
+import com.blackgear.vanillabackport.core.mixin.common.access.GameRulesAccessor;
 import net.minecraft.world.level.GameRules;
 
 public class ModGameRules {

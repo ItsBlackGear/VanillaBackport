@@ -4,7 +4,7 @@ import com.blackgear.vanillabackport.common.api.extensions.entity.EntityRemoval;
 import com.blackgear.vanillabackport.common.api.modules.ender_pearl_persistance.EnderPearlAccess;
 import com.blackgear.vanillabackport.common.api.modules.ender_pearl_persistance.EnderPearlLoaderModule;
 import com.blackgear.vanillabackport.common.registries.ModGameRules;
-import com.blackgear.vanillabackport.core.mixin.access.ProjectileAccessor;
+import com.blackgear.vanillabackport.core.mixin.common.access.ProjectileAccessor;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.core.BlockPos;

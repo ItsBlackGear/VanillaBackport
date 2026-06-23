@@ -4,7 +4,7 @@ import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
 import com.blackgear.vanillabackport.common.registries.entities.ModEntityTypes;
 import com.blackgear.vanillabackport.common.registries.entities.ModMemoryModules;
 import com.blackgear.vanillabackport.common.registries.entities.ModSensorTypes;
-import com.blackgear.vanillabackport.core.mixin.access.AnimalMakeLoveAccessor;
+import com.blackgear.vanillabackport.core.mixin.common.access.AnimalMakeLoveAccessor;
 import com.blackgear.vanillabackport.core.util.Utilities.*;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;

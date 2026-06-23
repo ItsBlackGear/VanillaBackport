@@ -5,7 +5,7 @@ import com.blackgear.platform.client.event.screen.api.ScreenAccess;
 import com.blackgear.vanillabackport.client.registries.ModBundledTabs;
 import com.blackgear.vanillabackport.client.registries.ModCreativeTabs;
 import com.blackgear.vanillabackport.core.VanillaBackport;
-import com.blackgear.vanillabackport.core.mixin.access.CreativeModeInventoryScreenAccessor;
+import com.blackgear.vanillabackport.core.mixin.client.access.CreativeModeInventoryScreenAccessor;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;

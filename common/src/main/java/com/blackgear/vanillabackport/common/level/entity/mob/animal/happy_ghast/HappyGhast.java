@@ -7,7 +7,7 @@ import com.blackgear.vanillabackport.common.registries.entities.ModEntityTypes;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.blackgear.vanillabackport.core.data.tags.ModBlockTags;
 import com.blackgear.vanillabackport.core.data.tags.ModItemTags;
-import com.blackgear.vanillabackport.core.mixin.access.LivingEntityAccessor;
+import com.blackgear.vanillabackport.core.mixin.common.access.LivingEntityAccessor;
 import com.blackgear.vanillabackport.core.util.Utilities.*;
 import com.blackgear.vanillabackport.core.util.WorldUtilities.*;
 import com.mojang.serialization.Dynamic;

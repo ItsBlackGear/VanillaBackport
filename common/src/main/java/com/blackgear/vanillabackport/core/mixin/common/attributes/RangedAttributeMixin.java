@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.core.mixin.common.attributes;
 
-import com.blackgear.vanillabackport.core.mixin.access.RangedAttributeAccessor;
+import com.blackgear.vanillabackport.core.mixin.common.access.RangedAttributeAccessor;
 import net.minecraft.world.entity.ai.attributes.RangedAttribute;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

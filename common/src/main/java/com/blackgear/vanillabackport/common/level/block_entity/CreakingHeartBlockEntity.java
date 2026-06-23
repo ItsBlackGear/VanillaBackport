@@ -11,8 +11,6 @@ import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
 import com.blackgear.vanillabackport.common.registries.entities.ModEntityTypes;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.blackgear.vanillabackport.core.data.tags.ModBlockTags;
-import com.blackgear.vanillabackport.core.util.Utilities.*;
-import com.blackgear.vanillabackport.core.util.WorldUtilities.*;
 import com.mojang.datafixers.util.Either;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
@@ -47,6 +45,9 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 import java.util.UUID;
+
+import static com.blackgear.vanillabackport.core.util.Utilities.*;
+import static com.blackgear.vanillabackport.core.util.WorldUtilities.*;
 
 public class CreakingHeartBlockEntity extends BlockEntity {
     private static final Optional<Creaking> NO_CREAKING = Optional.empty();

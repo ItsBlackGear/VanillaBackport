@@ -12,7 +12,7 @@ import com.blackgear.vanillabackport.common.registries.items.ModItems;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.blackgear.vanillabackport.core.data.tags.ModDamageTypeTags;
 import com.blackgear.vanillabackport.core.data.tags.ModItemTags;
-import com.blackgear.vanillabackport.core.mixin.access.LivingEntityAccessor;
+import com.blackgear.vanillabackport.core.mixin.common.access.LivingEntityAccessor;
 import com.blackgear.vanillabackport.core.util.Utilities.*;
 import com.blackgear.vanillabackport.core.util.WorldUtilities.*;
 import it.unimi.dsi.fastutil.doubles.DoubleDoubleImmutablePair;
