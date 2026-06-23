@@ -22,7 +22,8 @@ public abstract class SheepRendererMixin extends MobRendererMixin<Sheep, SheepMo
     @Inject(method = "<init>", at = @At("TAIL"))
     private void onInit(EntityRendererProvider.Context context, CallbackInfo ci) {
         SpecialMobRenderer.addLayer(
-            SpecialMobRenderer.create(context, ctx -> new SheepWoolUndercoatLayer(this, ctx.getModelSet()), RenderConditions.SHEEP_UNDERCOAT),
+            RenderConditions.SHEEP_UNDERCOAT,
+            () -> new SheepWoolUndercoatLayer(this, context.getModelSet()),
             this::addLayer
         );
     }

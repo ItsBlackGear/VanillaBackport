@@ -10,7 +10,7 @@ public interface RenderConditions {
     RenderConditions DEFAULT = () -> true;
     RenderConditions FARM_ANIMALS = () -> VanillaBackport.COMMON_CONFIG.hasFarmAnimalVariants.get() && !ModChecker.MIXED_LITTER_LOADED;
     RenderConditions SHEEP_UNDERCOAT = () -> VanillaBackport.CLIENT_CONFIG.useSheepWoolUndercoat.get() && !ModChecker.MIXED_LITTER_LOADED;
-    RenderConditions BATS = () -> VanillaBackport.CLIENT_CONFIG.hasUpdatedBatModel.get();
+    RenderConditions BATS = VanillaBackport.CLIENT_CONFIG.hasUpdatedBatModel::get;
 
     boolean apply();
 }

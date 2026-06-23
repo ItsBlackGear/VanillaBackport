@@ -19,23 +19,17 @@ import net.minecraft.world.entity.ambient.Bat;
 public class BatModel extends HierarchicalModel<Bat> {
     private final ModelPart root;
     private final ModelPart head;
-    private final ModelPart body;
-    private final ModelPart rightWing;
-    private final ModelPart leftWing;
-    private final ModelPart rightWingTip;
-    private final ModelPart leftWingTip;
-    private final ModelPart feet;
-
+    
     public BatModel(ModelPart root) {
         super(RenderType::entityCutout);
         this.root = root;
-        this.body = root.getChild("body");
+        ModelPart body = root.getChild("body");
         this.head = root.getChild("head");
-        this.rightWing = this.body.getChild("right_wing");
-        this.rightWingTip = this.rightWing.getChild("right_wing_tip");
-        this.leftWing = this.body.getChild("left_wing");
-        this.leftWingTip = this.leftWing.getChild("left_wing_tip");
-        this.feet = this.body.getChild("feet");
+        ModelPart rightWing = body.getChild("right_wing");
+        rightWing.getChild("right_wing_tip");
+        ModelPart leftWing = body.getChild("left_wing");
+        leftWing.getChild("left_wing_tip");
+        body.getChild("feet");
     }
 
     public static LayerDefinition createBodyLayer() {

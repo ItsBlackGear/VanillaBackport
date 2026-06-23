@@ -52,63 +52,51 @@ public abstract class DecoratedPotBlockMixin extends BaseEntityBlock {
 
     @Override
     public @NotNull InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-        ItemStack stack = player.getItemInHand(hand);
-        if (level.getBlockEntity(pos) instanceof DecoratedPotBlockEntity blockEntity) {
-            if (blockEntity instanceof DecoratedPot pot) {
-                if (!level.isClientSide()) {
-                    ItemStack item = pot.getFirstItem();
-                    if (!stack.isEmpty() && (item.isEmpty() || ItemStack.isSameItemSameTags(item, stack) && item.getCount() < item.getMaxStackSize())) {
-                        pot.wobble(WobbleStyle.POSITIVE);
-                        player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
-                        ItemStack result = stack.copyWithCount(1);
-                        if (!player.getAbilities().instabuild) stack.shrink(1);
-
-                        float size;
-                        if (pot.isEmpty()) {
-                            pot.setFirstItem(result);
-                            size = (float) result.getCount() / result.getMaxStackSize();
-                        } else {
-                            item.grow(1);
-                            size = (float) item.getCount() / item.getMaxStackSize();
-                        }
-
-                        level.playSound(null, pos, ModSoundEvents.DECORATED_POT_INSERT.get(), SoundSource.BLOCKS, 1.0F, 0.7F + 0.5F * size);
-                        if (level instanceof ServerLevel server) {
-                            server.sendParticles(
-                                ModParticles.DUST_PLUME.get(),
-                                pos.getX() + 0.5,
-                                pos.getY() + 1.2,
-                                pos.getZ() + 0.5,
-                                7,
-                                0.0,
-                                0.0,
-                                0.0,
-                                0.0
-                            );
-                        }
-
-                        blockEntity.setChanged();
+        ItemStack heldItem = player.getItemInHand(hand);
+        if (level.getBlockEntity(pos) instanceof DecoratedPotBlockEntity blockEntity && blockEntity instanceof DecoratedPot decoratedPot) {
+            if (!level.isClientSide()) {
+                ItemStack potItem = decoratedPot.getFirstItem();
+                if (!heldItem.isEmpty() && (potItem.isEmpty() || ItemStack.isSameItemSameTags(potItem, heldItem) && potItem.getCount() < potItem.getMaxStackSize())) {
+                    decoratedPot.wobble(WobbleStyle.POSITIVE);
+                    player.awardStat(Stats.ITEM_USED.get(heldItem.getItem()));
+                    ItemStack awardedItem = heldItem.copyWithCount(1);
+                    if (!player.getAbilities().instabuild) heldItem.shrink(1);
+                    
+                    float pitchBend = (float) potItem.getCount() / potItem.getMaxStackSize();
+                    if (decoratedPot.isEmpty()) {
+                        decoratedPot.setFirstItem(awardedItem);
+                        pitchBend = (float) awardedItem.getCount() / awardedItem.getMaxStackSize();
                     } else {
-                        level.playSound(null, pos, ModSoundEvents.DECORATED_POT_INSERT_FAIL.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
-                        pot.wobble(WobbleStyle.NEGATIVE);
+                        potItem.grow(1);
                     }
-
+                    
+                    level.playSound(null, pos, ModSoundEvents.DECORATED_POT_INSERT.get(), SoundSource.BLOCKS, 1.0F, 0.7F + 0.5F * pitchBend);
+                    if (level instanceof ServerLevel server) {
+                        server.sendParticles(
+                            ModParticles.DUST_PLUME.get(),
+                            pos.getX() + 0.5, pos.getY() + 1.2, pos.getZ() + 0.5,
+                            7,
+                            0.0, 0.0, 0.0,
+                            0.0
+                        );
+                    }
+                    
+                    blockEntity.setChanged();
                     level.gameEvent(player, GameEvent.BLOCK_CHANGE, pos);
+                } else {
+                    level.playSound(null, pos, ModSoundEvents.DECORATED_POT_INSERT_FAIL.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
+                    decoratedPot.wobble(WobbleStyle.NEGATIVE);
                 }
-
-                return InteractionResult.SUCCESS;
             }
+            
+            return InteractionResult.SUCCESS;
         }
 
         return InteractionResult.PASS;
     }
 
-    @Inject(
-        method = "getDrops",
-        at = @At("RETURN"),
-        cancellable = true
-    )
-    public void vb$getDrops(BlockState state, LootParams.Builder params, CallbackInfoReturnable<List<ItemStack>> cir){
+    @Inject(method = "getDrops", at = @At("RETURN"), cancellable = true)
+    public void vb$getDrops(BlockState state, LootParams.Builder params, CallbackInfoReturnable<List<ItemStack>> cir) {
         BlockEntity block = params.getOptionalParameter(LootContextParams.BLOCK_ENTITY);
         if (block instanceof DecoratedPotBlockEntity pot) {
             cir.setReturnValue(super.getDrops(pot.getBlockState(), params));
