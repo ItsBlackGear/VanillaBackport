@@ -1,7 +1,7 @@
 package com.blackgear.vanillabackport.common.api.experiment.minecart_behavior;
 
 import com.blackgear.vanillabackport.common.api.modules.leash_behavior.InterpolationHandler;
-import com.blackgear.vanillabackport.core.mixin.access.AbstractMinecartAccessor;
+import com.blackgear.vanillabackport.core.mixin.common.access.AbstractMinecartAccessor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;

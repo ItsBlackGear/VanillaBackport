@@ -6,7 +6,7 @@ import com.blackgear.vanillabackport.common.level.worldgen.tree_decorators.Creak
 import com.blackgear.vanillabackport.common.level.worldgen.tree_decorators.PaleMossDecorator;
 import com.blackgear.vanillabackport.common.level.worldgen.tree_decorators.PlaceOnGroundDecorator;
 import com.blackgear.vanillabackport.core.VanillaBackport;
-import com.blackgear.vanillabackport.core.mixin.access.TreeDecoratorTypeAccessor;
+import com.blackgear.vanillabackport.core.mixin.common.access.TreeDecoratorTypeAccessor;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;

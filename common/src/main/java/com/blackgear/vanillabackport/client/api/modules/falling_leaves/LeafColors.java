@@ -2,7 +2,7 @@ package com.blackgear.vanillabackport.client.api.modules.falling_leaves;
 
 import com.blackgear.vanillabackport.client.api.modules.leaf_litter.DryFoliageColor;
 import com.blackgear.vanillabackport.core.data.tags.ModBiomeTags;
-import com.blackgear.vanillabackport.core.mixin.access.BiomeAccessor;
+import com.blackgear.vanillabackport.core.mixin.common.access.BiomeAccessor;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;

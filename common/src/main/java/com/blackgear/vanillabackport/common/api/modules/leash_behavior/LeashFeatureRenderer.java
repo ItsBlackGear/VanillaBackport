@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.common.api.modules.leash_behavior;
 
-import com.blackgear.vanillabackport.core.mixin.access.EntityRendererAccessor;
+import com.blackgear.vanillabackport.core.mixin.client.access.EntityRendererAccessor;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.fabricmc.api.EnvType;

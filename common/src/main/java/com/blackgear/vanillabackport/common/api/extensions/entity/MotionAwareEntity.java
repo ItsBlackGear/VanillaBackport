@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.common.api.extensions.entity;
 
-import com.blackgear.vanillabackport.core.mixin.access.EntityAccessor;
+import com.blackgear.vanillabackport.core.mixin.common.access.EntityAccessor;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.Vec3;
 

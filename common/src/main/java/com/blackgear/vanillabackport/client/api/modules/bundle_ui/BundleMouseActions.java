@@ -3,7 +3,7 @@ package com.blackgear.vanillabackport.client.api.modules.bundle_ui;
 import com.blackgear.platform.client.event.screen.HudInteractions;
 import com.blackgear.platform.core.networking.PayloadDistributor;
 import com.blackgear.platform.core.util.event.CancellableResult;
-import com.blackgear.vanillabackport.common.api.modules.bundle_behavior.BundleFeatures;
+import com.blackgear.vanillabackport.common.api.modules.bundle_ui.BundleFeatures;
 import com.blackgear.vanillabackport.core.data.tags.ModItemTags;
 import com.blackgear.vanillabackport.core.network.ServerboundSelectBundleItemPacket;
 import net.fabricmc.api.EnvType;

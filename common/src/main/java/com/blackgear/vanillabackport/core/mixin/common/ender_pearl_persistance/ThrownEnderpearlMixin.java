@@ -2,7 +2,7 @@ package com.blackgear.vanillabackport.core.mixin.common.ender_pearl_persistance;
 
 import com.blackgear.vanillabackport.common.api.modules.ender_pearl_persistance.EnderPearlAccess;
 import com.blackgear.vanillabackport.common.api.modules.ender_pearl_persistance.EnderPearlLoaderModule;
-import com.blackgear.vanillabackport.core.mixin.access.ProjectileAccessor;
+import com.blackgear.vanillabackport.core.mixin.common.access.ProjectileAccessor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.SectionPos;
 import net.minecraft.server.level.ServerLevel;

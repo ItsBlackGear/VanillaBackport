@@ -1,8 +1,8 @@
 package com.blackgear.vanillabackport.client.api.modules.music_fade;
 
 import com.blackgear.vanillabackport.common.registries.worldgen.ModBiomes;
-import com.blackgear.vanillabackport.core.mixin.access.SoundEngineAccessor;
-import com.blackgear.vanillabackport.core.mixin.access.SoundManagerAccessor;
+import com.blackgear.vanillabackport.core.mixin.client.access.SoundEngineAccessor;
+import com.blackgear.vanillabackport.core.mixin.client.access.SoundManagerAccessor;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;

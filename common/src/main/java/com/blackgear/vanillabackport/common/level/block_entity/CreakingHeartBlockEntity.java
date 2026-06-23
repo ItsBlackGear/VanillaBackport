@@ -11,7 +11,6 @@ import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
 import com.blackgear.vanillabackport.common.registries.entities.ModEntityTypes;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.blackgear.vanillabackport.core.data.tags.ModBlockTags;
-import com.blackgear.vanillabackport.core.util.WorldUtilities.SpawnUtils;
 import com.mojang.datafixers.util.Either;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
@@ -47,6 +46,9 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 import java.util.UUID;
+
+import static com.blackgear.vanillabackport.core.util.Utilities.*;
+import static com.blackgear.vanillabackport.core.util.WorldUtilities.*;
 
 public class CreakingHeartBlockEntity extends BlockEntity {
     private static final Optional<Creaking> NO_CREAKING = Optional.empty();
@@ -294,7 +296,7 @@ public class CreakingHeartBlockEntity extends BlockEntity {
 
             for (double i = 0.0; i < count; i++) {
                 AABB creakingBounds = creaking.getBoundingBox();
-                Vec3 currentPos = new Vec3(creakingBounds.minX, creakingBounds.minY, creakingBounds.minZ)
+                Vec3 currentPos = CollisionUtils.getMinPosition(creakingBounds)
                     .add(random.nextDouble() * creakingBounds.getXsize(), random.nextDouble() * creakingBounds.getYsize(), random.nextDouble() * creakingBounds.getZsize());
                 Vec3 heartPos = Vec3.atLowerCornerOf(this.getBlockPos()).add(random.nextDouble(), random.nextDouble(), random.nextDouble());
 

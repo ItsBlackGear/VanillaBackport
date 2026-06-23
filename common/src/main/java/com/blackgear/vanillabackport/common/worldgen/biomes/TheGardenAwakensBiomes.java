@@ -1,7 +1,7 @@
 package com.blackgear.vanillabackport.common.worldgen.biomes;
 
 import com.blackgear.vanillabackport.common.worldgen.placements.TheGardenAwakensPlacements;
-import com.blackgear.vanillabackport.core.mixin.access.OverworldBiomesAccessor;
+import com.blackgear.vanillabackport.core.mixin.common.access.OverworldBiomesAccessor;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.data.worldgen.BiomeDefaultFeatures;
 import net.minecraft.world.level.biome.*;

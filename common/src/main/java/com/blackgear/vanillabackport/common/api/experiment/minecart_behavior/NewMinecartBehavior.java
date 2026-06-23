@@ -1,7 +1,7 @@
 package com.blackgear.vanillabackport.common.api.experiment.minecart_behavior;
 
-import com.blackgear.vanillabackport.core.mixin.access.AbstractMinecartAccessor;
-import com.blackgear.vanillabackport.core.mixin.access.EntityAccessor;
+import com.blackgear.vanillabackport.core.mixin.common.access.AbstractMinecartAccessor;
+import com.blackgear.vanillabackport.core.mixin.common.access.EntityAccessor;
 import com.blackgear.vanillabackport.core.util.AdditionalCodecs;
 import com.blackgear.vanillabackport.core.util.Utilities.*;
 import com.blackgear.vanillabackport.core.util.WorldUtilities.*;

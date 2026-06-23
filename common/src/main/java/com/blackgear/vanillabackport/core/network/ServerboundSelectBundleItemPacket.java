@@ -1,7 +1,7 @@
 package com.blackgear.vanillabackport.core.network;
 
 import com.blackgear.platform.core.networking.PayloadContext;
-import com.blackgear.vanillabackport.common.api.modules.bundle_behavior.BundleFeatures;
+import com.blackgear.vanillabackport.common.api.modules.bundle_ui.BundleFeatures;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.FriendlyByteBuf;

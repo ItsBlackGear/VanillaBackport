@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.client.api.modules.music_toast;
 
-import com.blackgear.vanillabackport.core.mixin.access.MusicManagerAccessor;
+import com.blackgear.vanillabackport.core.mixin.client.access.MusicManagerAccessor;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
