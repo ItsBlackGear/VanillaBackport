@@ -45,22 +45,22 @@ public class BundleColoring extends CustomRecipe {
     @Override
     public ItemStack assemble(CraftingInput input, HolderLookup.Provider registries) {
         ItemStack bundle = ItemStack.EMPTY;
-        DyeItem dye = (DyeItem) Items.WHITE_DYE;
+        DyeItem dye = null;
 
         for (int slot = 0; slot < input.size(); slot++) {
             ItemStack stack = input.getItem(slot);
-
             if (!stack.isEmpty()) {
                 Item item = stack.getItem();
-
                 if (isBundle(item)) {
                     bundle = stack;
-                } else if (item instanceof DyeItem) {
-                    dye = (DyeItem) item;
+                } else if (item instanceof DyeItem dyeItem) {
+                    dye = dyeItem;
                 }
             }
         }
-
+        
+        if (bundle.isEmpty() || dye == null) return ItemStack.EMPTY;
+        
         Item result = BundleFeatures.getByColor(dye.getDyeColor());
         return bundle.transmuteCopy(result, 1);
     }

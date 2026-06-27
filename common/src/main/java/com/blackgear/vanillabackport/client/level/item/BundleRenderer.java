@@ -5,6 +5,8 @@ import com.blackgear.platform.core.util.event.ResultHolder;
 import com.blackgear.vanillabackport.common.registries.items.ModItems;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.google.common.collect.ImmutableSet;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.renderer.ItemModelShaper;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.ModelResourceLocation;
@@ -16,7 +18,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+@Environment(EnvType.CLIENT)
 public class BundleRenderer implements ItemRendererRegistry.Renderer {
+    public static final BundleRenderer INSTANCE = new BundleRenderer();
     public static final Set<ItemLike> BUNDLES = Set.of(
         Items.BUNDLE,
         ModItems.WHITE_BUNDLE.get(),
@@ -40,8 +44,11 @@ public class BundleRenderer implements ItemRendererRegistry.Renderer {
     private static final Map<ItemLike, ModelResourceLocation> BUNDLE_MODELS = buildModels();
 
     private static Map<ItemLike, ModelResourceLocation> buildModels() {
-        Map<ItemLike, ModelResourceLocation> models = new HashMap<>();
-        for (ItemLike item : BUNDLES) models.put(item, create(item.asItem()));
+        Map<ItemLike, ModelResourceLocation> models = new HashMap<>(BUNDLES.size());
+        for (ItemLike item : BUNDLES) {
+            models.put(item, create(item.asItem()));
+        }
+        
         return models;
     }
 
@@ -66,11 +73,6 @@ public class BundleRenderer implements ItemRendererRegistry.Renderer {
 
     @Override
     public Set<ModelResourceLocation> registerModels() {
-        Set<ModelResourceLocation> models = ImmutableSet.of();
-        models = ImmutableSet.<ModelResourceLocation>builder()
-            .addAll(models)
-            .addAll(BUNDLE_MODELS.values())
-            .build();
-        return models;
+        return ImmutableSet.copyOf(BUNDLE_MODELS.values());
     }
 }

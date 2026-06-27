@@ -8,9 +8,11 @@
     "BlackGear"
   ],
   "contact": {
-    "homepage": "https://www.curseforge.com/minecraft/mc-mods/vanilla-backport"
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/vanillabackport",
+    "sources": "https://github.com/ItsBlackGear/VanillaBackport",
+    "issues": "https://github.com/ItsBlackGear/VanillaBackport/issues"
   },
-  "license": "ARR",
+  "license": "MIT",
   "icon": "icon.png",
   "environment": "*",
   "entrypoints": {
@@ -25,6 +27,9 @@
     ],
     "terrablender": [
       "com.blackgear.vanillabackport.core.fabric.VanillaBackportTerrablender"
+    ],
+    "jei_mod_plugin": [
+      "com.blackgear.vanillabackport.core.fabric.compat.VanillaBackportJeiPlugin"
     ]
   },
   "mixins": [

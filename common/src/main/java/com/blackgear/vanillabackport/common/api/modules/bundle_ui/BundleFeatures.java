@@ -2,22 +2,20 @@ package com.blackgear.vanillabackport.common.api.modules.bundle_ui;
 
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
 import com.blackgear.vanillabackport.common.registries.items.ModItems;
-import com.blackgear.vanillabackport.core.ModChecker;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.BundleContents;
 
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.Map;
 import java.util.Optional;
 
 public class BundleFeatures {
-    public static final Map<DyeColor, Item> BUNDLES_BY_DYE = new HashMap<>();
+    public static final Map<DyeColor, Item> BUNDLES_BY_DYE = new EnumMap<>(DyeColor.class);
 
     static {
         register(DyeColor.WHITE, ModItems.WHITE_BUNDLE.get());
@@ -43,7 +41,7 @@ public class BundleFeatures {
     }
 
     public static boolean onBundleUpdate() {
-        return VanillaBackport.COMMON_CONFIG.hasUpdatedBundles.get() && !ModChecker.BEST_BUNDLES_LOADED;
+        return VanillaBackport.COMMON_CONFIG.hasUpdatedBundles.get();
     }
 
     public static boolean canItemBeInBundle(ItemStack stack) {
@@ -66,10 +64,12 @@ public class BundleFeatures {
 
     public static ItemStack getSelectedItemStack(ItemStack stack) {
         BundleContents contents = stack.get(DataComponents.BUNDLE_CONTENTS);
-        ModernBundle ibundle = (ModernBundle) (Object) contents;
-        return contents != null && ibundle.getSelectedItem() != -1
-                ? contents.getItemUnsafe(ibundle.getSelectedItem())
-                : ItemStack.EMPTY;
+        if (contents == null) return ItemStack.EMPTY;
+        
+        ModernBundle bundle = (ModernBundle) (Object) contents;
+        int selectedIndex = bundle.getSelectedItem();
+        
+        return selectedIndex != -1 ? contents.getItemUnsafe(selectedIndex) : ItemStack.EMPTY;
     }
 
     public static int getNumberOfItemsToShow(ItemStack stack) {
@@ -80,13 +80,12 @@ public class BundleFeatures {
     public static Optional<ItemStack> removeOneItemFromBundle(ItemStack stack, Player player, BundleContents contents) {
         BundleContents.Mutable mutable = new BundleContents.Mutable(contents);
         ItemStack itemStack = mutable.removeOne();
-        if (itemStack != null) {
-            BundleFeatures.playRemoveOneSound(player);
-            stack.set(DataComponents.BUNDLE_CONTENTS, mutable.toImmutable());
-            return Optional.of(itemStack);
-        } else {
-            return Optional.empty();
-        }
+        
+        if (itemStack == null) return Optional.empty();
+
+        playRemoveOneSound(player);
+        stack.set(DataComponents.BUNDLE_CONTENTS, mutable.toImmutable());
+        return Optional.of(itemStack);
     }
 
     public static Item getByColor(DyeColor dyeColor) {
@@ -99,17 +98,5 @@ public class BundleFeatures {
 
     public static void playInsertFailSound(Entity entity) {
         entity.playSound(ModSoundEvents.BUNDLE_INSERT_FAIL.get(), 1.0F, 1.0F);
-    }
-
-    public static void broadcastChangesOnContainerMenu(Player player) {
-        AbstractContainerMenu menu = player.containerMenu;
-        if (menu != null) {
-            try {
-                menu.slotsChanged(player.getInventory());
-            } catch (IndexOutOfBoundsException ignored) {
-                // This works as fallback for a very specific set of mods that lead to crash when opening a very specific inventory...
-                // i couldn't replicate this properly but hey, this works :shrug:
-            }
-        }
     }
 }
