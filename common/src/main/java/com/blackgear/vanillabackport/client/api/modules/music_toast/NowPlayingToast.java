@@ -145,7 +145,7 @@ public class NowPlayingToast implements Toast {
         MusicManagerAccessor accessor = (MusicManagerAccessor) Minecraft.getInstance().getMusicManager();
         if (accessor.getCurrentMusic() != null) {
             Sound sound = accessor.getCurrentMusic().getSound();
-            return sound.getLocation();
+            if (sound != null) return sound.getLocation();
         }
         return null;
     }

@@ -8,14 +8,20 @@ import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.world.level.ItemLike;
 
 import static com.blackgear.platform.client.GameRendering.*;
 
 @Environment(EnvType.CLIENT)
 public class ItemLikeRendering {
     public static void specialRendering(SpecialModelEvent event) {
-        BundleRenderer.BUNDLES.forEach(item -> ItemRendererRegistry.INSTANCE.get().register(item, new BundleRenderer()));
-        SpawnEggRenderer.SPAWN_EGGS.forEach(item -> DynamicItemRenderer.INSTANCE.get().register(item, new SpawnEggRenderer()));
+        for (ItemLike item : BundleRenderer.BUNDLES) {
+            ItemRendererRegistry.INSTANCE.get().register(item, BundleRenderer.INSTANCE);
+        }
+        
+        for (ItemLike item : SpawnEggRenderer.SPAWN_EGGS) {
+            DynamicItemRenderer.INSTANCE.get().register(item, SpawnEggRenderer.INSTANCE);
+        }
     }
     
     public static void renderTypes(BlockRendererEvent event) {

@@ -1,4 +1,4 @@
-package com.blackgear.vanillabackport.common.api.modules.bundle_behavior;
+package com.blackgear.vanillabackport.common.api.modules.bundle_ui;
 
 import com.blackgear.vanillabackport.common.registries.ModRecipeSerializers;
 import com.blackgear.vanillabackport.core.VanillaBackport;
@@ -46,25 +46,24 @@ public class BundleColoring extends CustomRecipe {
     @Override
     public ItemStack assemble(CraftingContainer container, RegistryAccess registryAccess) {
         ItemStack bundle = ItemStack.EMPTY;
-        DyeItem dye = (DyeItem) Items.WHITE_DYE;
+        DyeItem dye = null;
 
         for (int slot = 0; slot < container.getContainerSize(); slot++) {
             ItemStack stack = container.getItem(slot);
-
             if (!stack.isEmpty()) {
                 Item item = stack.getItem();
-
                 if (isBundle(item)) {
                     bundle = stack;
-                } else if (item instanceof DyeItem) {
-                    dye = (DyeItem) item;
+                } else if (item instanceof DyeItem dyeItem) {
+                    dye = dyeItem;
                 }
             }
         }
-
+        
+        if (bundle.isEmpty() || dye == null) return ItemStack.EMPTY;
+        
         ItemStack result = BundleFeatures.getByColor(dye.getDyeColor()).getDefaultInstance();
-        if (
-            bundle.hasTag()) {
+        if (bundle.hasTag()) {
             result.setTag(bundle.getTag().copy());
         }
 

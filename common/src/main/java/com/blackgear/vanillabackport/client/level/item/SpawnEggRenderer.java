@@ -32,6 +32,7 @@ import java.util.Set;
 
 @Environment(EnvType.CLIENT)
 public class SpawnEggRenderer implements DynamicItemRenderer.Renderer {
+    public static final SpawnEggRenderer INSTANCE = new SpawnEggRenderer();
     public static final Set<ItemLike> SPAWN_EGGS = Set.of(
         Items.ALLAY_SPAWN_EGG,
         ModItems.ARMADILLO_SPAWN_EGG.get(),
@@ -117,8 +118,11 @@ public class SpawnEggRenderer implements DynamicItemRenderer.Renderer {
     private static final Map<ItemLike, ModelResourceLocation> EGG_MODELS = buildModels();
 
     private static Map<ItemLike, ModelResourceLocation> buildModels() {
-        Map<ItemLike, ModelResourceLocation> models = new HashMap<>();
-        for (ItemLike item : SPAWN_EGGS) models.put(item, create(item.asItem()));
+        Map<ItemLike, ModelResourceLocation> models = new HashMap<>(SPAWN_EGGS.size());
+        for (ItemLike item : SPAWN_EGGS) {
+            models.put(item, create(item.asItem()));
+        }
+        
         return models;
     }
 
@@ -132,24 +136,14 @@ public class SpawnEggRenderer implements DynamicItemRenderer.Renderer {
     }
 
     @Override
-    public void renderFirstPerson(
-        ItemStack stack,
-        ItemDisplayContext context,
-        boolean leftHand,
-        PoseStack pose,
-        MultiBufferSource buffer,
-        int light,
-        int overlay,
-        BakedModel model,
-        ItemModelShaper shaper,
-        ItemColors colors
-    ) {
-        model = shaper.getModelManager().getModel(EGG_MODELS.get(stack.getItem()));
-        model.getTransforms().getTransform(context).apply(leftHand, pose);
+    public void renderFirstPerson(ItemStack stack, ItemDisplayContext context, boolean leftHand, PoseStack pose, MultiBufferSource buffer, int light, int overlay, BakedModel model, ItemModelShaper shaper, ItemColors colors) {
+        BakedModel eggModel = shaper.getModelManager().getModel(EGG_MODELS.get(stack.getItem()));
+        eggModel.getTransforms().getTransform(context).apply(leftHand, pose);
         pose.translate(-0.5F, -0.5F, -0.5F);
+        
         RenderType renderType = ItemBlockRenderTypes.getRenderType(stack, true);
         VertexConsumer vertices = ItemRenderer.getFoilBufferDirect(buffer, renderType, true, stack.hasFoil());
-        this.renderModelLists(model, stack, light, overlay, pose, vertices, colors);
+        this.renderModelLists(eggModel, stack, light, overlay, pose, vertices, colors);
     }
 
     @Override
@@ -159,24 +153,13 @@ public class SpawnEggRenderer implements DynamicItemRenderer.Renderer {
 
     @Override
     public Set<ModelResourceLocation> registerModels() {
-        Set<ModelResourceLocation> models = ImmutableSet.of();
-        models = ImmutableSet.<ModelResourceLocation>builder()
-            .addAll(models)
-            .addAll(EGG_MODELS.values())
-            .build();
-        return models;
+        return ImmutableSet.copyOf(EGG_MODELS.values());
     }
 
     @Override
     public void renderQuadList(PoseStack pose, VertexConsumer buffer, List<BakedQuad> quads, ItemStack stack, int light, int overlay, ItemColors colors) {
-        PoseStack.Pose last = pose.last();
-
         for (BakedQuad quad : quads) {
-            int tint = -1;
-            float red = (float) (tint >> 16 & 0xFF) / 255.0F;
-            float green = (float) (tint >> 8 & 0xFF) / 255.0F;
-            float blue = (float) (tint & 0xFF) / 255.0F;
-            buffer.putBulkData(last, quad, red, green, blue, light, overlay);
+            buffer.putBulkData(pose.last(), quad, 1.0F, 1.0F, 1.0F, light, overlay);
         }
     }
 }

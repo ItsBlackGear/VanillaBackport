@@ -20,6 +20,7 @@ import java.util.Set;
 
 @Environment(EnvType.CLIENT)
 public class BundleRenderer implements ItemRendererRegistry.Renderer {
+    public static final BundleRenderer INSTANCE = new BundleRenderer();
     public static final Set<ItemLike> BUNDLES = Set.of(
         Items.BUNDLE,
         ModItems.WHITE_BUNDLE.get(),
@@ -43,8 +44,11 @@ public class BundleRenderer implements ItemRendererRegistry.Renderer {
     private static final Map<ItemLike, ModelResourceLocation> BUNDLE_MODELS = buildModels();
 
     private static Map<ItemLike, ModelResourceLocation> buildModels() {
-        Map<ItemLike, ModelResourceLocation> models = new HashMap<>();
-        for (ItemLike item : BUNDLES) models.put(item, create(item.asItem()));
+        Map<ItemLike, ModelResourceLocation> models = new HashMap<>(BUNDLES.size());
+        for (ItemLike item : BUNDLES) {
+            models.put(item, create(item.asItem()));
+        }
+        
         return models;
     }
 
@@ -69,11 +73,6 @@ public class BundleRenderer implements ItemRendererRegistry.Renderer {
 
     @Override
     public Set<ModelResourceLocation> registerModels() {
-        Set<ModelResourceLocation> models = ImmutableSet.of();
-        models = ImmutableSet.<ModelResourceLocation>builder()
-            .addAll(models)
-            .addAll(BUNDLE_MODELS.values())
-            .build();
-        return models;
+        return ImmutableSet.copyOf(BUNDLE_MODELS.values());
     }
 }

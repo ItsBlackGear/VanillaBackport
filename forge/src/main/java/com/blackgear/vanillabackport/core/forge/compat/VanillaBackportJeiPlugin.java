@@ -1,7 +1,7 @@
 package com.blackgear.vanillabackport.core.forge.compat;
 
-import com.blackgear.vanillabackport.common.api.modules.bundle_behavior.BundleFeatures;
-import com.blackgear.vanillabackport.common.api.modules.bundle_behavior.BundleColoring;
+import com.blackgear.vanillabackport.common.api.modules.bundle_ui.BundleFeatures;
+import com.blackgear.vanillabackport.common.api.modules.bundle_ui.BundleColoring;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
@@ -36,30 +36,25 @@ public class VanillaBackportJeiPlugin implements IModPlugin {
 
         if (!hasBundleColoring) return;
 
-        List<CraftingRecipe> extraRecipes = new ArrayList<>();
+        Map<DyeColor, List<Item>> dyesByColor = getDyesByColor();
+        List<Item> allBundles = getBundles();
+        
+        List<CraftingRecipe> extraRecipes = new ArrayList<>(DyeColor.values().length);
 
         for (DyeColor dyeColor : DyeColor.values()) {
             Item resultBundle = BundleFeatures.getByColor(dyeColor);
-            List<Item> dyeItems = getDyesByColor().get(dyeColor);
+            List<Item> dyeItems = dyesByColor.get(dyeColor);
             if (resultBundle == null || dyeItems == null || dyeItems.isEmpty()) continue;
 
-            List<Item> otherBundles = getBundles().stream()
+            ItemStack[] otherBundlesStacks = allBundles.stream()
                 .filter(item -> item != resultBundle)
-                .toList();
+                .map(ItemStack::new)
+                .toArray(ItemStack[]::new);
 
-            if (otherBundles.isEmpty()) continue;
+            if (otherBundlesStacks.length == 0) continue;
 
-            Ingredient anyOtherBundle = Ingredient.of(
-                otherBundles.stream()
-                    .map(ItemStack::new)
-                    .toArray(ItemStack[]::new)
-            );
-
-            Ingredient dyeChoices = Ingredient.of(
-                dyeItems.stream()
-                    .map(ItemStack::new)
-                    .toArray(ItemStack[]::new)
-            );
+            Ingredient anyOtherBundle = Ingredient.of(otherBundlesStacks);
+            Ingredient dyeChoices = Ingredient.of(dyeItems.stream().map(ItemStack::new));
 
             NonNullList<Ingredient> inputs = NonNullList.of(Ingredient.EMPTY, anyOtherBundle, dyeChoices);
             ItemStack output = new ItemStack(resultBundle);
@@ -67,9 +62,7 @@ public class VanillaBackportJeiPlugin implements IModPlugin {
             ResourceLocation baseId = BuiltInRegistries.ITEM.getKey(resultBundle);
             ResourceLocation displayId = new ResourceLocation(baseId.getNamespace(), "/" + baseId.getPath());
 
-            CraftingBookCategory category = CraftingBookCategory.MISC;
-            ShapelessRecipe recipe = new ShapelessRecipe(displayId, "", category, output, inputs);
-
+            ShapelessRecipe recipe = new ShapelessRecipe(displayId, "", CraftingBookCategory.MISC, output, inputs);
             extraRecipes.add(recipe);
         }
 
@@ -82,8 +75,8 @@ public class VanillaBackportJeiPlugin implements IModPlugin {
 
     private static Map<DyeColor, List<Item>> getDyesByColor() {
         return BuiltInRegistries.ITEM.stream()
-            .filter(item -> item instanceof DyeItem)
-            .map(item -> (DyeItem) item)
+            .filter(DyeItem.class::isInstance)
+            .map(DyeItem.class::cast)
             .collect(Collectors.groupingBy(
                 DyeItem::getDyeColor,
                 () -> new EnumMap<>(DyeColor.class),

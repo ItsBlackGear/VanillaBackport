@@ -1,4 +1,4 @@
-package com.blackgear.vanillabackport.common.api.modules.bundle_behavior;
+package com.blackgear.vanillabackport.common.api.modules.bundle_ui;
 
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.inventory.tooltip.BundleTooltip;

@@ -1,4 +1,4 @@
-package com.blackgear.vanillabackport.common.api.modules.bundle_behavior;
+package com.blackgear.vanillabackport.common.api.modules.bundle_ui;
 
 import com.blackgear.vanillabackport.common.registries.items.ModItems;
 import com.blackgear.vanillabackport.core.VanillaBackport;
@@ -94,9 +94,7 @@ public final class BundleFeatures {
         }
 
         ListTag items = tag.getList(TAG_ITEMS, 10);
-        return items.stream()
-            .map(CompoundTag.class::cast)
-            .map(ItemStack::of);
+        return items.stream().map(nbt -> ItemStack.of((CompoundTag) nbt));
     }
 
     public static int getWeight(ItemStack stack) {
@@ -121,19 +119,29 @@ public final class BundleFeatures {
     }
 
     public static int getContentWeight(ItemStack bundle) {
-        return getContents(bundle)
-            .mapToInt(item -> getWeight(item) * item.getCount())
-            .sum();
+        CompoundTag tag = bundle.getTag();
+        if (tag == null || !tag.contains(TAG_ITEMS)) return 0;
+
+        ListTag items = tag.getList(TAG_ITEMS, 10);
+        int totalWeight = 0;
+        
+        for (int i = 0; i < items.size(); i++) {
+            ItemStack item = ItemStack.of(items.getCompound(i));
+            totalWeight += getWeight(item) * item.getCount();
+        }
+        return totalWeight;
     }
 
     private static Optional<CompoundTag> getMatchingItem(ItemStack stack, ListTag items) {
         if (!stack.isStackable()) return Optional.empty();
 
-        return items.stream()
-            .filter(CompoundTag.class::isInstance)
-            .map(CompoundTag.class::cast)
-            .filter(tag -> ItemStack.isSameItemSameTags(ItemStack.of(tag), stack))
-            .findFirst();
+        for (int i = 0; i < items.size(); i++) {
+            CompoundTag tag = items.getCompound(i);
+            if (ItemStack.isSameItemSameTags(ItemStack.of(tag), stack)) {
+                return Optional.of(tag);
+            }
+        }
+        return Optional.empty();
     }
 
     public static void setSelectedItem(ItemStack bundle, int index) {
@@ -172,8 +180,7 @@ public final class BundleFeatures {
     }
 
     public static int tryInsert(ItemStack bundle, ItemStack item) {
-        if (!canItemBeInBundle(item)) return 0;
-        if (!bundle.is(ModItemTags.BUNDLES)) return 0;
+        if (!canItemBeInBundle(item) || !bundle.is(ModItemTags.BUNDLES)) return 0;
 
         CompoundTag tag = bundle.getOrCreateTag();
         if (!tag.contains(TAG_ITEMS)) {
@@ -181,7 +188,6 @@ public final class BundleFeatures {
         }
 
         ListTag items = tag.getList(TAG_ITEMS, 10);
-
         int maxToAdd = Math.min(item.getCount(), getMaxAmountToAdd(bundle, item));
         if (maxToAdd <= 0) return 0;
 
@@ -221,22 +227,14 @@ public final class BundleFeatures {
         if (!bundle.is(ModItemTags.BUNDLES)) return;
 
         CompoundTag tag = bundle.getOrCreateTag();
-        int selected0 = tag.getInt(TAG_SELECTED_ITEM);
-
         if (!tag.contains(TAG_ITEMS)) {
             setSelectedItem(bundle, NO_SELECTED_ITEM);
             return;
         }
 
         ListTag items = tag.getList(TAG_ITEMS, 10);
-
-        if (!isValidIndex(index, items.size())) {
-            setSelectedItem(bundle, NO_SELECTED_ITEM);
-            return;
-        }
-
-        boolean outsideBounds = index < 0 || index >= items.size();
-        int selected = selected0 != index && !outsideBounds ? index : NO_SELECTED_ITEM;
+        int selected0 = tag.getInt(TAG_SELECTED_ITEM);
+        int selected = (selected0 != index && isValidIndex(index, items.size())) ? index : NO_SELECTED_ITEM;
         setSelectedItem(bundle, selected);
     }
 
@@ -247,7 +245,7 @@ public final class BundleFeatures {
     public static int getNumberOfItemsToShow(ItemStack bundle) {
         CompoundTag tag = bundle.getTag();
         if (tag != null && tag.contains(TAG_ITEMS)) {
-            return getItemsToShow(tag.getList(TAG_ITEMS, 10).stream().toList());
+            return getItemsToShow(tag.getList(TAG_ITEMS, 10));
         }
 
         return 0;
@@ -265,22 +263,15 @@ public final class BundleFeatures {
         if (!bundle.is(ModItemTags.BUNDLES)) return ItemStack.EMPTY;
 
         int selectedIndex = getSelectedItem(bundle);
-        if (selectedIndex == NO_SELECTED_ITEM) {
-            return ItemStack.EMPTY;
-        }
+        if (selectedIndex == NO_SELECTED_ITEM) return ItemStack.EMPTY;
 
         CompoundTag tag = bundle.getTag();
-        if (tag == null || !tag.contains(TAG_ITEMS)) {
-            return ItemStack.EMPTY;
-        }
+        if (tag == null || !tag.contains(TAG_ITEMS)) return ItemStack.EMPTY;
 
         ListTag items = tag.getList(TAG_ITEMS, 10);
-        if (!isValidIndex(selectedIndex, items.size())) {
-            return ItemStack.EMPTY;
-        }
+        if (!isValidIndex(selectedIndex, items.size())) return ItemStack.EMPTY;
 
-        CompoundTag itemTag = items.getCompound(selectedIndex);
-        return ItemStack.of(itemTag);
+        return ItemStack.of(items.getCompound(selectedIndex));
     }
 
     public static Item getByColor(DyeColor dyeColor) {

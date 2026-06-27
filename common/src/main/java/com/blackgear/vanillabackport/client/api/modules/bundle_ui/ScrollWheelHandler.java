@@ -26,16 +26,6 @@ public class ScrollWheelHandler {
     public static int getNextScrollWheelSelection(double delta, int index, int max) {
         int direction = (int) Math.signum(delta);
         index -= direction;
-        index = Math.max(-1, index);
-
-        while (index < 0) {
-            index += max;
-        }
-
-        while (index >= max) {
-            index -= max;
-        }
-
-        return index;
+        return (index % max + max) % max;
     }
 }
