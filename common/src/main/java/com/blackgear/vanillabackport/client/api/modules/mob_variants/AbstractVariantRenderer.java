@@ -50,7 +50,7 @@ public abstract class AbstractVariantRenderer<T extends LivingEntity, M extends 
 
     @Override
     public Optional<M> getModel(T entity) {
-        if (ModChecker.MIXED_LITTER_LOADED) return Optional.empty();
+        if (ModChecker.MIXED_LITTER) return Optional.empty();
 
         Optional<V> variant = this.getVariant(entity);
         if (variant.isEmpty()) return Optional.empty();

@@ -7,6 +7,8 @@ import com.blackgear.vanillabackport.common.level.items.PaleOakBoatItem;
 import com.blackgear.vanillabackport.common.level.items.SulfurCubeBucketItem;
 import com.blackgear.vanillabackport.common.registries.entities.ModEntityTypes;
 import com.blackgear.vanillabackport.core.VanillaBackport;
+import com.blackgear.vanillabackport.core.registries.experimental.FeatureHolder;
+import com.blackgear.vanillabackport.core.registries.experimental.handlers.VanillaItemRegistry;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.Item.Properties;
@@ -16,6 +18,7 @@ import java.util.function.Supplier;
 
 public class ModItems {
     public static final ItemRegistry REGISTRIES = ItemRegistry.create(VanillaBackport.NAMESPACE);
+    public static final VanillaItemRegistry ITEMS = VanillaItemRegistry.create();
 
     // Bundles of Bravery
     
@@ -143,6 +146,10 @@ public class ModItems {
             .rarity(Rarity.RARE)
             .jukeboxPlayable(ModJukeboxSongs.LAVA_CHICKEN));
 
+    // Copper Age
+    
+    public static final FeatureHolder<Item> COPPER_NUGGET = ITEMS.register("copper_nugget");
+    
     // Chaos Cubed
     
     public static final Supplier<Item> SULFUR_CUBE_BUCKET = REGISTRIES.register("sulfur_cube_bucket",

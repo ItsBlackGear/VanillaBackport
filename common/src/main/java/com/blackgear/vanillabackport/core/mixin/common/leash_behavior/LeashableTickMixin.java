@@ -20,7 +20,7 @@ public interface LeashableTickMixin {
 
     @Inject(method = "tickLeash", at = @At("HEAD"), cancellable = true)
     private static <E extends Entity & Leashable> void vb$tickLeash(E entity, CallbackInfo ci) {
-        if (ModChecker.SABLE_LOADED) return;
+        if (ModChecker.SABLE) return;
 
         Leashable.LeashData data = entity.getLeashData();
         if (data != null && data.delayedLeashInfo != null) {

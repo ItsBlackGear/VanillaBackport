@@ -6,7 +6,7 @@ import com.blackgear.vanillabackport.core.VanillaBackport;
 @FunctionalInterface
 public interface VariantSpawner {
     VariantSpawner DEFAULT = () -> true;
-    VariantSpawner FARM_ANIMALS = () -> VanillaBackport.COMMON_CONFIG.hasFarmAnimalVariants.get() && !ModChecker.MIXED_LITTER_LOADED;
+    VariantSpawner FARM_ANIMALS = () -> VanillaBackport.COMMON_CONFIG.hasFarmAnimalVariants.get() && !ModChecker.MIXED_LITTER;
 
     boolean apply();
 }

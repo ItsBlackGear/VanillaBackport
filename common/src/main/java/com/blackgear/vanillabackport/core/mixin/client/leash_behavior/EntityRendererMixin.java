@@ -33,19 +33,19 @@ public class EntityRendererMixin<T extends Entity> {
 
     @Inject(method = "render", at = @At("HEAD"))
     private void renderAdditional(T entity, float entityYaw, float partialTick, PoseStack poseStack, MultiBufferSource buffer, int packedLight, CallbackInfo ci) {
-        if (!ModChecker.SABLE_LOADED)
+        if (!ModChecker.SABLE)
             this.leashRenderer.render(entity, partialTick, poseStack, buffer);
     }
 
     @Inject(method = "renderLeash", at = @At("HEAD"), cancellable = true)
     private <E extends Entity & Leashable> void vb$cancelVanillaLeash(E entity, float partialTick, PoseStack poseStack, MultiBufferSource buffer, Entity leashHolder, CallbackInfo ci) {
-        if (!ModChecker.SABLE_LOADED && ((LeashableCallback) entity).vb$supportsQuadLeash())
+        if (!ModChecker.SABLE && ((LeashableCallback) entity).vb$supportsQuadLeash())
             ci.cancel();
     }
 
     @Inject(method = "shouldRender", at = @At("TAIL"), cancellable = true)
     private void vb$shouldRender(T entity, Frustum camera, double camX, double camY, double camZ, CallbackInfoReturnable<Boolean> cir) {
-        if (!ModChecker.SABLE_LOADED)
+        if (!ModChecker.SABLE)
             cir.setReturnValue(this.leashRenderer.shouldRender(entity, camera, cir.getReturnValue()));
     }
 }
