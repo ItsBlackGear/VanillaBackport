@@ -320,5 +320,16 @@
   "subtitles.item.wolf_armor.crack": "狼鎧破裂",
   "subtitles.item.wolf_armor.damage": "狼鎧受損",
   "subtitles.item.wolf_armor.repair": "狼鎧修復",
-  "trim_material.minecraft.resin": "樹脂材質"
+  "trim_material.minecraft.resin": "樹脂材質",
+  "bundled_tab.copper_age.title": "銅器時代",
+  "item.minecraft.copper_axe": "銅斧",
+  "item.minecraft.copper_boots": "銅靴子",
+  "item.minecraft.copper_chestplate": "銅胸甲",
+  "item.minecraft.copper_helmet": "銅頭盔",
+  "item.minecraft.copper_hoe": "銅鋤",
+  "item.minecraft.copper_leggings": "銅護腿",
+  "item.minecraft.copper_nugget": "銅粒",
+  "item.minecraft.copper_pickaxe": "銅鎬",
+  "item.minecraft.copper_shovel": "銅鏟",
+  "item.minecraft.copper_sword": "銅劍"
 }
