@@ -9,15 +9,16 @@ import com.blackgear.vanillabackport.common.level.item.VariantEggItem;
 import com.blackgear.vanillabackport.common.level.item.WolfArmorItem;
 import com.blackgear.vanillabackport.common.registries.entities.ModEntityTypes;
 import com.blackgear.vanillabackport.core.VanillaBackport;
+import com.blackgear.vanillabackport.core.registries.neo_registries.FeatureHolder;
+import com.blackgear.vanillabackport.core.registries.neo_registries.handlers.VanillaItemRegistry;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.Item.Properties;
 
 import java.util.function.Supplier;
 
-import static com.blackgear.platform.core.helper.ItemRegistry.createSpawnEgg;
-
 public class ModItems {
     public static final ItemRegistry REGISTRIES = ItemRegistry.create(VanillaBackport.NAMESPACE);
+    public static final VanillaItemRegistry ITEMS = VanillaItemRegistry.create();
     
     // Armored Paws
     
@@ -136,10 +137,14 @@ public class ModItems {
             .stacksTo(1)
             .rarity(Rarity.RARE));
     
+    // Copper Age
+    
+    public static final FeatureHolder<Item> COPPER_NUGGET = ITEMS.register("copper_nugget");
+    
     // Chaos Cubed
     
     public static final Supplier<Item> SULFUR_CUBE_BUCKET = REGISTRIES.register("sulfur_cube_bucket",
-        properties -> new SulfurCubeBucketItem(ModEntityTypes.SULFUR_CUBE, ModSoundEvents.BUCKET_EMPTY_SULFUR_CUBE.get(), properties),
+        properties -> new SulfurCubeBucketItem<>(ModEntityTypes.SULFUR_CUBE, ModSoundEvents.BUCKET_EMPTY_SULFUR_CUBE.get(), properties),
         new Properties().stacksTo(1));
     
     public static final Supplier<Item> MUSIC_DISC_BOUNCE = REGISTRIES.register("music_disc_bounce",

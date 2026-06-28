@@ -69,6 +69,7 @@ public final class VanillaBackport {
 
         ModBlocks.REGISTRIES.register();
         ModItems.REGISTRIES.register();
+        ModItems.ITEMS.register();
         ModBlockEntities.REGISTRIES.register();
         ModEntityTypes.REGISTRIES.register();
         ModMemoryModules.REGISTRIES.register();

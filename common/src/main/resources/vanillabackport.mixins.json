@@ -95,6 +95,7 @@
     "common.mob_variants.ThrownEggMixin",
     "common.mob_variants.WolfMixin",
     "common.monsters_on_peaceful.NaturalSpawnerMixin",
+    "common.registry.MappedRegistryMixin",
     "common.registry.RegistrySetBuilderMixin",
     "common.wolf_armor.WolfMixin",
     "common.worldgen.pale_garden.SimpleBlockFeatureMixin",
