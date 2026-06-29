@@ -1,13 +1,13 @@
 package com.blackgear.vanillabackport.common.registries.items;
 
 import com.blackgear.platform.core.CoreRegistry;
+import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.Items;
@@ -29,7 +29,7 @@ public class ModArmorMaterials {
             attributes.put(ArmorItem.Type.BODY, 4);
         }),
         8,
-        SoundEvents.ARMOR_EQUIP_IRON,
+        ModSoundEvents.ARMOR_EQUIP_COPPER,
         0.0F,
         0.0F,
         () -> Ingredient.of(Items.COPPER_INGOT)

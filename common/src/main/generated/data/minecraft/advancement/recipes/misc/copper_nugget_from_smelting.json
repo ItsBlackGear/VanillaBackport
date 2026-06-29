@@ -51,6 +51,16 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
+    "has_copper_horse_armor": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:copper_horse_armor"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "has_copper_leggings": {
       "conditions": {
         "items": [
@@ -109,7 +119,8 @@
       "has_copper_helmet",
       "has_copper_chestplate",
       "has_copper_leggings",
-      "has_copper_boots"
+      "has_copper_boots",
+      "has_copper_horse_armor"
     ]
   ],
   "rewards": {

@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:block/mossy_carpet_side",
-  "textures": {
-    "side": "minecraft:block/pale_moss_carpet_side_tall"
-  }
-}

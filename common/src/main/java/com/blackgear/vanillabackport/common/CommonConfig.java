@@ -41,7 +41,10 @@ public class CommonConfig {
 
     // Hot as Lava
     public final ConfigBuilder.ConfigValue<Boolean> hasLavaChickenMusicDisc;
-
+    
+    // Copper Age
+    public final ConfigBuilder.ConfigValue<Boolean> hasCopperHorseArmorLoot;
+    
     // Chaos Cubed
     public final ConfigBuilder.ConfigValue<Boolean> hasSulfurCaves;
     public final ConfigBuilder.ConfigValue<Boolean> hasSulfurSprings;
@@ -124,6 +127,10 @@ public class CommonConfig {
         builder.push("Hot as Lava");
         this.hasLavaChickenMusicDisc = builder.comment("allows chicken jockeys to drop the lava chicken music disc")
             .define("lava_chicken_music_disc", true);
+        builder.pop();
+        
+        builder.push("Copper Age");
+        this.hasCopperHorseArmorLoot = builder.comment("allow Copper Horse Armor to generate on chests").define("has_copper_horse_armor_loot", true);
         builder.pop();
 
         builder.push("Chaos Cubed");

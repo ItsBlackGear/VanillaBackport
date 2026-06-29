@@ -92,6 +92,8 @@ public class ModSoundEvents {
 
     public static final Supplier<SoundEvent> BUCKET_EMPTY_SULFUR_CUBE = REGISTRIES.soundEvent("item.bucket.empty_sulfur_cube");
     public static final Supplier<SoundEvent> BUCKET_FILL_SULFUR_CUBE = REGISTRIES.soundEvent("item.bucket.fill_sulfur_cube");
+    
+    public static final Holder<SoundEvent> ARMOR_EQUIP_COPPER = REGISTRIES.holder("item.armor.equip_copper");
 
     // ENTITIES
     public static final Supplier<SoundEvent> CREAKING_AMBIENT = REGISTRIES.soundEvent("entity.creaking.ambient");

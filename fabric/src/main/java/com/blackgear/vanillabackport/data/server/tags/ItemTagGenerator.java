@@ -444,6 +444,9 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
 
         this.getOrCreateTagBuilder(CreateItemTags.MODDED_STRIPPED_LOGS)
             .add(ModBlocks.STRIPPED_PALE_OAK_LOG.get().asItem());
+
+        this.getOrCreateTagBuilder(ConventionalItemTags.HORSE_ARMOR)
+            .add(ModItems.COPPER_HORSE_ARMOR.get());
     }
 
     protected DualTagHolder getDualTagBuilder(TagKey<Item> forge, TagKey<Item> fabric) {

@@ -1,6 +1,0 @@
-{
-  "parent": "item/blue_bundle",
-  "textures": {
-    "layer0": "item/blue_bundle"
-  }
-}
