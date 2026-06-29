@@ -180,6 +180,7 @@ public class ModBundledTabs {
                 output.accept(ModItems.COPPER_LEGGINGS.get());
                 output.accept(ModItems.COPPER_BOOTS.get());
                 
+                output.accept(ModItems.COPPER_HORSE_ARMOR.get());
                 output.accept(ModItems.COPPER_NUGGET.get());
             })
             .build()

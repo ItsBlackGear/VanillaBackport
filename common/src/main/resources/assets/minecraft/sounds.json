@@ -1,4 +1,15 @@
 {
+  "item.armor.equip_copper": {
+    "sounds": [
+      "item/armor/equip_copper1",
+      "item/armor/equip_copper2",
+      "item/armor/equip_copper3",
+      "item/armor/equip_copper4",
+      "item/armor/equip_copper5",
+      "item/armor/equip_copper6"
+    ],
+    "subtitle": "subtitles.item.armor.equip_copper"
+  },
   "entity.small_sulfur_cube.death": {
     "sounds": [
       "mob/sulfur_cube/small_sulfur_cube/death"

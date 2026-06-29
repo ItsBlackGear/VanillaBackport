@@ -269,8 +269,8 @@ public class RecipeGenerator extends VanillaRecipeProvider {
                     ModItems.COPPER_HELMET.get(),
                     ModItems.COPPER_CHESTPLATE.get(),
                     ModItems.COPPER_LEGGINGS.get(),
-                    ModItems.COPPER_BOOTS.get()
-//                    ModItems.COPPER_HORSE_ARMOR.get()
+                    ModItems.COPPER_BOOTS.get(),
+                    ModItems.COPPER_HORSE_ARMOR.get()
                 ),
                 RecipeCategory.MISC,
                 ModItems.COPPER_NUGGET.get(),
@@ -286,7 +286,7 @@ public class RecipeGenerator extends VanillaRecipeProvider {
             .unlockedBy("has_copper_chestplate", has(ModItems.COPPER_CHESTPLATE.get()))
             .unlockedBy("has_copper_leggings", has(ModItems.COPPER_LEGGINGS.get()))
             .unlockedBy("has_copper_boots", has(ModItems.COPPER_BOOTS.get()))
-//            .unlockedBy("has_copper_horse_armor", has(ModItems.COPPER_HORSE_ARMOR.get()))
+            .unlockedBy("has_copper_horse_armor", has(ModItems.COPPER_HORSE_ARMOR.get()))
             //.unlockedBy("has_copper_nautilus_armor", has(ModItems.COPPER_NAUTILUS_ARMOR.get()))
             .save(exporter, getSmeltingRecipeName(ModItems.COPPER_NUGGET.get()));
         SimpleCookingRecipeBuilder.blasting(
@@ -300,8 +300,8 @@ public class RecipeGenerator extends VanillaRecipeProvider {
                     ModItems.COPPER_HELMET.get(),
                     ModItems.COPPER_CHESTPLATE.get(),
                     ModItems.COPPER_LEGGINGS.get(),
-                    ModItems.COPPER_BOOTS.get()
-//                    ModItems.COPPER_HORSE_ARMOR.get()
+                    ModItems.COPPER_BOOTS.get(),
+                    ModItems.COPPER_HORSE_ARMOR.get()
                 ),
                 RecipeCategory.MISC,
                 ModItems.COPPER_NUGGET.get(),
@@ -317,7 +317,7 @@ public class RecipeGenerator extends VanillaRecipeProvider {
             .unlockedBy("has_copper_chestplate", has(ModItems.COPPER_CHESTPLATE.get()))
             .unlockedBy("has_copper_leggings", has(ModItems.COPPER_LEGGINGS.get()))
             .unlockedBy("has_copper_boots", has(ModItems.COPPER_BOOTS.get()))
-//            .unlockedBy("has_copper_horse_armor", has(ModItems.COPPER_HORSE_ARMOR.get()))
+            .unlockedBy("has_copper_horse_armor", has(ModItems.COPPER_HORSE_ARMOR.get()))
             //.unlockedBy("has_copper_nautilus_armor", has(ModItems.COPPER_NAUTILUS_ARMOR.get()))
             .save(exporter, getBlastingRecipeName(ModItems.COPPER_NUGGET.get()));
     }

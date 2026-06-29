@@ -47,6 +47,9 @@ public class CommonConfig {
     // Hot as Lava
     public final ConfigBuilder.ConfigValue<Boolean> hasLavaChickenMusicDisc;
 
+    // Copper Age
+    public final ConfigBuilder.ConfigValue<Boolean> hasCopperHorseArmorLoot;
+
     // Chaos Cubed
     public final ConfigBuilder.ConfigValue<Boolean> hasSulfurCaves;
     public final ConfigBuilder.ConfigValue<Boolean> hasSulfurSprings;
@@ -140,6 +143,10 @@ public class CommonConfig {
             .define("lava_chicken_music_disc", true);
         builder.pop();
 
+        builder.push("Copper Age");
+        this.hasCopperHorseArmorLoot = builder.comment("allow Copper Horse Armor to generate on chests").define("has_copper_horse_armor_loot", true);
+        builder.pop();
+        
         builder.push("Chaos Cubed");
         this.hasSulfurCaves = builder.comment("allow the generation of Sulfur Cave biomes").define("has_sulfur_caves", true);
         this.hasSulfurSprings = builder.comment("allow the generation of Sulfur Springs on top of Sulfur Caves").define("has_sulfur_springs", true);

@@ -244,6 +244,7 @@ public class LangGenerator extends FabricLanguageProvider {
         builder.add(ModItems.COPPER_LEGGINGS.get(), "Copper Leggings");
         builder.add(ModItems.COPPER_BOOTS.get(), "Copper Boots");
         
+        builder.add(ModItems.COPPER_HORSE_ARMOR.get(), "Copper Horse Armor");
         builder.add(ModItems.COPPER_NUGGET.get(), "Copper Nugget");
         
         // Chaos Cubed

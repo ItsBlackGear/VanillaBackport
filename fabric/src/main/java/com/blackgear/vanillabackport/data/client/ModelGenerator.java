@@ -112,6 +112,7 @@ public class ModelGenerator extends VanillaModelGenerator {
         gen.generateArmorTrims((ArmorItem) ModItems.COPPER_CHESTPLATE.get());
         gen.generateArmorTrims((ArmorItem) ModItems.COPPER_LEGGINGS.get());
         gen.generateArmorTrims((ArmorItem) ModItems.COPPER_BOOTS.get());
+        gen.createFlatItem(ModItems.COPPER_HORSE_ARMOR.get());
         
         // Chaos Cubed
         gen.createFlatItem(ModItems.SULFUR_CUBE_BUCKET.get());

@@ -118,5 +118,36 @@ public class LootIntegrations implements LootModifier.LootTableModifier {
                     .build()
             );
         }
+        
+        // GENERATE COPPER HORSE ARMOR
+        if (VanillaBackport.COMMON_CONFIG.hasCopperHorseArmorLoot.get()) {
+            if (path.equals(BuiltInLootTables.SIMPLE_DUNGEON)) {
+                context.addToPool(LootItem.lootTableItem(ModItems.COPPER_HORSE_ARMOR.get()).setWeight(15).build());
+            }
+            
+            if (path.equals(BuiltInLootTables.VILLAGE_WEAPONSMITH)) {
+                context.addToPool(LootItem.lootTableItem(ModItems.COPPER_HORSE_ARMOR.get()).build());
+            }
+            
+            if (path.equals(BuiltInLootTables.END_CITY_TREASURE)) {
+                context.addToPool(LootItem.lootTableItem(ModItems.COPPER_HORSE_ARMOR.get()).build());
+            }
+            
+            if (path.equals(BuiltInLootTables.NETHER_BRIDGE)) {
+                context.addToPool(LootItem.lootTableItem(ModItems.COPPER_HORSE_ARMOR.get()).setWeight(5).build());
+            }
+            
+            if (path.equals(BuiltInLootTables.STRONGHOLD_CORRIDOR)) {
+                context.addToPool(LootItem.lootTableItem(ModItems.COPPER_HORSE_ARMOR.get()).build());
+            }
+            
+            if (path.equals(BuiltInLootTables.JUNGLE_TEMPLE)) {
+                context.addToPool(LootItem.lootTableItem(ModItems.COPPER_HORSE_ARMOR.get()).build());
+            }
+            
+            if (path.equals(BuiltInLootTables.DESERT_PYRAMID)) {
+                context.addToPool(LootItem.lootTableItem(ModItems.COPPER_HORSE_ARMOR.get()).setWeight(15).build());
+            }
+        }
     }
 }

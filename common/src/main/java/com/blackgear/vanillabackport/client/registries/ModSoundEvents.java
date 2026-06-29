@@ -99,7 +99,7 @@ public class ModSoundEvents {
     public static final Supplier<SoundEvent> WOLF_ARMOR_DAMAGE = REGISTRIES.soundEvent("item.wolf_armor.damage");
     public static final Supplier<SoundEvent> WOLF_ARMOR_REPAIR = REGISTRIES.soundEvent("item.wolf_armor.repair");
 
-    public static final Supplier<SoundEvent> OMINOUS_BOTTLE_DISPOSE = REGISTRIES.soundEvent("item.ominous_bottle.dispose");
+    public static final Supplier<SoundEvent> ARMOR_EQUIP_COPPER = REGISTRIES.soundEvent("item.armor.equip_copper");
 
     public static final Supplier<SoundEvent> BUCKET_EMPTY_SULFUR_CUBE = REGISTRIES.soundEvent("item.bucket.empty_sulfur_cube");
     public static final Supplier<SoundEvent> BUCKET_FILL_SULFUR_CUBE = REGISTRIES.soundEvent("item.bucket.fill_sulfur_cube");

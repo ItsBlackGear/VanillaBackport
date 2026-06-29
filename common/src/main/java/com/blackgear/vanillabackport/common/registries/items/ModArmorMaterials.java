@@ -1,8 +1,8 @@
 package com.blackgear.vanillabackport.common.registries.items;
 
+import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
 import com.google.common.base.Suppliers;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.Items;
@@ -11,7 +11,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import java.util.function.Supplier;
 
 public enum ModArmorMaterials implements ArmorMaterial {
-    COPPER("copper", 5, new int[]{ 1, 3, 4, 2 }, 8, SoundEvents.ARMOR_EQUIP_IRON, 0.0F, 0.0F, () -> Ingredient.of(Items.COPPER_INGOT));
+    COPPER("copper", 5, new int[]{ 1, 3, 4, 2 }, 8, ModSoundEvents.ARMOR_EQUIP_COPPER.get(), 0.0F, 0.0F, () -> Ingredient.of(Items.COPPER_INGOT));
     
     private final String name;
     private final int durabilityMultiplier;

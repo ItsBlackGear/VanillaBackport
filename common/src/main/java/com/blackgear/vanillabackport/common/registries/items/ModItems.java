@@ -139,8 +139,6 @@ public class ModItems {
     
     // Copper Age
     
-    public static final FeatureHolder<Item> COPPER_NUGGET = ITEMS.register("copper_nugget");
-    
     public static final FeatureHolder<Item> COPPER_SWORD = ITEMS.register("copper_sword",
         properties -> new SwordItem(ModToolMaterials.COPPER, 3, -2.4F, properties));
     public static final FeatureHolder<Item> COPPER_SHOVEL = ITEMS.register("copper_shovel",
@@ -160,6 +158,11 @@ public class ModItems {
         properties -> new ArmorItem(ModArmorMaterials.COPPER, ArmorItem.Type.LEGGINGS, properties));
     public static final FeatureHolder<Item> COPPER_BOOTS = ITEMS.register("copper_boots",
         properties -> new ArmorItem(ModArmorMaterials.COPPER, ArmorItem.Type.BOOTS, properties));
+    
+    public static final FeatureHolder<Item> COPPER_NUGGET = ITEMS.register("copper_nugget");
+    public static final FeatureHolder<Item> COPPER_HORSE_ARMOR = ITEMS.register("copper_horse_armor",
+        properties -> new HorseArmorItem(4, "copper", properties),
+        new Properties().stacksTo(1));
     
     // Chaos Cubed
     
