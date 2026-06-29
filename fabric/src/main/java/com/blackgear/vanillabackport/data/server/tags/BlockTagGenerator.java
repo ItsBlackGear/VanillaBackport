@@ -196,6 +196,10 @@ public class BlockTagGenerator extends FabricTagProvider.BlockTagProvider {
                 ModBlocks.SULFUR.get(),
                 ModBlocks.CINNABAR.get()
             );
+        
+        this.getOrCreateTagBuilder(ModBlockTags.INCORRECT_FOR_COPPER_TOOL)
+            .forceAddTag(BlockTags.NEEDS_DIAMOND_TOOL)
+            .forceAddTag(BlockTags.NEEDS_IRON_TOOL);
     }
 
     protected DualTagHolder getDualTagBuilder(TagKey<Block> forge, TagKey<Block> fabric) {

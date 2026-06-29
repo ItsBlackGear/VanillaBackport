@@ -150,6 +150,35 @@ public class ModItems {
     
     public static final FeatureHolder<Item> COPPER_NUGGET = ITEMS.register("copper_nugget");
     
+    public static final FeatureHolder<Item> COPPER_SWORD = ITEMS.register("copper_sword",
+        properties -> new SwordItem(ModToolMaterials.COPPER, properties),
+        new Item.Properties().attributes(SwordItem.createAttributes(ModToolMaterials.COPPER, 3, -2.4F)));
+    public static final FeatureHolder<Item> COPPER_SHOVEL = ITEMS.register("copper_shovel",
+        properties -> new ShovelItem(ModToolMaterials.COPPER, properties),
+        new Item.Properties().attributes(ShovelItem.createAttributes(ModToolMaterials.COPPER, 1.5F, -3.0F)));
+    public static final FeatureHolder<Item> COPPER_PICKAXE = ITEMS.register("copper_pickaxe",
+        properties -> new PickaxeItem(ModToolMaterials.COPPER, properties),
+        new Item.Properties().attributes(PickaxeItem.createAttributes(ModToolMaterials.COPPER, 1.0F, -2.8F)));
+    public static final FeatureHolder<Item> COPPER_AXE = ITEMS.register("copper_axe",
+        properties -> new AxeItem(ModToolMaterials.COPPER, properties),
+        new Item.Properties().attributes(AxeItem.createAttributes(ModToolMaterials.COPPER, 7.0F, -3.2F)));
+    public static final FeatureHolder<Item> COPPER_HOE = ITEMS.register("copper_hoe",
+        properties -> new HoeItem(ModToolMaterials.COPPER, properties),
+        new Item.Properties().attributes(HoeItem.createAttributes(ModToolMaterials.COPPER, -1.0F, -2.0F)));
+    
+    public static final FeatureHolder<Item> COPPER_HELMET = ITEMS.register("copper_helmet",
+        properties -> new ArmorItem(ModArmorMaterials.COPPER, ArmorItem.Type.HELMET, properties),
+        new Item.Properties().durability(ArmorItem.Type.HELMET.getDurability(5)));
+    public static final FeatureHolder<Item> COPPER_CHESTPLATE = ITEMS.register("copper_chestplate",
+        properties -> new ArmorItem(ModArmorMaterials.COPPER, ArmorItem.Type.CHESTPLATE, properties),
+        new Item.Properties().durability(ArmorItem.Type.CHESTPLATE.getDurability(5)));
+    public static final FeatureHolder<Item> COPPER_LEGGINGS = ITEMS.register("copper_leggings",
+        properties -> new ArmorItem(ModArmorMaterials.COPPER, ArmorItem.Type.LEGGINGS, properties),
+        new Item.Properties().durability(ArmorItem.Type.LEGGINGS.getDurability(5)));
+    public static final FeatureHolder<Item> COPPER_BOOTS = ITEMS.register("copper_boots",
+        properties -> new ArmorItem(ModArmorMaterials.COPPER, ArmorItem.Type.BOOTS, properties),
+        new Item.Properties().durability(ArmorItem.Type.BOOTS.getDurability(5)));
+    
     // Chaos Cubed
     
     public static final Supplier<Item> SULFUR_CUBE_BUCKET = REGISTRIES.register("sulfur_cube_bucket",

@@ -202,7 +202,22 @@ public class LangGenerator extends FabricLanguageProvider {
         builder.add(ModItems.LIME_BUNDLE.get(), "Lime Bundle");
         builder.add(ModItems.BROWN_BUNDLE.get(), "Brown Bundle");
         builder.add(ModItems.ORANGE_BUNDLE.get(), "Orange Bundle");
-
+        
+        // Copper Age
+        
+        builder.add(ModItems.COPPER_SWORD.get(), "Copper Sword");
+        builder.add(ModItems.COPPER_AXE.get(), "Copper Axe");
+        builder.add(ModItems.COPPER_PICKAXE.get(), "Copper Pickaxe");
+        builder.add(ModItems.COPPER_SHOVEL.get(), "Copper Shovel");
+        builder.add(ModItems.COPPER_HOE.get(), "Copper Hoe");
+        
+        builder.add(ModItems.COPPER_HELMET.get(), "Copper Helmet");
+        builder.add(ModItems.COPPER_CHESTPLATE.get(), "Copper Chestplate");
+        builder.add(ModItems.COPPER_LEGGINGS.get(), "Copper Leggings");
+        builder.add(ModItems.COPPER_BOOTS.get(), "Copper Boots");
+        
+        builder.add(ModItems.COPPER_NUGGET.get(), "Copper Nugget");
+        
         // Chaos Cubed
 
         builder.add("biome.minecraft.sulfur_caves", "Sulfur Caves");
@@ -299,6 +314,7 @@ public class LangGenerator extends FabricLanguageProvider {
         builder.add("bundled_tab.spring_to_life.title", "Spring to Life");
         builder.add("bundled_tab.chase_the_skies.title", "Chase The Skies");
         builder.add("bundled_tab.hot_as_lava.title", "Hot as Lava");
+        builder.add("bundled_tab.copper_age.title", "Copper Age");
         builder.add("bundled_tab.chaos_cubed.title", "Chaos Cubed");
         
         // Options

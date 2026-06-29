@@ -94,6 +94,33 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
 
         this.getOrCreateTagBuilder(ModItemTags.EGGS)
             .add(Items.EGG, ModItems.BLUE_EGG.get(), ModItems.BROWN_EGG.get());
+        
+        this.getOrCreateTagBuilder(ItemTags.SWORDS)
+            .add(ModItems.COPPER_SWORD.get());
+        
+        this.getOrCreateTagBuilder(ItemTags.AXES)
+            .add(ModItems.COPPER_AXE.get());
+        
+        this.getOrCreateTagBuilder(ItemTags.PICKAXES)
+            .add(ModItems.COPPER_PICKAXE.get());
+        
+        this.getOrCreateTagBuilder(ItemTags.SHOVELS)
+            .add(ModItems.COPPER_SHOVEL.get());
+        
+        this.getOrCreateTagBuilder(ItemTags.HOES)
+            .add(ModItems.COPPER_HOE.get());
+        
+        this.getOrCreateTagBuilder(ItemTags.HEAD_ARMOR)
+            .add(ModItems.COPPER_HELMET.get());
+        
+        this.getOrCreateTagBuilder(ItemTags.CHEST_ARMOR)
+            .add(ModItems.COPPER_CHESTPLATE.get());
+        
+        this.getOrCreateTagBuilder(ItemTags.LEG_ARMOR)
+            .add(ModItems.COPPER_LEGGINGS.get());
+        
+        this.getOrCreateTagBuilder(ItemTags.FOOT_ARMOR)
+            .add(ModItems.COPPER_BOOTS.get());
     }
 
     private void handleArchetypes() {

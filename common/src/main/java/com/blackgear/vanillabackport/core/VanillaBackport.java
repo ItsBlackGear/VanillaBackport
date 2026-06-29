@@ -20,6 +20,7 @@ import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
 import com.blackgear.vanillabackport.common.registries.entities.ModAttributes;
 import com.blackgear.vanillabackport.common.registries.entities.ModEntityTypes;
 import com.blackgear.vanillabackport.common.registries.entities.ModSensorTypes;
+import com.blackgear.vanillabackport.common.registries.items.ModArmorMaterials;
 import com.blackgear.vanillabackport.common.registries.items.ModDataComponents;
 import com.blackgear.vanillabackport.common.registries.items.ModItems;
 import com.blackgear.vanillabackport.common.registries.worldgen.*;
@@ -65,7 +66,8 @@ public final class VanillaBackport {
         ModMaterialConditions.REGISTRIES.registrar();
 
         ModAttributes.REGISTRIES.register();
-
+        ModArmorMaterials.REGISTRIES.register();
+        
         ModParticles.PARTICLES.register();
 
         ModDataComponents.REGISTRIES.register();

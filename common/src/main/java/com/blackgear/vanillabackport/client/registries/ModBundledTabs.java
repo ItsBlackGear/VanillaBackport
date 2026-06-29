@@ -159,7 +159,28 @@ public class ModBundledTabs {
             })
             .build()
     );
-
+    
+    public static final BundledTabs COPPER_AGE = register(
+        BundledTabs.builder()
+            .title(Component.translatable("bundled_tab.copper_age.title"))
+            .icon(new ItemStack(ModItems.COPPER_PICKAXE.get()))
+            .displayItems((provider, output) -> {
+                output.accept(ModItems.COPPER_SWORD.get());
+                output.accept(ModItems.COPPER_AXE.get());
+                output.accept(ModItems.COPPER_PICKAXE.get());
+                output.accept(ModItems.COPPER_SHOVEL.get());
+                output.accept(ModItems.COPPER_HOE.get());
+                
+                output.accept(ModItems.COPPER_HELMET.get());
+                output.accept(ModItems.COPPER_CHESTPLATE.get());
+                output.accept(ModItems.COPPER_LEGGINGS.get());
+                output.accept(ModItems.COPPER_BOOTS.get());
+                
+                output.accept(ModItems.COPPER_NUGGET.get());
+            })
+            .build()
+    );
+    
     public static final BundledTabs CHAOS_CUBED = register(
         BundledTabs.builder()
             .title(Component.translatable("bundled_tab.chaos_cubed.title"))

@@ -17,6 +17,10 @@ public class VanillaItemModels extends ItemModelGenerators {
     public void createFlatItem(Item item) {
         this.generateFlatItem(item, ModelTemplates.FLAT_ITEM);
     }
+    
+    public void createHandheldItem(Item item) {
+        this.generateFlatItem(item, ModelTemplates.FLAT_HANDHELD_ITEM);
+    }
 
     public void createMusicDisc(Item item) {
         this.generateFlatItem(item, ModelTemplates.MUSIC_DISC);
