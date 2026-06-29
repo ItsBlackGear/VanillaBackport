@@ -9,6 +9,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.data.BlockFamily;
 import net.minecraft.data.models.BlockModelGenerators;
 import net.minecraft.data.models.model.TexturedModel;
+import net.minecraft.world.item.ArmorItem;
 
 public class ModelGenerator extends VanillaModelGenerator {
     public ModelGenerator(FabricDataOutput output) {
@@ -99,6 +100,19 @@ public class ModelGenerator extends VanillaModelGenerator {
         gen.createFlatItem(ModItems.BLUE_EGG.get());
         gen.createFlatItem(ModItems.BROWN_EGG.get());
 
+        // Copper Age
+        
+        gen.createFlatItem(ModItems.COPPER_NUGGET.get());
+        gen.createHandheldItem(ModItems.COPPER_AXE.get());
+        gen.createHandheldItem(ModItems.COPPER_HOE.get());
+        gen.createHandheldItem(ModItems.COPPER_PICKAXE.get());
+        gen.createHandheldItem(ModItems.COPPER_SHOVEL.get());
+        gen.createHandheldItem(ModItems.COPPER_SWORD.get());
+        gen.generateArmorTrims((ArmorItem) ModItems.COPPER_HELMET.get());
+        gen.generateArmorTrims((ArmorItem) ModItems.COPPER_CHESTPLATE.get());
+        gen.generateArmorTrims((ArmorItem) ModItems.COPPER_LEGGINGS.get());
+        gen.generateArmorTrims((ArmorItem) ModItems.COPPER_BOOTS.get());
+        
         // Chaos Cubed
         gen.createFlatItem(ModItems.SULFUR_CUBE_BUCKET.get());
         gen.createMusicDisc(ModItems.MUSIC_DISC_BOUNCE.get());

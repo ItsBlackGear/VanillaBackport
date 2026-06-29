@@ -141,6 +141,26 @@ public class ModItems {
     
     public static final FeatureHolder<Item> COPPER_NUGGET = ITEMS.register("copper_nugget");
     
+    public static final FeatureHolder<Item> COPPER_SWORD = ITEMS.register("copper_sword",
+        properties -> new SwordItem(ModToolMaterials.COPPER, 3, -2.4F, properties));
+    public static final FeatureHolder<Item> COPPER_SHOVEL = ITEMS.register("copper_shovel",
+        properties -> new ShovelItem(ModToolMaterials.COPPER, 1.5F, -3.0F, properties));
+    public static final FeatureHolder<Item> COPPER_PICKAXE = ITEMS.register("copper_pickaxe",
+        properties -> new PickaxeItem(ModToolMaterials.COPPER, 1, -2.8F, properties));
+    public static final FeatureHolder<Item> COPPER_AXE = ITEMS.register("copper_axe",
+        properties -> new AxeItem(ModToolMaterials.COPPER, 1.0F, -3.2F, properties));
+    public static final FeatureHolder<Item> COPPER_HOE = ITEMS.register("copper_hoe",
+        properties -> new HoeItem(ModToolMaterials.COPPER, 1, -2.0F, properties));
+    
+    public static final FeatureHolder<Item> COPPER_HELMET = ITEMS.register("copper_helmet",
+        properties -> new ArmorItem(ModArmorMaterials.COPPER, ArmorItem.Type.HELMET, properties));
+    public static final FeatureHolder<Item> COPPER_CHESTPLATE = ITEMS.register("copper_chestplate",
+        properties -> new ArmorItem(ModArmorMaterials.COPPER, ArmorItem.Type.CHESTPLATE, properties));
+    public static final FeatureHolder<Item> COPPER_LEGGINGS = ITEMS.register("copper_leggings",
+        properties -> new ArmorItem(ModArmorMaterials.COPPER, ArmorItem.Type.LEGGINGS, properties));
+    public static final FeatureHolder<Item> COPPER_BOOTS = ITEMS.register("copper_boots",
+        properties -> new ArmorItem(ModArmorMaterials.COPPER, ArmorItem.Type.BOOTS, properties));
+    
     // Chaos Cubed
     
     public static final Supplier<Item> SULFUR_CUBE_BUCKET = REGISTRIES.register("sulfur_cube_bucket",

@@ -19,6 +19,10 @@ public class VanillaItemModels extends ItemModelGenerators {
     public void createFlatItem(Item item) {
         this.generateFlatItem(item, ModelTemplates.FLAT_ITEM);
     }
+    
+    public void createHandheldItem(Item item) {
+        this.generateFlatItem(item, ModelTemplates.FLAT_HANDHELD_ITEM);
+    }
 
     public void createFlatItemWithSuffix(Item item, String suffix) {
         ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(item), TextureMapping.layer0(TextureMapping.getItemTexture(item, suffix)), this.output);

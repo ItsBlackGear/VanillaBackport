@@ -189,6 +189,137 @@ public class RecipeGenerator extends VanillaRecipeProvider {
             .unlockedBy("has_sulfur_spike", has(ModBlocks.SULFUR_SPIKE.get()))
             .save(exporter);
         threeByThreePacker(exporter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.POTENT_SULFUR.get(), ModBlocks.SULFUR.get());
+        
+        // Copper Age
+        
+        shaped(RecipeCategory.TOOLS, ModItems.COPPER_AXE.get())
+            .define('#', Items.STICK)
+            .define('X', Items.COPPER_INGOT)
+            .pattern("XX")
+            .pattern("X#")
+            .pattern(" #")
+            .unlockedBy("has_copper_ingot", has(Items.COPPER_INGOT))
+            .save(exporter);
+        shaped(RecipeCategory.TOOLS, ModItems.COPPER_HOE.get())
+            .define('#', Items.STICK)
+            .define('X', Items.COPPER_INGOT)
+            .pattern("XX")
+            .pattern(" #")
+            .pattern(" #")
+            .unlockedBy("has_copper_ingot", has(Items.COPPER_INGOT))
+            .save(exporter);
+        shaped(RecipeCategory.TOOLS, ModItems.COPPER_PICKAXE.get())
+            .define('#', Items.STICK)
+            .define('X', Items.COPPER_INGOT)
+            .pattern("XXX")
+            .pattern(" # ")
+            .pattern(" # ")
+            .unlockedBy("has_copper_ingot", has(Items.COPPER_INGOT))
+            .save(exporter);
+        shaped(RecipeCategory.TOOLS, ModItems.COPPER_SHOVEL.get())
+            .define('#', Items.STICK)
+            .define('X', Items.COPPER_INGOT)
+            .pattern("X")
+            .pattern("#")
+            .pattern("#")
+            .unlockedBy("has_copper_ingot", has(Items.COPPER_INGOT))
+            .save(exporter);
+        shaped(RecipeCategory.COMBAT, ModItems.COPPER_SWORD.get())
+            .define('#', Items.STICK)
+            .define('X', Items.COPPER_INGOT)
+            .pattern("X")
+            .pattern("X")
+            .pattern("#")
+            .unlockedBy("has_copper_ingot", has(Items.COPPER_INGOT))
+            .save(exporter);
+        shaped(RecipeCategory.COMBAT, ModItems.COPPER_HELMET.get())
+            .define('X', Items.COPPER_INGOT)
+            .pattern("XXX")
+            .pattern("X X")
+            .unlockedBy("has_copper_ingot", has(Items.COPPER_INGOT))
+            .save(exporter);
+        shaped(RecipeCategory.COMBAT, ModItems.COPPER_CHESTPLATE.get())
+            .define('X', Items.COPPER_INGOT)
+            .pattern("X X")
+            .pattern("XXX")
+            .pattern("XXX")
+            .unlockedBy("has_copper_ingot", has(Items.COPPER_INGOT))
+            .save(exporter);
+        shaped(RecipeCategory.COMBAT, ModItems.COPPER_LEGGINGS.get())
+            .define('X', Items.COPPER_INGOT)
+            .pattern("XXX")
+            .pattern("X X")
+            .pattern("X X")
+            .unlockedBy("has_copper_ingot", has(Items.COPPER_INGOT))
+            .save(exporter);
+        shaped(RecipeCategory.COMBAT, ModItems.COPPER_BOOTS.get())
+            .define('X', Items.COPPER_INGOT)
+            .pattern("X X")
+            .pattern("X X")
+            .unlockedBy("has_copper_ingot", has(Items.COPPER_INGOT))
+            .save(exporter);
+        SimpleCookingRecipeBuilder.smelting(
+                Ingredient.of(
+                    ModItems.COPPER_PICKAXE.get(),
+                    ModItems.COPPER_SHOVEL.get(),
+                    ModItems.COPPER_AXE.get(),
+                    ModItems.COPPER_HOE.get(),
+                    ModItems.COPPER_SWORD.get(),
+//                    ModItems.COPPER_SPEAR.get(),
+                    ModItems.COPPER_HELMET.get(),
+                    ModItems.COPPER_CHESTPLATE.get(),
+                    ModItems.COPPER_LEGGINGS.get(),
+                    ModItems.COPPER_BOOTS.get()
+//                    ModItems.COPPER_HORSE_ARMOR.get()
+                ),
+                RecipeCategory.MISC,
+                ModItems.COPPER_NUGGET.get(),
+                0.1F,
+                200
+            )
+            .unlockedBy("has_copper_pickaxe", has(ModItems.COPPER_PICKAXE.get()))
+            .unlockedBy("has_copper_shovel", has(ModItems.COPPER_SHOVEL.get()))
+            .unlockedBy("has_copper_axe", has(ModItems.COPPER_AXE.get()))
+            .unlockedBy("has_copper_hoe", has(ModItems.COPPER_HOE.get()))
+            .unlockedBy("has_copper_sword", has(ModItems.COPPER_SWORD.get()))
+            .unlockedBy("has_copper_helmet", has(ModItems.COPPER_HELMET.get()))
+            .unlockedBy("has_copper_chestplate", has(ModItems.COPPER_CHESTPLATE.get()))
+            .unlockedBy("has_copper_leggings", has(ModItems.COPPER_LEGGINGS.get()))
+            .unlockedBy("has_copper_boots", has(ModItems.COPPER_BOOTS.get()))
+//            .unlockedBy("has_copper_horse_armor", has(ModItems.COPPER_HORSE_ARMOR.get()))
+            //.unlockedBy("has_copper_nautilus_armor", has(ModItems.COPPER_NAUTILUS_ARMOR.get()))
+            .save(exporter, getSmeltingRecipeName(ModItems.COPPER_NUGGET.get()));
+        SimpleCookingRecipeBuilder.blasting(
+                Ingredient.of(
+                    ModItems.COPPER_PICKAXE.get(),
+                    ModItems.COPPER_SHOVEL.get(),
+                    ModItems.COPPER_AXE.get(),
+                    ModItems.COPPER_HOE.get(),
+                    ModItems.COPPER_SWORD.get(),
+//                    ModItems.COPPER_SPEAR.get(),
+                    ModItems.COPPER_HELMET.get(),
+                    ModItems.COPPER_CHESTPLATE.get(),
+                    ModItems.COPPER_LEGGINGS.get(),
+                    ModItems.COPPER_BOOTS.get()
+//                    ModItems.COPPER_HORSE_ARMOR.get()
+                ),
+                RecipeCategory.MISC,
+                ModItems.COPPER_NUGGET.get(),
+                0.1F,
+                100
+            )
+            .unlockedBy("has_copper_pickaxe", has(ModItems.COPPER_PICKAXE.get()))
+            .unlockedBy("has_copper_shovel", has(ModItems.COPPER_SHOVEL.get()))
+            .unlockedBy("has_copper_axe", has(ModItems.COPPER_AXE.get()))
+            .unlockedBy("has_copper_hoe", has(ModItems.COPPER_HOE.get()))
+            .unlockedBy("has_copper_sword", has(ModItems.COPPER_SWORD.get()))
+            .unlockedBy("has_copper_helmet", has(ModItems.COPPER_HELMET.get()))
+            .unlockedBy("has_copper_chestplate", has(ModItems.COPPER_CHESTPLATE.get()))
+            .unlockedBy("has_copper_leggings", has(ModItems.COPPER_LEGGINGS.get()))
+            .unlockedBy("has_copper_boots", has(ModItems.COPPER_BOOTS.get()))
+//            .unlockedBy("has_copper_horse_armor", has(ModItems.COPPER_HORSE_ARMOR.get()))
+            //.unlockedBy("has_copper_nautilus_armor", has(ModItems.COPPER_NAUTILUS_ARMOR.get()))
+            .save(exporter, getBlastingRecipeName(ModItems.COPPER_NUGGET.get()));
     }
 
     public static ShapedRecipeBuilder shaped(RecipeCategory category, ItemLike entry) {
