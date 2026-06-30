@@ -13,6 +13,11 @@ mutable field net/minecraft/world/entity/ai/control/MoveControl operation Lnet/m
 
 accessible class net/minecraft/world/level/biome/Biome$ClimateSettings
 
+accessible field net/minecraft/world/level/block/entity/ContainerOpenersCounter openCount I
+mutable field net/minecraft/world/level/block/entity/ContainerOpenersCounter openCount I
+accessible field net/minecraft/world/level/block/entity/ContainerOpenersCounter maxInteractionRange D
+mutable field net/minecraft/world/level/block/entity/ContainerOpenersCounter maxInteractionRange D
+
 accessible method net/minecraft/world/level/block/PinkPetalsBlock <init> (Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V
 accessible method net/minecraft/world/level/block/SaplingBlock <init> (Lnet/minecraft/world/level/block/grower/TreeGrower;Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V
 accessible method net/minecraft/world/level/block/PressurePlateBlock <init> (Lnet/minecraft/world/level/block/state/properties/BlockSetType;Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V

@@ -27,6 +27,13 @@ public class SharedBlockProperties {
         .sound(ModSoundTypes.RESIN_BRICKS)
         .strength(1.5F, 6.0F);
     
+    // Copper Age
+    
+    public static final Properties COPPER_CHEST = Properties.of()
+        .strength(3.0F, 6.0F)
+        .sound(SoundType.COPPER)
+        .requiresCorrectToolForDrops();
+    
     // Chaos Cubed
     
     public static final Properties SULFUR = Properties.of()

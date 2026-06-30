@@ -251,6 +251,14 @@ public class RecipeGenerator extends VanillaRecipeProvider {
             .pattern("X X")
             .unlockedBy("has_copper_ingot", has(Items.COPPER_INGOT))
             .save(exporter);
+        shaped(RecipeCategory.DECORATIONS, ModBlocks.COPPER_CHEST.get())
+            .define('#', Items.COPPER_INGOT)
+            .define('X', Items.CHEST)
+            .pattern("###")
+            .pattern("#X#")
+            .pattern("###")
+            .unlockedBy("has_copper_chest", has(ModBlocks.COPPER_CHEST.get()))
+            .save(exporter);
         SimpleCookingRecipeBuilder.smelting(
                 Ingredient.of(
                     ModItems.COPPER_PICKAXE.get(),

@@ -205,6 +205,16 @@ public class LangGenerator extends FabricLanguageProvider {
         
         // Copper Age
         
+        builder.add(ModBlocks.COPPER_CHEST.get(), "Copper Chest");
+        builder.add(ModBlocks.EXPOSED_COPPER_CHEST.get(), "Exposed Copper Chest");
+        builder.add(ModBlocks.WEATHERED_COPPER_CHEST.get(), "Weathered Copper Chest");
+        builder.add(ModBlocks.OXIDIZED_COPPER_CHEST.get(), "Oxidized Copper Chest");
+        
+        builder.add(ModBlocks.WAXED_COPPER_CHEST.get(), "Waxed Copper Chest");
+        builder.add(ModBlocks.WAXED_EXPOSED_COPPER_CHEST.get(), "Waxed Exposed Copper Chest");
+        builder.add(ModBlocks.WAXED_WEATHERED_COPPER_CHEST.get(), "Waxed Weathered Copper Chest");
+        builder.add(ModBlocks.WAXED_OXIDIZED_COPPER_CHEST.get(), "Waxed Oxidized Copper Chest");
+        
         builder.add(ModItems.COPPER_SWORD.get(), "Copper Sword");
         builder.add(ModItems.COPPER_AXE.get(), "Copper Axe");
         builder.add(ModItems.COPPER_PICKAXE.get(), "Copper Pickaxe");
@@ -218,6 +228,9 @@ public class LangGenerator extends FabricLanguageProvider {
         
         builder.add(ModItems.COPPER_HORSE_ARMOR.get(), "Copper Horse Armor");
         builder.add(ModItems.COPPER_NUGGET.get(), "Copper Nugget");
+        
+        builder.add("subtitles.block.copper_chest.close", "Chest closes");
+        builder.add("subtitles.block.copper_chest.open", "Chest opens");
         
         // Chaos Cubed
 

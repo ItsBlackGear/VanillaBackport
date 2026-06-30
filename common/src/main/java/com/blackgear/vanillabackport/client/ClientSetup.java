@@ -34,6 +34,7 @@ public class ClientSetup {
         GameRendering.registerEntityRenderers(EntityRendering::renderers);
         GameRendering.registerBlockColors(ColorRendering::blockColors);
         GameRendering.registerItemColors(ColorRendering::itemColors);
+        GameRendering.registerBlockEntityRenderers(ItemLikeRendering::blockEntityRendering);
         GameRendering.registerSpecialModels(ItemLikeRendering::specialRendering);
     }
 

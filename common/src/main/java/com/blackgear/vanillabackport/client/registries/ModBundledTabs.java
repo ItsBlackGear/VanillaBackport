@@ -165,6 +165,16 @@ public class ModBundledTabs {
             .title(Component.translatable("bundled_tab.copper_age.title"))
             .icon(new ItemStack(ModItems.COPPER_PICKAXE.get()))
             .displayItems((provider, output) -> {
+                output.accept(ModBlocks.COPPER_CHEST.get());
+                output.accept(ModBlocks.EXPOSED_COPPER_CHEST.get());
+                output.accept(ModBlocks.WEATHERED_COPPER_CHEST.get());
+                output.accept(ModBlocks.OXIDIZED_COPPER_CHEST.get());
+                
+                output.accept(ModBlocks.WAXED_COPPER_CHEST.get());
+                output.accept(ModBlocks.WAXED_EXPOSED_COPPER_CHEST.get());
+                output.accept(ModBlocks.WAXED_WEATHERED_COPPER_CHEST.get());
+                output.accept(ModBlocks.WAXED_OXIDIZED_COPPER_CHEST.get());
+                
                 output.accept(ModItems.COPPER_SWORD.get());
                 output.accept(ModItems.COPPER_AXE.get());
                 output.accept(ModItems.COPPER_PICKAXE.get());

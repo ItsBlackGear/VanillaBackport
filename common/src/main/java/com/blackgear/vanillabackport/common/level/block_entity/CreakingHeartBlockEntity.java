@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.common.level.block_entity;
 
-import com.blackgear.vanillabackport.client.level.particles.particleoptions.TrailParticleOption;
+import com.blackgear.vanillabackport.client.level.particle.particleoptions.TrailParticleOption;
 import com.blackgear.vanillabackport.client.registries.ModParticles;
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
 import com.blackgear.vanillabackport.common.level.block.CreakingHeartBlock;

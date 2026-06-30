@@ -1,4 +1,106 @@
 {
+  "block.copper_chest.close": {
+    "sounds": [
+      {
+        "attenuation_distance": 12,
+        "name": "block/copper_chest/copper_chest_close1"
+      },
+      {
+        "attenuation_distance": 12,
+        "name": "block/copper_chest/copper_chest_close2"
+      },
+      {
+        "attenuation_distance": 12,
+        "name": "block/copper_chest/copper_chest_close3"
+      }
+    ],
+    "subtitle": "subtitles.block.copper_chest.close"
+  },
+  "block.copper_chest.open": {
+    "sounds": [
+      {
+        "attenuation_distance": 12,
+        "name": "block/copper_chest/copper_chest_open1"
+      },
+      {
+        "attenuation_distance": 12,
+        "name": "block/copper_chest/copper_chest_open2"
+      },
+      {
+        "attenuation_distance": 12,
+        "name": "block/copper_chest/copper_chest_open3"
+      }
+    ],
+    "subtitle": "subtitles.block.copper_chest.open"
+  },
+  "block.copper_chest_oxidized.close": {
+    "sounds": [
+      {
+        "attenuation_distance": 12,
+        "name": "block/copper_chest/copper_chest_oxidized_close1"
+      },
+      {
+        "attenuation_distance": 12,
+        "name": "block/copper_chest/copper_chest_oxidized_close2"
+      },
+      {
+        "attenuation_distance": 12,
+        "name": "block/copper_chest/copper_chest_oxidized_close3"
+      }
+    ],
+    "subtitle": "subtitles.block.copper_chest.close"
+  },
+  "block.copper_chest_oxidized.open": {
+    "sounds": [
+      {
+        "attenuation_distance": 12,
+        "name": "block/copper_chest/copper_chest_oxidized_open1"
+      },
+      {
+        "attenuation_distance": 12,
+        "name": "block/copper_chest/copper_chest_oxidized_open2"
+      },
+      {
+        "attenuation_distance": 12,
+        "name": "block/copper_chest/copper_chest_oxidized_open3"
+      }
+    ],
+    "subtitle": "subtitles.block.copper_chest.open"
+  },
+  "block.copper_chest_weathered.close": {
+    "sounds": [
+      {
+        "attenuation_distance": 12,
+        "name": "block/copper_chest/copper_chest_weathered_close1"
+      },
+      {
+        "attenuation_distance": 12,
+        "name": "block/copper_chest/copper_chest_weathered_close2"
+      },
+      {
+        "attenuation_distance": 12,
+        "name": "block/copper_chest/copper_chest_weathered_close3"
+      }
+    ],
+    "subtitle": "subtitles.block.copper_chest.close"
+  },
+  "block.copper_chest_weathered.open": {
+    "sounds": [
+      {
+        "attenuation_distance": 12,
+        "name": "block/copper_chest/copper_chest_weathered_open1"
+      },
+      {
+        "attenuation_distance": 12,
+        "name": "block/copper_chest/copper_chest_weathered_open2"
+      },
+      {
+        "attenuation_distance": 12,
+        "name": "block/copper_chest/copper_chest_weathered_open3"
+      }
+    ],
+    "subtitle": "subtitles.block.copper_chest.open"
+  },
   "item.armor.equip_copper": {
     "sounds": [
       "item/armor/equip_copper1",

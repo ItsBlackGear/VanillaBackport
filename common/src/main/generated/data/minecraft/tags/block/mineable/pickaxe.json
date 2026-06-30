@@ -32,6 +32,7 @@
     "minecraft:sulfur_brick_stairs",
     "minecraft:sulfur_brick_wall",
     "minecraft:chiseled_sulfur",
-    "#minecraft:speleothems"
+    "#minecraft:speleothems",
+    "#minecraft:copper_chests"
   ]
 }

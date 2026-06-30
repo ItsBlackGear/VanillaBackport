@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.common.level.block_entity;
 
-import com.blackgear.vanillabackport.client.level.particles.particleoptions.GeyserParticleOptions;
+import com.blackgear.vanillabackport.client.level.particle.particleoptions.GeyserParticleOptions;
 import com.blackgear.vanillabackport.client.registries.ModParticles;
 import com.blackgear.vanillabackport.common.level.block.states.PotentSulfurState;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlockEntities;
