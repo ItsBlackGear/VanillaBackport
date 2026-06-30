@@ -47,8 +47,11 @@
   "mixins": [
     "common.access.AnimalMakeLoveAccessor",
     "common.access.AnimationStateAccessor",
+    "common.access.BarrelBlockEntityAccessor",
     "common.access.BiomeAccessor",
     "common.access.BooleanValueAccessor",
+    "common.access.ChestBlockEntityAccessor",
+    "common.access.ContainerOpenersCounterAccessor",
     "common.access.EntityAccessor",
     "common.access.GameRulesAccessor",
     "common.access.LivingEntityAccessor",

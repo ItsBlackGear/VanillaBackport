@@ -10,6 +10,7 @@ import net.minecraft.data.BlockFamily;
 import net.minecraft.data.models.BlockModelGenerators;
 import net.minecraft.data.models.model.TexturedModel;
 import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.level.block.Blocks;
 
 public class ModelGenerator extends VanillaModelGenerator {
     public ModelGenerator(FabricDataOutput output) {
@@ -63,6 +64,17 @@ public class ModelGenerator extends VanillaModelGenerator {
         gen.createTrivialCube(ModBlocks.POTENT_SULFUR.get());
         gen.createSpeleothem(ModBlocks.SULFUR_SPIKE.get());
         gen.createSpawnEgg(ModItems.SULFUR_CUBE_SPAWN_EGG.get());
+        
+        // Copper Age
+        gen.createChest(ModBlocks.COPPER_CHEST.get(), Blocks.COPPER_BLOCK);
+        gen.createChest(ModBlocks.EXPOSED_COPPER_CHEST.get(), Blocks.EXPOSED_COPPER);
+        gen.createChest(ModBlocks.WEATHERED_COPPER_CHEST.get(), Blocks.WEATHERED_COPPER);
+        gen.createChest(ModBlocks.OXIDIZED_COPPER_CHEST.get(), Blocks.OXIDIZED_COPPER);
+        
+        gen.createChest(ModBlocks.WAXED_COPPER_CHEST.get(), Blocks.COPPER_BLOCK);
+        gen.createChest(ModBlocks.WAXED_EXPOSED_COPPER_CHEST.get(), Blocks.EXPOSED_COPPER);
+        gen.createChest(ModBlocks.WAXED_WEATHERED_COPPER_CHEST.get(), Blocks.WEATHERED_COPPER);
+        gen.createChest(ModBlocks.WAXED_OXIDIZED_COPPER_CHEST.get(), Blocks.OXIDIZED_COPPER);
     }
 
     @Override

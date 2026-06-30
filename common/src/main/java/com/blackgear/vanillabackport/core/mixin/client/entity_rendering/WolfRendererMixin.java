@@ -2,7 +2,7 @@ package com.blackgear.vanillabackport.core.mixin.client.entity_rendering;
 
 import com.blackgear.vanillabackport.client.api.modules.mob_variants.RenderConditions;
 import com.blackgear.vanillabackport.client.api.modules.mob_variants.SpecialMobRenderer;
-import com.blackgear.vanillabackport.client.level.entities.layer.WolfArmorLayer;
+import com.blackgear.vanillabackport.client.level.entity.layer.WolfArmorLayer;
 import com.blackgear.vanillabackport.common.api.modules.mob_variant.VariantDataHolder;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.wolf.WolfVariant;
 import com.blackgear.vanillabackport.core.mixin.client.extension.MobRendererMixin;

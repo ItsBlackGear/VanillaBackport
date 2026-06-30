@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.client.integrations.rendering;
 
-import com.blackgear.vanillabackport.client.level.particles.*;
+import com.blackgear.vanillabackport.client.level.particle.*;
 import com.blackgear.vanillabackport.client.registries.ModParticles;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

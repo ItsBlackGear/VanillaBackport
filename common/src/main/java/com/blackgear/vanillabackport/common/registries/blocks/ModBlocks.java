@@ -2,14 +2,17 @@ package com.blackgear.vanillabackport.common.registries.blocks;
 
 import com.blackgear.platform.core.helper.BlockRegistry;
 import com.blackgear.vanillabackport.client.registries.ModParticles;
+import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
 import com.blackgear.vanillabackport.client.registries.ModSoundTypes;
 import com.blackgear.vanillabackport.common.level.block.*;
 import com.blackgear.vanillabackport.common.level.block.properties.SharedBlockProperties;
 import com.blackgear.vanillabackport.common.registries.worldgen.ModTreeGrowers;
 import com.blackgear.vanillabackport.core.VanillaBackport;
+import com.blackgear.vanillabackport.core.registries.experimental.handlers.VanillaBlockRegistry;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.WeatheringCopper.WeatherState;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
@@ -21,6 +24,7 @@ import java.util.function.Supplier;
 
 public class ModBlocks {
     public static final BlockRegistry REGISTRIES = BlockRegistry.create(VanillaBackport.NAMESPACE);
+    public static final VanillaBlockRegistry HOLDERS = VanillaBlockRegistry.create();
 
     // The Garden Awakens
     
@@ -296,6 +300,58 @@ public class ModBlocks {
             .sound(ModSoundTypes.DRIED_GHAST)
             .noOcclusion()
             .randomTicks());
+    
+    // Copper Age
+    
+    public static final Supplier<Block> COPPER_CHEST = REGISTRIES.register("copper_chest",
+        () -> new WeatheringCopperChestBlock(
+            WeatherState.UNAFFECTED,
+            ModSoundEvents.COPPER_CHEST_OPEN.get(),
+            ModSoundEvents.COPPER_CHEST_CLOSE.get(),
+            SharedBlockProperties.COPPER_CHEST.mapColor(Blocks.COPPER_BLOCK.defaultMapColor())));
+    public static final Supplier<Block> EXPOSED_COPPER_CHEST = REGISTRIES.register("exposed_copper_chest",
+        () -> new WeatheringCopperChestBlock(
+            WeatherState.EXPOSED,
+            ModSoundEvents.COPPER_CHEST_OPEN.get(),
+            ModSoundEvents.COPPER_CHEST_CLOSE.get(),
+            SharedBlockProperties.COPPER_CHEST.mapColor(MapColor.TERRACOTTA_LIGHT_GRAY)));
+    public static final Supplier<Block> WEATHERED_COPPER_CHEST = REGISTRIES.register("weathered_copper_chest",
+        () -> new WeatheringCopperChestBlock(
+            WeatherState.WEATHERED,
+            ModSoundEvents.COPPER_CHEST_WEATHERED_OPEN.get(),
+            ModSoundEvents.COPPER_CHEST_WEATHERED_CLOSE.get(),
+            SharedBlockProperties.COPPER_CHEST.mapColor(MapColor.WARPED_STEM)));
+    public static final Supplier<Block> OXIDIZED_COPPER_CHEST = REGISTRIES.register("oxidized_copper_chest",
+        () -> new WeatheringCopperChestBlock(
+            WeatherState.OXIDIZED,
+            ModSoundEvents.COPPER_CHEST_OXIDIZED_OPEN.get(),
+            ModSoundEvents.COPPER_CHEST_OXIDIZED_CLOSE.get(),
+            SharedBlockProperties.COPPER_CHEST.mapColor(MapColor.WARPED_NYLIUM)));
+    
+    public static final Supplier<Block> WAXED_COPPER_CHEST = REGISTRIES.register("waxed_copper_chest",
+        () -> new CopperChestBlock(
+            WeatherState.UNAFFECTED,
+            ModSoundEvents.COPPER_CHEST_OPEN.get(),
+            ModSoundEvents.COPPER_CHEST_CLOSE.get(),
+            SharedBlockProperties.COPPER_CHEST.mapColor(Blocks.COPPER_BLOCK.defaultMapColor())));
+    public static final Supplier<Block> WAXED_EXPOSED_COPPER_CHEST = REGISTRIES.register("waxed_exposed_copper_chest",
+        () -> new CopperChestBlock(
+            WeatherState.EXPOSED,
+            ModSoundEvents.COPPER_CHEST_OPEN.get(),
+            ModSoundEvents.COPPER_CHEST_CLOSE.get(),
+            SharedBlockProperties.COPPER_CHEST.mapColor(MapColor.TERRACOTTA_LIGHT_GRAY)));
+    public static final Supplier<Block> WAXED_WEATHERED_COPPER_CHEST = REGISTRIES.register("waxed_weathered_copper_chest",
+        () -> new CopperChestBlock(
+            WeatherState.WEATHERED,
+            ModSoundEvents.COPPER_CHEST_WEATHERED_OPEN.get(),
+            ModSoundEvents.COPPER_CHEST_WEATHERED_CLOSE.get(),
+            SharedBlockProperties.COPPER_CHEST.mapColor(MapColor.WARPED_STEM)));
+    public static final Supplier<Block> WAXED_OXIDIZED_COPPER_CHEST = REGISTRIES.register("waxed_oxidized_copper_chest",
+        () -> new CopperChestBlock(
+            WeatherState.OXIDIZED,
+            ModSoundEvents.COPPER_CHEST_OXIDIZED_OPEN.get(),
+            ModSoundEvents.COPPER_CHEST_OXIDIZED_CLOSE.get(),
+            SharedBlockProperties.COPPER_CHEST.mapColor(MapColor.WARPED_NYLIUM)));
     
     // Chaos Cubed
     

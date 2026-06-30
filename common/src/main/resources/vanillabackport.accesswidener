@@ -17,6 +17,9 @@ accessible field net/minecraft/world/entity/Mob leashInfoTag Lnet/minecraft/nbt/
 accessible method net/minecraft/world/entity/Mob restoreLeashFromSave ()V
 accessible field net/minecraft/world/entity/animal/Parrot MOB_SOUND_MAP Ljava/util/Map;
 
+accessible field net/minecraft/world/level/block/entity/ContainerOpenersCounter openCount I
+mutable field net/minecraft/world/level/block/entity/ContainerOpenersCounter openCount I
+
 extendable method net/minecraft/world/entity/Entity setRemoved (Lnet/minecraft/world/entity/Entity$RemovalReason;)V
 
 accessible method net/minecraft/world/item/RecordItem <init> (ILnet/minecraft/sounds/SoundEvent;Lnet/minecraft/world/item/Item$Properties;I)V

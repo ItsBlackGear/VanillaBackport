@@ -89,7 +89,14 @@ public class ModSoundEvents {
     public static final Supplier<SoundEvent> GEYSER_ERUPTION_ACTIVE = REGISTRIES.soundEvent("block.potent_sulfur.geyser_eruption_active");
     public static final Supplier<SoundEvent> GEYSER_CONTINUOUS_START = REGISTRIES.soundEvent("block.potent_sulfur.geyser_continuous_eruption_start");
     public static final Supplier<SoundEvent> GEYSER_CONTINUOUS_ACTIVE = REGISTRIES.soundEvent("block.potent_sulfur.geyser_continuous_eruption_active");
-
+    
+    public static final Supplier<SoundEvent> COPPER_CHEST_CLOSE = REGISTRIES.soundEvent("block.copper_chest.close");
+    public static final Supplier<SoundEvent> COPPER_CHEST_OPEN = REGISTRIES.soundEvent("block.copper_chest.open");
+    public static final Supplier<SoundEvent> COPPER_CHEST_WEATHERED_CLOSE = REGISTRIES.soundEvent("block.copper_chest_weathered.close");
+    public static final Supplier<SoundEvent> COPPER_CHEST_WEATHERED_OPEN = REGISTRIES.soundEvent("block.copper_chest_weathered.open");
+    public static final Supplier<SoundEvent> COPPER_CHEST_OXIDIZED_CLOSE = REGISTRIES.soundEvent("block.copper_chest_oxidized.close");
+    public static final Supplier<SoundEvent> COPPER_CHEST_OXIDIZED_OPEN = REGISTRIES.soundEvent("block.copper_chest_oxidized.open");
+    
     // ITEMS
     public static final Supplier<SoundEvent> BUNDLE_INSERT_FAIL = REGISTRIES.soundEvent("item.bundle.insert_fail");
     public static final Supplier<SoundEvent> ARMOR_EQUIP_WOLF = REGISTRIES.soundEvent("item.armor.equip_wolf");

@@ -9,8 +9,8 @@ import com.blackgear.vanillabackport.common.level.item.VariantEggItem;
 import com.blackgear.vanillabackport.common.level.item.WolfArmorItem;
 import com.blackgear.vanillabackport.common.registries.entities.ModEntityTypes;
 import com.blackgear.vanillabackport.core.VanillaBackport;
-import com.blackgear.vanillabackport.core.registries.neo_registries.FeatureHolder;
-import com.blackgear.vanillabackport.core.registries.neo_registries.handlers.VanillaItemRegistry;
+import com.blackgear.vanillabackport.core.registries.experimental.FeatureHolder;
+import com.blackgear.vanillabackport.core.registries.experimental.handlers.VanillaItemRegistry;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.Item.Properties;
 
@@ -18,7 +18,7 @@ import java.util.function.Supplier;
 
 public class ModItems {
     public static final ItemRegistry REGISTRIES = ItemRegistry.create(VanillaBackport.NAMESPACE);
-    public static final VanillaItemRegistry ITEMS = VanillaItemRegistry.create();
+    public static final VanillaItemRegistry HOLDERS = VanillaItemRegistry.create();
     
     // Armored Paws
     
@@ -139,28 +139,28 @@ public class ModItems {
     
     // Copper Age
     
-    public static final FeatureHolder<Item> COPPER_SWORD = ITEMS.register("copper_sword",
+    public static final FeatureHolder<Item> COPPER_SWORD = HOLDERS.register("copper_sword",
         properties -> new SwordItem(ModToolMaterials.COPPER, 3, -2.4F, properties));
-    public static final FeatureHolder<Item> COPPER_SHOVEL = ITEMS.register("copper_shovel",
+    public static final FeatureHolder<Item> COPPER_SHOVEL = HOLDERS.register("copper_shovel",
         properties -> new ShovelItem(ModToolMaterials.COPPER, 1.5F, -3.0F, properties));
-    public static final FeatureHolder<Item> COPPER_PICKAXE = ITEMS.register("copper_pickaxe",
+    public static final FeatureHolder<Item> COPPER_PICKAXE = HOLDERS.register("copper_pickaxe",
         properties -> new PickaxeItem(ModToolMaterials.COPPER, 1, -2.8F, properties));
-    public static final FeatureHolder<Item> COPPER_AXE = ITEMS.register("copper_axe",
+    public static final FeatureHolder<Item> COPPER_AXE = HOLDERS.register("copper_axe",
         properties -> new AxeItem(ModToolMaterials.COPPER, 1.0F, -3.2F, properties));
-    public static final FeatureHolder<Item> COPPER_HOE = ITEMS.register("copper_hoe",
+    public static final FeatureHolder<Item> COPPER_HOE = HOLDERS.register("copper_hoe",
         properties -> new HoeItem(ModToolMaterials.COPPER, 1, -2.0F, properties));
     
-    public static final FeatureHolder<Item> COPPER_HELMET = ITEMS.register("copper_helmet",
+    public static final FeatureHolder<Item> COPPER_HELMET = HOLDERS.register("copper_helmet",
         properties -> new ArmorItem(ModArmorMaterials.COPPER, ArmorItem.Type.HELMET, properties));
-    public static final FeatureHolder<Item> COPPER_CHESTPLATE = ITEMS.register("copper_chestplate",
+    public static final FeatureHolder<Item> COPPER_CHESTPLATE = HOLDERS.register("copper_chestplate",
         properties -> new ArmorItem(ModArmorMaterials.COPPER, ArmorItem.Type.CHESTPLATE, properties));
-    public static final FeatureHolder<Item> COPPER_LEGGINGS = ITEMS.register("copper_leggings",
+    public static final FeatureHolder<Item> COPPER_LEGGINGS = HOLDERS.register("copper_leggings",
         properties -> new ArmorItem(ModArmorMaterials.COPPER, ArmorItem.Type.LEGGINGS, properties));
-    public static final FeatureHolder<Item> COPPER_BOOTS = ITEMS.register("copper_boots",
+    public static final FeatureHolder<Item> COPPER_BOOTS = HOLDERS.register("copper_boots",
         properties -> new ArmorItem(ModArmorMaterials.COPPER, ArmorItem.Type.BOOTS, properties));
     
-    public static final FeatureHolder<Item> COPPER_NUGGET = ITEMS.register("copper_nugget");
-    public static final FeatureHolder<Item> COPPER_HORSE_ARMOR = ITEMS.register("copper_horse_armor",
+    public static final FeatureHolder<Item> COPPER_NUGGET = HOLDERS.register("copper_nugget");
+    public static final FeatureHolder<Item> COPPER_HORSE_ARMOR = HOLDERS.register("copper_horse_armor",
         properties -> new HorseArmorItem(4, "copper", properties),
         new Properties().stacksTo(1));
     

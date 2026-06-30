@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.core.mixin.common.registry;
 
-import com.blackgear.vanillabackport.core.registries.neo_registries.RegistryInterceptor;
+import com.blackgear.vanillabackport.core.registries.experimental.RegistryInterceptor;
 import com.mojang.serialization.Lifecycle;
 import net.minecraft.core.Holder;
 import net.minecraft.core.MappedRegistry;

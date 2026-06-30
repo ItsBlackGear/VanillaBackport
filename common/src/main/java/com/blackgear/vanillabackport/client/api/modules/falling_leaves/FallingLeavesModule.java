@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.client.api.modules.falling_leaves;
 
-import com.blackgear.vanillabackport.client.level.particles.particleoptions.ColorParticleOption;
+import com.blackgear.vanillabackport.client.level.particle.particleoptions.ColorParticleOption;
 import com.blackgear.vanillabackport.client.registries.ModParticles;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.blackgear.vanillabackport.core.data.tags.ModBlockTags;

@@ -31,10 +31,11 @@ public class ClientSetup {
         
         GameRendering.registerParticleFactories(ParticleRendering::factories);
         GameRendering.registerModelLayers(EntityRendering::modelLayers);
-        GameRendering.registerEntityRenderers(EntityRendering::remderers);
+        GameRendering.registerEntityRenderers(EntityRendering::renderers);
         GameRendering.registerBlockColors(ColorRendering::blockColors);
         GameRendering.registerItemColors(ColorRendering::itemColors);
         GameRendering.registerSpecialModels(ItemLikeRendering::specialRendering);
+        GameRendering.registerBlockEntityRenderers(ItemLikeRendering::blockEntityRendering);
     }
 
     public static void asyncSetup(ParallelDispatch dispatch) {

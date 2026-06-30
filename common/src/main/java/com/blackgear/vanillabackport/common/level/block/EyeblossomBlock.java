@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.common.level.block;
 
-import com.blackgear.vanillabackport.client.level.particles.particleoptions.TrailParticleOption;
+import com.blackgear.vanillabackport.client.level.particle.particleoptions.TrailParticleOption;
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
 import net.minecraft.core.BlockPos;

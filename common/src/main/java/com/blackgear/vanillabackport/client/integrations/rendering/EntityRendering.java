@@ -1,20 +1,20 @@
 package com.blackgear.vanillabackport.client.integrations.rendering;
 
-import com.blackgear.vanillabackport.client.level.entities.model.*;
-import com.blackgear.vanillabackport.client.level.entities.model.chicken.ColdChickenModel;
-import com.blackgear.vanillabackport.client.level.entities.model.cow.ColdCowModel;
-import com.blackgear.vanillabackport.client.level.entities.model.cow.WarmCowModel;
-import com.blackgear.vanillabackport.client.level.entities.model.happy_ghast.HappyGhastHarnessModel;
-import com.blackgear.vanillabackport.client.level.entities.model.happy_ghast.HappyGhastModel;
-import com.blackgear.vanillabackport.client.level.entities.model.pig.ColdPigModel;
-import com.blackgear.vanillabackport.client.level.entities.model.sulfur_cube.SmallSulfurCubeModel;
-import com.blackgear.vanillabackport.client.level.entities.model.sulfur_cube.SulfurCubeModel;
-import com.blackgear.vanillabackport.client.level.entities.model.wolf.WolfArmorModel;
-import com.blackgear.vanillabackport.client.level.entities.renderer.*;
-import com.blackgear.vanillabackport.client.level.entities.renderer.mob.ArmadilloRenderer;
-import com.blackgear.vanillabackport.client.level.entities.renderer.mob.CreakingRenderer;
-import com.blackgear.vanillabackport.client.level.entities.renderer.mob.HappyGhastRenderer;
-import com.blackgear.vanillabackport.client.level.entities.renderer.mob.SulfurCubeRenderer;
+import com.blackgear.vanillabackport.client.level.entity.model.*;
+import com.blackgear.vanillabackport.client.level.entity.model.chicken.ColdChickenModel;
+import com.blackgear.vanillabackport.client.level.entity.model.cow.ColdCowModel;
+import com.blackgear.vanillabackport.client.level.entity.model.cow.WarmCowModel;
+import com.blackgear.vanillabackport.client.level.entity.model.happy_ghast.HappyGhastHarnessModel;
+import com.blackgear.vanillabackport.client.level.entity.model.happy_ghast.HappyGhastModel;
+import com.blackgear.vanillabackport.client.level.entity.model.pig.ColdPigModel;
+import com.blackgear.vanillabackport.client.level.entity.model.sulfur_cube.SmallSulfurCubeModel;
+import com.blackgear.vanillabackport.client.level.entity.model.sulfur_cube.SulfurCubeModel;
+import com.blackgear.vanillabackport.client.level.entity.model.wolf.WolfArmorModel;
+import com.blackgear.vanillabackport.client.level.entity.renderer.*;
+import com.blackgear.vanillabackport.client.level.entity.renderer.mob.ArmadilloRenderer;
+import com.blackgear.vanillabackport.client.level.entity.renderer.mob.CreakingRenderer;
+import com.blackgear.vanillabackport.client.level.entity.renderer.mob.HappyGhastRenderer;
+import com.blackgear.vanillabackport.client.level.entity.renderer.mob.SulfurCubeRenderer;
 import com.blackgear.vanillabackport.client.registries.ModModelLayers;
 import com.blackgear.vanillabackport.common.registries.entities.ModEntityTypes;
 import net.fabricmc.api.EnvType;
@@ -53,7 +53,7 @@ public class EntityRendering {
         event.register(ModModelLayers.SULFUR_CUBE_SMALL_INNER, SmallSulfurCubeModel::createInnerBodyLayer);
     }
     
-    public static void remderers(EntityRendererEvent event) {
+    public static void renderers(EntityRendererEvent event) {
         event.register(ModEntityTypes.ARMADILLO.get(), ArmadilloRenderer::new);
         event.register(ModEntityTypes.CREAKING.get(), CreakingRenderer::new);
         event.register(ModEntityTypes.HAPPY_GHAST.get(), HappyGhastRenderer::new);

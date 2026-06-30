@@ -7,7 +7,7 @@ import com.blackgear.vanillabackport.common.level.block.MossyCarpetBlock;
 import com.blackgear.vanillabackport.common.level.block.states.CreakingHeartState;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlockStateProperties;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
-import com.blackgear.vanillabackport.data.client.model.ModelTemplates;
+import com.blackgear.vanillabackport.data.client.model.ModModelTemplates;
 import com.blackgear.vanillabackport.data.client.model.TextureMappings;
 import com.blackgear.vanillabackport.data.client.model.TexturedModels;
 import com.google.gson.JsonElement;
@@ -193,7 +193,7 @@ public class VanillaBlockModels extends BlockModelGenerators {
                 default -> "_hydration_0";
             };
             TextureMapping mapping = TextureMappings.driedGhast(suffix);
-            return ModelTemplates.DRIED_GHAST.createWithSuffix(ModBlocks.DRIED_GHAST.get(), suffix, mapping, this.modelOutput);
+            return ModModelTemplates.DRIED_GHAST.createWithSuffix(ModBlocks.DRIED_GHAST.get(), suffix, mapping, this.modelOutput);
         };
 
         this.blockStateOutput
@@ -343,5 +343,12 @@ public class VanillaBlockModels extends BlockModelGenerators {
         String suffix = "_" + direction.getSerializedName() + "_" + thickness.getSerializedName();
         TextureMapping texture = TextureMapping.cross(TextureMapping.getBlockTexture(block, suffix));
         return Variant.variant().with(VariantProperties.MODEL, net.minecraft.data.models.model.ModelTemplates.POINTED_DRIPSTONE.createWithSuffix(block, suffix, texture, this.modelOutput));
+    }
+    
+    public void createChest(Block chest, Block particles) {
+        BlockEntityModelGenerator generator = new BlockEntityModelGenerator(ModelLocationUtils.getModelLocation(chest), particles);
+        generator.createWithoutBlockItem(chest);
+        
+        ModModelTemplates.CHEST.create(ModelLocationUtils.getModelLocation(chest.asItem()), TextureMapping.particle(particles), this.modelOutput);
     }
 }

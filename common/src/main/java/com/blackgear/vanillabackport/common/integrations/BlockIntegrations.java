@@ -72,6 +72,19 @@ public class BlockIntegrations {
         event.registerStrippableBlock(ModBlocks.PALE_OAK_WOOD.get(), ModBlocks.STRIPPED_PALE_OAK_WOOD.get());
     }
     
+    private static void registerWaxables(Event event) {
+        event.registerWaxableBlock(ModBlocks.COPPER_CHEST.get(), ModBlocks.WAXED_COPPER_CHEST.get());
+        event.registerWaxableBlock(ModBlocks.EXPOSED_COPPER_CHEST.get(), ModBlocks.WAXED_EXPOSED_COPPER_CHEST.get());
+        event.registerWaxableBlock(ModBlocks.WEATHERED_COPPER_CHEST.get(), ModBlocks.WAXED_WEATHERED_COPPER_CHEST.get());
+        event.registerWaxableBlock(ModBlocks.OXIDIZED_COPPER_CHEST.get(), ModBlocks.WAXED_OXIDIZED_COPPER_CHEST.get());
+    }
+    
+    private static void registerOxidables(Event event) {
+        event.registerOxidableBlock(ModBlocks.COPPER_CHEST.get(), ModBlocks.EXPOSED_COPPER_CHEST.get());
+        event.registerOxidableBlock(ModBlocks.EXPOSED_COPPER_CHEST.get(), ModBlocks.WEATHERED_COPPER_CHEST.get());
+        event.registerOxidableBlock(ModBlocks.WEATHERED_COPPER_CHEST.get(), ModBlocks.OXIDIZED_COPPER_CHEST.get());
+    }
+    
     private static void registerDispensables(Event event) {
         // Armored Paws
         event.registerDispenserBehavior(Items.BRUSH, new ArmadilloBrushDispenseBehavior());
@@ -93,6 +106,8 @@ public class BlockIntegrations {
         registerFlammables(event);
         registerCompostables(event);
         registerStrippables(event);
+        registerWaxables(event);
+        registerOxidables(event);
         registerDispensables(event);
     }
 }

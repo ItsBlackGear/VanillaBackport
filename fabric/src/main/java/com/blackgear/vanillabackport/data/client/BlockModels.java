@@ -6,7 +6,7 @@ import com.blackgear.vanillabackport.common.level.block.HangingMossBlock;
 import com.blackgear.vanillabackport.common.level.block.MossyCarpetBlock;
 import com.blackgear.vanillabackport.common.level.block.states.CreakingHeartState;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
-import com.blackgear.vanillabackport.data.client.model.ModelTemplates;
+import com.blackgear.vanillabackport.data.client.model.ModModelTemplates;
 import com.blackgear.vanillabackport.data.client.model.TextureMappings;
 import com.blackgear.vanillabackport.data.client.model.TexturedModels;
 import com.mojang.datafixers.util.Pair;
@@ -200,7 +200,7 @@ public record BlockModels(BlockModelGenerators gen) {
                 default -> "_hydration_0";
             };
             TextureMapping mapping = TextureMappings.driedGhast(string);
-            return ModelTemplates.DRIED_GHAST.createWithSuffix(ModBlocks.DRIED_GHAST.get(), string, mapping, gen.modelOutput);
+            return ModModelTemplates.DRIED_GHAST.createWithSuffix(ModBlocks.DRIED_GHAST.get(), string, mapping, gen.modelOutput);
         };
 
         gen.blockStateOutput

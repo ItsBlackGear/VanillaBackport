@@ -1,14 +1,21 @@
 package com.blackgear.vanillabackport.client.integrations.rendering;
 
+import com.blackgear.platform.client.v2.render.BuiltinItemRendererRegistry;
 import com.blackgear.platform.client.v2.render.DynamicItemRenderer;
 import com.blackgear.platform.client.v2.render.ItemRendererRegistry;
+import com.blackgear.vanillabackport.client.level.block_entity.renderer.CopperChestRenderer;
 import com.blackgear.vanillabackport.client.level.item.BundleRenderer;
+import com.blackgear.vanillabackport.client.level.item.CopperChestItemRenderer;
 import com.blackgear.vanillabackport.client.level.item.SpawnEggRenderer;
+import com.blackgear.vanillabackport.common.level.block.CopperChestBlock;
+import com.blackgear.vanillabackport.common.registries.blocks.ModBlockEntities;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.Block;
 
 import static com.blackgear.platform.client.GameRendering.*;
 
@@ -22,6 +29,16 @@ public class ItemLikeRendering {
         for (ItemLike item : SpawnEggRenderer.SPAWN_EGGS) {
             DynamicItemRenderer.INSTANCE.get().register(item, SpawnEggRenderer.INSTANCE);
         }
+        
+        for (Block block : BuiltInRegistries.BLOCK) {
+            if (block instanceof CopperChestBlock chest) {
+                BuiltinItemRendererRegistry.getInstance().register(block, new CopperChestItemRenderer(chest));
+            }
+        }
+    }
+    
+    public static void blockEntityRendering(BlockEntityRendererEvent event) {
+        event.register(ModBlockEntities.COPPER_CHEST.get(), CopperChestRenderer::new);
     }
     
     public static void renderTypes(BlockRendererEvent event) {

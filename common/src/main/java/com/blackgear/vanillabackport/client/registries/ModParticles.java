@@ -1,10 +1,10 @@
 package com.blackgear.vanillabackport.client.registries;
 
 import com.blackgear.platform.core.helper.ParticleRegistry;
-import com.blackgear.vanillabackport.client.level.particles.particleoptions.ColorParticleOption;
-import com.blackgear.vanillabackport.client.level.particles.particleoptions.GeyserBaseParticleOptions;
-import com.blackgear.vanillabackport.client.level.particles.particleoptions.GeyserParticleOptions;
-import com.blackgear.vanillabackport.client.level.particles.particleoptions.TrailParticleOption;
+import com.blackgear.vanillabackport.client.level.particle.particleoptions.ColorParticleOption;
+import com.blackgear.vanillabackport.client.level.particle.particleoptions.GeyserBaseParticleOptions;
+import com.blackgear.vanillabackport.client.level.particle.particleoptions.GeyserParticleOptions;
+import com.blackgear.vanillabackport.client.level.particle.particleoptions.TrailParticleOption;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleOptions;
