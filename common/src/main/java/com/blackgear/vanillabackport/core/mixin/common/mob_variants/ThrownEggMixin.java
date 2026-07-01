@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.core.mixin.common.mob_variants;
 
-import com.blackgear.vanillabackport.common.api.extensions.access.EntityDataHolder;
+import com.blackgear.vanillabackport.common.api.extensions.access.entity.EntityDataHolder;
 import com.blackgear.vanillabackport.common.api.modules.mob_variant.VariantDataHolder;
 import com.blackgear.vanillabackport.common.api.modules.mob_variant.VariantUtils;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.chicken.ChickenVariant;

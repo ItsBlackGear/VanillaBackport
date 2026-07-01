@@ -4,12 +4,15 @@ import com.blackgear.vanillabackport.client.level.particle.*;
 import com.blackgear.vanillabackport.client.registries.ModParticles;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.particle.FlameParticle;
 
 import static com.blackgear.platform.client.GameRendering.*;
 
 @Environment(EnvType.CLIENT)
 public class ParticleRendering {
     public static void factories(ParticleFactoryEvent event) {
+        event.register(ModParticles.DUST_PLUME, DustPlumeParticle.Provider::new);
+        
         event.register(ModParticles.PALE_OAK_LEAVES, FallingLeavesParticle.PaleOakProvider::new);
         event.register(ModParticles.TRAIL, TrailParticle.Provider::new);
         
@@ -17,7 +20,7 @@ public class ParticleRendering {
         event.register(ModParticles.TINTED_LEAVES, FallingLeavesParticle.TintedLeavesProvider::new);
         event.register(ModParticles.TINTED_NEEDLES, FallingLeavesParticle.TintedLeavesProvider::new);
         
-        event.register(ModParticles.DUST_PLUME, DustPlumeParticle.Provider::new);
+        event.register(ModParticles.COPPER_FIRE_FLAME, FlameParticle.Provider::new);
         
         event.register(ModParticles.SULFUR_BUBBLES, SulfurBubbleParticle.Provider::new);
         event.register(ModParticles.NOXIOUS_GAS, NoxiousGasParticle.Provider::new);

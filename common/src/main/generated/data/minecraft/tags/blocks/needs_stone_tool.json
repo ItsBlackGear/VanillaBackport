@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "#minecraft:copper_chests"
+    "#minecraft:copper_chests",
+    "#minecraft:lightning_rods"
   ]
 }

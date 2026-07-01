@@ -15,6 +15,10 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+
+import java.util.Collection;
+import java.util.function.Supplier;
 
 public abstract class BlockItemTagGenerator {
     protected void addTags() {
@@ -106,6 +110,38 @@ public abstract class BlockItemTagGenerator {
 
         this.tag(BlockTags.CEILING_HANGING_SIGNS, ItemTags.HANGING_SIGNS)
             .add(ModBlocks.PALE_OAK_HANGING_SIGN.getFirst().get());
+        
+        this.tag(ModBlockTags.COPPER, ModItemTags.COPPER) //TODO: check for conventional tag
+            .add(Blocks.COPPER_BLOCK)
+            .add(Blocks.EXPOSED_COPPER)
+            .add(Blocks.WEATHERED_COPPER)
+            .add(Blocks.OXIDIZED_COPPER)
+            .add(Blocks.WAXED_COPPER_BLOCK)
+            .add(Blocks.WAXED_EXPOSED_COPPER)
+            .add(Blocks.WAXED_WEATHERED_COPPER)
+            .add(Blocks.WAXED_OXIDIZED_COPPER);
+        
+        this.tag(ModBlockTags.LANTERNS, ModItemTags.LANTERNS)
+            .add(Blocks.LANTERN, Blocks.SOUL_LANTERN)
+            .addAll(ModBlocks.COPPER_LANTERN.asList().stream().map(Supplier::get).toList());
+        
+        this.tag(ModBlockTags.BARS, ModItemTags.BARS)
+            .add(Blocks.IRON_BARS)
+            .addAll(ModBlocks.COPPER_BARS.asList().stream().map(Supplier::get).toList());
+        
+        this.tag(ModBlockTags.CHAINS, ModItemTags.CHAINS)
+            .add(Blocks.CHAIN)
+            .addAll(ModBlocks.COPPER_CHAIN.asList().stream().map(Supplier::get).toList());
+        
+        this.tag(ModBlockTags.LIGHTNING_RODS, ModItemTags.LIGHTNING_RODS)
+            .add(Blocks.LIGHTNING_ROD)
+            .add(ModBlocks.EXPOSED_LIGHTNING_ROD.get())
+            .add(ModBlocks.WEATHERED_LIGHTNING_ROD.get())
+            .add(ModBlocks.OXIDIZED_LIGHTNING_ROD.get())
+            .add(ModBlocks.WAXED_LIGHTNING_ROD.get())
+            .add(ModBlocks.WAXED_EXPOSED_LIGHTNING_ROD.get())
+            .add(ModBlocks.WAXED_WEATHERED_LIGHTNING_ROD.get())
+            .add(ModBlocks.WAXED_OXIDIZED_LIGHTNING_ROD.get());
     }
 
     private void handleConventionalTags() {
@@ -152,6 +188,11 @@ public abstract class BlockItemTagGenerator {
                 this.block.add(toAdd);
             }
 
+            return this;
+        }
+        
+        public TagHolder addAll(Collection<Block> elements) {
+            elements.forEach(this::add);
             return this;
         }
 

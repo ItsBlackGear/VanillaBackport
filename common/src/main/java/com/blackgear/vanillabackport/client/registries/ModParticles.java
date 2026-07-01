@@ -42,6 +42,8 @@ public class ModParticles {
         ColorParticleOption.DESERIALIZER,
         ColorParticleOption::codec
     );
+    
+    public static final Supplier<SimpleParticleType> COPPER_FIRE_FLAME = REGISTRIES.register("copper_fire_flame", false);
 
     public static final Supplier<SimpleParticleType> DUST_PLUME = REGISTRIES.register("dust_plume",false);
     public static final Supplier<SimpleParticleType> SULFUR_BUBBLES = REGISTRIES.register("sulfur_bubbles", false);

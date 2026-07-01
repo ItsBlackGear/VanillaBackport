@@ -16,6 +16,7 @@ import com.blackgear.vanillabackport.common.api.modules.mob_variant.spawn.SpawnC
 import com.blackgear.vanillabackport.common.registries.*;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlockEntities;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
+import com.blackgear.vanillabackport.common.registries.blocks.ModPoiTypes;
 import com.blackgear.vanillabackport.common.registries.entities.*;
 import com.blackgear.vanillabackport.common.registries.items.ModItems;
 import com.blackgear.vanillabackport.common.registries.items.ModPaintingVariants;
@@ -73,6 +74,9 @@ public final class VanillaBackport {
         ModItems.HOLDERS.register();
         ModBlockEntities.REGISTRIES.register();
         ModBlockEntities.HOLDERS.register();
+        
+        ModPoiTypes.REGISTRIES.register();
+        
         ModEntityTypes.REGISTRIES.register();
         ModMemoryModules.REGISTRIES.register();
         ModSensorTypes.REGISTRIES.register();

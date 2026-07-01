@@ -179,6 +179,14 @@ public class ModBundledTabs {
                 output.accept(ModBlocks.WAXED_WEATHERED_COPPER_CHEST.get());
                 output.accept(ModBlocks.WAXED_OXIDIZED_COPPER_CHEST.get());
                 
+                output.accept(ModBlocks.EXPOSED_LIGHTNING_ROD.get());
+                output.accept(ModBlocks.WEATHERED_LIGHTNING_ROD.get());
+                output.accept(ModBlocks.OXIDIZED_LIGHTNING_ROD.get());
+                output.accept(ModBlocks.WAXED_LIGHTNING_ROD.get());
+                output.accept(ModBlocks.WAXED_EXPOSED_LIGHTNING_ROD.get());
+                output.accept(ModBlocks.WAXED_WEATHERED_LIGHTNING_ROD.get());
+                output.accept(ModBlocks.WAXED_OXIDIZED_LIGHTNING_ROD.get());
+                
                 output.accept(ModItems.COPPER_SWORD.get());
                 output.accept(ModItems.COPPER_AXE.get());
                 output.accept(ModItems.COPPER_PICKAXE.get());
@@ -192,6 +200,11 @@ public class ModBundledTabs {
                 
                 output.accept(ModItems.COPPER_HORSE_ARMOR.get());
                 output.accept(ModItems.COPPER_NUGGET.get());
+                
+                output.accept(ModBlocks.COPPER_TORCH.getFirst().get());
+                ModBlocks.COPPER_LANTERN.asList().forEach(block -> output.accept(block.get()));
+                ModBlocks.COPPER_BARS.asList().forEach(block -> output.accept(block.get()));
+                ModBlocks.COPPER_CHAIN.asList().forEach(block -> output.accept(block.get()));
             })
             .build()
     );

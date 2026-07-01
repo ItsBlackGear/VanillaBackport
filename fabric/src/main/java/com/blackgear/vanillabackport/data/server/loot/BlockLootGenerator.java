@@ -131,6 +131,21 @@ public class BlockLootGenerator extends FabricBlockLootTableProvider {
         this.dropSelf(ModBlocks.CINNABAR_BRICK_STAIRS.get());
         this.add(ModBlocks.CINNABAR_BRICK_SLAB.get(), this::createSlabItemTable);
         this.dropSelf(ModBlocks.CINNABAR_BRICK_WALL.get());
+        
+        // Copper Age
+        this.add(ModBlocks.COPPER_CHEST.get(), this::createNameableBlockEntityTable);
+        this.add(ModBlocks.EXPOSED_COPPER_CHEST.get(), this::createNameableBlockEntityTable);
+        this.add(ModBlocks.WEATHERED_COPPER_CHEST.get(), this::createNameableBlockEntityTable);
+        this.add(ModBlocks.OXIDIZED_COPPER_CHEST.get(), this::createNameableBlockEntityTable);
+        this.add(ModBlocks.WAXED_COPPER_CHEST.get(), this::createNameableBlockEntityTable);
+        this.add(ModBlocks.WAXED_EXPOSED_COPPER_CHEST.get(), this::createNameableBlockEntityTable);
+        this.add(ModBlocks.WAXED_WEATHERED_COPPER_CHEST.get(), this::createNameableBlockEntityTable);
+        this.add(ModBlocks.WAXED_OXIDIZED_COPPER_CHEST.get(), this::createNameableBlockEntityTable);
+        
+        this.dropSelf(ModBlocks.COPPER_TORCH.getFirst().get());
+        ModBlocks.COPPER_LANTERN.forEach(holder -> this.add(holder.get(), this::createSingleItemTable));
+        ModBlocks.COPPER_BARS.forEach(holder -> this.dropSelf(holder.get()));
+        ModBlocks.COPPER_CHAIN.forEach(holder -> this.dropSelf(holder.get()));
     }
 
     protected LootTable.Builder createMultifaceBlockDrops(Block block) {

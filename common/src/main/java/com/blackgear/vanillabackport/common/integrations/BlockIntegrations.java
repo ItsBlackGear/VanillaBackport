@@ -9,6 +9,7 @@ import com.blackgear.vanillabackport.common.level.entity.mob.animal.chicken.Chic
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
 import com.blackgear.vanillabackport.common.registries.items.ModItems;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Blocks;
 
 public class BlockIntegrations {
     private static void registerFuel(Event event) {
@@ -77,12 +78,29 @@ public class BlockIntegrations {
         event.registerWaxableBlock(ModBlocks.EXPOSED_COPPER_CHEST.get(), ModBlocks.WAXED_EXPOSED_COPPER_CHEST.get());
         event.registerWaxableBlock(ModBlocks.WEATHERED_COPPER_CHEST.get(), ModBlocks.WAXED_WEATHERED_COPPER_CHEST.get());
         event.registerWaxableBlock(ModBlocks.OXIDIZED_COPPER_CHEST.get(), ModBlocks.WAXED_OXIDIZED_COPPER_CHEST.get());
+        
+        event.registerWaxableBlock(Blocks.LIGHTNING_ROD, ModBlocks.WAXED_LIGHTNING_ROD.get());
+        event.registerWaxableBlock(ModBlocks.EXPOSED_LIGHTNING_ROD.get(), ModBlocks.WAXED_EXPOSED_LIGHTNING_ROD.get());
+        event.registerWaxableBlock(ModBlocks.WEATHERED_LIGHTNING_ROD.get(), ModBlocks.WAXED_WEATHERED_LIGHTNING_ROD.get());
+        event.registerWaxableBlock(ModBlocks.OXIDIZED_LIGHTNING_ROD.get(), ModBlocks.WAXED_OXIDIZED_LIGHTNING_ROD.get());
+        
+        ModBlocks.COPPER_LANTERN.waxedMapping().forEach((from, to) -> event.registerWaxableBlock(from.get(), to.get()));
+        ModBlocks.COPPER_BARS.waxedMapping().forEach((from, to) -> event.registerWaxableBlock(from.get(), to.get()));
+        ModBlocks.COPPER_CHAIN.waxedMapping().forEach((from, to) -> event.registerWaxableBlock(from.get(), to.get()));
     }
     
     private static void registerOxidables(Event event) {
         event.registerOxidableBlock(ModBlocks.COPPER_CHEST.get(), ModBlocks.EXPOSED_COPPER_CHEST.get());
         event.registerOxidableBlock(ModBlocks.EXPOSED_COPPER_CHEST.get(), ModBlocks.WEATHERED_COPPER_CHEST.get());
         event.registerOxidableBlock(ModBlocks.WEATHERED_COPPER_CHEST.get(), ModBlocks.OXIDIZED_COPPER_CHEST.get());
+        
+        event.registerOxidableBlock(Blocks.LIGHTNING_ROD, ModBlocks.EXPOSED_LIGHTNING_ROD.get());
+        event.registerOxidableBlock(ModBlocks.EXPOSED_LIGHTNING_ROD.get(), ModBlocks.WEATHERED_LIGHTNING_ROD.get());
+        event.registerOxidableBlock(ModBlocks.WEATHERED_LIGHTNING_ROD.get(), ModBlocks.OXIDIZED_LIGHTNING_ROD.get());
+        
+        ModBlocks.COPPER_LANTERN.weatheringMapping().forEach((from, to) -> event.registerOxidableBlock(from.get(), to.get()));
+        ModBlocks.COPPER_BARS.weatheringMapping().forEach((from, to) -> event.registerOxidableBlock(from.get(), to.get()));
+        ModBlocks.COPPER_CHAIN.weatheringMapping().forEach((from, to) -> event.registerOxidableBlock(from.get(), to.get()));
     }
     
     private static void registerDispensables(Event event) {

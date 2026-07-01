@@ -34,6 +34,7 @@
     "minecraft:sulfur_brick_wall",
     "minecraft:chiseled_sulfur",
     "#minecraft:speleothems",
-    "#minecraft:copper_chests"
+    "#minecraft:copper_chests",
+    "#minecraft:lightning_rods"
   ]
 }

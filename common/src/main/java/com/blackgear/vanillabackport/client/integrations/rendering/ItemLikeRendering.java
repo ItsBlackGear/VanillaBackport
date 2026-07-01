@@ -66,7 +66,13 @@ public class ItemLikeRendering {
             ModBlocks.TALL_DRY_GRASS.get(),
             ModBlocks.PALE_OAK_DOOR.get(),
             ModBlocks.PALE_OAK_TRAPDOOR.get(),
-            ModBlocks.SULFUR_SPIKE.get()
+            ModBlocks.SULFUR_SPIKE.get(),
+            ModBlocks.COPPER_TORCH.getFirst().get(),
+            ModBlocks.COPPER_TORCH.getSecond().get()
         );
+        
+        ModBlocks.COPPER_LANTERN.forEach(holder -> event.register(RenderType.cutout(), holder.get()));
+        ModBlocks.COPPER_BARS.forEach(holder -> event.register(RenderType.cutout(), holder.get()));
+        ModBlocks.COPPER_CHAIN.forEach(holder -> event.register(RenderType.cutout(), holder.get()));
     }
 }

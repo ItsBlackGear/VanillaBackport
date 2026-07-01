@@ -48,7 +48,8 @@ public class BlockTagGenerator extends FabricTagProvider.BlockTagProvider {
             .add(ModBlocks.PALE_OAK_HANGING_SIGN.getSecond().get());
 
         this.getOrCreateTagBuilder(BlockTags.WALL_POST_OVERRIDE)
-            .add(ModBlocks.CACTUS_FLOWER.get());
+            .add(ModBlocks.CACTUS_FLOWER.get())
+            .add(ModBlocks.COPPER_TORCH.getFirst().get());
 
         this.getOrCreateTagBuilder(BlockTags.INSIDE_STEP_SOUND_BLOCKS)
             .add(ModBlocks.WILDFLOWERS.get(), ModBlocks.LEAF_LITTER.get());
@@ -102,10 +103,12 @@ public class BlockTagGenerator extends FabricTagProvider.BlockTagProvider {
                 ModBlocks.CHISELED_SULFUR.get()
             )
             .forceAddTag(ModBlockTags.SPELEOTHEMS)
-            .forceAddTag(ModBlockTags.COPPER_CHESTS);
+            .forceAddTag(ModBlockTags.COPPER_CHESTS)
+            .forceAddTag(ModBlockTags.LIGHTNING_RODS);
         
         this.getOrCreateTagBuilder(BlockTags.NEEDS_STONE_TOOL)
-            .addTag(ModBlockTags.COPPER_CHESTS);
+            .addTag(ModBlockTags.COPPER_CHESTS)
+            .addTag(ModBlockTags.LIGHTNING_RODS);
         
         this.getOrCreateTagBuilder(BlockTags.REPLACEABLE_BY_TREES)
             .add(

@@ -8,22 +8,20 @@ import com.blackgear.vanillabackport.common.level.block.states.CreakingHeartStat
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlockStateProperties;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
 import com.blackgear.vanillabackport.data.client.model.ModModelTemplates;
-import com.blackgear.vanillabackport.data.client.model.TextureMappings;
-import com.blackgear.vanillabackport.data.client.model.TexturedModels;
+import com.blackgear.vanillabackport.data.client.model.ModTextureMappings;
+import com.blackgear.vanillabackport.data.client.model.ModTexturedModels;
 import com.google.gson.JsonElement;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.Util;
 import net.minecraft.core.Direction;
 import net.minecraft.data.models.BlockModelGenerators;
 import net.minecraft.data.models.blockstates.*;
-import net.minecraft.data.models.model.ModelLocationUtils;
-import net.minecraft.data.models.model.TextureMapping;
-import net.minecraft.data.models.model.TextureSlot;
-import net.minecraft.data.models.model.TexturedModel;
+import net.minecraft.data.models.model.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.properties.*;
 
 import java.util.List;
@@ -68,11 +66,11 @@ public class VanillaBlockModels extends BlockModelGenerators {
 
     public void createMossyCarpet(Block block) {
         ResourceLocation baseModel = TexturedModel.CARPET.create(block, this.modelOutput);
-        ResourceLocation tallSideModel = TexturedModels.MOSSY_CARPET_SIDE
+        ResourceLocation tallSideModel = ModTexturedModels.MOSSY_CARPET_SIDE
             .get(block)
             .updateTextures(mapping -> mapping.put(TextureSlot.SIDE, TextureMapping.getBlockTexture(block, "_side_tall")))
             .createWithSuffix(block, "_side_tall", this.modelOutput);
-        ResourceLocation shortSideModel = TexturedModels.MOSSY_CARPET_SIDE
+        ResourceLocation shortSideModel = ModTexturedModels.MOSSY_CARPET_SIDE
             .get(block)
             .updateTextures(mapping -> mapping.put(TextureSlot.SIDE, TextureMapping.getBlockTexture(block, "_side_small")))
             .createWithSuffix(block, "_side_small", this.modelOutput);
@@ -192,7 +190,7 @@ public class VanillaBlockModels extends BlockModelGenerators {
                 case 3 -> "_hydration_3";
                 default -> "_hydration_0";
             };
-            TextureMapping mapping = TextureMappings.driedGhast(suffix);
+            TextureMapping mapping = ModTextureMappings.driedGhast(suffix);
             return ModModelTemplates.DRIED_GHAST.createWithSuffix(ModBlocks.DRIED_GHAST.get(), suffix, mapping, this.modelOutput);
         };
 
@@ -205,10 +203,10 @@ public class VanillaBlockModels extends BlockModelGenerators {
     }
 
     public void createLeafLitter(Block block) {
-        ResourceLocation resourceLocation = TexturedModels.LEAF_LITTER_1.create(block, this.modelOutput);
-        ResourceLocation resourceLocation2 = TexturedModels.LEAF_LITTER_2.create(block, this.modelOutput);
-        ResourceLocation resourceLocation3 = TexturedModels.LEAF_LITTER_3.create(block, this.modelOutput);
-        ResourceLocation resourceLocation4 = TexturedModels.LEAF_LITTER_4.create(block, this.modelOutput);
+        ResourceLocation resourceLocation = ModTexturedModels.LEAF_LITTER_1.create(block, this.modelOutput);
+        ResourceLocation resourceLocation2 = ModTexturedModels.LEAF_LITTER_2.create(block, this.modelOutput);
+        ResourceLocation resourceLocation3 = ModTexturedModels.LEAF_LITTER_3.create(block, this.modelOutput);
+        ResourceLocation resourceLocation4 = ModTexturedModels.LEAF_LITTER_4.create(block, this.modelOutput);
         this.createSimpleFlatItemModel(block.asItem());
         this.blockStateOutput.accept(
             MultiPartGenerator.multiPart(block)
@@ -350,5 +348,115 @@ public class VanillaBlockModels extends BlockModelGenerators {
         generator.createWithoutBlockItem(chest);
         
         ModModelTemplates.CHEST.create(ModelLocationUtils.getModelLocation(chest.asItem()), TextureMapping.particle(particles), this.modelOutput);
+    }
+    
+    public void createCopperChain(Block unwaxed, Block waxed) {
+        ResourceLocation block = ModTexturedModels.CHAIN.create(unwaxed, this.modelOutput);
+        this.createAxisAlignedPillarBlockCustomModel(unwaxed, block);
+        this.createAxisAlignedPillarBlockCustomModel(waxed, block);
+        ResourceLocation item = ModelTemplates.FLAT_ITEM.create(ModelLocationUtils.getModelLocation(unwaxed.asItem()), TextureMapping.layer0(unwaxed.asItem()), this.modelOutput);
+        this.delegateItemModel(waxed.asItem(), item);
+    }
+    
+    public void createCopperBars(Block unwaxed, Block waxed) {
+        TextureMapping textures = ModTextureMappings.bars(unwaxed);
+        ResourceLocation postEndResource = ModModelTemplates.BARS_POST_ENDS.create(unwaxed, textures, this.modelOutput);
+        ResourceLocation postResource = ModModelTemplates.BARS_POST.create(unwaxed, textures, this.modelOutput);
+        ResourceLocation capResource = ModModelTemplates.BARS_CAP.create(unwaxed, textures, this.modelOutput);
+        ResourceLocation capAltResource = ModModelTemplates.BARS_CAP_ALT.create(unwaxed, textures, this.modelOutput);
+        ResourceLocation sideResource = ModModelTemplates.BARS_POST_SIDE.create(unwaxed, textures, this.modelOutput);
+        ResourceLocation sideAltResource = ModModelTemplates.BARS_POST_SIDE_ALT.create(unwaxed, textures, this.modelOutput);
+        this.createBars(unwaxed, postEndResource, postResource, capResource, capAltResource, sideResource, sideAltResource);
+        this.createBars(waxed, postEndResource, postResource, capResource, capAltResource, sideResource, sideAltResource);
+        this.createSimpleFlatItemModel(unwaxed);
+        this.delegateItemModel(waxed, ModelLocationUtils.getModelLocation(unwaxed.asItem()));
+    }
+    
+    private void createBars(Block block, ResourceLocation postEnd, ResourceLocation post, ResourceLocation cap, ResourceLocation capAlt, ResourceLocation side, ResourceLocation sideAlt) {
+        this.blockStateOutput
+            .accept(
+                MultiPartGenerator.multiPart(block)
+                    .with(Variant.variant().with(VariantProperties.MODEL, postEnd))
+                    .with(
+                        Condition.condition()
+                            .term(BlockStateProperties.NORTH, false)
+                            .term(BlockStateProperties.EAST, false)
+                            .term(BlockStateProperties.SOUTH, false)
+                            .term(BlockStateProperties.WEST, false),
+                        Variant.variant().with(VariantProperties.MODEL, post)
+                    )
+                    .with(
+                        Condition.condition()
+                            .term(BlockStateProperties.NORTH, true)
+                            .term(BlockStateProperties.EAST, false)
+                            .term(BlockStateProperties.SOUTH, false)
+                            .term(BlockStateProperties.WEST, false),
+                        Variant.variant().with(VariantProperties.MODEL, cap)
+                    )
+                    .with(
+                        Condition.condition()
+                            .term(BlockStateProperties.NORTH, false)
+                            .term(BlockStateProperties.EAST, true)
+                            .term(BlockStateProperties.SOUTH, false)
+                            .term(BlockStateProperties.WEST, false),
+                        Variant.variant().with(VariantProperties.MODEL, cap).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)
+                    )
+                    .with(
+                        Condition.condition()
+                            .term(BlockStateProperties.NORTH, false)
+                            .term(BlockStateProperties.EAST, false)
+                            .term(BlockStateProperties.SOUTH, true)
+                            .term(BlockStateProperties.WEST, false),
+                        Variant.variant().with(VariantProperties.MODEL, capAlt)
+                    )
+                    .with(
+                        Condition.condition()
+                            .term(BlockStateProperties.NORTH, false)
+                            .term(BlockStateProperties.EAST, false)
+                            .term(BlockStateProperties.SOUTH, false)
+                            .term(BlockStateProperties.WEST, true),
+                        Variant.variant().with(VariantProperties.MODEL, capAlt).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)
+                    )
+                    .with(
+                        Condition.condition().term(BlockStateProperties.NORTH, true),
+                        Variant.variant().with(VariantProperties.MODEL, side)
+                    )
+                    .with(
+                        Condition.condition().term(BlockStateProperties.EAST, true),
+                        Variant.variant().with(VariantProperties.MODEL, side).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)
+                    )
+                    .with(
+                        Condition.condition().term(BlockStateProperties.SOUTH, true),
+                        Variant.variant().with(VariantProperties.MODEL, sideAlt)
+                    )
+                    .with(
+                        Condition.condition().term(BlockStateProperties.WEST, true),
+                        Variant.variant().with(VariantProperties.MODEL, sideAlt).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)
+                    )
+            );
+    }
+    
+    public void createLightningRod(Block unwaxed, Block waxed) {
+        if (unwaxed == null) {
+            ResourceLocation on = ModelLocationUtils.getModelLocation(Blocks.LIGHTNING_ROD, "_on");
+            ResourceLocation off = ModelLocationUtils.getModelLocation(Blocks.LIGHTNING_ROD);
+            this.blockStateOutput.accept(MultiVariantGenerator.multiVariant(waxed, Variant.variant().with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(waxed))).with(this.createColumnWithFacing()).with(createBooleanModelDispatch(BlockStateProperties.POWERED, on, off)));
+            this.delegateItemModel(waxed, ModelLocationUtils.getModelLocation(Blocks.LIGHTNING_ROD.asItem()));
+        } else {
+            ResourceLocation on = ModelLocationUtils.getModelLocation(Blocks.LIGHTNING_ROD, "_on");
+            ResourceLocation off = ModModelTemplates.LIGHTNING_ROD.create(unwaxed, TextureMapping.defaultTexture(unwaxed), this.modelOutput);
+            this.blockStateOutput.accept(MultiVariantGenerator.multiVariant(unwaxed, Variant.variant().with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(unwaxed))).with(this.createColumnWithFacing()).with(createBooleanModelDispatch(BlockStateProperties.POWERED, on, off)));
+            this.blockStateOutput.accept(MultiVariantGenerator.multiVariant(waxed, Variant.variant().with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(waxed))).with(this.createColumnWithFacing()).with(createBooleanModelDispatch(BlockStateProperties.POWERED, on, off)));
+            this.delegateItemModel(waxed, ModelLocationUtils.getModelLocation(unwaxed.asItem()));
+        }
+    }
+    
+    public void createCopperLantern(Block unwaxed, Block waxed) {
+        ResourceLocation ground = TexturedModel.LANTERN.create(unwaxed, this.modelOutput);
+        ResourceLocation hanging = TexturedModel.HANGING_LANTERN.create(unwaxed, this.modelOutput);
+        this.createSimpleFlatItemModel(unwaxed.asItem());
+        this.delegateItemModel(waxed, ModelLocationUtils.getModelLocation(unwaxed.asItem()));
+        this.blockStateOutput.accept(MultiVariantGenerator.multiVariant(unwaxed).with(createBooleanModelDispatch(BlockStateProperties.HANGING, hanging, ground)));
+        this.blockStateOutput.accept(MultiVariantGenerator.multiVariant(waxed).with(createBooleanModelDispatch(BlockStateProperties.HANGING, hanging, ground)));
     }
 }

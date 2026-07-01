@@ -191,6 +191,7 @@ public class RecipeGenerator extends VanillaRecipeProvider {
         threeByThreePacker(exporter, RecipeCategory.BUILDING_BLOCKS, ModBlocks.POTENT_SULFUR.get(), ModBlocks.SULFUR.get());
         
         // Copper Age
+        nineBlockStorageRecipesWithCustomPacking(exporter, RecipeCategory.MISC, ModItems.COPPER_NUGGET.get(), RecipeCategory.MISC, Items.COPPER_INGOT, "copper_ingot_from_nuggets", "copper_ingot");
         
         shaped(RecipeCategory.TOOLS, ModItems.COPPER_AXE.get())
             .define('#', Items.STICK)
@@ -328,6 +329,39 @@ public class RecipeGenerator extends VanillaRecipeProvider {
             .unlockedBy("has_copper_horse_armor", has(ModItems.COPPER_HORSE_ARMOR.get()))
             //.unlockedBy("has_copper_nautilus_armor", has(ModItems.COPPER_NAUTILUS_ARMOR.get()))
             .save(exporter, getBlastingRecipeName(ModItems.COPPER_NUGGET.get()));
+        
+        shaped(RecipeCategory.DECORATIONS, ModBlocks.COPPER_TORCH.getFirst().get(), 4)
+            .define('X', Ingredient.of(Items.COAL, Items.CHARCOAL))
+            .define('#', Items.STICK)
+            .define('C', ModItems.COPPER_NUGGET.get())
+            .pattern("C")
+            .pattern("X")
+            .pattern("#")
+            .unlockedBy("has_copper_nugget", has(ModItems.COPPER_NUGGET.get()))
+            .save(exporter);
+        shaped(RecipeCategory.DECORATIONS, ModBlocks.COPPER_LANTERN.unaffected().get())
+            .define('#', ModBlocks.COPPER_TORCH.getFirst().get())
+            .define('X', ModItems.COPPER_NUGGET.get())
+            .pattern("XXX")
+            .pattern("X#X")
+            .pattern("XXX")
+            .unlockedBy("has_copper_torch", has(ModBlocks.COPPER_TORCH.getFirst().get()))
+            .save(exporter);
+        shaped(RecipeCategory.DECORATIONS, ModBlocks.COPPER_BARS.unaffected().get(), 16)
+            .define('#', Items.COPPER_INGOT)
+            .pattern("###")
+            .pattern("###")
+            .unlockedBy("has_copper_ingot", has(Items.COPPER_INGOT))
+            .save(exporter);
+        shaped(RecipeCategory.DECORATIONS, ModBlocks.COPPER_CHAIN.unaffected().get())
+            .define('I', Items.COPPER_INGOT)
+            .define('N', ModItems.COPPER_NUGGET.get())
+            .pattern("N")
+            .pattern("I")
+            .pattern("N")
+            .unlockedBy("has_copper_nugget", has(ModItems.COPPER_NUGGET.get()))
+            .unlockedBy("has_copper_ingot", has(Items.COPPER_INGOT))
+            .save(exporter);
     }
 
     public static ShapedRecipeBuilder shaped(RecipeCategory category, ItemLike entry) {
