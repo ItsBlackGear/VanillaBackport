@@ -17,6 +17,7 @@ import com.blackgear.vanillabackport.common.api.modules.mob_variant.spawn.SpawnC
 import com.blackgear.vanillabackport.common.registries.*;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlockEntities;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
+import com.blackgear.vanillabackport.common.registries.blocks.ModPoiTypes;
 import com.blackgear.vanillabackport.common.registries.entities.ModAttributes;
 import com.blackgear.vanillabackport.common.registries.entities.ModEntityTypes;
 import com.blackgear.vanillabackport.common.registries.entities.ModSensorTypes;
@@ -67,16 +68,18 @@ public final class VanillaBackport {
 
         ModAttributes.REGISTRIES.register();
         ModArmorMaterials.REGISTRIES.register();
-        
-        ModParticles.PARTICLES.register();
-
         ModDataComponents.REGISTRIES.register();
+        ModParticles.REGISTRIES.register();
+
         ModBlocks.REGISTRIES.register();
         ModBlocks.HOLDERS.register();
         ModItems.REGISTRIES.register();
         ModItems.HOLDERS.register();
         ModBlockEntities.REGISTRIES.register();
         ModBlockEntities.HOLDERS.register();
+        
+        ModPoiTypes.REGISTRIES.register();
+        
         ModEntityTypes.REGISTRIES.register();
         ModSensorTypes.REGISTRIES.register();
 

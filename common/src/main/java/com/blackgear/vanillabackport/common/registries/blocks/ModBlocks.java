@@ -8,9 +8,10 @@ import com.blackgear.vanillabackport.common.level.block.*;
 import com.blackgear.vanillabackport.common.level.block.properties.SharedBlockProperties;
 import com.blackgear.vanillabackport.common.registries.worldgen.ModTreeGrowers;
 import com.blackgear.vanillabackport.core.VanillaBackport;
-import com.blackgear.vanillabackport.core.registries.experimental.FeatureHolder;
 import com.blackgear.vanillabackport.core.registries.experimental.handlers.VanillaBlockRegistry;
 import com.mojang.datafixers.util.Pair;
+import net.minecraft.core.Direction;
+import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.WeatheringCopper.WeatherState;
@@ -354,6 +355,62 @@ public class ModBlocks {
             ModSoundEvents.COPPER_CHEST_OXIDIZED_CLOSE.get(),
             SharedBlockProperties.COPPER_CHEST.mapColor(MapColor.WARPED_NYLIUM)));
     
+    public static final Supplier<Block> EXPOSED_LIGHTNING_ROD = REGISTRIES.register("exposed_lightning_rod",
+        properties -> new WeatheringLightningRodBlock(WeatherState.EXPOSED, properties),
+        Properties.ofFullCopy(Blocks.LIGHTNING_ROD).mapColor(MapColor.TERRACOTTA_LIGHT_GRAY));
+    public static final Supplier<Block> WEATHERED_LIGHTNING_ROD = REGISTRIES.register("weathered_lightning_rod",
+        properties -> new WeatheringLightningRodBlock(WeatherState.WEATHERED, properties),
+        Properties.ofFullCopy(Blocks.LIGHTNING_ROD).mapColor(MapColor.WARPED_STEM));
+    public static final Supplier<Block> OXIDIZED_LIGHTNING_ROD = REGISTRIES.register("oxidized_lightning_rod",
+        properties -> new WeatheringLightningRodBlock(WeatherState.OXIDIZED, properties),
+        Properties.ofFullCopy(Blocks.LIGHTNING_ROD).mapColor(MapColor.WARPED_NYLIUM));
+    
+    public static final Supplier<Block> WAXED_LIGHTNING_ROD = REGISTRIES.register("waxed_lightning_rod",
+        LightningRodBlock::new,
+        Properties.ofFullCopy(Blocks.LIGHTNING_ROD));
+    public static final Supplier<Block> WAXED_EXPOSED_LIGHTNING_ROD = REGISTRIES.register("waxed_exposed_lightning_rod",
+        LightningRodBlock::new,
+        Properties.ofFullCopy(Blocks.LIGHTNING_ROD).mapColor(MapColor.TERRACOTTA_LIGHT_GRAY));
+    public static final Supplier<Block> WAXED_WEATHERED_LIGHTNING_ROD = REGISTRIES.register("waxed_weathered_lightning_rod",
+        LightningRodBlock::new,
+        Properties.ofFullCopy(Blocks.LIGHTNING_ROD).mapColor(MapColor.WARPED_STEM));
+    public static final Supplier<Block> WAXED_OXIDIZED_LIGHTNING_ROD = REGISTRIES.register("waxed_oxidized_lightning_rod",
+        LightningRodBlock::new,
+        Properties.ofFullCopy(Blocks.LIGHTNING_ROD).mapColor(MapColor.WARPED_NYLIUM));
+    
+    public static final Pair<Supplier<Block>, Supplier<Block>> COPPER_TORCH = torch("copper", ModParticles.COPPER_FIRE_FLAME);
+    public static final WeatheringCopperBlocks COPPER_LANTERN = WeatheringCopperBlocks.create("copper_lantern",
+        REGISTRIES::register,
+        LanternBlock::new,
+        WeatheringLanternBlock::new,
+        properties -> Properties.of()
+            .mapColor(MapColor.METAL)
+            .forceSolidOn()
+            .strength(3.5F)
+            .sound(SoundType.LANTERN)
+            .lightLevel(state -> 15)
+            .noOcclusion()
+            .pushReaction(PushReaction.DESTROY));
+    public static final WeatheringCopperBlocks COPPER_BARS = WeatheringCopperBlocks.create("copper_bars",
+        REGISTRIES::register,
+        IronBarsBlock::new,
+        WeatheringCopperBarsBlock::new,
+        properties -> Properties.of()
+            .requiresCorrectToolForDrops()
+            .strength(5.0F, 6.0F)
+            .sound(SoundType.COPPER)
+            .noOcclusion());
+    public static final WeatheringCopperBlocks COPPER_CHAIN = WeatheringCopperBlocks.create("copper_chain",
+        REGISTRIES::register,
+        ChainBlock::new,
+        WeatheringCopperChainBlock::new,
+        properties -> Properties.of()
+            .forceSolidOn()
+            .requiresCorrectToolForDrops()
+            .strength(5.0F, 6.0F)
+            .sound(SoundType.COPPER)
+            .noOcclusion());
+    
     // Chaos Cubed
     
     public static final Supplier<Block> CINNABAR = REGISTRIES.register("cinnabar", SharedBlockProperties.CINNABAR);
@@ -431,5 +488,18 @@ public class ModBlocks {
         Supplier<Block> wall = REGISTRIES.registerNoItem(name + "_wall_hanging_sign", () -> new WallHangingSignBlock(woodType, properties.dropsLike(ceiling.get())));
         REGISTRIES.registerItem(name + "_hanging_sign", () -> new HangingSignItem(ceiling.get(), wall.get(), new Item.Properties().stacksTo(16)));
         return new Pair<>(ceiling, wall);
+    }
+    
+    public static Pair<Supplier<Block>, Supplier<Block>> torch(String name, Supplier<SimpleParticleType> particle) {
+        Properties properties = Properties.of()
+            .noCollission()
+            .instabreak()
+            .lightLevel(state -> 14)
+            .sound(SoundType.WOOD).pushReaction(PushReaction.DESTROY);
+        
+        Supplier<Block> torch = REGISTRIES.registerNoItem(name + "_torch", () -> new LazyTorchBlock(particle, properties));
+        Supplier<Block> wall_torch = REGISTRIES.registerNoItem(name + "_wall_torch", () -> new LazyWallTorchBlock(particle, properties.dropsLike(torch.get())));
+        REGISTRIES.registerItem(name + "_torch", () -> new StandingAndWallBlockItem(torch.get(), wall_torch.get(), new Item.Properties(), Direction.DOWN));
+        return new Pair<>(torch, wall_torch);
     }
 }

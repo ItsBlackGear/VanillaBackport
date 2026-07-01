@@ -32,4 +32,21 @@ public class ModItemTags {
     public static final TagKey<Item> SULFUR_CUBE_ARCHETYPE_HOT = TAGS.register("sulfur_cube_archetype/hot");
 
     public static final TagKey<Item> SULFUR_CUBE_SWALLOWABLE = TAGS.register("sulfur_cube_swallowable");
+    
+    public static final TagKey<Item> COPPER = TAGS.register("copper");
+    public static final TagKey<Item> COPPER_GOLEM_STATUES = TAGS.register("copper_golem_statues");
+    public static final TagKey<Item> SHEARABLE_FROM_COPPER_GOLEM = TAGS.register("shearable_from_copper_golem");
+    
+    public static final TagKey<Item> BARS = TAGS.register("bars");
+    public static final TagKey<Item> CHAINS = TAGS.register("chains");
+    public static final TagKey<Item> LANTERNS = TAGS.register("lanterns");
+    public static final TagKey<Item> LIGHTNING_RODS = TAGS.register("lightning_rods");
+    public static final TagKey<Item> WOODEN_SHELVES = TAGS.register("wooden_shelves");
+    
+    public static final TagKey<Item> SPEARS = TAGS.register("spears");
+    public static final TagKey<Item> CAMEL_HUSK_FOOD = TAGS.register("camel_husk_food");
+    
+    public static final TagKey<Item> NAUTILUS_BUCKET_FOOD = TAGS.register("nautilus_bucket_food");
+    public static final TagKey<Item> NAUTILUS_FOOD = TAGS.register("nautilus_food");
+    public static final TagKey<Item> NAUTILUS_TAMING_ITEMS = TAGS.register("nautilus_taming_items");
 }

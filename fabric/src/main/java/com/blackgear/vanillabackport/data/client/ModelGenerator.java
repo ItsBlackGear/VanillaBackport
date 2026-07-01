@@ -73,6 +73,17 @@ public class ModelGenerator extends VanillaModelGenerator {
         gen.createChest(ModBlocks.WAXED_EXPOSED_COPPER_CHEST.get(), Blocks.EXPOSED_COPPER);
         gen.createChest(ModBlocks.WAXED_WEATHERED_COPPER_CHEST.get(), Blocks.WEATHERED_COPPER);
         gen.createChest(ModBlocks.WAXED_OXIDIZED_COPPER_CHEST.get(), Blocks.OXIDIZED_COPPER);
+        
+        gen.createLightningRod(null, ModBlocks.WAXED_LIGHTNING_ROD.get());
+        gen.createLightningRod(ModBlocks.EXPOSED_LIGHTNING_ROD.get(), ModBlocks.WAXED_EXPOSED_LIGHTNING_ROD.get());
+        gen.createLightningRod(ModBlocks.WEATHERED_LIGHTNING_ROD.get(), ModBlocks.WAXED_WEATHERED_LIGHTNING_ROD.get());
+        gen.createLightningRod(ModBlocks.OXIDIZED_LIGHTNING_ROD.get(), ModBlocks.WAXED_OXIDIZED_LIGHTNING_ROD.get());
+        
+        gen.createNormalTorch(ModBlocks.COPPER_TORCH.getFirst().get(), ModBlocks.COPPER_TORCH.getSecond().get());
+        
+        ModBlocks.COPPER_LANTERN.waxedMapping().forEach((from, to) -> gen.createCopperLantern(from.get(), to.get()));
+        ModBlocks.COPPER_BARS.waxedMapping().forEach((from, to) -> gen.createCopperBars(from.get(), to.get()));
+        ModBlocks.COPPER_CHAIN.waxedMapping().forEach((from, to) -> gen.createCopperChain(from.get(), to.get()));
     }
 
     @Override

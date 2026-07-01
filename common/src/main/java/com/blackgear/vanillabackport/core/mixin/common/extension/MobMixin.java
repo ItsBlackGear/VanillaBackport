@@ -1,7 +1,7 @@
 package com.blackgear.vanillabackport.core.mixin.common.extension;
 
-import com.blackgear.vanillabackport.common.api.extensions.access.EntityDataHolder;
-import com.blackgear.vanillabackport.common.api.extensions.access.MobBehaviorAccess;
+import com.blackgear.vanillabackport.common.api.extensions.access.entity.EntityDataHolder;
+import com.blackgear.vanillabackport.common.api.extensions.access.entity.MobBehaviorAccess;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.world.DifficultyInstance;

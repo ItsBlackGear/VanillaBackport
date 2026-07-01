@@ -1,6 +1,7 @@
 package com.blackgear.vanillabackport.core.mixin.client.falling_leaves;
 
 import com.blackgear.vanillabackport.client.api.modules.falling_leaves.FallingLeavesModule;
+import com.blackgear.vanillabackport.common.api.extensions.access.block.BlockExtension;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.core.BlockPos;
@@ -10,16 +11,14 @@ import net.minecraft.world.level.block.LeavesBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(LeavesBlock.class) @Environment(EnvType.CLIENT)
-public class LeavesBlockMixin {
+@Mixin(LeavesBlock.class)
+@Environment(EnvType.CLIENT)
+public class LeavesBlockMixin implements BlockExtension {
     @Unique private final FallingLeavesModule module = new FallingLeavesModule();
-
-    @Inject(method = "animateTick", at = @At("HEAD"))
-    public void vb$animateTick(BlockState state, Level level, BlockPos pos, RandomSource random, CallbackInfo ci) {
+    
+    @Override
+    public void vb$AnimateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
         this.module.makeFallingLeavesParticles(level, pos, random, level.getBlockState(pos.below()), pos.below());
     }
 }
