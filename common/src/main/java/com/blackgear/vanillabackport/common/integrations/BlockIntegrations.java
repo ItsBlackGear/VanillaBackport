@@ -79,6 +79,10 @@ public class BlockIntegrations {
         event.registerWaxableBlock(ModBlocks.WEATHERED_COPPER_CHEST.get(), ModBlocks.WAXED_WEATHERED_COPPER_CHEST.get());
         event.registerWaxableBlock(ModBlocks.OXIDIZED_COPPER_CHEST.get(), ModBlocks.WAXED_OXIDIZED_COPPER_CHEST.get());
         
+        event.registerWaxableBlock(ModBlocks.EXPOSED_COPPER_GOLEM_STATUE.get(), ModBlocks.WAXED_EXPOSED_COPPER_GOLEM_STATUE.get());
+        event.registerWaxableBlock(ModBlocks.WEATHERED_COPPER_GOLEM_STATUE.get(), ModBlocks.WAXED_WEATHERED_COPPER_GOLEM_STATUE.get());
+        event.registerWaxableBlock(ModBlocks.OXIDIZED_COPPER_GOLEM_STATUE.get(), ModBlocks.WAXED_OXIDIZED_COPPER_GOLEM_STATUE.get());
+        
         event.registerWaxableBlock(Blocks.LIGHTNING_ROD, ModBlocks.WAXED_LIGHTNING_ROD.get());
         event.registerWaxableBlock(ModBlocks.EXPOSED_LIGHTNING_ROD.get(), ModBlocks.WAXED_EXPOSED_LIGHTNING_ROD.get());
         event.registerWaxableBlock(ModBlocks.WEATHERED_LIGHTNING_ROD.get(), ModBlocks.WAXED_WEATHERED_LIGHTNING_ROD.get());
@@ -93,6 +97,10 @@ public class BlockIntegrations {
         event.registerOxidableBlock(ModBlocks.COPPER_CHEST.get(), ModBlocks.EXPOSED_COPPER_CHEST.get());
         event.registerOxidableBlock(ModBlocks.EXPOSED_COPPER_CHEST.get(), ModBlocks.WEATHERED_COPPER_CHEST.get());
         event.registerOxidableBlock(ModBlocks.WEATHERED_COPPER_CHEST.get(), ModBlocks.OXIDIZED_COPPER_CHEST.get());
+        
+        event.registerOxidableBlock(ModBlocks.COPPER_GOLEM_STATUE.get(), ModBlocks.EXPOSED_COPPER_GOLEM_STATUE.get());
+        event.registerOxidableBlock(ModBlocks.EXPOSED_COPPER_GOLEM_STATUE.get(), ModBlocks.WEATHERED_COPPER_GOLEM_STATUE.get());
+        event.registerOxidableBlock(ModBlocks.WEATHERED_COPPER_GOLEM_STATUE.get(), ModBlocks.OXIDIZED_COPPER_GOLEM_STATUE.get());
         
         event.registerOxidableBlock(Blocks.LIGHTNING_ROD, ModBlocks.EXPOSED_LIGHTNING_ROD.get());
         event.registerOxidableBlock(ModBlocks.EXPOSED_LIGHTNING_ROD.get(), ModBlocks.WEATHERED_LIGHTNING_ROD.get());

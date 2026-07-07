@@ -1,5 +1,6 @@
 package com.blackgear.vanillabackport.data.server.loot;
 
+import com.blackgear.vanillabackport.common.level.block.CopperGolemStatueBlock;
 import com.blackgear.vanillabackport.common.level.block.LeafLitterBlock;
 import com.blackgear.vanillabackport.common.level.block.MossyCarpetBlock;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
@@ -17,10 +18,7 @@ import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.DynamicLoot;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
-import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
-import net.minecraft.world.level.storage.loot.functions.CopyNbtFunction;
-import net.minecraft.world.level.storage.loot.functions.LimitCount;
-import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
+import net.minecraft.world.level.storage.loot.functions.*;
 import net.minecraft.world.level.storage.loot.predicates.LootItemBlockStatePropertyCondition;
 import net.minecraft.world.level.storage.loot.providers.nbt.ContextNbtProvider;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
@@ -137,10 +135,34 @@ public class BlockLootGenerator extends FabricBlockLootTableProvider {
         this.add(ModBlocks.EXPOSED_COPPER_CHEST.get(), this::createNameableBlockEntityTable);
         this.add(ModBlocks.WEATHERED_COPPER_CHEST.get(), this::createNameableBlockEntityTable);
         this.add(ModBlocks.OXIDIZED_COPPER_CHEST.get(), this::createNameableBlockEntityTable);
+        
         this.add(ModBlocks.WAXED_COPPER_CHEST.get(), this::createNameableBlockEntityTable);
         this.add(ModBlocks.WAXED_EXPOSED_COPPER_CHEST.get(), this::createNameableBlockEntityTable);
         this.add(ModBlocks.WAXED_WEATHERED_COPPER_CHEST.get(), this::createNameableBlockEntityTable);
         this.add(ModBlocks.WAXED_OXIDIZED_COPPER_CHEST.get(), this::createNameableBlockEntityTable);
+        
+        this.dropSelf(ModBlocks.ACACIA_SHELF.get());
+        this.dropSelf(ModBlocks.BAMBOO_SHELF.get());
+        this.dropSelf(ModBlocks.BIRCH_SHELF.get());
+        this.dropSelf(ModBlocks.CHERRY_SHELF.get());
+        this.dropSelf(ModBlocks.CRIMSON_SHELF.get());
+        this.dropSelf(ModBlocks.DARK_OAK_SHELF.get());
+        this.dropSelf(ModBlocks.JUNGLE_SHELF.get());
+        this.dropSelf(ModBlocks.MANGROVE_SHELF.get());
+        this.dropSelf(ModBlocks.OAK_SHELF.get());
+        this.dropSelf(ModBlocks.PALE_OAK_SHELF.get());
+        this.dropSelf(ModBlocks.SPRUCE_SHELF.get());
+        this.dropSelf(ModBlocks.WARPED_SHELF.get());
+        
+        this.add(ModBlocks.COPPER_GOLEM_STATUE.get(), this::createCopperGolemStatueBlock);
+        this.add(ModBlocks.EXPOSED_COPPER_GOLEM_STATUE.get(), this::createCopperGolemStatueBlock);
+        this.add(ModBlocks.WEATHERED_COPPER_GOLEM_STATUE.get(), this::createCopperGolemStatueBlock);
+        this.add(ModBlocks.OXIDIZED_COPPER_GOLEM_STATUE.get(), this::createCopperGolemStatueBlock);
+        
+        this.add(ModBlocks.WAXED_COPPER_GOLEM_STATUE.get(), this::createCopperGolemStatueBlock);
+        this.add(ModBlocks.WAXED_EXPOSED_COPPER_GOLEM_STATUE.get(), this::createCopperGolemStatueBlock);
+        this.add(ModBlocks.WAXED_WEATHERED_COPPER_GOLEM_STATUE.get(), this::createCopperGolemStatueBlock);
+        this.add(ModBlocks.WAXED_OXIDIZED_COPPER_GOLEM_STATUE.get(), this::createCopperGolemStatueBlock);
         
         this.dropSelf(ModBlocks.COPPER_TORCH.getFirst().get());
         ModBlocks.COPPER_LANTERN.forEach(holder -> this.add(holder.get(), this::createSingleItemTable));
@@ -223,6 +245,22 @@ public class BlockLootGenerator extends FabricBlockLootTableProvider {
                                     )
                             )
                     )
+            );
+    }
+    
+    public LootTable.Builder createCopperGolemStatueBlock(Block block) {
+        return LootTable.lootTable()
+            .withPool(
+                this.applyExplosionCondition(
+                    block,
+                    LootPool.lootPool()
+                        .setRolls(ConstantValue.exactly(1.0F))
+                        .add(
+                            LootItem.lootTableItem(block)
+                                .apply(CopyNameFunction.copyName(CopyNameFunction.NameSource.BLOCK_ENTITY))
+                                .apply(CopyBlockState.copyState(block).copy(CopperGolemStatueBlock.POSE))
+                        )
+                )
             );
     }
 }

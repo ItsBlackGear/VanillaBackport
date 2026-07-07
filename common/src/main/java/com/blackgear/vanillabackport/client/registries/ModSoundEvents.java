@@ -3,7 +3,6 @@ package com.blackgear.vanillabackport.client.registries;
 import com.blackgear.platform.core.helper.SoundRegistry;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.core.Holder;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 
 import java.util.function.Supplier;
@@ -96,6 +95,24 @@ public class ModSoundEvents {
     public static final Supplier<SoundEvent> COPPER_CHEST_WEATHERED_OPEN = REGISTRIES.soundEvent("block.copper_chest_weathered.open");
     public static final Supplier<SoundEvent> COPPER_CHEST_OXIDIZED_CLOSE = REGISTRIES.soundEvent("block.copper_chest_oxidized.close");
     public static final Supplier<SoundEvent> COPPER_CHEST_OXIDIZED_OPEN = REGISTRIES.soundEvent("block.copper_chest_oxidized.open");
+    
+    public static final Supplier<SoundEvent> COPPER_GOLEM_STATUE_BREAK = REGISTRIES.soundEvent("block.copper_golem_statue.break");
+    public static final Supplier<SoundEvent> COPPER_GOLEM_STATUE_PLACE = REGISTRIES.soundEvent("block.copper_golem_statue.place");
+    public static final Supplier<SoundEvent> COPPER_GOLEM_STATUE_HIT = REGISTRIES.soundEvent("block.copper_golem_statue.hit");
+    public static final Supplier<SoundEvent> COPPER_GOLEM_STATUE_STEP = REGISTRIES.soundEvent("block.copper_golem_statue.step");
+    public static final Supplier<SoundEvent> COPPER_GOLEM_STATUE_FALL = REGISTRIES.soundEvent("block.copper_golem_statue.fall");
+    
+    public static final Supplier<SoundEvent> SHELF_ACTIVATE = REGISTRIES.soundEvent("block.shelf.activate");
+    public static final Supplier<SoundEvent> SHELF_BREAK = REGISTRIES.soundEvent("block.shelf.break");
+    public static final Supplier<SoundEvent> SHELF_DEACTIVATE = REGISTRIES.soundEvent("block.shelf.deactivate");
+    public static final Supplier<SoundEvent> SHELF_FALL = REGISTRIES.soundEvent("block.shelf.fall");
+    public static final Supplier<SoundEvent> SHELF_HIT = REGISTRIES.soundEvent("block.shelf.hit");
+    public static final Supplier<SoundEvent> SHELF_MULTI_SWAP = REGISTRIES.soundEvent("block.shelf.multi_swap");
+    public static final Supplier<SoundEvent> SHELF_PLACE = REGISTRIES.soundEvent("block.shelf.place");
+    public static final Supplier<SoundEvent> SHELF_PLACE_ITEM = REGISTRIES.soundEvent("block.shelf.place_item");
+    public static final Supplier<SoundEvent> SHELF_SINGLE_SWAP = REGISTRIES.soundEvent("block.shelf.single_swap");
+    public static final Supplier<SoundEvent> SHELF_STEP = REGISTRIES.soundEvent("block.shelf.step");
+    public static final Supplier<SoundEvent> SHELF_TAKE_ITEM = REGISTRIES.soundEvent("block.shelf.take_item");
     
     // ITEMS
     public static final Supplier<SoundEvent> BUNDLE_INSERT_FAIL = REGISTRIES.soundEvent("item.bundle.insert_fail");
@@ -204,30 +221,30 @@ public class ModSoundEvents {
     public static final Supplier<SoundEvent> SULFUR_CUBE_HURT = REGISTRIES.soundEvent("entity.sulfur_cube.hurt");
     public static final Supplier<SoundEvent> SULFUR_CUBE_JUMP = REGISTRIES.soundEvent("entity.sulfur_cube.jump");
 
-    public static final Holder<SoundEvent> SULFUR_CUBE_REGULAR_HIT = registerForHolder("entity.sulfur_cube.regular.hit");
-    public static final Holder<SoundEvent> SULFUR_CUBE_REGULAR_PUSH = registerForHolder("entity.sulfur_cube.regular.push");
-    public static final Holder<SoundEvent> SULFUR_CUBE_BOUNCY_HIT = registerForHolder("entity.sulfur_cube.bouncy.hit");
-    public static final Holder<SoundEvent> SULFUR_CUBE_BOUNCY_PUSH = registerForHolder("entity.sulfur_cube.bouncy.push");
-    public static final Holder<SoundEvent> SULFUR_CUBE_SLOW_BOUNCY_HIT = registerForHolder("entity.sulfur_cube.slow_bouncy.hit");
-    public static final Holder<SoundEvent> SULFUR_CUBE_SLOW_BOUNCY_PUSH = registerForHolder("entity.sulfur_cube.slow_bouncy.push");
-    public static final Holder<SoundEvent> SULFUR_CUBE_SLOW_FLAT_HIT = registerForHolder("entity.sulfur_cube.slow_flat.hit");
-    public static final Holder<SoundEvent> SULFUR_CUBE_SLOW_FLAT_PUSH = registerForHolder("entity.sulfur_cube.slow_flat.push");
-    public static final Holder<SoundEvent> SULFUR_CUBE_FAST_FLAT_HIT = registerForHolder("entity.sulfur_cube.fast_flat.hit");
-    public static final Holder<SoundEvent> SULFUR_CUBE_FAST_FLAT_PUSH = registerForHolder("entity.sulfur_cube.fast_flat.push");
-    public static final Holder<SoundEvent> SULFUR_CUBE_LIGHT_HIT = registerForHolder("entity.sulfur_cube.light.hit");
-    public static final Holder<SoundEvent> SULFUR_CUBE_LIGHT_PUSH = registerForHolder("entity.sulfur_cube.light.push");
-    public static final Holder<SoundEvent> SULFUR_CUBE_FAST_SLIDING_HIT = registerForHolder("entity.sulfur_cube.fast_sliding.hit");
-    public static final Holder<SoundEvent> SULFUR_CUBE_FAST_SLIDING_PUSH = registerForHolder("entity.sulfur_cube.fast_sliding.push");
-    public static final Holder<SoundEvent> SULFUR_CUBE_SLOW_SLIDING_HIT = registerForHolder("entity.sulfur_cube.slow_sliding.hit");
-    public static final Holder<SoundEvent> SULFUR_CUBE_SLOW_SLIDING_PUSH = registerForHolder("entity.sulfur_cube.slow_sliding.push");
-    public static final Holder<SoundEvent> SULFUR_CUBE_STICKY_HIT = registerForHolder("entity.sulfur_cube.sticky.hit");
-    public static final Holder<SoundEvent> SULFUR_CUBE_STICKY_PUSH = registerForHolder("entity.sulfur_cube.sticky.push");
-    public static final Holder<SoundEvent> SULFUR_CUBE_HIGH_RESISTANCE_HIT = registerForHolder("entity.sulfur_cube.high_resistance.hit");
-    public static final Holder<SoundEvent> SULFUR_CUBE_HIGH_RESISTANCE_PUSH = registerForHolder("entity.sulfur_cube.high_resistance.push");
-    public static final Holder<SoundEvent> SULFUR_CUBE_EXPLOSIVE_HIT = registerForHolder("entity.sulfur_cube.explosive.hit");
-    public static final Holder<SoundEvent> SULFUR_CUBE_EXPLOSIVE_PUSH = registerForHolder("entity.sulfur_cube.explosive.push");
-    public static final Holder<SoundEvent> SULFUR_CUBE_HOT_HIT = registerForHolder("entity.sulfur_cube.hot.hit");
-    public static final Holder<SoundEvent> SULFUR_CUBE_HOT_PUSH = registerForHolder("entity.sulfur_cube.hot.push");
+    public static final Holder<SoundEvent> SULFUR_CUBE_REGULAR_HIT = REGISTRIES.holder("entity.sulfur_cube.regular.hit");
+    public static final Holder<SoundEvent> SULFUR_CUBE_REGULAR_PUSH = REGISTRIES.holder("entity.sulfur_cube.regular.push");
+    public static final Holder<SoundEvent> SULFUR_CUBE_BOUNCY_HIT = REGISTRIES.holder("entity.sulfur_cube.bouncy.hit");
+    public static final Holder<SoundEvent> SULFUR_CUBE_BOUNCY_PUSH = REGISTRIES.holder("entity.sulfur_cube.bouncy.push");
+    public static final Holder<SoundEvent> SULFUR_CUBE_SLOW_BOUNCY_HIT = REGISTRIES.holder("entity.sulfur_cube.slow_bouncy.hit");
+    public static final Holder<SoundEvent> SULFUR_CUBE_SLOW_BOUNCY_PUSH = REGISTRIES.holder("entity.sulfur_cube.slow_bouncy.push");
+    public static final Holder<SoundEvent> SULFUR_CUBE_SLOW_FLAT_HIT = REGISTRIES.holder("entity.sulfur_cube.slow_flat.hit");
+    public static final Holder<SoundEvent> SULFUR_CUBE_SLOW_FLAT_PUSH = REGISTRIES.holder("entity.sulfur_cube.slow_flat.push");
+    public static final Holder<SoundEvent> SULFUR_CUBE_FAST_FLAT_HIT = REGISTRIES.holder("entity.sulfur_cube.fast_flat.hit");
+    public static final Holder<SoundEvent> SULFUR_CUBE_FAST_FLAT_PUSH = REGISTRIES.holder("entity.sulfur_cube.fast_flat.push");
+    public static final Holder<SoundEvent> SULFUR_CUBE_LIGHT_HIT = REGISTRIES.holder("entity.sulfur_cube.light.hit");
+    public static final Holder<SoundEvent> SULFUR_CUBE_LIGHT_PUSH = REGISTRIES.holder("entity.sulfur_cube.light.push");
+    public static final Holder<SoundEvent> SULFUR_CUBE_FAST_SLIDING_HIT = REGISTRIES.holder("entity.sulfur_cube.fast_sliding.hit");
+    public static final Holder<SoundEvent> SULFUR_CUBE_FAST_SLIDING_PUSH = REGISTRIES.holder("entity.sulfur_cube.fast_sliding.push");
+    public static final Holder<SoundEvent> SULFUR_CUBE_SLOW_SLIDING_HIT = REGISTRIES.holder("entity.sulfur_cube.slow_sliding.hit");
+    public static final Holder<SoundEvent> SULFUR_CUBE_SLOW_SLIDING_PUSH = REGISTRIES.holder("entity.sulfur_cube.slow_sliding.push");
+    public static final Holder<SoundEvent> SULFUR_CUBE_STICKY_HIT = REGISTRIES.holder("entity.sulfur_cube.sticky.hit");
+    public static final Holder<SoundEvent> SULFUR_CUBE_STICKY_PUSH = REGISTRIES.holder("entity.sulfur_cube.sticky.push");
+    public static final Holder<SoundEvent> SULFUR_CUBE_HIGH_RESISTANCE_HIT = REGISTRIES.holder("entity.sulfur_cube.high_resistance.hit");
+    public static final Holder<SoundEvent> SULFUR_CUBE_HIGH_RESISTANCE_PUSH = REGISTRIES.holder("entity.sulfur_cube.high_resistance.push");
+    public static final Holder<SoundEvent> SULFUR_CUBE_EXPLOSIVE_HIT = REGISTRIES.holder("entity.sulfur_cube.explosive.hit");
+    public static final Holder<SoundEvent> SULFUR_CUBE_EXPLOSIVE_PUSH = REGISTRIES.holder("entity.sulfur_cube.explosive.push");
+    public static final Holder<SoundEvent> SULFUR_CUBE_HOT_HIT = REGISTRIES.holder("entity.sulfur_cube.hot.hit");
+    public static final Holder<SoundEvent> SULFUR_CUBE_HOT_PUSH = REGISTRIES.holder("entity.sulfur_cube.hot.push");
 
     public static final Supplier<SoundEvent> SULFUR_CUBE_SQUISH = REGISTRIES.soundEvent("entity.sulfur_cube.squish");
 
@@ -236,15 +253,37 @@ public class ModSoundEvents {
     public static final Supplier<SoundEvent> SULFUR_CUBE_SMALL_JUMP = REGISTRIES.soundEvent("entity.small_sulfur_cube.jump");
     public static final Supplier<SoundEvent> SULFUR_CUBE_SMALL_SQUISH = REGISTRIES.soundEvent("entity.small_sulfur_cube.squish");
     public static final Supplier<SoundEvent> SULFUR_CUBE_SMALL_EAT = REGISTRIES.soundEvent("entity.small_sulfur_cube.eat");
-
+    
+    public static final Supplier<SoundEvent> COPPER_GOLEM_STEP = REGISTRIES.soundEvent("entity.copper_golem.step");
+    public static final Supplier<SoundEvent> COPPER_GOLEM_HURT = REGISTRIES.soundEvent("entity.copper_golem.hurt");
+    public static final Supplier<SoundEvent> COPPER_GOLEM_DEATH = REGISTRIES.soundEvent("entity.copper_golem.death");
+    
+    public static final Supplier<SoundEvent> COPPER_GOLEM_WEATHERED_STEP = REGISTRIES.soundEvent("entity.copper_golem_weathered.step");
+    public static final Supplier<SoundEvent> COPPER_GOLEM_WEATHERED_HURT = REGISTRIES.soundEvent("entity.copper_golem_weathered.hurt");
+    public static final Supplier<SoundEvent> COPPER_GOLEM_WEATHERED_DEATH = REGISTRIES.soundEvent("entity.copper_golem_weathered.death");
+    
+    public static final Supplier<SoundEvent> COPPER_GOLEM_OXIDIZED_STEP = REGISTRIES.soundEvent("entity.copper_golem_oxidized.step");
+    public static final Supplier<SoundEvent> COPPER_GOLEM_OXIDIZED_HURT = REGISTRIES.soundEvent("entity.copper_golem_oxidized.hurt");
+    public static final Supplier<SoundEvent> COPPER_GOLEM_OXIDIZED_DEATH = REGISTRIES.soundEvent("entity.copper_golem_oxidized.death");
+    
+    public static final Supplier<SoundEvent> COPPER_GOLEM_SPIN = REGISTRIES.soundEvent("entity.copper_golem.spin");
+    public static final Supplier<SoundEvent> COPPER_GOLEM_WEATHERED_SPIN = REGISTRIES.soundEvent("entity.copper_golem_weathered.spin");
+    public static final Supplier<SoundEvent> COPPER_GOLEM_OXIDIZED_SPIN = REGISTRIES.soundEvent("entity.copper_golem_oxidized.spin");
+    
+    public static final Supplier<SoundEvent> COPPER_GOLEM_ITEM_GET = REGISTRIES.soundEvent("entity.copper_golem.no_item_get");
+    public static final Supplier<SoundEvent> COPPER_GOLEM_ITEM_NO_GET = REGISTRIES.soundEvent("entity.copper_golem.no_item_no_get");
+    public static final Supplier<SoundEvent> COPPER_GOLEM_ITEM_DROP = REGISTRIES.soundEvent("entity.copper_golem.item_drop");
+    public static final Supplier<SoundEvent> COPPER_GOLEM_ITEM_NO_DROP = REGISTRIES.soundEvent("entity.copper_golem.item_no_drop");
+    
+    public static final Supplier<SoundEvent> COPPER_GOLEM_BECOME_STATUE = REGISTRIES.soundEvent("entity.copper_golem_become_statue");
+    public static final Supplier<SoundEvent> COPPER_GOLEM_SPAWN = REGISTRIES.soundEvent("entity.copper_golem.spawn");
+    public static final Supplier<SoundEvent> COPPER_GOLEM_SHEAR = REGISTRIES.soundEvent("entity.copper_golem.shear");
+    
+    // BACKGROUND MUSIC
     public static final Supplier<SoundEvent> MUSIC_BIOME_SULFUR_CAVES = REGISTRIES.soundEvent("music.overworld.sulfur_caves");
 
     // RECORDS
     public static final Supplier<SoundEvent> MUSIC_DISC_TEARS = REGISTRIES.soundEvent("music_disc.tears");
     public static final Supplier<SoundEvent> MUSIC_DISC_LAVA_CHICKEN = REGISTRIES.soundEvent("music_disc.lava_chicken");
     public static final Supplier<SoundEvent> MUSIC_DISC_BOUNCE = REGISTRIES.soundEvent("music_disc.bounce");
-
-    private static Holder<SoundEvent> registerForHolder(String id) {
-        return REGISTRIES.registry().holder(id, () -> SoundEvent.createVariableRangeEvent(new ResourceLocation(id)));
-    }
 }

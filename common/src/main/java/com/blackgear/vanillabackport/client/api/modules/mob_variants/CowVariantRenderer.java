@@ -1,8 +1,8 @@
 package com.blackgear.vanillabackport.client.api.modules.mob_variants;
 
 import com.blackgear.platform.core.BuiltInCoreRegistry;
-import com.blackgear.vanillabackport.client.level.entity.model.cow.ColdCowModel;
-import com.blackgear.vanillabackport.client.level.entity.model.cow.WarmCowModel;
+import com.blackgear.vanillabackport.client.level.model.entity.cow.ColdCowModel;
+import com.blackgear.vanillabackport.client.level.model.entity.cow.WarmCowModel;
 import com.blackgear.vanillabackport.client.registries.ModModelLayers;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.cow.CowVariant;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.cow.CowVariants;

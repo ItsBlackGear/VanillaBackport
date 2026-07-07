@@ -4,6 +4,7 @@ import com.blackgear.platform.core.helper.EntityRegistry;
 import com.blackgear.vanillabackport.common.level.entity.boat.PaleOakBoat;
 import com.blackgear.vanillabackport.common.level.entity.boat.PaleOakChestBoat;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.armadillo.Armadillo;
+import com.blackgear.vanillabackport.common.level.entity.mob.animal.golem.copper_golem.CopperGolem;
 import com.blackgear.vanillabackport.common.level.entity.mob.monster.creaking.Creaking;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.happy_ghast.HappyGhast;
 import com.blackgear.vanillabackport.common.level.entity.mob.monster.sulfur_cube.SulfurCube;
@@ -44,6 +45,13 @@ public class ModEntityTypes {
     public static final Supplier<EntityType<HappyGhast>> HAPPY_GHAST = REGISTRIES.entity("happy_ghast",
         EntityType.Builder.of(HappyGhast::new, MobCategory.CREATURE)
             .sized(4.0F, 4.0F)
+            .clientTrackingRange(10));
+    
+    // Copper Age
+    
+    public static final Supplier<EntityType<CopperGolem>> COPPER_GOLEM = REGISTRIES.entity("copper_golem",
+        EntityType.Builder.of(CopperGolem::new, MobCategory.MISC)
+            .sized(0.49F, 0.98F)
             .clientTrackingRange(10));
     
     // Chaos Cubed

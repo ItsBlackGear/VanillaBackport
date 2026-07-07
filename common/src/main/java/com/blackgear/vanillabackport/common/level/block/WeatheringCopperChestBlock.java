@@ -25,7 +25,7 @@ public class WeatheringCopperChestBlock extends CopperChestBlock implements Weat
         if (state.getValue(TYPE) != ChestType.RIGHT
             && level.getBlockEntity(pos) instanceof ChestBlockEntity chest
             && ContainerHandler.getEntitiesWithContainerOpen(chest).isEmpty()) {
-            this.applyChangeOverTime(state, level, pos, random);
+            this.onRandomTick(state, level, pos, random);
         }
     }
     

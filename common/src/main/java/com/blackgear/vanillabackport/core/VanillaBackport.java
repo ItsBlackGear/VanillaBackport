@@ -78,7 +78,7 @@ public final class VanillaBackport {
         ModPoiTypes.REGISTRIES.register();
         
         ModEntityTypes.REGISTRIES.register();
-        ModMemoryModules.REGISTRIES.register();
+        ModMemoryModuleTypes.REGISTRIES.register();
         ModSensorTypes.REGISTRIES.register();
         
         ModSoundEvents.REGISTRIES.register();

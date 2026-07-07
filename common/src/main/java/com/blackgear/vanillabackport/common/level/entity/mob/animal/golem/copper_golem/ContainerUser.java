@@ -7,8 +7,6 @@ import net.minecraft.world.level.block.entity.ContainerOpenersCounter;
 public interface ContainerUser {
     boolean hasContainerOpen(ContainerOpenersCounter container, BlockPos blockPos);
     
-    double getContainerInteractionRange();
-    
     default LivingEntity getLivingEntity() {
         if (this instanceof LivingEntity living) {
             return living;

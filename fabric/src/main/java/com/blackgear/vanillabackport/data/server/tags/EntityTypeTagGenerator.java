@@ -62,5 +62,8 @@ public class EntityTypeTagGenerator extends FabricTagProvider.EntityTypeTagProvi
             .add(
                 EntityType.ENDER_DRAGON
             );
+        
+        this.getOrCreateTagBuilder(ModEntityTypeTags.ACCEPTS_IRON_GOLEM_GIFT)
+            .add(ModEntityTypes.COPPER_GOLEM.get());
     }
 }

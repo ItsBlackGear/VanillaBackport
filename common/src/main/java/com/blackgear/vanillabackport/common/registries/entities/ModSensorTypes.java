@@ -28,6 +28,6 @@ public class ModSensorTypes {
     );
     public static final Supplier<SensorType<MobSensor<Armadillo>>> ARMADILLO_SCARE_DETECTED = REGISTRIES.sensor(
         "armadillo_scare_detected",
-        () -> new MobSensor<>(5, Armadillo::isScaredBy, Armadillo::canStayRolledUp, ModMemoryModules.DANGER_DETECTED_RECENTLY.get(), 80)
+        () -> new MobSensor<>(5, Armadillo::isScaredBy, Armadillo::canStayRolledUp, ModMemoryModuleTypes.DANGER_DETECTED_RECENTLY.get(), 80)
     );
 }

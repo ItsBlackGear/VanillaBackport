@@ -2,17 +2,20 @@ package com.blackgear.vanillabackport.core.util;
 
 import com.blackgear.vanillabackport.common.api.modules.leash_behavior.Leashable;
 import com.blackgear.vanillabackport.core.mixin.common.access.AnimationStateAccessor;
+import com.blackgear.vanillabackport.core.mixin.common.access.MobAccessor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.util.SpawnUtil;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.PanicGoal;
 import net.minecraft.world.entity.ai.goal.WrappedGoal;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.SignalGetter;
@@ -24,12 +27,16 @@ import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraft.world.phys.AABB;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 public class WorldUtilities {
     public static class BlockUtils {
@@ -100,10 +107,62 @@ public class WorldUtilities {
             return result;
         }
         
+        @Nullable
+        public static LivingEntity getNearestEntity(
+            Level level,
+            TagKey<EntityType<?>> tag,
+            TargetingConditions conditions,
+            @Nullable LivingEntity source,
+            double x,
+            double y,
+            double z,
+            AABB bb
+        ) {
+            double bestDistance = Double.MAX_VALUE;
+            LivingEntity nearestEntity = null;
+            
+            for (LivingEntity entity : level.getEntitiesOfClass(LivingEntity.class, bb, e -> e.getType().is(tag))) {
+                if (conditions.test(source, entity)) {
+                    double distance = entity.distanceToSqr(x, y, z);
+                    if (distance < bestDistance) {
+                        bestDistance = distance;
+                        nearestEntity = entity;
+                    }
+                }
+            }
+            
+            return nearestEntity;
+        }
+        
         public static void fastForward(AnimationState state, int duration, float speed) {
             if (state.isStarted()) {
                 ((AnimationStateAccessor)state).setAccumulatedTime(state.getAccumulatedTime() + (long) ((float) (duration * 1000) * speed));
             }
+        }
+        
+        public static void dropPreservedEquipment(Mob mob) {
+            dropPreservedEquipment(stack -> true, mob);
+        }
+        
+        public static Set<EquipmentSlot> dropPreservedEquipment(Predicate<ItemStack> filter, Mob mob) {
+            Set<EquipmentSlot> equipment = new HashSet<>();
+            
+            for (EquipmentSlot slot : EquipmentSlot.values()) {
+                ItemStack stack = mob.getItemBySlot(slot);
+                if (!stack.isEmpty()) {
+                    if (!filter.test(stack)) {
+                        equipment.add(slot);
+                    } else {
+                        double chance = ((MobAccessor) mob).callGetEquipmentDropChance(slot);
+                        if (chance > 1.0) {
+                            mob.setItemSlot(slot, ItemStack.EMPTY);
+                            mob.spawnAtLocation(stack);
+                        }
+                    }
+                }
+            }
+            
+            return equipment;
         }
     }
     

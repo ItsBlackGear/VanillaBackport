@@ -17,7 +17,7 @@ public class WeatheringLightningRodBlock extends LightningRodBlock implements We
 
     @Override
     public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-        this.applyChangeOverTime(state, level, pos, random);
+        this.onRandomTick(state, level, pos, random);
     }
 
     @Override

@@ -2,7 +2,7 @@ package com.blackgear.vanillabackport.common.level.entity.mob.animal.armadillo;
 
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
 import com.blackgear.vanillabackport.common.registries.entities.ModEntityTypes;
-import com.blackgear.vanillabackport.common.registries.entities.ModMemoryModules;
+import com.blackgear.vanillabackport.common.registries.entities.ModMemoryModuleTypes;
 import com.blackgear.vanillabackport.common.registries.entities.ModSensorTypes;
 import com.blackgear.vanillabackport.core.mixin.common.access.AnimalMakeLoveAccessor;
 import com.blackgear.vanillabackport.core.util.Utilities.*;
@@ -52,11 +52,11 @@ public class ArmadilloAi {
         MemoryModuleType.IS_TEMPTED,
         MemoryModuleType.BREED_TARGET,
         MemoryModuleType.NEAREST_VISIBLE_ADULT,
-        ModMemoryModules.DANGER_DETECTED_RECENTLY.get()
+        ModMemoryModuleTypes.DANGER_DETECTED_RECENTLY.get()
     );
 
     private static final OneShot<Armadillo> ARMADILLO_ROLLING_OUT = BehaviorBuilder.create(instance ->
-        instance.group(instance.absent(ModMemoryModules.DANGER_DETECTED_RECENTLY.get())).apply(instance, location -> (level, armadillo, timestamp) -> {
+        instance.group(instance.absent(ModMemoryModuleTypes.DANGER_DETECTED_RECENTLY.get())).apply(instance, location -> (level, armadillo, timestamp) -> {
             if (armadillo.isScared()) {
                 armadillo.rollOut();
                 return true;
@@ -131,7 +131,7 @@ public class ArmadilloAi {
             Activity.PANIC,
             ImmutableList.of(Pair.of(0, new ArmadilloBallUp())),
             Set.of(
-                Pair.of(ModMemoryModules.DANGER_DETECTED_RECENTLY.get(), MemoryStatus.VALUE_PRESENT),
+                Pair.of(ModMemoryModuleTypes.DANGER_DETECTED_RECENTLY.get(), MemoryStatus.VALUE_PRESENT),
                 Pair.of(MemoryModuleType.IS_PANICKING, MemoryStatus.VALUE_ABSENT)
             )
         );
@@ -164,7 +164,7 @@ public class ArmadilloAi {
                 }
             } else {
                 ArmadilloState state = armadillo.getState();
-                long dangerTickCounter = armadillo.getBrain().getTimeUntilExpiry(ModMemoryModules.DANGER_DETECTED_RECENTLY.get());
+                long dangerTickCounter = armadillo.getBrain().getTimeUntilExpiry(ModMemoryModuleTypes.DANGER_DETECTED_RECENTLY.get());
                 boolean dangerIsAround = dangerTickCounter > 75L;
                 if (dangerIsAround != this.dangerWasAround) {
                     this.nextPeekTimer = this.pickNextPeekTimer(armadillo);

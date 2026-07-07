@@ -1,30 +1,51 @@
 package com.blackgear.vanillabackport.common.registries.items;
 
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
-import com.google.common.base.Suppliers;
+import net.minecraft.Util;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.world.item.ArmorItem;
+import net.minecraft.util.LazyLoadedValue;
+import net.minecraft.world.item.ArmorItem.Type;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 
+import java.util.EnumMap;
 import java.util.function.Supplier;
 
 public enum ModArmorMaterials implements ArmorMaterial {
-    COPPER("copper", 5, new int[]{ 1, 3, 4, 2 }, 8, ModSoundEvents.ARMOR_EQUIP_COPPER.get(), 0.0F, 0.0F, () -> Ingredient.of(Items.COPPER_INGOT));
+    COPPER("copper", 11, Util.make(new EnumMap<>(Type.class), map -> {
+        map.put(Type.BOOTS, 1);
+        map.put(Type.LEGGINGS, 3);
+        map.put(Type.CHESTPLATE, 4);
+        map.put(Type.HELMET, 2);
+    }), 8, ModSoundEvents.ARMOR_EQUIP_COPPER.get(), 0.0F, 0.0F, () -> Ingredient.of(Items.COPPER_INGOT));
     
     private final String name;
     private final int durabilityMultiplier;
-    private final int[] protectionAmounts;
+    private final EnumMap<Type, Integer> protectionAmounts;
     private final int enchantmentValue;
     private final SoundEvent equipSound;
     private final float toughness;
     private final float knockbackResistance;
-    private final Supplier<Ingredient> repairIngredient;
+    private final LazyLoadedValue<Ingredient> repairIngredient;
     
-    private static final int[] BASE_DURABILITY = { 11, 16, 16, 13 };
+    private static final EnumMap<Type, Integer> HEALTH_FUNCTION_FOR_TYPE = Util.make(new EnumMap<>(Type.class), enumMap -> {
+        enumMap.put(Type.BOOTS, 13);
+        enumMap.put(Type.LEGGINGS, 15);
+        enumMap.put(Type.CHESTPLATE, 16);
+        enumMap.put(Type.HELMET, 11);
+    });
     
-    ModArmorMaterials(String name, int durabilityMultiplier, int[] protectionAmounts, int enchantmentValue, SoundEvent equipSound, float toughness, float knockbackResistance, Supplier<Ingredient> repairIngredient) {
+    ModArmorMaterials(
+        String name,
+        int durabilityMultiplier,
+        EnumMap<Type, Integer> protectionAmounts,
+        int enchantmentValue,
+        SoundEvent equipSound,
+        float toughness,
+        float knockbackResistance,
+        Supplier<Ingredient> repairIngredient
+    ) {
         this.name = name;
         this.durabilityMultiplier = durabilityMultiplier;
         this.protectionAmounts = protectionAmounts;
@@ -32,17 +53,17 @@ public enum ModArmorMaterials implements ArmorMaterial {
         this.equipSound = equipSound;
         this.toughness = toughness;
         this.knockbackResistance = knockbackResistance;
-        this.repairIngredient = Suppliers.memoize(repairIngredient::get);
+        this.repairIngredient = new LazyLoadedValue<>(repairIngredient);
     }
     
     @Override
-    public int getDurabilityForType(ArmorItem.Type type) {
-        return BASE_DURABILITY[type.ordinal()] * this.durabilityMultiplier;
+    public int getDurabilityForType(Type type) {
+        return HEALTH_FUNCTION_FOR_TYPE.get(type) * this.durabilityMultiplier;
     }
     
     @Override
-    public int getDefenseForType(ArmorItem.Type type) {
-        return this.protectionAmounts[type.ordinal()];
+    public int getDefenseForType(Type type) {
+        return this.protectionAmounts.get(type);
     }
     
     @Override

@@ -34,6 +34,17 @@ public class SharedBlockProperties {
         .sound(SoundType.COPPER)
         .requiresCorrectToolForDrops();
     
+    public static final Properties COPPER_GOLEM_STATUE = Properties.of()
+        .strength(3.0F, 6.0F)
+        .sound(ModSoundTypes.COPPER_GOLEM_STATUE)
+        .pushReaction(PushReaction.DESTROY)
+        .noOcclusion();
+    
+    public static final Properties SHELF = Properties.of()
+        .instrument(NoteBlockInstrument.BASS)
+        .sound(ModSoundTypes.WOODEN_SHELF)
+        .strength(2.0F, 3.0F);
+    
     // Chaos Cubed
     
     public static final Properties SULFUR = Properties.of()

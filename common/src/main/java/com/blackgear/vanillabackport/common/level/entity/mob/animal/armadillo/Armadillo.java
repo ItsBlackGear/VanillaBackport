@@ -3,7 +3,7 @@ package com.blackgear.vanillabackport.common.level.entity.mob.animal.armadillo;
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
 import com.blackgear.vanillabackport.common.registries.entities.ModEntityDataSerializers;
 import com.blackgear.vanillabackport.common.registries.entities.ModEntityTypes;
-import com.blackgear.vanillabackport.common.registries.entities.ModMemoryModules;
+import com.blackgear.vanillabackport.common.registries.entities.ModMemoryModuleTypes;
 import com.blackgear.vanillabackport.common.registries.items.ModItems;
 import com.blackgear.vanillabackport.core.data.tags.ModBlockTags;
 import com.blackgear.vanillabackport.core.data.tags.ModItemTags;
@@ -285,7 +285,7 @@ public class Armadillo extends Animal {
         super.actuallyHurt(damageSource, damageAmount);
         if (!this.isNoAi() && !this.isDeadOrDying()) {
             if (damageSource.getEntity() instanceof LivingEntity) {
-                this.getBrain().setMemoryWithExpiry(ModMemoryModules.DANGER_DETECTED_RECENTLY.get(), true, 80L);
+                this.getBrain().setMemoryWithExpiry(ModMemoryModuleTypes.DANGER_DETECTED_RECENTLY.get(), true, 80L);
                 if (this.canStayRolledUp()) {
                     this.rollUp();
                 }

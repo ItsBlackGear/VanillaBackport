@@ -243,13 +243,39 @@ public class LangGenerator extends FabricLanguageProvider {
         builder.add(ModBlocks.WAXED_WEATHERED_COPPER_CHEST.get(), "Waxed Weathered Copper Chest");
         builder.add(ModBlocks.WAXED_OXIDIZED_COPPER_CHEST.get(), "Waxed Oxidized Copper Chest");
         
+        builder.add(ModBlocks.OAK_SHELF.get(), "Oak Shelf");
+        builder.add(ModBlocks.BIRCH_SHELF.get(), "Birch Shelf");
+        builder.add(ModBlocks.SPRUCE_SHELF.get(), "Spruce Shelf");
+        builder.add(ModBlocks.JUNGLE_SHELF.get(), "Jungle Shelf");
+        builder.add(ModBlocks.ACACIA_SHELF.get(), "Acacia Shelf");
+        builder.add(ModBlocks.DARK_OAK_SHELF.get(), "Dark Oak Shelf");
+        builder.add(ModBlocks.CRIMSON_SHELF.get(), "Crimson Shelf");
+        builder.add(ModBlocks.WARPED_SHELF.get(), "Warped Shelf");
+        builder.add(ModBlocks.MANGROVE_SHELF.get(), "Mangrove Shelf");
+        builder.add(ModBlocks.BAMBOO_SHELF.get(), "Bamboo Shelf");
+        builder.add(ModBlocks.CHERRY_SHELF.get(), "Cherry Shelf");
+        builder.add(ModBlocks.PALE_OAK_SHELF.get(), "Pale Oak Shelf");
+        
+        builder.add(ModBlocks.COPPER_GOLEM_STATUE.get(), "Copper Golem Statue");
+        builder.add(ModBlocks.EXPOSED_COPPER_GOLEM_STATUE.get(), "Exposed Copper Golem Statue");
+        builder.add(ModBlocks.WEATHERED_COPPER_GOLEM_STATUE.get(), "Weathered Copper Golem Statue");
+        builder.add(ModBlocks.OXIDIZED_COPPER_GOLEM_STATUE.get(), "Oxidized Copper Golem Statue");
+        
+        builder.add(ModBlocks.WAXED_COPPER_GOLEM_STATUE.get(), "Waxed Copper Golem Statue");
+        builder.add(ModBlocks.WAXED_EXPOSED_COPPER_GOLEM_STATUE.get(), "Waxed Exposed Copper Golem Statue");
+        builder.add(ModBlocks.WAXED_WEATHERED_COPPER_GOLEM_STATUE.get(), "Waxed Weathered Copper Golem Statue");
+        builder.add(ModBlocks.WAXED_OXIDIZED_COPPER_GOLEM_STATUE.get(), "Waxed Oxidized Copper Golem Statue");
+        
         builder.add(ModBlocks.EXPOSED_LIGHTNING_ROD.get(), "Exposed Lightning Rod");
         builder.add(ModBlocks.WEATHERED_LIGHTNING_ROD.get(), "Weathered Lightning Rod");
         builder.add(ModBlocks.OXIDIZED_LIGHTNING_ROD.get(), "Oxidized Lightning Rod");
+        
         builder.add(ModBlocks.WAXED_LIGHTNING_ROD.get(), "Waxed Lightning Rod");
         builder.add(ModBlocks.WAXED_EXPOSED_LIGHTNING_ROD.get(), "Waxed Exposed Lightning Rod");
         builder.add(ModBlocks.WAXED_WEATHERED_LIGHTNING_ROD.get(), "Waxed Weathered Lightning Rod");
         builder.add(ModBlocks.WAXED_OXIDIZED_LIGHTNING_ROD.get(), "Waxed Oxidized Lightning Rod");
+        
+        builder.add(ModItems.COPPER_GOLEM_SPAWN_EGG.get(), "Copper Golem Spawn Egg");
         
         builder.add(ModItems.COPPER_SWORD.get(), "Copper Sword");
         builder.add(ModItems.COPPER_AXE.get(), "Copper Axe");
@@ -271,6 +297,7 @@ public class LangGenerator extends FabricLanguageProvider {
         builder.add(ModBlocks.COPPER_LANTERN.exposed().get(), "Exposed Copper Lantern");
         builder.add(ModBlocks.COPPER_LANTERN.weathered().get(), "Weathered Copper Lantern");
         builder.add(ModBlocks.COPPER_LANTERN.oxidized().get(), "Oxidized Copper Lantern");
+        
         builder.add(ModBlocks.COPPER_LANTERN.waxed().get(), "Waxed Copper Lantern");
         builder.add(ModBlocks.COPPER_LANTERN.waxedExposed().get(), "Waxed Exposed Copper Lantern");
         builder.add(ModBlocks.COPPER_LANTERN.waxedWeathered().get(), "Waxed Weathered Copper Lantern");
@@ -280,6 +307,7 @@ public class LangGenerator extends FabricLanguageProvider {
         builder.add(ModBlocks.COPPER_CHAIN.exposed().get(), "Exposed Copper Chain");
         builder.add(ModBlocks.COPPER_CHAIN.weathered().get(), "Weathered Copper Chain");
         builder.add(ModBlocks.COPPER_CHAIN.oxidized().get(), "Oxidized Copper Chain");
+        
         builder.add(ModBlocks.COPPER_CHAIN.waxed().get(), "Waxed Copper Chain");
         builder.add(ModBlocks.COPPER_CHAIN.waxedExposed().get(), "Waxed Exposed Copper Chain");
         builder.add(ModBlocks.COPPER_CHAIN.waxedWeathered().get(), "Waxed Weathered Copper Chain");
@@ -289,6 +317,7 @@ public class LangGenerator extends FabricLanguageProvider {
         builder.add(ModBlocks.COPPER_BARS.exposed().get(), "Exposed Copper Bars");
         builder.add(ModBlocks.COPPER_BARS.weathered().get(), "Weathered Copper Bars");
         builder.add(ModBlocks.COPPER_BARS.oxidized().get(), "Oxidized Copper Bars");
+        
         builder.add(ModBlocks.COPPER_BARS.waxed().get(), "Waxed Copper Bars");
         builder.add(ModBlocks.COPPER_BARS.waxedExposed().get(), "Waxed Exposed Copper Bars");
         builder.add(ModBlocks.COPPER_BARS.waxedWeathered().get(), "Waxed Weathered Copper Bars");

@@ -121,6 +121,16 @@ public abstract class BlockItemTagGenerator {
             .add(Blocks.WAXED_WEATHERED_COPPER)
             .add(Blocks.WAXED_OXIDIZED_COPPER);
         
+        this.tag(ModBlockTags.COPPER_GOLEM_STATUES, ModItemTags.COPPER_GOLEM_STATUES)
+            .add(ModBlocks.COPPER_GOLEM_STATUE.get())
+            .add(ModBlocks.EXPOSED_COPPER_GOLEM_STATUE.get())
+            .add(ModBlocks.WEATHERED_COPPER_GOLEM_STATUE.get())
+            .add(ModBlocks.OXIDIZED_COPPER_GOLEM_STATUE.get())
+            .add(ModBlocks.WAXED_COPPER_GOLEM_STATUE.get())
+            .add(ModBlocks.WAXED_EXPOSED_COPPER_GOLEM_STATUE.get())
+            .add(ModBlocks.WAXED_WEATHERED_COPPER_GOLEM_STATUE.get())
+            .add(ModBlocks.WAXED_OXIDIZED_COPPER_GOLEM_STATUE.get());
+        
         this.tag(ModBlockTags.LANTERNS, ModItemTags.LANTERNS)
             .add(Blocks.LANTERN, Blocks.SOUL_LANTERN)
             .addAll(ModBlocks.COPPER_LANTERN.asList().stream().map(Supplier::get).toList());
@@ -142,6 +152,20 @@ public abstract class BlockItemTagGenerator {
             .add(ModBlocks.WAXED_EXPOSED_LIGHTNING_ROD.get())
             .add(ModBlocks.WAXED_WEATHERED_LIGHTNING_ROD.get())
             .add(ModBlocks.WAXED_OXIDIZED_LIGHTNING_ROD.get());
+        
+        this.tag(ModBlockTags.WOODEN_SHELVES, ModItemTags.WOODEN_SHELVES)
+            .add(ModBlocks.ACACIA_SHELF.get())
+            .add(ModBlocks.BAMBOO_SHELF.get())
+            .add(ModBlocks.BIRCH_SHELF.get())
+            .add(ModBlocks.CHERRY_SHELF.get())
+            .add(ModBlocks.CRIMSON_SHELF.get())
+            .add(ModBlocks.DARK_OAK_SHELF.get())
+            .add(ModBlocks.JUNGLE_SHELF.get())
+            .add(ModBlocks.MANGROVE_SHELF.get())
+            .add(ModBlocks.OAK_SHELF.get())
+            .add(ModBlocks.PALE_OAK_SHELF.get())
+            .add(ModBlocks.SPRUCE_SHELF.get())
+            .add(ModBlocks.WARPED_SHELF.get());
     }
 
     private void handleConventionalTags() {

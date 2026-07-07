@@ -19,9 +19,9 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ContainerHandler {
+public interface ContainerHandler {
     @Nullable
-    public static ContainerOpenersCounter getCounter(BlockEntity container) {
+    static ContainerOpenersCounter getCounter(BlockEntity container) {
         if (container instanceof ChestBlockEntity chest) {
             return ((ChestBlockEntityAccessor) chest).getOpenersCounter();
         } else if (container instanceof BarrelBlockEntity barrel) {
@@ -31,26 +31,25 @@ public class ContainerHandler {
         }
     }
     
-    public static BlockPos getConnectedBlockPos(BlockPos pos, BlockState state) {
+    static BlockPos getConnectedBlockPos(BlockPos pos, BlockState state) {
         Direction connectedDirection = ChestBlock.getConnectedDirection(state);
         return pos.relative(connectedDirection);
     }
     
-    public static void startOpen(BlockEntity container, ContainerUser user) {
+    static void startOpen(BlockEntity container, ContainerUser user) {
         if (!container.isRemoved() && !user.getLivingEntity().isSpectator()) {
             ContainerOpenersCounter counter = getCounter(container);
             Level level = container.getLevel();
             if (counter != null && level != null) {
-                incrementOpeners(counter, user.getLivingEntity(), level, container.getBlockPos(), container.getBlockState(), user.getContainerInteractionRange());
+                incrementOpeners(counter, user.getLivingEntity(), level, container.getBlockPos(), container.getBlockState());
                 
-                // Handle connected chest
                 if (container instanceof ChestBlockEntity) {
                     BlockPos connectedPos = getConnectedBlockPos(container.getBlockPos(), container.getBlockState());
                     BlockEntity connectedContainer = level.getBlockEntity(connectedPos);
                     if (connectedContainer instanceof ChestBlockEntity) {
                         ContainerOpenersCounter connectedCounter = getCounter(connectedContainer);
                         if (connectedCounter != null) {
-                            incrementOpeners(connectedCounter, user.getLivingEntity(), connectedContainer.getLevel(), connectedPos, connectedContainer.getBlockState(), user.getContainerInteractionRange());
+                            incrementOpeners(connectedCounter, user.getLivingEntity(), connectedContainer.getLevel(), connectedPos, connectedContainer.getBlockState());
                         }
                     }
                 }
@@ -58,14 +57,13 @@ public class ContainerHandler {
         }
     }
     
-    public static void stopOpen(BlockEntity container, ContainerUser user) {
+    static void stopOpen(BlockEntity container, ContainerUser user) {
         if (!container.isRemoved() && !user.getLivingEntity().isSpectator()) {
             ContainerOpenersCounter counter = getCounter(container);
             Level level = container.getLevel();
             if (counter != null && level != null) {
                 decrementOpeners(counter, user.getLivingEntity(), level, container.getBlockPos(), container.getBlockState());
                 
-                // Handle connected chest
                 if (container instanceof ChestBlockEntity) {
                     BlockPos connectedPos = getConnectedBlockPos(container.getBlockPos(), container.getBlockState());
                     BlockEntity connectedContainer = level.getBlockEntity(connectedPos);
@@ -80,7 +78,7 @@ public class ContainerHandler {
         }
     }
     
-    private static void incrementOpeners(ContainerOpenersCounter counter, LivingEntity entity, Level level, BlockPos pos, BlockState state, double maxInteractionRange) {
+    private static void incrementOpeners(ContainerOpenersCounter counter, LivingEntity entity, Level level, BlockPos pos, BlockState state) {
         int previous = counter.openCount++;
         if (previous == 0) {
             ((ContainerOpenersCounterAccessor) counter).callOnOpen(level, pos, state);
@@ -100,7 +98,7 @@ public class ContainerHandler {
         ((ContainerOpenersCounterAccessor) counter).callOpenerCountChanged(level, pos, state, previous, counter.openCount);
     }
     
-    public static List<LivingEntity> getEntitiesWithContainerOpen(BlockEntity container) {
+    static List<LivingEntity> getEntitiesWithContainerOpen(BlockEntity container) {
         ContainerOpenersCounter counter = getCounter(container);
         Level level = container.getLevel();
         if (counter != null && level != null) {
@@ -111,7 +109,7 @@ public class ContainerHandler {
     }
     
     private static List<LivingEntity> getEntitiesWithContainerOpen(ContainerOpenersCounter counter, Level level, BlockPos pos) {
-        double range = 5.0;
+        double range = 7.0;
         AABB searchBox = new AABB(pos).inflate(range);
         return level.getEntities((Entity) null, searchBox, entity -> hasContainerOpen(counter, entity, pos))
             .stream()

@@ -18,7 +18,7 @@ public class LightningRodBlockMixin extends Block implements WeatheringCopper {
     
     @Override
     public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
-        if (state.is(Blocks.LIGHTNING_ROD)) this.applyChangeOverTime(state, level, pos, random);
+        if (state.is(Blocks.LIGHTNING_ROD)) this.onRandomTick(state, level, pos, random);
     }
 
     @Override

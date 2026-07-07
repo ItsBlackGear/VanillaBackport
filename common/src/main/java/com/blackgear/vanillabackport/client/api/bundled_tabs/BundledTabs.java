@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.BiConsumer;
+import java.util.function.Supplier;
 
 public class BundledTabs {
     private final Component tooltip;
@@ -103,6 +104,11 @@ public class BundledTabs {
 
         public Builder icon(ItemStack icon) {
             this.icon = icon;
+            return this;
+        }
+        
+        public Builder icon(Supplier<ItemStack> icon) {
+            this.icon = icon.get();
             return this;
         }
 

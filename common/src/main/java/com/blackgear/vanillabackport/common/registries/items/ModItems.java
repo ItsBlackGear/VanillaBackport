@@ -164,6 +164,9 @@ public class ModItems {
         properties -> new HorseArmorItem(4, "copper", properties),
         new Properties().stacksTo(1));
     
+    public static final Supplier<Item> COPPER_GOLEM_SPAWN_EGG = REGISTRIES.register("copper_golem_spawn_egg",
+        () -> ItemRegistry.createSpawnEgg(ModEntityTypes.COPPER_GOLEM, 14052680, 8403233, new Properties()));
+    
     // Chaos Cubed
     
     public static final Supplier<Item> SULFUR_CUBE_BUCKET = REGISTRIES.register("sulfur_cube_bucket",

@@ -193,6 +193,19 @@ public class RecipeGenerator extends VanillaRecipeProvider {
         // Copper Age
         nineBlockStorageRecipesWithCustomPacking(exporter, RecipeCategory.MISC, ModItems.COPPER_NUGGET.get(), RecipeCategory.MISC, Items.COPPER_INGOT, "copper_ingot_from_nuggets", "copper_ingot");
         
+        this.shelf(exporter, ModBlocks.ACACIA_SHELF.get(), Items.STRIPPED_ACACIA_LOG);
+        this.shelf(exporter, ModBlocks.BAMBOO_SHELF.get(), Items.STRIPPED_BAMBOO_BLOCK);
+        this.shelf(exporter, ModBlocks.BIRCH_SHELF.get(), Items.STRIPPED_BIRCH_LOG);
+        this.shelf(exporter, ModBlocks.CHERRY_SHELF.get(), Items.STRIPPED_CHERRY_LOG);
+        this.shelf(exporter, ModBlocks.CRIMSON_SHELF.get(), Items.STRIPPED_CRIMSON_STEM);
+        this.shelf(exporter, ModBlocks.DARK_OAK_SHELF.get(), Items.STRIPPED_DARK_OAK_LOG);
+        this.shelf(exporter, ModBlocks.JUNGLE_SHELF.get(), Items.STRIPPED_JUNGLE_LOG);
+        this.shelf(exporter, ModBlocks.MANGROVE_SHELF.get(), Items.STRIPPED_MANGROVE_LOG);
+        this.shelf(exporter, ModBlocks.OAK_SHELF.get(), Items.STRIPPED_OAK_LOG);
+        this.shelf(exporter, ModBlocks.PALE_OAK_SHELF.get(), ModBlocks.STRIPPED_PALE_OAK_LOG.get());
+        this.shelf(exporter, ModBlocks.SPRUCE_SHELF.get(), Items.STRIPPED_SPRUCE_LOG);
+        this.shelf(exporter, ModBlocks.WARPED_SHELF.get(), Items.STRIPPED_WARPED_STEM);
+        
         shaped(RecipeCategory.TOOLS, ModItems.COPPER_AXE.get())
             .define('#', Items.STICK)
             .define('X', Items.COPPER_INGOT)
@@ -417,6 +430,17 @@ public class RecipeGenerator extends VanillaRecipeProvider {
                 childVariantFamily.getVariants().forEach((childVariant, r) -> this.generateStonecutterRecipe(exporter, childVariantFamily, childVariant, base));
             }
         }
+    }
+    
+    public void shelf(Consumer<FinishedRecipe> output, ItemLike result, ItemLike strippedLogs) {
+        shaped(RecipeCategory.DECORATIONS, result, 6)
+            .define('#', strippedLogs)
+            .pattern("###")
+            .pattern("   ")
+            .pattern("###")
+            .group("shelf")
+            .unlockedBy(getHasName(strippedLogs), has(strippedLogs))
+            .save(output);
     }
 
     @FunctionalInterface

@@ -1,7 +1,7 @@
 package com.blackgear.vanillabackport.client.api.modules.mob_variants;
 
 import com.blackgear.platform.core.BuiltInCoreRegistry;
-import com.blackgear.vanillabackport.client.level.entity.model.pig.ColdPigModel;
+import com.blackgear.vanillabackport.client.level.model.entity.pig.ColdPigModel;
 import com.blackgear.vanillabackport.client.registries.ModModelLayers;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.pig.PigVariant;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.pig.PigVariants;
