@@ -74,6 +74,28 @@ public class ModelGenerator extends VanillaModelGenerator {
         gen.createChest(ModBlocks.WAXED_WEATHERED_COPPER_CHEST.get(), Blocks.WEATHERED_COPPER);
         gen.createChest(ModBlocks.WAXED_OXIDIZED_COPPER_CHEST.get(), Blocks.OXIDIZED_COPPER);
         
+        gen.createShelf(ModBlocks.ACACIA_SHELF.get(), Blocks.STRIPPED_ACACIA_LOG);
+        gen.createShelf(ModBlocks.BAMBOO_SHELF.get(), Blocks.STRIPPED_BAMBOO_BLOCK);
+        gen.createShelf(ModBlocks.BIRCH_SHELF.get(), Blocks.STRIPPED_BIRCH_LOG);
+        gen.createShelf(ModBlocks.CHERRY_SHELF.get(), Blocks.STRIPPED_CHERRY_LOG);
+        gen.createShelf(ModBlocks.CRIMSON_SHELF.get(), Blocks.STRIPPED_CRIMSON_STEM);
+        gen.createShelf(ModBlocks.DARK_OAK_SHELF.get(), Blocks.STRIPPED_DARK_OAK_LOG);
+        gen.createShelf(ModBlocks.JUNGLE_SHELF.get(), Blocks.STRIPPED_JUNGLE_LOG);
+        gen.createShelf(ModBlocks.MANGROVE_SHELF.get(), Blocks.STRIPPED_MANGROVE_LOG);
+        gen.createShelf(ModBlocks.OAK_SHELF.get(), Blocks.STRIPPED_OAK_LOG);
+        gen.createShelf(ModBlocks.PALE_OAK_SHELF.get(), ModBlocks.STRIPPED_PALE_OAK_LOG.get());
+        gen.createShelf(ModBlocks.SPRUCE_SHELF.get(), Blocks.STRIPPED_SPRUCE_LOG);
+        gen.createShelf(ModBlocks.WARPED_SHELF.get(), Blocks.STRIPPED_WARPED_STEM);
+        
+        gen.createCopperGolemStatue(ModBlocks.COPPER_GOLEM_STATUE.get(), Blocks.COPPER_BLOCK);
+        gen.createCopperGolemStatue(ModBlocks.EXPOSED_COPPER_GOLEM_STATUE.get(), Blocks.EXPOSED_COPPER);
+        gen.createCopperGolemStatue(ModBlocks.WEATHERED_COPPER_GOLEM_STATUE.get(), Blocks.WEATHERED_COPPER);
+        gen.createCopperGolemStatue(ModBlocks.OXIDIZED_COPPER_GOLEM_STATUE.get(), Blocks.OXIDIZED_COPPER);
+        gen.createCopperGolemStatue(ModBlocks.WAXED_COPPER_GOLEM_STATUE.get(), Blocks.COPPER_BLOCK);
+        gen.createCopperGolemStatue(ModBlocks.WAXED_EXPOSED_COPPER_GOLEM_STATUE.get(), Blocks.EXPOSED_COPPER);
+        gen.createCopperGolemStatue(ModBlocks.WAXED_WEATHERED_COPPER_GOLEM_STATUE.get(), Blocks.WEATHERED_COPPER);
+        gen.createCopperGolemStatue(ModBlocks.WAXED_OXIDIZED_COPPER_GOLEM_STATUE.get(), Blocks.OXIDIZED_COPPER);
+        
         gen.createLightningRod(null, ModBlocks.WAXED_LIGHTNING_ROD.get());
         gen.createLightningRod(ModBlocks.EXPOSED_LIGHTNING_ROD.get(), ModBlocks.WAXED_EXPOSED_LIGHTNING_ROD.get());
         gen.createLightningRod(ModBlocks.WEATHERED_LIGHTNING_ROD.get(), ModBlocks.WAXED_WEATHERED_LIGHTNING_ROD.get());
@@ -84,6 +106,8 @@ public class ModelGenerator extends VanillaModelGenerator {
         ModBlocks.COPPER_LANTERN.waxedMapping().forEach((from, to) -> gen.createCopperLantern(from.get(), to.get()));
         ModBlocks.COPPER_BARS.waxedMapping().forEach((from, to) -> gen.createCopperBars(from.get(), to.get()));
         ModBlocks.COPPER_CHAIN.waxedMapping().forEach((from, to) -> gen.createCopperChain(from.get(), to.get()));
+        
+        gen.createSpawnEgg(ModItems.COPPER_GOLEM_SPAWN_EGG.get());
     }
 
     @Override

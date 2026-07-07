@@ -18,9 +18,7 @@ import com.blackgear.vanillabackport.common.registries.*;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlockEntities;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
 import com.blackgear.vanillabackport.common.registries.blocks.ModPoiTypes;
-import com.blackgear.vanillabackport.common.registries.entities.ModAttributes;
-import com.blackgear.vanillabackport.common.registries.entities.ModEntityTypes;
-import com.blackgear.vanillabackport.common.registries.entities.ModSensorTypes;
+import com.blackgear.vanillabackport.common.registries.entities.*;
 import com.blackgear.vanillabackport.common.registries.items.ModArmorMaterials;
 import com.blackgear.vanillabackport.common.registries.items.ModDataComponents;
 import com.blackgear.vanillabackport.common.registries.items.ModItems;
@@ -76,11 +74,11 @@ public final class VanillaBackport {
         ModItems.REGISTRIES.register();
         ModItems.HOLDERS.register();
         ModBlockEntities.REGISTRIES.register();
-        ModBlockEntities.HOLDERS.register();
         
         ModPoiTypes.REGISTRIES.register();
         
         ModEntityTypes.REGISTRIES.register();
+        ModMemoryModuleTypes.REGISTRIES.register();
         ModSensorTypes.REGISTRIES.register();
 
         ModSoundEvents.REGISTRIES.register();
@@ -92,7 +90,9 @@ public final class VanillaBackport {
 
         ModFeatures.REGISTRIES.register();
         ModTreeDecorators.REGISTRIES.register();
-
+        
+        ModEntityDataSerializers.SERIALIZERS.register();
+        
         Networking.register(registrar -> registrar.registerToServer(
             ServerboundSelectBundleItemPacket.TYPE,
             ServerboundSelectBundleItemPacket.STREAM_CODEC,

@@ -34,6 +34,10 @@
     "minecraft:chiseled_sulfur",
     "#minecraft:speleothems",
     "#minecraft:copper_chests",
-    "#minecraft:lightning_rods"
+    "#minecraft:copper_golem_statues",
+    "#minecraft:lightning_rods",
+    "#minecraft:lanterns",
+    "#minecraft:chains",
+    "#minecraft:bars"
   ]
 }

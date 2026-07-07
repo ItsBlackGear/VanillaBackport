@@ -1,6 +1,7 @@
 package com.blackgear.vanillabackport.client.registries;
 
 import com.blackgear.vanillabackport.client.api.bundled_tabs.BundledTabs;
+import com.blackgear.vanillabackport.common.level.block.CopperGolemStatueBlock;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
 import com.blackgear.vanillabackport.common.registries.items.ModItems;
 import com.blackgear.vanillabackport.common.registries.items.ModPaintingVariants;
@@ -13,6 +14,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.RegistryOps;
 import net.minecraft.world.entity.decoration.Painting;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.component.BlockItemStateProperties;
 import net.minecraft.world.item.component.CustomData;
 
 import java.util.LinkedHashMap;
@@ -163,7 +165,11 @@ public class ModBundledTabs {
     public static final BundledTabs COPPER_AGE = register(
         BundledTabs.builder()
             .title(Component.translatable("bundled_tab.copper_age.title"))
-            .icon(new ItemStack(ModItems.COPPER_PICKAXE.get()))
+            .icon(() -> {
+                ItemStack stack = new ItemStack(ModBlocks.COPPER_GOLEM_STATUE.get());
+                stack.set(DataComponents.BLOCK_STATE, BlockItemStateProperties.EMPTY.with(CopperGolemStatueBlock.POSE, CopperGolemStatueBlock.Pose.RUNNING));
+                return stack;
+            })
             .displayItems((provider, output) -> {
                 output.accept(ModBlocks.COPPER_CHEST.get());
                 output.accept(ModBlocks.EXPOSED_COPPER_CHEST.get());
@@ -175,13 +181,39 @@ public class ModBundledTabs {
                 output.accept(ModBlocks.WAXED_WEATHERED_COPPER_CHEST.get());
                 output.accept(ModBlocks.WAXED_OXIDIZED_COPPER_CHEST.get());
                 
+                output.accept(ModBlocks.OAK_SHELF.get());
+                output.accept(ModBlocks.BIRCH_SHELF.get());
+                output.accept(ModBlocks.SPRUCE_SHELF.get());
+                output.accept(ModBlocks.JUNGLE_SHELF.get());
+                output.accept(ModBlocks.ACACIA_SHELF.get());
+                output.accept(ModBlocks.DARK_OAK_SHELF.get());
+                output.accept(ModBlocks.CRIMSON_SHELF.get());
+                output.accept(ModBlocks.WARPED_SHELF.get());
+                output.accept(ModBlocks.MANGROVE_SHELF.get());
+                output.accept(ModBlocks.BAMBOO_SHELF.get());
+                output.accept(ModBlocks.CHERRY_SHELF.get());
+                output.accept(ModBlocks.PALE_OAK_SHELF.get());
+                
+                output.accept(ModBlocks.COPPER_GOLEM_STATUE.get());
+                output.accept(ModBlocks.EXPOSED_COPPER_GOLEM_STATUE.get());
+                output.accept(ModBlocks.WEATHERED_COPPER_GOLEM_STATUE.get());
+                output.accept(ModBlocks.OXIDIZED_COPPER_GOLEM_STATUE.get());
+                
+                output.accept(ModBlocks.WAXED_COPPER_GOLEM_STATUE.get());
+                output.accept(ModBlocks.WAXED_EXPOSED_COPPER_GOLEM_STATUE.get());
+                output.accept(ModBlocks.WAXED_WEATHERED_COPPER_GOLEM_STATUE.get());
+                output.accept(ModBlocks.WAXED_OXIDIZED_COPPER_GOLEM_STATUE.get());
+                
                 output.accept(ModBlocks.EXPOSED_LIGHTNING_ROD.get());
                 output.accept(ModBlocks.WEATHERED_LIGHTNING_ROD.get());
                 output.accept(ModBlocks.OXIDIZED_LIGHTNING_ROD.get());
                 output.accept(ModBlocks.WAXED_LIGHTNING_ROD.get());
+                
                 output.accept(ModBlocks.WAXED_EXPOSED_LIGHTNING_ROD.get());
                 output.accept(ModBlocks.WAXED_WEATHERED_LIGHTNING_ROD.get());
                 output.accept(ModBlocks.WAXED_OXIDIZED_LIGHTNING_ROD.get());
+                
+                output.accept(ModItems.COPPER_GOLEM_SPAWN_EGG.get());
                 
                 output.accept(ModItems.COPPER_SWORD.get());
                 output.accept(ModItems.COPPER_AXE.get());

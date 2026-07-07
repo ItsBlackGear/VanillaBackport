@@ -42,6 +42,7 @@
   "mixins": [
     "common.access.AbstractMinecartAccessor",
     "common.access.BarrelBlockEntityAccessor",
+    "common.access.BaseContainerBlockEntityAccessor",
     "common.access.BiomeAccessor",
     "common.access.BundleContentsAccessor",
     "common.access.ChestBlockEntityAccessor",

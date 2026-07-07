@@ -61,6 +61,22 @@ public interface CreativeTabIntegration {
             ModBlocks.SULFUR_BRICK_SLAB.get(),
             ModBlocks.SULFUR_BRICK_WALL.get()
         ));
+        output.addAfter(Items.CUT_COPPER_SLAB, ModBlocks.COPPER_BARS.unaffected().get());
+        output.addAfter(Items.COPPER_BULB, ModBlocks.COPPER_CHAIN.unaffected().get());
+        output.addAfter(Items.WEATHERED_CUT_COPPER_SLAB, ModBlocks.COPPER_BARS.weathered().get());
+        output.addAfter(Items.WEATHERED_COPPER_BULB, ModBlocks.COPPER_CHAIN.weathered().get());
+        output.addAfter(Items.EXPOSED_CUT_COPPER_SLAB, ModBlocks.COPPER_BARS.exposed().get());
+        output.addAfter(Items.EXPOSED_COPPER_BULB, ModBlocks.COPPER_CHAIN.exposed().get());
+        output.addAfter(Items.OXIDIZED_CUT_COPPER_SLAB, ModBlocks.COPPER_BARS.oxidized().get());
+        output.addAfter(Items.OXIDIZED_COPPER_BULB, ModBlocks.COPPER_CHAIN.oxidized().get());
+        output.addAfter(Items.WAXED_CUT_COPPER_SLAB, ModBlocks.COPPER_BARS.waxed().get());
+        output.addAfter(Items.WAXED_COPPER_BULB, ModBlocks.COPPER_CHAIN.waxed().get());
+        output.addAfter(Items.WAXED_WEATHERED_CUT_COPPER_SLAB, ModBlocks.COPPER_BARS.waxedWeathered().get());
+        output.addAfter(Items.WAXED_WEATHERED_COPPER_BULB, ModBlocks.COPPER_CHAIN.waxedWeathered().get());
+        output.addAfter(Items.WAXED_EXPOSED_CUT_COPPER_SLAB, ModBlocks.COPPER_BARS.waxedExposed().get());
+        output.addAfter(Items.WAXED_EXPOSED_COPPER_BULB, ModBlocks.COPPER_CHAIN.waxedExposed().get());
+        output.addAfter(Items.WAXED_OXIDIZED_CUT_COPPER_SLAB, ModBlocks.COPPER_BARS.waxedOxidized().get());
+        output.addAfter(Items.WAXED_OXIDIZED_COPPER_BULB, ModBlocks.COPPER_CHAIN.waxedOxidized().get());
     };
 
     CreativeTabs.Modifier COLORED_BLOCKS = (flag, output, operator) -> {};
@@ -100,15 +116,86 @@ public interface CreativeTabIntegration {
     };
 
     CreativeTabs.Modifier FUNCTIONAL_BLOCKS = (flag, output, operator) -> {
+        output.addAfter(Items.SOUL_TORCH, ModBlocks.COPPER_TORCH.getFirst().get());
+        output.addAllAfter(Items.SOUL_LANTERN, List.of(
+            ModBlocks.COPPER_LANTERN.unaffected().get(),
+            ModBlocks.COPPER_LANTERN.weathered().get(),
+            ModBlocks.COPPER_LANTERN.exposed().get(),
+            ModBlocks.COPPER_LANTERN.oxidized().get(),
+            ModBlocks.COPPER_LANTERN.waxed().get(),
+            ModBlocks.COPPER_LANTERN.waxedWeathered().get(),
+            ModBlocks.COPPER_LANTERN.waxedExposed().get(),
+            ModBlocks.COPPER_LANTERN.waxedOxidized().get()
+        ));
+        output.addAllAfter(Items.CHAIN, List.of(
+            ModBlocks.COPPER_CHAIN.unaffected().get(),
+            ModBlocks.COPPER_CHAIN.weathered().get(),
+            ModBlocks.COPPER_CHAIN.exposed().get(),
+            ModBlocks.COPPER_CHAIN.oxidized().get(),
+            ModBlocks.COPPER_CHAIN.waxed().get(),
+            ModBlocks.COPPER_CHAIN.waxedWeathered().get(),
+            ModBlocks.COPPER_CHAIN.waxedExposed().get(),
+            ModBlocks.COPPER_CHAIN.waxedOxidized().get()
+        ));
+        output.addAllAfter(Items.LIGHTNING_ROD, List.of(
+            ModBlocks.WEATHERED_LIGHTNING_ROD.get(),
+            ModBlocks.EXPOSED_LIGHTNING_ROD.get(),
+            ModBlocks.OXIDIZED_LIGHTNING_ROD.get(),
+            ModBlocks.WAXED_LIGHTNING_ROD.get(),
+            ModBlocks.WAXED_WEATHERED_LIGHTNING_ROD.get(),
+            ModBlocks.WAXED_EXPOSED_LIGHTNING_ROD.get(),
+            ModBlocks.WAXED_OXIDIZED_LIGHTNING_ROD.get()
+        ));
+        output.addAllAfter(Items.CHISELED_BOOKSHELF, List.of(
+            ModBlocks.OAK_SHELF.get(),
+            ModBlocks.SPRUCE_SHELF.get(),
+            ModBlocks.BIRCH_SHELF.get(),
+            ModBlocks.JUNGLE_SHELF.get(),
+            ModBlocks.ACACIA_SHELF.get(),
+            ModBlocks.DARK_OAK_SHELF.get(),
+            ModBlocks.MANGROVE_SHELF.get(),
+            ModBlocks.CHERRY_SHELF.get(),
+            ModBlocks.PALE_OAK_SHELF.get(),
+            ModBlocks.BAMBOO_SHELF.get(),
+            ModBlocks.CRIMSON_SHELF.get(),
+            ModBlocks.WARPED_SHELF.get()
+        ));
         output.addAllAfter(Items.CHERRY_HANGING_SIGN, List.of(
             ModBlocks.PALE_OAK_SIGN.getFirst().get(),
             ModBlocks.PALE_OAK_HANGING_SIGN.getFirst().get()
         ));
+        output.addAllAfter(Items.CHEST, List.of(
+            ModBlocks.COPPER_CHEST.get(),
+            ModBlocks.WEATHERED_COPPER_CHEST.get(),
+            ModBlocks.EXPOSED_COPPER_CHEST.get(),
+            ModBlocks.OXIDIZED_COPPER_CHEST.get(),
+            ModBlocks.WAXED_COPPER_CHEST.get(),
+            ModBlocks.WAXED_WEATHERED_COPPER_CHEST.get(),
+            ModBlocks.WAXED_EXPOSED_COPPER_CHEST.get(),
+            ModBlocks.WAXED_OXIDIZED_COPPER_CHEST.get()
+        ));
+        output.addAllAfter(Items.ENDER_EYE, List.of(
+            ModBlocks.COPPER_GOLEM_STATUE.get(),
+            ModBlocks.WEATHERED_COPPER_GOLEM_STATUE.get(),
+            ModBlocks.EXPOSED_COPPER_GOLEM_STATUE.get(),
+            ModBlocks.OXIDIZED_COPPER_GOLEM_STATUE.get(),
+            ModBlocks.WAXED_COPPER_GOLEM_STATUE.get(),
+            ModBlocks.WAXED_WEATHERED_COPPER_GOLEM_STATUE.get(),
+            ModBlocks.WAXED_EXPOSED_COPPER_GOLEM_STATUE.get(),
+            ModBlocks.WAXED_OXIDIZED_COPPER_GOLEM_STATUE.get()
+        ));
     };
 
-    CreativeTabs.Modifier REDSTONE_BLOCKS = (flag, output, operator) -> {};
+    CreativeTabs.Modifier REDSTONE_BLOCKS = (flag, output, operator) -> {
+        output.addAfter(Items.CHISELED_BOOKSHELF, ModBlocks.OAK_SHELF.get());
+    };
 
     CreativeTabs.Modifier TOOLS_AND_UTILITIES = (flag, output, operator) -> {
+        output.addAllAfter(Items.STONE_HOE, List.of(
+            ModItems.COPPER_SHOVEL.get(),
+            ModItems.COPPER_PICKAXE.get(),
+            ModItems.COPPER_AXE.get(),
+            ModItems.COPPER_HOE.get()));
         output.addAfter(Items.TADPOLE_BUCKET, ModItems.SULFUR_CUBE_BUCKET.get());
         if (flag.contains(FeatureFlags.BUNDLE)) {
             output.addAllAfter(Items.BUNDLE, List.of(
@@ -160,6 +247,14 @@ public interface CreativeTabIntegration {
     };
 
     CreativeTabs.Modifier COMBAT = (flag, output, operator) -> {
+        output.addAfter(Items.STONE_SWORD, ModItems.COPPER_SWORD.get());
+        output.addAfter(Items.STONE_AXE, ModItems.COPPER_AXE.get());
+        output.addAllAfter(Items.LEATHER_BOOTS, List.of(
+            ModItems.COPPER_HELMET.get(),
+            ModItems.COPPER_CHESTPLATE.get(),
+            ModItems.COPPER_LEGGINGS.get(),
+            ModItems.COPPER_BOOTS.get()));
+        output.addAfter(Items.LEATHER_HORSE_ARMOR, ModItems.COPPER_HORSE_ARMOR.get());
         output.addAllAfter(Items.EGG, List.of(
             ModItems.BROWN_EGG.get(),
             ModItems.BLUE_EGG.get()
@@ -179,6 +274,7 @@ public interface CreativeTabIntegration {
 
     CreativeTabs.Modifier SPAWN_EGGS = (flag, output, operator) -> {
         output.addAfter(Items.SPAWNER, ModBlocks.CREAKING_HEART.get());
+        output.addAfter(Items.COD_SPAWN_EGG, ModItems.COPPER_GOLEM_SPAWN_EGG.get());
         output.addAfter(Items.COW_SPAWN_EGG, ModItems.CREAKING_SPAWN_EGG.get());
         output.addAfter(Items.GUARDIAN_SPAWN_EGG, ModItems.HAPPY_GHAST_SPAWN_EGG.get());
         output.addAfter(Items.SNIFFER_SPAWN_EGG, ModItems.SULFUR_CUBE_SPAWN_EGG.get());

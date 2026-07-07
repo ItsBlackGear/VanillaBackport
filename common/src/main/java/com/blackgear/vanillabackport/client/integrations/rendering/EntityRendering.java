@@ -1,18 +1,20 @@
 package com.blackgear.vanillabackport.client.integrations.rendering;
 
-import com.blackgear.vanillabackport.client.level.entity.model.CreakingModel;
-import com.blackgear.vanillabackport.client.level.entity.model.chicken.ColdChickenModel;
-import com.blackgear.vanillabackport.client.level.entity.model.cow.ColdCowModel;
-import com.blackgear.vanillabackport.client.level.entity.model.cow.WarmCowModel;
-import com.blackgear.vanillabackport.client.level.entity.model.happy_ghast.HappyGhastHarnessModel;
-import com.blackgear.vanillabackport.client.level.entity.model.happy_ghast.HappyGhastModel;
-import com.blackgear.vanillabackport.client.level.entity.model.pig.ColdPigModel;
-import com.blackgear.vanillabackport.client.level.entity.model.sulfur_cube.SmallSulfurCubeModel;
-import com.blackgear.vanillabackport.client.level.entity.model.sulfur_cube.SulfurCubeModel;
-import com.blackgear.vanillabackport.client.level.entity.renderer.PaleOakBoatRenderer;
-import com.blackgear.vanillabackport.client.level.entity.renderer.mob.CreakingRenderer;
-import com.blackgear.vanillabackport.client.level.entity.renderer.mob.HappyGhastRenderer;
-import com.blackgear.vanillabackport.client.level.entity.renderer.mob.SulfurCubeRenderer;
+import com.blackgear.vanillabackport.client.level.model.entity.CopperGolemModel;
+import com.blackgear.vanillabackport.client.level.model.entity.CreakingModel;
+import com.blackgear.vanillabackport.client.level.model.entity.chicken.ColdChickenModel;
+import com.blackgear.vanillabackport.client.level.model.entity.cow.ColdCowModel;
+import com.blackgear.vanillabackport.client.level.model.entity.cow.WarmCowModel;
+import com.blackgear.vanillabackport.client.level.model.entity.happy_ghast.HappyGhastHarnessModel;
+import com.blackgear.vanillabackport.client.level.model.entity.happy_ghast.HappyGhastModel;
+import com.blackgear.vanillabackport.client.level.model.entity.pig.ColdPigModel;
+import com.blackgear.vanillabackport.client.level.model.entity.sulfur_cube.SmallSulfurCubeModel;
+import com.blackgear.vanillabackport.client.level.model.entity.sulfur_cube.SulfurCubeModel;
+import com.blackgear.vanillabackport.client.level.renderer.entity.PaleOakBoatRenderer;
+import com.blackgear.vanillabackport.client.level.renderer.entity.mob.CopperGolemRenderer;
+import com.blackgear.vanillabackport.client.level.renderer.entity.mob.CreakingRenderer;
+import com.blackgear.vanillabackport.client.level.renderer.entity.mob.HappyGhastRenderer;
+import com.blackgear.vanillabackport.client.level.renderer.entity.mob.SulfurCubeRenderer;
 import com.blackgear.vanillabackport.client.registries.ModModelLayers;
 import com.blackgear.vanillabackport.common.registries.entities.ModEntityTypes;
 import net.fabricmc.api.EnvType;
@@ -43,6 +45,11 @@ public class EntityRendering {
         event.register(ModModelLayers.SULFUR_CUBE_INNER, SulfurCubeModel::createInnerBodyLayer);
         event.register(ModModelLayers.SULFUR_CUBE_SMALL, SmallSulfurCubeModel::createOuterBodyLayer);
         event.register(ModModelLayers.SULFUR_CUBE_SMALL_INNER, SmallSulfurCubeModel::createInnerBodyLayer);
+        
+        event.register(ModModelLayers.COPPER_GOLEM, CopperGolemModel::createBodyLayer);
+        event.register(ModModelLayers.COPPER_GOLEM_RUNNING, CopperGolemModel::createRunningPoseBodyLayer);
+        event.register(ModModelLayers.COPPER_GOLEM_SITTING, CopperGolemModel::createSittingPoseBodyLayer);
+        event.register(ModModelLayers.COPPER_GOLEM_STAR, CopperGolemModel::createStarPoseBodyLayer);
     }
     
     public static void renderers(EntityRendererEvent event) {
@@ -51,5 +58,6 @@ public class EntityRendering {
         event.register(ModEntityTypes.PALE_OAK_BOAT.get(), context -> new PaleOakBoatRenderer(context, false));
         event.register(ModEntityTypes.PALE_OAK_CHEST_BOAT.get(), context -> new PaleOakBoatRenderer(context, true));
         event.register(ModEntityTypes.SULFUR_CUBE.get(), SulfurCubeRenderer::new);
+        event.register(ModEntityTypes.COPPER_GOLEM.get(), CopperGolemRenderer::new);
     }
 }

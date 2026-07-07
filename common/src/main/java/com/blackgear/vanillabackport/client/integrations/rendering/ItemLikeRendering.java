@@ -3,11 +3,15 @@ package com.blackgear.vanillabackport.client.integrations.rendering;
 import com.blackgear.platform.client.v2.render.BuiltinItemRendererRegistry;
 import com.blackgear.platform.client.v2.render.DynamicItemRenderer;
 import com.blackgear.platform.client.v2.render.ItemRendererRegistry;
-import com.blackgear.vanillabackport.client.level.block_entity.renderer.CopperChestRenderer;
-import com.blackgear.vanillabackport.client.level.item.BundleRenderer;
-import com.blackgear.vanillabackport.client.level.item.CopperChestItemRenderer;
-import com.blackgear.vanillabackport.client.level.item.SpawnEggRenderer;
+import com.blackgear.vanillabackport.client.level.renderer.block_entity.CopperChestRenderer;
+import com.blackgear.vanillabackport.client.level.renderer.block_entity.CopperGolemStatueRenderer;
+import com.blackgear.vanillabackport.client.level.renderer.block_entity.ShelfRenderer;
+import com.blackgear.vanillabackport.client.level.renderer.item.BundleRenderer;
+import com.blackgear.vanillabackport.client.level.renderer.item.CopperChestItemRenderer;
+import com.blackgear.vanillabackport.client.level.renderer.item.CopperGolemStatueItemRenderer;
+import com.blackgear.vanillabackport.client.level.renderer.item.SpawnEggRenderer;
 import com.blackgear.vanillabackport.common.level.block.CopperChestBlock;
+import com.blackgear.vanillabackport.common.level.block.CopperGolemStatueBlock;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlockEntities;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
 import net.fabricmc.api.EnvType;
@@ -34,11 +38,17 @@ public class ItemLikeRendering {
             if (block instanceof CopperChestBlock chest) {
                 BuiltinItemRendererRegistry.getInstance().register(block, new CopperChestItemRenderer(chest));
             }
+            
+            if (block instanceof CopperGolemStatueBlock statue) {
+                BuiltinItemRendererRegistry.getInstance().register(block, new CopperGolemStatueItemRenderer(statue));
+            }
         }
     }
     
     public static void blockEntityRendering(BlockEntityRendererEvent event) {
         event.register(ModBlockEntities.COPPER_CHEST.get(), CopperChestRenderer::new);
+        event.register(ModBlockEntities.COPPER_GOLEM_STATUE.get(), CopperGolemStatueRenderer::new);
+        event.register(ModBlockEntities.SHELF.get(), ShelfRenderer::new);
     }
     
     public static void renderTypes(BlockRendererEvent event) {

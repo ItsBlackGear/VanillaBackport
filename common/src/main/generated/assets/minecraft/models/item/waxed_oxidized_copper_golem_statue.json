@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/template_copper_golem_statue",
+  "textures": {
+    "particle": "minecraft:block/oxidized_copper"
+  }
+}

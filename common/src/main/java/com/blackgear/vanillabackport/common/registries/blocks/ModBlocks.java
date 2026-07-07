@@ -355,6 +355,65 @@ public class ModBlocks {
             ModSoundEvents.COPPER_CHEST_OXIDIZED_CLOSE.get(),
             SharedBlockProperties.COPPER_CHEST.mapColor(MapColor.WARPED_NYLIUM)));
     
+    public static final Supplier<Block> ACACIA_SHELF = REGISTRIES.register("acacia_shelf",
+        ShelfBlock::new,
+        SharedBlockProperties.SHELF
+            .mapColor(Blocks.ACACIA_PLANKS.defaultMapColor())
+            .ignitedByLava());
+    public static final Supplier<Block> BAMBOO_SHELF = REGISTRIES.register("bamboo_shelf",
+        ShelfBlock::new,
+        SharedBlockProperties.SHELF
+            .mapColor(Blocks.BAMBOO_PLANKS.defaultMapColor())
+            .ignitedByLava());
+    public static final Supplier<Block> BIRCH_SHELF = REGISTRIES.register("birch_shelf",
+        ShelfBlock::new,
+        SharedBlockProperties.SHELF
+            .mapColor(Blocks.BIRCH_PLANKS.defaultMapColor())
+            .ignitedByLava());
+    public static final Supplier<Block> CHERRY_SHELF = REGISTRIES.register("cherry_shelf",
+        ShelfBlock::new,
+        SharedBlockProperties.SHELF
+            .mapColor(Blocks.CHERRY_PLANKS.defaultMapColor())
+            .ignitedByLava());
+    public static final Supplier<Block> CRIMSON_SHELF = REGISTRIES.register("crimson_shelf",
+        ShelfBlock::new,
+        SharedBlockProperties.SHELF
+            .mapColor(Blocks.CRIMSON_PLANKS.defaultMapColor()));
+    public static final Supplier<Block> DARK_OAK_SHELF = REGISTRIES.register("dark_oak_shelf",
+        ShelfBlock::new,
+        SharedBlockProperties.SHELF
+            .mapColor(Blocks.DARK_OAK_PLANKS.defaultMapColor())
+            .ignitedByLava());
+    public static final Supplier<Block> JUNGLE_SHELF = REGISTRIES.register("jungle_shelf",
+        ShelfBlock::new,
+        SharedBlockProperties.SHELF
+            .mapColor(Blocks.JUNGLE_PLANKS.defaultMapColor())
+            .ignitedByLava());
+    public static final Supplier<Block> MANGROVE_SHELF = REGISTRIES.register("mangrove_shelf",
+        ShelfBlock::new,
+        SharedBlockProperties.SHELF
+            .mapColor(Blocks.MANGROVE_PLANKS.defaultMapColor())
+            .ignitedByLava());
+    public static final Supplier<Block> OAK_SHELF = REGISTRIES.register("oak_shelf",
+        ShelfBlock::new,
+        SharedBlockProperties.SHELF
+            .mapColor(Blocks.OAK_PLANKS.defaultMapColor())
+            .ignitedByLava());
+    public static final Supplier<Block> PALE_OAK_SHELF = REGISTRIES.register("pale_oak_shelf",
+        ShelfBlock::new,
+        SharedBlockProperties.SHELF
+            .mapColor(MapColor.QUARTZ)
+            .ignitedByLava());
+    public static final Supplier<Block> SPRUCE_SHELF = REGISTRIES.register("spruce_shelf",
+        ShelfBlock::new,
+        SharedBlockProperties.SHELF
+            .mapColor(Blocks.SPRUCE_PLANKS.defaultMapColor())
+            .ignitedByLava());
+    public static final Supplier<Block> WARPED_SHELF = REGISTRIES.register("warped_shelf",
+        ShelfBlock::new,
+        SharedBlockProperties.SHELF
+            .mapColor(Blocks.WARPED_PLANKS.defaultMapColor()));
+    
     public static final Supplier<Block> EXPOSED_LIGHTNING_ROD = REGISTRIES.register("exposed_lightning_rod",
         properties -> new WeatheringLightningRodBlock(WeatherState.EXPOSED, properties),
         Properties.ofFullCopy(Blocks.LIGHTNING_ROD).mapColor(MapColor.TERRACOTTA_LIGHT_GRAY));
@@ -377,6 +436,40 @@ public class ModBlocks {
     public static final Supplier<Block> WAXED_OXIDIZED_LIGHTNING_ROD = REGISTRIES.register("waxed_oxidized_lightning_rod",
         LightningRodBlock::new,
         Properties.ofFullCopy(Blocks.LIGHTNING_ROD).mapColor(MapColor.WARPED_NYLIUM));
+    
+    public static final Supplier<Block> COPPER_GOLEM_STATUE = REGISTRIES.register("copper_golem_statue",
+        () -> new WeatheringCopperGolemStatueBlock(
+            WeatherState.UNAFFECTED,
+            SharedBlockProperties.COPPER_GOLEM_STATUE.mapColor(Blocks.COPPER_BLOCK.defaultMapColor())));
+    public static final Supplier<Block> EXPOSED_COPPER_GOLEM_STATUE = REGISTRIES.register("exposed_copper_golem_statue",
+        () -> new WeatheringCopperGolemStatueBlock(
+            WeatherState.EXPOSED,
+            SharedBlockProperties.COPPER_GOLEM_STATUE.mapColor(MapColor.TERRACOTTA_LIGHT_GRAY)));
+    public static final Supplier<Block> WEATHERED_COPPER_GOLEM_STATUE = REGISTRIES.register("weathered_copper_golem_statue",
+        () -> new WeatheringCopperGolemStatueBlock(
+            WeatherState.WEATHERED,
+            SharedBlockProperties.COPPER_GOLEM_STATUE.mapColor(MapColor.WARPED_STEM)));
+    public static final Supplier<Block> OXIDIZED_COPPER_GOLEM_STATUE = REGISTRIES.register("oxidized_copper_golem_statue",
+        () -> new WeatheringCopperGolemStatueBlock(
+            WeatherState.OXIDIZED,
+            SharedBlockProperties.COPPER_GOLEM_STATUE.mapColor(MapColor.WARPED_NYLIUM)));
+    
+    public static final Supplier<Block> WAXED_COPPER_GOLEM_STATUE = REGISTRIES.register("waxed_copper_golem_statue",
+        () -> new CopperGolemStatueBlock(
+            WeatherState.UNAFFECTED,
+            SharedBlockProperties.COPPER_GOLEM_STATUE.mapColor(Blocks.COPPER_BLOCK.defaultMapColor())));
+    public static final Supplier<Block> WAXED_EXPOSED_COPPER_GOLEM_STATUE = REGISTRIES.register("waxed_exposed_copper_golem_statue",
+        () -> new CopperGolemStatueBlock(
+            WeatherState.EXPOSED,
+            SharedBlockProperties.COPPER_GOLEM_STATUE.mapColor(MapColor.TERRACOTTA_LIGHT_GRAY)));
+    public static final Supplier<Block> WAXED_WEATHERED_COPPER_GOLEM_STATUE = REGISTRIES.register("waxed_weathered_copper_golem_statue",
+        () -> new CopperGolemStatueBlock(
+            WeatherState.WEATHERED,
+            SharedBlockProperties.COPPER_GOLEM_STATUE.mapColor(MapColor.WARPED_STEM)));
+    public static final Supplier<Block> WAXED_OXIDIZED_COPPER_GOLEM_STATUE = REGISTRIES.register("waxed_oxidized_copper_golem_statue",
+        () -> new CopperGolemStatueBlock(
+            WeatherState.OXIDIZED,
+            SharedBlockProperties.COPPER_GOLEM_STATUE.mapColor(MapColor.WARPED_NYLIUM)));
     
     public static final Pair<Supplier<Block>, Supplier<Block>> COPPER_TORCH = torch("copper", ModParticles.COPPER_FIRE_FLAME);
     public static final WeatheringCopperBlocks COPPER_LANTERN = WeatheringCopperBlocks.create("copper_lantern",

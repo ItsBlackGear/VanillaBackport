@@ -71,4 +71,18 @@ public class ModSoundTypes {
         ModSoundEvents.POTENT_SULFUR_HIT,
         ModSoundEvents.POTENT_SULFUR_FALL
     );
+    public static final SoundType COPPER_GOLEM_STATUE = REGISTRIES.soundType(
+        ModSoundEvents.COPPER_GOLEM_STATUE_BREAK,
+        ModSoundEvents.COPPER_GOLEM_STATUE_STEP,
+        ModSoundEvents.COPPER_GOLEM_STATUE_PLACE,
+        ModSoundEvents.COPPER_GOLEM_STATUE_HIT,
+        ModSoundEvents.COPPER_GOLEM_STATUE_FALL
+    );
+    public static final SoundType WOODEN_SHELF = REGISTRIES.soundType(
+        ModSoundEvents.SHELF_BREAK,
+        ModSoundEvents.SHELF_STEP,
+        ModSoundEvents.SHELF_PLACE,
+        ModSoundEvents.SHELF_HIT,
+        ModSoundEvents.SHELF_FALL
+    );
 }

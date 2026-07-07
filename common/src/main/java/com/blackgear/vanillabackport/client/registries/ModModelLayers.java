@@ -19,7 +19,13 @@ public class ModModelLayers {
     public static final ModelLayerLocation HAPPY_GHAST = register("happy_ghast");
     public static final ModelLayerLocation HAPPY_GHAST_HARNESS = register("happy_ghast", "harness");
     public static final ModelLayerLocation HAPPY_GHAST_ROPES = register("happy_ghast", "ropes");
-
+    
+    // Copper Age
+    public static final ModelLayerLocation COPPER_GOLEM = register("copper_golem");
+    public static final ModelLayerLocation COPPER_GOLEM_RUNNING = register("copper_golem_running");
+    public static final ModelLayerLocation COPPER_GOLEM_SITTING = register("copper_golem_sitting");
+    public static final ModelLayerLocation COPPER_GOLEM_STAR = register("copper_golem_star");
+    
     // CHAOS CUBED
     public static final ModelLayerLocation SULFUR_CUBE = register("sulfur_cube");
     public static final ModelLayerLocation SULFUR_CUBE_INNER = register("sulfur_cube", "inner");

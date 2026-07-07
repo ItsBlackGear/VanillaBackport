@@ -166,21 +166,24 @@ public class ModItems {
     
     public static final FeatureHolder<Item> COPPER_HELMET = HOLDERS.register("copper_helmet",
         properties -> new ArmorItem(ModArmorMaterials.COPPER, ArmorItem.Type.HELMET, properties),
-        new Properties().durability(ArmorItem.Type.HELMET.getDurability(5)));
+        new Properties().durability(ArmorItem.Type.HELMET.getDurability(11)));
     public static final FeatureHolder<Item> COPPER_CHESTPLATE = HOLDERS.register("copper_chestplate",
         properties -> new ArmorItem(ModArmorMaterials.COPPER, ArmorItem.Type.CHESTPLATE, properties),
-        new Properties().durability(ArmorItem.Type.CHESTPLATE.getDurability(5)));
+        new Properties().durability(ArmorItem.Type.CHESTPLATE.getDurability(11)));
     public static final FeatureHolder<Item> COPPER_LEGGINGS = HOLDERS.register("copper_leggings",
         properties -> new ArmorItem(ModArmorMaterials.COPPER, ArmorItem.Type.LEGGINGS, properties),
-        new Properties().durability(ArmorItem.Type.LEGGINGS.getDurability(5)));
+        new Properties().durability(ArmorItem.Type.LEGGINGS.getDurability(11)));
     public static final FeatureHolder<Item> COPPER_BOOTS = HOLDERS.register("copper_boots",
         properties -> new ArmorItem(ModArmorMaterials.COPPER, ArmorItem.Type.BOOTS, properties),
-        new Properties().durability(ArmorItem.Type.BOOTS.getDurability(5)));
+        new Properties().durability(ArmorItem.Type.BOOTS.getDurability(11)));
     
     public static final FeatureHolder<Item> COPPER_NUGGET = HOLDERS.register("copper_nugget");
     public static final FeatureHolder<Item> COPPER_HORSE_ARMOR = HOLDERS.register("copper_horse_armor",
         properties -> new AnimalArmorItem(ModArmorMaterials.COPPER, AnimalArmorItem.BodyType.EQUESTRIAN, false, properties),
         new Properties().stacksTo(1));
+    
+    public static final Supplier<Item> COPPER_GOLEM_SPAWN_EGG = REGISTRIES.register("copper_golem_spawn_egg",
+        () -> ItemRegistry.createSpawnEgg(ModEntityTypes.COPPER_GOLEM, 14052680, 8403233, new Properties()));
     
     // Chaos Cubed
     

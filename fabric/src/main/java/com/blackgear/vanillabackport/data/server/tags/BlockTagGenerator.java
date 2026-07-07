@@ -102,9 +102,13 @@ public class BlockTagGenerator extends FabricTagProvider.BlockTagProvider {
                 ModBlocks.SULFUR_BRICK_WALL.get(),
                 ModBlocks.CHISELED_SULFUR.get()
             )
-            .forceAddTag(ModBlockTags.SPELEOTHEMS)
-            .forceAddTag(ModBlockTags.COPPER_CHESTS)
-            .forceAddTag(ModBlockTags.LIGHTNING_RODS);
+            .addTag(ModBlockTags.SPELEOTHEMS)
+            .addTag(ModBlockTags.COPPER_CHESTS)
+            .addTag(ModBlockTags.COPPER_GOLEM_STATUES)
+            .addTag(ModBlockTags.LIGHTNING_RODS)
+            .addTag(ModBlockTags.LANTERNS)
+            .addTag(ModBlockTags.CHAINS)
+            .addTag(ModBlockTags.BARS);
         
         this.getOrCreateTagBuilder(BlockTags.NEEDS_STONE_TOOL)
             .addTag(ModBlockTags.COPPER_CHESTS)
@@ -219,6 +223,11 @@ public class BlockTagGenerator extends FabricTagProvider.BlockTagProvider {
                 ModBlocks.WAXED_WEATHERED_COPPER_CHEST.get(),
                 ModBlocks.WAXED_OXIDIZED_COPPER_CHEST.get()
             );
+        
+        this.getOrCreateTagBuilder(ModBlockTags.COPPER_GOLEM_DESTINATION_TARGETS)
+            .add(Blocks.CHEST)
+            .add(Blocks.TRAPPED_CHEST)
+            .add(Blocks.BARREL);
     }
 
     protected DualTagHolder getDualTagBuilder(TagKey<Block> forge, TagKey<Block> fabric) {

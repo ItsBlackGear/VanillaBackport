@@ -5,6 +5,7 @@ import com.blackgear.vanillabackport.common.level.block.DriedGhastBlock;
 import com.blackgear.vanillabackport.common.level.block.HangingMossBlock;
 import com.blackgear.vanillabackport.common.level.block.MossyCarpetBlock;
 import com.blackgear.vanillabackport.common.level.block.states.CreakingHeartState;
+import com.blackgear.vanillabackport.common.level.block.states.SideChainPart;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlockStateProperties;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
 import com.blackgear.vanillabackport.data.client.model.ModModelTemplates;
@@ -23,6 +24,7 @@ import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.properties.*;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.function.BiConsumer;
@@ -350,6 +352,13 @@ public class VanillaBlockModels extends BlockModelGenerators {
         ModModelTemplates.CHEST.create(ModelLocationUtils.getModelLocation(chest.asItem()), TextureMapping.particle(particles), this.modelOutput);
     }
     
+    public void createCopperGolemStatue(Block block, Block particle) {
+        BlockEntityModelGenerator generator = new BlockEntityModelGenerator(ModelLocationUtils.getModelLocation(block), particle);
+        generator.createWithoutBlockItem(block);
+        
+        ModModelTemplates.COPPER_GOLEM_STATUE.create(ModelLocationUtils.getModelLocation(block.asItem()), TextureMapping.particle(particle), this.modelOutput);
+    }
+    
     public void createCopperChain(Block unwaxed, Block waxed) {
         ResourceLocation block = ModTexturedModels.CHAIN.create(unwaxed, this.modelOutput);
         this.createAxisAlignedPillarBlockCustomModel(unwaxed, block);
@@ -458,5 +467,56 @@ public class VanillaBlockModels extends BlockModelGenerators {
         this.delegateItemModel(waxed, ModelLocationUtils.getModelLocation(unwaxed.asItem()));
         this.blockStateOutput.accept(MultiVariantGenerator.multiVariant(unwaxed).with(createBooleanModelDispatch(BlockStateProperties.HANGING, hanging, ground)));
         this.blockStateOutput.accept(MultiVariantGenerator.multiVariant(waxed).with(createBooleanModelDispatch(BlockStateProperties.HANGING, hanging, ground)));
+    }
+    
+    public final void createShelf(final Block block, final Block particle) {
+        TextureMapping mapping = new TextureMapping()
+            .put(TextureSlot.ALL, TextureMapping.getBlockTexture(block))
+            .put(TextureSlot.PARTICLE, TextureMapping.getBlockTexture(particle));
+        MultiPartGenerator generator = MultiPartGenerator.multiPart(block);
+        this.addShelfPart(block, mapping, generator, ModModelTemplates.SHELF_BODY, null, null);
+        this.addShelfPart(block, mapping, generator, ModModelTemplates.SHELF_UNPOWERED, false, null);
+        this.addShelfPart(block, mapping, generator, ModModelTemplates.SHELF_UNCONNECTED, true, SideChainPart.UNCONNECTED);
+        this.addShelfPart(block, mapping, generator, ModModelTemplates.SHELF_LEFT, true, SideChainPart.LEFT);
+        this.addShelfPart(block, mapping, generator, ModModelTemplates.SHELF_CENTER, true, SideChainPart.CENTER);
+        this.addShelfPart(block, mapping, generator, ModModelTemplates.SHELF_RIGHT, true, SideChainPart.RIGHT);
+        this.blockStateOutput.accept(generator);
+        this.delegateItemModel(block, ModModelTemplates.SHELF_INVENTORY.create(block, mapping, this.modelOutput));
+    }
+    
+    public final void addShelfPart(
+        final Block block,
+        final TextureMapping mapping,
+        final MultiPartGenerator generator,
+        final ModelTemplate template,
+        @Nullable final Boolean isPowered,
+        @Nullable final SideChainPart sideChainPart
+    ) {
+        ResourceLocation modelLocation = template.create(block, mapping, this.modelOutput);
+        forEachHorizontalDirection((direction, rotation) -> {
+            Variant variant = Variant.variant()
+                .with(VariantProperties.MODEL, modelLocation)
+                .with(VariantProperties.Y_ROT, rotation);
+            generator.with(shelfCondition(direction, isPowered, sideChainPart), variant);
+        });
+    }
+    
+    public static void forEachHorizontalDirection(BiConsumer<Direction, VariantProperties.Rotation> consumer) {
+        List.of(Pair.of(Direction.NORTH, VariantProperties.Rotation.R0), Pair.of(Direction.EAST, VariantProperties.Rotation.R90), Pair.of(Direction.SOUTH, VariantProperties.Rotation.R180), Pair.of(Direction.WEST, VariantProperties.Rotation.R270))
+            .forEach(pair -> {
+                Direction direction = pair.getFirst();
+                VariantProperties.Rotation rotation = pair.getSecond();
+                consumer.accept(direction, rotation);
+            });
+    }
+    
+    public static Condition shelfCondition(Direction direction, @Nullable Boolean isPowered, @Nullable SideChainPart sideChainPart) {
+        Condition.TerminalCondition facing = Condition.condition().term(BlockStateProperties.HORIZONTAL_FACING, direction);
+        if (isPowered == null) {
+            return facing;
+        } else {
+            Condition.TerminalCondition powered = Condition.condition().term(BlockStateProperties.POWERED, isPowered);
+            return sideChainPart != null ? Condition.and(facing, powered, Condition.condition().term(ModBlockStateProperties.SIDE_CHAIN_PART, sideChainPart)) : Condition.and(facing, powered);
+        }
     }
 }

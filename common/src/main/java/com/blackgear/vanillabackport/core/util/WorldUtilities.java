@@ -6,9 +6,11 @@ import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.util.SpawnUtil;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.SignalGetter;
@@ -20,6 +22,7 @@ import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
@@ -72,6 +75,33 @@ public class WorldUtilities {
             }
             
             return result;
+        }
+        
+        @Nullable
+        public static LivingEntity getNearestEntity(
+            Level level,
+            TagKey<EntityType<?>> tag,
+            TargetingConditions conditions,
+            @Nullable LivingEntity source,
+            double x,
+            double y,
+            double z,
+            AABB bb
+        ) {
+            double bestDistance = Double.MAX_VALUE;
+            LivingEntity nearestEntity = null;
+            
+            for (LivingEntity entity : level.getEntitiesOfClass(LivingEntity.class, bb, e -> e.getType().is(tag))) {
+                if (conditions.test(source, entity)) {
+                    double distance = entity.distanceToSqr(x, y, z);
+                    if (distance < bestDistance) {
+                        bestDistance = distance;
+                        nearestEntity = entity;
+                    }
+                }
+            }
+            
+            return nearestEntity;
         }
         
         public static void stopInPlace(PathfinderMob mob) {
