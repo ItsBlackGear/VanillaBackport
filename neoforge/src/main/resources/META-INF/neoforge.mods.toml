@@ -34,3 +34,6 @@ side = "BOTH"
 
 [[mixins]]
 config = "vanillabackport.mixins.json"
+
+["badoptimizations:cache_hooks"]
+common = "com.blackgear.vanillabackport.client.api.modules.end_flashes.BadOptimizationsCommonHook"
