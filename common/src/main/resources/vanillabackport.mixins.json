@@ -40,7 +40,8 @@
     "client.music_on_pause.SoundManagerMixin",
     "client.music_toast.MusicManagerMixin",
     "client.music_toast.ToastComponentMixin",
-    "client.music_toast.ToastInstanceMixin"
+    "client.music_toast.ToastInstanceMixin",
+    "client.tab_scrolling.CreativeModeInventoryScreenMixin"
   ],
   "mixins": [
     "common.access.AbstractMinecartAccessor",
