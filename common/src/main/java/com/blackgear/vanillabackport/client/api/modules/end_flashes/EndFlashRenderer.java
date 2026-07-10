@@ -21,14 +21,22 @@ import static com.mojang.blaze3d.platform.GlStateManager.*;
 public class EndFlashRenderer {
     private static final ResourceLocation END_FLASH_LOCATION = ResourceLocation.withDefaultNamespace("textures/environment/end_flash.png");
     private static final int END_SKY_COLOR = 0xFFCD60AC;
+    private static boolean endFlashNeedsUpdating = false;
+
+    public static boolean needsLightmapUpdate(){
+        return endFlashNeedsUpdating;
+    }
 
     public static void tick(Minecraft minecraft, ClientLevel level, EndFlashState state) {
+        endFlashNeedsUpdating = false;
         if (!VanillaBackport.CLIENT_CONFIG.endFlashSkyVisuals.get()) return;
         
         if (state == null) return;
 
         state.tick(level.getGameTime());
         
+        endFlashNeedsUpdating = state.isChangingIntensity();
+
         if (state.flashStartedThisTick() && !(minecraft.screen instanceof WinScreen)) {
             minecraft.getSoundManager().playDelayed(
                 new DirectionalSoundInstance(

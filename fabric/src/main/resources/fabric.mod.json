@@ -41,5 +41,10 @@
     "minecraft": "~1.21.1",
     "java": ">=21",
     "fabric-api": "*"
+  },
+  "custom": {
+    "badoptimizations:cache_hooks": {
+      "common": "com.blackgear.vanillabackport.client.api.modules.end_flashes.BadOptimizationsCommonHook"
+    }
   }
 }
