@@ -1,4 +1,4 @@
-package com.blackgear.vanillabackport.core.mixin.common.datafix;
+package com.blackgear.vanillabackport.core.mixin.common.leaf_litter;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -6,6 +6,7 @@ import net.minecraft.nbt.Tag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.ai.village.poi.PoiManager;
 import net.minecraft.world.level.ChunkPos;
+import net.minecraft.world.level.chunk.ChunkAccess;
 import net.minecraft.world.level.chunk.ProtoChunk;
 import net.minecraft.world.level.chunk.storage.ChunkSerializer;
 import net.minecraft.world.level.chunk.storage.RegionStorageInfo;
@@ -17,7 +18,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(ChunkSerializer.class)
 public class ChunkSerializerMixin {
     @Inject(method = "read", at = @At("HEAD"))
-    private static void vb$datafixProperties(ServerLevel level, PoiManager poiManager, RegionStorageInfo regionStorageInfo, ChunkPos pos, CompoundTag tag, CallbackInfoReturnable<ProtoChunk> cir) {
+    private static void vb$readLeafLitterPatch(ServerLevel level, PoiManager poiManager, RegionStorageInfo regionStorageInfo, ChunkPos pos, CompoundTag tag, CallbackInfoReturnable<ProtoChunk> cir) {
+        if (tag.contains("LeafLitterPatch")) return;
+        
         if (!tag.contains("sections")) return;
         
         ListTag sections = tag.getList("sections", Tag.TAG_COMPOUND);
@@ -41,5 +44,12 @@ public class ChunkSerializerMixin {
                 properties.putString("segment_amount", value);
             }
         }
+    }
+    
+    @Inject(method = "write", at = @At("RETURN"))
+    private static void vb$writeLeafLitterPatch(ServerLevel level, ChunkAccess chunk, CallbackInfoReturnable<CompoundTag> cir) {
+        CompoundTag tag = cir.getReturnValue();
+        if (tag != null)
+            tag.putBoolean("LeafLitterPatch", true);
     }
 }

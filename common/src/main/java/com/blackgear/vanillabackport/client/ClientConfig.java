@@ -8,6 +8,10 @@ public class ClientConfig {
     public final ConfigBuilder.ConfigValue<Double> fallingLeavesFrequency;
     public final ConfigBuilder.ConfigValue<Boolean> useLegacySpawnEggs;
     public final ConfigBuilder.ConfigValue<Boolean> useSheepWoolUndercoat;
+    
+    // Copper Age
+    public final ConfigBuilder.ConfigValue<Boolean> endFlashSkyVisuals;
+    public final ConfigBuilder.ConfigValue<Boolean> endFlashTerrainVisuals;
 
     public ClientConfig(ConfigBuilder builder) {
         builder.push("Spring to Life");
@@ -19,6 +23,13 @@ public class ClientConfig {
             .define("use_legacy_spawn_eggs", false);
         this.useSheepWoolUndercoat = builder.comment("toggle the colored sheep wool undercoat")
             .define("use_sheep_wool_undercoat", true);
+        builder.pop();
+        
+        builder.push("Copper Age");
+        this.endFlashSkyVisuals = builder.comment("toggle the end flash sky visuals")
+            .define("end_flash_sky_visuals", true);
+        this.endFlashTerrainVisuals = builder.comment("toggle the end flash terrain visuals")
+            .define("end_flash_terrain_visuals", true);
         builder.pop();
     }
 }
