@@ -19,7 +19,7 @@ public class CreativeModeInventoryScreenMixin {
         CreativeModeInventoryScreen screen = (CreativeModeInventoryScreen) (Object) this;
         if (CreativeModeInventoryScreenAccessor.getSelectedTab() != ModCreativeTabs.VANILLA_BACKPORT.get()) return;
 
-        if (mouseX >= screen.leftPos - 30 && mouseY >= screen.topPos + 2 && mouseX <= screen.leftPos + 30 && mouseY <= screen.topPos + 120) {
+        if (mouseX >= screen.leftPos - 30 && mouseY >= screen.topPos + 2 && mouseX <= screen.leftPos && mouseY <= screen.topPos + 122) {
             cir.setReturnValue(false);
         }
     }
