@@ -44,4 +44,13 @@ public enum WeatheredState implements StringRepresentable {
             case OXIDIZED -> WeatherState.OXIDIZED;
         };
     }
+    
+    public static WeatheredState parse(WeatherState state) {
+        return switch (state) {
+            case UNAFFECTED -> UNAFFECTED;
+            case EXPOSED -> EXPOSED;
+            case WEATHERED -> WEATHERED;
+            case OXIDIZED -> OXIDIZED;
+        };
+    }
 }

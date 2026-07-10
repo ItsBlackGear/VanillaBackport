@@ -279,6 +279,9 @@ public class ModSoundEvents {
     public static final Supplier<SoundEvent> COPPER_GOLEM_SPAWN = REGISTRIES.soundEvent("entity.copper_golem.spawn");
     public static final Supplier<SoundEvent> COPPER_GOLEM_SHEAR = REGISTRIES.soundEvent("entity.copper_golem.shear");
     
+    // WEATHER
+    public static final Supplier<SoundEvent> WEATHER_END_FLASH = REGISTRIES.register("weather.end_flash");
+    
     // BACKGROUND MUSIC
     public static final Supplier<SoundEvent> MUSIC_BIOME_SULFUR_CAVES = REGISTRIES.soundEvent("music.overworld.sulfur_caves");
 

@@ -7,7 +7,7 @@ import net.minecraft.world.entity.npc.VillagerTrades;
 
 public class TradeIntegrations {
     public static void bootstrap(TradeIntegration.Event event) {
-        if (VanillaBackport.COMMON_CONFIG.hasPaleTrades.get()) {
+        if (VanillaBackport.COMMON_CONFIG.doMerchantTradeTheGardenAwakensContents.get()) {
             event.registerWandererTrade(
                 true,
                 new VillagerTrades.ItemsForEmeralds(ModBlocks.PALE_OAK_LOG.get(), 1, 8, 4, 1)
@@ -21,7 +21,7 @@ public class TradeIntegrations {
             );
         }
         
-        if (VanillaBackport.COMMON_CONFIG.hasSpringTrades.get()) {
+        if (VanillaBackport.COMMON_CONFIG.doMerchantTradeSpringToLifeContents.get()) {
             event.registerWandererTrade(
                 false,
                 new VillagerTrades.ItemsForEmeralds(ModBlocks.WILDFLOWERS.get(), 1, 1, 12, 1),

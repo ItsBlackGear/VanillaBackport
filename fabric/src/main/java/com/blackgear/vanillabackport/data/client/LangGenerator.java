@@ -325,6 +325,7 @@ public class LangGenerator extends FabricLanguageProvider {
         
         builder.add("subtitles.block.copper_chest.close", "Chest closes");
         builder.add("subtitles.block.copper_chest.open", "Chest opens");
+        builder.add("subtitles.weather.end_flash", "End Flash rumbles");
         
         // Chaos Cubed
 
