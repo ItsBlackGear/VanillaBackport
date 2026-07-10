@@ -44,7 +44,8 @@ public class CommonConfig {
     
     // Copper Age
     public final ConfigBuilder.ConfigValue<Boolean> hasCopperHorseArmorLoot;
-    
+    public final ConfigBuilder.ConfigValue<Boolean> hasCopperGolems;
+
     // Chaos Cubed
     public final ConfigBuilder.ConfigValue<Boolean> hasSulfurCaves;
     public final ConfigBuilder.ConfigValue<Boolean> hasSulfurSprings;
@@ -131,6 +132,7 @@ public class CommonConfig {
         
         builder.push("Copper Age");
         this.hasCopperHorseArmorLoot = builder.comment("allow Copper Horse Armor to generate on chests").define("has_copper_horse_armor_loot", true);
+        this.hasCopperGolems = builder.comment("allow Copper Golems to be built from Carved Pumpkins").define("has_copper_golems", true);
         builder.pop();
 
         builder.push("Chaos Cubed");
