@@ -56,6 +56,9 @@ dependencies {
     modCompileOnly("curse.maven:jei-238222:7253590")
     modCompileOnly("curse.maven:just-enough-resources-jer-240630:5057220")
 
+    modCompileOnly "maven.modrinth:moonlight:1.20-2.16.34-forge"
+    modCompileOnly "maven.modrinth:every-compat:1.20-2.9.24-forge"
+
     modCompileOnly "maven.modrinth:terrablender:3.0.1.10-forge"
 
     common(project(path: ':common', configuration: 'namedElements')) { transitive false }

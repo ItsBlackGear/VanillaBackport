@@ -32,3 +32,6 @@ license = "MIT"
     versionRange = "[1.3.4,)"
     ordering = "NONE"
     side = "BOTH"
+
+["badoptimizations:cache_hooks"]
+    common = "com.blackgear.vanillabackport.client.api.modules.end_flashes.BadOptimizationsCommonHook"

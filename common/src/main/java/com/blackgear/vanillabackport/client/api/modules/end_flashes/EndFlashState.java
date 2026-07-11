@@ -59,6 +59,10 @@ public class EndFlashState {
         return Mth.lerp(partialTicks, this.oldIntensity, this.intensity);
     }
     
+    public boolean isChangingIntensity() {
+        return this.oldIntensity != this.intensity;
+    }
+    
     public boolean flashStartedThisTick() {
         return this.intensity > 0.0F && this.oldIntensity <= 0.0F;
     }

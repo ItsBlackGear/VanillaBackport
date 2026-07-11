@@ -21,13 +21,21 @@ import org.joml.Matrix4f;
 public class EndFlashRenderer {
     private static final ResourceLocation END_FLASH_LOCATION = new ResourceLocation("textures/environment/end_flash.png");
     private static final int END_SKY_COLOR = 0xFFCD60AC;
+    private static boolean endFlashNeedsUpdating = false;
+    
+    public static boolean needsLightmapUpdate() {
+        return endFlashNeedsUpdating;
+    }
 
     public static void tick(Minecraft minecraft, ClientLevel level, EndFlashState state) {
-        if (!VanillaBackport.CLIENT_CONFIG.endFlashSkyVisuals.get()) return;
+        endFlashNeedsUpdating = false;
         
+        if (!VanillaBackport.CLIENT_CONFIG.endFlashSkyVisuals.get()) return;
         if (state == null) return;
 
         state.tick(level.getGameTime());
+        
+        endFlashNeedsUpdating = state.isChangingIntensity();
         
         if (state.flashStartedThisTick() && !(minecraft.screen instanceof WinScreen)) {
             minecraft.getSoundManager().playDelayed(
@@ -38,7 +46,7 @@ public class EndFlashRenderer {
                     minecraft.gameRenderer.getMainCamera(),
                     state.getXAngle(),
                     state.getYAngle()
-                ), 30
+                ), EndFlashState.SOUND_DELAY_IN_TICKS
             );
         }
     }

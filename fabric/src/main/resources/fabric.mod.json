@@ -45,5 +45,10 @@
   },
   "breaks": {
     "everycomp": "<1.20-2.8.14"
+  },
+  "custom": {
+    "badoptimizations:cache_hooks": {
+      "common": "com.blackgear.vanillabackport.client.api.modules.end_flashes.BadOptimizationsCommonHook"
+    }
   }
 }

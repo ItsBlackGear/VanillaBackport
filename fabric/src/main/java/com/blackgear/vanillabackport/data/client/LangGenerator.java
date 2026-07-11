@@ -327,6 +327,8 @@ public class LangGenerator extends FabricLanguageProvider {
         builder.add("subtitles.block.copper_chest.open", "Chest opens");
         builder.add("subtitles.weather.end_flash", "End Flash rumbles");
         
+        builder.add("block_type.vanillabackport.shelf", "%s Shelf");
+        
         // Chaos Cubed
 
         builder.add("biome.minecraft.sulfur_caves", "Sulfur Caves");
