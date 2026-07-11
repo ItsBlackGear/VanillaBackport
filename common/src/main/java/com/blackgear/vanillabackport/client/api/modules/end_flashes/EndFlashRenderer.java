@@ -23,14 +23,14 @@ public class EndFlashRenderer {
     private static final int END_SKY_COLOR = 0xFFCD60AC;
     private static boolean endFlashNeedsUpdating = false;
 
-    public static boolean needsLightmapUpdate(){
+    public static boolean needsLightmapUpdate() {
         return endFlashNeedsUpdating;
     }
 
     public static void tick(Minecraft minecraft, ClientLevel level, EndFlashState state) {
         endFlashNeedsUpdating = false;
-        if (!VanillaBackport.CLIENT_CONFIG.endFlashSkyVisuals.get()) return;
         
+        if (!VanillaBackport.CLIENT_CONFIG.endFlashSkyVisuals.get()) return;
         if (state == null) return;
 
         state.tick(level.getGameTime());

@@ -14,6 +14,7 @@ import com.blackgear.vanillabackport.client.registries.ModSoundTypes;
 import com.blackgear.vanillabackport.common.CommonConfig;
 import com.blackgear.vanillabackport.common.CommonSetup;
 import com.blackgear.vanillabackport.common.api.modules.mob_variant.spawn.SpawnConditions;
+import com.blackgear.vanillabackport.common.integrations.compat.everycompat.EveryCompatHandler;
 import com.blackgear.vanillabackport.common.registries.*;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlockEntities;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
@@ -98,6 +99,8 @@ public final class VanillaBackport {
             ServerboundSelectBundleItemPacket.STREAM_CODEC,
             ServerboundSelectBundleItemPacket::handler
         ));
+        
+        if (ModChecker.EVERY_COMPAT) EveryCompatHandler.bootstrap();
     }
 
     public static ResourceLocation resource(String path) {

@@ -16,6 +16,8 @@ loom {
             runDir "build/datagen"
         }
     }
+
+    loom.mixin.useLegacyMixinAp = true
 }
 
 sourceSets.main.resources.srcDirs += project(":common").file("src/main/generated")
@@ -54,6 +56,8 @@ dependencies {
     modCompileOnly "curse.maven:jei-238222:7270453"
     modCompileOnly "curse.maven:just-enough-resources-jer-240630:6506299"
 
+    modCompileOnly "maven.modrinth:moonlight:1.21-2.29.2-fabric"
+    modCompileOnly "maven.modrinth:every-compat:1.21-2.11.25-fabric"
     modCompileOnly("com.github.glitchfiend:TerraBlender-fabric:$rootProject.terrablender_version")
 
     include(implementation(annotationProcessor("com.github.bawnorton.mixinsquared:mixinsquared-fabric:${mixin_squared_version}")))

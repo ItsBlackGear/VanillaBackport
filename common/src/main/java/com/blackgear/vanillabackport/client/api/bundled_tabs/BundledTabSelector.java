@@ -53,7 +53,7 @@ public class BundledTabSelector {
         HudRendering.POST_INITIALIZE.register(this::init);
         HudRendering.RENDER_BACKGROUND.register(this::renderBackground);
         HudRendering.CLOSE_CONTAINER.register(this::onClose);
-        HudInteractions.SCROLLING_POST.register(this::onScroll);
+        HudInteractions.SCROLLING_PRE.register(this::onScroll);
     }
 
     private CancellableResult onScroll(Minecraft client, Screen screen, double mouseX, double mouseY, double scrollX, double scrollY) {
@@ -67,7 +67,9 @@ public class BundledTabSelector {
                     if (this.scroll < this.getMaxScroll()) this.scroll++;
                 }
             }
+            
             this.updateWidgets();
+            return CancellableResult.CANCEL;
         }
 
         return CancellableResult.PASS;

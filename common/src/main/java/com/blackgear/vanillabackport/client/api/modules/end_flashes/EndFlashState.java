@@ -60,7 +60,7 @@ public class EndFlashState {
     }
     
     public boolean isChangingIntensity() {
-        return (this.oldIntensity!=this.intensity);
+        return this.oldIntensity != this.intensity;
     }
 
     public boolean flashStartedThisTick() {

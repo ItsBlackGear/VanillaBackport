@@ -1,39 +1,39 @@
 modLoader = "javafml"
 loaderVersion = "[4,)"
-#issueTrackerURL = ""
-license = "Insert License Here"
+issueTrackerURL = "https://github.com/ItsBlackGear/VanillaBackport/issues"
+license = "MIT"
 
 [[mods]]
 modId = "vanillabackport"
-version = "${version}"
-displayName = "VanillaBackport"
-authors = "BlackGear"
-description = "Backporting Minecraft Features to previous versions!"
-logoFile = "icon.png"
+    version = "${version}"
+    displayName = "VanillaBackport"
+    authors = "BlackGear"
+    description = "Backporting Minecraft Features to previous versions!"
+    logoFile = "icon.png"
 
 [[dependencies.vanillabackport]]
-modId = "neoforge"
-type = "required"
-versionRange = "[21.1,)"
-ordering = "NONE"
-side = "BOTH"
+    modId = "neoforge"
+    type = "required"
+    versionRange = "[21.1,)"
+    ordering = "NONE"
+    side = "BOTH"
 
 [[dependencies.vanillabackport]]
-modId = "minecraft"
-type = "required"
-versionRange = "[1.21.1,)"
-ordering = "NONE"
-side = "BOTH"
+    modId = "minecraft"
+    type = "required"
+    versionRange = "[1.21.1,)"
+    ordering = "NONE"
+    side = "BOTH"
 
 [[dependencies.vanillabackport]]
-modId = "platform"
-type = "required"
-versionRange = "[1.3.3,)"
-ordering = "NONE"
-side = "BOTH"
+    modId = "platform"
+    type = "required"
+    versionRange = "[1.3.3,)"
+    ordering = "NONE"
+    side = "BOTH"
 
 [[mixins]]
-config = "vanillabackport.mixins.json"
+    config = "vanillabackport.mixins.json"
 
 ["badoptimizations:cache_hooks"]
-common = "com.blackgear.vanillabackport.client.api.modules.end_flashes.BadOptimizationsCommonHook"
+    common = "com.blackgear.vanillabackport.client.api.modules.end_flashes.BadOptimizationsCommonHook"
