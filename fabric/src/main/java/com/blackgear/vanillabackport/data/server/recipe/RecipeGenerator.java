@@ -287,7 +287,7 @@ public class RecipeGenerator extends VanillaRecipeProvider {
                     ModItems.COPPER_AXE.get(),
                     ModItems.COPPER_HOE.get(),
                     ModItems.COPPER_SWORD.get(),
-//                    ModItems.COPPER_SPEAR.get(),
+                    ModItems.COPPER_SPEAR.get(),
                     ModItems.COPPER_HELMET.get(),
                     ModItems.COPPER_CHESTPLATE.get(),
                     ModItems.COPPER_LEGGINGS.get(),
@@ -304,6 +304,7 @@ public class RecipeGenerator extends VanillaRecipeProvider {
             .unlockedBy("has_copper_axe", has(ModItems.COPPER_AXE.get()))
             .unlockedBy("has_copper_hoe", has(ModItems.COPPER_HOE.get()))
             .unlockedBy("has_copper_sword", has(ModItems.COPPER_SWORD.get()))
+            .unlockedBy("has_copper_spear", has(ModItems.COPPER_SPEAR.get()))
             .unlockedBy("has_copper_helmet", has(ModItems.COPPER_HELMET.get()))
             .unlockedBy("has_copper_chestplate", has(ModItems.COPPER_CHESTPLATE.get()))
             .unlockedBy("has_copper_leggings", has(ModItems.COPPER_LEGGINGS.get()))
@@ -318,7 +319,7 @@ public class RecipeGenerator extends VanillaRecipeProvider {
                     ModItems.COPPER_AXE.get(),
                     ModItems.COPPER_HOE.get(),
                     ModItems.COPPER_SWORD.get(),
-//                    ModItems.COPPER_SPEAR.get(),
+                    ModItems.COPPER_SPEAR.get(),
                     ModItems.COPPER_HELMET.get(),
                     ModItems.COPPER_CHESTPLATE.get(),
                     ModItems.COPPER_LEGGINGS.get(),
@@ -335,6 +336,7 @@ public class RecipeGenerator extends VanillaRecipeProvider {
             .unlockedBy("has_copper_axe", has(ModItems.COPPER_AXE.get()))
             .unlockedBy("has_copper_hoe", has(ModItems.COPPER_HOE.get()))
             .unlockedBy("has_copper_sword", has(ModItems.COPPER_SWORD.get()))
+            .unlockedBy("has_copper_spear", has(ModItems.COPPER_SPEAR.get()))
             .unlockedBy("has_copper_helmet", has(ModItems.COPPER_HELMET.get()))
             .unlockedBy("has_copper_chestplate", has(ModItems.COPPER_CHESTPLATE.get()))
             .unlockedBy("has_copper_leggings", has(ModItems.COPPER_LEGGINGS.get()))
@@ -375,6 +377,97 @@ public class RecipeGenerator extends VanillaRecipeProvider {
             .unlockedBy("has_copper_nugget", has(ModItems.COPPER_NUGGET.get()))
             .unlockedBy("has_copper_ingot", has(Items.COPPER_INGOT))
             .save(exporter);
+        
+        // Mounts of Mayhem
+        
+        shaped(RecipeCategory.COMBAT, ModItems.WOODEN_SPEAR.get())
+            .define('#', Items.STICK)
+            .define('X', ItemTags.PLANKS)
+            .pattern("  X")
+            .pattern(" # ")
+            .pattern("#  ")
+            .unlockedBy("has_stick", has(Items.STICK))
+            .save(exporter);
+        shaped(RecipeCategory.COMBAT, ModItems.STONE_SPEAR.get())
+            .define('#', Items.STICK)
+            .define('X', ItemTags.STONE_TOOL_MATERIALS)
+            .pattern("  X")
+            .pattern(" # ")
+            .pattern("#  ")
+            .unlockedBy("has_cobblestone", has(ItemTags.STONE_TOOL_MATERIALS))
+            .save(exporter);
+        shaped(RecipeCategory.COMBAT, ModItems.COPPER_SPEAR.get())
+            .define('#', Items.STICK)
+            .define('X', Items.COPPER_INGOT)
+            .pattern("  X")
+            .pattern(" # ")
+            .pattern("#  ")
+            .unlockedBy("has_copper_ingot", has(Items.COPPER_INGOT))
+            .save(exporter);
+        shaped(RecipeCategory.COMBAT, ModItems.IRON_SPEAR.get())
+            .define('#', Items.STICK)
+            .define('X', Items.IRON_INGOT)
+            .pattern("  X")
+            .pattern(" # ")
+            .pattern("#  ")
+            .unlockedBy("has_iron_ingot", has(Items.IRON_INGOT))
+            .save(exporter);
+        shaped(RecipeCategory.COMBAT, ModItems.GOLDEN_SPEAR.get())
+            .define('#', Items.STICK)
+            .define('X', Items.GOLD_INGOT)
+            .pattern("  X")
+            .pattern(" # ")
+            .pattern("#  ")
+            .unlockedBy("has_gold_ingot", has(Items.GOLD_INGOT))
+            .save(exporter);
+        shaped(RecipeCategory.COMBAT, ModItems.DIAMOND_SPEAR.get())
+            .define('#', Items.STICK)
+            .define('X', Items.DIAMOND)
+            .pattern("  X")
+            .pattern(" # ")
+            .pattern("#  ")
+            .unlockedBy("has_diamond", has(Items.DIAMOND))
+            .save(exporter);
+        
+        SimpleCookingRecipeBuilder.smelting(
+                Ingredient.of(ModItems.GOLDEN_SPEAR.get()),
+                RecipeCategory.MISC,
+                Items.GOLD_NUGGET,
+                0.1F,
+                200
+            )
+            .unlockedBy("has_golden_spear", has(ModItems.GOLDEN_SPEAR.get()))
+            .save(exporter, getSmeltingRecipeName(Items.GOLD_NUGGET));
+        SimpleCookingRecipeBuilder.smelting(
+                Ingredient.of(ModItems.IRON_SPEAR.get()),
+                RecipeCategory.MISC,
+                Items.IRON_NUGGET,
+                0.1F,
+                200
+            )
+            .unlockedBy("has_iron_spear", has(ModItems.IRON_SPEAR.get()))
+            .save(exporter, getSmeltingRecipeName(Items.IRON_NUGGET));
+        SimpleCookingRecipeBuilder.blasting(
+                Ingredient.of(ModItems.GOLDEN_SPEAR.get()),
+                RecipeCategory.MISC,
+                Items.GOLD_NUGGET,
+                0.1F,
+                100
+            )
+            .unlockedBy("has_golden_spear", has(ModItems.GOLDEN_SPEAR.get()))
+            .save(exporter, getBlastingRecipeName(Items.GOLD_NUGGET));
+        SimpleCookingRecipeBuilder.blasting(
+                Ingredient.of(ModItems.IRON_SPEAR.get()),
+                RecipeCategory.MISC,
+                Items.IRON_NUGGET,
+                0.1F,
+                100
+            )
+            .unlockedBy("has_iron_spear", has(ModItems.IRON_SPEAR.get()))
+            .save(exporter, getBlastingRecipeName(Items.IRON_NUGGET));
+        
+        netheriteSmithing(exporter, ModItems.DIAMOND_SPEAR.get(), RecipeCategory.COMBAT, ModItems.NETHERITE_SPEAR.get());
+        netheriteSmithing(exporter, Items.DIAMOND_HORSE_ARMOR, RecipeCategory.COMBAT, ModItems.NETHERITE_HORSE_ARMOR.get());
     }
 
     public static ShapedRecipeBuilder shaped(RecipeCategory category, ItemLike entry) {

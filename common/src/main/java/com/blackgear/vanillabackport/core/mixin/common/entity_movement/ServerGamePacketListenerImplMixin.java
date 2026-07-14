@@ -21,7 +21,52 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class ServerGamePacketListenerImplMixin {
     @Shadow public ServerPlayer player;
     @Shadow @Nullable private Entity lastVehicle;
-
+    
+    @Unique private double vb$playerStartX;
+    @Unique private double vb$playerStartY;
+    @Unique private double vb$playerStartZ;
+    
+    @Unique private double vb$vehicleStartX;
+    @Unique private double vb$vehicleStartY;
+    @Unique private double vb$vehicleStartZ;
+    
+    @Inject(method = "handleMovePlayer", at = @At("HEAD"))
+    private void vb$capturePlayerStartPos(ServerboundMovePlayerPacket packet, CallbackInfo ci) {
+        if (this.player != null) {
+            this.vb$playerStartX = this.player.getX();
+            this.vb$playerStartY = this.player.getY();
+            this.vb$playerStartZ = this.player.getZ();
+        }
+    }
+    
+    @Inject(
+        method = "handleMovePlayer",
+        at = @At(
+            value = "INVOKE",
+            target = "Lnet/minecraft/server/level/ServerPlayer;setOnGroundWithKnownMovement(ZLnet/minecraft/world/phys/Vec3;)V"
+        )
+    )
+    private void vb$handleMovePlayer(ServerboundMovePlayerPacket packet, CallbackInfo ci) {
+        Vec3 clientDeltaMovement = new Vec3(
+            this.player.getX() - this.vb$playerStartX,
+            this.player.getY() - this.vb$playerStartY,
+            this.player.getZ() - this.vb$playerStartZ
+        );
+        this.handlePlayerKnownMovement(clientDeltaMovement);
+    }
+    
+    @Inject(method = "handleMoveVehicle", at = @At("HEAD"))
+    private void vb$captureVehicleStartPos(ServerboundMoveVehiclePacket packet, CallbackInfo ci) {
+        if (this.player != null) {
+            Entity vehicle = this.player.getRootVehicle();
+            if (vehicle != null) {
+                this.vb$vehicleStartX = vehicle.getX();
+                this.vb$vehicleStartY = vehicle.getY();
+                this.vb$vehicleStartZ = vehicle.getZ();
+            }
+        }
+    }
+    
     @Inject(
         method = "handleMoveVehicle",
         at = @At(
@@ -32,35 +77,21 @@ public abstract class ServerGamePacketListenerImplMixin {
     private void vb$handleMoveVehicle(ServerboundMoveVehiclePacket packet, CallbackInfo ci) {
         Entity vehicle = this.player.getRootVehicle();
         if (vehicle != this.player && vehicle.getControllingPassenger() == this.player && vehicle == this.lastVehicle) {
-            double oldX = vehicle.getX();
-            double oldY = vehicle.getY();
-            double oldZ = vehicle.getZ();
-            Vec3 clientDeltaMovement = new Vec3(vehicle.getX() - oldX, vehicle.getY() - oldY, vehicle.getZ() - oldZ);
+            Vec3 clientDeltaMovement = new Vec3(
+                vehicle.getX() - this.vb$vehicleStartX,
+                vehicle.getY() - this.vb$vehicleStartY,
+                vehicle.getZ() - this.vb$vehicleStartZ
+            );
             this.handlePlayerKnownMovement(clientDeltaMovement);
         }
     }
-
-    @Inject(
-        method = "handleMovePlayer",
-        at = @At(
-            value = "INVOKE",
-            target = "Lnet/minecraft/server/level/ServerPlayer;setOnGroundWithKnownMovement(ZLnet/minecraft/world/phys/Vec3;)V"
-        )
-    )
-    private void vb$handleMovePlayer(ServerboundMovePlayerPacket packet, CallbackInfo ci) {
-        double startX = this.player.getX();
-        double startY = this.player.getY();
-        double startZ = this.player.getZ();
-        Vec3 clientDeltaMovement = new Vec3(this.player.getX() - startX, this.player.getY() - startY, this.player.getZ() - startZ);
-        this.handlePlayerKnownMovement(clientDeltaMovement);
-    }
-
+    
     @Unique
     private void handlePlayerKnownMovement(Vec3 movement) {
         if (movement.lengthSqr() > Mth.EPSILON) {
             this.player.resetLastActionTime();
         }
-
+        
         ((MotionAwareEntity) this.player).setKnownMovement(movement);
         ServerboundClientTickEndPacket.HANDLER.receivedMovementThisTick = true;
     }

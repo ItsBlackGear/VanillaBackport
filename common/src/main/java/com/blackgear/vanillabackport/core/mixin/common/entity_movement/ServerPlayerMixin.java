@@ -22,13 +22,17 @@ public abstract class ServerPlayerMixin extends Player implements MotionAwareEnt
     @Override
     public Vec3 getKnownMovement() {
         Entity vehicle = this.getVehicle();
-        return vehicle != null && vehicle.getControllingPassenger() != this ? ((MotionAwareEntity) vehicle).getKnownMovement() : this.lastKnownClientMovement;
+        return vehicle != null && vehicle.getControllingPassenger() != this
+            ? ((MotionAwareEntity) vehicle).getKnownMovement()
+            : this.lastKnownClientMovement;
     }
 
     @Override
     public Vec3 getKnownSpeed() {
         Entity vehicle = this.getVehicle();
-        return vehicle != null && vehicle.getControllingPassenger() != this ? ((MotionAwareEntity) vehicle).getKnownSpeed() : this.lastKnownClientMovement;
+        return vehicle != null && vehicle.getControllingPassenger() != this
+            ? ((MotionAwareEntity) vehicle).getKnownSpeed()
+            : this.lastKnownClientMovement;
     }
 
     @Override

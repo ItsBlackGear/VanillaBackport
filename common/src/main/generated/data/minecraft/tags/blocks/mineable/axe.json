@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "minecraft:creaking_heart"
+    "minecraft:creaking_heart",
+    "#minecraft:wooden_shelves"
   ]
 }

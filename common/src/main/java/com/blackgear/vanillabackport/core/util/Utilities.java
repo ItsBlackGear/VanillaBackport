@@ -56,6 +56,21 @@ public class Utilities {
         public static byte packDegrees(float angle) {
             return (byte) Mth.floor(angle * 256.0F / 360.0F);
         }
+        
+        public static float clamp(float value, float min, float max) {
+            if (!(min < max)) {
+                if (Float.isNaN(min)) {
+                    throw new IllegalArgumentException("min is NaN");
+                }
+                if (Float.isNaN(max)) {
+                    throw new IllegalArgumentException("max is NaN");
+                }
+                if (Float.compare(min, max) > 0) {
+                    throw new IllegalArgumentException(min + " > " + max);
+                }
+            }
+            return Math.min(max, Math.max(value, min));
+        }
     }
     
     public static class VectorUtils {
@@ -100,6 +115,29 @@ public class Utilities {
         
         public static Direction[] getDirections(Direction.Axis axis) {
             return new Direction[]{getPositive(axis), getNegative(axis)};
+        }
+        
+        public static Direction getApproximateNearest(double dx, double dy, double dz) {
+            return getApproximateNearest((float) dx, (float) dy, (float) dz);
+        }
+        
+        public static Direction getApproximateNearest(float dx, float dy, float dz) {
+            Direction result = Direction.NORTH;
+            float highestDot = Float.MIN_VALUE;
+            
+            for (Direction direction : Direction.values()) {
+                float dot = dx * direction.getNormal().getX() + dy * direction.getNormal().getY() + dz * direction.getNormal().getZ();
+                if (dot > highestDot) {
+                    highestDot = dot;
+                    result = direction;
+                }
+            }
+            
+            return result;
+        }
+        
+        public static Direction getApproximateNearest(Vec3 vec) {
+            return getApproximateNearest(vec.x, vec.y, vec.z);
         }
     }
     

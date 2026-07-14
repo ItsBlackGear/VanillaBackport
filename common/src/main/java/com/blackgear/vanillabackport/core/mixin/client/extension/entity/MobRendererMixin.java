@@ -1,4 +1,4 @@
-package com.blackgear.vanillabackport.core.mixin.client.extension;
+package com.blackgear.vanillabackport.core.mixin.client.extension.entity;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.EntityModel;

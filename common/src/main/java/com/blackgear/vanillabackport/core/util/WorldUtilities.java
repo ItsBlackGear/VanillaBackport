@@ -12,11 +12,13 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.util.SpawnUtil;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.PanicGoal;
 import net.minecraft.world.entity.ai.goal.WrappedGoal;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.SignalGetter;
 import net.minecraft.world.level.biome.Biome;
@@ -76,6 +78,10 @@ public class WorldUtilities {
                 
                 return false;
             }
+        }
+        
+        public static float getKnockback(LivingEntity entity) {
+            return EnchantmentHelper.getKnockbackBonus(entity) + (entity.getAttributes().hasAttribute(Attributes.ATTACK_KNOCKBACK) ? (float) entity.getAttributeValue(Attributes.ATTACK_KNOCKBACK) : 0.0F);
         }
         
         public static boolean isInLiquid(Entity mob) {

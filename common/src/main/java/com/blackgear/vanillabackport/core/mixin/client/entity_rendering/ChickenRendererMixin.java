@@ -3,7 +3,7 @@ package com.blackgear.vanillabackport.core.mixin.client.entity_rendering;
 import com.blackgear.vanillabackport.client.api.modules.mob_variants.SpecialMobRenderer;
 import com.blackgear.vanillabackport.client.api.modules.mob_variants.ChickenVariantRenderer;
 import com.blackgear.vanillabackport.client.api.modules.mob_variants.RenderConditions;
-import com.blackgear.vanillabackport.core.mixin.client.extension.MobRendererMixin;
+import com.blackgear.vanillabackport.core.mixin.client.extension.entity.MobRendererMixin;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.ChickenModel;
 import net.minecraft.client.renderer.MultiBufferSource;

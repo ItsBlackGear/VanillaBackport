@@ -125,6 +125,20 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
             .add(ModItems.COPPER_CHESTPLATE.get())
             .add(ModItems.COPPER_LEGGINGS.get())
             .add(ModItems.COPPER_BOOTS.get());
+        
+        this.getOrCreateTagBuilder(ModItemTags.SHEARABLE_FROM_COPPER_GOLEM)
+            .add(Items.POPPY);
+        
+        this.getOrCreateTagBuilder(ModItemTags.SPEARS)
+            .add(
+                ModItems.WOODEN_SPEAR.get(),
+                ModItems.STONE_SPEAR.get(),
+                ModItems.COPPER_SPEAR.get(),
+                ModItems.IRON_SPEAR.get(),
+                ModItems.GOLDEN_SPEAR.get(),
+                ModItems.DIAMOND_SPEAR.get(),
+                ModItems.NETHERITE_SPEAR.get()
+            );
     }
 
     private void handleArchetypes() {
@@ -453,7 +467,8 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
             .add(ModBlocks.STRIPPED_PALE_OAK_LOG.get().asItem());
         
         this.getDualTagBuilder(FabricItemTags.HORSE_ARMOR, ForgeItemTags.HORSE_ARMOR)
-            .add(ModItems.COPPER_HORSE_ARMOR.get());
+            .add(ModItems.COPPER_HORSE_ARMOR.get())
+            .add(ModItems.NETHERITE_HORSE_ARMOR.get());
     }
 
     protected DualTagHolder getDualTagBuilder(TagKey<Item> forge, TagKey<Item> fabric) {

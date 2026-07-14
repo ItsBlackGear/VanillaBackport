@@ -3,7 +3,7 @@ package com.blackgear.vanillabackport.core.mixin.client.entity_rendering;
 import com.blackgear.vanillabackport.client.api.modules.mob_variants.SpecialMobRenderer;
 import com.blackgear.vanillabackport.client.api.modules.mob_variants.RenderConditions;
 import com.blackgear.vanillabackport.client.level.layer.SheepWoolUndercoatLayer;
-import com.blackgear.vanillabackport.core.mixin.client.extension.MobRendererMixin;
+import com.blackgear.vanillabackport.core.mixin.client.extension.entity.MobRendererMixin;
 import net.minecraft.client.model.SheepModel;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.SheepRenderer;
