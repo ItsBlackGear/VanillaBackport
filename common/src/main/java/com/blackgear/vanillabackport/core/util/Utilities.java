@@ -108,6 +108,29 @@ public class Utilities {
         public static Direction[] getDirections(Direction.Axis axis) {
             return new Direction[]{getPositive(axis), getNegative(axis)};
         }
+        
+        public static Direction getApproximateNearest(double dx, double dy, double dz) {
+            return getApproximateNearest((float) dx, (float) dy, (float) dz);
+        }
+        
+        public static Direction getApproximateNearest(float dx, float dy, float dz) {
+            Direction result = Direction.NORTH;
+            float highestDot = Float.MIN_VALUE;
+            
+            for (Direction direction : Direction.values()) {
+                float dot = dx * direction.getNormal().getX() + dy * direction.getNormal().getY() + dz * direction.getNormal().getZ();
+                if (dot > highestDot) {
+                    highestDot = dot;
+                    result = direction;
+                }
+            }
+            
+            return result;
+        }
+        
+        public static Direction getApproximateNearest(Vec3 vec) {
+            return getApproximateNearest(vec.x, vec.y, vec.z);
+        }
     }
     
     public static class PositionUtils {

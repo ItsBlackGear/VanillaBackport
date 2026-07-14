@@ -18,7 +18,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.BlockItemStateProperties;
 
 @Environment(EnvType.CLIENT)
-public class CopperGolemStatueItemRenderer implements BuiltinItemRendererRegistry.DynamicItemRenderer {
+public class CopperGolemStatueItemRenderer implements BuiltinItemRendererRegistry.Renderer {
     private final CopperGolemStatueBlockEntity statue;
     
     public CopperGolemStatueItemRenderer(CopperGolemStatueBlock statue) {

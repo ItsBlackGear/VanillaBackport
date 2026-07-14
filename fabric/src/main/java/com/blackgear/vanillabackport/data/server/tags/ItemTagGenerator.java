@@ -444,9 +444,36 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
 
         this.getOrCreateTagBuilder(CreateItemTags.MODDED_STRIPPED_LOGS)
             .add(ModBlocks.STRIPPED_PALE_OAK_LOG.get().asItem());
-
+        
+        this.getOrCreateTagBuilder(ModItemTags.SHEARABLE_FROM_COPPER_GOLEM)
+            .add(Items.POPPY);
+        
         this.getOrCreateTagBuilder(ConventionalItemTags.HORSE_ARMOR)
-            .add(ModItems.COPPER_HORSE_ARMOR.get());
+            .add(ModItems.COPPER_HORSE_ARMOR.get())
+            .add(ModItems.NETHERITE_HORSE_ARMOR.get());
+        
+        this.getOrCreateTagBuilder(ModItemTags.SPEARS)
+            .add(
+                ModItems.WOODEN_SPEAR.get(),
+                ModItems.STONE_SPEAR.get(),
+                ModItems.COPPER_SPEAR.get(),
+                ModItems.IRON_SPEAR.get(),
+                ModItems.GOLDEN_SPEAR.get(),
+                ModItems.DIAMOND_SPEAR.get(),
+                ModItems.NETHERITE_SPEAR.get()
+            );
+        
+        this.getOrCreateTagBuilder(ItemTags.DURABILITY_ENCHANTABLE)
+            .addTag(ModItemTags.SPEARS);
+        
+        this.getOrCreateTagBuilder(ItemTags.SWORD_ENCHANTABLE)
+            .addTag(ModItemTags.SPEARS);
+        
+        this.getOrCreateTagBuilder(ItemTags.SHARP_WEAPON_ENCHANTABLE)
+            .addTag(ModItemTags.SPEARS);
+        
+        this.getOrCreateTagBuilder(ItemTags.WEAPON_ENCHANTABLE)
+            .addTag(ModItemTags.SPEARS);
     }
 
     protected DualTagHolder getDualTagBuilder(TagKey<Item> forge, TagKey<Item> fabric) {

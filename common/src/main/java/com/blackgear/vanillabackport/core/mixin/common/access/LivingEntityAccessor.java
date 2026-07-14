@@ -1,9 +1,9 @@
 package com.blackgear.vanillabackport.core.mixin.common.access;
 
 import net.minecraft.core.NonNullList;
-import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.phys.AABB;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 import org.spongepowered.asm.mixin.gen.Invoker;
@@ -15,7 +15,6 @@ public interface LivingEntityAccessor {
 
     @Accessor("lastArmorItemStacks")
     NonNullList<ItemStack> getLastArmorItemStacks();
-
-    @Invoker
-    SoundEvent callGetFallDamageSound(int height);
+    
+    @Invoker AABB callGetHitbox();
 }

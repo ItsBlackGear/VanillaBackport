@@ -301,6 +301,21 @@ public class LangGenerator extends FabricLanguageProvider {
         
         builder.add("block_type.vanillabackport.shelf", "%s Shelf");
         
+        // Mounts of Mayhem
+//        builder.add(ModEntities.PARCHED.get(), "Parched");
+//        builder.add(ModEntities.CAMEL_HUSK.get(), "Camel Husk");
+        
+        builder.add(ModItems.NETHERITE_HORSE_ARMOR.get(), "Netherite Horse Armor");
+//        builder.add(ModItems.PARCHED_SPAWN_EGG.get(), "Parched Spawn Egg");
+//        builder.add(ModItems.CAMEL_HUSK_SPAWN_EGG.get(), "Camel Husk Spawn Egg");
+        builder.add(ModItems.WOODEN_SPEAR.get(), "Wooden Spear");
+        builder.add(ModItems.STONE_SPEAR.get(), "Stone Spear");
+        builder.add(ModItems.COPPER_SPEAR.get(), "Copper Spear");
+        builder.add(ModItems.IRON_SPEAR.get(), "Iron Spear");
+        builder.add(ModItems.GOLDEN_SPEAR.get(), "Golden Spear");
+        builder.add(ModItems.DIAMOND_SPEAR.get(), "Diamond Spear");
+        builder.add(ModItems.NETHERITE_SPEAR.get(), "Netherite Spear");
+        
         // Chaos Cubed
 
         builder.add("biome.minecraft.sulfur_caves", "Sulfur Caves");
@@ -398,6 +413,7 @@ public class LangGenerator extends FabricLanguageProvider {
         builder.add("bundled_tab.chase_the_skies.title", "Chase The Skies");
         builder.add("bundled_tab.hot_as_lava.title", "Hot as Lava");
         builder.add("bundled_tab.copper_age.title", "Copper Age");
+        builder.add("bundled_tab.mounts_of_mayhem.title", "Mounts of Mayhem");
         builder.add("bundled_tab.chaos_cubed.title", "Chaos Cubed");
         
         // Options

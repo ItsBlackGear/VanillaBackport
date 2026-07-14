@@ -1,4 +1,4 @@
-package com.blackgear.vanillabackport.common.level.items;
+package com.blackgear.vanillabackport.common.level.item;
 
 import com.blackgear.vanillabackport.common.registries.entities.ModEntityTypes;
 import net.minecraft.ChatFormatting;

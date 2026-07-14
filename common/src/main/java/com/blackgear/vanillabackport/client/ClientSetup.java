@@ -39,12 +39,15 @@ public class ClientSetup {
     }
 
     public static void asyncSetup(ParallelDispatch dispatch) {
-        dispatch.enqueueWork(() -> LocalPlayerEvents.ON_LOGIN.register(player -> BundledTabSelector.bootstrap()));
+        dispatch.enqueueWork(() -> {
+            ItemPropertyIntegrations.bootstrap();
+            LocalPlayerEvents.ON_LOGIN.register(player -> BundledTabSelector.bootstrap());
+            GameRendering.registerHandHeldModels(ItemLikeRendering::handHeldModelRendering);
+        });
         BundleMouseActions.bootstrap();
 
         GameRendering.registerBlockRenderers(ItemLikeRendering::renderTypes);
         WoodTypeRegistry.registerWoodType(ModWoodTypes.PALE_OAK);
         CreativeTabIntegration.bootstrap();
-        ItemPropertyIntegrations.bootstrap();
     }
 }

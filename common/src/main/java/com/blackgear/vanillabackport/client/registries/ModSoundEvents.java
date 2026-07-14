@@ -113,11 +113,21 @@ public class ModSoundEvents {
     
     // ITEMS
     public static final Supplier<SoundEvent> BUNDLE_INSERT_FAIL = REGISTRIES.soundEvent("item.bundle.insert_fail");
+    
+    public static final Holder<SoundEvent> ARMOR_EQUIP_COPPER = REGISTRIES.holder("item.armor.equip_copper");
+    
+    public static final Holder<SoundEvent> LUNGE_1 = REGISTRIES.holder("item.spear.lunge_1");
+    public static final Holder<SoundEvent> LUNGE_2 = REGISTRIES.holder("item.spear.lunge_2");
+    public static final Holder<SoundEvent> LUNGE_3 = REGISTRIES.holder("item.spear.lunge_3");
+    public static final Holder<SoundEvent> SPEAR_USE = REGISTRIES.holder("item.spear.use");
+    public static final Holder<SoundEvent> SPEAR_HIT = REGISTRIES.holder("item.spear.hit");
+    public static final Holder<SoundEvent> SPEAR_ATTACK = REGISTRIES.holder("item.spear.attack");
+    public static final Holder<SoundEvent> SPEAR_WOOD_USE = REGISTRIES.holder("item.spear_wood.use");
+    public static final Holder<SoundEvent> SPEAR_WOOD_HIT = REGISTRIES.holder("item.spear_wood.hit");
+    public static final Holder<SoundEvent> SPEAR_WOOD_ATTACK = REGISTRIES.holder("item.spear_wood.attack");
 
     public static final Supplier<SoundEvent> BUCKET_EMPTY_SULFUR_CUBE = REGISTRIES.soundEvent("item.bucket.empty_sulfur_cube");
     public static final Supplier<SoundEvent> BUCKET_FILL_SULFUR_CUBE = REGISTRIES.soundEvent("item.bucket.fill_sulfur_cube");
-    
-    public static final Holder<SoundEvent> ARMOR_EQUIP_COPPER = REGISTRIES.holder("item.armor.equip_copper");
 
     // ENTITIES
     public static final Supplier<SoundEvent> CREAKING_AMBIENT = REGISTRIES.soundEvent("entity.creaking.ambient");

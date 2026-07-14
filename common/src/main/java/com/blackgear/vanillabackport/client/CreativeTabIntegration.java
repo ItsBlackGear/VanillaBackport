@@ -248,6 +248,15 @@ public interface CreativeTabIntegration {
 
     CreativeTabs.Modifier COMBAT = (flag, output, operator) -> {
         output.addAfter(Items.STONE_SWORD, ModItems.COPPER_SWORD.get());
+        output.addAllBefore(Items.WOODEN_AXE, List.of(
+            ModItems.WOODEN_SPEAR.get(),
+            ModItems.STONE_SPEAR.get(),
+            ModItems.COPPER_SPEAR.get(),
+            ModItems.IRON_SPEAR.get(),
+            ModItems.GOLDEN_SPEAR.get(),
+            ModItems.DIAMOND_SPEAR.get(),
+            ModItems.NETHERITE_SPEAR.get()
+        ));
         output.addAfter(Items.STONE_AXE, ModItems.COPPER_AXE.get());
         output.addAllAfter(Items.LEATHER_BOOTS, List.of(
             ModItems.COPPER_HELMET.get(),
@@ -259,6 +268,7 @@ public interface CreativeTabIntegration {
             ModItems.BROWN_EGG.get(),
             ModItems.BLUE_EGG.get()
         ));
+        output.addAfter(Items.DIAMOND_HORSE_ARMOR, ModItems.NETHERITE_HORSE_ARMOR.get());
     };
 
     CreativeTabs.Modifier FOOD_AND_DRINKS = (flag, output, operator) -> {};

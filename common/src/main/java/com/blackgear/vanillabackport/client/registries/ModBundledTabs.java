@@ -237,6 +237,25 @@ public class ModBundledTabs {
             .build()
     );
     
+    public static final BundledTabs MOUNTS_OF_MAYHEM = register(
+        BundledTabs.builder()
+            .title(Component.translatable("bundled_tab.mounts_of_mayhem.title"))
+            .icon(new ItemStack(ModItems.IRON_SPEAR.get()))
+            .displayItems((provider, output) -> {
+                output.accept(ModItems.WOODEN_SPEAR.get());
+                output.accept(ModItems.STONE_SPEAR.get());
+                output.accept(ModItems.COPPER_SPEAR.get());
+                output.accept(ModItems.IRON_SPEAR.get());
+                output.accept(ModItems.GOLDEN_SPEAR.get());
+                output.accept(ModItems.DIAMOND_SPEAR.get());
+                output.accept(ModItems.NETHERITE_SPEAR.get());
+                output.accept(ModItems.NETHERITE_HORSE_ARMOR.get());
+//                output.accept(ModItems.PARCHED_SPAWN_EGG.get());
+//                output.accept(ModItems.CAMEL_HUSK_SPAWN_EGG.get());
+            })
+            .build()
+    );
+    
     public static final BundledTabs CHAOS_CUBED = register(
         BundledTabs.builder()
             .title(Component.translatable("bundled_tab.chaos_cubed.title"))

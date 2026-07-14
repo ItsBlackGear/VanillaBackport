@@ -58,7 +58,8 @@ public class BlockTagGenerator extends FabricTagProvider.BlockTagProvider {
             .add(ModBlocks.PALE_MOSS_CARPET.get(), ModBlocks.RESIN_CLUMP.get());
 
         this.getOrCreateTagBuilder(BlockTags.MINEABLE_WITH_AXE)
-            .add(ModBlocks.CREAKING_HEART.get());
+            .add(ModBlocks.CREAKING_HEART.get())
+            .addTag(ModBlockTags.WOODEN_SHELVES);
 
         this.getOrCreateTagBuilder(BlockTags.MINEABLE_WITH_HOE)
             .add(

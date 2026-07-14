@@ -18,6 +18,10 @@ mutable field net/minecraft/world/level/block/entity/ContainerOpenersCounter ope
 accessible field net/minecraft/world/level/block/entity/ContainerOpenersCounter maxInteractionRange D
 mutable field net/minecraft/world/level/block/entity/ContainerOpenersCounter maxInteractionRange D
 
+accessible class net/minecraft/client/renderer/ItemInHandRenderer$HandRenderSelection
+accessible field net/minecraft/client/renderer/ItemInHandRenderer$HandRenderSelection renderMainHand Z
+accessible field net/minecraft/client/renderer/ItemInHandRenderer$HandRenderSelection renderOffHand Z
+
 accessible method net/minecraft/world/level/block/PinkPetalsBlock <init> (Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V
 accessible method net/minecraft/world/level/block/SaplingBlock <init> (Lnet/minecraft/world/level/block/grower/TreeGrower;Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V
 accessible method net/minecraft/world/level/block/PressurePlateBlock <init> (Lnet/minecraft/world/level/block/state/properties/BlockSetType;Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;)V

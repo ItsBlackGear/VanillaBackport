@@ -1,12 +1,18 @@
 package com.blackgear.vanillabackport.common.registries.items;
 
 import com.blackgear.platform.core.CoreRegistry;
+import com.blackgear.vanillabackport.common.level.components.*;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.chicken.ChickenVariant;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.blackgear.vanillabackport.core.registries.ModRegistries;
+import com.blackgear.vanillabackport.core.util.AdditionalCodecs;
 import net.minecraft.core.component.DataComponentType;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.damagesource.DamageType;
+import net.minecraft.world.item.EitherHolder;
 
 import java.util.function.Supplier;
 import java.util.function.UnaryOperator;
@@ -18,7 +24,39 @@ public class ModDataComponents {
         builder ->
             builder.persistent(ResourceKey.codec(ModRegistries.CHICKEN_VARIANT_KEY))
                 .networkSynchronized(ResourceKey.streamCodec(ModRegistries.CHICKEN_VARIANT_KEY)));
-
+    
+    public static final Supplier<DataComponentType<AttackRange>> ATTACK_RANGE = register("attack_range",
+        builder -> builder.persistent(AttackRange.CODEC)
+            .networkSynchronized(AttackRange.STREAM_CODEC)
+            .cacheEncoding());
+    
+    public static final Supplier<DataComponentType<KineticWeapon>> KINETIC_WEAPON = register("kinetic_weapon",
+        builder -> builder.persistent(KineticWeapon.CODEC)
+            .networkSynchronized(KineticWeapon.STREAM_CODEC)
+            .cacheEncoding());
+    
+    public static final Supplier<DataComponentType<PiercingWeapon>> PIERCING_WEAPON = register("piercing_weapon",
+        builder -> builder.persistent(PiercingWeapon.CODEC)
+            .networkSynchronized(PiercingWeapon.STREAM_CODEC)
+            .cacheEncoding());
+    
+    public static final Supplier<DataComponentType<UseEffects>> USE_EFFECTS = register("use_effects",
+        builder -> builder.persistent(UseEffects.CODEC)
+            .networkSynchronized(UseEffects.STREAM_CODEC));
+    
+    public static final Supplier<DataComponentType<EitherHolder<DamageType>>> DAMAGE_TYPE = register("damage_type",
+        builder -> builder.persistent(EitherHolder.codec(Registries.DAMAGE_TYPE, DamageType.CODEC))
+            .networkSynchronized(EitherHolder.streamCodec(Registries.DAMAGE_TYPE, DamageType.STREAM_CODEC))
+            .cacheEncoding());
+    
+    public static final Supplier<DataComponentType<Float>> MINIMUM_ATTACK_CHARGE = register("minimum_attack_range",
+        builder -> builder.persistent(AdditionalCodecs.floatRange(0.0F, 1.0F))
+            .networkSynchronized(ByteBufCodecs.FLOAT));
+    
+    public static final Supplier<DataComponentType<SwingAnimation>> SWING_ANIMATION = register("swing_animation",
+        builder -> builder.persistent(SwingAnimation.CODEC)
+            .networkSynchronized(SwingAnimation.STREAM_CODEC));
+    
     public static <T> Supplier<DataComponentType<T>> register(String key, UnaryOperator<DataComponentType.Builder<T>> operator) {
         return REGISTRIES.register(key, () -> operator.apply(DataComponentType.builder()).build());
     }

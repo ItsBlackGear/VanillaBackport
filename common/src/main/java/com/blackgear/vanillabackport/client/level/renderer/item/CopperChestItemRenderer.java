@@ -12,7 +12,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 
-public class CopperChestItemRenderer implements BuiltinItemRendererRegistry.DynamicItemRenderer {
+public class CopperChestItemRenderer implements BuiltinItemRendererRegistry.Renderer {
     private final CopperChestBlockEntity chest;
     
     public CopperChestItemRenderer(CopperChestBlock chest) {

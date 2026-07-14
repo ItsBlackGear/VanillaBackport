@@ -3,16 +3,23 @@ package com.blackgear.vanillabackport.common.registries.items;
 import com.blackgear.platform.core.helper.ItemRegistry;
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.chicken.ChickenVariants;
-import com.blackgear.vanillabackport.common.level.items.PaleOakBoatItem;
-import com.blackgear.vanillabackport.common.level.items.SulfurCubeBucketItem;
+import com.blackgear.vanillabackport.common.level.item.PaleOakBoatItem;
+import com.blackgear.vanillabackport.common.level.item.spear.SpearItem;
+import com.blackgear.vanillabackport.common.level.item.SulfurCubeBucketItem;
 import com.blackgear.vanillabackport.common.registries.entities.ModEntityTypes;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.blackgear.vanillabackport.core.registries.experimental.FeatureHolder;
 import com.blackgear.vanillabackport.core.registries.experimental.handlers.VanillaItemRegistry;
+import com.google.common.base.Suppliers;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EquipmentSlotGroup;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.Item.Properties;
 import net.minecraft.world.item.component.BundleContents;
+import net.minecraft.world.item.component.ItemAttributeModifiers;
 
 import java.util.function.Supplier;
 
@@ -184,6 +191,120 @@ public class ModItems {
     
     public static final Supplier<Item> COPPER_GOLEM_SPAWN_EGG = REGISTRIES.register("copper_golem_spawn_egg",
         () -> ItemRegistry.createSpawnEgg(ModEntityTypes.COPPER_GOLEM, 14052680, 8403233, new Properties()));
+    
+    // Mounts of Mayhem
+    
+    public static final Supplier<Item> WOODEN_SPEAR = REGISTRIES.register("wooden_spear",
+        properties -> new SpearItem(
+            Tiers.WOOD,
+            0.65F,
+            0.7F,
+            0.75F,
+            5.0F,
+            14.0F,
+            10.0F,
+            5.1F,
+            15.0F,
+            4.6F,
+            properties));
+    public static final Supplier<Item> STONE_SPEAR = REGISTRIES.register("stone_spear",
+        properties -> new SpearItem(
+            Tiers.STONE,
+            0.75F,
+            0.82F,
+            0.7F,
+            4.5F,
+            10.0F,
+            9.0F,
+            5.1F,
+            13.75F,
+            4.6F,
+            properties));
+    public static final Supplier<Item> COPPER_SPEAR = REGISTRIES.register("copper_spear",
+        properties -> new SpearItem(
+            ModToolMaterials.COPPER,
+            0.85F,
+            0.82F,
+            0.65F,
+            4.0F,
+            9.0F,
+            8.25F,
+            5.1F,
+            12.5F,
+            4.6F,
+            properties));
+    public static final Supplier<Item> IRON_SPEAR = REGISTRIES.register("iron_spear",
+        properties -> new SpearItem(
+            Tiers.IRON,
+            0.95F,
+            0.95F,
+            0.6F,
+            2.5F,
+            8.0F,
+            6.75F,
+            5.1F,
+            11.25F,
+            4.6F,
+            properties));
+    public static final Supplier<Item> GOLDEN_SPEAR = REGISTRIES.register("golden_spear",
+        properties -> new SpearItem(
+            Tiers.GOLD,
+            0.95F,
+            0.7F,
+            0.7F,
+            3.5F,
+            10.0F,
+            8.5F,
+            5.1F,
+            13.75F,
+            4.6F,
+            properties));
+    public static final Supplier<Item> DIAMOND_SPEAR = REGISTRIES.register("diamond_spear",
+        properties -> new SpearItem(
+            Tiers.DIAMOND,
+            1.05F,
+            1.075F,
+            0.5F,
+            3.0F,
+            7.5F,
+            6.5F,
+            5.1F,
+            10.0F,
+            4.6F,
+            properties));
+    public static final Supplier<Item> NETHERITE_SPEAR = REGISTRIES.register("netherite_spear",
+        properties -> new SpearItem(
+            Tiers.NETHERITE,
+            1.15F,
+            1.2F,
+            0.4F,
+            2.5F,
+            7.0F,
+            5.5F,
+            5.1F,
+            8.75F,
+            4.6F,
+            properties.fireResistant()));
+    
+    public static final Supplier<Item> NETHERITE_HORSE_ARMOR = REGISTRIES.register("netherite_horse_armor",
+        properties -> new AnimalArmorItem(ArmorMaterials.NETHERITE, AnimalArmorItem.BodyType.EQUESTRIAN, false, properties) {
+            @Override public ItemAttributeModifiers getDefaultAttributeModifiers() {
+                return Suppliers.memoize(() -> {
+                    ItemAttributeModifiers.Builder builder = ItemAttributeModifiers.builder();
+                    EquipmentSlotGroup slot = EquipmentSlotGroup.bySlot(type.getSlot());
+                    ResourceLocation location = ResourceLocation.withDefaultNamespace("armor." + type.getName());
+                    builder.add(Attributes.ARMOR, new AttributeModifier(location, 19, AttributeModifier.Operation.ADD_VALUE), slot);
+                    builder.add(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(location, material.value().toughness(), AttributeModifier.Operation.ADD_VALUE), slot);
+                    float knockbackResistance = material.value().knockbackResistance();
+                    if (knockbackResistance > 0.0F) {
+                        builder.add(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(location, knockbackResistance, AttributeModifier.Operation.ADD_VALUE), slot);
+                    }
+                    
+                    return builder.build();
+                }).get();
+            }
+        },
+        new Item.Properties().stacksTo(1).fireResistant());
     
     // Chaos Cubed
     
