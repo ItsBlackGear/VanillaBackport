@@ -47,7 +47,6 @@
     "client.music_toast.ToastComponentMixin",
     "client.music_toast.ToastInstanceMixin",
     "client.extension.sound.ClientLevelMixin",
-    "client.extension.entity.HumanoidArmPoseMixin",
     "client.spears.HumanoidModelMixin",
     "client.spears.ItemInHandLayerMixin",
     "client.spears.ItemInHandRendererMixin",

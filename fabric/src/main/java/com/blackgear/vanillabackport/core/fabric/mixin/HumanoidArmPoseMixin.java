@@ -1,4 +1,4 @@
-package com.blackgear.vanillabackport.core.mixin.client.extension.entity;
+package com.blackgear.vanillabackport.core.fabric.mixin;
 
 import com.blackgear.vanillabackport.common.api.extensions.entity.spear.ArmPoses;
 import net.minecraft.client.model.HumanoidModel;
@@ -18,13 +18,16 @@ import java.util.List;
 
 @Mixin(HumanoidModel.ArmPose.class)
 public class HumanoidArmPoseMixin {
-    @Shadow @Mutable @Final private static HumanoidModel.ArmPose[] $VALUES;
-
+    @Shadow
+    @Mutable
+    @Final
+    private static HumanoidModel.ArmPose[] $VALUES;
+    
     @Invoker("<init>")
     public static HumanoidModel.ArmPose create(String name, int ordinal, boolean twoHanded) {
         throw new AssertionError();
     }
-
+    
     @Inject(
         method = "<clinit>",
         at = @At(

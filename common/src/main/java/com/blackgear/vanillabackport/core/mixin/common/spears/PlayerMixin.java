@@ -84,7 +84,6 @@ public abstract class PlayerMixin extends LivingEntity implements PlayerSpearHan
     @Override
     public void onAttack() {
         this.attackStrengthTicker = 0;
-        MobSpearHandler.super.onAttack();
     }
 
     @Override

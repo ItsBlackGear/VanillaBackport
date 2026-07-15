@@ -11,6 +11,8 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 public final class VanillaBackportForge {
     public VanillaBackportForge() {
         VanillaBackport.bootstrap();
+        
+        if (Environment.isClientSide()) ClientEnumData.bootstrap();
 
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         bus.addListener(this::commonSetup);

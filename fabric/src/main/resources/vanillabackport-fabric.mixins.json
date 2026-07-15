@@ -4,6 +4,9 @@
   "plugin": "com.blackgear.vanillabackport.core.fabric.VanillaBackportPlugin",
   "compatibilityLevel": "JAVA_17",
   "minVersion": "0.8",
+  "client": [
+    "HumanoidArmPoseMixin"
+  ],
   "mixins": [
     "CollisionContextMixin",
     "MappedRegistryMixin"

@@ -5,6 +5,8 @@ import com.blackgear.vanillabackport.common.level.item.spear.KineticWeapon.Condi
 import com.blackgear.vanillabackport.core.util.Ease;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelPart;
@@ -14,6 +16,7 @@ import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 
+@Environment(EnvType.CLIENT)
 public class SpearAnimations {
     private static float progress(float time, float start, float end) {
         return Mth.clamp(Mth.inverseLerp(time, start, end), 0.0F, 1.0F);
@@ -105,8 +108,7 @@ public class SpearAnimations {
         float attackTime = entity.getAttackAnim(partial);
 
         if (!(attackTime <= 0.0F)) {
-            if (!(entity.getMainHandItem().getItem() instanceof SpearItem spear)) return;
-            KineticWeapon kineticWeapon = spear.getKineticWeapon();
+            KineticWeapon kineticWeapon = KineticWeapon.getKineticWeapon(entity.getMainHandItem());
             float jetForward = kineticWeapon != null ? kineticWeapon.forwardMovement() : 0.0F;
             float attack = Ease.inQuad(progress(attackTime, 0.05F, 0.2F));
             float retract = Ease.inOutExpo(progress(attackTime, 0.4F, 1.0F));
@@ -126,8 +128,7 @@ public class SpearAnimations {
         HumanoidArm arm,
         ItemStack stack
     ) {
-        if (!(stack.getItem() instanceof SpearItem spear)) return;
-        KineticWeapon kineticWeapon = spear.getKineticWeapon();
+        KineticWeapon kineticWeapon = KineticWeapon.getKineticWeapon(stack);
         if (kineticWeapon != null) {
             UseParams params = UseParams.fromKineticWeapon(kineticWeapon, timeHeld);
             int invert = arm == HumanoidArm.RIGHT ? 1 : -1;
