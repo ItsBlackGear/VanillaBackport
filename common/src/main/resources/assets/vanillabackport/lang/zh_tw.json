@@ -395,5 +395,16 @@
   "item.minecraft.copper_golem_spawn_egg": "銅魔像生怪蛋",
   "item.minecraft.copper_horse_armor": "銅製馬鎧",
   "subtitles.block.copper_chest.close": "儲物箱關閉",
-  "subtitles.block.copper_chest.open": "儲物箱開啟"
+  "subtitles.block.copper_chest.open": "儲物箱開啟",
+  "block_type.vanillabackport.shelf": "%s展示架",
+  "bundled_tab.mounts_of_mayhem.title": "群騎紛爭",
+  "item.minecraft.copper_spear": "銅矛",
+  "item.minecraft.diamond_spear": "鑽石矛",
+  "item.minecraft.golden_spear": "金矛",
+  "item.minecraft.iron_spear": "鐵矛",
+  "item.minecraft.netherite_horse_armor": "獄髓製馬鎧",
+  "item.minecraft.netherite_spear": "獄髓矛",
+  "item.minecraft.stone_spear": "石矛",
+  "item.minecraft.wooden_spear": "木矛",
+  "subtitles.weather.end_flash": "終界閃光轟鳴聲"
 }
