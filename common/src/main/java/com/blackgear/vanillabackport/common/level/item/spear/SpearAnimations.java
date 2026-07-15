@@ -7,6 +7,8 @@ import com.blackgear.vanillabackport.common.registries.items.ModDataComponents;
 import com.blackgear.vanillabackport.core.util.Ease;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelPart;
@@ -16,6 +18,7 @@ import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 
+@Environment(EnvType.CLIENT)
 public class SpearAnimations {
     private static float progress(float time, float start, float end) {
         return Mth.clamp(Mth.inverseLerp(time, start, end), 0.0F, 1.0F);
@@ -33,20 +36,20 @@ public class SpearAnimations {
 
         int invert = holdingInRightArm ? 1 : -1;
         arm.yRot = -0.1F * invert + head.yRot;
-        arm.xRot = (float) (-Math.PI / 2) + head.xRot + 0.8F;
+        arm.xRot = -Mth.HALF_PI + head.xRot + 0.8F;
         if (entity.isFallFlying() || entity.getSwimAmount(partial) > 0.0F) {
             arm.xRot -= 0.9599311F;
         }
 
-        arm.yRot = (float) (Math.PI / 180.0) * Math.clamp((180.0F / (float)Math.PI) * arm.yRot, -60.0F, 60.0F);
-        arm.xRot = (float) (Math.PI / 180.0) * Math.clamp((180.0F / (float)Math.PI) * arm.xRot, -120.0F, 30.0F);
+        arm.yRot = Mth.DEG_TO_RAD * Mth.clamp(Mth.RAD_TO_DEG * arm.yRot, -60.0F, 60.0F);
+        arm.xRot = Mth.DEG_TO_RAD * Mth.clamp(Mth.RAD_TO_DEG * arm.xRot, -120.0F, 30.0F);
         if (handler.getTicksUsingItem(partial) > 0.0F && (!entity.isUsingItem() || entity.getUsedItemHand() == (holdingInRightArm ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND))) {
             KineticWeapon kineticWeapon = item.get(ModDataComponents.KINETIC_WEAPON.get());
             if (kineticWeapon != null) {
-                SpearAnimations.UseParams params = SpearAnimations.UseParams.fromKineticWeapon(kineticWeapon, handler.getTicksUsingItem(partial));
-                arm.yRot = arm.yRot + -invert * params.swayScaleFast() * (float) (Math.PI / 180.0) * params.swayIntensity() * 1.0F;
-                arm.zRot = arm.zRot + -invert * params.swayScaleSlow() * (float) (Math.PI / 180.0) * params.swayIntensity() * 0.5F;
-                arm.xRot = arm.xRot + (float) (Math.PI / 180.0) * (
+                UseParams params = UseParams.fromKineticWeapon(kineticWeapon, handler.getTicksUsingItem(partial));
+                arm.yRot = arm.yRot + -invert * params.swayScaleFast() * Mth.DEG_TO_RAD * params.swayIntensity() * 1.0F;
+                arm.zRot = arm.zRot + -invert * params.swayScaleSlow() * Mth.DEG_TO_RAD * params.swayIntensity() * 0.5F;
+                arm.xRot = arm.xRot + Mth.DEG_TO_RAD * (
                     -40.0F * params.raiseProgressStart() +
                     30.0F * params.raiseProgressMiddle() +
                     -20.0F * params.raiseProgressEnd() +
@@ -66,7 +69,6 @@ public class SpearAnimations {
         ItemStack actualItem
     ) {
         float partial = Minecraft.getInstance().getTimer().getGameTimeDeltaPartialTick(true);
-
 
         KineticWeapon kineticWeapon = actualItem.get(ModDataComponents.KINETIC_WEAPON.get());
         if (kineticWeapon != null && timeHeld != 0.0F) {
@@ -97,7 +99,7 @@ public class SpearAnimations {
         float attack = Ease.inQuad(progress(attackTime, 0.05F, 0.2F));
         float retract = Ease.inOutExpo(progress(attackTime, 0.4F, 1.0F));
         ModelPart arm = attackArm == HumanoidArm.RIGHT ? model.rightArm : model.leftArm;
-        arm.xRot += (90.0F * prepare - 120.0F * attack + 30.0F * retract) * (float) (Math.PI / 180.0);
+        arm.xRot += (90.0F * prepare - 120.0F * attack + 30.0F * retract) * Mth.DEG_TO_RAD;
     }
 
     public static <T extends LivingEntity> void thirdPersonAttackItem(
@@ -196,7 +198,7 @@ public class SpearAnimations {
             float swayScaleSlow = Mth.sin(time * 19.0F * Mth.DEG_TO_RAD) * swayIntensity;
             float swayScaleFast = Mth.sin(time * 30.0F * Mth.DEG_TO_RAD) * swayIntensity;
 
-            return new SpearAnimations.UseParams(
+            return new UseParams(
                 raiseProgress,
                 raiseProgressStart,
                 raiseProgressMiddle,

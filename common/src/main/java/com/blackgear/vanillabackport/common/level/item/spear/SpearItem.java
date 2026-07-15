@@ -131,7 +131,7 @@ public class SpearItem extends TieredItem {
     
     @Override
     public void postHurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-        if (attacker instanceof Player player && player.isCreative())
+        if (attacker instanceof Player player && !player.isCreative())
             stack.hurtAndBreak(1, attacker, EquipmentSlot.MAINHAND);
     }
     
