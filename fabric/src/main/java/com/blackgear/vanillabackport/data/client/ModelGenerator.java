@@ -108,6 +108,9 @@ public class ModelGenerator extends VanillaModelGenerator {
         ModBlocks.COPPER_CHAIN.waxedMapping().forEach((from, to) -> gen.createCopperChain(from.get(), to.get()));
         
         gen.createSpawnEgg(ModItems.COPPER_GOLEM_SPAWN_EGG.get());
+        
+        gen.createSpawnEgg(ModItems.PARCHED_SPAWN_EGG.get());
+        gen.createSpawnEgg(ModItems.CAMEL_HUSK_SPAWN_EGG.get());
     }
 
     @Override

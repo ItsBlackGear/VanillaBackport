@@ -17,6 +17,9 @@ public class EntityTypeTagGenerator extends FabricTagProvider.EntityTypeTagProvi
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
+        this.getOrCreateTagBuilder(EntityTypeTags.ZOMBIES)
+            .add(ModEntityTypes.CAMEL_HUSK.get());
+        
         this.getOrCreateTagBuilder(EntityTypeTags.FALL_DAMAGE_IMMUNE)
             .add(ModEntityTypes.HAPPY_GHAST.get());
 
@@ -65,5 +68,8 @@ public class EntityTypeTagGenerator extends FabricTagProvider.EntityTypeTagProvi
         
         this.getOrCreateTagBuilder(ModEntityTypeTags.ACCEPTS_IRON_GOLEM_GIFT)
             .add(ModEntityTypes.COPPER_GOLEM.get());
+        
+        this.getOrCreateTagBuilder(ModEntityTypeTags.CAN_FLOAT_WHILE_RIDDEN)
+            .add(EntityType.HORSE, EntityType.ZOMBIE_HORSE, EntityType.MULE, EntityType.DONKEY, EntityType.CAMEL, ModEntityTypes.CAMEL_HUSK.get());
     }
 }

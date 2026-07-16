@@ -14,6 +14,8 @@ public class ModBiomeTags {
 
     // Entity Placement Tags
     public static final TagKey<Biome> SPAWNS_CAMELS = TAGS.register("spawns_camels");
+    
+    public static final TagKey<Biome> SPAWNS_ZOMBIE_HORSES = TAGS.register("spawns_zombie_horses");
 
     // Feature Placement Tags
     public static final TagKey<Biome> SPAWNS_BUSHES = TAGS.register("spawns_bushes");

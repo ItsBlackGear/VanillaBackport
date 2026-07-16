@@ -13,4 +13,5 @@ public class ModEntityTypeTags {
     public static final TagKey<EntityType<?>> MONSTERS_THAT_SPAWN_ON_PEACEFUL = TAGS.register("monsters_that_spawn_on_peaceful");
     public static final TagKey<EntityType<?>> NOT_AFFECTED_BY_GEYSERS = TAGS.register("not_affected_by_geysers");
     public static final TagKey<EntityType<?>> ACCEPTS_IRON_GOLEM_GIFT = TAGS.register("accepts_iron_golem_gift");
+    public static final TagKey<EntityType<?>> CAN_FLOAT_WHILE_RIDDEN = TAGS.register("can_float_while_ridden");
 }

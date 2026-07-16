@@ -1,0 +1,7 @@
+{
+  "values": [
+    "minecraft:plains",
+    "minecraft:snowy_plains",
+    "#minecraft:is_savanna"
+  ]
+}

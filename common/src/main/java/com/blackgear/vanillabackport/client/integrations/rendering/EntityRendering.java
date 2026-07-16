@@ -11,23 +11,23 @@ import com.blackgear.vanillabackport.client.level.model.entity.pig.ColdPigModel;
 import com.blackgear.vanillabackport.client.level.model.entity.sulfur_cube.SmallSulfurCubeModel;
 import com.blackgear.vanillabackport.client.level.model.entity.sulfur_cube.SulfurCubeModel;
 import com.blackgear.vanillabackport.client.level.renderer.entity.PaleOakBoatRenderer;
-import com.blackgear.vanillabackport.client.level.renderer.entity.mob.CopperGolemRenderer;
-import com.blackgear.vanillabackport.client.level.renderer.entity.mob.CreakingRenderer;
-import com.blackgear.vanillabackport.client.level.renderer.entity.mob.HappyGhastRenderer;
-import com.blackgear.vanillabackport.client.level.renderer.entity.mob.SulfurCubeRenderer;
+import com.blackgear.vanillabackport.client.level.renderer.entity.mob.*;
 import com.blackgear.vanillabackport.client.registries.ModModelLayers;
 import com.blackgear.vanillabackport.common.registries.entities.ModEntityTypes;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.model.BoatModel;
-import net.minecraft.client.model.ChestBoatModel;
+import net.minecraft.client.model.*;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
+import net.minecraft.client.model.geom.builders.LayerDefinition;
 
 import static com.blackgear.platform.client.GameRendering.*;
 
 @Environment(EnvType.CLIENT)
 public class EntityRendering {
     public static void modelLayers(ModelLayerEvent event) {
+        LayerDefinition outerArmorDefinition = LayerDefinition.create(HumanoidArmorModel.createBodyLayer(new CubeDeformation(1.0F)), 64, 32);
+        LayerDefinition innerArmorDefinition = LayerDefinition.create(HumanoidArmorModel.createBodyLayer(new CubeDeformation(0.5F)), 64, 32);
+        
         event.register(ModModelLayers.CREAKING, CreakingModel::createBodyLayer);
         event.register(ModModelLayers.PALE_OAK_BOAT, BoatModel::createBodyModel);
         event.register(ModModelLayers.PALE_OAK_CHEST_BOAT, ChestBoatModel::createBodyModel);
@@ -50,6 +50,12 @@ public class EntityRendering {
         event.register(ModModelLayers.COPPER_GOLEM_RUNNING, CopperGolemModel::createRunningPoseBodyLayer);
         event.register(ModModelLayers.COPPER_GOLEM_SITTING, CopperGolemModel::createSittingPoseBodyLayer);
         event.register(ModModelLayers.COPPER_GOLEM_STAR, CopperGolemModel::createStarPoseBodyLayer);
+        
+        event.register(ModModelLayers.PARCHED, ParchedRenderer::createSingleModelDualBodyLayer);
+        event.register(ModModelLayers.PARCHED_OUTER_ARMOR, () -> outerArmorDefinition);
+        event.register(ModModelLayers.PARCHED_INNER_ARMOR, () -> innerArmorDefinition);
+        event.register(ModModelLayers.CAMEL_HUSK, CamelModel::createBodyLayer);
+        event.register(ModModelLayers.UNDEAD_HORSE_ARMOR, () -> LayerDefinition.create(HorseModel.createBodyMesh(new CubeDeformation(0.1F)), 64, 64));
     }
     
     public static void renderers(EntityRendererEvent event) {
@@ -59,5 +65,8 @@ public class EntityRendering {
         event.register(ModEntityTypes.PALE_OAK_CHEST_BOAT.get(), context -> new PaleOakBoatRenderer(context, true));
         event.register(ModEntityTypes.SULFUR_CUBE.get(), SulfurCubeRenderer::new);
         event.register(ModEntityTypes.COPPER_GOLEM.get(), CopperGolemRenderer::new);
+        
+        event.register(ModEntityTypes.PARCHED.get(), ParchedRenderer::new);
+        event.register(ModEntityTypes.CAMEL_HUSK.get(), CamelHuskRenderer::new);
     }
 }

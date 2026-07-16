@@ -101,6 +101,8 @@ public class LangGenerator extends FabricLanguageProvider {
         builder.add("subtitles.entity.creaking.unfreeze", "Creaking moves");
 
         builder.add("subtitles.entity.parrot.imitate.creaking", "Parrot creaks");
+        builder.add("subtitles.entity.parrot.imitate.camel_husk", "Parrot grumphs");
+        builder.add("subtitles.entity.parrot.imitate.parched", "Parrot crackles");
 
         // Chase the Skies
         builder.add(ModBlocks.DRIED_GHAST.get(), "Dried Ghast");
@@ -295,6 +297,8 @@ public class LangGenerator extends FabricLanguageProvider {
         builder.add(ModBlocks.COPPER_BARS.waxedWeathered().get(), "Waxed Weathered Copper Bars");
         builder.add(ModBlocks.COPPER_BARS.waxedOxidized().get(), "Waxed Oxidized Copper Bars");
         
+        builder.add(ModEntityTypes.COPPER_GOLEM.get(), "Copper Golem");
+        
         builder.add("subtitles.block.copper_chest.close", "Chest closes");
         builder.add("subtitles.block.copper_chest.open", "Chest opens");
         builder.add("subtitles.weather.end_flash", "End Flash rumbles");
@@ -302,12 +306,12 @@ public class LangGenerator extends FabricLanguageProvider {
         builder.add("block_type.vanillabackport.shelf", "%s Shelf");
         
         // Mounts of Mayhem
-//        builder.add(ModEntities.PARCHED.get(), "Parched");
-//        builder.add(ModEntities.CAMEL_HUSK.get(), "Camel Husk");
-        
+        builder.add(ModEntityTypes.PARCHED.get(), "Parched");
+        builder.add(ModEntityTypes.CAMEL_HUSK.get(), "Camel Husk");
+
         builder.add(ModItems.NETHERITE_HORSE_ARMOR.get(), "Netherite Horse Armor");
-//        builder.add(ModItems.PARCHED_SPAWN_EGG.get(), "Parched Spawn Egg");
-//        builder.add(ModItems.CAMEL_HUSK_SPAWN_EGG.get(), "Camel Husk Spawn Egg");
+        builder.add(ModItems.PARCHED_SPAWN_EGG.get(), "Parched Spawn Egg");
+        builder.add(ModItems.CAMEL_HUSK_SPAWN_EGG.get(), "Camel Husk Spawn Egg");
         builder.add(ModItems.WOODEN_SPEAR.get(), "Wooden Spear");
         builder.add(ModItems.STONE_SPEAR.get(), "Stone Spear");
         builder.add(ModItems.COPPER_SPEAR.get(), "Copper Spear");
@@ -315,6 +319,20 @@ public class LangGenerator extends FabricLanguageProvider {
         builder.add(ModItems.GOLDEN_SPEAR.get(), "Golden Spear");
         builder.add(ModItems.DIAMOND_SPEAR.get(), "Diamond Spear");
         builder.add(ModItems.NETHERITE_SPEAR.get(), "Netherite Spear");
+        
+        builder.add("subtitles.entity.camel_husk.ambient", "Camel Husk grumphs");
+        builder.add("subtitles.entity.camel_husk.dash", "Camel Husk yeets");
+        builder.add("subtitles.entity.camel_husk.dash_ready", "Camel Husk recovers");
+        builder.add("subtitles.entity.camel_husk.death", "Camel Husk dies");
+        builder.add("subtitles.entity.camel_husk.eat", "Camel Husk eats");
+        builder.add("subtitles.entity.camel_husk.hurt", "Camel Husk hurts");
+        builder.add("subtitles.entity.camel_husk.saddle", "Saddle equips");
+        builder.add("subtitles.entity.camel_husk.sit", "Camel Husk sits down");
+        builder.add("subtitles.entity.camel_husk.stand", "Camel Husk stands up");
+        
+        builder.add("subtitles.entity.parched.ambient", "Parched crackles");
+        builder.add("subtitles.entity.parched.death", "Parched dies");
+        builder.add("subtitles.entity.parched.hurt", "Parched hurts");
         
         // Chaos Cubed
 

@@ -58,6 +58,8 @@ public class CommonSetup {
             BlockIntegration.registerIntegrations(BlockIntegrations::bootstrap);
             TradeIntegration.registerVillagerTrades(TradeIntegrations::bootstrap);
             Parrot.MOB_SOUND_MAP.put(ModEntityTypes.CREAKING.get(), ModSoundEvents.PARROT_IMITATE_CREAKING.get());
+            Parrot.MOB_SOUND_MAP.put(ModEntityTypes.PARCHED.get(), ModSoundEvents.PARROT_IMITATE_PARCHED.get());
+            Parrot.MOB_SOUND_MAP.put(ModEntityTypes.CAMEL_HUSK.get(), ModSoundEvents.PARROT_IMITATE_CAMEL_HUSK.get());
         });
 
         LootModifier.modify(LootIntegrations.INSTANCE);

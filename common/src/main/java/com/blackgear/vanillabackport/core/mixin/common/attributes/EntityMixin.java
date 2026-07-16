@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.core.mixin.common.attributes;
 
-import com.blackgear.vanillabackport.common.api.extensions.entity.TravelAwareEntity;
+import com.blackgear.vanillabackport.common.api.extensions.entity.movement.TravelAwareEntity;
 import com.blackgear.vanillabackport.common.registries.entities.ModAttributes;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;

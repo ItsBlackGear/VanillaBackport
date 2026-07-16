@@ -56,8 +56,12 @@ public class Utilities {
             return rot * 360 / 256.0F;
         }
         
-        public static Vec3 lerp(final double alpha, final Vec3 p1, final Vec3 p2) {
+        public static Vec3 lerp(double alpha, Vec3 p1, Vec3 p2) {
             return new Vec3(Mth.lerp(alpha, p1.x, p2.x), Mth.lerp(alpha, p1.y, p2.y), Mth.lerp(alpha, p1.z, p2.z));
+        }
+        
+        public static float cube(float x) {
+            return x * x * x;
         }
     }
     

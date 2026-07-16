@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.core.util;
 
-import com.blackgear.vanillabackport.common.api.extensions.entity.MotionAwareEntity;
+import com.blackgear.vanillabackport.common.api.extensions.entity.movement.MotionAwareEntity;
 import com.blackgear.vanillabackport.common.level.components.AttackRange;
 import com.blackgear.vanillabackport.core.util.Utilities.DirectionUtils;
 import com.mojang.datafixers.util.Either;

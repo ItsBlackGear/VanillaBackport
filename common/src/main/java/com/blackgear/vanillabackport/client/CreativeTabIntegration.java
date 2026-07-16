@@ -284,9 +284,11 @@ public interface CreativeTabIntegration {
 
     CreativeTabs.Modifier SPAWN_EGGS = (flag, output, operator) -> {
         output.addAfter(Items.SPAWNER, ModBlocks.CREAKING_HEART.get());
+        output.addAfter(Items.CAMEL_SPAWN_EGG, ModItems.CAMEL_HUSK_SPAWN_EGG.get());
         output.addAfter(Items.COD_SPAWN_EGG, ModItems.COPPER_GOLEM_SPAWN_EGG.get());
         output.addAfter(Items.COW_SPAWN_EGG, ModItems.CREAKING_SPAWN_EGG.get());
         output.addAfter(Items.GUARDIAN_SPAWN_EGG, ModItems.HAPPY_GHAST_SPAWN_EGG.get());
+        output.addAfter(Items.PANDA_SPAWN_EGG, ModItems.PARCHED_SPAWN_EGG.get());
         output.addAfter(Items.SNIFFER_SPAWN_EGG, ModItems.SULFUR_CUBE_SPAWN_EGG.get());
     };
 

@@ -121,6 +121,23 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
         
         this.getOrCreateTagBuilder(ItemTags.FOOT_ARMOR)
             .add(ModItems.COPPER_BOOTS.get());
+        
+        this.getOrCreateTagBuilder(ModItemTags.SPEARS)
+            .add(
+                ModItems.WOODEN_SPEAR.get(),
+                ModItems.STONE_SPEAR.get(),
+                ModItems.COPPER_SPEAR.get(),
+                ModItems.IRON_SPEAR.get(),
+                ModItems.GOLDEN_SPEAR.get(),
+                ModItems.DIAMOND_SPEAR.get(),
+                ModItems.NETHERITE_SPEAR.get()
+            );
+        
+        this.getOrCreateTagBuilder(ModItemTags.CAMEL_HUSK_FOOD)
+            .add(Items.RABBIT_FOOT);
+        
+        this.getOrCreateTagBuilder(ModItemTags.ZOMBIE_HORSE_FOOD)
+            .add(Items.RED_MUSHROOM);
     }
 
     private void handleArchetypes() {
@@ -451,17 +468,6 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
         this.getOrCreateTagBuilder(ConventionalItemTags.HORSE_ARMOR)
             .add(ModItems.COPPER_HORSE_ARMOR.get())
             .add(ModItems.NETHERITE_HORSE_ARMOR.get());
-        
-        this.getOrCreateTagBuilder(ModItemTags.SPEARS)
-            .add(
-                ModItems.WOODEN_SPEAR.get(),
-                ModItems.STONE_SPEAR.get(),
-                ModItems.COPPER_SPEAR.get(),
-                ModItems.IRON_SPEAR.get(),
-                ModItems.GOLDEN_SPEAR.get(),
-                ModItems.DIAMOND_SPEAR.get(),
-                ModItems.NETHERITE_SPEAR.get()
-            );
         
         this.getOrCreateTagBuilder(ItemTags.DURABILITY_ENCHANTABLE)
             .addTag(ModItemTags.SPEARS);

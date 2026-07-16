@@ -1,7 +1,7 @@
 package com.blackgear.vanillabackport.common.level.components;
 
 import com.blackgear.vanillabackport.common.api.extensions.SoundExtensions;
-import com.blackgear.vanillabackport.common.api.extensions.entity.MotionAwareEntity;
+import com.blackgear.vanillabackport.common.api.extensions.entity.movement.MotionAwareEntity;
 import com.blackgear.vanillabackport.common.api.extensions.entity.spear.MobSpearHandler;
 import com.blackgear.vanillabackport.core.util.AdditionalCodecs;
 import com.blackgear.vanillabackport.core.util.ProjectileUtils;

@@ -158,7 +158,9 @@ public class ModSoundEvents {
     public static final Supplier<SoundEvent> HARNESS_GOGGLES_DOWN = REGISTRIES.soundEvent("entity.happy_ghast.harness_goggles_down");
 
     public static final Supplier<SoundEvent> PARROT_IMITATE_CREAKING = REGISTRIES.soundEvent("entity.parrot.imitate.creaking");
-
+    public static final Supplier<SoundEvent> PARROT_IMITATE_PARCHED = REGISTRIES.register("entity.parrot.imitate.parched");
+    public static final Supplier<SoundEvent> PARROT_IMITATE_CAMEL_HUSK = REGISTRIES.register("entity.parrot.imitate.camel_husk");
+    
     public static final Supplier<SoundEvent> WOLF_PUGLIN_AMBIENT = REGISTRIES.soundEvent("entity.wolf_puglin.ambient");
     public static final Supplier<SoundEvent> WOLF_PUGLIN_DEATH = REGISTRIES.soundEvent("entity.wolf_puglin.death");
     public static final Supplier<SoundEvent> WOLF_PUGLIN_GROWL = REGISTRIES.soundEvent("entity.wolf_puglin.growl");
@@ -265,6 +267,26 @@ public class ModSoundEvents {
     public static final Supplier<SoundEvent> COPPER_GOLEM_BECOME_STATUE = REGISTRIES.soundEvent("entity.copper_golem_become_statue");
     public static final Supplier<SoundEvent> COPPER_GOLEM_SPAWN = REGISTRIES.soundEvent("entity.copper_golem.spawn");
     public static final Supplier<SoundEvent> COPPER_GOLEM_SHEAR = REGISTRIES.soundEvent("entity.copper_golem.shear");
+    
+    public static final Supplier<SoundEvent> PARCHED_AMBIENT = REGISTRIES.register("entity.parched.ambient");
+    public static final Supplier<SoundEvent> PARCHED_DEATH = REGISTRIES.register("entity.parched.death");
+    public static final Supplier<SoundEvent> PARCHED_HURT = REGISTRIES.register("entity.parched.hurt");
+    public static final Supplier<SoundEvent> PARCHED_STEP = REGISTRIES.register("entity.parched.step");
+    
+    public static final Supplier<SoundEvent> CAMEL_HUSK_AMBIENT = REGISTRIES.register("entity.camel_husk.ambient");
+    public static final Supplier<SoundEvent> CAMEL_HUSK_DASH = REGISTRIES.register("entity.camel_husk.dash");
+    public static final Supplier<SoundEvent> CAMEL_HUSK_DASH_READY = REGISTRIES.register("entity.camel_husk.dash_ready");
+    public static final Supplier<SoundEvent> CAMEL_HUSK_DEATH = REGISTRIES.register("entity.camel_husk.death");
+    public static final Supplier<SoundEvent> CAMEL_HUSK_EAT = REGISTRIES.register("entity.camel_husk.eat");
+    public static final Supplier<SoundEvent> CAMEL_HUSK_HURT = REGISTRIES.register("entity.camel_husk.hurt");
+    public static final Supplier<SoundEvent> CAMEL_HUSK_SADDLE = REGISTRIES.register("entity.camel_husk.saddle");
+    public static final Supplier<SoundEvent> CAMEL_HUSK_SIT = REGISTRIES.register("entity.camel_husk.sit");
+    public static final Supplier<SoundEvent> CAMEL_HUSK_STAND = REGISTRIES.register("entity.camel_husk.stand");
+    public static final Supplier<SoundEvent> CAMEL_HUSK_STEP = REGISTRIES.register("entity.camel_husk.step");
+    public static final Supplier<SoundEvent> CAMEL_HUSK_STEP_SAND = REGISTRIES.register("entity.camel_husk.step_sand");
+    
+    public static final Supplier<SoundEvent> ZOMBIE_HORSE_ANGRY = REGISTRIES.register("entity.zombie_horse.angry");
+    public static final Supplier<SoundEvent> ZOMBIE_HORSE_EAT = REGISTRIES.register("entity.zombie_horse.eat");
     
     // WEATHER
     public static final Supplier<SoundEvent> WEATHER_END_FLASH = REGISTRIES.register("weather.end_flash");
