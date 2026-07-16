@@ -1,7 +1,7 @@
 package com.blackgear.vanillabackport.common.level.item.spear;
 
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
-import com.blackgear.vanillabackport.common.api.extensions.entity.spear.ItemUseAnimations;
+import com.blackgear.vanillabackport.common.api.extensions.entity.arms.ItemUseAnimations;
 import com.blackgear.vanillabackport.common.level.item.spear.KineticWeapon.Condition;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.Multimap;

@@ -1,7 +1,7 @@
 package com.blackgear.vanillabackport.common.level.item.spear;
 
 import com.blackgear.vanillabackport.common.api.extensions.SoundExtension;
-import com.blackgear.vanillabackport.common.api.extensions.entity.MotionAwareEntity;
+import com.blackgear.vanillabackport.common.api.extensions.entity.movement.MotionAwareEntity;
 import com.blackgear.vanillabackport.common.api.extensions.entity.spear.MobSpearHandler;
 import com.blackgear.vanillabackport.core.util.ProjectileUtils;
 import net.minecraft.core.Holder;

@@ -22,6 +22,8 @@ mutable field net/minecraft/world/level/block/entity/ContainerOpenersCounter ope
 
 extendable method net/minecraft/world/entity/Entity setRemoved (Lnet/minecraft/world/entity/Entity$RemovalReason;)V
 
+extendable method net/minecraft/world/entity/monster/AbstractSkeleton getStepSound ()Lnet/minecraft/sounds/SoundEvent;
+
 accessible method net/minecraft/world/item/RecordItem <init> (ILnet/minecraft/sounds/SoundEvent;Lnet/minecraft/world/item/Item$Properties;I)V
 accessible method net/minecraft/world/item/BundleItem getWeight (Lnet/minecraft/world/item/ItemStack;)I
 

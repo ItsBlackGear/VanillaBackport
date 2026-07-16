@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.core.mixin.common.extension.entity;
 
-import com.blackgear.vanillabackport.common.api.extensions.entity.spear.ItemUseAnimations;
+import com.blackgear.vanillabackport.common.api.extensions.entity.arms.ItemUseAnimations;
 import net.minecraft.world.item.UseAnim;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Final;

@@ -87,6 +87,11 @@ public class BiomeTagGenerator extends FabricTagProvider<Biome> {
         this.getOrCreateTagBuilder(ModBiomeTags.SPAWNS_CAMELS)
             .addOptionalTag(FabricBiomeTags.DESERT)
             .addOptionalTag(ForgeBiomeTags.IS_DESERT);
+        
+        this.getOrCreateTagBuilder(ModBiomeTags.SPAWNS_ZOMBIE_HORSES)
+            .add(Biomes.PLAINS)
+            .add(Biomes.SNOWY_PLAINS)
+            .forceAddTag(BiomeTags.IS_SAVANNA);
 
         this.getOrCreateTagBuilder(ModBiomeTags.SPAWNS_ARMADILLOS_FREQUENTLY)
             .forceAddTag(BiomeTags.IS_SAVANNA)

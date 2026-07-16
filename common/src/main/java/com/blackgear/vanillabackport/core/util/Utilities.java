@@ -71,6 +71,10 @@ public class Utilities {
             }
             return Math.min(max, Math.max(value, min));
         }
+        
+        public static float cube(float x) {
+            return x * x * x;
+        }
     }
     
     public static class VectorUtils {

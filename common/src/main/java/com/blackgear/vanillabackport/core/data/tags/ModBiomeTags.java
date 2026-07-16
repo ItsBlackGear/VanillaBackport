@@ -17,7 +17,8 @@ public class ModBiomeTags {
     public static final TagKey<Biome> SPAWNS_CAMELS = TAGS.register("spawns_camels");
     public static final TagKey<Biome> SPAWNS_ARMADILLOS_FREQUENTLY = TAGS.register("spawns_armadillos_frequently");
     public static final TagKey<Biome> SPAWNS_ARMADILLOS = TAGS.register("spawns_armadillos");
-
+    public static final TagKey<Biome> SPAWNS_ZOMBIE_HORSES = TAGS.register("spawns_zombie_horses");
+    
     public static final TagKey<Biome> SPAWNS_SPOTTED_WOLVES = CONVENTIONAL.register("has_wolf/spotted");
     public static final TagKey<Biome> SPAWNS_SNOWY_WOLVES = CONVENTIONAL.register("has_wolf/snowy");
     public static final TagKey<Biome> SPAWNS_BLACK_WOLVES = CONVENTIONAL.register("has_wolf/black");

@@ -255,8 +255,8 @@ public class ModBundledTabs {
                 output.accept(ModItems.DIAMOND_SPEAR.get());
                 output.accept(ModItems.NETHERITE_SPEAR.get());
                 output.accept(ModItems.NETHERITE_HORSE_ARMOR.get());
-//                output.accept(ModItems.PARCHED_SPAWN_EGG.get());
-//                output.accept(ModItems.CAMEL_HUSK_SPAWN_EGG.get());
+                output.accept(ModItems.PARCHED_SPAWN_EGG.get());
+                output.accept(ModItems.CAMEL_HUSK_SPAWN_EGG.get());
             })
             .build()
     );

@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.core.mixin.common.extension.entity;
 
-import com.blackgear.vanillabackport.common.api.extensions.entity.spear.PlayerActions;
+import com.blackgear.vanillabackport.common.api.extensions.entity.arms.PlayerActions;
 import net.minecraft.network.protocol.game.ServerboundPlayerActionPacket;
 import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Final;

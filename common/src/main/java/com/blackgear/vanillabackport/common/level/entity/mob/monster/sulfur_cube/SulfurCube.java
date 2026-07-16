@@ -2,7 +2,7 @@ package com.blackgear.vanillabackport.common.level.entity.mob.monster.sulfur_cub
 
 import com.blackgear.vanillabackport.client.registries.ModParticles;
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
-import com.blackgear.vanillabackport.common.api.extensions.entity.MotionAwareEntity;
+import com.blackgear.vanillabackport.common.api.extensions.entity.movement.MotionAwareEntity;
 import com.blackgear.vanillabackport.common.api.modules.leash_behavior.Leashable;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.happy_ghast.TemptGoal;
 import com.blackgear.vanillabackport.common.level.entity.mob.monster.sulfur_cube.SulfurCubeArchetype.AttributeEntry;

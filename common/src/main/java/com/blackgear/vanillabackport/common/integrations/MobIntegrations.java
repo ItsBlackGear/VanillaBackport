@@ -5,18 +5,30 @@ import com.blackgear.vanillabackport.common.integrations.interactions.LeashInteg
 import com.blackgear.vanillabackport.common.integrations.interactions.ShearEquipmentInteraction;
 import com.blackgear.vanillabackport.common.integrations.interactions.WolfArmorInteraction;
 import com.blackgear.vanillabackport.common.level.entity.ai.goal.OfferCopperGolemFlowerGoal;
+import com.blackgear.vanillabackport.common.level.entity.ai.goal.SpearUseGoal;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.armadillo.Armadillo;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.golem.copper_golem.CopperGolem;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.happy_ghast.HappyGhast;
 import com.blackgear.vanillabackport.common.level.entity.mob.monster.creaking.Creaking;
+import com.blackgear.vanillabackport.common.level.entity.mob.monster.skeleton.Parched;
 import com.blackgear.vanillabackport.common.level.entity.mob.monster.sulfur_cube.SulfurCube;
 import com.blackgear.vanillabackport.common.registries.entities.ModEntityTypes;
 import com.blackgear.vanillabackport.core.data.tags.ModBlockTags;
+import net.minecraft.core.BlockPos;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.animal.IronGolem;
+import net.minecraft.world.entity.animal.camel.Camel;
+import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.Spider;
+import net.minecraft.world.entity.monster.Zombie;
+import net.minecraft.world.entity.monster.ZombifiedPiglin;
+import net.minecraft.world.level.ServerLevelAccessor;
 
 import static com.blackgear.platform.common.integration.MobIntegration.*;
 import static net.minecraft.world.entity.SpawnPlacements.*;
@@ -34,6 +46,8 @@ public class MobIntegrations {
         event.registerPlacement(ModEntityTypes.ARMADILLO, Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, Armadillo::checkArmadilloSpawnRules);
         event.registerPlacement(() -> EntityType.CAMEL, Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, (type, level, reason, pos, random) -> level.getBlockState(pos.below()).is(ModBlockTags.CAMELS_SPAWNABLE_ON) && level.getRawBrightness(pos, 0) > 8);
         event.registerPlacement(ModEntityTypes.SULFUR_CUBE, Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, SulfurCube::checkSulfurCubeSpawnRules);
+        event.registerPlacement(ModEntityTypes.PARCHED, Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, MobIntegrations::checkSurfaceMonstersSpawnRules);
+        event.registerPlacement(ModEntityTypes.CAMEL_HUSK, Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, MobIntegrations::checkSurfaceMonstersSpawnRules);
     }
     
     private static void registerAttributes(Event event) {
@@ -42,6 +56,8 @@ public class MobIntegrations {
         event.registerAttributes(ModEntityTypes.HAPPY_GHAST, HappyGhast::createAttributes);
         event.registerAttributes(ModEntityTypes.SULFUR_CUBE, SulfurCube::createSulfurCubeAttributes);
         event.registerAttributes(ModEntityTypes.COPPER_GOLEM, CopperGolem::createAttributes);
+        event.registerAttributes(ModEntityTypes.PARCHED, Parched::createAttributes);
+        event.registerAttributes(ModEntityTypes.CAMEL_HUSK, Camel::createAttributes);
     }
     
     private static void registerGoals(Event event) {
@@ -52,6 +68,9 @@ public class MobIntegrations {
         
         event.registerGoal(mob -> mob instanceof Spider, 2, mob -> new AvoidEntityGoal<>((PathfinderMob) mob, Armadillo.class, 6.0F, 1.0, 1.2, entity -> !((Armadillo) entity).isScared()));
         event.registerGoal(EntityType.IRON_GOLEM, 5, mob -> new OfferCopperGolemFlowerGoal((IronGolem) mob));
+        
+        event.registerGoal(mob -> mob instanceof Zombie, 2, mob -> new SpearUseGoal<>((Monster) mob, 1.0, 1.0, 10.0F, 2.0F));
+        event.registerGoal(mob -> mob instanceof ZombifiedPiglin, 1, mob -> new SpearUseGoal<>((Monster) mob, 1.0, 1.0, 10.0F, 2.0F));
     }
     
     public static void bootstrap(Event event) {
@@ -59,5 +78,13 @@ public class MobIntegrations {
         registerPlacements(event);
         registerAttributes(event);
         registerGoals(event);
+    }
+    
+    private static boolean checkMonsterSpawnRules(EntityType<? extends Mob> type, ServerLevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
+        return level.getDifficulty() != Difficulty.PEACEFUL && Monster.isDarkEnoughToSpawn(level, pos, random) && Mob.checkMobSpawnRules(type, level, spawnType, pos, random);
+    }
+    
+    private static boolean checkSurfaceMonstersSpawnRules(EntityType<? extends Mob> type, ServerLevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
+        return checkMonsterSpawnRules(type, level, spawnType, pos, random) && (spawnType == MobSpawnType.SPAWNER || level.canSeeSky(pos));
     }
 }

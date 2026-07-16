@@ -45,16 +45,9 @@ public class SpearAnimations {
             KineticWeapon kineticWeapon = KineticWeapon.getKineticWeapon(item);
             if (kineticWeapon != null) {
                 UseParams params = UseParams.fromKineticWeapon(kineticWeapon, handler.getTicksUsingItem(partial));
-                arm.yRot = arm.yRot + -invert * params.swayScaleFast() * Mth.DEG_TO_RAD * params.swayIntensity() * 1.0F;
-                arm.zRot = arm.zRot + -invert * params.swayScaleSlow() * Mth.DEG_TO_RAD * params.swayIntensity() * 0.5F;
-                arm.xRot = arm.xRot + Mth.DEG_TO_RAD * (
-                    -40.0F * params.raiseProgressStart() +
-                    30.0F * params.raiseProgressMiddle() +
-                    -20.0F * params.raiseProgressEnd() +
-                    20.0F * params.lowerProgress() +
-                    10.0F * params.raiseBackProgress() +
-                    0.6F * params.swayScaleSlow() * params.swayIntensity()
-                );
+                arm.yRot += -invert * params.swayScaleFast() * Mth.DEG_TO_RAD * params.swayIntensity() * 1.0F;
+                arm.zRot += -invert * params.swayScaleSlow() * Mth.DEG_TO_RAD * params.swayIntensity() * 0.5F;
+                arm.xRot += Mth.DEG_TO_RAD * (-40.0F * params.raiseProgressStart() + 30.0F * params.raiseProgressMiddle() + -20.0F * params.raiseProgressEnd() + 20.0F * params.lowerProgress() + 10.0F * params.raiseBackProgress() + 0.6F * params.swayScaleSlow() * params.swayIntensity());
             }
         }
     }
@@ -66,10 +59,9 @@ public class SpearAnimations {
         HumanoidArm arm,
         ItemStack actualItem
     ) {
-        float partial = Minecraft.getInstance().getDeltaFrameTime();
-        
         KineticWeapon kineticWeapon = KineticWeapon.getKineticWeapon(actualItem);
         if (kineticWeapon != null && timeHeld != 0.0F) {
+            float partial = Minecraft.getInstance().getDeltaFrameTime();
             float attack = Ease.inQuad(progress(entity.getAttackAnim(partial), 0.05F, 0.2F));
             float retract = Ease.inOutExpo(progress(entity.getAttackAnim(partial), 0.4F, 1.0F));
             UseParams params = UseParams.fromKineticWeapon(kineticWeapon, timeHeld);

@@ -139,6 +139,9 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
                 ModItems.DIAMOND_SPEAR.get(),
                 ModItems.NETHERITE_SPEAR.get()
             );
+        
+        this.getOrCreateTagBuilder(ModItemTags.CAMEL_HUSK_FOOD)
+            .add(Items.RABBIT_FOOT);
     }
 
     private void handleArchetypes() {

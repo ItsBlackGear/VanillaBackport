@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.core.forge;
 
-import com.blackgear.vanillabackport.common.api.extensions.entity.spear.ArmPoses;
+import com.blackgear.vanillabackport.common.api.extensions.entity.arms.ArmPoses;
 import net.minecraft.client.model.HumanoidModel;
 
 import java.util.Arrays;

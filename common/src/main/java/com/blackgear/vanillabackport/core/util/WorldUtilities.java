@@ -10,6 +10,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.util.SpawnUtil;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -17,6 +18,8 @@ import net.minecraft.world.entity.ai.goal.PanicGoal;
 import net.minecraft.world.entity.ai.goal.WrappedGoal;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
+import net.minecraft.world.entity.ai.util.GoalUtils;
+import net.minecraft.world.entity.ai.util.RandomPos;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
@@ -30,6 +33,7 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.HashSet;
@@ -39,6 +43,8 @@ import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
+
+import static net.minecraft.world.entity.ai.util.LandRandomPos.movePosUpOutOfSolid;
 
 public class WorldUtilities {
     public static class BlockUtils {
@@ -303,6 +309,87 @@ public class WorldUtilities {
             }
             
             return false;
+        }
+    }
+    
+    public static class PathfindingUtils {
+        public static boolean mobRestricted(PathfinderMob mob, double horizontalDist) {
+            return mob.hasRestriction() && mob.getRestrictCenter().closerToCenterThan(mob.position(), (double) mob.getRestrictRadius() + horizontalDist + 1.0);
+        }
+        
+        @Nullable
+        public static Vec3 getPosAway(PathfinderMob mob, double minHorizontalDist, double maxHorizontalDist, int verticalDist, Vec3 avoidPos) {
+            Vec3 dirAway = mob.position().subtract(avoidPos);
+            if (dirAway.length() == 0.0) {
+                dirAway = new Vec3(mob.getRandom().nextDouble() - 0.5, 0.0, mob.getRandom().nextDouble() - 0.5);
+            }
+            
+            boolean restrict = mobRestricted(mob, maxHorizontalDist);
+            return getPosInDirection(mob, minHorizontalDist, maxHorizontalDist, verticalDist, dirAway, restrict);
+        }
+        
+        @Nullable
+        private static Vec3 getPosInDirection(PathfinderMob mob, double minHorizontalDist, double maxHorizontalDist, int verticalDist, Vec3 dir, boolean restrict) {
+            return RandomPos.generateRandomPos(mob, () -> {
+                BlockPos direction = generateRandomDirectionWithinRadians(mob.getRandom(), minHorizontalDist, maxHorizontalDist, verticalDist, 0, dir.x, dir.z, Mth.HALF_PI);
+                if (direction == null) {
+                    return null;
+                } else {
+                    BlockPos pos = generateRandomPosTowardDirection(mob, maxHorizontalDist, restrict, direction);
+                    return pos == null ? null : movePosUpOutOfSolid(mob, pos);
+                }
+            });
+        }
+        
+        @Nullable
+        public static BlockPos generateRandomPosTowardDirection(PathfinderMob mob, double horizontalDist, boolean restrict, BlockPos direction) {
+            BlockPos pos = generateRandomPosTowardDirection(mob, horizontalDist, mob.getRandom(), direction);
+            return !GoalUtils.isOutsideLimits(pos, mob) && !GoalUtils.isRestricted(restrict, mob, pos) && !GoalUtils.isNotStable(mob.getNavigation(), pos) ? pos : null;
+        }
+        
+        @Nullable
+        private static BlockPos generateRandomDirectionWithinRadians(
+            RandomSource random,
+            double minHorizontalDist,
+            double maxHorizontalDist,
+            int verticalDist,
+            int flyingHeight,
+            double xDir,
+            double zDir,
+            double maxXzRadiansFromDir
+        ) {
+            double yRadiansCenter = Mth.atan2(zDir, xDir) - (double) Mth.HALF_PI;
+            double yRadians = yRadiansCenter + (double) (2.0F * random.nextFloat() - 1.0F) * maxXzRadiansFromDir;
+            double dist = Mth.lerp(Math.sqrt(random.nextDouble()), minHorizontalDist, maxHorizontalDist) * (double) Mth.SQRT_OF_TWO;
+            double xt = -dist * Math.sin(yRadians);
+            double zt = dist * Math.cos(yRadians);
+            if (!(Math.abs(xt) > maxHorizontalDist) && !(Math.abs(zt) > maxHorizontalDist)) {
+                int yt = random.nextInt(2 * verticalDist + 1) - verticalDist + flyingHeight;
+                return BlockPos.containing(xt, yt, zt);
+            } else {
+                return null;
+            }
+    }
+        
+        private static BlockPos generateRandomPosTowardDirection(PathfinderMob mob, double xzDist, RandomSource random, BlockPos direction) {
+            double xt = direction.getX();
+            double zt = direction.getZ();
+            if (mob.hasRestriction() && xzDist > 1.0) {
+                BlockPos center = mob.getRestrictCenter();
+                if (mob.getX() > (double) center.getX()) {
+                    xt -= random.nextDouble() * xzDist / 2.0;
+                } else {
+                    xt += random.nextDouble() * xzDist / 2.0;
+                }
+                
+                if (mob.getZ() > (double) center.getZ()) {
+                    zt -= random.nextDouble() * xzDist / 2.0;
+                } else {
+                    zt += random.nextDouble() * xzDist / 2.0;
+                }
+            }
+            
+            return BlockPos.containing(xt + mob.getX(), (double) direction.getY() + mob.getY(), zt + mob.getZ());
         }
     }
 }

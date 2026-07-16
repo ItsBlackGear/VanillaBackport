@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.core.mixin.common.happy_ghast;
 
-import com.blackgear.vanillabackport.common.api.extensions.entity.PositionAwareEntity;
+import com.blackgear.vanillabackport.common.api.extensions.entity.movement.PositionAwareEntity;
 import com.blackgear.vanillabackport.common.api.modules.leash_behavior.Leashable;
 import com.blackgear.vanillabackport.core.util.Utilities.*;
 import net.minecraft.network.protocol.Packet;

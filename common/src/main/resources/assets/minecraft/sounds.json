@@ -1,4 +1,19 @@
 {
+  "entity.zombie_horse.angry": {
+    "sounds": [
+      "mob/horse/zombie/angry"
+    ],
+    "subtitle": "subtitles.entity.zombie_horse.angry"
+  },
+  "entity.zombie_horse.eat": {
+    "sounds": [
+      {
+        "name": "entity.horse.eat",
+        "type": "event"
+      }
+    ],
+    "subtitle": "subtitles.entity.zombie_horse.eat"
+  },
   "weather.end_flash": {
     "sounds": [
       "ambient/weather/end_flash1",

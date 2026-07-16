@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.common.level.entity.mob.monster.sulfur_cube;
 
-import com.blackgear.vanillabackport.common.api.extensions.entity.TravelAwareEntity;
+import com.blackgear.vanillabackport.common.api.extensions.entity.movement.TravelAwareEntity;
 import com.blackgear.vanillabackport.core.util.WorldUtilities.*;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.nbt.CompoundTag;

@@ -7,7 +7,7 @@ import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.level.ServerLevelAccessor;
 
 public interface MobBehaviorAccess {
-    default void vb$finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficultyInstance, MobSpawnType reason, SpawnGroupData data, CompoundTag dataTag) { /* NO-OP */ }
+    default void vb$finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, SpawnGroupData data, CompoundTag dataTag) { /* NO-OP */ }
     
     default void vb$tick() { /* NO-OP */ }
 }

@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.core.mixin.common.entity_movement;
 
-import com.blackgear.vanillabackport.common.api.extensions.entity.MotionAwareEntity;
+import com.blackgear.vanillabackport.common.api.extensions.entity.movement.MotionAwareEntity;
 import com.blackgear.vanillabackport.core.network.ServerboundClientTickEndPacket;
 import net.minecraft.network.protocol.game.ServerboundMovePlayerPacket;
 import net.minecraft.network.protocol.game.ServerboundMoveVehiclePacket;

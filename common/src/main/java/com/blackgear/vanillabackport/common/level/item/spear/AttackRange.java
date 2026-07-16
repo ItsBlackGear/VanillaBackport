@@ -1,9 +1,8 @@
 package com.blackgear.vanillabackport.common.level.item.spear;
 
 import com.blackgear.platform.common.entity.ReachAttributes;
-import com.blackgear.vanillabackport.common.api.extensions.entity.MotionAwareEntity;
+import com.blackgear.vanillabackport.common.api.extensions.entity.movement.MotionAwareEntity;
 import com.blackgear.vanillabackport.core.util.ProjectileUtils;
-import com.blackgear.vanillabackport.core.util.Utilities;
 import com.blackgear.vanillabackport.core.util.Utilities.DirectionUtils;
 import com.mojang.datafixers.util.Either;
 import net.minecraft.core.BlockPos;

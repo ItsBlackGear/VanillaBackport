@@ -4,9 +4,11 @@ import com.blackgear.platform.core.helper.EntityRegistry;
 import com.blackgear.vanillabackport.common.level.entity.boat.PaleOakBoat;
 import com.blackgear.vanillabackport.common.level.entity.boat.PaleOakChestBoat;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.armadillo.Armadillo;
+import com.blackgear.vanillabackport.common.level.entity.mob.animal.camel.CamelHusk;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.golem.copper_golem.CopperGolem;
 import com.blackgear.vanillabackport.common.level.entity.mob.monster.creaking.Creaking;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.happy_ghast.HappyGhast;
+import com.blackgear.vanillabackport.common.level.entity.mob.monster.skeleton.Parched;
 import com.blackgear.vanillabackport.common.level.entity.mob.monster.sulfur_cube.SulfurCube;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.world.entity.EntityType;
@@ -52,6 +54,17 @@ public class ModEntityTypes {
     public static final Supplier<EntityType<CopperGolem>> COPPER_GOLEM = REGISTRIES.entity("copper_golem",
         EntityType.Builder.of(CopperGolem::new, MobCategory.MISC)
             .sized(0.49F, 0.98F)
+            .clientTrackingRange(10));
+    
+    // Mounts of Mayhem
+    
+    public static final Supplier<EntityType<Parched>> PARCHED = REGISTRIES.entity("parched",
+        EntityType.Builder.of(Parched::new, MobCategory.MONSTER)
+            .sized(0.6F, 1.99F)
+            .clientTrackingRange(8));
+    public static final Supplier<EntityType<CamelHusk>> CAMEL_HUSK = REGISTRIES.entity("camel_husk",
+        EntityType.Builder.of(CamelHusk::new, MobCategory.MONSTER)
+            .sized(1.7F, 2.375F)
             .clientTrackingRange(10));
     
     // Chaos Cubed
