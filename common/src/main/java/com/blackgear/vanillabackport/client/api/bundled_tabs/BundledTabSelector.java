@@ -4,6 +4,7 @@ import com.blackgear.platform.client.event.screen.HudInteractions;
 import com.blackgear.platform.client.event.screen.HudRendering;
 import com.blackgear.platform.client.event.screen.api.ScreenAccess;
 import com.blackgear.platform.core.util.event.CancellableResult;
+import com.blackgear.vanillabackport.client.api.modules.bundle_ui.ScrollWheelHandler;
 import com.blackgear.vanillabackport.client.registries.ModBundledTabs;
 import com.blackgear.vanillabackport.client.registries.ModCreativeTabs;
 import com.blackgear.vanillabackport.core.VanillaBackport;
@@ -21,8 +22,10 @@ import net.minecraft.client.gui.screens.inventory.CreativeModeInventoryScreen;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
+import org.joml.Vector2i;
 
 import java.util.*;
 import java.util.function.Consumer;
@@ -44,66 +47,66 @@ public class BundledTabSelector {
 
     private AbstractWidget scrollUpButton;
     private AbstractWidget scrollDownButton;
+    private final ScrollWheelHandler scrollWheelHandler = new ScrollWheelHandler();
 
-    private List<BundledTabs> bundles = null;
+    private List<BundledTabs> bundles = new ArrayList<>();
     private CreativeModeTab lastTab;
-    private int itemCount;
 
     private BundledTabSelector() {
         HudRendering.POST_INITIALIZE.register(this::init);
         HudRendering.RENDER_BACKGROUND.register(this::renderBackground);
         HudRendering.CLOSE_CONTAINER.register(this::onClose);
-//        HudInteractions.SCROLLING_PRE.register(this::onScroll);
+        HudInteractions.SCROLLING_PRE.register(this::onScroll);
     }
 
-//    private CancellableResult onScroll(Minecraft client, Screen screen, double mouseX, double mouseY, double scrollX, double scrollY) {
-//        CreativeModeTab tab = CreativeModeInventoryScreenAccessor.getSelectedTab();
-//
-//        if (this.isValidTab(tab)) {
-//            if (mouseX >= this.guiLeft - 30 && mouseY >= this.guiTop + 2 && mouseX <= this.guiLeft && mouseY <= this.guiTop + 122) {
-//                if (!(scrollY < 0)) {
-//                    if (this.scroll > 0) this.scroll--;
-//                } else {
-//                    if (this.scroll < this.getMaxScroll()) this.scroll++;
-//                }
-//            }
-//
-//            this.updateWidgets();
-//            return CancellableResult.CANCEL;
-//        }
-//
-//        return CancellableResult.PASS;
-//    }
+    private CancellableResult onScroll(Minecraft client, Screen screen, double mouseX, double mouseY, double scrollX, double scrollY) {
+        CreativeModeTab tab = CreativeModeInventoryScreenAccessor.getSelectedTab();
+        
+        if (this.isValidTab(tab)) {
+            if (mouseX >= this.guiLeft - 30 && mouseY >= this.guiTop + 2 && mouseX <= this.guiLeft && mouseY <= this.guiTop + 122) {
+                Vector2i scroll = this.scrollWheelHandler.onMouseScroll(scrollY);
+                int delta = scroll.y;
+                
+                if (delta != 0) {
+                    this.scroll = Mth.clamp(this.scroll - delta, 0, this.getMaxScroll());
+                    this.updateWidgets();
+                }
+                
+                return CancellableResult.CANCEL;
+            }
+        }
+        
+        return CancellableResult.PASS;
+    }
 
     private void init(Minecraft minecraft, Screen screen, ScreenAccess access) {
         if (screen instanceof CreativeModeInventoryScreen creativeScreen) {
-            if (this.bundles == null) this.bundles = new ArrayList<>(ModBundledTabs.getTabs());
+            if (this.bundles.isEmpty()) this.bundles = new ArrayList<>(ModBundledTabs.getTabs());
             this.guiLeft = creativeScreen.leftPos;
             this.guiTop = creativeScreen.topPos;
             this.injectWidgets(creativeScreen, access::addRenderableWidget);
-            this.itemCount = ModCreativeTabs.VANILLA_BACKPORT.get().getDisplayItems().size();
         }
     }
 
     private void renderBackground(Minecraft minecraft, AbstractContainerScreen<?> screen, GuiGraphics graphics, int mouseX, int mouseY, DeltaTracker timer) {
         if (screen instanceof CreativeModeInventoryScreen creativeScreen) {
             CreativeModeTab tab = CreativeModeInventoryScreenAccessor.getSelectedTab();
-            graphics.pose().pushPose();
-            graphics.pose().translate(0.0, 0.0, 0.0);
 
             if (this.isValidTab(tab)) {
+                graphics.pose().pushPose();
+                graphics.pose().translate(0.0, 0.0, 0.0);
                 graphics.blit(SELECTOR_BAR, this.guiLeft - 30, this.guiTop + 2, 0, 0, 30, 120);
-                if (this.hasSelectedBundle() && creativeScreen.getMenu().items.size() == this.itemCount) {
-                    this.bundles.forEach(BundledTabs::deselect);
-                }
+                graphics.pose().popPose();
             }
 
             if (this.lastTab != tab) {
+                if (this.isValidTab(tab) && !this.isValidTab(this.lastTab)) {
+                    this.bundles.forEach(BundledTabs::deselect);
+                }
+                
                 this.onSwitchCreativeTab(tab, creativeScreen);
                 this.lastTab = tab;
             }
-
-            graphics.pose().popPose();
         }
     }
 
@@ -120,17 +123,17 @@ public class BundledTabSelector {
     }
 
     private boolean hasSelectedBundle() {
-        return this.bundles != null && this.bundles.stream().anyMatch(BundledTabs::isSelected);
+        return this.bundles.stream().anyMatch(BundledTabs::isSelected);
     }
 
     private void injectWidgets(CreativeModeInventoryScreen screen, Consumer<AbstractWidget> widgets) {
-        this.bundles.forEach(category -> {
-            Tab tab = new Tab(this.guiLeft - 23, this.guiTop + 7, category, button -> {
-                if (category.isSelected()) {
-                    category.deselect();
+        this.bundles.forEach(bundle -> {
+            Tab tab = new Tab(this.guiLeft - 23, this.guiTop + 7, bundle, button -> {
+                if (bundle.isSelected()) {
+                    bundle.deselect();
                 } else {
                     this.bundles.forEach(BundledTabs::deselect);
-                    category.select();
+                    bundle.select();
                 }
                 this.updateItems(screen);
             });
@@ -138,11 +141,11 @@ public class BundledTabSelector {
             widgets.accept(tab);
         });
 
-        this.scrollUpButton = new ScrollButton(this.guiLeft - 24, this.guiTop + 6, 32, b -> {
+        this.scrollUpButton = new ScrollButton(this.guiLeft - 24, this.guiTop + 6, 32, button -> {
             if (this.scroll > 0) this.scroll--;
             this.updateWidgets();
         });
-        this.scrollDownButton = new ScrollButton(this.guiLeft - 24, this.guiTop + 108, 52, b -> {
+        this.scrollDownButton = new ScrollButton(this.guiLeft - 24, this.guiTop + 108, 52, button -> {
             if (this.scroll < this.getMaxScroll()) this.scroll++;
             this.updateWidgets();
         });
@@ -150,7 +153,6 @@ public class BundledTabSelector {
         widgets.accept(this.scrollUpButton);
         widgets.accept(this.scrollDownButton);
 
-        this.updateWidgets();
         this.onSwitchCreativeTab(CreativeModeInventoryScreenAccessor.getSelectedTab(), screen);
     }
 
@@ -216,7 +218,7 @@ public class BundledTabSelector {
     public static class Tab extends Button {
         private final BundledTabs bundle;
 
-        protected Tab(int x, int y, BundledTabs bundle, OnPress onPress) {
+        private Tab(int x, int y, BundledTabs bundle, OnPress onPress) {
             super(x, y, 16, 16, Component.empty(), onPress, DEFAULT_NARRATION);
             this.bundle = bundle;
             bundle.setContentTab(this);
@@ -255,7 +257,7 @@ public class BundledTabSelector {
     public static class ScrollButton extends Button {
         private final int uOffset;
 
-        public ScrollButton(int x, int y, int uOffset, OnPress onPress) {
+        private ScrollButton(int x, int y, int uOffset, OnPress onPress) {
             super(x, y, 18, 20, Component.empty(), onPress, DEFAULT_NARRATION);
             this.uOffset = uOffset;
         }

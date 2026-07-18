@@ -5,7 +5,6 @@ import com.blackgear.vanillabackport.common.level.block.CopperGolemStatueBlock;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
 import com.blackgear.vanillabackport.common.registries.items.ModItems;
 import com.blackgear.vanillabackport.common.registries.items.ModPaintingVariants;
-import com.blackgear.vanillabackport.core.FeatureFlag;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.NbtOps;
@@ -17,12 +16,11 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.BlockItemStateProperties;
 import net.minecraft.world.item.component.CustomData;
 
-import java.util.LinkedHashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class ModBundledTabs {
-    private static final Map<BundledTabs, FeatureFlag> FILTERS = new LinkedHashMap<>();
+    private static final List<BundledTabs> FILTERS = new ArrayList<>();
 
     public static final BundledTabs BUNDLES_OF_BRAVERY = register(
         BundledTabs.builder()
@@ -356,14 +354,11 @@ public class ModBundledTabs {
     );
 
     public static BundledTabs register(BundledTabs builder) {
-        FILTERS.put(builder, FeatureFlag.DEFAULT);
+        FILTERS.add(builder);
         return builder;
     }
 
     public static List<BundledTabs> getTabs() {
-        return FILTERS.entrySet().stream()
-            .filter(entry -> entry.getValue().isEnabled())
-            .map(Map.Entry::getKey)
-            .toList();
+        return FILTERS;
     }
 }
