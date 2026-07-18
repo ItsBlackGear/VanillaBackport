@@ -12,12 +12,13 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.decoration.Painting;
 import net.minecraft.world.item.*;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 public class ModBundledTabs {
-    private static final Map<BundledTabs, FeatureFlag> FILTERS = new LinkedHashMap<>();
+    private static final List<BundledTabs> FILTERS = new ArrayList<>();
   
     public static final BundledTabs ARMORED_PAWS = register(
         BundledTabs.builder()
@@ -361,14 +362,11 @@ public class ModBundledTabs {
     );
 
     public static BundledTabs register(BundledTabs builder) {
-        FILTERS.put(builder, FeatureFlag.DEFAULT);
+        FILTERS.add(builder);
         return builder;
     }
 
     public static List<BundledTabs> getTabs() {
-        return FILTERS.entrySet().stream()
-            .filter(entry -> entry.getValue().isEnabled())
-            .map(Map.Entry::getKey)
-            .toList();
+        return FILTERS;
     }
 }
