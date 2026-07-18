@@ -13,8 +13,10 @@ import com.blackgear.vanillabackport.client.level.model.entity.pig.ColdPigModel;
 import com.blackgear.vanillabackport.client.level.model.entity.sulfur_cube.SmallSulfurCubeModel;
 import com.blackgear.vanillabackport.client.level.model.entity.sulfur_cube.SulfurCubeModel;
 import com.blackgear.vanillabackport.client.level.model.entity.wolf.WolfArmorModel;
+import com.blackgear.vanillabackport.client.level.model.object.CushionModel;
 import com.blackgear.vanillabackport.client.level.renderer.entity.PaleOakBoatRenderer;
 import com.blackgear.vanillabackport.client.level.renderer.entity.mob.*;
+import com.blackgear.vanillabackport.client.level.renderer.object.CushionRenderer;
 import com.blackgear.vanillabackport.client.registries.ModModelLayers;
 import com.blackgear.vanillabackport.common.registries.entities.ModEntityTypes;
 import net.fabricmc.api.EnvType;
@@ -64,6 +66,8 @@ public class EntityRendering {
         event.register(ModModelLayers.PARCHED_INNER_ARMOR, () -> innerArmorDefinition);
         event.register(ModModelLayers.CAMEL_HUSK, CamelModel::createBodyLayer);
         event.register(ModModelLayers.UNDEAD_HORSE_ARMOR, () -> LayerDefinition.create(HorseModel.createBodyMesh(new CubeDeformation(0.1F)), 64, 64));
+        
+        event.register(ModModelLayers.CUSHION, CushionModel::createBodyLayer);
     }
     
     public static void renderers(EntityRendererEvent event) {
@@ -77,5 +81,7 @@ public class EntityRendering {
         event.register(ModEntityTypes.COPPER_GOLEM.get(), CopperGolemRenderer::new);
         event.register(ModEntityTypes.PARCHED.get(), ParchedRenderer::new);
         event.register(ModEntityTypes.CAMEL_HUSK.get(), CamelHuskRenderer::new);
+        
+        event.register(ModEntityTypes.CUSHION.get(), CushionRenderer::new);
     }
 }

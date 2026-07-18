@@ -300,6 +300,65 @@ public class ModBundledTabs {
             })
             .build()
     );
+    
+    public static final BundledTabs MISCELLANEOUS = register(
+        BundledTabs.builder()
+            .title(Component.translatable("bundled_tab.miscellaneous.title"))
+            .icon(new ItemStack(Items.NAME_TAG))
+            .displayItems((provider, output) -> {
+                output.accept(ModBlocks.WHITE_WOOL_STAIRS.get());
+                output.accept(ModBlocks.ORANGE_WOOL_STAIRS.get());
+                output.accept(ModBlocks.MAGENTA_WOOL_STAIRS.get());
+                output.accept(ModBlocks.LIGHT_BLUE_WOOL_STAIRS.get());
+                output.accept(ModBlocks.YELLOW_WOOL_STAIRS.get());
+                output.accept(ModBlocks.LIME_WOOL_STAIRS.get());
+                output.accept(ModBlocks.PINK_WOOL_STAIRS.get());
+                output.accept(ModBlocks.GRAY_WOOL_STAIRS.get());
+                output.accept(ModBlocks.LIGHT_GRAY_WOOL_STAIRS.get());
+                output.accept(ModBlocks.CYAN_WOOL_STAIRS.get());
+                output.accept(ModBlocks.PURPLE_WOOL_STAIRS.get());
+                output.accept(ModBlocks.BLUE_WOOL_STAIRS.get());
+                output.accept(ModBlocks.BROWN_WOOL_STAIRS.get());
+                output.accept(ModBlocks.GREEN_WOOL_STAIRS.get());
+                output.accept(ModBlocks.RED_WOOL_STAIRS.get());
+                output.accept(ModBlocks.BLACK_WOOL_STAIRS.get());
+                
+                output.accept(ModBlocks.WHITE_WOOL_SLAB.get());
+                output.accept(ModBlocks.ORANGE_WOOL_SLAB.get());
+                output.accept(ModBlocks.MAGENTA_WOOL_SLAB.get());
+                output.accept(ModBlocks.LIGHT_BLUE_WOOL_SLAB.get());
+                output.accept(ModBlocks.YELLOW_WOOL_SLAB.get());
+                output.accept(ModBlocks.LIME_WOOL_SLAB.get());
+                output.accept(ModBlocks.PINK_WOOL_SLAB.get());
+                output.accept(ModBlocks.GRAY_WOOL_SLAB.get());
+                output.accept(ModBlocks.LIGHT_GRAY_WOOL_SLAB.get());
+                output.accept(ModBlocks.CYAN_WOOL_SLAB.get());
+                output.accept(ModBlocks.PURPLE_WOOL_SLAB.get());
+                output.accept(ModBlocks.BLUE_WOOL_SLAB.get());
+                output.accept(ModBlocks.BROWN_WOOL_SLAB.get());
+                output.accept(ModBlocks.GREEN_WOOL_SLAB.get());
+                output.accept(ModBlocks.RED_WOOL_SLAB.get());
+                output.accept(ModBlocks.BLACK_WOOL_SLAB.get());
+                
+                output.accept(ModItems.WHITE_CUSHION.get());
+                output.accept(ModItems.ORANGE_CUSHION.get());
+                output.accept(ModItems.MAGENTA_CUSHION.get());
+                output.accept(ModItems.LIGHT_BLUE_CUSHION.get());
+                output.accept(ModItems.YELLOW_CUSHION.get());
+                output.accept(ModItems.LIME_CUSHION.get());
+                output.accept(ModItems.PINK_CUSHION.get());
+                output.accept(ModItems.GRAY_CUSHION.get());
+                output.accept(ModItems.LIGHT_GRAY_CUSHION.get());
+                output.accept(ModItems.CYAN_CUSHION.get());
+                output.accept(ModItems.PURPLE_CUSHION.get());
+                output.accept(ModItems.BLUE_CUSHION.get());
+                output.accept(ModItems.BROWN_CUSHION.get());
+                output.accept(ModItems.GREEN_CUSHION.get());
+                output.accept(ModItems.RED_CUSHION.get());
+                output.accept(ModItems.BLACK_CUSHION.get());
+            })
+            .build()
+    );
 
     public static BundledTabs register(BundledTabs builder) {
         FILTERS.put(builder, FeatureFlag.DEFAULT);

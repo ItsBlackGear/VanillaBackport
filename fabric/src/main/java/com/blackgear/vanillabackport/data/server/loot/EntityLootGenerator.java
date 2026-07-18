@@ -58,5 +58,6 @@ public class EntityLootGenerator extends SimpleFabricLootTableProvider {
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 3.0F)))
                         .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F)))))
         );
+        output.accept(ModEntityTypes.CUSHION.get().getDefaultLootTable(), LootTable.lootTable());
     }
 }

@@ -468,6 +468,10 @@ public class Utilities {
             return new Vec3(aabb.maxX, aabb.maxY, aabb.maxZ);
         }
         
+        public static AABB nextDeflated(AABB box) {
+            return new AABB(Math.nextUp(box.minX), Math.nextUp(box.minY), Math.nextUp(box.minZ), Math.nextDown(box.maxX), Math.nextDown(box.maxY), Math.nextDown(box.maxZ));
+        }
+        
         public static boolean intersects(AABB box, BlockPos pos) {
             return box.intersects(pos.getX(), pos.getY(), pos.getZ(), pos.getX() + 1, pos.getY() + 1, pos.getZ() + 1);
         }

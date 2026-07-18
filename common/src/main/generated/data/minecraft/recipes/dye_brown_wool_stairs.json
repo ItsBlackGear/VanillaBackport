@@ -1,0 +1,60 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "wool_stairs",
+  "ingredients": [
+    {
+      "item": "minecraft:brown_dye"
+    },
+    [
+      {
+        "item": "minecraft:black_wool_stairs"
+      },
+      {
+        "item": "minecraft:blue_wool_stairs"
+      },
+      {
+        "item": "minecraft:cyan_wool_stairs"
+      },
+      {
+        "item": "minecraft:gray_wool_stairs"
+      },
+      {
+        "item": "minecraft:green_wool_stairs"
+      },
+      {
+        "item": "minecraft:light_blue_wool_stairs"
+      },
+      {
+        "item": "minecraft:light_gray_wool_stairs"
+      },
+      {
+        "item": "minecraft:lime_wool_stairs"
+      },
+      {
+        "item": "minecraft:magenta_wool_stairs"
+      },
+      {
+        "item": "minecraft:orange_wool_stairs"
+      },
+      {
+        "item": "minecraft:pink_wool_stairs"
+      },
+      {
+        "item": "minecraft:purple_wool_stairs"
+      },
+      {
+        "item": "minecraft:red_wool_stairs"
+      },
+      {
+        "item": "minecraft:yellow_wool_stairs"
+      },
+      {
+        "item": "minecraft:white_wool_stairs"
+      }
+    ]
+  ],
+  "result": {
+    "item": "minecraft:brown_wool_stairs"
+  }
+}

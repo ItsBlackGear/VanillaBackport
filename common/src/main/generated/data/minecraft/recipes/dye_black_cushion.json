@@ -1,0 +1,60 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "cushion_dye",
+  "ingredients": [
+    {
+      "item": "minecraft:black_dye"
+    },
+    [
+      {
+        "item": "minecraft:blue_cushion"
+      },
+      {
+        "item": "minecraft:brown_cushion"
+      },
+      {
+        "item": "minecraft:cyan_cushion"
+      },
+      {
+        "item": "minecraft:gray_cushion"
+      },
+      {
+        "item": "minecraft:green_cushion"
+      },
+      {
+        "item": "minecraft:light_blue_cushion"
+      },
+      {
+        "item": "minecraft:light_gray_cushion"
+      },
+      {
+        "item": "minecraft:lime_cushion"
+      },
+      {
+        "item": "minecraft:magenta_cushion"
+      },
+      {
+        "item": "minecraft:orange_cushion"
+      },
+      {
+        "item": "minecraft:pink_cushion"
+      },
+      {
+        "item": "minecraft:purple_cushion"
+      },
+      {
+        "item": "minecraft:red_cushion"
+      },
+      {
+        "item": "minecraft:yellow_cushion"
+      },
+      {
+        "item": "minecraft:white_cushion"
+      }
+    ]
+  ],
+  "result": {
+    "item": "minecraft:black_cushion"
+  }
+}

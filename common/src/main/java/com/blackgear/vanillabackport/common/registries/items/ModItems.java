@@ -3,10 +3,7 @@ package com.blackgear.vanillabackport.common.registries.items;
 import com.blackgear.platform.core.helper.ItemRegistry;
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.chicken.ChickenVariants;
-import com.blackgear.vanillabackport.common.level.item.PaleOakBoatItem;
-import com.blackgear.vanillabackport.common.level.item.SulfurCubeBucketItem;
-import com.blackgear.vanillabackport.common.level.item.VariantEggItem;
-import com.blackgear.vanillabackport.common.level.item.WolfArmorItem;
+import com.blackgear.vanillabackport.common.level.item.*;
 import com.blackgear.vanillabackport.common.level.item.spear.SpearItem;
 import com.blackgear.vanillabackport.common.registries.entities.ModEntityTypes;
 import com.blackgear.vanillabackport.core.VanillaBackport;
@@ -300,4 +297,39 @@ public class ModItems {
             .rarity(Rarity.UNCOMMON));
     public static final Supplier<Item> SULFUR_CUBE_SPAWN_EGG = REGISTRIES.register("sulfur_cube_spawn_egg",
         () -> ItemRegistry.createSpawnEgg(ModEntityTypes.SULFUR_CUBE, 16777215, 8421504, new Properties()));
+    
+    // Miscellaneous
+    
+    public static final Supplier<Item> WHITE_CUSHION = REGISTRIES.register("white_cushion",
+        properties -> new CushionItem(properties.stacksTo(16), DyeColor.WHITE));
+    public static final Supplier<Item> ORANGE_CUSHION = REGISTRIES.register("orange_cushion",
+        properties -> new CushionItem(properties.stacksTo(16), DyeColor.ORANGE));
+    public static final Supplier<Item> MAGENTA_CUSHION = REGISTRIES.register("magenta_cushion",
+        properties -> new CushionItem(properties.stacksTo(16), DyeColor.MAGENTA));
+    public static final Supplier<Item> LIGHT_BLUE_CUSHION = REGISTRIES.register("light_blue_cushion",
+        properties -> new CushionItem(properties.stacksTo(16), DyeColor.LIGHT_BLUE));
+    public static final Supplier<Item> YELLOW_CUSHION = REGISTRIES.register("yellow_cushion",
+        properties -> new CushionItem(properties.stacksTo(16), DyeColor.YELLOW));
+    public static final Supplier<Item> LIME_CUSHION = REGISTRIES.register("lime_cushion",
+        properties -> new CushionItem(properties.stacksTo(16), DyeColor.LIME));
+    public static final Supplier<Item> PINK_CUSHION = REGISTRIES.register("pink_cushion",
+        properties -> new CushionItem(properties.stacksTo(16), DyeColor.PINK));
+    public static final Supplier<Item> GRAY_CUSHION = REGISTRIES.register("gray_cushion",
+        properties -> new CushionItem(properties.stacksTo(16), DyeColor.GRAY));
+    public static final Supplier<Item> LIGHT_GRAY_CUSHION = REGISTRIES.register("light_gray_cushion",
+        properties -> new CushionItem(properties.stacksTo(16), DyeColor.LIGHT_GRAY));
+    public static final Supplier<Item> CYAN_CUSHION = REGISTRIES.register("cyan_cushion",
+        properties -> new CushionItem(properties.stacksTo(16), DyeColor.CYAN));
+    public static final Supplier<Item> PURPLE_CUSHION = REGISTRIES.register("purple_cushion",
+        properties -> new CushionItem(properties.stacksTo(16), DyeColor.PURPLE));
+    public static final Supplier<Item> BLUE_CUSHION = REGISTRIES.register("blue_cushion",
+        properties -> new CushionItem(properties.stacksTo(16), DyeColor.BLUE));
+    public static final Supplier<Item> BROWN_CUSHION = REGISTRIES.register("brown_cushion",
+        properties -> new CushionItem(properties.stacksTo(16), DyeColor.BROWN));
+    public static final Supplier<Item> GREEN_CUSHION = REGISTRIES.register("green_cushion",
+        properties -> new CushionItem(properties.stacksTo(16), DyeColor.GREEN));
+    public static final Supplier<Item> RED_CUSHION = REGISTRIES.register("red_cushion",
+        properties -> new CushionItem(properties.stacksTo(16), DyeColor.RED));
+    public static final Supplier<Item> BLACK_CUSHION = REGISTRIES.register("black_cushion",
+        properties -> new CushionItem(properties.stacksTo(16), DyeColor.BLACK));
 }

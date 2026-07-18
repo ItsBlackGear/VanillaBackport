@@ -327,8 +327,34 @@ public class LangGenerator extends FabricLanguageProvider {
         
         builder.add(ModEntityTypes.COPPER_GOLEM.get(), "Copper Golem");
         
+        builder.add("subtitles.block.shelf.activate", "Shelf activates");
+        builder.add("subtitles.block.shelf.deactivate", "Shelf deactivates");
+        builder.add("subtitles.block.shelf.multi_swap", "Items swap");
+        builder.add("subtitles.block.shelf.place_item", "Item placed");
+        builder.add("subtitles.block.shelf.single_swap", "Item swaps");
+        builder.add("subtitles.block.shelf.take_item", "Item taken");
+        
         builder.add("subtitles.block.copper_chest.close", "Chest closes");
         builder.add("subtitles.block.copper_chest.open", "Chest opens");
+        
+        builder.add("subtitles.item.armor.equip_copper", "Copper armor clonks");
+        
+        builder.add("subtitles.entity.copper_golem_become_statue", "Copper Golem is petrified");
+        builder.add("subtitles.entity.copper_golem_oxidized.death", "Copper Golem dies");
+        builder.add("subtitles.entity.copper_golem_oxidized.hurt", "Copper Golem hurts");
+        builder.add("subtitles.entity.copper_golem_oxidized.spin", "Copper Golem's head spins");
+        builder.add("subtitles.entity.copper_golem_weathered.death", "Copper Golem dies");
+        builder.add("subtitles.entity.copper_golem_weathered.hurt", "Copper Golem hurts");
+        builder.add("subtitles.entity.copper_golem_weathered.spin", "Copper Golem's head spins");
+        builder.add("subtitles.entity.copper_golem.death", "Copper Golem dies");
+        builder.add("subtitles.entity.copper_golem.hurt", "Copper Golem hurts");
+        builder.add("subtitles.entity.copper_golem.item_drop", "Copper Golem is placing an item");
+        builder.add("subtitles.entity.copper_golem.item_no_drop", "Copper Golem can't place item");
+        builder.add("subtitles.entity.copper_golem.no_item_get", "Copper Golem is picking up item");
+        builder.add("subtitles.entity.copper_golem.no_item_no_get", "Copper Golem can't pick up item");
+        builder.add("subtitles.entity.copper_golem.spawn", "Copper Golem appears");
+        builder.add("subtitles.entity.copper_golem.spin", "Copper Golem's head spins");
+        
         builder.add("subtitles.weather.end_flash", "End Flash rumbles");
         
         builder.add("block_type.vanillabackport.shelf", "%s Shelf");
@@ -361,6 +387,11 @@ public class LangGenerator extends FabricLanguageProvider {
         builder.add("subtitles.entity.parched.ambient", "Parched crackles");
         builder.add("subtitles.entity.parched.death", "Parched dies");
         builder.add("subtitles.entity.parched.hurt", "Parched hurts");
+        
+        builder.add("subtitles.item.spear.attack", "Spear jabs");
+        builder.add("subtitles.item.spear.hit", "Spear hits");
+        builder.add("subtitles.item.spear.lunge", "Spear lunges");
+        builder.add("subtitles.item.spear.use", "Charges with Spear");
         
         // Chaos Cubed
 
@@ -452,6 +483,65 @@ public class LangGenerator extends FabricLanguageProvider {
         builder.add("advancements.husbandry.uh_oh.title", "Uh Oh");
         builder.add("advancements.husbandry.uh_oh.description", "Have a Sulfur Cube absorb a TNT block");
 
+        // Misc
+        builder.add(ModEntityTypes.CUSHION.get(), "Cushion");
+        
+        builder.add(ModBlocks.BLACK_WOOL_STAIRS.get(), "Black Wool Stairs");
+        builder.add(ModBlocks.WHITE_WOOL_STAIRS.get(), "White Wool Stairs");
+        builder.add(ModBlocks.GRAY_WOOL_STAIRS.get(), "Gray Wool Stairs");
+        builder.add(ModBlocks.LIGHT_GRAY_WOOL_STAIRS.get(), "Light Gray Wool Stairs");
+        builder.add(ModBlocks.LIGHT_BLUE_WOOL_STAIRS.get(), "Light Blue Wool Stairs");
+        builder.add(ModBlocks.BLUE_WOOL_STAIRS.get(), "Blue Wool Stairs");
+        builder.add(ModBlocks.CYAN_WOOL_STAIRS.get(), "Cyan Wool Stairs");
+        builder.add(ModBlocks.YELLOW_WOOL_STAIRS.get(), "Yellow Wool Stairs");
+        builder.add(ModBlocks.RED_WOOL_STAIRS.get(), "Red Wool Stairs");
+        builder.add(ModBlocks.PURPLE_WOOL_STAIRS.get(), "Purple Wool Stairs");
+        builder.add(ModBlocks.MAGENTA_WOOL_STAIRS.get(), "Magenta Wool Stairs");
+        builder.add(ModBlocks.PINK_WOOL_STAIRS.get(), "Pink Wool Stairs");
+        builder.add(ModBlocks.GREEN_WOOL_STAIRS.get(), "Green Wool Stairs");
+        builder.add(ModBlocks.LIME_WOOL_STAIRS.get(), "Lime Wool Stairs");
+        builder.add(ModBlocks.BROWN_WOOL_STAIRS.get(), "Brown Wool Stairs");
+        builder.add(ModBlocks.ORANGE_WOOL_STAIRS.get(), "Orange Wool Stairs");
+        
+        builder.add(ModBlocks.BLACK_WOOL_SLAB.get(), "Black Wool Slab");
+        builder.add(ModBlocks.WHITE_WOOL_SLAB.get(), "White Wool Slab");
+        builder.add(ModBlocks.GRAY_WOOL_SLAB.get(), "Gray Wool Slab");
+        builder.add(ModBlocks.LIGHT_GRAY_WOOL_SLAB.get(), "Light Gray Wool Slab");
+        builder.add(ModBlocks.LIGHT_BLUE_WOOL_SLAB.get(), "Light Blue Wool Slab");
+        builder.add(ModBlocks.BLUE_WOOL_SLAB.get(), "Blue Wool Slab");
+        builder.add(ModBlocks.CYAN_WOOL_SLAB.get(), "Cyan Wool Slab");
+        builder.add(ModBlocks.YELLOW_WOOL_SLAB.get(), "Yellow Wool Slab");
+        builder.add(ModBlocks.RED_WOOL_SLAB.get(), "Red Wool Slab");
+        builder.add(ModBlocks.PURPLE_WOOL_SLAB.get(), "Purple Wool Slab");
+        builder.add(ModBlocks.MAGENTA_WOOL_SLAB.get(), "Magenta Wool Slab");
+        builder.add(ModBlocks.PINK_WOOL_SLAB.get(), "Pink Wool Slab");
+        builder.add(ModBlocks.GREEN_WOOL_SLAB.get(), "Green Wool Slab");
+        builder.add(ModBlocks.LIME_WOOL_SLAB.get(), "Lime Wool Slab");
+        builder.add(ModBlocks.BROWN_WOOL_SLAB.get(), "Brown Wool Slab");
+        builder.add(ModBlocks.ORANGE_WOOL_SLAB.get(), "Orange Wool Slab");
+        
+        builder.add(ModItems.BLACK_CUSHION.get(), "Black Cushion");
+        builder.add(ModItems.WHITE_CUSHION.get(), "White Cushion");
+        builder.add(ModItems.GRAY_CUSHION.get(), "Gray Cushion");
+        builder.add(ModItems.LIGHT_GRAY_CUSHION.get(), "Light Gray Cushion");
+        builder.add(ModItems.LIGHT_BLUE_CUSHION.get(), "Light Blue Cushion");
+        builder.add(ModItems.BLUE_CUSHION.get(), "Blue Cushion");
+        builder.add(ModItems.CYAN_CUSHION.get(), "Cyan Cushion");
+        builder.add(ModItems.YELLOW_CUSHION.get(), "Yellow Cushion");
+        builder.add(ModItems.RED_CUSHION.get(), "Red Cushion");
+        builder.add(ModItems.PURPLE_CUSHION.get(), "Purple Cushion");
+        builder.add(ModItems.MAGENTA_CUSHION.get(), "Magenta Cushion");
+        builder.add(ModItems.PINK_CUSHION.get(), "Pink Cushion");
+        builder.add(ModItems.GREEN_CUSHION.get(), "Green Cushion");
+        builder.add(ModItems.LIME_CUSHION.get(), "Lime Cushion");
+        builder.add(ModItems.BROWN_CUSHION.get(), "Brown Cushion");
+        builder.add(ModItems.ORANGE_CUSHION.get(), "Orange Cushion");
+        
+        builder.add("subtitles.entity.cushion.break", "Cushion breaks");
+        builder.add("subtitles.entity.cushion.get_up", "Gets up from Cushion");
+        builder.add("subtitles.entity.cushion.place", "Cushion placed");
+        builder.add("subtitles.entity.cushion.sit", "Sits on Cushion");
+        
         // Bundled Tabs
         builder.add("bundled_tab.armored_paws.title", "Armored Paws");
         builder.add("bundled_tab.bundles_of_bravery.title", "Bundles of Bravery");
@@ -462,6 +552,7 @@ public class LangGenerator extends FabricLanguageProvider {
         builder.add("bundled_tab.copper_age.title", "Copper Age");
         builder.add("bundled_tab.mounts_of_mayhem.title", "Mounts of Mayhem");
         builder.add("bundled_tab.chaos_cubed.title", "Chaos Cubed");
+        builder.add("bundled_tab.miscellaneous.title", "Miscellaneous");
         
         // Options
         builder.add("options.music_frequency", "Music Frequency");

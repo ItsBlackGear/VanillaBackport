@@ -3,6 +3,7 @@ package com.blackgear.vanillabackport.common.registries.entities;
 import com.blackgear.platform.core.helper.EntityRegistry;
 import com.blackgear.vanillabackport.common.level.entity.boat.PaleOakBoat;
 import com.blackgear.vanillabackport.common.level.entity.boat.PaleOakChestBoat;
+import com.blackgear.vanillabackport.common.level.entity.decoration.Cushion;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.armadillo.Armadillo;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.camel.CamelHusk;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.golem.copper_golem.CopperGolem;
@@ -73,4 +74,12 @@ public class ModEntityTypes {
         EntityType.Builder.of(SulfurCube::new, MobCategory.MONSTER)
             .sized(0.49F, 0.49F)
             .clientTrackingRange(10));
+    
+    // Miscellaneous
+    
+    public static final Supplier<EntityType<Cushion>> CUSHION = REGISTRIES.entity("cushion",
+        EntityType.Builder.of(Cushion::new, MobCategory.MISC)
+            .sized(1.0F, 0.25F)
+            .clientTrackingRange(10)
+            .updateInterval(Integer.MAX_VALUE));
 }

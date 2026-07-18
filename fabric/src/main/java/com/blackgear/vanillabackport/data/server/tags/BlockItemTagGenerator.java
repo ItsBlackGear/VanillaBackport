@@ -66,7 +66,8 @@ public abstract class BlockItemTagGenerator {
                 ModBlocks.SULFUR_SLAB.get(),
                 ModBlocks.POLISHED_SULFUR_SLAB.get(),
                 ModBlocks.SULFUR_BRICK_SLAB.get()
-            );
+            )
+            .addTag(ModBlockTags.WOOL_SLABS);
 
         this.tag(BlockTags.WALLS, ItemTags.WALLS)
             .add(
@@ -88,7 +89,8 @@ public abstract class BlockItemTagGenerator {
                 ModBlocks.SULFUR_STAIRS.get(),
                 ModBlocks.POLISHED_SULFUR_STAIRS.get(),
                 ModBlocks.SULFUR_BRICK_STAIRS.get()
-            );
+            )
+            .addTag(ModBlockTags.WOOL_STAIRS);
 
         this.tag(BlockTags.LEAVES, ItemTags.LEAVES)
             .add(ModBlocks.PALE_OAK_LEAVES.get());
@@ -166,6 +168,50 @@ public abstract class BlockItemTagGenerator {
             .add(ModBlocks.PALE_OAK_SHELF.get())
             .add(ModBlocks.SPRUCE_SHELF.get())
             .add(ModBlocks.WARPED_SHELF.get());
+        
+        this.tag(ModBlockTags.WOOL_STAIRS, ModItemTags.WOOL_STAIRS)
+            .add(
+                ModBlocks.BLACK_WOOL_STAIRS.get(),
+                ModBlocks.BLUE_WOOL_STAIRS.get(),
+                ModBlocks.BROWN_WOOL_STAIRS.get(),
+                ModBlocks.CYAN_WOOL_STAIRS.get(),
+                ModBlocks.GRAY_WOOL_STAIRS.get(),
+                ModBlocks.GREEN_WOOL_STAIRS.get(),
+                ModBlocks.LIGHT_BLUE_WOOL_STAIRS.get(),
+                ModBlocks.LIGHT_GRAY_WOOL_STAIRS.get(),
+                ModBlocks.LIME_WOOL_STAIRS.get(),
+                ModBlocks.MAGENTA_WOOL_STAIRS.get(),
+                ModBlocks.ORANGE_WOOL_STAIRS.get(),
+                ModBlocks.PINK_WOOL_STAIRS.get(),
+                ModBlocks.PURPLE_WOOL_STAIRS.get(),
+                ModBlocks.RED_WOOL_STAIRS.get(),
+                ModBlocks.YELLOW_WOOL_STAIRS.get(),
+                ModBlocks.WHITE_WOOL_STAIRS.get()
+            );
+        
+        this.tag(ModBlockTags.WOOL_SLABS, ModItemTags.WOOL_SLABS)
+            .add(
+                ModBlocks.BLACK_WOOL_SLAB.get(),
+                ModBlocks.BLUE_WOOL_SLAB.get(),
+                ModBlocks.BROWN_WOOL_SLAB.get(),
+                ModBlocks.CYAN_WOOL_SLAB.get(),
+                ModBlocks.GRAY_WOOL_SLAB.get(),
+                ModBlocks.GREEN_WOOL_SLAB.get(),
+                ModBlocks.LIGHT_BLUE_WOOL_SLAB.get(),
+                ModBlocks.LIGHT_GRAY_WOOL_SLAB.get(),
+                ModBlocks.LIME_WOOL_SLAB.get(),
+                ModBlocks.MAGENTA_WOOL_SLAB.get(),
+                ModBlocks.ORANGE_WOOL_SLAB.get(),
+                ModBlocks.PINK_WOOL_SLAB.get(),
+                ModBlocks.PURPLE_WOOL_SLAB.get(),
+                ModBlocks.RED_WOOL_SLAB.get(),
+                ModBlocks.YELLOW_WOOL_SLAB.get(),
+                ModBlocks.WHITE_WOOL_SLAB.get()
+            );
+        
+        this.tag(BlockTags.DAMPENS_VIBRATIONS, ItemTags.DAMPENS_VIBRATIONS)
+            .addTag(ModBlockTags.WOOL_STAIRS)
+            .addTag(ModBlockTags.WOOL_SLABS);
     }
 
     private void handleConventionalTags() {

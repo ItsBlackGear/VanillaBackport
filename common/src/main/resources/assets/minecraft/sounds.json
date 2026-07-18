@@ -1,4 +1,39 @@
 {
+  "entity.cushion.break": {
+    "sounds": [
+      "entity/cushion/break1",
+      "entity/cushion/break2",
+      "entity/cushion/break3"
+    ],
+    "subtitle": "subtitles.entity.cushion.break"
+  },
+  "entity.cushion.get_up": {
+    "sounds": [
+      "entity/cushion/get_up1",
+      "entity/cushion/get_up2",
+      "entity/cushion/get_up3"
+    ],
+    "subtitle": "subtitles.entity.cushion.get_up"
+  },
+  "entity.cushion.place": {
+    "sounds": [
+      "entity/cushion/place1",
+      "entity/cushion/place2",
+      "entity/cushion/place3",
+      "entity/cushion/place4",
+      "entity/cushion/place5",
+      "entity/cushion/place6"
+    ],
+    "subtitle": "subtitles.entity.cushion.place"
+  },
+  "entity.cushion.sit": {
+    "sounds": [
+      "entity/cushion/sit1",
+      "entity/cushion/sit2",
+      "entity/cushion/sit3"
+    ],
+    "subtitle": "subtitles.entity.cushion.sit"
+  },
   "entity.zombie_horse.angry": {
     "sounds": [
       "mob/horse/zombie/angry"

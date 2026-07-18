@@ -57,27 +57,27 @@ public class BundledTabSelector {
         HudRendering.POST_INITIALIZE.register(this::init);
         HudRendering.RENDER_BACKGROUND.register(this::renderBackground);
         HudRendering.CLOSE_CONTAINER.register(this::onClose);
-        HudInteractions.SCROLLING_PRE.register(this::onScroll);
+//        HudInteractions.SCROLLING_PRE.register(this::onScroll);
     }
     
-    private CancellableResult onScroll(Minecraft client, Screen screen, double mouseX, double mouseY, double scrollY) {
-        CreativeModeTab tab = CreativeModeInventoryScreenAccessor.getSelectedTab();
-        
-        if (this.isValidTab(tab)) {
-            if (mouseX >= this.guiLeft - 30 && mouseY >= this.guiTop + 2 && mouseX <= this.guiLeft && mouseY <= this.guiTop + 122) {
-                if (!(scrollY < 0)) {
-                    if (this.scroll > 0) this.scroll--;
-                } else {
-                    if (this.scroll < this.getMaxScroll()) this.scroll++;
-                }
-            }
-            
-            this.updateWidgets();
-            return CancellableResult.CANCEL;
-        }
-        
-        return CancellableResult.PASS;
-    }
+//    private CancellableResult onScroll(Minecraft client, Screen screen, double mouseX, double mouseY, double scrollY) {
+//        CreativeModeTab tab = CreativeModeInventoryScreenAccessor.getSelectedTab();
+//
+//        if (this.isValidTab(tab)) {
+//            if (mouseX >= this.guiLeft - 30 && mouseY >= this.guiTop + 2 && mouseX <= this.guiLeft && mouseY <= this.guiTop + 122) {
+//                if (!(scrollY < 0)) {
+//                    if (this.scroll > 0) this.scroll--;
+//                } else {
+//                    if (this.scroll < this.getMaxScroll()) this.scroll++;
+//                }
+//            }
+//
+//            this.updateWidgets();
+//            return CancellableResult.CANCEL;
+//        }
+//
+//        return CancellableResult.PASS;
+//    }
 
     private void init(Minecraft minecraft, Screen screen, ScreenAccess access) {
         if (screen instanceof CreativeModeInventoryScreen creativeScreen) {

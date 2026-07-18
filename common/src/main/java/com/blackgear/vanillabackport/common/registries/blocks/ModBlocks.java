@@ -552,6 +552,90 @@ public class ModBlocks {
                 .isRedstoneConductor(REGISTRIES::never)
                 .noOcclusion()));
     
+    // Miscellaneous
+    
+    public static final Supplier<Block> WHITE_WOOL_STAIRS = REGISTRIES.register("white_wool_stairs",
+        properties -> new StairBlock(Blocks.WHITE_WOOL.defaultBlockState(), properties),
+        Properties.copy(Blocks.WHITE_WOOL));
+    public static final Supplier<Block> ORANGE_WOOL_STAIRS = REGISTRIES.register("orange_wool_stairs",
+        properties -> new StairBlock(Blocks.ORANGE_WOOL.defaultBlockState(), properties),
+        Properties.copy(Blocks.ORANGE_WOOL));
+    public static final Supplier<Block> MAGENTA_WOOL_STAIRS = REGISTRIES.register("magenta_wool_stairs",
+        properties -> new StairBlock(Blocks.MAGENTA_WOOL.defaultBlockState(), properties),
+        Properties.copy(Blocks.MAGENTA_WOOL));
+    public static final Supplier<Block> LIGHT_BLUE_WOOL_STAIRS = REGISTRIES.register("light_blue_wool_stairs",
+        properties -> new StairBlock(Blocks.LIGHT_BLUE_WOOL.defaultBlockState(), properties),
+        Properties.copy(Blocks.LIGHT_BLUE_WOOL));
+    public static final Supplier<Block> YELLOW_WOOL_STAIRS = REGISTRIES.register("yellow_wool_stairs",
+        properties -> new StairBlock(Blocks.YELLOW_WOOL.defaultBlockState(), properties),
+        Properties.copy(Blocks.YELLOW_WOOL));
+    public static final Supplier<Block> LIME_WOOL_STAIRS = REGISTRIES.register("lime_wool_stairs",
+        properties -> new StairBlock(Blocks.LIME_WOOL.defaultBlockState(), properties),
+        Properties.copy(Blocks.LIME_WOOL));
+    public static final Supplier<Block> PINK_WOOL_STAIRS = REGISTRIES.register("pink_wool_stairs",
+        properties -> new StairBlock(Blocks.PINK_WOOL.defaultBlockState(), properties),
+        Properties.copy(Blocks.PINK_WOOL));
+    public static final Supplier<Block> GRAY_WOOL_STAIRS = REGISTRIES.register("gray_wool_stairs",
+        properties -> new StairBlock(Blocks.GRAY_WOOL.defaultBlockState(), properties),
+        Properties.copy(Blocks.GRAY_WOOL));
+    public static final Supplier<Block> LIGHT_GRAY_WOOL_STAIRS = REGISTRIES.register("light_gray_wool_stairs",
+        properties -> new StairBlock(Blocks.LIGHT_GRAY_WOOL.defaultBlockState(), properties),
+        Properties.copy(Blocks.LIGHT_GRAY_WOOL));
+    public static final Supplier<Block> CYAN_WOOL_STAIRS = REGISTRIES.register("cyan_wool_stairs",
+        properties -> new StairBlock(Blocks.CYAN_WOOL.defaultBlockState(), properties),
+        Properties.copy(Blocks.CYAN_WOOL));
+    public static final Supplier<Block> PURPLE_WOOL_STAIRS = REGISTRIES.register("purple_wool_stairs",
+        properties -> new StairBlock(Blocks.PURPLE_WOOL.defaultBlockState(), properties),
+        Properties.copy(Blocks.PURPLE_WOOL));
+    public static final Supplier<Block> BLUE_WOOL_STAIRS = REGISTRIES.register("blue_wool_stairs",
+        properties -> new StairBlock(Blocks.BLUE_WOOL.defaultBlockState(), properties),
+        Properties.copy(Blocks.BLUE_WOOL));
+    public static final Supplier<Block> BROWN_WOOL_STAIRS = REGISTRIES.register("brown_wool_stairs",
+        properties -> new StairBlock(Blocks.BROWN_WOOL.defaultBlockState(), properties),
+        Properties.copy(Blocks.BROWN_WOOL));
+    public static final Supplier<Block> GREEN_WOOL_STAIRS = REGISTRIES.register("green_wool_stairs",
+        properties -> new StairBlock(Blocks.GREEN_WOOL.defaultBlockState(), properties),
+        Properties.copy(Blocks.GREEN_WOOL));
+    public static final Supplier<Block> RED_WOOL_STAIRS = REGISTRIES.register("red_wool_stairs",
+        properties -> new StairBlock(Blocks.RED_WOOL.defaultBlockState(), properties),
+        Properties.copy(Blocks.RED_WOOL));
+    public static final Supplier<Block> BLACK_WOOL_STAIRS = REGISTRIES.register("black_wool_stairs",
+        properties -> new StairBlock(Blocks.BLACK_WOOL.defaultBlockState(), properties),
+        Properties.copy(Blocks.BLACK_WOOL));
+    
+    public static final Supplier<Block> WHITE_WOOL_SLAB = REGISTRIES.register("white_wool_slab",
+        SlabBlock::new, Properties.copy(Blocks.WHITE_WOOL));
+    public static final Supplier<Block> ORANGE_WOOL_SLAB = REGISTRIES.register("orange_wool_slab",
+        SlabBlock::new, Properties.copy(Blocks.ORANGE_WOOL));
+    public static final Supplier<Block> MAGENTA_WOOL_SLAB = REGISTRIES.register("magenta_wool_slab",
+        SlabBlock::new, Properties.copy(Blocks.MAGENTA_WOOL));
+    public static final Supplier<Block> LIGHT_BLUE_WOOL_SLAB = REGISTRIES.register("light_blue_wool_slab",
+        SlabBlock::new, Properties.copy(Blocks.LIGHT_BLUE_WOOL));
+    public static final Supplier<Block> YELLOW_WOOL_SLAB = REGISTRIES.register("yellow_wool_slab",
+        SlabBlock::new, Properties.copy(Blocks.YELLOW_WOOL));
+    public static final Supplier<Block> LIME_WOOL_SLAB = REGISTRIES.register("lime_wool_slab",
+        SlabBlock::new, Properties.copy(Blocks.LIME_WOOL));
+    public static final Supplier<Block> PINK_WOOL_SLAB = REGISTRIES.register("pink_wool_slab",
+        SlabBlock::new, Properties.copy(Blocks.PINK_WOOL));
+    public static final Supplier<Block> GRAY_WOOL_SLAB = REGISTRIES.register("gray_wool_slab",
+        SlabBlock::new, Properties.copy(Blocks.GRAY_WOOL));
+    public static final Supplier<Block> LIGHT_GRAY_WOOL_SLAB = REGISTRIES.register("light_gray_wool_slab",
+        SlabBlock::new, Properties.copy(Blocks.LIGHT_GRAY_WOOL));
+    public static final Supplier<Block> CYAN_WOOL_SLAB = REGISTRIES.register("cyan_wool_slab",
+        SlabBlock::new, Properties.copy(Blocks.CYAN_WOOL));
+    public static final Supplier<Block> PURPLE_WOOL_SLAB = REGISTRIES.register("purple_wool_slab",
+        SlabBlock::new, Properties.copy(Blocks.PURPLE_WOOL));
+    public static final Supplier<Block> BLUE_WOOL_SLAB = REGISTRIES.register("blue_wool_slab",
+        SlabBlock::new, Properties.copy(Blocks.BLUE_WOOL));
+    public static final Supplier<Block> BROWN_WOOL_SLAB = REGISTRIES.register("brown_wool_slab",
+        SlabBlock::new, Properties.copy(Blocks.BROWN_WOOL));
+    public static final Supplier<Block> GREEN_WOOL_SLAB = REGISTRIES.register("green_wool_slab",
+        SlabBlock::new, Properties.copy(Blocks.GREEN_WOOL));
+    public static final Supplier<Block> RED_WOOL_SLAB = REGISTRIES.register("red_wool_slab",
+        SlabBlock::new, Properties.copy(Blocks.RED_WOOL));
+    public static final Supplier<Block> BLACK_WOOL_SLAB = REGISTRIES.register("black_wool_slab",
+        SlabBlock::new, Properties.copy(Blocks.BLACK_WOOL));
+    
     // Helper
     
     public static Pair<Supplier<Block>, Supplier<Block>> sign(String name, WoodType woodType, MapColor color) {

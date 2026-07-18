@@ -177,5 +177,23 @@ public class ModelGenerator extends VanillaModelGenerator {
         gen.createHandheldItem(ModItems.DIAMOND_SPEAR.get());
         gen.createHandheldItem(ModItems.NETHERITE_SPEAR.get());
         gen.createFlatItem(ModItems.NETHERITE_HORSE_ARMOR.get());
+        
+        // Miscellaneous
+        gen.createFlatItem(ModItems.WHITE_CUSHION.get());
+        gen.createFlatItem(ModItems.ORANGE_CUSHION.get());
+        gen.createFlatItem(ModItems.MAGENTA_CUSHION.get());
+        gen.createFlatItem(ModItems.LIGHT_BLUE_CUSHION.get());
+        gen.createFlatItem(ModItems.YELLOW_CUSHION.get());
+        gen.createFlatItem(ModItems.LIME_CUSHION.get());
+        gen.createFlatItem(ModItems.PINK_CUSHION.get());
+        gen.createFlatItem(ModItems.GRAY_CUSHION.get());
+        gen.createFlatItem(ModItems.LIGHT_GRAY_CUSHION.get());
+        gen.createFlatItem(ModItems.CYAN_CUSHION.get());
+        gen.createFlatItem(ModItems.PURPLE_CUSHION.get());
+        gen.createFlatItem(ModItems.BLUE_CUSHION.get());
+        gen.createFlatItem(ModItems.BROWN_CUSHION.get());
+        gen.createFlatItem(ModItems.GREEN_CUSHION.get());
+        gen.createFlatItem(ModItems.RED_CUSHION.get());
+        gen.createFlatItem(ModItems.BLACK_CUSHION.get());
     }
 }

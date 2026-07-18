@@ -142,6 +142,26 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
         
         this.getOrCreateTagBuilder(ModItemTags.CAMEL_HUSK_FOOD)
             .add(Items.RABBIT_FOOT);
+        
+        this.getOrCreateTagBuilder(ModItemTags.CUSHIONS)
+            .add(
+                ModItems.BLACK_CUSHION.get(),
+                ModItems.BLUE_CUSHION.get(),
+                ModItems.BROWN_CUSHION.get(),
+                ModItems.CYAN_CUSHION.get(),
+                ModItems.GRAY_CUSHION.get(),
+                ModItems.GREEN_CUSHION.get(),
+                ModItems.LIGHT_BLUE_CUSHION.get(),
+                ModItems.LIGHT_GRAY_CUSHION.get(),
+                ModItems.LIME_CUSHION.get(),
+                ModItems.MAGENTA_CUSHION.get(),
+                ModItems.ORANGE_CUSHION.get(),
+                ModItems.PINK_CUSHION.get(),
+                ModItems.PURPLE_CUSHION.get(),
+                ModItems.RED_CUSHION.get(),
+                ModItems.YELLOW_CUSHION.get(),
+                ModItems.WHITE_CUSHION.get()
+            );
     }
 
     private void handleArchetypes() {
@@ -346,7 +366,10 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
                 ModItems.RED_BUNDLE.get(),
                 ModItems.YELLOW_BUNDLE.get(),
                 ModItems.WHITE_BUNDLE.get()
-            );
+            )
+            .addTag(ModItemTags.CUSHIONS)
+            .addTag(ModItemTags.WOOL_STAIRS)
+            .addTag(ModItemTags.WOOL_SLABS);
 
         this.getDualTagBuilder(ForgeItemTags.DYED_BLACK, FabricItemTags.DYED_BLACK)
             .add(ModItems.BLACK_BUNDLE.get(), ModItems.BLACK_HARNESS.get());
