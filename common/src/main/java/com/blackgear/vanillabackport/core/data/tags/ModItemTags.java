@@ -50,4 +50,8 @@ public class ModItemTags {
     public static final TagKey<Item> NAUTILUS_BUCKET_FOOD = TAGS.register("nautilus_bucket_food");
     public static final TagKey<Item> NAUTILUS_FOOD = TAGS.register("nautilus_food");
     public static final TagKey<Item> NAUTILUS_TAMING_ITEMS = TAGS.register("nautilus_taming_items");
+    
+    public static final TagKey<Item> CUSHIONS = TAGS.register("cushions");
+    public static final TagKey<Item> WOOL_STAIRS = TAGS.register("wool_stairs");
+    public static final TagKey<Item> WOOL_SLABS = TAGS.register("wool_slabs");
 }

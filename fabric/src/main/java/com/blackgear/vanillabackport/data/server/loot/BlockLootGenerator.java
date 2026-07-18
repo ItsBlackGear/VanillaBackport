@@ -167,6 +167,41 @@ public class BlockLootGenerator extends FabricBlockLootTableProvider {
         ModBlocks.COPPER_LANTERN.forEach(holder -> this.add(holder.get(), this::createSingleItemTable));
         ModBlocks.COPPER_BARS.forEach(holder -> this.dropSelf(holder.get()));
         ModBlocks.COPPER_CHAIN.forEach(holder -> this.dropSelf(holder.get()));
+        
+        // Miscellaneous
+        this.dropSelf(ModBlocks.WHITE_WOOL_STAIRS.get());
+        this.dropSelf(ModBlocks.ORANGE_WOOL_STAIRS.get());
+        this.dropSelf(ModBlocks.MAGENTA_WOOL_STAIRS.get());
+        this.dropSelf(ModBlocks.LIGHT_BLUE_WOOL_STAIRS.get());
+        this.dropSelf(ModBlocks.YELLOW_WOOL_STAIRS.get());
+        this.dropSelf(ModBlocks.LIME_WOOL_STAIRS.get());
+        this.dropSelf(ModBlocks.PINK_WOOL_STAIRS.get());
+        this.dropSelf(ModBlocks.GRAY_WOOL_STAIRS.get());
+        this.dropSelf(ModBlocks.LIGHT_GRAY_WOOL_STAIRS.get());
+        this.dropSelf(ModBlocks.CYAN_WOOL_STAIRS.get());
+        this.dropSelf(ModBlocks.PURPLE_WOOL_STAIRS.get());
+        this.dropSelf(ModBlocks.BLUE_WOOL_STAIRS.get());
+        this.dropSelf(ModBlocks.BROWN_WOOL_STAIRS.get());
+        this.dropSelf(ModBlocks.GREEN_WOOL_STAIRS.get());
+        this.dropSelf(ModBlocks.RED_WOOL_STAIRS.get());
+        this.dropSelf(ModBlocks.BLACK_WOOL_STAIRS.get());
+        
+        this.dropSelf(ModBlocks.WHITE_WOOL_SLAB.get());
+        this.dropSelf(ModBlocks.ORANGE_WOOL_SLAB.get());
+        this.dropSelf(ModBlocks.MAGENTA_WOOL_SLAB.get());
+        this.dropSelf(ModBlocks.LIGHT_BLUE_WOOL_SLAB.get());
+        this.dropSelf(ModBlocks.YELLOW_WOOL_SLAB.get());
+        this.dropSelf(ModBlocks.LIME_WOOL_SLAB.get());
+        this.dropSelf(ModBlocks.PINK_WOOL_SLAB.get());
+        this.dropSelf(ModBlocks.GRAY_WOOL_SLAB.get());
+        this.dropSelf(ModBlocks.LIGHT_GRAY_WOOL_SLAB.get());
+        this.dropSelf(ModBlocks.CYAN_WOOL_SLAB.get());
+        this.dropSelf(ModBlocks.PURPLE_WOOL_SLAB.get());
+        this.dropSelf(ModBlocks.BLUE_WOOL_SLAB.get());
+        this.dropSelf(ModBlocks.BROWN_WOOL_SLAB.get());
+        this.dropSelf(ModBlocks.GREEN_WOOL_SLAB.get());
+        this.dropSelf(ModBlocks.RED_WOOL_SLAB.get());
+        this.dropSelf(ModBlocks.BLACK_WOOL_SLAB.get());
     }
 
     protected LootTable.Builder createMultifaceBlockDrops(Block block) {

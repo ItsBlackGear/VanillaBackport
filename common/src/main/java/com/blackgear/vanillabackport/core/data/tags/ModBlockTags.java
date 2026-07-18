@@ -44,4 +44,7 @@ public class ModBlockTags {
     public static final TagKey<Block> LIGHTNING_RODS = TAGS.register("lightning_rods");
     
     public static final TagKey<Block> WOODEN_SHELVES = TAGS.register("wooden_shelves");
+    
+    public static final TagKey<Block> WOOL_STAIRS = TAGS.register("wool_stairs");
+    public static final TagKey<Block> WOOL_SLABS = TAGS.register("wool_slabs");
 }

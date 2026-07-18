@@ -252,7 +252,7 @@ public class ConventionalItemTags {
     public static final TagKey<Item> YELLOW_DYES = TAGS.register("yellow_dyes");
 
     public static final TagKey<Item> MUSIC_DISCS = TAGS.register("music_discs");
-    public static final TagKey<Item> HORSE_ARMOR = TAGS.register("music_discs");
+    public static final TagKey<Item> HORSE_ARMOR = TAGS.register("horse_armor");
 
     public static final TagKey<Item> DYED = TAGS.register("dyed");
     public static final TagKey<Item> DYED_BLACK = TAGS.register("dyed/black");

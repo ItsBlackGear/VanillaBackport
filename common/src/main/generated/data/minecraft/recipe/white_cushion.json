@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "cushion",
+  "key": {
+    "#": {
+      "item": "minecraft:white_wool_slab"
+    }
+  },
+  "pattern": [
+    "###"
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:white_cushion"
+  }
+}

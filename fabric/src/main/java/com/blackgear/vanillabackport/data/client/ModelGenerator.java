@@ -147,7 +147,6 @@ public class ModelGenerator extends VanillaModelGenerator {
         gen.createFlatItem(ModItems.BROWN_EGG.get());
         
         // Copper Age
-        
         gen.createFlatItem(ModItems.COPPER_NUGGET.get());
         gen.createHandheldItem(ModItems.COPPER_AXE.get());
         gen.createHandheldItem(ModItems.COPPER_HOE.get());
@@ -173,5 +172,23 @@ public class ModelGenerator extends VanillaModelGenerator {
         // Chaos Cubed
         gen.createFlatItem(ModItems.SULFUR_CUBE_BUCKET.get());
         gen.createMusicDisc(ModItems.MUSIC_DISC_BOUNCE.get());
+        
+        // Miscellaneous
+        gen.createFlatItem(ModItems.WHITE_CUSHION.get());
+        gen.createFlatItem(ModItems.ORANGE_CUSHION.get());
+        gen.createFlatItem(ModItems.MAGENTA_CUSHION.get());
+        gen.createFlatItem(ModItems.LIGHT_BLUE_CUSHION.get());
+        gen.createFlatItem(ModItems.YELLOW_CUSHION.get());
+        gen.createFlatItem(ModItems.LIME_CUSHION.get());
+        gen.createFlatItem(ModItems.PINK_CUSHION.get());
+        gen.createFlatItem(ModItems.GRAY_CUSHION.get());
+        gen.createFlatItem(ModItems.LIGHT_GRAY_CUSHION.get());
+        gen.createFlatItem(ModItems.CYAN_CUSHION.get());
+        gen.createFlatItem(ModItems.PURPLE_CUSHION.get());
+        gen.createFlatItem(ModItems.BLUE_CUSHION.get());
+        gen.createFlatItem(ModItems.BROWN_CUSHION.get());
+        gen.createFlatItem(ModItems.GREEN_CUSHION.get());
+        gen.createFlatItem(ModItems.RED_CUSHION.get());
+        gen.createFlatItem(ModItems.BLACK_CUSHION.get());
     }
 }

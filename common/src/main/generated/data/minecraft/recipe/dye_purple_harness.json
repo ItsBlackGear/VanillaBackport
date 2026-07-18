@@ -1,0 +1,61 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "group": "harness_dye",
+  "ingredients": [
+    {
+      "item": "minecraft:purple_dye"
+    },
+    [
+      {
+        "item": "minecraft:black_harness"
+      },
+      {
+        "item": "minecraft:blue_harness"
+      },
+      {
+        "item": "minecraft:brown_harness"
+      },
+      {
+        "item": "minecraft:cyan_harness"
+      },
+      {
+        "item": "minecraft:gray_harness"
+      },
+      {
+        "item": "minecraft:green_harness"
+      },
+      {
+        "item": "minecraft:light_blue_harness"
+      },
+      {
+        "item": "minecraft:light_gray_harness"
+      },
+      {
+        "item": "minecraft:lime_harness"
+      },
+      {
+        "item": "minecraft:magenta_harness"
+      },
+      {
+        "item": "minecraft:orange_harness"
+      },
+      {
+        "item": "minecraft:pink_harness"
+      },
+      {
+        "item": "minecraft:red_harness"
+      },
+      {
+        "item": "minecraft:yellow_harness"
+      },
+      {
+        "item": "minecraft:white_harness"
+      }
+    ]
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:purple_harness"
+  }
+}

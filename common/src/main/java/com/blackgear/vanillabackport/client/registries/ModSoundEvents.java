@@ -288,6 +288,12 @@ public class ModSoundEvents {
     public static final Supplier<SoundEvent> ZOMBIE_HORSE_ANGRY = REGISTRIES.register("entity.zombie_horse.angry");
     public static final Supplier<SoundEvent> ZOMBIE_HORSE_EAT = REGISTRIES.register("entity.zombie_horse.eat");
     
+    // MISCELLANEOUS
+    public static final Supplier<SoundEvent> CUSHION_BREAK = REGISTRIES.register("entity.cushion.break");
+    public static final Supplier<SoundEvent> CUSHION_PLACE = REGISTRIES.register("entity.cushion.place");
+    public static final Supplier<SoundEvent> CUSHION_SIT = REGISTRIES.register("entity.cushion.sit");
+    public static final Supplier<SoundEvent> CUSHION_GET_UP = REGISTRIES.register("entity.cushion.get_up");
+    
     // WEATHER
     public static final Supplier<SoundEvent> WEATHER_END_FLASH = REGISTRIES.register("weather.end_flash");
     

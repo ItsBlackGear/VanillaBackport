@@ -35,7 +35,6 @@ public class ClientSetup {
         GameRendering.registerBlockColors(ColorRendering::blockColors);
         GameRendering.registerItemColors(ColorRendering::itemColors);
         GameRendering.registerBlockEntityRenderers(ItemLikeRendering::blockEntityRendering);
-        GameRendering.registerSpecialModels(ItemLikeRendering::specialRendering);
     }
 
     public static void asyncSetup(ParallelDispatch dispatch) {
@@ -43,6 +42,7 @@ public class ClientSetup {
             ItemPropertyIntegrations.bootstrap();
             LocalPlayerEvents.ON_LOGIN.register(player -> BundledTabSelector.bootstrap());
             GameRendering.registerHandHeldModels(ItemLikeRendering::handHeldModelRendering);
+            GameRendering.registerSpecialModels(ItemLikeRendering::specialRendering);
         });
         BundleMouseActions.bootstrap();
 

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "group": "cushion",
+  "key": {
+    "#": {
+      "item": "minecraft:red_wool_slab"
+    }
+  },
+  "pattern": [
+    "###"
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:red_cushion"
+  }
+}

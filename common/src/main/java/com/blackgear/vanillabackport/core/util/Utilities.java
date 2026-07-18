@@ -9,7 +9,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.DyeItem;
 import net.minecraft.world.item.Item;
@@ -460,16 +460,20 @@ public class Utilities {
             return new Vec3(aabb.maxX, aabb.maxY, aabb.maxZ);
         }
         
+        public static AABB nextDeflated(AABB box) {
+            return new AABB(Math.nextUp(box.minX), Math.nextUp(box.minY), Math.nextUp(box.minZ), Math.nextDown(box.maxX), Math.nextDown(box.maxY), Math.nextDown(box.maxZ));
+        }
+        
         public static boolean intersects(AABB box, BlockPos pos) {
             return box.intersects(pos.getX(), pos.getY(), pos.getZ(), pos.getX() + 1, pos.getY() + 1, pos.getZ() + 1);
         }
         
-        public static boolean collidedWithFluid(LivingEntity entity, FluidState state, BlockPos pos, Vec3 origin, Vec3 target) {
+        public static boolean collidedWithFluid(Entity entity, FluidState state, BlockPos pos, Vec3 origin, Vec3 target) {
             AABB box = getFluidAABB(state, entity.level(), pos);
             return box != null && collidedWithShapeMovingFrom(entity, origin, target, List.of(box));
         }
         
-        public static boolean collidedWithShapeMovingFrom(LivingEntity entity, Vec3 origin, Vec3 target, List<AABB> boxes) {
+        public static boolean collidedWithShapeMovingFrom(Entity entity, Vec3 origin, Vec3 target, List<AABB> boxes) {
             AABB box = entity.dimensions.makeBoundingBox(origin);
             Vec3 distance = target.subtract(origin);
             return collidedAlongVector(box, distance, boxes);
