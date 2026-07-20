@@ -240,6 +240,14 @@ public class ModBundledTabs {
             .title(Component.translatable("bundled_tab.mounts_of_mayhem.title"))
             .icon(new ItemStack(ModItems.IRON_SPEAR.get()))
             .displayItems((provider, output) -> {
+                output.accept(ModItems.COPPER_NAUTILUS_ARMOR.get());
+                output.accept(ModItems.IRON_NAUTILUS_ARMOR.get());
+                output.accept(ModItems.GOLDEN_NAUTILUS_ARMOR.get());
+                output.accept(ModItems.DIAMOND_NAUTILUS_ARMOR.get());
+                output.accept(ModItems.NETHERITE_NAUTILUS_ARMOR.get());
+                
+                output.accept(ModItems.NETHERITE_HORSE_ARMOR.get());
+                
                 output.accept(ModItems.WOODEN_SPEAR.get());
                 output.accept(ModItems.STONE_SPEAR.get());
                 output.accept(ModItems.COPPER_SPEAR.get());
@@ -247,9 +255,11 @@ public class ModBundledTabs {
                 output.accept(ModItems.GOLDEN_SPEAR.get());
                 output.accept(ModItems.DIAMOND_SPEAR.get());
                 output.accept(ModItems.NETHERITE_SPEAR.get());
-                output.accept(ModItems.NETHERITE_HORSE_ARMOR.get());
-                output.accept(ModItems.PARCHED_SPAWN_EGG.get());
+                
                 output.accept(ModItems.CAMEL_HUSK_SPAWN_EGG.get());
+                output.accept(ModItems.NAUTILUS_SPAWN_EGG.get());
+                output.accept(ModItems.PARCHED_SPAWN_EGG.get());
+                output.accept(ModItems.ZOMBIE_NAUTILUS_SPAWN_EGG.get());
             })
             .build()
     );

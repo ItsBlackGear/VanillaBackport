@@ -4,6 +4,7 @@ import com.blackgear.platform.core.helper.ItemRegistry;
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.chicken.ChickenVariants;
 import com.blackgear.vanillabackport.common.level.item.CushionItem;
+import com.blackgear.vanillabackport.common.level.item.NautilusArmorItem;
 import com.blackgear.vanillabackport.common.level.item.PaleOakBoatItem;
 import com.blackgear.vanillabackport.common.level.item.spear.SpearItem;
 import com.blackgear.vanillabackport.common.level.item.SulfurCubeBucketItem;
@@ -288,7 +289,7 @@ public class ModItems {
             properties.fireResistant()));
     
     public static final Supplier<Item> NETHERITE_HORSE_ARMOR = REGISTRIES.register("netherite_horse_armor",
-        properties -> new AnimalArmorItem(ArmorMaterials.NETHERITE, AnimalArmorItem.BodyType.EQUESTRIAN, false, properties) {
+        properties -> new AnimalArmorItem(ArmorMaterials.NETHERITE, AnimalArmorItem.BodyType.EQUESTRIAN, false, properties.stacksTo(1).fireResistant()) {
             @Override public ItemAttributeModifiers getDefaultAttributeModifiers() {
                 return Suppliers.memoize(() -> {
                     ItemAttributeModifiers.Builder builder = ItemAttributeModifiers.builder();
@@ -304,13 +305,43 @@ public class ModItems {
                     return builder.build();
                 }).get();
             }
-        },
-        new Item.Properties().stacksTo(1).fireResistant());
+    });
+    
+    public static final Supplier<Item> COPPER_NAUTILUS_ARMOR = REGISTRIES.register("copper_nautilus_armor",
+        properties -> new NautilusArmorItem(ModArmorMaterials.COPPER, properties.stacksTo(1)));
+    public static final Supplier<Item> IRON_NAUTILUS_ARMOR = REGISTRIES.register("iron_nautilus_armor",
+        properties -> new NautilusArmorItem(ArmorMaterials.IRON, properties.stacksTo(1)));
+    public static final Supplier<Item> GOLDEN_NAUTILUS_ARMOR = REGISTRIES.register("golden_nautilus_armor",
+        properties -> new NautilusArmorItem(ArmorMaterials.GOLD, properties.stacksTo(1)));
+    public static final Supplier<Item> DIAMOND_NAUTILUS_ARMOR = REGISTRIES.register("diamond_nautilus_armor",
+        properties -> new NautilusArmorItem(ArmorMaterials.DIAMOND, properties.stacksTo(1)));
+    public static final Supplier<Item> NETHERITE_NAUTILUS_ARMOR = REGISTRIES.register("netherite_nautilus_armor",
+        properties -> new NautilusArmorItem(ArmorMaterials.NETHERITE, properties.stacksTo(1).fireResistant()) {
+            @Override public ItemAttributeModifiers getDefaultAttributeModifiers() {
+                return Suppliers.memoize(() -> {
+                    ItemAttributeModifiers.Builder builder = ItemAttributeModifiers.builder();
+                    EquipmentSlotGroup slot = EquipmentSlotGroup.bySlot(type.getSlot());
+                    ResourceLocation location = ResourceLocation.withDefaultNamespace("armor." + type.getName());
+                    builder.add(Attributes.ARMOR, new AttributeModifier(location, 19, AttributeModifier.Operation.ADD_VALUE), slot);
+                    builder.add(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(location, material.value().toughness(), AttributeModifier.Operation.ADD_VALUE), slot);
+                    float knockbackResistance = material.value().knockbackResistance();
+                    if (knockbackResistance > 0.0F) {
+                        builder.add(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(location, knockbackResistance, AttributeModifier.Operation.ADD_VALUE), slot);
+                    }
+                    
+                    return builder.build();
+                }).get();
+            }
+    });
     
     public static final Supplier<Item> PARCHED_SPAWN_EGG = REGISTRIES.register("parched_spawn_egg",
         () -> ItemRegistry.createSpawnEgg(ModEntityTypes.PARCHED, 7630438, 14533518, new Properties()));
     public static final Supplier<Item> CAMEL_HUSK_SPAWN_EGG = REGISTRIES.register("camel_husk_spawn_egg",
         () -> ItemRegistry.createSpawnEgg(ModEntityTypes.CAMEL_HUSK, 7630438, 14533518, new Properties()));
+    public static final Supplier<Item> NAUTILUS_SPAWN_EGG = REGISTRIES.register("nautilus_spawn_egg",
+        () -> ItemRegistry.createSpawnEgg(ModEntityTypes.NAUTILUS, 7630438, 14533518, new Properties()));
+    public static final Supplier<Item> ZOMBIE_NAUTILUS_SPAWN_EGG = REGISTRIES.register("zombie_nautilus_spawn_egg",
+        () -> ItemRegistry.createSpawnEgg(ModEntityTypes.ZOMBIE_NAUTILUS, 7630438, 14533518, new Properties()));
     
     // Chaos Cubed
     

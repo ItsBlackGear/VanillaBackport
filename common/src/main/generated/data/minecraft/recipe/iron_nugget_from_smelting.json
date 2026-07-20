@@ -3,9 +3,14 @@
   "category": "misc",
   "cookingtime": 200,
   "experience": 0.1,
-  "ingredient": {
-    "item": "minecraft:iron_spear"
-  },
+  "ingredient": [
+    {
+      "item": "minecraft:iron_spear"
+    },
+    {
+      "item": "minecraft:iron_nautilus_armor"
+    }
+  ],
   "result": {
     "id": "minecraft:iron_nugget"
   }

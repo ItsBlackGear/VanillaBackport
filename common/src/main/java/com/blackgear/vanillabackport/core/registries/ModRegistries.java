@@ -7,6 +7,7 @@ import com.blackgear.vanillabackport.common.level.entity.mob.animal.cat.CatDataV
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.chicken.ChickenVariant;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.cow.CowVariant;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.frog.FrogDataVariant;
+import com.blackgear.vanillabackport.common.level.entity.mob.animal.nautilus.ZombieNautilusVariant;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.pig.PigVariant;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.wolf.WolfDataVariant;
 import com.blackgear.vanillabackport.common.level.entity.mob.monster.sulfur_cube.SulfurCubeArchetype;
@@ -46,4 +47,7 @@ public class ModRegistries {
 
     public static final ResourceKey<Registry<SulfurCubeArchetype>> SULFUR_CUBE_ARCHETYPES_KEY = BUILDER.resource("sulfur_cube_archetypes");
     public static final Supplier<Registry<SulfurCubeArchetype>> SULFUR_CUBE_ARCHETYPE = BUILDER.registry(SULFUR_CUBE_ARCHETYPES_KEY);
+    
+    public static final ResourceKey<Registry<ZombieNautilusVariant>> ZOMBIE_NAUTILUS_VARIANT_KEY = BUILDER.resource("zombie_nautilus_variant");
+    public static final Supplier<Registry<ZombieNautilusVariant>> ZOMBIE_NAUTILUS_VARIANT = BUILDER.registry(ZOMBIE_NAUTILUS_VARIANT_KEY);
 }

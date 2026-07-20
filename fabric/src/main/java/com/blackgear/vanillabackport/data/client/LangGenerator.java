@@ -3,6 +3,7 @@ package com.blackgear.vanillabackport.data.client;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
 import com.blackgear.vanillabackport.common.registries.entities.ModAttributes;
 import com.blackgear.vanillabackport.common.registries.entities.ModEntityTypes;
+import com.blackgear.vanillabackport.common.registries.entities.ModMobEffects;
 import com.blackgear.vanillabackport.common.registries.items.ModItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
@@ -103,6 +104,7 @@ public class LangGenerator extends FabricLanguageProvider {
         builder.add("subtitles.entity.parrot.imitate.creaking", "Parrot creaks");
         builder.add("subtitles.entity.parrot.imitate.camel_husk", "Parrot grumphs");
         builder.add("subtitles.entity.parrot.imitate.parched", "Parrot crackles");
+        builder.add("subtitles.entity.parrot.imitate.zombie_nautilus", "Parrot gargles");
 
         // Chase the Skies
         builder.add(ModBlocks.DRIED_GHAST.get(), "Dried Ghast");
@@ -334,10 +336,17 @@ public class LangGenerator extends FabricLanguageProvider {
         // Mounts of Mayhem
         builder.add(ModEntityTypes.PARCHED.get(), "Parched");
         builder.add(ModEntityTypes.CAMEL_HUSK.get(), "Camel Husk");
+        builder.add(ModEntityTypes.NAUTILUS.get(), "Nautilus");
+        builder.add(ModEntityTypes.ZOMBIE_NAUTILUS.get(), "Zombie Nautilus");
 
+        builder.add(ModItems.COPPER_NAUTILUS_ARMOR.get(), "Copper Nautilus Armor");
+        builder.add(ModItems.IRON_NAUTILUS_ARMOR.get(), "Iron Nautilus Armor");
+        builder.add(ModItems.GOLDEN_NAUTILUS_ARMOR.get(), "Golden Nautilus Armor");
+        builder.add(ModItems.DIAMOND_NAUTILUS_ARMOR.get(), "Diamond Nautilus Armor");
+        builder.add(ModItems.NETHERITE_NAUTILUS_ARMOR.get(), "Netherite Nautilus Armor");
+        
         builder.add(ModItems.NETHERITE_HORSE_ARMOR.get(), "Netherite Horse Armor");
-        builder.add(ModItems.PARCHED_SPAWN_EGG.get(), "Parched Spawn Egg");
-        builder.add(ModItems.CAMEL_HUSK_SPAWN_EGG.get(), "Camel Husk Spawn Egg");
+        
         builder.add(ModItems.WOODEN_SPEAR.get(), "Wooden Spear");
         builder.add(ModItems.STONE_SPEAR.get(), "Stone Spear");
         builder.add(ModItems.COPPER_SPEAR.get(), "Copper Spear");
@@ -345,6 +354,13 @@ public class LangGenerator extends FabricLanguageProvider {
         builder.add(ModItems.GOLDEN_SPEAR.get(), "Golden Spear");
         builder.add(ModItems.DIAMOND_SPEAR.get(), "Diamond Spear");
         builder.add(ModItems.NETHERITE_SPEAR.get(), "Netherite Spear");
+        
+        builder.add(ModItems.CAMEL_HUSK_SPAWN_EGG.get(), "Camel Husk Spawn Egg");
+        builder.add(ModItems.NAUTILUS_SPAWN_EGG.get(), "Nautilus Spawn Egg");
+        builder.add(ModItems.PARCHED_SPAWN_EGG.get(), "Parched Spawn Egg");
+        builder.add(ModItems.ZOMBIE_NAUTILUS_SPAWN_EGG.get(), "Zombie Nautilus Spawn Egg");
+        
+        builder.add(ModMobEffects.BREATH_OF_THE_NAUTILUS.value(), "Breath of the Nautilus");
         
         builder.add("subtitles.entity.camel_husk.ambient", "Camel Husk grumphs");
         builder.add("subtitles.entity.camel_husk.dash", "Camel Husk yeets");
@@ -356,14 +372,61 @@ public class LangGenerator extends FabricLanguageProvider {
         builder.add("subtitles.entity.camel_husk.sit", "Camel Husk sits down");
         builder.add("subtitles.entity.camel_husk.stand", "Camel Husk stands up");
         
+        builder.add("subtitles.entity.zombie_horse.angry", "Zombie Horse neighs");
+        builder.add("subtitles.entity.zombie_horse.eat", "Zombie Horse eats");
+        
         builder.add("subtitles.entity.parched.ambient", "Parched crackles");
         builder.add("subtitles.entity.parched.death", "Parched dies");
         builder.add("subtitles.entity.parched.hurt", "Parched hurts");
+        
+        builder.add("subtitles.entity.baby_nautilus.ambient", "Baby Nautilus chitters");
+        builder.add("subtitles.entity.baby_nautilus.ambient_land", "Baby Nautilus chitters");
+        builder.add("subtitles.entity.baby_nautilus.death", "Baby Nautilus dies");
+        builder.add("subtitles.entity.baby_nautilus.death_land", "Baby Nautilus dies");
+        builder.add("subtitles.entity.baby_nautilus.eat", "Baby Nautilus eats");
+        builder.add("subtitles.entity.baby_nautilus.hurt", "Baby Nautilus hurts");
+        builder.add("subtitles.entity.baby_nautilus.hurt_land", "Baby Nautilus hurts");
+        builder.add("subtitles.entity.baby_nautilus.swim", "Baby Nautilus swims");
+        
+        builder.add("subtitles.entity.nautilus.ambient", "Nautilus clacks");
+        builder.add("subtitles.entity.nautilus.ambient_land", "Nautilus clacks");
+        builder.add("subtitles.entity.nautilus.dash", "Nautilus jets");
+        builder.add("subtitles.entity.nautilus.dash_land", "Nautilus jets");
+        builder.add("subtitles.entity.nautilus.dash_ready", "Nautilus recovers");
+        builder.add("subtitles.entity.nautilus.dash_ready_land", "Nautilus recovers");
+        builder.add("subtitles.entity.nautilus.death", "Nautilus dies");
+        builder.add("subtitles.entity.nautilus.death_land", "Nautilus dies");
+        builder.add("subtitles.entity.nautilus.eat", "Nautilus eats");
+        builder.add("subtitles.entity.nautilus.hurt", "Nautilus hurts");
+        builder.add("subtitles.entity.nautilus.hurt_land", "Nautilus hurts");
+        builder.add("subtitles.entity.nautilus.swim", "Nautilus swims");
+        
+        builder.add("subtitles.entity.zombie_nautilus.ambient", "Zombie Nautilus clacks");
+        builder.add("subtitles.entity.zombie_nautilus.ambient_land", "Zombie Nautilus clacks");
+        builder.add("subtitles.entity.zombie_nautilus.dash", "Zombie Nautilus jets");
+        builder.add("subtitles.entity.zombie_nautilus.dash_land", "Zombie Nautilus jets");
+        builder.add("subtitles.entity.zombie_nautilus.dash_ready", "Zombie Nautilus recovers");
+        builder.add("subtitles.entity.zombie_nautilus.dash_ready_land", "Zombie Nautilus recovers");
+        builder.add("subtitles.entity.zombie_nautilus.death", "Zombie Nautilus dies");
+        builder.add("subtitles.entity.zombie_nautilus.death_land", "Zombie Nautilus dies");
+        builder.add("subtitles.entity.zombie_nautilus.eat", "Zombie Nautilus eats");
+        builder.add("subtitles.entity.zombie_nautilus.hurt", "Zombie Nautilus hurts");
+        builder.add("subtitles.entity.zombie_nautilus.hurt_land", "Zombie Nautilus hurts");
+        builder.add("subtitles.entity.zombie_nautilus.swim", "Zombie Nautilus swims");
+        
+        builder.add("subtitles.item.armor.equip_nautilus", "Nautilus Armor equips");
+        builder.add("subtitles.item.armor.unequip_nautilus", "Nautilus Armor unequips");
+        builder.add("subtitles.item.nautilus_saddle_equip", "Saddle equips");
+        builder.add("subtitles.item.nautilus_saddle_underwater_equip", "Saddle equips");
         
         builder.add("subtitles.item.spear.attack", "Spear jabs");
         builder.add("subtitles.item.spear.hit", "Spear hits");
         builder.add("subtitles.item.spear.lunge", "Spear lunges");
         builder.add("subtitles.item.spear.use", "Charges with Spear");
+        
+        builder.add("subtitles.item.spear_wood.attack", "Spear jabs");
+        builder.add("subtitles.item.spear_wood.hit", "Spear hits");
+        builder.add("subtitles.item.spear_wood.use", "Charges with Spear");
         
         // Chaos Cubed
 
@@ -412,7 +475,7 @@ public class LangGenerator extends FabricLanguageProvider {
         builder.add("subtitles.entity.sulfur_cube.hit", "Sulfur Cube hit");
         builder.add("subtitles.entity.sulfur_cube.hurt", "Sulfur Cube hurts");
         builder.add("subtitles.entity.sulfur_cube.push", "Sulfur Cube pushed");
-        builder.add("subtitles.entity.sulfur_cube.squish", "Sulfur Cube bounces");
+        builder.add("subtitles.entity.sulfur_cube.jump", "Sulfur Cube bounces");
 
         builder.add("subtitles.entity.small_sulfur_cube.death", "Small Sulfur Cube dies");
         builder.add("subtitles.entity.small_sulfur_cube.eat", "Small Sulfur Cube puts on mass");

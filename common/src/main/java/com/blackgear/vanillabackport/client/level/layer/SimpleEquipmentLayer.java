@@ -13,46 +13,60 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.ItemLike;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
 import java.util.Optional;
-import java.util.function.BiPredicate;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 @Environment(EnvType.CLIENT)
 public class SimpleEquipmentLayer<T extends LivingEntity, M extends EntityModel<T>> extends RenderLayer<T, M> {
-    private final Map<ItemStack, ResourceLocation> textureByItem;
-    private final BiPredicate<ItemStack, T> itemGetter;
+    private final Function<T, Optional<ResourceLocation>> textureSupplier;
     private final Predicate<T> shouldRender;
     private final EntityModel<T> model;
-    private final EntityModel<T> babyModel;
+    private final @Nullable EntityModel<T> babyModel;
 
     public SimpleEquipmentLayer(
         RenderLayerParent<T, M> renderer,
-        Map<ItemStack, ResourceLocation> textureByItem,
-        BiPredicate<ItemStack, T> itemGetter,
+        Function<T, Optional<ResourceLocation>> textureSupplier,
         Predicate<T> shouldRender,
         EntityModel<T> model,
-        EntityModel<T> babyModel
+        @Nullable EntityModel<T> babyModel
     ) {
         super(renderer);
-        this.textureByItem = textureByItem;
-        this.itemGetter = itemGetter;
+        this.textureSupplier = textureSupplier;
         this.shouldRender = shouldRender;
         this.model = model;
         this.babyModel = babyModel;
     }
 
-    public SimpleEquipmentLayer(
+    public static <T extends LivingEntity, M extends EntityModel<T>> SimpleEquipmentLayer<T, M> of(
         RenderLayerParent<T, M> renderer,
-        Map<ItemStack, ResourceLocation> textureByItem,
+        Map<ItemLike, ResourceLocation> textureByItem,
         EquipmentSlot slot,
         Predicate<T> shouldRender,
         EntityModel<T> model,
-        EntityModel<T> babyModel
+        @Nullable EntityModel<T> babyModel
     ) {
-        this(renderer, textureByItem, (stack, entity) -> entity.getItemBySlot(slot).is(stack.getItem()), shouldRender, model, babyModel);
+        return new SimpleEquipmentLayer<>(
+            renderer,
+            entity -> Optional.ofNullable(textureByItem.get(entity.getItemBySlot(slot).getItem())),
+            shouldRender,
+            model,
+            babyModel
+        );
+    }
+    
+    public static <T extends LivingEntity, M extends EntityModel<T>> SimpleEquipmentLayer<T, M> of(
+        RenderLayerParent<T, M> renderer,
+        ResourceLocation texture,
+        Predicate<T> shouldRender,
+        EntityModel<T> model,
+        @Nullable EntityModel<T> babyModel
+    ) {
+        return new SimpleEquipmentLayer<>(renderer, entity -> Optional.of(texture), shouldRender, model, babyModel);
     }
 
     @Override
@@ -68,17 +82,17 @@ public class SimpleEquipmentLayer<T extends LivingEntity, M extends EntityModel<
         float netHeadYaw,
         float headPitch
     ) {
-        Optional<ResourceLocation> texture = this.textureByItem.entrySet().stream()
-            .filter(entry -> this.itemGetter.test(entry.getKey(), entity))
-            .map(Map.Entry::getValue)
-            .findFirst();
-        if (this.shouldRender.test(entity) && texture.isPresent() && (!entity.isBaby() || this.babyModel != null)) {
-            EntityModel<T> model = entity.isBaby() ? this.babyModel : this.model;
-            this.getParentModel().copyPropertiesTo(model);
-            model.prepareMobModel(entity, limbSwing, limbSwingAmount, partialTick);
-            model.setupAnim(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
-            VertexConsumer vertices = buffer.getBuffer(RenderType.entityCutoutNoCull(texture.get()));
-            model.renderToBuffer(pose, vertices, packedLight, OverlayTexture.NO_OVERLAY);
-        }
+        if (!this.shouldRender.test(entity)) return;
+        if (entity.isBaby() && this.babyModel == null) return;
+        
+        Optional<ResourceLocation> texture = this.textureSupplier.apply(entity);
+        if (texture.isEmpty()) return;
+        
+        EntityModel<T> model = entity.isBaby() ? this.babyModel : this.model;
+        this.getParentModel().copyPropertiesTo(model);
+        model.prepareMobModel(entity, limbSwing, limbSwingAmount, partialTick);
+        model.setupAnim(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+        VertexConsumer vertices = buffer.getBuffer(RenderType.entityCutoutNoCull(texture.get()));
+        model.renderToBuffer(pose, vertices, packedLight, OverlayTexture.NO_OVERLAY);
     }
 }

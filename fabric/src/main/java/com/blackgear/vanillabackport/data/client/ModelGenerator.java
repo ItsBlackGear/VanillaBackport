@@ -63,7 +63,6 @@ public class ModelGenerator extends VanillaModelGenerator {
         gen.createSpawnEgg(ModItems.SULFUR_CUBE_SPAWN_EGG.get());
         
         // Copper Age
-        
         gen.createChest(ModBlocks.COPPER_CHEST.get(), Blocks.COPPER_BLOCK);
         gen.createChest(ModBlocks.EXPOSED_COPPER_CHEST.get(), Blocks.EXPOSED_COPPER);
         gen.createChest(ModBlocks.WEATHERED_COPPER_CHEST.get(), Blocks.WEATHERED_COPPER);
@@ -111,6 +110,8 @@ public class ModelGenerator extends VanillaModelGenerator {
         
         gen.createSpawnEgg(ModItems.PARCHED_SPAWN_EGG.get());
         gen.createSpawnEgg(ModItems.CAMEL_HUSK_SPAWN_EGG.get());
+        gen.createSpawnEgg(ModItems.NAUTILUS_SPAWN_EGG.get());
+        gen.createSpawnEgg(ModItems.ZOMBIE_NAUTILUS_SPAWN_EGG.get());
     }
 
     @Override
@@ -160,6 +161,14 @@ public class ModelGenerator extends VanillaModelGenerator {
         gen.createFlatItem(ModItems.COPPER_HORSE_ARMOR.get());
         
         // Mounts of Mayhem
+        gen.createFlatItem(ModItems.COPPER_NAUTILUS_ARMOR.get());
+        gen.createFlatItem(ModItems.IRON_NAUTILUS_ARMOR.get());
+        gen.createFlatItem(ModItems.GOLDEN_NAUTILUS_ARMOR.get());
+        gen.createFlatItem(ModItems.DIAMOND_NAUTILUS_ARMOR.get());
+        gen.createFlatItem(ModItems.NETHERITE_NAUTILUS_ARMOR.get());
+        
+        gen.createFlatItem(ModItems.NETHERITE_HORSE_ARMOR.get());
+        
         gen.createHandheldItem(ModItems.WOODEN_SPEAR.get());
         gen.createHandheldItem(ModItems.STONE_SPEAR.get());
         gen.createHandheldItem(ModItems.COPPER_SPEAR.get());
@@ -167,7 +176,6 @@ public class ModelGenerator extends VanillaModelGenerator {
         gen.createHandheldItem(ModItems.GOLDEN_SPEAR.get());
         gen.createHandheldItem(ModItems.DIAMOND_SPEAR.get());
         gen.createHandheldItem(ModItems.NETHERITE_SPEAR.get());
-        gen.createFlatItem(ModItems.NETHERITE_HORSE_ARMOR.get());
         
         // Chaos Cubed
         gen.createFlatItem(ModItems.SULFUR_CUBE_BUCKET.get());

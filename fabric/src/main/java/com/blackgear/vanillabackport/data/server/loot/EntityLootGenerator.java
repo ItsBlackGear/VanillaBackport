@@ -15,6 +15,7 @@ import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.functions.SetPotionFunction;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.predicates.LootItemKilledByPlayerCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemRandomChanceWithEnchantedBonusCondition;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
@@ -61,6 +62,23 @@ public class EntityLootGenerator extends SimpleFabricLootTableProvider {
                     .add(LootItem.lootTableItem(Items.ROTTEN_FLESH)
                         .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 3.0F)))
                         .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.0F, 1.0F)))))
+        );
+        output.accept(ModEntityTypes.NAUTILUS.get().getDefaultLootTable(),
+            LootTable.lootTable()
+                .withPool(LootPool.lootPool()
+                    .setRolls(ConstantValue.exactly(1.0F))
+                    .add(LootItem.lootTableItem(Items.NAUTILUS_SHELL)
+                        .when(LootItemKilledByPlayerCondition.killedByPlayer())
+                        .when(LootItemRandomChanceWithEnchantedBonusCondition.randomChanceAndLootingBoost(this.registries, 0.05F, 0.01F))))
+        );
+        output.accept(ModEntityTypes.ZOMBIE_NAUTILUS.get().getDefaultLootTable(),
+            LootTable.lootTable()
+                .withPool(LootPool.lootPool()
+                    .setRolls(ConstantValue.exactly(1.0F))
+                    .add(LootItem.lootTableItem(Items.ROTTEN_FLESH)
+                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(0.0F, 3.0F)))
+                        .apply(EnchantedCountIncreaseFunction.lootingMultiplier(this.registries, UniformGenerator.between(0.0F, 1.0F))))
+                    .when(LootItemKilledByPlayerCondition.killedByPlayer()))
         );
         output.accept(ModEntityTypes.CUSHION.get().getDefaultLootTable(), LootTable.lootTable());
     }

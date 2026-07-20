@@ -288,6 +288,50 @@ public class ModSoundEvents {
     public static final Supplier<SoundEvent> ZOMBIE_HORSE_ANGRY = REGISTRIES.register("entity.zombie_horse.angry");
     public static final Supplier<SoundEvent> ZOMBIE_HORSE_EAT = REGISTRIES.register("entity.zombie_horse.eat");
     
+    public static final Supplier<SoundEvent> NAUTILUS_AMBIENT = REGISTRIES.register("entity.nautilus.ambient");
+    public static final Supplier<SoundEvent> NAUTILUS_AMBIENT_ON_LAND = REGISTRIES.register("entity.nautilus.ambient_land");
+    public static final Supplier<SoundEvent> NAUTILUS_DASH = REGISTRIES.register("entity.nautilus.dash");
+    public static final Supplier<SoundEvent> NAUTILUS_DASH_ON_LAND = REGISTRIES.register("entity.nautilus.dash_land");
+    public static final Supplier<SoundEvent> NAUTILUS_DASH_READY = REGISTRIES.register("entity.nautilus.dash_ready");
+    public static final Supplier<SoundEvent> NAUTILUS_DASH_READY_ON_LAND = REGISTRIES.register("entity.nautilus.dash_ready_land");
+    public static final Supplier<SoundEvent> NAUTILUS_DEATH = REGISTRIES.register("entity.nautilus.death");
+    public static final Supplier<SoundEvent> NAUTILUS_DEATH_ON_LAND = REGISTRIES.register("entity.nautilus.death_land");
+    public static final Supplier<SoundEvent> NAUTILUS_EAT = REGISTRIES.register("entity.nautilus.eat");
+    public static final Supplier<SoundEvent> NAUTILUS_HURT = REGISTRIES.register("entity.nautilus.hurt");
+    public static final Supplier<SoundEvent> NAUTILUS_HURT_ON_LAND = REGISTRIES.register("entity.nautilus.hurt_land");
+    public static final Supplier<SoundEvent> NAUTILUS_SWIM = REGISTRIES.register("entity.nautilus.swim");
+    
+    public static final Supplier<SoundEvent> NAUTILUS_RIDING = REGISTRIES.register("entity.nautilus.riding");
+    
+    public static final Supplier<SoundEvent> BABY_NAUTILUS_AMBIENT = REGISTRIES.register("entity.baby_nautilus.ambient");
+    public static final Supplier<SoundEvent> BABY_NAUTILUS_AMBIENT_ON_LAND = REGISTRIES.register("entity.baby_nautilus.ambient_land");
+    public static final Supplier<SoundEvent> BABY_NAUTILUS_DEATH = REGISTRIES.register("entity.baby_nautilus.death");
+    public static final Supplier<SoundEvent> BABY_NAUTILUS_DEATH_ON_LAND = REGISTRIES.register("entity.baby_nautilus.death_land");
+    public static final Supplier<SoundEvent> BABY_NAUTILUS_EAT = REGISTRIES.register("entity.baby_nautilus.eat");
+    public static final Supplier<SoundEvent> BABY_NAUTILUS_HURT = REGISTRIES.register("entity.baby_nautilus.hurt");
+    public static final Supplier<SoundEvent> BABY_NAUTILUS_HURT_ON_LAND = REGISTRIES.register("entity.baby_nautilus.hurt_land");
+    public static final Supplier<SoundEvent> BABY_NAUTILUS_SWIM = REGISTRIES.register("entity.baby_nautilus.swim");
+    
+    public static final Supplier<SoundEvent> ZOMBIE_NAUTILUS_AMBIENT = REGISTRIES.register("entity.zombie_nautilus.ambient");
+    public static final Supplier<SoundEvent> ZOMBIE_NAUTILUS_AMBIENT_ON_LAND = REGISTRIES.register("entity.zombie_nautilus.ambient_land");
+    public static final Supplier<SoundEvent> ZOMBIE_NAUTILUS_DASH = REGISTRIES.register("entity.zombie_nautilus.dash");
+    public static final Supplier<SoundEvent> ZOMBIE_NAUTILUS_DASH_ON_LAND = REGISTRIES.register("entity.zombie_nautilus.dash_land");
+    public static final Supplier<SoundEvent> ZOMBIE_NAUTILUS_DASH_READY = REGISTRIES.register("entity.zombie_nautilus.dash_ready");
+    public static final Supplier<SoundEvent> ZOMBIE_NAUTILUS_DASH_READY_ON_LAND = REGISTRIES.register("entity.zombie_nautilus.dash_ready_land");
+    public static final Supplier<SoundEvent> ZOMBIE_NAUTILUS_DEATH = REGISTRIES.register("entity.zombie_nautilus.death");
+    public static final Supplier<SoundEvent> ZOMBIE_NAUTILUS_DEATH_ON_LAND = REGISTRIES.register("entity.zombie_nautilus.death_land");
+    public static final Supplier<SoundEvent> ZOMBIE_NAUTILUS_EAT = REGISTRIES.register("entity.zombie_nautilus.eat");
+    public static final Supplier<SoundEvent> ZOMBIE_NAUTILUS_HURT = REGISTRIES.register("entity.zombie_nautilus.hurt");
+    public static final Supplier<SoundEvent> ZOMBIE_NAUTILUS_HURT_ON_LAND = REGISTRIES.register("entity.zombie_nautilus.hurt_land");
+    public static final Supplier<SoundEvent> ZOMBIE_NAUTILUS_SWIM = REGISTRIES.register("entity.zombie_nautilus.swim");
+    
+    public static final Supplier<SoundEvent> PARROT_IMITATE_ZOMBIE_NAUTILUS = REGISTRIES.register("entity.parrot.imitate.zombie_nautilus");
+    
+    public static final Supplier<SoundEvent> NAUTILUS_SADDLE_UNDERWATER_EQUIP = REGISTRIES.register("item.nautilus_saddle_underwater_equip");
+    public static final Supplier<SoundEvent> NAUTILUS_SADDLE_EQUIP = REGISTRIES.register("item.nautilus_saddle_equip");
+    public static final Supplier<SoundEvent> ARMOR_EQUIP_NAUTILUS = REGISTRIES.register("item.armor.equip_nautilus");
+    public static final Supplier<SoundEvent> ARMOR_UNEQUIP_NAUTILUS = REGISTRIES.register("item.armor.unequip_nautilus");
+    
     // MISCELLANEOUS
     public static final Supplier<SoundEvent> CUSHION_BREAK = REGISTRIES.register("entity.cushion.break");
     public static final Supplier<SoundEvent> CUSHION_PLACE = REGISTRIES.register("entity.cushion.place");

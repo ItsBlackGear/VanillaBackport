@@ -3,9 +3,14 @@
   "category": "misc",
   "cookingtime": 200,
   "experience": 0.1,
-  "ingredient": {
-    "item": "minecraft:golden_spear"
-  },
+  "ingredient": [
+    {
+      "item": "minecraft:golden_spear"
+    },
+    {
+      "item": "minecraft:golden_nautilus_armor"
+    }
+  ],
   "result": {
     "id": "minecraft:gold_nugget"
   }

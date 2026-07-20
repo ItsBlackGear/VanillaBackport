@@ -4,7 +4,7 @@ import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
 import com.blackgear.vanillabackport.common.registries.items.ModItems;
 import com.blackgear.vanillabackport.core.data.tags.ModItemTags;
 import com.blackgear.vanillabackport.core.data.tags.create.CreateItemTags;
-import com.blackgear.vanillabackport.core.data.tags.fabric.ConventionalItemTags;
+import com.blackgear.vanillabackport.core.data.tags.loader.ConventionalItemTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.core.HolderLookup;
@@ -122,6 +122,9 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
         this.getOrCreateTagBuilder(ItemTags.FOOT_ARMOR)
             .add(ModItems.COPPER_BOOTS.get());
         
+        this.getOrCreateTagBuilder(ModItemTags.SHEARABLE_FROM_COPPER_GOLEM)
+            .add(Items.POPPY);
+        
         this.getOrCreateTagBuilder(ModItemTags.SPEARS)
             .add(
                 ModItems.WOODEN_SPEAR.get(),
@@ -158,6 +161,16 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
                 ModItems.YELLOW_CUSHION.get(),
                 ModItems.WHITE_CUSHION.get()
             );
+        
+        this.getOrCreateTagBuilder(ModItemTags.NAUTILUS_TAMING_ITEMS)
+            .add(Items.PUFFERFISH_BUCKET, Items.PUFFERFISH);
+        
+        this.getOrCreateTagBuilder(ModItemTags.NAUTILUS_BUCKET_FOOD)
+            .add(Items.PUFFERFISH_BUCKET, Items.COD_BUCKET, Items.SALMON_BUCKET, Items.TROPICAL_FISH_BUCKET);
+        
+        this.getOrCreateTagBuilder(ModItemTags.NAUTILUS_FOOD)
+            .forceAddTag(ItemTags.FISHES)
+            .addTag(ModItemTags.NAUTILUS_BUCKET_FOOD);
     }
 
     private void handleArchetypes() {

@@ -18,7 +18,7 @@ public record ServerboundSelectBundleItemPacket(int slotId, int selectedItemInde
     public ServerboundSelectBundleItemPacket(RegistryFriendlyByteBuf buf) {
         this(buf.readVarInt(), buf.readVarInt());
         if (this.selectedItemIndex < 0 && this.selectedItemIndex != -1) {
-            throw new IllegalArgumentException("Invalid selectedItemIndex: " + this.selectedItemIndex);
+            throw new IllegalArgumentException("Invalid size: " + this.selectedItemIndex);
         }
     }
 

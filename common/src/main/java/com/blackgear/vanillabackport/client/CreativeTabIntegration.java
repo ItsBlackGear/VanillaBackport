@@ -269,6 +269,13 @@ public interface CreativeTabIntegration {
             ModItems.BLUE_EGG.get()
         ));
         output.addAfter(Items.DIAMOND_HORSE_ARMOR, ModItems.NETHERITE_HORSE_ARMOR.get());
+        output.addAllAfter(Items.WOLF_ARMOR, List.of(
+            ModItems.COPPER_NAUTILUS_ARMOR.get(),
+            ModItems.IRON_NAUTILUS_ARMOR.get(),
+            ModItems.GOLDEN_NAUTILUS_ARMOR.get(),
+            ModItems.DIAMOND_NAUTILUS_ARMOR.get(),
+            ModItems.NETHERITE_NAUTILUS_ARMOR.get()
+        ));
     };
 
     CreativeTabs.Modifier FOOD_AND_DRINKS = (flag, output, operator) -> {};
@@ -288,8 +295,10 @@ public interface CreativeTabIntegration {
         output.addAfter(Items.COD_SPAWN_EGG, ModItems.COPPER_GOLEM_SPAWN_EGG.get());
         output.addAfter(Items.COW_SPAWN_EGG, ModItems.CREAKING_SPAWN_EGG.get());
         output.addAfter(Items.GUARDIAN_SPAWN_EGG, ModItems.HAPPY_GHAST_SPAWN_EGG.get());
+        output.addAfter(Items.MULE_SPAWN_EGG, ModItems.NAUTILUS_SPAWN_EGG.get());
         output.addAfter(Items.PANDA_SPAWN_EGG, ModItems.PARCHED_SPAWN_EGG.get());
         output.addAfter(Items.SNIFFER_SPAWN_EGG, ModItems.SULFUR_CUBE_SPAWN_EGG.get());
+        output.addAfter(Items.ZOMBIE_HORSE_SPAWN_EGG, ModItems.ZOMBIE_NAUTILUS_SPAWN_EGG.get());
     };
 
     static void bootstrap() {

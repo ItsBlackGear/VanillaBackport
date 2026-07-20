@@ -3,6 +3,7 @@ package com.blackgear.vanillabackport.common.registries.entities;
 import com.blackgear.platform.core.helper.EntityRegistry;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.happy_ghast.HappyGhast;
 import com.blackgear.vanillabackport.common.level.entity.ai.sensor_types.AdultSensorAnyType;
+import com.blackgear.vanillabackport.common.level.entity.mob.animal.nautilus.NautilusAi;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.ai.sensing.TemptingSensor;
@@ -14,4 +15,5 @@ public class ModSensorTypes {
 
     public static final Supplier<SensorType<AdultSensorAnyType>> NEAREST_ADULT_ANY_TYPE = REGISTRIES.sensor("nearest_adult_any_type", AdultSensorAnyType::new);
     public static final Supplier<SensorType<TemptingSensor>> HAPPY_GHAST_TEMPTATIONS = REGISTRIES.sensor("happy_ghast_temptations", () -> new TemptingSensor(HappyGhast.IS_FOOD));
+    public static final Supplier<SensorType<TemptingSensor>> NAUTILUS_TEMPTATIONS = REGISTRIES.sensor("nautilus_temptations", () -> new TemptingSensor(NautilusAi.getTemptations()));
 }

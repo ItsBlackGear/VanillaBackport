@@ -2,8 +2,8 @@ package com.blackgear.vanillabackport.data.server.tags;
 
 import com.blackgear.vanillabackport.common.registries.worldgen.ModBiomes;
 import com.blackgear.vanillabackport.core.data.tags.ModBiomeTags;
-import com.blackgear.vanillabackport.core.data.tags.fabric.FabricBiomeTags;
-import com.blackgear.vanillabackport.core.data.tags.forge.ForgeBiomeTags;
+import com.blackgear.vanillabackport.core.data.tags.loader.FabricBiomeTags;
+import com.blackgear.vanillabackport.core.data.tags.loader.ForgeBiomeTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.core.HolderLookup;
@@ -91,6 +91,22 @@ public class BiomeTagGenerator extends FabricTagProvider<Biome> {
             .add(Biomes.PLAINS)
             .add(Biomes.SNOWY_PLAINS)
             .forceAddTag(BiomeTags.IS_SAVANNA);
+        
+        this.getOrCreateTagBuilder(ModBiomeTags.SPAWNS_NAUTILUS)
+            .add(Biomes.COLD_OCEAN)
+            .add(Biomes.DEEP_COLD_OCEAN)
+            .add(Biomes.FROZEN_OCEAN)
+            .add(Biomes.DEEP_FROZEN_OCEAN);
+        
+        this.getOrCreateTagBuilder(ModBiomeTags.SPAWNS_NAUTILUS_FREQUENTLY)
+            .add(Biomes.OCEAN)
+            .add(Biomes.DEEP_OCEAN)
+            .add(Biomes.LUKEWARM_OCEAN)
+            .add(Biomes.DEEP_LUKEWARM_OCEAN)
+            .add(Biomes.WARM_OCEAN);
+        
+        this.getOrCreateTagBuilder(ModBiomeTags.SPAWNS_CORAL_VARIANT_ZOMBIE_NAUTILUS)
+            .add(Biomes.WARM_OCEAN);
     }
 
     protected void addFeaturePlacementTags(HolderLookup.Provider provider) {

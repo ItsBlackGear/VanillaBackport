@@ -7,6 +7,8 @@ import com.blackgear.vanillabackport.client.level.model.entity.cow.ColdCowModel;
 import com.blackgear.vanillabackport.client.level.model.entity.cow.WarmCowModel;
 import com.blackgear.vanillabackport.client.level.model.entity.happy_ghast.HappyGhastHarnessModel;
 import com.blackgear.vanillabackport.client.level.model.entity.happy_ghast.HappyGhastModel;
+import com.blackgear.vanillabackport.client.level.model.entity.nautilus.NautilusModel;
+import com.blackgear.vanillabackport.client.level.model.entity.nautilus.ZombieNautilusCoralModel;
 import com.blackgear.vanillabackport.client.level.model.entity.pig.ColdPigModel;
 import com.blackgear.vanillabackport.client.level.model.entity.sulfur_cube.SmallSulfurCubeModel;
 import com.blackgear.vanillabackport.client.level.model.entity.sulfur_cube.SulfurCubeModel;
@@ -60,6 +62,12 @@ public class EntityRendering {
         event.register(ModModelLayers.UNDEAD_HORSE_ARMOR, () -> LayerDefinition.create(HorseModel.createBodyMesh(new CubeDeformation(0.1F)), 64, 64));
     
         event.register(ModModelLayers.CUSHION, CushionModel::createBodyLayer);
+        event.register(ModModelLayers.NAUTILUS, NautilusModel::createBodyLayer);
+        event.register(ModModelLayers.NAUTILUS_BABY, NautilusModel::createBabyBodyLayer);
+        event.register(ModModelLayers.NAUTILUS_SADDLE, NautilusModel::createSaddleLayer);
+        event.register(ModModelLayers.NAUTILUS_ARMOR, NautilusModel::createBodyArmorLayer);
+        event.register(ModModelLayers.ZOMBIE_NAUTILUS, NautilusModel::createBodyLayer);
+        event.register(ModModelLayers.ZOMBIE_NAUTILUS_CORAL, ZombieNautilusCoralModel::createBodyLayer);
     }
     
     public static void renderers(EntityRendererEvent event) {
@@ -68,11 +76,13 @@ public class EntityRendering {
         event.register(ModEntityTypes.PALE_OAK_BOAT.get(), context -> new PaleOakBoatRenderer(context, false));
         event.register(ModEntityTypes.PALE_OAK_CHEST_BOAT.get(), context -> new PaleOakBoatRenderer(context, true));
         event.register(ModEntityTypes.SULFUR_CUBE.get(), SulfurCubeRenderer::new);
-        event.register(ModEntityTypes.COPPER_GOLEM.get(), CopperGolemRenderer::new);
         
+        event.register(ModEntityTypes.COPPER_GOLEM.get(), CopperGolemRenderer::new);
         event.register(ModEntityTypes.PARCHED.get(), ParchedRenderer::new);
         event.register(ModEntityTypes.CAMEL_HUSK.get(), CamelHuskRenderer::new);
         
         event.register(ModEntityTypes.CUSHION.get(), CushionRenderer::new);
+        event.register(ModEntityTypes.NAUTILUS.get(), NautilusRenderer::new);
+        event.register(ModEntityTypes.ZOMBIE_NAUTILUS.get(), ZombieNautilusRenderer::new);
     }
 }

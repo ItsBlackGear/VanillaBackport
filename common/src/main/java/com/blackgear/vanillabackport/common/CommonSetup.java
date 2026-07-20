@@ -24,6 +24,8 @@ import com.blackgear.vanillabackport.common.level.entity.mob.animal.cow.CowVaria
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.cow.CowVariants;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.frog.FrogDataVariant;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.frog.FrogDataVariants;
+import com.blackgear.vanillabackport.common.level.entity.mob.animal.nautilus.ZombieNautilusVariant;
+import com.blackgear.vanillabackport.common.level.entity.mob.animal.nautilus.ZombieNautilusVariants;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.pig.PigVariant;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.pig.PigVariants;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.wolf.WolfDataVariant;
@@ -46,6 +48,7 @@ public class CommonSetup {
             event.register(VanillaBackport.resource("frog_variants"), FrogDataVariants.REGISTRIES, FrogDataVariant.CODEC);
             event.register(VanillaBackport.resource("cat_variants"), CatDataVariants.REGISTRIES, CatDataVariant.CODEC);
             event.register(VanillaBackport.resource("sulfur_cube_archetype"), SulfurCubeArchetypes.REGISTRIES, SulfurCubeArchetype.CODEC);
+            event.register(VanillaBackport.resource("zombie_nautilus_variant"), ZombieNautilusVariants.REGISTRIES, ZombieNautilusVariant.CODEC);
         });
 
         MobIntegration.registerIntegrations(MobIntegrations::bootstrap);
@@ -60,6 +63,7 @@ public class CommonSetup {
             Parrot.MOB_SOUND_MAP.put(ModEntityTypes.CREAKING.get(), ModSoundEvents.PARROT_IMITATE_CREAKING.get());
             Parrot.MOB_SOUND_MAP.put(ModEntityTypes.PARCHED.get(), ModSoundEvents.PARROT_IMITATE_PARCHED.get());
             Parrot.MOB_SOUND_MAP.put(ModEntityTypes.CAMEL_HUSK.get(), ModSoundEvents.PARROT_IMITATE_CAMEL_HUSK.get());
+            Parrot.MOB_SOUND_MAP.put(ModEntityTypes.ZOMBIE_NAUTILUS.get(), ModSoundEvents.PARROT_IMITATE_ZOMBIE_NAUTILUS.get());
         });
 
         LootModifier.modify(LootIntegrations.INSTANCE);

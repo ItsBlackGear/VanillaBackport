@@ -25,6 +25,7 @@ import com.blackgear.vanillabackport.common.registries.items.ModDataComponents;
 import com.blackgear.vanillabackport.common.registries.items.ModItems;
 import com.blackgear.vanillabackport.common.registries.worldgen.*;
 import com.blackgear.vanillabackport.core.data.tags.*;
+import com.blackgear.vanillabackport.core.network.ClientboundNautilusScreenOpenPacket;
 import com.blackgear.vanillabackport.core.network.ServerboundSelectBundleItemPacket;
 import com.mojang.logging.LogUtils;
 import net.minecraft.resources.ResourceLocation;
@@ -66,6 +67,7 @@ public final class VanillaBackport {
         ModMaterialConditions.REGISTRIES.registrar();
 
         ModAttributes.REGISTRIES.register();
+        ModMobEffects.REGISTRIES.register();
         ModArmorMaterials.REGISTRIES.register();
         ModDataComponents.REGISTRIES.register();
         ModParticles.REGISTRIES.register();
@@ -94,11 +96,19 @@ public final class VanillaBackport {
         
         ModEntityDataSerializers.SERIALIZERS.register();
         
-        Networking.register(registrar -> registrar.registerToServer(
-            ServerboundSelectBundleItemPacket.TYPE,
-            ServerboundSelectBundleItemPacket.STREAM_CODEC,
-            ServerboundSelectBundleItemPacket::handler
-        ));
+        Networking.register(registrar -> {
+            registrar.registerToServer(
+                ServerboundSelectBundleItemPacket.TYPE,
+                ServerboundSelectBundleItemPacket.STREAM_CODEC,
+                ServerboundSelectBundleItemPacket::handler
+            );
+            
+            registrar.registerToClient(
+                ClientboundNautilusScreenOpenPacket.TYPE,
+                ClientboundNautilusScreenOpenPacket.STREAM_CODEC,
+                ClientboundNautilusScreenOpenPacket::handler
+            );
+        });
         
         if (ModChecker.EVERY_COMPAT) EveryCompatHandler.bootstrap();
     }

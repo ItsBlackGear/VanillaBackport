@@ -1,6 +1,16 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
+    "has_iron_nautilus_armor": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:iron_nautilus_armor"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
     "has_iron_spear": {
       "conditions": {
         "items": [
@@ -21,7 +31,8 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_iron_spear"
+      "has_iron_spear",
+      "has_iron_nautilus_armor"
     ]
   ],
   "rewards": {

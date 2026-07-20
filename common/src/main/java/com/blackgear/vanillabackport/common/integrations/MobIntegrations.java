@@ -1,12 +1,15 @@
 package com.blackgear.vanillabackport.common.integrations;
 
 import com.blackgear.platform.common.integration.MobIntegration;
+import com.blackgear.platform.common.integration.MobIntegration.Event;
 import com.blackgear.vanillabackport.common.integrations.interactions.GhastHarnessInteraction;
 import com.blackgear.vanillabackport.common.integrations.interactions.LeashInteraction;
 import com.blackgear.vanillabackport.common.level.entity.ai.goal.OfferCopperGolemFlowerGoal;
 import com.blackgear.vanillabackport.common.level.entity.ai.goal.SpearUseGoal;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.golem.copper_golem.CopperGolem;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.happy_ghast.HappyGhast;
+import com.blackgear.vanillabackport.common.level.entity.mob.animal.nautilus.AbstractNautilus;
+import com.blackgear.vanillabackport.common.level.entity.mob.animal.nautilus.ZombieNautilus;
 import com.blackgear.vanillabackport.common.level.entity.mob.monster.creaking.Creaking;
 import com.blackgear.vanillabackport.common.level.entity.mob.monster.skeleton.Parched;
 import com.blackgear.vanillabackport.common.level.entity.mob.monster.sulfur_cube.SulfurCube;
@@ -26,28 +29,31 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.levelgen.Heightmap;
 
 public class MobIntegrations {
-    private static void registerInteractions(MobIntegration.Event event) {
+    private static void registerInteractions(Event event) {
         event.registerMobInteraction(new GhastHarnessInteraction());
         event.registerMobInteraction(new LeashInteraction());
     }
     
-    private static void registerPlacements(MobIntegration.Event event) {
+    private static void registerPlacements(Event event) {
         event.registerPlacement(() -> EntityType.CAMEL, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (type, level, reason, pos, random) -> level.getBlockState(pos.below()).is(ModBlockTags.CAMELS_SPAWNABLE_ON) && level.getRawBrightness(pos, 0) > 8);
         event.registerPlacement(ModEntityTypes.SULFUR_CUBE, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SulfurCube::checkSulfurCubeSpawnRules);
         event.registerPlacement(ModEntityTypes.PARCHED, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, MobIntegrations::checkSurfaceMonstersSpawnRules);
         event.registerPlacement(ModEntityTypes.CAMEL_HUSK, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, MobIntegrations::checkSurfaceMonstersSpawnRules);
+        event.registerPlacement(ModEntityTypes.NAUTILUS, SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, AbstractNautilus::checkNautilusSpawnRules);
     }
     
-    private static void registerAttributes(MobIntegration.Event event) {
+    private static void registerAttributes(Event event) {
         event.registerAttributes(ModEntityTypes.CREAKING, Creaking::createAttributes);
         event.registerAttributes(ModEntityTypes.HAPPY_GHAST, HappyGhast::createAttributes);
         event.registerAttributes(ModEntityTypes.SULFUR_CUBE, SulfurCube::createSulfurCubeAttributes);
         event.registerAttributes(ModEntityTypes.COPPER_GOLEM, CopperGolem::createAttributes);
         event.registerAttributes(ModEntityTypes.PARCHED, Parched::createAttributes);
         event.registerAttributes(ModEntityTypes.CAMEL_HUSK, Camel::createAttributes);
+        event.registerAttributes(ModEntityTypes.NAUTILUS, AbstractNautilus::createAttributes);
+        event.registerAttributes(ModEntityTypes.ZOMBIE_NAUTILUS, ZombieNautilus::createAttributes);
     }
     
-    private static void registerGoals(MobIntegration.Event event) {
+    private static void registerGoals(Event event) {
         event.registerGoal(EntityType.VINDICATOR, 1, mob -> new AvoidEntityGoal<>((PathfinderMob) mob, Creaking.class, 8.0F, 0.6, 1.2));
         event.registerGoal(EntityType.PILLAGER, 1, mob -> new AvoidEntityGoal<>((PathfinderMob) mob, Creaking.class, 8.0F, 0.6, 1.2));
         event.registerGoal(EntityType.ILLUSIONER, 3, mob -> new AvoidEntityGoal<>((PathfinderMob) mob, Creaking.class, 8.0F, 0.6, 1.2));
@@ -59,7 +65,7 @@ public class MobIntegrations {
         event.registerGoal(mob -> mob instanceof ZombifiedPiglin, 1, mob -> new SpearUseGoal<>((Monster) mob, 1.0, 1.0, 10.0F, 2.0F));
     }
     
-    public static void bootstrap(MobIntegration.Event event) {
+    public static void bootstrap(Event event) {
         registerInteractions(event);
         registerPlacements(event);
         registerAttributes(event);
