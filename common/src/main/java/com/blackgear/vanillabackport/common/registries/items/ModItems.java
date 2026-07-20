@@ -166,8 +166,7 @@ public class ModItems {
     
     public static final FeatureHolder<Item> COPPER_NUGGET = HOLDERS.register("copper_nugget");
     public static final FeatureHolder<Item> COPPER_HORSE_ARMOR = HOLDERS.register("copper_horse_armor",
-        properties -> new HorseArmorItem(4, "copper", properties),
-        new Properties().stacksTo(1));
+        properties -> new HorseArmorItem(4, "copper", properties.stacksTo(1)));
     
     public static final Supplier<Item> COPPER_GOLEM_SPAWN_EGG = REGISTRIES.register("copper_golem_spawn_egg",
         () -> ItemRegistry.createSpawnEgg(ModEntityTypes.COPPER_GOLEM, 14052680, 8403233, new Properties()));
@@ -267,22 +266,43 @@ public class ModItems {
             properties.fireResistant()));
     
     public static final Supplier<Item> NETHERITE_HORSE_ARMOR = REGISTRIES.register("netherite_horse_armor",
-        properties -> new HorseArmorItem(19, "netherite", properties) {
-            @Override
-            public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot slot) {
+        properties -> new HorseArmorItem(19, "netherite", properties.stacksTo(1).fireResistant()) {
+            @Override public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot slot) {
                 UUID uuid = UUID.fromString("9F3D476D-C118-4544-8365-64846904B48E");
                 ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
                 builder.put(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(uuid, "Armor toughness", ArmorMaterials.NETHERITE.getToughness(), AttributeModifier.Operation.ADDITION));
                 builder.put(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(uuid, "Armor knockback resistance", ArmorMaterials.NETHERITE.getKnockbackResistance(), AttributeModifier.Operation.ADDITION));
                 return slot == EquipmentSlot.CHEST ? builder.build() : super.getDefaultAttributeModifiers(slot);
             }
-        },
-        new Item.Properties().stacksTo(1).fireResistant());
+        });
+    
+    public static final Supplier<Item> COPPER_NAUTILUS_ARMOR = REGISTRIES.register("copper_nautilus_armor",
+        properties -> new NautilusArmorItem(4, "copper", properties.stacksTo(1)));
+    public static final Supplier<Item> IRON_NAUTILUS_ARMOR = REGISTRIES.register("iron_nautilus_armor",
+        properties -> new NautilusArmorItem(5, "iron", properties.stacksTo(1)));
+    public static final Supplier<Item> GOLDEN_NAUTILUS_ARMOR = REGISTRIES.register("golden_nautilus_armor",
+        properties -> new NautilusArmorItem(7, "gold", properties.stacksTo(1)));
+    public static final Supplier<Item> DIAMOND_NAUTILUS_ARMOR = REGISTRIES.register("diamond_nautilus_armor",
+        properties -> new NautilusArmorItem(11, "diamond", properties.stacksTo(1)));
+    public static final Supplier<Item> NETHERITE_NAUTILUS_ARMOR = REGISTRIES.register("netherite_nautilus_armor",
+        properties -> new NautilusArmorItem(19, "netherite", properties.stacksTo(1).fireResistant()) {
+            @Override public Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(EquipmentSlot slot) {
+                UUID uuid = UUID.fromString("9F3D476D-C118-4544-8365-64846904B48E");
+                ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
+                builder.put(Attributes.ARMOR_TOUGHNESS, new AttributeModifier(uuid, "Armor toughness", ArmorMaterials.NETHERITE.getToughness(), AttributeModifier.Operation.ADDITION));
+                builder.put(Attributes.KNOCKBACK_RESISTANCE, new AttributeModifier(uuid, "Armor knockback resistance", ArmorMaterials.NETHERITE.getKnockbackResistance(), AttributeModifier.Operation.ADDITION));
+                return slot == EquipmentSlot.CHEST ? builder.build() : super.getDefaultAttributeModifiers(slot);
+            }
+        });
     
     public static final Supplier<Item> PARCHED_SPAWN_EGG = REGISTRIES.register("parched_spawn_egg",
         () -> ItemRegistry.createSpawnEgg(ModEntityTypes.PARCHED, 7630438, 14533518, new Properties()));
     public static final Supplier<Item> CAMEL_HUSK_SPAWN_EGG = REGISTRIES.register("camel_husk_spawn_egg",
         () -> ItemRegistry.createSpawnEgg(ModEntityTypes.CAMEL_HUSK, 7630438, 14533518, new Properties()));
+    public static final Supplier<Item> NAUTILUS_SPAWN_EGG = REGISTRIES.register("nautilus_spawn_egg",
+        () -> ItemRegistry.createSpawnEgg(ModEntityTypes.NAUTILUS, 7630438, 14533518, new Properties()));
+    public static final Supplier<Item> ZOMBIE_NAUTILUS_SPAWN_EGG = REGISTRIES.register("zombie_nautilus_spawn_egg",
+        () -> ItemRegistry.createSpawnEgg(ModEntityTypes.ZOMBIE_NAUTILUS, 7630438, 14533518, new Properties()));
     
     // Chaos Cubed
     

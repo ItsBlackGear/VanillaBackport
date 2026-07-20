@@ -46,6 +46,11 @@ public class CamelHusk extends Camel implements ControllableMob, CamelSoundModif
     }
     
     @Override
+    public boolean canBreatheUnderwater() {
+        return true;
+    }
+    
+    @Override
     public MobType getMobType() {
         return MobType.UNDEAD;
     }

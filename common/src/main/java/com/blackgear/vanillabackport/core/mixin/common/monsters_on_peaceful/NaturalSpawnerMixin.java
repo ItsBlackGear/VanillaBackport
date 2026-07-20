@@ -17,35 +17,35 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(NaturalSpawner.class)
 public abstract class NaturalSpawnerMixin {
-    @ModifyVariable(
-        method = "spawnForChunk",
-        at = @At("HEAD"),
-        ordinal = 1,
-        argsOnly = true
-    )
-    private static boolean vb$allowMonsterLoopInPeaceful(boolean spawnMonsters, ServerLevel level) {
-        return level.getDifficulty() == Difficulty.PEACEFUL || spawnMonsters;
-    }
-    
-    @Inject(
-        method = "isValidSpawnPostitionForType",
-        at = @At("HEAD"),
-        cancellable = true
-    )
-    private static void vb$filterPeacefulMonsters(
-        ServerLevel level,
-        MobCategory category,
-        StructureManager structureManager,
-        ChunkGenerator generator,
-        MobSpawnSettings.SpawnerData data,
-        BlockPos.MutableBlockPos pos,
-        double distance,
-        CallbackInfoReturnable<Boolean> cir
-    ) {
-        if (category == MobCategory.MONSTER && level.getDifficulty() == Difficulty.PEACEFUL) {
-            if (!data.type.is(ModEntityTypeTags.MONSTERS_THAT_SPAWN_ON_PEACEFUL)) {
-                cir.setReturnValue(false);
-            }
-        }
-    }
+//    @ModifyVariable(
+//        method = "spawnForChunk",
+//        at = @At("HEAD"),
+//        ordinal = 1,
+//        argsOnly = true
+//    )
+//    private static boolean vb$allowMonsterLoopInPeaceful(boolean spawnMonsters, ServerLevel level) {
+//        return level.getDifficulty() == Difficulty.PEACEFUL || spawnMonsters;
+//    }
+//
+//    @Inject(
+//        method = "isValidSpawnPostitionForType",
+//        at = @At("HEAD"),
+//        cancellable = true
+//    )
+//    private static void vb$filterPeacefulMonsters(
+//        ServerLevel level,
+//        MobCategory category,
+//        StructureManager structureManager,
+//        ChunkGenerator generator,
+//        MobSpawnSettings.SpawnerData data,
+//        BlockPos.MutableBlockPos pos,
+//        double distance,
+//        CallbackInfoReturnable<Boolean> cir
+//    ) {
+//        if (category == MobCategory.MONSTER && level.getDifficulty() == Difficulty.PEACEFUL) {
+//            if (!data.type.is(ModEntityTypeTags.MONSTERS_THAT_SPAWN_ON_PEACEFUL)) {
+//                cir.setReturnValue(false);
+//            }
+//        }
+//    }
 }

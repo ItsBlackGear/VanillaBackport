@@ -13,6 +13,9 @@ public class ModBiomeTags {
     // Entity Placement Tags
     public static final TagKey<Biome> SPAWNS_WARM_VARIANT_FARM_ANIMALS = TAGS.register("spawns_warm_variant_farm_animals");
     public static final TagKey<Biome> SPAWNS_COLD_VARIANT_FARM_ANIMALS = TAGS.register("spawns_cold_variant_farm_animals");
+    public static final TagKey<Biome> SPAWNS_CORAL_VARIANT_ZOMBIE_NAUTILUS = TAGS.register("spawns_coral_variant_zombie_nautilus");
+    public static final TagKey<Biome> SPAWNS_NAUTILUS = TAGS.register("spawns_nautilus");
+    public static final TagKey<Biome> SPAWNS_NAUTILUS_FREQUENTLY = TAGS.register("spawns_nautilus_frequently");
 
     public static final TagKey<Biome> SPAWNS_CAMELS = TAGS.register("spawns_camels");
     public static final TagKey<Biome> SPAWNS_ARMADILLOS_FREQUENTLY = TAGS.register("spawns_armadillos_frequently");

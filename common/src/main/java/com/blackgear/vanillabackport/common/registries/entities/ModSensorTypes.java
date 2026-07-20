@@ -5,6 +5,7 @@ import com.blackgear.vanillabackport.common.level.entity.mob.animal.armadillo.Ar
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.armadillo.MobSensor;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.happy_ghast.HappyGhast;
 import com.blackgear.vanillabackport.common.level.entity.ai.sensor_types.AdultSensorAnyType;
+import com.blackgear.vanillabackport.common.level.entity.mob.animal.nautilus.NautilusAi;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.world.entity.ai.sensing.SensorType;
 import net.minecraft.world.entity.ai.sensing.TemptingSensor;
@@ -29,5 +30,9 @@ public class ModSensorTypes {
     public static final Supplier<SensorType<MobSensor<Armadillo>>> ARMADILLO_SCARE_DETECTED = REGISTRIES.sensor(
         "armadillo_scare_detected",
         () -> new MobSensor<>(5, Armadillo::isScaredBy, Armadillo::canStayRolledUp, ModMemoryModuleTypes.DANGER_DETECTED_RECENTLY.get(), 80)
+    );
+    public static final Supplier<SensorType<TemptingSensor>> NAUTILUS_TEMPTATIONS = REGISTRIES.sensor(
+        "nautilus_temptations",
+        () -> new TemptingSensor(NautilusAi.getTemptations())
     );
 }

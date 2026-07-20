@@ -2,6 +2,7 @@ package com.blackgear.vanillabackport.common.integrations.interactions;
 
 import com.blackgear.platform.common.integration.MobInteraction;
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
+import com.blackgear.vanillabackport.common.level.item.NautilusArmorItem;
 import com.blackgear.vanillabackport.common.level.item.WolfArmorItem;
 import com.blackgear.vanillabackport.common.registries.ModCriteriaTriggers;
 import com.blackgear.vanillabackport.core.data.tags.ModItemTags;
@@ -76,7 +77,8 @@ public class ShearEquipmentInteraction implements MobInteraction {
 
     public enum Equippables {
         WOLF_ARMOR(stack -> stack.getItem() instanceof WolfArmorItem, ModSoundEvents.ARMOR_UNEQUIP_WOLF),
-        GHAST_HARNESS(stack -> stack.is(ModItemTags.HARNESSES), ModSoundEvents.HARNESS_UNEQUIP);
+        GHAST_HARNESS(stack -> stack.is(ModItemTags.HARNESSES), ModSoundEvents.HARNESS_UNEQUIP),
+        NAUTILUS_ARMOR(stack -> stack.getItem() instanceof NautilusArmorItem, ModSoundEvents.ARMOR_UNEQUIP_NAUTILUS);
 
         private final Predicate<ItemStack> isEquippable;
         private final Supplier<SoundEvent> shearingSound;

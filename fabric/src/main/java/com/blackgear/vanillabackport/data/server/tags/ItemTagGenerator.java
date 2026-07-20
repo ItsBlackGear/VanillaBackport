@@ -143,6 +143,9 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
         this.getOrCreateTagBuilder(ModItemTags.CAMEL_HUSK_FOOD)
             .add(Items.RABBIT_FOOT);
         
+        this.getOrCreateTagBuilder(ModItemTags.ZOMBIE_HORSE_FOOD)
+            .add(Items.RED_MUSHROOM);
+        
         this.getOrCreateTagBuilder(ModItemTags.CUSHIONS)
             .add(
                 ModItems.BLACK_CUSHION.get(),
@@ -162,6 +165,16 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
                 ModItems.YELLOW_CUSHION.get(),
                 ModItems.WHITE_CUSHION.get()
             );
+        
+        this.getOrCreateTagBuilder(ModItemTags.NAUTILUS_TAMING_ITEMS)
+            .add(Items.PUFFERFISH_BUCKET, Items.PUFFERFISH);
+        
+        this.getOrCreateTagBuilder(ModItemTags.NAUTILUS_BUCKET_FOOD)
+            .add(Items.PUFFERFISH_BUCKET, Items.COD_BUCKET, Items.SALMON_BUCKET, Items.TROPICAL_FISH_BUCKET);
+        
+        this.getOrCreateTagBuilder(ModItemTags.NAUTILUS_FOOD)
+            .forceAddTag(ItemTags.FISHES)
+            .addTag(ModItemTags.NAUTILUS_BUCKET_FOOD);
     }
 
     private void handleArchetypes() {

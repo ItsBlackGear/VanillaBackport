@@ -67,6 +67,7 @@ public final class VanillaBackport {
         ModMaterialConditions.REGISTRIES.registrar();
 
         ModAttributes.REGISTRIES.registrar();
+        ModMobEffects.REGISTRIES.registrar();
         ModParticles.REGISTRIES.register();
 
         ModBlocks.REGISTRIES.register();

@@ -9,6 +9,8 @@ import com.blackgear.vanillabackport.common.level.entity.ai.goal.SpearUseGoal;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.armadillo.Armadillo;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.golem.copper_golem.CopperGolem;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.happy_ghast.HappyGhast;
+import com.blackgear.vanillabackport.common.level.entity.mob.animal.nautilus.AbstractNautilus;
+import com.blackgear.vanillabackport.common.level.entity.mob.animal.nautilus.ZombieNautilus;
 import com.blackgear.vanillabackport.common.level.entity.mob.monster.creaking.Creaking;
 import com.blackgear.vanillabackport.common.level.entity.mob.monster.skeleton.Parched;
 import com.blackgear.vanillabackport.common.level.entity.mob.monster.sulfur_cube.SulfurCube;
@@ -48,6 +50,7 @@ public class MobIntegrations {
         event.registerPlacement(ModEntityTypes.SULFUR_CUBE, Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, SulfurCube::checkSulfurCubeSpawnRules);
         event.registerPlacement(ModEntityTypes.PARCHED, Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, MobIntegrations::checkSurfaceMonstersSpawnRules);
         event.registerPlacement(ModEntityTypes.CAMEL_HUSK, Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, MobIntegrations::checkSurfaceMonstersSpawnRules);
+        event.registerPlacement(ModEntityTypes.NAUTILUS, Type.IN_WATER, Types.MOTION_BLOCKING_NO_LEAVES, AbstractNautilus::checkNautilusSpawnRules);
     }
     
     private static void registerAttributes(Event event) {
@@ -58,6 +61,8 @@ public class MobIntegrations {
         event.registerAttributes(ModEntityTypes.COPPER_GOLEM, CopperGolem::createAttributes);
         event.registerAttributes(ModEntityTypes.PARCHED, Parched::createAttributes);
         event.registerAttributes(ModEntityTypes.CAMEL_HUSK, Camel::createAttributes);
+        event.registerAttributes(ModEntityTypes.NAUTILUS, AbstractNautilus::createAttributes);
+        event.registerAttributes(ModEntityTypes.ZOMBIE_NAUTILUS, ZombieNautilus::createAttributes);
     }
     
     private static void registerGoals(Event event) {

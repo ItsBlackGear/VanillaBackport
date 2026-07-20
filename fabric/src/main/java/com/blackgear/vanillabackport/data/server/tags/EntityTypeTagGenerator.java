@@ -68,5 +68,8 @@ public class EntityTypeTagGenerator extends FabricTagProvider.EntityTypeTagProvi
         
         this.getOrCreateTagBuilder(ModEntityTypeTags.CAN_FLOAT_WHILE_RIDDEN)
             .add(EntityType.HORSE, EntityType.ZOMBIE_HORSE, EntityType.MULE, EntityType.DONKEY, EntityType.CAMEL, ModEntityTypes.CAMEL_HUSK.get());
+        
+        this.getOrCreateTagBuilder(ModEntityTypeTags.NAUTILUS_HOSTILES)
+            .add(EntityType.PUFFERFISH);
     }
 }

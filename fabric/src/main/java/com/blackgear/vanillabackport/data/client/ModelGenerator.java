@@ -113,6 +113,8 @@ public class ModelGenerator extends VanillaModelGenerator {
         
         gen.createSpawnEgg(ModItems.PARCHED_SPAWN_EGG.get());
         gen.createSpawnEgg(ModItems.CAMEL_HUSK_SPAWN_EGG.get());
+        gen.createSpawnEgg(ModItems.NAUTILUS_SPAWN_EGG.get());
+        gen.createSpawnEgg(ModItems.ZOMBIE_NAUTILUS_SPAWN_EGG.get());
     }
 
     @Override
@@ -144,6 +146,8 @@ public class ModelGenerator extends VanillaModelGenerator {
         gen.createFlatItem(ModItems.RED_HARNESS.get());
         gen.createFlatItem(ModItems.BLACK_HARNESS.get());
         gen.createMusicDisc(ModItems.MUSIC_DISC_TEARS.get());
+        
+        // Hot as Lava
         gen.createMusicDisc(ModItems.MUSIC_DISC_LAVA_CHICKEN.get());
 
         // Spring to Life
@@ -164,11 +168,15 @@ public class ModelGenerator extends VanillaModelGenerator {
         gen.generateArmorTrims((ArmorItem) ModItems.COPPER_BOOTS.get());
         gen.createFlatItem(ModItems.COPPER_HORSE_ARMOR.get());
         
-        // Chaos Cubed
-        gen.createFlatItem(ModItems.SULFUR_CUBE_BUCKET.get());
-        gen.createMusicDisc(ModItems.MUSIC_DISC_BOUNCE.get());
-        
         // Mounts of Mayhem
+        gen.createFlatItem(ModItems.COPPER_NAUTILUS_ARMOR.get());
+        gen.createFlatItem(ModItems.IRON_NAUTILUS_ARMOR.get());
+        gen.createFlatItem(ModItems.GOLDEN_NAUTILUS_ARMOR.get());
+        gen.createFlatItem(ModItems.DIAMOND_NAUTILUS_ARMOR.get());
+        gen.createFlatItem(ModItems.NETHERITE_NAUTILUS_ARMOR.get());
+        
+        gen.createFlatItem(ModItems.NETHERITE_HORSE_ARMOR.get());
+        
         gen.createHandheldItem(ModItems.WOODEN_SPEAR.get());
         gen.createHandheldItem(ModItems.STONE_SPEAR.get());
         gen.createHandheldItem(ModItems.COPPER_SPEAR.get());
@@ -176,7 +184,10 @@ public class ModelGenerator extends VanillaModelGenerator {
         gen.createHandheldItem(ModItems.GOLDEN_SPEAR.get());
         gen.createHandheldItem(ModItems.DIAMOND_SPEAR.get());
         gen.createHandheldItem(ModItems.NETHERITE_SPEAR.get());
-        gen.createFlatItem(ModItems.NETHERITE_HORSE_ARMOR.get());
+        
+        // Chaos Cubed
+        gen.createFlatItem(ModItems.SULFUR_CUBE_BUCKET.get());
+        gen.createMusicDisc(ModItems.MUSIC_DISC_BOUNCE.get());
         
         // Miscellaneous
         gen.createFlatItem(ModItems.WHITE_CUSHION.get());

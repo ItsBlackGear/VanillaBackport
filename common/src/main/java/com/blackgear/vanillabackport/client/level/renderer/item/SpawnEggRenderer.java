@@ -72,6 +72,7 @@ public class SpawnEggRenderer implements DynamicItemRenderer.Renderer {
         Items.MAGMA_CUBE_SPAWN_EGG,
         Items.MOOSHROOM_SPAWN_EGG,
         Items.MULE_SPAWN_EGG,
+        ModItems.NAUTILUS_SPAWN_EGG.get(),
         Items.OCELOT_SPAWN_EGG,
         Items.PANDA_SPAWN_EGG,
         ModItems.PARCHED_SPAWN_EGG.get(),
@@ -114,6 +115,7 @@ public class SpawnEggRenderer implements DynamicItemRenderer.Renderer {
         Items.ZOGLIN_SPAWN_EGG,
         Items.ZOMBIE_SPAWN_EGG,
         Items.ZOMBIE_HORSE_SPAWN_EGG,
+        ModItems.ZOMBIE_NAUTILUS_SPAWN_EGG.get(),
         Items.ZOMBIE_VILLAGER_SPAWN_EGG,
         Items.ZOMBIFIED_PIGLIN_SPAWN_EGG
     );

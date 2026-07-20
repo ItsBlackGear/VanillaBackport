@@ -93,6 +93,22 @@ public class BiomeTagGenerator extends FabricTagProvider<Biome> {
             .add(Biomes.SNOWY_PLAINS)
             .forceAddTag(BiomeTags.IS_SAVANNA);
 
+        this.getOrCreateTagBuilder(ModBiomeTags.SPAWNS_NAUTILUS)
+            .add(Biomes.COLD_OCEAN)
+            .add(Biomes.DEEP_COLD_OCEAN)
+            .add(Biomes.FROZEN_OCEAN)
+            .add(Biomes.DEEP_FROZEN_OCEAN);
+        
+        this.getOrCreateTagBuilder(ModBiomeTags.SPAWNS_NAUTILUS_FREQUENTLY)
+            .add(Biomes.OCEAN)
+            .add(Biomes.DEEP_OCEAN)
+            .add(Biomes.LUKEWARM_OCEAN)
+            .add(Biomes.DEEP_LUKEWARM_OCEAN)
+            .add(Biomes.WARM_OCEAN);
+        
+        this.getOrCreateTagBuilder(ModBiomeTags.SPAWNS_CORAL_VARIANT_ZOMBIE_NAUTILUS)
+            .add(Biomes.WARM_OCEAN);
+        
         this.getOrCreateTagBuilder(ModBiomeTags.SPAWNS_ARMADILLOS_FREQUENTLY)
             .forceAddTag(BiomeTags.IS_SAVANNA)
             .addOptionalTag(FabricBiomeTags.SAVANNA);

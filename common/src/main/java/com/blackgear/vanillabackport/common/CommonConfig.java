@@ -51,6 +51,16 @@ public class CommonConfig {
     public final ConfigBuilder.ConfigValue<Boolean> hasCopperHorseArmorLoot;
     public final ConfigBuilder.ConfigValue<Boolean> hasCopperGolems;
 
+    // Mounts of Mayhem
+    public final ConfigBuilder.ConfigValue<Boolean> hasParchedSkeletons;
+    public final ConfigBuilder.ConfigValue<Boolean> hasCamelHusks;
+    public final ConfigBuilder.ConfigValue<Boolean> hasNautilus;
+    public final ConfigBuilder.ConfigValue<Boolean> hasZombieHorses;
+    public final ConfigBuilder.ConfigValue<Boolean> hasZombieNautilus;
+    public final ConfigBuilder.ConfigValue<Boolean> hasNautilusArmorLoot;
+    public final ConfigBuilder.ConfigValue<Boolean> canMobsSpawnWithSpears;
+    public final ConfigBuilder.ConfigValue<Boolean> canMountsFloatWhileRidden;
+    
     // Chaos Cubed
     public final ConfigBuilder.ConfigValue<Boolean> hasSulfurCaves;
     public final ConfigBuilder.ConfigValue<Boolean> hasSulfurSprings;
@@ -147,6 +157,17 @@ public class CommonConfig {
         builder.push("Copper Age");
         this.hasCopperHorseArmorLoot = builder.comment("allow Copper Horse Armor to generate on chests").define("has_copper_horse_armor_loot", true);
         this.hasCopperGolems = builder.comment("allow Copper Golems to be built from Carved Pumpkins").define("has_copper_golems", true);
+        builder.pop();
+
+        builder.push("Mounts of Mayhem");
+        this.hasParchedSkeletons = builder.comment("allow Parched Skeletons to spawn naturally").define("has_parched_skeletons", true);
+        this.hasCamelHusks = builder.comment("allow Camel Husks to spawn naturally").define("has_camel_husks", true);
+        this.hasNautilus = builder.comment("allow Nautilus to spawn naturally").define("has_nautilus", true);
+        this.hasZombieHorses = builder.comment("allow Zombie Horses to spawn naturally").define("has_zombie_horses", true);
+        this.hasZombieNautilus = builder.comment("allow Zombie Nautilus to spawn naturally").define("has_zombie_nautilus", true);
+        this.hasNautilusArmorLoot = builder.comment("allow Nautilus Armor to generate on chests").define("has_nautilus_armor_loot", true);
+        this.canMobsSpawnWithSpears = builder.comment("allow Mobs to spawn holding spears").define("can_mobs_spawn_with_spears", true);
+        this.canMountsFloatWhileRidden = builder.comment("allow Mount Mobs to float while ridden").define("can_mobs_spawn_with_spears", true);
         builder.pop();
         
         builder.push("Chaos Cubed");

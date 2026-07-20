@@ -1,4 +1,4 @@
-package com.blackgear.vanillabackport.core.mixin.client.happy_ghast;
+package com.blackgear.vanillabackport.core.mixin.client.controllable_mount_effects;
 
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.happy_ghast.HappyGhast;
 import net.minecraft.client.Camera;

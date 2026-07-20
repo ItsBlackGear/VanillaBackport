@@ -24,11 +24,12 @@ import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
 import java.util.List;
+import java.util.Set;
 
 public class LootIntegrations implements LootModifier.LootTableModifier {
     public static final LootIntegrations INSTANCE = new LootIntegrations();
     
-    private static final List<ResourceLocation> CONTAIN_BUNDLE = List.of(
+    private static final Set<ResourceLocation> CONTAIN_BUNDLE = Set.of(
         BuiltInLootTables.VILLAGE_WEAPONSMITH,
         BuiltInLootTables.VILLAGE_CARTOGRAPHER,
         BuiltInLootTables.VILLAGE_TANNERY,
@@ -147,6 +148,34 @@ public class LootIntegrations implements LootModifier.LootTableModifier {
             
             if (path.equals(BuiltInLootTables.DESERT_PYRAMID)) {
                 context.addToPool(LootItem.lootTableItem(ModItems.COPPER_HORSE_ARMOR.get()).setWeight(15).build());
+            }
+        }
+        
+        if (VanillaBackport.COMMON_CONFIG.hasNautilusArmorLoot.get()) {
+            if (path.equals(BuiltInLootTables.BURIED_TREASURE)
+                || path.equals(BuiltInLootTables.UNDERWATER_RUIN_BIG)
+                || path.equals(BuiltInLootTables.UNDERWATER_RUIN_SMALL)
+                || path.equals(BuiltInLootTables.SHIPWRECK_SUPPLY)
+                || path.equals(BuiltInLootTables.SHIPWRECK_MAP)
+                || path.equals(BuiltInLootTables.SHIPWRECK_TREASURE)
+            ) {
+                context.addPool(
+                    LootPool.lootPool()
+                        .setRolls(ConstantValue.exactly(1.0F))
+                        .add(EmptyLootItem.emptyItem().setQuality(148))
+                        .add(LootItem.lootTableItem(ModItems.COPPER_NAUTILUS_ARMOR.get())
+                                .setWeight(20)
+                                .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F))))
+                        .add(LootItem.lootTableItem(ModItems.IRON_NAUTILUS_ARMOR.get())
+                                .setWeight(10)
+                                .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F))))
+                        .add(LootItem.lootTableItem(ModItems.GOLDEN_NAUTILUS_ARMOR.get())
+                                .setWeight(5)
+                                .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F))))
+                        .add(LootItem.lootTableItem(ModItems.DIAMOND_NAUTILUS_ARMOR.get())
+                                .setWeight(2)
+                                .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F))))
+                );
             }
         }
     }

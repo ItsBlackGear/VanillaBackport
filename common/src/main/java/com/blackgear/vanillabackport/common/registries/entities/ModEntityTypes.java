@@ -7,6 +7,8 @@ import com.blackgear.vanillabackport.common.level.entity.decoration.Cushion;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.armadillo.Armadillo;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.camel.CamelHusk;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.golem.copper_golem.CopperGolem;
+import com.blackgear.vanillabackport.common.level.entity.mob.animal.nautilus.Nautilus;
+import com.blackgear.vanillabackport.common.level.entity.mob.animal.nautilus.ZombieNautilus;
 import com.blackgear.vanillabackport.common.level.entity.mob.monster.creaking.Creaking;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.happy_ghast.HappyGhast;
 import com.blackgear.vanillabackport.common.level.entity.mob.monster.skeleton.Parched;
@@ -66,6 +68,14 @@ public class ModEntityTypes {
     public static final Supplier<EntityType<CamelHusk>> CAMEL_HUSK = REGISTRIES.entity("camel_husk",
         EntityType.Builder.of(CamelHusk::new, MobCategory.MONSTER)
             .sized(1.7F, 2.375F)
+            .clientTrackingRange(10));
+    public static final Supplier<EntityType<Nautilus>> NAUTILUS = REGISTRIES.entity("nautilus",
+        EntityType.Builder.of(Nautilus::new, MobCategory.WATER_CREATURE)
+            .sized(0.875F, 0.95F)
+            .clientTrackingRange(10));
+    public static final Supplier<EntityType<ZombieNautilus>> ZOMBIE_NAUTILUS = REGISTRIES.entity("zombie_nautilus",
+        EntityType.Builder.of(ZombieNautilus::new, MobCategory.MONSTER)
+            .sized(0.875F, 0.95F)
             .clientTrackingRange(10));
     
     // Chaos Cubed

@@ -34,6 +34,7 @@ public class ClientSetup {
         GameRendering.registerEntityRenderers(EntityRendering::renderers);
         GameRendering.registerBlockColors(ColorRendering::blockColors);
         GameRendering.registerItemColors(ColorRendering::itemColors);
+        GameRendering.registerSpecialModels(ItemLikeRendering::specialRendering);
         GameRendering.registerBlockEntityRenderers(ItemLikeRendering::blockEntityRendering);
     }
 
@@ -42,7 +43,6 @@ public class ClientSetup {
             ItemPropertyIntegrations.bootstrap();
             LocalPlayerEvents.ON_LOGIN.register(player -> BundledTabSelector.bootstrap());
             GameRendering.registerHandHeldModels(ItemLikeRendering::handHeldModelRendering);
-            GameRendering.registerSpecialModels(ItemLikeRendering::specialRendering);
         });
         BundleMouseActions.bootstrap();
         

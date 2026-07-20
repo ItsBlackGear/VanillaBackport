@@ -1,7 +1,9 @@
-package com.blackgear.vanillabackport.core.mixin.client.happy_ghast;
+package com.blackgear.vanillabackport.core.mixin.client.controllable_mount_effects;
 
-import com.blackgear.vanillabackport.client.level.sound.RidingHappyGhastSoundInstance;
+import com.blackgear.vanillabackport.client.level.sound.RidingEntitySoundInstance;
+import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.happy_ghast.HappyGhast;
+import com.blackgear.vanillabackport.common.level.entity.mob.animal.nautilus.AbstractNautilus;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -31,7 +33,26 @@ public abstract class LocalPlayerMixin extends AbstractClientPlayer {
     private void onStartRiding(Entity vehicle, boolean force, CallbackInfoReturnable<Boolean> cir) {
         if (super.startRiding(vehicle, force)) {
             if (vehicle instanceof HappyGhast ghast) {
-                this.minecraft.getSoundManager().play(new RidingHappyGhastSoundInstance((LocalPlayer)(Object)this, ghast));
+                this.minecraft.getSoundManager().play(new RidingEntitySoundInstance(this,
+                    ghast,
+                    false,
+                    ModSoundEvents.HAPPY_GHAST_RIDING.get(),
+                    0.0F,
+                    1.0F,
+                    5.0F
+                ));
+                cir.setReturnValue(true);
+            }
+            
+            if (vehicle instanceof AbstractNautilus nautilus) {
+                this.minecraft.getSoundManager().play(new RidingEntitySoundInstance(this,
+                    nautilus,
+                    true,
+                    ModSoundEvents.NAUTILUS_RIDING.get(),
+                    0.0F,
+                    1.0F,
+                    5.0F
+                ));
                 cir.setReturnValue(true);
             }
         }

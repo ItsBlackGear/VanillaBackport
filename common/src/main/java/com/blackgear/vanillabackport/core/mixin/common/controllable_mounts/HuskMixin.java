@@ -5,6 +5,7 @@ import com.blackgear.vanillabackport.common.level.entity.mob.animal.camel.CamelH
 import com.blackgear.vanillabackport.common.level.entity.mob.monster.skeleton.Parched;
 import com.blackgear.vanillabackport.common.registries.entities.ModEntityTypes;
 import com.blackgear.vanillabackport.common.registries.items.ModItems;
+import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.RandomSource;
@@ -29,12 +30,15 @@ public class HuskMixin extends Zombie implements MobBehaviorAccess {
     
     @Override
     public @Nullable SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, @Nullable SpawnGroupData data, @Nullable CompoundTag dataTag) {
+        
         RandomSource random = level.getRandom();
         data = super.finalizeSpawn(level, difficulty, reason, data, dataTag);
         float difficultyModifier = difficulty.getSpecialMultiplier();
         if (reason != MobSpawnType.CONVERSION) {
             this.setCanPickUpLoot(random.nextFloat() < 0.55F * difficultyModifier);
         }
+        
+        if (!VanillaBackport.COMMON_CONFIG.hasCamelHusks.get()) return data;
         
         if (data != null) {
             data = new CamelHusk.HuskGroupData((ZombieGroupData) data);
@@ -53,12 +57,15 @@ public class HuskMixin extends Zombie implements MobBehaviorAccess {
                         camel.finalizeSpawn(level, difficulty, reason, null, dataTag);
                         this.startRiding(camel, true);
                         level.addFreshEntity(camel);
-                        Parched parched = ModEntityTypes.PARCHED.get().create(this.level());
-                        if (parched != null) {
-                            parched.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), 0.0F);
-                            parched.finalizeSpawn(level, difficulty, reason, null, dataTag);
-                            parched.startRiding(camel, false);
-                            level.addFreshEntityWithPassengers(parched);
+                        
+                        if (VanillaBackport.COMMON_CONFIG.hasParchedSkeletons.get()) {
+                            Parched parched = ModEntityTypes.PARCHED.get().create(this.level());
+                            if (parched != null) {
+                                parched.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), 0.0F);
+                                parched.finalizeSpawn(level, difficulty, reason, null, dataTag);
+                                parched.startRiding(camel, false);
+                                level.addFreshEntityWithPassengers(parched);
+                            }
                         }
                     }
                 }

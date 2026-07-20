@@ -23,16 +23,14 @@ public class HappyGhastRenderer extends MobRenderer<HappyGhast, HappyGhastModel<
 
     public HappyGhastRenderer(EntityRendererProvider.Context context) {
         super(context, new HappyGhastModel<>(context.bakeLayer(ModModelLayers.HAPPY_GHAST)), 1.5F);
-        this.addLayer(
-            new SimpleEquipmentLayer<>(
-                this,
-                GhastHarnessHandler.HARNESS_EQUIPMENT,
-                EquipmentSlot.CHEST,
-                HappyGhast::isHarnessed,
-                new HappyGhastHarnessModel<>(context.bakeLayer(ModModelLayers.HAPPY_GHAST_HARNESS)),
-                null
-            )
-        );
+        this.addLayer(SimpleEquipmentLayer.of(
+            this,
+            GhastHarnessHandler.HARNESS_EQUIPMENT,
+            EquipmentSlot.CHEST,
+            HappyGhast::isHarnessed,
+            new HappyGhastHarnessModel<>(context.bakeLayer(ModModelLayers.HAPPY_GHAST_HARNESS)),
+            null
+        ));
         this.addLayer(new RopesLayer<>(this, context.getModelSet(), GHAST_ROPES));
     }
 

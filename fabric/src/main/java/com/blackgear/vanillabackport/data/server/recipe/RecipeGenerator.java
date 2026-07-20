@@ -294,7 +294,8 @@ public class RecipeGenerator extends VanillaRecipeProvider {
                     ModItems.COPPER_CHESTPLATE.get(),
                     ModItems.COPPER_LEGGINGS.get(),
                     ModItems.COPPER_BOOTS.get(),
-                    ModItems.COPPER_HORSE_ARMOR.get()
+                    ModItems.COPPER_HORSE_ARMOR.get(),
+                    ModItems.COPPER_NAUTILUS_ARMOR.get()
                 ),
                 RecipeCategory.MISC,
                 ModItems.COPPER_NUGGET.get(),
@@ -312,7 +313,7 @@ public class RecipeGenerator extends VanillaRecipeProvider {
             .unlockedBy("has_copper_leggings", has(ModItems.COPPER_LEGGINGS.get()))
             .unlockedBy("has_copper_boots", has(ModItems.COPPER_BOOTS.get()))
             .unlockedBy("has_copper_horse_armor", has(ModItems.COPPER_HORSE_ARMOR.get()))
-            //.unlockedBy("has_copper_nautilus_armor", has(ModItems.COPPER_NAUTILUS_ARMOR.get()))
+            .unlockedBy("has_copper_nautilus_armor", has(ModItems.COPPER_NAUTILUS_ARMOR.get()))
             .save(output, getSmeltingRecipeName(ModItems.COPPER_NUGGET.get()));
         SimpleCookingRecipeBuilder.blasting(
                 Ingredient.of(
@@ -326,7 +327,8 @@ public class RecipeGenerator extends VanillaRecipeProvider {
                     ModItems.COPPER_CHESTPLATE.get(),
                     ModItems.COPPER_LEGGINGS.get(),
                     ModItems.COPPER_BOOTS.get(),
-                    ModItems.COPPER_HORSE_ARMOR.get()
+                    ModItems.COPPER_HORSE_ARMOR.get(),
+                    ModItems.COPPER_NAUTILUS_ARMOR.get()
                 ),
                 RecipeCategory.MISC,
                 ModItems.COPPER_NUGGET.get(),
@@ -344,7 +346,7 @@ public class RecipeGenerator extends VanillaRecipeProvider {
             .unlockedBy("has_copper_leggings", has(ModItems.COPPER_LEGGINGS.get()))
             .unlockedBy("has_copper_boots", has(ModItems.COPPER_BOOTS.get()))
             .unlockedBy("has_copper_horse_armor", has(ModItems.COPPER_HORSE_ARMOR.get()))
-            //.unlockedBy("has_copper_nautilus_armor", has(ModItems.COPPER_NAUTILUS_ARMOR.get()))
+            .unlockedBy("has_copper_nautilus_armor", has(ModItems.COPPER_NAUTILUS_ARMOR.get()))
             .save(output, getBlastingRecipeName(ModItems.COPPER_NUGGET.get()));
         
         shaped(RecipeCategory.DECORATIONS, ModBlocks.COPPER_TORCH.getFirst().get(), 4)
@@ -382,40 +384,56 @@ public class RecipeGenerator extends VanillaRecipeProvider {
         
         // Mounts of Mayhem
         SimpleCookingRecipeBuilder.smelting(
-                Ingredient.of(ModItems.GOLDEN_SPEAR.get()),
+                Ingredient.of(
+                    ModItems.GOLDEN_SPEAR.get(),
+                    ModItems.GOLDEN_NAUTILUS_ARMOR.get()
+                ),
                 RecipeCategory.MISC,
                 Items.GOLD_NUGGET,
                 0.1F,
                 200
             )
             .unlockedBy("has_golden_spear", has(ModItems.GOLDEN_SPEAR.get()))
+            .unlockedBy("has_iron_nautilus_armor", has(ModItems.GOLDEN_NAUTILUS_ARMOR.get()))
             .save(output, getSmeltingRecipeName(Items.GOLD_NUGGET));
         SimpleCookingRecipeBuilder.smelting(
-                Ingredient.of(ModItems.IRON_SPEAR.get()),
+                Ingredient.of(
+                    ModItems.IRON_SPEAR.get(),
+                    ModItems.IRON_NAUTILUS_ARMOR.get()
+                ),
                 RecipeCategory.MISC,
                 Items.IRON_NUGGET,
                 0.1F,
                 200
             )
             .unlockedBy("has_iron_spear", has(ModItems.IRON_SPEAR.get()))
+            .unlockedBy("has_iron_nautilus_armor", has(ModItems.IRON_NAUTILUS_ARMOR.get()))
             .save(output, getSmeltingRecipeName(Items.IRON_NUGGET));
         SimpleCookingRecipeBuilder.blasting(
-                Ingredient.of(ModItems.GOLDEN_SPEAR.get()),
+                Ingredient.of(
+                    ModItems.GOLDEN_SPEAR.get(),
+                    ModItems.GOLDEN_NAUTILUS_ARMOR.get()
+                ),
                 RecipeCategory.MISC,
                 Items.GOLD_NUGGET,
                 0.1F,
                 100
             )
             .unlockedBy("has_golden_spear", has(ModItems.GOLDEN_SPEAR.get()))
+            .unlockedBy("has_iron_nautilus_armor", has(ModItems.GOLDEN_NAUTILUS_ARMOR.get()))
             .save(output, getBlastingRecipeName(Items.GOLD_NUGGET));
         SimpleCookingRecipeBuilder.blasting(
-                Ingredient.of(ModItems.IRON_SPEAR.get()),
+                Ingredient.of(
+                    ModItems.IRON_SPEAR.get(),
+                    ModItems.IRON_NAUTILUS_ARMOR.get()
+                ),
                 RecipeCategory.MISC,
                 Items.IRON_NUGGET,
                 0.1F,
                 100
             )
             .unlockedBy("has_iron_spear", has(ModItems.IRON_SPEAR.get()))
+            .unlockedBy("has_iron_nautilus_armor", has(ModItems.IRON_NAUTILUS_ARMOR.get()))
             .save(output, getBlastingRecipeName(Items.IRON_NUGGET));
         
         shaped(RecipeCategory.COMBAT, ModItems.DIAMOND_SPEAR.get())
@@ -469,6 +487,7 @@ public class RecipeGenerator extends VanillaRecipeProvider {
         
         netheriteSmithing(output, ModItems.DIAMOND_SPEAR.get(), RecipeCategory.COMBAT, ModItems.NETHERITE_SPEAR.get());
         netheriteSmithing(output, Items.DIAMOND_HORSE_ARMOR, RecipeCategory.COMBAT, ModItems.NETHERITE_HORSE_ARMOR.get());
+        netheriteSmithing(output, ModItems.DIAMOND_NAUTILUS_ARMOR.get(), RecipeCategory.COMBAT, ModItems.NETHERITE_NAUTILUS_ARMOR.get());
         
         // Miscellaneous
         List<Item> dyes = List.of(Items.BLACK_DYE, Items.BLUE_DYE, Items.BROWN_DYE, Items.CYAN_DYE, Items.GRAY_DYE, Items.GREEN_DYE, Items.LIGHT_BLUE_DYE, Items.LIGHT_GRAY_DYE, Items.LIME_DYE, Items.MAGENTA_DYE, Items.ORANGE_DYE, Items.PINK_DYE, Items.PURPLE_DYE, Items.RED_DYE, Items.YELLOW_DYE, Items.WHITE_DYE);

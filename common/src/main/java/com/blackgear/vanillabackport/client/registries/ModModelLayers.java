@@ -40,7 +40,15 @@ public class ModModelLayers {
     public static final ModelLayerLocation PARCHED_OUTER_ARMOR = register("parched", "outer_armor");
     
     public static final ModelLayerLocation CAMEL_HUSK = register("camel_husk");
+    
     public static final ModelLayerLocation UNDEAD_HORSE_ARMOR = register("undead_horse_armor");
+    
+    public static final ModelLayerLocation NAUTILUS = register("nautilus");
+    public static final ModelLayerLocation NAUTILUS_BABY = register("nautilus_baby");
+    public static final ModelLayerLocation NAUTILUS_ARMOR = register("nautilus_armor");
+    public static final ModelLayerLocation NAUTILUS_SADDLE = register("nautilus", "saddle");
+    public static final ModelLayerLocation ZOMBIE_NAUTILUS = register("zombie_nautilus");
+    public static final ModelLayerLocation ZOMBIE_NAUTILUS_CORAL = register("zombie_nautilus", "coral");
     
     // CHAOS CUBED
     public static final ModelLayerLocation SULFUR_CUBE = register("sulfur_cube");

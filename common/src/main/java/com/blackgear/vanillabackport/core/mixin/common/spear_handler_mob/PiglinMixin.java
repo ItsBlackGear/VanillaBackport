@@ -2,6 +2,7 @@ package com.blackgear.vanillabackport.core.mixin.common.spear_handler_mob;
 
 import com.blackgear.vanillabackport.common.registries.entities.ModMemoryModuleTypes;
 import com.blackgear.vanillabackport.common.registries.items.ModItems;
+import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
@@ -49,6 +50,7 @@ public abstract class PiglinMixin extends AbstractPiglin {
         )
     )
     private ItemLike vb$spawnWithSpear(ItemLike original) {
+        if (!VanillaBackport.COMMON_CONFIG.canMobsSpawnWithSpears.get()) return original;
         return this.random.nextInt(10) == 0 ? ModItems.GOLDEN_SPEAR.get() : original;
     }
 }

@@ -1,6 +1,7 @@
 package com.blackgear.vanillabackport.core.mixin.common.spear_handler_mob;
 
 import com.blackgear.vanillabackport.common.registries.items.ModItems;
+import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.EntityType;
@@ -22,6 +23,8 @@ public class ZombifiedPiglinMixin extends Zombie {
     
     @Inject(method = "populateDefaultEquipmentSlots", at = @At("TAIL"))
     private void vb$spawnWithSpear(RandomSource random, DifficultyInstance difficulty, CallbackInfo ci) {
+        if (!VanillaBackport.COMMON_CONFIG.canMobsSpawnWithSpears.get()) return;
+        
         if (random.nextInt(20) == 0) {
             this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(ModItems.GOLDEN_SPEAR.get()));
         }
