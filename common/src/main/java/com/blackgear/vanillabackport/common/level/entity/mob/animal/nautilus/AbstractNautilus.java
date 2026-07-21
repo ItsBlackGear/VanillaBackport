@@ -4,7 +4,8 @@ import java.util.UUID;
 import java.util.function.Predicate;
 
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
-import com.blackgear.vanillabackport.common.api.extensions.entity.ControllableMob;
+import com.blackgear.vanillabackport.common.api.extensions.entity.mounts.ControllableMob;
+import com.blackgear.vanillabackport.common.api.extensions.entity.mounts.MountInventoryHandler;
 import com.blackgear.vanillabackport.common.level.inventory.NautilusInventoryMenu;
 import com.blackgear.vanillabackport.common.level.item.NautilusArmorItem;
 import com.blackgear.vanillabackport.common.registries.entities.ModMobEffects;
@@ -530,14 +531,15 @@ public abstract class AbstractNautilus extends TamableAnimal implements Containe
 	@Override
 	public void openCustomInventoryScreen(Player player) {
 		if (!this.level().isClientSide() && (!this.isVehicle() || this.hasPassenger(player)) && this.isTame()) {
-			if (player instanceof ServerPlayer sp && sp instanceof ServerPlayerAccessor access) {
-				if (sp.containerMenu != sp.inventoryMenu) sp.closeContainer();
-				
-				access.callNextContainerCounter();
-				NetworkHandler.DEFAULT_CHANNEL.sendToPlayer(new ClientboundNautilusScreenOpenPacket(access.getContainerCounter(), this.inventory.getContainerSize(), this.getId()), sp);
-				sp.containerMenu = new NautilusInventoryMenu(access.getContainerCounter(), sp.getInventory(), this.inventory, this);
-				access.callInitMenu(sp.containerMenu);
-			}
+			MountInventoryHandler.of(player).openNautilusInventory(this, this.inventory);
+//			if (player instanceof ServerPlayer sp && sp instanceof ServerPlayerAccessor access) {
+//				if (sp.containerMenu != sp.inventoryMenu) sp.closeContainer();
+//
+//				access.callNextContainerCounter();
+//				NetworkHandler.DEFAULT_CHANNEL.sendToPlayer(new ClientboundNautilusScreenOpenPacket(access.getContainerCounter(), this.inventory.getContainerSize(), this.getId()), sp);
+//				sp.containerMenu = new NautilusInventoryMenu(access.getContainerCounter(), sp.getInventory(), this.inventory, this);
+//				access.callInitMenu(sp.containerMenu);
+//			}
 		}
 	}
 	

@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.core.mixin.common.controllable_mounts;
 
-import com.blackgear.vanillabackport.common.api.extensions.entity.ControllableMob;
+import com.blackgear.vanillabackport.common.api.extensions.entity.mounts.ControllableMob;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.behavior.AnimalPanic;

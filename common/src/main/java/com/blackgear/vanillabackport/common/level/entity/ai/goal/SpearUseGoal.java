@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.common.level.entity.ai.goal;
 
-import com.blackgear.vanillabackport.common.api.extensions.entity.ControllableMob;
+import com.blackgear.vanillabackport.common.api.extensions.entity.mounts.ControllableMob;
 import com.blackgear.vanillabackport.common.level.item.spear.KineticWeapon;
 import com.blackgear.vanillabackport.core.util.WorldUtilities.PathfindingUtils;
 import net.minecraft.world.InteractionHand;

@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.common.level.entity.ai.behavior;
 
-import com.blackgear.vanillabackport.common.api.extensions.entity.ControllableMob;
+import com.blackgear.vanillabackport.common.api.extensions.entity.mounts.ControllableMob;
 import com.blackgear.vanillabackport.common.level.item.spear.KineticWeapon;
 import com.blackgear.vanillabackport.common.registries.entities.ModMemoryModuleTypes;
 import net.minecraft.server.level.ServerLevel;

@@ -95,6 +95,7 @@
     "common.controllable_mounts.LivingEntityMixin",
     "common.controllable_mounts.PanicGoalMixin",
     "common.controllable_mounts.RunAroundLikeCrazyGoalMixin",
+    "common.controllable_mounts.ServerPlayerMixin",
     "common.copper_golem.CarvedPumpkinBlockMixin",
     "common.decorated_pots.DecoratedPotBlockEntityMixin",
     "common.decorated_pots.DecoratedPotBlockMixin",

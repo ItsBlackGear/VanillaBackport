@@ -1,7 +1,7 @@
 package com.blackgear.vanillabackport.core.mixin.common.zombie_horses;
 
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
-import com.blackgear.vanillabackport.common.api.extensions.entity.ControllableMob;
+import com.blackgear.vanillabackport.common.api.extensions.entity.mounts.ControllableMob;
 import com.blackgear.vanillabackport.common.registries.items.ModItems;
 import com.blackgear.vanillabackport.core.data.tags.ModItemTags;
 import net.minecraft.nbt.CompoundTag;

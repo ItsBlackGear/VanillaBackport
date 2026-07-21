@@ -2,7 +2,7 @@ package com.blackgear.vanillabackport.common.level.entity.mob.animal.camel;
 
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
 import com.blackgear.vanillabackport.common.api.extensions.entity.modifiers.CamelSoundModifier;
-import com.blackgear.vanillabackport.common.api.extensions.entity.ControllableMob;
+import com.blackgear.vanillabackport.common.api.extensions.entity.mounts.ControllableMob;
 import com.blackgear.vanillabackport.core.data.tags.ModItemTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
