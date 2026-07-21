@@ -1,7 +1,7 @@
 package com.blackgear.vanillabackport.common.integrations;
 
-import com.blackgear.platform.common.integration.MobIntegration;
 import com.blackgear.platform.common.integration.MobIntegration.Event;
+import com.blackgear.platform.common.integration.v2.spawn_placement.SpawnPlacementStrategy;
 import com.blackgear.vanillabackport.common.integrations.interactions.GhastHarnessInteraction;
 import com.blackgear.vanillabackport.common.integrations.interactions.LeashInteraction;
 import com.blackgear.vanillabackport.common.level.entity.ai.goal.OfferCopperGolemFlowerGoal;
@@ -14,10 +14,7 @@ import com.blackgear.vanillabackport.common.level.entity.mob.monster.creaking.Cr
 import com.blackgear.vanillabackport.common.level.entity.mob.monster.skeleton.Parched;
 import com.blackgear.vanillabackport.common.level.entity.mob.monster.sulfur_cube.SulfurCube;
 import com.blackgear.vanillabackport.common.registries.entities.ModEntityTypes;
-import com.blackgear.vanillabackport.core.data.tags.ModBlockTags;
-import net.minecraft.core.BlockPos;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.Difficulty;
+import com.blackgear.vanillabackport.core.ModChecker;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.animal.IronGolem;
@@ -25,7 +22,6 @@ import net.minecraft.world.entity.animal.camel.Camel;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.monster.ZombifiedPiglin;
-import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.levelgen.Heightmap;
 
 public class MobIntegrations {
@@ -35,11 +31,15 @@ public class MobIntegrations {
     }
     
     private static void registerPlacements(Event event) {
-        event.registerPlacement(() -> EntityType.CAMEL, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, (type, level, reason, pos, random) -> level.getBlockState(pos.below()).is(ModBlockTags.CAMELS_SPAWNABLE_ON) && level.getRawBrightness(pos, 0) > 8);
+        if (!ModChecker.NOMANSLAND) {
+            event.registerPlacement(() -> EntityType.CAMEL, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, MobSpawns::checkCamelSpawnRules, SpawnPlacementStrategy.REPLACE);
+        }
+        
         event.registerPlacement(ModEntityTypes.SULFUR_CUBE, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SulfurCube::checkSulfurCubeSpawnRules);
-        event.registerPlacement(ModEntityTypes.PARCHED, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, MobIntegrations::checkSurfaceMonstersSpawnRules);
-        event.registerPlacement(ModEntityTypes.CAMEL_HUSK, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, MobIntegrations::checkSurfaceMonstersSpawnRules);
+        event.registerPlacement(ModEntityTypes.PARCHED, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, MobSpawns::checkSurfaceMonstersSpawnRules);
+        event.registerPlacement(ModEntityTypes.CAMEL_HUSK, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, MobSpawns::checkSurfaceMonstersSpawnRules);
         event.registerPlacement(ModEntityTypes.NAUTILUS, SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, AbstractNautilus::checkNautilusSpawnRules);
+        event.registerPlacement(() -> EntityType.ZOMBIE_HORSE, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, MobSpawns::checkMonsterSpawnRules, SpawnPlacementStrategy.REPLACE);
     }
     
     private static void registerAttributes(Event event) {
@@ -70,13 +70,5 @@ public class MobIntegrations {
         registerPlacements(event);
         registerAttributes(event);
         registerGoals(event);
-    }
-    
-    private static boolean checkMonsterSpawnRules(EntityType<? extends Mob> type, ServerLevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
-        return level.getDifficulty() != Difficulty.PEACEFUL && (MobSpawnType.ignoresLightRequirements(spawnType) || Monster.isDarkEnoughToSpawn(level, pos, random)) && Mob.checkMobSpawnRules(type, level, spawnType, pos, random);
-    }
-    
-    private static boolean checkSurfaceMonstersSpawnRules(EntityType<? extends Mob> type, ServerLevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
-        return checkMonsterSpawnRules(type, level, spawnType, pos, random) && (MobSpawnType.isSpawner(spawnType) || level.canSeeSky(pos));
     }
 }
