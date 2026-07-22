@@ -58,14 +58,14 @@ public abstract class WolfMixin extends TamableAnimal implements WolfSoundVarian
         builder.define(DATA_VARIANT_ID, "minecraft:pale");
     }
     
-    @Override
-    public void vb$addAdditionalSaveData(CompoundTag tag) {
+    @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
+    public void vb$addAdditionalSaveData(CompoundTag tag, CallbackInfo ci) {
         VariantUtils.addVariantSaveData(this, tag, WolfDataVariants.REGISTRIES);
         tag.putString("sound_variant", WolfSoundVariants.REGISTRIES.getKey(this.getSoundVariant()).toString());
     }
     
-    @Override
-    public void vb$readAdditionalSaveData(CompoundTag tag) {
+    @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
+    public void vb$readAdditionalSaveData(CompoundTag tag, CallbackInfo ci) {
         VariantUtils.readVariantSaveData(this, tag, WolfDataVariants.REGISTRIES);
         WolfSoundVariant soundVariant = WolfSoundVariants.REGISTRIES.get(ResourceLocation.tryParse(tag.getString("sound_variant")));
         if (soundVariant != null) this.setSoundVariant(soundVariant);

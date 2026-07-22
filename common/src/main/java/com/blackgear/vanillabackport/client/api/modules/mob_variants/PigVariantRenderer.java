@@ -1,6 +1,7 @@
 package com.blackgear.vanillabackport.client.api.modules.mob_variants;
 
 import com.blackgear.platform.core.BuiltInCoreRegistry;
+import com.blackgear.platform.core.api.RegistryKey;
 import com.blackgear.vanillabackport.client.level.model.entity.pig.ColdPigModel;
 import com.blackgear.vanillabackport.client.registries.ModModelLayers;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.pig.PigVariant;
@@ -10,7 +11,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.PigModel;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.animal.Pig;
 
@@ -45,7 +45,7 @@ public class PigVariantRenderer extends AbstractVariantRenderer<Pig, PigModel<Pi
     }
 
     @Override
-    protected ResourceKey<PigVariant> getDefaultVariant() {
+    protected RegistryKey<PigVariant> getDefaultVariant() {
         return PigVariants.TEMPERATE;
     }
 }

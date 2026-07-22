@@ -1,6 +1,7 @@
 package com.blackgear.vanillabackport.client.api.modules.mob_variants;
 
 import com.blackgear.platform.core.BuiltInCoreRegistry;
+import com.blackgear.platform.core.api.RegistryKey;
 import com.blackgear.vanillabackport.client.level.model.entity.nautilus.NautilusModel;
 import com.blackgear.vanillabackport.client.level.model.entity.nautilus.ZombieNautilusCoralModel;
 import com.blackgear.vanillabackport.client.registries.ModModelLayers;
@@ -11,7 +12,6 @@ import com.google.common.collect.Maps;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.Map;
@@ -46,7 +46,7 @@ public class ZombieNautilusVariantRenderer extends AbstractVariantRenderer<Zombi
     }
 
     @Override
-    protected ResourceKey<ZombieNautilusVariant> getDefaultVariant() {
+    protected RegistryKey<ZombieNautilusVariant> getDefaultVariant() {
         return ZombieNautilusVariants.TEMPERATE;
     }
 }

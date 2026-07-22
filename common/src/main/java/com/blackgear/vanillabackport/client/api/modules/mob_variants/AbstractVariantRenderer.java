@@ -1,7 +1,7 @@
 package com.blackgear.vanillabackport.client.api.modules.mob_variants;
 
-
 import com.blackgear.platform.core.BuiltInCoreRegistry;
+import com.blackgear.platform.core.api.RegistryKey;
 import com.blackgear.vanillabackport.common.api.modules.mob_variant.VariantDataHolder;
 import com.blackgear.vanillabackport.common.api.modules.mob_variant.VariantUtils;
 import com.blackgear.vanillabackport.core.ModChecker;
@@ -9,7 +9,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 
@@ -36,7 +35,7 @@ public abstract class AbstractVariantRenderer<T extends LivingEntity, M extends 
 
     protected abstract BuiltInCoreRegistry<V> getRegistry();
 
-    protected abstract ResourceKey<V> getDefaultVariant();
+    protected abstract RegistryKey<V> getDefaultVariant();
 
     private boolean isDefaultVariant(V variant) {
         return VariantUtils.matches(this.getRegistry(), variant, this.getDefaultVariant());

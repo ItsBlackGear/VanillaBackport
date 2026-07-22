@@ -1,5 +1,6 @@
 package com.blackgear.vanillabackport.common.level.entity.mob.monster.sulfur_cube;
 
+import com.blackgear.platform.core.api.RegistryKey;
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
 import com.blackgear.vanillabackport.core.util.AdditionalCodecs;
 import com.mojang.serialization.Codec;
@@ -49,7 +50,7 @@ public record SulfurCubeArchetype(
             AttributeModifier.CODEC.fieldOf("modifier").forGetter(AttributeEntry::modifier)
         ).apply(instance, AttributeEntry::new));
 
-        public static AttributeEntry add(Holder<Attribute> attribute, double amount, ResourceKey<SulfurCubeArchetype> archetype) {
+        public static AttributeEntry add(Holder<Attribute> attribute, double amount, RegistryKey<SulfurCubeArchetype> archetype) {
             ResourceLocation attributeLocation = attribute.unwrapKey()
                 .orElseThrow(() -> new IllegalStateException("Attribute has no registry key"))
                 .location();
@@ -63,7 +64,7 @@ public record SulfurCubeArchetype(
             );
         }
 
-        public static AttributeEntry multiply(Holder<Attribute> attribute, double amount, ResourceKey<SulfurCubeArchetype> archetype) {
+        public static AttributeEntry multiply(Holder<Attribute> attribute, double amount, RegistryKey<SulfurCubeArchetype> archetype) {
             ResourceLocation attributeLocation = attribute.unwrapKey()
                 .orElseThrow(() -> new IllegalStateException("Attribute has no registry key"))
                 .location();

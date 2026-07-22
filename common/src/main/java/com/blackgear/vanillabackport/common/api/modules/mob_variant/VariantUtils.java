@@ -1,10 +1,10 @@
 package com.blackgear.vanillabackport.common.api.modules.mob_variant;
 
 import com.blackgear.platform.core.BuiltInCoreRegistry;
+import com.blackgear.platform.core.api.RegistryKey;
 import com.blackgear.vanillabackport.common.api.modules.mob_variant.spawn.PriorityProvider;
 import com.blackgear.vanillabackport.common.api.modules.mob_variant.spawn.SpawnContext;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.ServerLevelAccessor;
 
@@ -18,7 +18,7 @@ public class VariantUtils {
         return variant == null ? Optional.empty() : Optional.of(variant);
     }
 
-    public static <T> T getDefault(BuiltInCoreRegistry<T> registry, ResourceKey<T> key) {
+    public static <T> T getDefault(BuiltInCoreRegistry<T> registry, RegistryKey<T> key) {
         return registry.getOrThrow(key);
     }
 
@@ -30,11 +30,11 @@ public class VariantUtils {
         return registry.getKey(value).toString();
     }
 
-    public static <T> String getDefaultID(BuiltInCoreRegistry<T> registry, ResourceKey<T> value) {
+    public static <T> String getDefaultID(BuiltInCoreRegistry<T> registry, RegistryKey<T> value) {
         return getID(registry, getDefault(registry, value));
     }
 
-    public static <T> boolean matches(BuiltInCoreRegistry<T> registry, T variant, ResourceKey<T> value) {
+    public static <T> boolean matches(BuiltInCoreRegistry<T> registry, T variant, RegistryKey<T> value) {
         return variant == registry.get(value);
     }
 

@@ -13,7 +13,7 @@ import net.minecraft.world.level.levelgen.GenerationStep;
 
 public class ChaosCubedFeatureManager extends FeatureManager {
     public ChaosCubedFeatureManager(BiomeContext context, BiomeWriter writer) {
-        super(context, writer);
+        super(writer, context);
     }
 
     @Override

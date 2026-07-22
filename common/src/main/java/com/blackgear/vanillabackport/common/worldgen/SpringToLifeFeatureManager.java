@@ -14,7 +14,7 @@ import net.minecraft.world.level.biome.MobSpawnSettings;
 
 public class SpringToLifeFeatureManager extends FeatureManager {
     public SpringToLifeFeatureManager(BiomeContext context, BiomeWriter writer) {
-        super(context, writer);
+        super(writer, context);
     }
 
     @Override

@@ -21,6 +21,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.Optional;
 
@@ -47,13 +50,13 @@ public abstract class FrogMixin extends Animal implements VariantDataHolder<Frog
         return VariantUtils.getOrDefault(FrogDataVariants.REGISTRIES, this.entityData.get(DATA_VARIANT_ID));
     }
     
-    @Override
-    public void vb$addAdditionalSaveData(CompoundTag tag) {
+    @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
+    public void vb$addAdditionalSaveData(CompoundTag tag, CallbackInfo ci) {
         VariantUtils.addVariantSaveData(this, tag, FrogDataVariants.REGISTRIES);
     }
     
-    @Override
-    public void vb$readAdditionalSaveData(CompoundTag tag) {
+    @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
+    public void vb$readAdditionalSaveData(CompoundTag tag, CallbackInfo ci) {
         VariantUtils.readVariantSaveData(this, tag, FrogDataVariants.REGISTRIES);
     }
 

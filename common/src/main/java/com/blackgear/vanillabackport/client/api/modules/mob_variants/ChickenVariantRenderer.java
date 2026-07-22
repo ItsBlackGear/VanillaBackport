@@ -1,6 +1,7 @@
 package com.blackgear.vanillabackport.client.api.modules.mob_variants;
 
 import com.blackgear.platform.core.BuiltInCoreRegistry;
+import com.blackgear.platform.core.api.RegistryKey;
 import com.blackgear.vanillabackport.client.level.model.entity.chicken.ColdChickenModel;
 import com.blackgear.vanillabackport.client.registries.ModModelLayers;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.chicken.ChickenVariant;
@@ -10,7 +11,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.ChickenModel;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.animal.Chicken;
 
@@ -46,7 +46,7 @@ public class ChickenVariantRenderer extends AbstractVariantRenderer<Chicken, Chi
     }
 
     @Override
-    protected ResourceKey<ChickenVariant> getDefaultVariant() {
+    protected RegistryKey<ChickenVariant> getDefaultVariant() {
         return ChickenVariants.TEMPERATE;
     }
 }
