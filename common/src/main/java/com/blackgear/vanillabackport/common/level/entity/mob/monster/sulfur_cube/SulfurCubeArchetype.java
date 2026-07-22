@@ -1,5 +1,6 @@
 package com.blackgear.vanillabackport.common.level.entity.mob.monster.sulfur_cube;
 
+import com.blackgear.platform.core.api.RegistryKey;
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
 import com.blackgear.vanillabackport.core.util.codec.AttributeCodecs;
 import com.blackgear.vanillabackport.core.util.codec.AdditionalCodecs;
@@ -48,7 +49,7 @@ public record SulfurCubeArchetype(
             AttributeCodecs.ATTRIBUTE_MODIFIER_CODEC.fieldOf("modifier").forGetter(AttributeEntry::modifier)
         ).apply(instance, AttributeEntry::new));
 
-        public static AttributeEntry add(Holder<Attribute> attribute, double amount, ResourceKey<SulfurCubeArchetype> archetype) {
+        public static AttributeEntry add(Holder<Attribute> attribute, double amount, RegistryKey<SulfurCubeArchetype> archetype) {
             return new AttributeEntry(
                 attribute,
                 new AttributeModifier(
@@ -59,7 +60,7 @@ public record SulfurCubeArchetype(
             );
         }
 
-        public static AttributeEntry multiply(Holder<Attribute> attribute, double amount, ResourceKey<SulfurCubeArchetype> archetype) {
+        public static AttributeEntry multiply(Holder<Attribute> attribute, double amount, RegistryKey<SulfurCubeArchetype> archetype) {
             return new AttributeEntry(
                 attribute,
                 new AttributeModifier(

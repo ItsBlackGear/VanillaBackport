@@ -1,5 +1,6 @@
 package com.blackgear.vanillabackport.data.server.loot;
 
+import com.blackgear.platform.core.api.RegistryKey;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.chicken.ChickenVariant;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.chicken.ChickenVariants;
 import com.blackgear.vanillabackport.core.data.ModBuiltInLootTables;
@@ -9,7 +10,6 @@ import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider
 import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.advancements.critereon.NbtPredicate;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.storage.loot.LootContext;
@@ -69,7 +69,7 @@ public class GiftLootGenerator extends SimpleFabricLootTableProvider {
         );
     }
 
-    private static NbtPredicate hasVariant(ResourceKey<ChickenVariant> key) {
+    private static NbtPredicate hasVariant(RegistryKey<ChickenVariant> key) {
         CompoundTag tag = new CompoundTag();
         tag.putString("variant", key.location().toString());
         return new NbtPredicate(tag);

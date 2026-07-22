@@ -1,5 +1,6 @@
 package com.blackgear.vanillabackport.common.level.item;
 
+import com.blackgear.platform.core.api.RegistryKey;
 import com.blackgear.vanillabackport.common.api.modules.mob_variant.VariantDataHolder;
 import com.blackgear.vanillabackport.common.api.modules.mob_variant.VariantUtils;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.chicken.ChickenVariant;
@@ -18,9 +19,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
 public class VariantEggItem extends EggItem {
-    private final ResourceKey<ChickenVariant> variant;
+    private final RegistryKey<ChickenVariant> variant;
 
-    public VariantEggItem(ResourceKey<ChickenVariant> variant, Item.Properties properties) {
+    public VariantEggItem(RegistryKey<ChickenVariant> variant, Item.Properties properties) {
         super(properties);
         this.variant = variant;
     }

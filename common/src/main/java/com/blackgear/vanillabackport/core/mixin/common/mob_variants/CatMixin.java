@@ -25,6 +25,7 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Optional;
@@ -55,13 +56,13 @@ public abstract class CatMixin extends TamableAnimal implements EntityDataHolder
         return VariantUtils.getOrDefault(CatDataVariants.REGISTRIES, this.entityData.get(DATA_VARIANT_ID));
     }
     
-    @Override
-    public void vb$addAdditionalSaveData(CompoundTag tag) {
+    @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
+    public void vb$addAdditionalSaveData(CompoundTag tag, CallbackInfo ci) {
         VariantUtils.addVariantSaveData(this, tag, CatDataVariants.REGISTRIES);
     }
     
-    @Override
-    public void vb$readAdditionalSaveData(CompoundTag tag) {
+    @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
+    public void vb$readAdditionalSaveData(CompoundTag tag, CallbackInfo ci) {
         VariantUtils.readVariantSaveData(this, tag, CatDataVariants.REGISTRIES);
     }
 

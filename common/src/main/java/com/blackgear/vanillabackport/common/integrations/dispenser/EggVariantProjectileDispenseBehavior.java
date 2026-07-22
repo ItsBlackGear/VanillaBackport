@@ -1,5 +1,6 @@
 package com.blackgear.vanillabackport.common.integrations.dispenser;
 
+import com.blackgear.platform.core.api.RegistryKey;
 import com.blackgear.vanillabackport.common.api.modules.mob_variant.VariantDataHolder;
 import com.blackgear.vanillabackport.common.api.modules.mob_variant.VariantUtils;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.chicken.ChickenVariant;
@@ -14,9 +15,9 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
 public class EggVariantProjectileDispenseBehavior extends AbstractProjectileDispenseBehavior {
-    public final ResourceKey<ChickenVariant> variant;
+    public final RegistryKey<ChickenVariant> variant;
     
-    public EggVariantProjectileDispenseBehavior(ResourceKey<ChickenVariant> variant) {
+    public EggVariantProjectileDispenseBehavior(RegistryKey<ChickenVariant> variant) {
         this.variant = variant;
     }
     
