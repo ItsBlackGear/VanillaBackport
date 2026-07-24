@@ -103,7 +103,7 @@ public abstract class LivingEntityMixin extends Entity implements MobSpearHandle
     @Override
     public void rememberStabbedEntity(Entity target) {
         if (this.recentKineticEnemies != null)
-            this.recentKineticEnemies.putIfAbsent(target, this.level().getGameTime());
+            this.recentKineticEnemies.put(target, this.level().getGameTime());
     }
     
     @Override

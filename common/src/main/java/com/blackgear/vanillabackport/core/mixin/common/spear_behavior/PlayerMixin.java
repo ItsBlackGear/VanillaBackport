@@ -94,7 +94,7 @@ public abstract class PlayerMixin extends LivingEntity implements PlayerSpearHan
         } else {
             ItemStack weaponItem = this.getItemBySlot(weaponSlot);
             DamageSource damageSource = this.damageSources().playerAttack(self);
-            float magicBoost = baseDamage + EnchantmentHelper.getDamageBonus(weaponItem, target instanceof LivingEntity living ? living.getMobType() : MobType.UNDEFINED);
+            float magicBoost = EnchantmentHelper.getDamageBonus(weaponItem, target instanceof LivingEntity living ? living.getMobType() : MobType.UNDEFINED);
             EquipmentSlot handSlot = this.getUsedItemHand() == InteractionHand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND;
             
             if (!this.isUsingItem() || handSlot != weaponSlot) {
@@ -108,7 +108,7 @@ public abstract class PlayerMixin extends LivingEntity implements PlayerSpearHan
                 float totalDamage = dealsDamage ? baseDamage + magicBoost : 0.0F;
                 float oldTargetHealth = target instanceof LivingEntity living ? living.getHealth() : 0.0F;
                 Vec3 oldMovement = target.getDeltaMovement();
-                boolean wasHurt = dealsDamage && target.hurt(damageSource, totalDamage);
+                boolean wasHurt = dealsDamage && target.level() instanceof ServerLevel && target.hurt(damageSource, totalDamage);
                 
                 if (dealsKnockback) {
                     this.causeExtraKnockback(target, 0.4F + EntityUtils.getKnockback(self), oldMovement);
