@@ -13,7 +13,7 @@ import net.minecraft.world.level.biome.MobSpawnSettings;
 
 public class MountsOfMayhemFeatureManager extends FeatureManager {
     public MountsOfMayhemFeatureManager(BiomeContext context, BiomeWriter writer) {
-        super(writer, context);
+        super(context, writer);
     }
 
     @Override

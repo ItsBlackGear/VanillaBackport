@@ -8,13 +8,10 @@ import com.blackgear.vanillabackport.common.registries.items.ModDataComponents;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import it.unimi.dsi.fastutil.objects.Object2LongMap;
 import it.unimi.dsi.fastutil.objects.Object2LongOpenHashMap;
-import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.effect.MobEffect;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -46,15 +43,7 @@ public abstract class LivingEntityMixin extends Entity implements MobSpearHandle
     
     @Shadow protected abstract float getKnockback(Entity attacker, DamageSource damageSource);
     
-    @Shadow
-    public InteractionHand swingingArm;
-    
-    @Shadow
-    public abstract boolean hasEffect(Holder<MobEffect> effect);
-    
-    @Shadow
-    @Nullable
-    public abstract MobEffectInstance getEffect(Holder<MobEffect> effect);
+    @Shadow public InteractionHand swingingArm;
     
     @Unique @Nullable protected Object2LongMap<Entity> recentKineticEnemies;
     @Unique private long lastKineticHitFeedbackTime = -2147483648L;
@@ -119,7 +108,7 @@ public abstract class LivingEntityMixin extends Entity implements MobSpearHandle
     @Override
     public void rememberStabbedEntity(Entity target) {
         if (this.recentKineticEnemies != null)
-            this.recentKineticEnemies.putIfAbsent(target, this.level().getGameTime());
+            this.recentKineticEnemies.put(target, this.level().getGameTime());
     }
     
     @Override
