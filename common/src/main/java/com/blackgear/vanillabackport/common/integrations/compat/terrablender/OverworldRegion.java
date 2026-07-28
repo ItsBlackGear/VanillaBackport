@@ -31,14 +31,14 @@ public class OverworldRegion extends Region {
     }
 
     private static void addPaleGarden(VanillaParameterOverlayBuilder builder) {
-        addPaleGarden(builder, Placement.PEAK_VARIANT, Continentalness.span(Continentalness.MID_INLAND, Continentalness.FAR_INLAND), Erosion.EROSION_2);
-        addPaleGarden(builder, Placement.PEAK_VARIANT, Continentalness.FAR_INLAND.parameter(), Erosion.EROSION_3);
+        addPaleGarden(builder, Placement.MID_SLICE, Continentalness.FAR_INLAND.parameter(), Erosion.EROSION_1);
+        addPaleGarden(builder, Placement.MID_SLICE, Continentalness.FAR_INLAND.parameter(), Erosion.EROSION_2);
 
-        addPaleGarden(builder, Placement.HIGH_SLICE_VARIANT, Continentalness.span(Continentalness.MID_INLAND, Continentalness.FAR_INLAND), Erosion.EROSION_2);
-        addPaleGarden(builder, Placement.HIGH_SLICE_VARIANT, Continentalness.FAR_INLAND.parameter(), Erosion.EROSION_3);
+        addPaleGarden(builder, Placement.HIGH_SLICE, Continentalness.span(Continentalness.MID_INLAND, Continentalness.FAR_INLAND), Erosion.EROSION_2);
+        addPaleGarden(builder, Placement.HIGH_SLICE, Continentalness.FAR_INLAND.parameter(), Erosion.EROSION_3);
 
-        addPaleGarden(builder, Placement.MID_SLICE_VARIANT, Continentalness.FAR_INLAND.parameter(), Erosion.EROSION_1);
-        addPaleGarden(builder, Placement.MID_SLICE_VARIANT, Continentalness.FAR_INLAND.parameter(), Erosion.EROSION_2);
+        addPaleGarden(builder, Placement.PEAK, Continentalness.span(Continentalness.MID_INLAND, Continentalness.FAR_INLAND), Erosion.EROSION_2);
+        addPaleGarden(builder, Placement.PEAK, Continentalness.FAR_INLAND.parameter(), Erosion.EROSION_3);
     }
 
     private static void addSulfurCaves(VanillaParameterOverlayBuilder builder) {

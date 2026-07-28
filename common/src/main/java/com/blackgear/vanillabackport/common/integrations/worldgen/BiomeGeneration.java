@@ -11,18 +11,18 @@ import net.minecraft.world.level.biome.Climate;
 public class BiomeGeneration {
     public static void bootstrap(BiomePlacement.Event event) {
         if (VanillaBackport.COMMON_CONFIG.hasPaleGarden.get()) {
-            addPaleGarden(event, Placement.PEAK_VARIANT, Continentalness.span(Continentalness.MID_INLAND, Continentalness.FAR_INLAND), Erosion.EROSION_2);
-            addPaleGarden(event, Placement.PEAK_VARIANT, Continentalness.FAR_INLAND.parameter(), Erosion.EROSION_3);
+            addPaleGarden(event, Placement.MID_SLICE, Continentalness.FAR_INLAND.parameter(), Erosion.EROSION_1);
+            addPaleGarden(event, Placement.MID_SLICE, Continentalness.FAR_INLAND.parameter(), Erosion.EROSION_2);
 
-            addPaleGarden(event, Placement.HIGH_SLICE_VARIANT, Continentalness.span(Continentalness.MID_INLAND, Continentalness.FAR_INLAND), Erosion.EROSION_2);
-            addPaleGarden(event, Placement.HIGH_SLICE_VARIANT, Continentalness.FAR_INLAND.parameter(), Erosion.EROSION_3);
+            addPaleGarden(event, Placement.HIGH_SLICE, Continentalness.span(Continentalness.MID_INLAND, Continentalness.FAR_INLAND), Erosion.EROSION_2);
+            addPaleGarden(event, Placement.HIGH_SLICE, Continentalness.FAR_INLAND.parameter(), Erosion.EROSION_3);
 
-            addPaleGarden(event, Placement.MID_SLICE_VARIANT, Continentalness.FAR_INLAND.parameter(), Erosion.EROSION_1);
-            addPaleGarden(event, Placement.MID_SLICE_VARIANT, Continentalness.FAR_INLAND.parameter(), Erosion.EROSION_2);
+            addPaleGarden(event, Placement.PEAK, Continentalness.span(Continentalness.MID_INLAND, Continentalness.FAR_INLAND), Erosion.EROSION_2);
+            addPaleGarden(event, Placement.PEAK, Continentalness.FAR_INLAND.parameter(), Erosion.EROSION_3);
         }
 
         if (VanillaBackport.COMMON_CONFIG.hasSulfurCaves.get()) {
-            event.add(new Pair<>(
+            event.add(Pair.of(
                 Climate.parameters(
                     Temperature.FULL_RANGE.parameter(),
                     Humidity.FULL_RANGE.parameter(),
@@ -39,7 +39,7 @@ public class BiomeGeneration {
 
     private static void addPaleGarden(BiomePlacement.Event event, Placement placement, Climate.Parameter continentalness, Erosion erosion) {
         for (Weirdness weirdness : placement.getWeirdnesses()) {
-            event.add(new Pair<>(
+            event.add(Pair.of(
                 Climate.parameters(
                     Temperature.NEUTRAL.parameter(),
                     Humidity.HUMID.parameter(),

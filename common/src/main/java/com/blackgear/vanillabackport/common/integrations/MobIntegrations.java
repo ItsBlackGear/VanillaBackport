@@ -40,7 +40,7 @@ public class MobIntegrations {
     
     private static void registerPlacements(Event event) {
         event.registerPlacement(ModEntityTypes.ARMADILLO, Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, Armadillo::checkArmadilloSpawnRules);
-        event.registerPlacement(() -> EntityType.CAMEL, Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, MobSpawns::checkCamelSpawnRules, SpawnPlacementStrategy.REPLACE);
+        event.registerPlacement(() -> EntityType.CAMEL, Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, MobSpawns::checkCamelSpawnRules, SpawnPlacementStrategy.OR);
         event.registerPlacement(ModEntityTypes.SULFUR_CUBE, Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, SulfurCube::checkSulfurCubeSpawnRules);
         event.registerPlacement(ModEntityTypes.PARCHED, Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, MobSpawns::checkSurfaceMonstersSpawnRules);
         event.registerPlacement(ModEntityTypes.CAMEL_HUSK, Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, MobSpawns::checkSurfaceMonstersSpawnRules);
