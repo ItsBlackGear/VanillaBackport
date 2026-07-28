@@ -19,6 +19,7 @@ import com.blackgear.vanillabackport.common.registries.blocks.ModBlockEntities;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
 import com.blackgear.vanillabackport.common.registries.blocks.ModPoiTypes;
 import com.blackgear.vanillabackport.common.registries.entities.*;
+import com.blackgear.vanillabackport.common.registries.entities.ModAttributes;
 import com.blackgear.vanillabackport.common.registries.items.ModItems;
 import com.blackgear.vanillabackport.common.registries.items.ModPaintingVariants;
 import com.blackgear.vanillabackport.common.registries.worldgen.*;

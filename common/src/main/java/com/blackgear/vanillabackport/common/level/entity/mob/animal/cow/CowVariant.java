@@ -11,16 +11,31 @@ import net.minecraft.util.StringRepresentable;
 
 import java.util.List;
 
-public record CowVariant(ModelAndTexture<ModelType> modelAndTexture, SpawnPrioritySelectors spawnConditions) implements PriorityProvider<SpawnContext, SpawnCondition> {
+public class CowVariant implements PriorityProvider<SpawnContext, SpawnCondition> {
     public static final Codec<CowVariant> CODEC = RecordCodecBuilder.create(instance -> instance.group(
         ModelAndTexture.codec(ModelType.CODEC, ModelType.NORMAL).forGetter(CowVariant::modelAndTexture),
         SpawnPrioritySelectors.CODEC.fieldOf("spawn_conditions").forGetter(CowVariant::spawnConditions)
     ).apply(instance, CowVariant::new));
+    private final ModelAndTexture<ModelType> modelAndTexture;
+    private final SpawnPrioritySelectors spawnConditions;
+    
+    public CowVariant(ModelAndTexture<ModelType> modelAndTexture, SpawnPrioritySelectors spawnConditions) {
+        this.modelAndTexture = modelAndTexture;
+        this.spawnConditions = spawnConditions;
+    }
 
     private CowVariant(ModelAndTexture<ModelType> modelAndTexture) {
         this(modelAndTexture, SpawnPrioritySelectors.EMPTY);
     }
-
+    
+    public ModelAndTexture<ModelType> modelAndTexture() {
+        return this.modelAndTexture;
+    }
+    
+    public SpawnPrioritySelectors spawnConditions() {
+        return this.spawnConditions;
+    }
+    
     @Override
     public List<Selector<SpawnContext, SpawnCondition>> selectors() {
         return this.spawnConditions.selectors();

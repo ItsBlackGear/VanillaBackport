@@ -4,10 +4,25 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.resources.ResourceLocation;
 
-public record ClientAsset(ResourceLocation id, ResourceLocation path) {
+public class ClientAsset {
     public static final Codec<ClientAsset> CODEC = ResourceLocation.CODEC.xmap(ClientAsset::new, ClientAsset::id);
     public static final MapCodec<ClientAsset> DEFAULT_FIELD_CODEC = CODEC.fieldOf("asset_id");
-
+    private final ResourceLocation id;
+    private final ResourceLocation path;
+    
+    public ClientAsset(ResourceLocation id, ResourceLocation path) {
+        this.id = id;
+        this.path = path;
+    }
+    
+    public ResourceLocation id() {
+        return id;
+    }
+    
+    public ResourceLocation path() {
+        return path;
+    }
+    
     public ClientAsset(ResourceLocation path) {
         this(path, path.withPath(string -> "textures/" + string + ".png"));
     }
