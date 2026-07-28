@@ -14,7 +14,6 @@ import com.blackgear.vanillabackport.common.level.entity.mob.monster.creaking.Cr
 import com.blackgear.vanillabackport.common.level.entity.mob.monster.skeleton.Parched;
 import com.blackgear.vanillabackport.common.level.entity.mob.monster.sulfur_cube.SulfurCube;
 import com.blackgear.vanillabackport.common.registries.entities.ModEntityTypes;
-import com.blackgear.vanillabackport.core.ModChecker;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.animal.IronGolem;
@@ -31,10 +30,7 @@ public class MobIntegrations {
     }
     
     private static void registerPlacements(Event event) {
-        if (!ModChecker.NOMANSLAND) {
-            event.registerPlacement(() -> EntityType.CAMEL, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, MobSpawns::checkCamelSpawnRules, SpawnPlacementStrategy.REPLACE);
-        }
-        
+        event.registerPlacement(() -> EntityType.CAMEL, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, MobSpawns::checkCamelSpawnRules, SpawnPlacementStrategy.OR);
         event.registerPlacement(ModEntityTypes.SULFUR_CUBE, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, SulfurCube::checkSulfurCubeSpawnRules);
         event.registerPlacement(ModEntityTypes.PARCHED, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, MobSpawns::checkSurfaceMonstersSpawnRules);
         event.registerPlacement(ModEntityTypes.CAMEL_HUSK, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, MobSpawns::checkSurfaceMonstersSpawnRules);

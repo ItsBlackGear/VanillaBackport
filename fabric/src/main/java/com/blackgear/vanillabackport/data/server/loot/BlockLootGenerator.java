@@ -163,6 +163,15 @@ public class BlockLootGenerator extends FabricBlockLootTableProvider {
         this.add(ModBlocks.WAXED_WEATHERED_COPPER_GOLEM_STATUE.get(), this::createCopperGolemStatueBlock);
         this.add(ModBlocks.WAXED_OXIDIZED_COPPER_GOLEM_STATUE.get(), this::createCopperGolemStatueBlock);
         
+        this.dropSelf(ModBlocks.EXPOSED_LIGHTNING_ROD.get());
+        this.dropSelf(ModBlocks.WEATHERED_LIGHTNING_ROD.get());
+        this.dropSelf(ModBlocks.OXIDIZED_LIGHTNING_ROD.get());
+        
+        this.dropSelf(ModBlocks.WAXED_LIGHTNING_ROD.get());
+        this.dropSelf(ModBlocks.WAXED_EXPOSED_LIGHTNING_ROD.get());
+        this.dropSelf(ModBlocks.WAXED_WEATHERED_LIGHTNING_ROD.get());
+        this.dropSelf(ModBlocks.WAXED_OXIDIZED_LIGHTNING_ROD.get());
+        
         this.dropSelf(ModBlocks.COPPER_TORCH.getFirst().get());
         ModBlocks.COPPER_LANTERN.forEach(holder -> this.add(holder.get(), this::createSingleItemTable));
         ModBlocks.COPPER_BARS.forEach(holder -> this.dropSelf(holder.get()));

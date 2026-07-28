@@ -5,6 +5,7 @@ import com.blackgear.vanillabackport.common.integrations.dispenser.BoatDispenseB
 import com.blackgear.vanillabackport.common.integrations.dispenser.SulfurCubeBucketDispenseBehavior;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
 import com.blackgear.vanillabackport.common.registries.items.ModItems;
+import com.blackgear.vanillabackport.core.data.tags.ModItemTags;
 import net.minecraft.core.dispenser.ProjectileDispenseBehavior;
 import net.minecraft.world.level.block.Blocks;
 
@@ -16,56 +17,9 @@ public class BlockIntegrations {
         event.registerFuelItem(ModBlocks.LEAF_LITTER.get(), 100);
         
         // Miscellaneous
-        event.registerFuelItem(ModBlocks.WHITE_WOOL_STAIRS.get(), 100);
-        event.registerFuelItem(ModBlocks.ORANGE_WOOL_STAIRS.get(), 100);
-        event.registerFuelItem(ModBlocks.MAGENTA_WOOL_STAIRS.get(), 100);
-        event.registerFuelItem(ModBlocks.LIGHT_BLUE_WOOL_STAIRS.get(), 100);
-        event.registerFuelItem(ModBlocks.YELLOW_WOOL_STAIRS.get(), 100);
-        event.registerFuelItem(ModBlocks.LIME_WOOL_STAIRS.get(), 100);
-        event.registerFuelItem(ModBlocks.PINK_WOOL_STAIRS.get(), 100);
-        event.registerFuelItem(ModBlocks.GRAY_WOOL_STAIRS.get(), 100);
-        event.registerFuelItem(ModBlocks.LIGHT_GRAY_WOOL_STAIRS.get(), 100);
-        event.registerFuelItem(ModBlocks.CYAN_WOOL_STAIRS.get(), 100);
-        event.registerFuelItem(ModBlocks.PURPLE_WOOL_STAIRS.get(), 100);
-        event.registerFuelItem(ModBlocks.BLUE_WOOL_STAIRS.get(), 100);
-        event.registerFuelItem(ModBlocks.BROWN_WOOL_STAIRS.get(), 100);
-        event.registerFuelItem(ModBlocks.GREEN_WOOL_STAIRS.get(), 100);
-        event.registerFuelItem(ModBlocks.RED_WOOL_STAIRS.get(), 100);
-        event.registerFuelItem(ModBlocks.BLACK_WOOL_STAIRS.get(), 100);
-        
-        event.registerFuelItem(ModBlocks.WHITE_WOOL_SLAB.get(), 100);
-        event.registerFuelItem(ModBlocks.ORANGE_WOOL_SLAB.get(), 100);
-        event.registerFuelItem(ModBlocks.MAGENTA_WOOL_SLAB.get(), 100);
-        event.registerFuelItem(ModBlocks.LIGHT_BLUE_WOOL_SLAB.get(), 100);
-        event.registerFuelItem(ModBlocks.YELLOW_WOOL_SLAB.get(), 100);
-        event.registerFuelItem(ModBlocks.LIME_WOOL_SLAB.get(), 100);
-        event.registerFuelItem(ModBlocks.PINK_WOOL_SLAB.get(), 100);
-        event.registerFuelItem(ModBlocks.GRAY_WOOL_SLAB.get(), 100);
-        event.registerFuelItem(ModBlocks.LIGHT_GRAY_WOOL_SLAB.get(), 100);
-        event.registerFuelItem(ModBlocks.CYAN_WOOL_SLAB.get(), 100);
-        event.registerFuelItem(ModBlocks.PURPLE_WOOL_SLAB.get(), 100);
-        event.registerFuelItem(ModBlocks.BLUE_WOOL_SLAB.get(), 100);
-        event.registerFuelItem(ModBlocks.BROWN_WOOL_SLAB.get(), 100);
-        event.registerFuelItem(ModBlocks.GREEN_WOOL_SLAB.get(), 100);
-        event.registerFuelItem(ModBlocks.RED_WOOL_SLAB.get(), 100);
-        event.registerFuelItem(ModBlocks.BLACK_WOOL_SLAB.get(), 100);
-        
-        event.registerFuelItem(ModItems.WHITE_CUSHION.get(), 200);
-        event.registerFuelItem(ModItems.ORANGE_CUSHION.get(), 200);
-        event.registerFuelItem(ModItems.MAGENTA_CUSHION.get(), 200);
-        event.registerFuelItem(ModItems.LIGHT_BLUE_CUSHION.get(), 200);
-        event.registerFuelItem(ModItems.YELLOW_CUSHION.get(), 200);
-        event.registerFuelItem(ModItems.LIME_CUSHION.get(), 200);
-        event.registerFuelItem(ModItems.PINK_CUSHION.get(), 200);
-        event.registerFuelItem(ModItems.GRAY_CUSHION.get(), 200);
-        event.registerFuelItem(ModItems.LIGHT_GRAY_CUSHION.get(), 200);
-        event.registerFuelItem(ModItems.CYAN_CUSHION.get(), 200);
-        event.registerFuelItem(ModItems.PURPLE_CUSHION.get(), 200);
-        event.registerFuelItem(ModItems.BLUE_CUSHION.get(), 200);
-        event.registerFuelItem(ModItems.BROWN_CUSHION.get(), 200);
-        event.registerFuelItem(ModItems.GREEN_CUSHION.get(), 200);
-        event.registerFuelItem(ModItems.RED_CUSHION.get(), 200);
-        event.registerFuelItem(ModItems.BLACK_CUSHION.get(), 200);
+        event.registerFuelItem(ModItemTags.WOOL_STAIRS, 100);
+        event.registerFuelItem(ModItemTags.WOOL_SLABS, 100);
+        event.registerFuelItem(ModItemTags.CUSHIONS, 200);
     }
     
     private static void registerFlammables(BlockIntegration.Event event) {
