@@ -175,6 +175,9 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
         this.getOrCreateTagBuilder(ModItemTags.NAUTILUS_FOOD)
             .forceAddTag(ItemTags.FISHES)
             .addTag(ModItemTags.NAUTILUS_BUCKET_FOOD);
+        
+        this.getOrCreateTagBuilder(ModItemTags.LUNGE_ENCHANTABLE)
+            .addTag(ModItemTags.SPEARS);
     }
 
     private void handleArchetypes() {

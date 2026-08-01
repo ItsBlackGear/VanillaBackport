@@ -154,15 +154,6 @@
   },
   "requirements": [
     [
-      "minecraft:spotted"
-    ],
-    [
-      "minecraft:pale"
-    ],
-    [
-      "minecraft:striped"
-    ],
-    [
       "minecraft:chestnut"
     ],
     [
@@ -179,6 +170,15 @@
     ],
     [
       "minecraft:woods"
+    ],
+    [
+      "minecraft:spotted"
+    ],
+    [
+      "minecraft:pale"
+    ],
+    [
+      "minecraft:striped"
     ]
   ],
   "rewards": {

@@ -30,7 +30,7 @@ public class ClientConfig {
         this.useLegacySpawnEggs = builder.comment("use the legacy spawn egg textures")
             .define("use_legacy_spawn_eggs", false);
         this.useSheepWoolUndercoat = builder.comment("toggle the colored sheep wool undercoat")
-            .define("use_sheep_wool_undercoat", true);
+            .define("use_sheep_wool_undercoat", false);
         builder.pop();
         
         builder.push("Copper Age");

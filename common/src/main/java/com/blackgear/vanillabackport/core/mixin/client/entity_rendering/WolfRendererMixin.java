@@ -1,8 +1,5 @@
 package com.blackgear.vanillabackport.core.mixin.client.entity_rendering;
 
-import com.blackgear.vanillabackport.client.api.modules.mob_variants.RenderConditions;
-import com.blackgear.vanillabackport.client.api.modules.mob_variants.SpecialMobRenderer;
-import com.blackgear.vanillabackport.client.level.layer.WolfArmorLayer;
 import com.blackgear.vanillabackport.common.api.modules.mob_variant.VariantDataHolder;
 import com.blackgear.vanillabackport.common.level.entity.mob.animal.wolf.WolfVariant;
 import com.blackgear.vanillabackport.core.mixin.client.extension.entity.MobRendererMixin;
@@ -14,22 +11,12 @@ import net.minecraft.world.entity.animal.Wolf;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(WolfRenderer.class)
 public abstract class WolfRendererMixin extends MobRendererMixin<Wolf, WolfModel<Wolf>> {
     public WolfRendererMixin(EntityRendererProvider.Context context, WolfModel<Wolf> model, float shadowRadius) {
         super(context, model, shadowRadius);
-    }
-
-    @Inject(method = "<init>", at = @At("TAIL"))
-    private void vb$addLayer(EntityRendererProvider.Context context, CallbackInfo ci) {
-        SpecialMobRenderer.addLayer(
-            RenderConditions.FARM_ANIMALS,
-            () -> new WolfArmorLayer(this, context.getModelSet()),
-            this::addLayer
-        );
     }
 
     @Inject(

@@ -20,6 +20,7 @@ import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
 import com.blackgear.vanillabackport.common.registries.blocks.ModPoiTypes;
 import com.blackgear.vanillabackport.common.registries.entities.*;
 import com.blackgear.vanillabackport.common.registries.entities.ModAttributes;
+import com.blackgear.vanillabackport.common.registries.items.ModEnchantments;
 import com.blackgear.vanillabackport.common.registries.items.ModItems;
 import com.blackgear.vanillabackport.common.registries.items.ModPaintingVariants;
 import com.blackgear.vanillabackport.common.registries.worldgen.*;
@@ -66,7 +67,8 @@ public final class VanillaBackport {
         ModValueProviders.REGISTRIES.register();
         ModMaterialRules.REGISTRIES.registrar();
         ModMaterialConditions.REGISTRIES.registrar();
-
+        
+        ModEnchantments.REGISTRIES.register();
         ModAttributes.REGISTRIES.registrar();
         ModMobEffects.REGISTRIES.registrar();
         ModParticles.REGISTRIES.register();

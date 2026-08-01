@@ -125,9 +125,9 @@ public class ModSoundEvents {
 
     public static final Supplier<SoundEvent> ARMOR_EQUIP_COPPER = REGISTRIES.soundEvent("item.armor.equip_copper");
     
-    public static final Holder<SoundEvent> LUNGE_1 = REGISTRIES.holder("item.spear.lunge_1");
-    public static final Holder<SoundEvent> LUNGE_2 = REGISTRIES.holder("item.spear.lunge_2");
-    public static final Holder<SoundEvent> LUNGE_3 = REGISTRIES.holder("item.spear.lunge_3");
+    public static final Supplier<SoundEvent> LUNGE_1 = REGISTRIES.register("item.spear.lunge_1");
+    public static final Supplier<SoundEvent> LUNGE_2 = REGISTRIES.register("item.spear.lunge_2");
+    public static final Supplier<SoundEvent> LUNGE_3 = REGISTRIES.register("item.spear.lunge_3");
     public static final Holder<SoundEvent> SPEAR_USE = REGISTRIES.holder("item.spear.use");
     public static final Holder<SoundEvent> SPEAR_HIT = REGISTRIES.holder("item.spear.hit");
     public static final Holder<SoundEvent> SPEAR_ATTACK = REGISTRIES.holder("item.spear.attack");

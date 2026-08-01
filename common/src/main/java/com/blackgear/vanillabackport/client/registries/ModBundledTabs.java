@@ -3,16 +3,20 @@ package com.blackgear.vanillabackport.client.registries;
 import com.blackgear.vanillabackport.client.api.bundled_tabs.BundledTabs;
 import com.blackgear.vanillabackport.common.level.block.CopperGolemStatueBlock;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
+import com.blackgear.vanillabackport.common.registries.items.ModEnchantments;
 import com.blackgear.vanillabackport.common.registries.items.ModItems;
 import com.blackgear.vanillabackport.common.registries.items.ModPaintingVariants;
+import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.decoration.Painting;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.enchantment.EnchantmentInstance;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 public class ModBundledTabs {
     private static final List<BundledTabs> FILTERS = new ArrayList<>();
@@ -265,9 +269,19 @@ public class ModBundledTabs {
                 output.accept(ModItems.NAUTILUS_SPAWN_EGG.get());
                 output.accept(ModItems.PARCHED_SPAWN_EGG.get());
                 output.accept(ModItems.ZOMBIE_NAUTILUS_SPAWN_EGG.get());
+                
+                provider.lookup(Registries.ENCHANTMENT).ifPresent(enchantments -> {
+                    enchantments.listElements()
+                        .map(Holder::value)
+                        .filter(enchantment -> enchantment == ModEnchantments.LUNGE.get())
+                        .flatMap(enchantment -> IntStream.rangeClosed(enchantment.getMinLevel(), enchantment.getMaxLevel())
+                            .mapToObj(level -> EnchantedBookItem.createForEnchantment(new EnchantmentInstance(enchantment, level))))
+                        .forEach(output::accept);
+                });
             })
             .build()
     );
+    
     
     public static final BundledTabs CHAOS_CUBED = register(
         BundledTabs.builder()

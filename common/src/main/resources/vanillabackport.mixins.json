@@ -27,7 +27,6 @@
     "client.entity_rendering.CowRendererMixin",
     "client.entity_rendering.FrogRendererMixin",
     "client.entity_rendering.PigRendererMixin",
-    "client.entity_rendering.SheepRendererMixin",
     "client.entity_rendering.WolfRendererMixin",
     "client.extension.entity.MobRendererMixin",
     "client.extension.sound.ClientLevelMixin",
@@ -57,7 +56,6 @@
     "client.spear_rendering.PiglinModelMixin",
     "client.spear_rendering.PlayerRendererMixin",
     "client.spear_rendering.ZombieVillagerModelMixin",
-    "client.zombie_horses.UndeadHorseRendererMixin",
     "common.spear_behavior.LocalPlayerMixin"
   ],
   "mixins": [
@@ -121,6 +119,7 @@
     "common.extension.sound.LevelMixin",
     "common.extension.sound.ServerLevelMixin",
     "common.extension.sound.camel.CamelMixin",
+    "common.grace_time_weapon.LivingEntityMixin",
     "common.happy_ghast.NetherFossilPieceMixin",
     "common.happy_ghast.ServerEntityMixin",
     "common.happy_ghast.ServerGamePacketListenerImplMixin",

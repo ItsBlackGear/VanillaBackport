@@ -44,6 +44,7 @@ public class ModItemTags {
     public static final TagKey<Item> WOODEN_SHELVES = TAGS.register("wooden_shelves");
     
     public static final TagKey<Item> SPEARS = TAGS.register("spears");
+    public static final TagKey<Item> LUNGE_ENCHANTABLE = TAGS.register("lunge_enchantable");
     public static final TagKey<Item> CAMEL_HUSK_FOOD = TAGS.register("camel_husk_food");
     public static final TagKey<Item> ZOMBIE_HORSE_FOOD = TAGS.register("zombie_horse_food");
     

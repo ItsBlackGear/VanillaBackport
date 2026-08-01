@@ -1,6 +1,7 @@
 package com.blackgear.vanillabackport.core.mixin.common.spear_behavior;
 
 import com.blackgear.vanillabackport.common.api.extensions.entity.spear.MobSpearHandler;
+import com.blackgear.vanillabackport.common.level.item.enchantment.EnchantmentUtils;
 import com.blackgear.vanillabackport.common.level.item.spear.AttackRange;
 import com.blackgear.vanillabackport.common.level.item.spear.KineticWeapon;
 import com.blackgear.vanillabackport.common.level.item.spear.SwingAnimation;
@@ -168,7 +169,7 @@ public abstract class LivingEntityMixin extends Entity implements MobSpearHandle
     @Override
     public void postPiercingAttack() {
         if (this.level() instanceof ServerLevel level) {
-//            EnchantmentUtils.doPostPiercingAttackEffects(level, (LivingEntity)(Object)this); TODO
+            EnchantmentUtils.doPostPiercingAttack(level, (LivingEntity)(Object)this);
         }
     }
     

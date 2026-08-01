@@ -6,20 +6,15 @@ import java.util.function.Predicate;
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
 import com.blackgear.vanillabackport.common.api.extensions.entity.mounts.ControllableMob;
 import com.blackgear.vanillabackport.common.api.extensions.entity.mounts.MountInventoryHandler;
-import com.blackgear.vanillabackport.common.level.inventory.NautilusInventoryMenu;
 import com.blackgear.vanillabackport.common.level.item.NautilusArmorItem;
 import com.blackgear.vanillabackport.common.registries.entities.ModMobEffects;
 import com.blackgear.vanillabackport.core.data.tags.ModItemTags;
-import com.blackgear.vanillabackport.core.mixin.common.access.ServerPlayerAccessor;
-import com.blackgear.vanillabackport.core.network.ClientboundNautilusScreenOpenPacket;
-import com.blackgear.vanillabackport.core.network.NetworkHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.players.OldUsersConverter;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
@@ -532,14 +527,6 @@ public abstract class AbstractNautilus extends TamableAnimal implements Containe
 	public void openCustomInventoryScreen(Player player) {
 		if (!this.level().isClientSide() && (!this.isVehicle() || this.hasPassenger(player)) && this.isTame()) {
 			MountInventoryHandler.of(player).openNautilusInventory(this, this.inventory);
-//			if (player instanceof ServerPlayer sp && sp instanceof ServerPlayerAccessor access) {
-//				if (sp.containerMenu != sp.inventoryMenu) sp.closeContainer();
-//
-//				access.callNextContainerCounter();
-//				NetworkHandler.DEFAULT_CHANNEL.sendToPlayer(new ClientboundNautilusScreenOpenPacket(access.getContainerCounter(), this.inventory.getContainerSize(), this.getId()), sp);
-//				sp.containerMenu = new NautilusInventoryMenu(access.getContainerCounter(), sp.getInventory(), this.inventory, this);
-//				access.callInitMenu(sp.containerMenu);
-//			}
 		}
 	}
 	

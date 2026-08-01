@@ -4,6 +4,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 
@@ -66,6 +67,17 @@ public abstract class SpecialMobRenderer <T extends LivingEntity, M extends Enti
     
     public static <L> void addLayer(RenderConditions condition, Supplier<L> factory, Consumer<L> action) {
         if (condition.apply()) action.accept(factory.get());
+    }
+    
+    public static <R extends LivingEntityRenderer<?, ?>, L> void append(LivingEntityRenderer<?, ?> renderer, Class<R> clazz, RenderConditions condition, Function<R, L> factory, Consumer<L> appender) {
+        if (clazz.isInstance(renderer) && condition.apply()) {
+            R type = clazz.cast(renderer);
+            appender.accept(factory.apply(type));
+        }
+    }
+    
+    public static <R extends LivingEntityRenderer<?, ?>, L> void append(LivingEntityRenderer<?, ?> renderer, Class<R> clazz, Function<R, L> factory, Consumer<L> appender) {
+        append(renderer, clazz, RenderConditions.DEFAULT, factory, appender);
     }
     
     public abstract Optional<ResourceLocation> getTexture(T entity);

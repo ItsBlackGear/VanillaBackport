@@ -4,6 +4,7 @@ import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
 import com.blackgear.vanillabackport.common.registries.entities.ModAttributes;
 import com.blackgear.vanillabackport.common.registries.entities.ModEntityTypes;
 import com.blackgear.vanillabackport.common.registries.entities.ModMobEffects;
+import com.blackgear.vanillabackport.common.registries.items.ModEnchantments;
 import com.blackgear.vanillabackport.common.registries.items.ModItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
@@ -389,6 +390,8 @@ public class LangGenerator extends FabricLanguageProvider {
         builder.add(ModItems.ZOMBIE_NAUTILUS_SPAWN_EGG.get(), "Zombie Nautilus Spawn Egg");
         
         builder.add(ModMobEffects.BREATH_OF_THE_NAUTILUS, "Breath of the Nautilus");
+        
+        builder.add(ModEnchantments.LUNGE.get(), "Lunge");
         
         builder.add("subtitles.entity.camel_husk.ambient", "Camel Husk grumphs");
         builder.add("subtitles.entity.camel_husk.dash", "Camel Husk yeets");

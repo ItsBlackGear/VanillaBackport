@@ -2,6 +2,7 @@ package com.blackgear.vanillabackport.client;
 
 import com.blackgear.platform.client.GameRendering;
 import com.blackgear.platform.client.event.LocalPlayerEvents;
+import com.blackgear.platform.client.event.rendering.LivingEntityRendererCallback;
 import com.blackgear.platform.common.block.WoodTypeRegistry;
 import com.blackgear.platform.common.v2.creative_tabs.CreativeTabIntegrations;
 import com.blackgear.platform.core.ParallelDispatch;
@@ -45,6 +46,7 @@ public class ClientSetup {
             ItemPropertyIntegrations.bootstrap();
             LocalPlayerEvents.ON_LOGIN.register(player -> BundledTabSelector.bootstrap());
             GameRendering.registerHandHeldModels(ItemLikeRendering::handHeldModelRendering);
+            LivingEntityRendererCallback.APPEND_LAYERS.register(EntityRendering::renderLayers);
         });
         BundleMouseActions.bootstrap();
         
