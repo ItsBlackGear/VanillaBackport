@@ -192,6 +192,7 @@
   "death.attack.sulfurCubeHot": "%1$s died because not just the floor is lava",
   "death.attack.sulfurCubeHot.player": "%2$s showed %1$s that not just the floor is lava",
   "effect.minecraft.breath_of_the_nautilus": "Breath of the Nautilus",
+  "enchantment.minecraft.lunge": "Lunge",
   "entity.minecraft.camel_husk": "Camel Husk",
   "entity.minecraft.copper_golem": "Copper Golem",
   "entity.minecraft.creaking": "Creaking",

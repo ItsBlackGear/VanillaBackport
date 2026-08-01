@@ -1,6 +1,7 @@
 package com.blackgear.vanillabackport.data;
 
 import com.blackgear.vanillabackport.common.registries.entities.ModDamageTypes;
+import com.blackgear.vanillabackport.common.registries.enchantment.ModEnchantments;
 import com.blackgear.vanillabackport.common.registries.items.ModJukeboxSongs;
 import com.blackgear.vanillabackport.common.registries.items.ModPaintingVariants;
 import com.blackgear.vanillabackport.common.registries.items.ModTrimMaterials;
@@ -61,6 +62,7 @@ public class DataGenerator implements DataGeneratorEntrypoint {
         pack.addProvider(ConfiguredFeatureGenerator::new);
         pack.addProvider(PlacedFeatureGenerator::new);
         pack.addProvider(JukeboxSongGenerator::new);
+        pack.addProvider(EnchantmentGenerator::new);
     }
 
     @Override
@@ -71,6 +73,7 @@ public class DataGenerator implements DataGeneratorEntrypoint {
         builder.add(Registries.BIOME, ModBiomes.REGISTRIES::bootstrap);
         builder.add(Registries.NOISE, ModNoises.REGISTRIES::bootstrap);
         builder.add(Registries.DAMAGE_TYPE, ModDamageTypes.REGISTRIES::bootstrap);
+        builder.add(Registries.ENCHANTMENT, ModEnchantments.REGISTRIES::bootstrap);
         builder.add(Registries.CONFIGURED_FEATURE, TheGardenAwakensFeatures.REGISTRIES::bootstrap);
         builder.add(Registries.CONFIGURED_FEATURE, SpringToLifeFeatures.REGISTRIES::bootstrap);
         builder.add(Registries.CONFIGURED_FEATURE, ChaosCubedFeatures.REGISTRIES::bootstrap);

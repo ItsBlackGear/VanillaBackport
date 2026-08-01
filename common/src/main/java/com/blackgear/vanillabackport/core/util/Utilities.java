@@ -83,6 +83,32 @@ public class Utilities {
             float sine = Mth.sin(angleRadians);
             return new Vec2(source.x * cosine - source.y * sine, source.y * cosine + source.x * sine);
         }
+        
+        public static Vec3 applyLocalCoordinatesToRotation(Vec2 rotation, Vec3 direction) {
+            float yCos = Mth.cos((rotation.y + 90.0F) * Mth.DEG_TO_RAD);
+            float ySin = Mth.sin((rotation.y + 90.0F) * Mth.DEG_TO_RAD);
+            float xCos = Mth.cos(-rotation.x * Mth.DEG_TO_RAD);
+            float xSin = Mth.sin(-rotation.x * Mth.DEG_TO_RAD);
+            float xCosUp = Mth.cos((-rotation.x + 90.0F) * Mth.DEG_TO_RAD);
+            float xSinUp = Mth.sin((-rotation.x + 90.0F) * Mth.DEG_TO_RAD);
+            Vec3 forwards = new Vec3(yCos * xCos, xSin, ySin * xCos);
+            Vec3 up = new Vec3(yCos * xCosUp, xSinUp, ySin * xCosUp);
+            Vec3 left = forwards.cross(up).scale(-1.0);
+            double xa = forwards.x * direction.z + up.x * direction.y + left.x * direction.x;
+            double ya = forwards.y * direction.z + up.y * direction.y + left.y * direction.x;
+            double za = forwards.z * direction.z + up.z * direction.y + left.z * direction.x;
+            return new Vec3(xa, ya, za);
+        }
+        
+        public static Vec3 addLocalCoordinates(Vec3 source, Vec3 direction) {
+            return applyLocalCoordinatesToRotation(rotation(source), direction);
+        }
+        
+        public static Vec2 rotation(Vec3 source) {
+            float yaw = (float) Math.atan2(-source.x, source.z) * Mth.RAD_TO_DEG;
+            float pitch = (float) Math.asin(-source.y / Math.sqrt(source.x * source.x + source.y * source.y + source.z * source.z)) * Mth.RAD_TO_DEG;
+            return new Vec2(pitch, yaw);
+        }
     }
     
     public static class DirectionUtils {

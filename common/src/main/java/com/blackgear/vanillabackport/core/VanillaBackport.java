@@ -19,10 +19,13 @@ import com.blackgear.vanillabackport.common.registries.*;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlockEntities;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
 import com.blackgear.vanillabackport.common.registries.blocks.ModPoiTypes;
+import com.blackgear.vanillabackport.common.registries.enchantment.ModEnchantmentEntityEffect;
+import com.blackgear.vanillabackport.common.registries.enchantment.ModEnchantmentLocationBasedEffect;
 import com.blackgear.vanillabackport.common.registries.entities.*;
 import com.blackgear.vanillabackport.common.registries.entities.ModAttributes;
 import com.blackgear.vanillabackport.common.registries.items.ModArmorMaterials;
 import com.blackgear.vanillabackport.common.registries.items.ModDataComponents;
+import com.blackgear.vanillabackport.common.registries.enchantment.ModEnchantmentEffectComponents;
 import com.blackgear.vanillabackport.common.registries.items.ModItems;
 import com.blackgear.vanillabackport.common.registries.worldgen.*;
 import com.blackgear.vanillabackport.core.data.tags.*;
@@ -56,7 +59,10 @@ public final class VanillaBackport {
     public static void bootstrap() {
         INSTANCE.bootstrap();
         ConfigLoader.bootstrap();
-
+        
+        ModEnchantmentEntityEffect.REGISTRIES.register();
+        ModEnchantmentLocationBasedEffect.REGISTRIES.register();
+        
         ModBlockTags.TAGS.register();
         ModItemTags.TAGS.register();
         ModBiomeTags.TAGS.register();
@@ -71,6 +77,8 @@ public final class VanillaBackport {
         ModMobEffects.REGISTRIES.register();
         ModArmorMaterials.REGISTRIES.register();
         ModDataComponents.REGISTRIES.register();
+        ModEnchantmentEffectComponents.REGISTRIES.register();
+        ModEntitySubPredicates.REGISTRIES.register();
         ModParticles.REGISTRIES.register();
 
         ModBlocks.REGISTRIES.register();

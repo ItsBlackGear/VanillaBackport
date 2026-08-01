@@ -362,6 +362,8 @@ public class LangGenerator extends FabricLanguageProvider {
         
         builder.add(ModMobEffects.BREATH_OF_THE_NAUTILUS.value(), "Breath of the Nautilus");
         
+        builder.add("enchantment.minecraft.lunge", "Lunge");
+        
         builder.add("subtitles.entity.camel_husk.ambient", "Camel Husk grumphs");
         builder.add("subtitles.entity.camel_husk.dash", "Camel Husk yeets");
         builder.add("subtitles.entity.camel_husk.dash_ready", "Camel Husk recovers");

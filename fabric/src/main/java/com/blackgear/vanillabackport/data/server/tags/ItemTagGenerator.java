@@ -516,6 +516,9 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
         
         this.getOrCreateTagBuilder(ItemTags.WEAPON_ENCHANTABLE)
             .addTag(ModItemTags.SPEARS);
+        
+        this.getOrCreateTagBuilder(ModItemTags.LUNGE_ENCHANTABLE)
+            .addTag(ModItemTags.SPEARS);
     }
 
     protected DualTagHolder getDualTagBuilder(TagKey<Item> forge, TagKey<Item> fabric) {

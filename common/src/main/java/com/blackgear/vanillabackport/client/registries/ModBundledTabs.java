@@ -3,6 +3,7 @@ package com.blackgear.vanillabackport.client.registries;
 import com.blackgear.vanillabackport.client.api.bundled_tabs.BundledTabs;
 import com.blackgear.vanillabackport.common.level.block.CopperGolemStatueBlock;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
+import com.blackgear.vanillabackport.common.registries.enchantment.ModEnchantments;
 import com.blackgear.vanillabackport.common.registries.items.ModItems;
 import com.blackgear.vanillabackport.common.registries.items.ModPaintingVariants;
 import net.minecraft.core.component.DataComponents;
@@ -15,9 +16,11 @@ import net.minecraft.world.entity.decoration.Painting;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.BlockItemStateProperties;
 import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.item.enchantment.EnchantmentInstance;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 public class ModBundledTabs {
     private static final List<BundledTabs> FILTERS = new ArrayList<>();
@@ -260,6 +263,13 @@ public class ModBundledTabs {
                 output.accept(ModItems.NAUTILUS_SPAWN_EGG.get());
                 output.accept(ModItems.PARCHED_SPAWN_EGG.get());
                 output.accept(ModItems.ZOMBIE_NAUTILUS_SPAWN_EGG.get());
+                
+                provider.lookup(Registries.ENCHANTMENT).ifPresent(enchantments -> {
+                    enchantments.listElements()
+                        .filter(holder -> holder.is(ModEnchantments.LUNGE))
+                        .flatMap(reference -> IntStream.rangeClosed(reference.value().getMinLevel(), reference.value().getMaxLevel()).mapToObj(level -> EnchantedBookItem.createForEnchantment(new EnchantmentInstance(reference, level))))
+                        .forEach(output::accept);
+                });
             })
             .build()
     );

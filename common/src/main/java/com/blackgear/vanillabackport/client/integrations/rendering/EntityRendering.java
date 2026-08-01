@@ -1,5 +1,10 @@
 package com.blackgear.vanillabackport.client.integrations.rendering;
 
+import com.blackgear.platform.client.event.rendering.LivingEntityRendererCallback;
+import com.blackgear.vanillabackport.client.api.modules.mob_variants.RenderConditions;
+import com.blackgear.vanillabackport.client.api.modules.mob_variants.SpecialMobRenderer;
+import com.blackgear.vanillabackport.client.level.layer.SheepWoolUndercoatLayer;
+import com.blackgear.vanillabackport.client.level.layer.UndeadHorseArmorLayer;
 import com.blackgear.vanillabackport.client.level.model.entity.CopperGolemModel;
 import com.blackgear.vanillabackport.client.level.model.entity.CreakingModel;
 import com.blackgear.vanillabackport.client.level.model.entity.chicken.ColdChickenModel;
@@ -23,6 +28,9 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.model.*;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
+import net.minecraft.client.renderer.entity.*;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 
 import static com.blackgear.platform.client.GameRendering.*;
 
@@ -84,5 +92,10 @@ public class EntityRendering {
         event.register(ModEntityTypes.CUSHION.get(), CushionRenderer::new);
         event.register(ModEntityTypes.NAUTILUS.get(), NautilusRenderer::new);
         event.register(ModEntityTypes.ZOMBIE_NAUTILUS.get(), ZombieNautilusRenderer::new);
+    }
+    
+    public static void renderLayers(EntityType<? extends LivingEntity> entity, LivingEntityRenderer<?, ?> renderer, LivingEntityRendererCallback.LayerAppender appender, EntityRendererProvider.Context context) {
+        SpecialMobRenderer.append(renderer, SheepRenderer.class, RenderConditions.SHEEP_UNDERCOAT, r -> new SheepWoolUndercoatLayer(r, context.getModelSet()), appender::addLayer);
+        SpecialMobRenderer.append(renderer, UndeadHorseRenderer.class, r -> new UndeadHorseArmorLayer(r, context.getModelSet()), appender::addLayer);
     }
 }

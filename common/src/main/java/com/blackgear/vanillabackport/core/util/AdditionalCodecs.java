@@ -14,6 +14,7 @@ import net.minecraft.util.ExtraCodecs;
 import net.minecraft.util.valueproviders.FloatProvider;
 import net.minecraft.world.phys.Vec3;
 
+import java.util.List;
 import java.util.function.Function;
 
 public class AdditionalCodecs {
@@ -36,7 +37,11 @@ public class AdditionalCodecs {
     private static <T, U> Codec<T> withAlternative(Codec<T> primary, Codec<U> alternative, Function<U, T> converter) {
         return Codec.either(primary, alternative).xmap(either -> either.map(t -> t, converter), Either::left);
     }
-
+    
+    public static <E> Codec<List<E>> compactListCodec(Codec<E> elementCodec, Codec<List<E>> listCodec) {
+        return Codec.either(listCodec, elementCodec).xmap(e -> e.map(l -> l, List::of), v -> v.size() == 1 ? Either.right(v.getFirst()) : Either.left(v));
+    }
+    
     public static Codec<FloatProvider> floatProvider(float minValue) {
         return FloatProvider.CODEC.validate(
             value -> value.getMinValue() < minValue

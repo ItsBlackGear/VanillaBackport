@@ -4,6 +4,7 @@ import com.blackgear.vanillabackport.common.api.extensions.entity.spear.MobSpear
 import com.blackgear.vanillabackport.common.level.components.AttackRange;
 import com.blackgear.vanillabackport.common.level.components.KineticWeapon;
 import com.blackgear.vanillabackport.common.level.item.spear.SpearItem;
+import com.blackgear.vanillabackport.common.registries.enchantment.EnchantmentUtils;
 import com.blackgear.vanillabackport.common.registries.items.ModDataComponents;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import it.unimi.dsi.fastutil.objects.Object2LongMap;
@@ -66,7 +67,7 @@ public abstract class LivingEntityMixin extends Entity implements MobSpearHandle
             shift = At.Shift.AFTER
         )
     )
-    private void vb$startUsingItem(InteractionHand interactionHand, CallbackInfo ci) {
+    private void vb$startUsingItem(InteractionHand hand, CallbackInfo ci) {
         if (this.useItem.has(ModDataComponents.KINETIC_WEAPON.get())) {
             this.recentKineticEnemies = new Object2LongOpenHashMap<>();
         }
@@ -166,7 +167,7 @@ public abstract class LivingEntityMixin extends Entity implements MobSpearHandle
     @Override
     public void postPiercingAttack() {
         if (this.level() instanceof ServerLevel level) {
-//            EnchantmentUtils.doPostPiercingAttackEffects(level, (LivingEntity)(Object)this); TODO
+            EnchantmentUtils.doPostPiercingAttackEffects(level, (LivingEntity)(Object)this);
         }
     }
     

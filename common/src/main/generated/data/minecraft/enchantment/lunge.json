@@ -1,0 +1,138 @@
+{
+  "anvil_cost": 2,
+  "description": {
+    "translate": "enchantment.minecraft.lunge"
+  },
+  "effects": {
+    "minecraft:post_piercing_attack": [
+      {
+        "effect": {
+          "type": "minecraft:all_of",
+          "effects": [
+            {
+              "type": "minecraft:damage_item",
+              "amount": 1.0
+            },
+            {
+              "type": "vanillabackport:apply_exhaustion",
+              "amount": {
+                "type": "minecraft:linear",
+                "base": 4.0,
+                "per_level_above_first": 4.0
+              }
+            },
+            {
+              "type": "vanillabackport:apply_entity_impulse",
+              "coordinate_scale": [
+                1.0,
+                0.0,
+                1.0
+              ],
+              "direction": [
+                0.0,
+                0.0,
+                1.0
+              ],
+              "magnitude": {
+                "type": "minecraft:linear",
+                "base": 0.458,
+                "per_level_above_first": 0.458
+              }
+            },
+            {
+              "type": "vanillabackport:play_sound",
+              "pitch": 1.0,
+              "sound": [
+                "minecraft:item.spear.lunge_1",
+                "minecraft:item.spear.lunge_2",
+                "minecraft:item.spear.lunge_3"
+              ],
+              "volume": 1.0
+            }
+          ]
+        },
+        "requirements": {
+          "condition": "minecraft:all_of",
+          "terms": [
+            {
+              "condition": "minecraft:inverted",
+              "term": {
+                "condition": "minecraft:entity_properties",
+                "entity": "this",
+                "predicate": {
+                  "vehicle": {}
+                }
+              }
+            },
+            {
+              "condition": "minecraft:entity_properties",
+              "entity": "this",
+              "predicate": {
+                "flags": {
+                  "is_flying": false
+                }
+              }
+            },
+            {
+              "condition": "minecraft:any_of",
+              "terms": [
+                {
+                  "condition": "minecraft:inverted",
+                  "term": {
+                    "condition": "minecraft:entity_properties",
+                    "entity": "this",
+                    "predicate": {
+                      "type_specific": {
+                        "type": "vanillabackport:player"
+                      }
+                    }
+                  }
+                },
+                {
+                  "condition": "minecraft:entity_properties",
+                  "entity": "this",
+                  "predicate": {
+                    "type_specific": {
+                      "type": "vanillabackport:player",
+                      "gamemode": [
+                        "creative"
+                      ]
+                    }
+                  }
+                },
+                {
+                  "condition": "minecraft:entity_properties",
+                  "entity": "this",
+                  "predicate": {
+                    "type_specific": {
+                      "type": "vanillabackport:player",
+                      "food": {
+                        "level": {
+                          "min": 7
+                        }
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "max_cost": {
+    "base": 25,
+    "per_level_above_first": 8
+  },
+  "max_level": 3,
+  "min_cost": {
+    "base": 5,
+    "per_level_above_first": 8
+  },
+  "slots": [
+    "hand"
+  ],
+  "supported_items": "#minecraft:lunge_enchantable",
+  "weight": 5
+}

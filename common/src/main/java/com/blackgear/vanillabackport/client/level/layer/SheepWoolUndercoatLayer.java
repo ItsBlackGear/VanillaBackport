@@ -1,7 +1,6 @@
 package com.blackgear.vanillabackport.client.level.layer;
 
 import com.blackgear.vanillabackport.client.api.modules.emissive_models.LazyModel;
-import com.blackgear.vanillabackport.client.api.modules.mob_variants.RenderConditions;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -31,8 +30,6 @@ public class SheepWoolUndercoatLayer extends RenderLayer<Sheep, SheepModel<Sheep
 
     @Override
     public void render(PoseStack poseStack, MultiBufferSource buffer, int packedLight, Sheep sheep, float limbSwing, float limbSwingAmount, float partialTick, float ageInTicks, float netHeadYaw, float headPitch) {
-        if (!RenderConditions.SHEEP_UNDERCOAT.apply()) return;
-        
         if (sheep.getType() == EntityType.SHEEP && !sheep.isInvisible()) {
             int color;
             if (sheep.hasCustomName() && "jeb_".equals(sheep.getName().getString())) {
