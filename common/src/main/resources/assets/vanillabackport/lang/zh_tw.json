@@ -557,5 +557,8 @@
   "subtitles.item.nautilus_saddle_underwater_equip": "裝上鞍",
   "subtitles.item.spear_wood.attack": "矛戳刺聲",
   "subtitles.item.spear_wood.hit": "矛擊中聲",
-  "subtitles.item.spear_wood.use": "架矛"
+  "subtitles.item.spear_wood.use": "架矛",
+  "advancements.adventure.spear_many_mobs.description": "用矛在一次衝鋒攻擊內命中五隻生物",
+  "advancements.adventure.spear_many_mobs.title": "生物串燒",
+  "enchantment.minecraft.lunge": "突刺"
 }
