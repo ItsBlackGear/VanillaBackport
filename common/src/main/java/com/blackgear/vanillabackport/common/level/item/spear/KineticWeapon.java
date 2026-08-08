@@ -3,6 +3,7 @@ package com.blackgear.vanillabackport.common.level.item.spear;
 import com.blackgear.vanillabackport.common.api.extensions.SoundExtension;
 import com.blackgear.vanillabackport.common.api.extensions.entity.movement.MotionAwareEntity;
 import com.blackgear.vanillabackport.common.api.extensions.entity.spear.MobSpearHandler;
+import com.blackgear.vanillabackport.common.registries.ModCriteriaTriggers;
 import com.blackgear.vanillabackport.core.util.ProjectileUtils;
 import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerPlayer;
@@ -87,7 +88,7 @@ public record KineticWeapon(
                     
                     if (dealsDismount || dealsKnockback || dealsDamage) {
                         float damageDealt = (float) baseMobDamage + Mth.floor(relativeSpeed * this.damageMultiplier);
-                        affected |= handler.stabAttack(equipmentSlot, otherEntity, damageDealt, dealsDamage, dealsKnockback, dealsDismount);;
+                        affected |= handler.stabAttack(equipmentSlot, otherEntity, damageDealt, dealsDamage, dealsKnockback, dealsDismount);
                     }
                 }
             }
@@ -95,7 +96,7 @@ public record KineticWeapon(
             if (affected) {
                 attacker.level().broadcastEntityEvent(attacker, (byte) 2);
                 if (attacker instanceof ServerPlayer player) {
-                    //TODO: add criteria trigger
+                    ModCriteriaTriggers.SPEAR_MOBS_TRIGGER.trigger(player, handler.stabbedEntities(entity -> entity instanceof LivingEntity));
                 }
             }
         }

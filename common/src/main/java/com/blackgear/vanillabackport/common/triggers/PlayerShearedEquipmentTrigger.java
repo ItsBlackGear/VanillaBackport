@@ -1,4 +1,4 @@
-package com.blackgear.vanillabackport.common.api.criterion;
+package com.blackgear.vanillabackport.common.triggers;
 
 import com.google.gson.JsonObject;
 import net.minecraft.advancements.critereon.*;
@@ -16,15 +16,15 @@ public class PlayerShearedEquipmentTrigger extends SimpleCriterionTrigger<Player
 		return ID;
 	}
 
-	protected PlayerShearedEquipmentTrigger.TriggerInstance createInstance(JsonObject json, ContextAwarePredicate predicate, DeserializationContext deserializationContext) {
-		ItemPredicate itemPredicate = ItemPredicate.fromJson(json.get("item"));
-		ContextAwarePredicate contextAwarePredicate = EntityPredicate.fromJson(json, "entity", deserializationContext);
-		return new PlayerShearedEquipmentTrigger.TriggerInstance(predicate, itemPredicate, contextAwarePredicate);
+	protected PlayerShearedEquipmentTrigger.TriggerInstance createInstance(JsonObject json, ContextAwarePredicate player, DeserializationContext context) {
+		ItemPredicate item = ItemPredicate.fromJson(json.get("item"));
+		ContextAwarePredicate entity = EntityPredicate.fromJson(json, "entity", context);
+		return new PlayerShearedEquipmentTrigger.TriggerInstance(player, item, entity);
 	}
 
 	public void trigger(ServerPlayer player, ItemStack item, Entity entity) {
 		LootContext lootContext = EntityPredicate.createContext(player, entity);
-		this.trigger(player, triggerInstance -> triggerInstance.matches(item, lootContext));
+		this.trigger(player, instance -> instance.matches(item, lootContext));
 	}
 
 	public static class TriggerInstance extends AbstractCriterionTriggerInstance {
@@ -51,10 +51,10 @@ public class PlayerShearedEquipmentTrigger extends SimpleCriterionTrigger<Player
 
 		@Override
 		public JsonObject serializeToJson(SerializationContext context) {
-			JsonObject jsonObject = super.serializeToJson(context);
-			jsonObject.add("item", this.item.serializeToJson());
-			jsonObject.add("entity", this.entity.toJson(context));
-			return jsonObject;
+			JsonObject object = super.serializeToJson(context);
+			object.add("item", this.item.serializeToJson());
+			object.add("entity", this.entity.toJson(context));
+			return object;
 		}
 	}
 }

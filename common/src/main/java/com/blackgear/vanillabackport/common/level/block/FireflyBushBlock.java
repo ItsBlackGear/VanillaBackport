@@ -27,11 +27,11 @@ public class FireflyBushBlock extends BushBlock implements SpreadableBonemealabl
 
     @Override
     public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
-        if (random.nextInt(FIREFLY_AMBIENT_SOUND_CHANCE_ONE_IN) == 0 && SkyUtils.isMoonVisible(level) && level.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, pos.getX(), pos.getZ()) <= pos.getY()) {
+        if (random.nextInt(FIREFLY_AMBIENT_SOUND_CHANCE_ONE_IN) == 0 && EnvironmentUtils.isNaturalNight(level) && level.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, pos.getX(), pos.getZ()) <= pos.getY()) {
             level.playLocalSound(pos, ModSoundEvents.FIREFLY_BUSH_IDLE.get(), SoundSource.AMBIENT, 1.0F, 1.0F, false);
         }
 
-        if (SkyUtils.isMoonVisible(level) || level.getMaxLocalRawBrightness(pos) <= FIREFLY_SPAWN_MAX_BRIGHTNESS_LEVEL) {
+        if (EnvironmentUtils.isNaturalNight(level) || level.getMaxLocalRawBrightness(pos) <= FIREFLY_SPAWN_MAX_BRIGHTNESS_LEVEL) {
             if (random.nextDouble() <= FIREFLY_CHANCE_PER_TICK) {
                 double x = pos.getX() + random.nextDouble() * FIREFLY_HORIZONTAL_RANGE - FIREFLY_VERTICAL_RANGE;
                 double y = pos.getY() + random.nextDouble() * FIREFLY_VERTICAL_RANGE;

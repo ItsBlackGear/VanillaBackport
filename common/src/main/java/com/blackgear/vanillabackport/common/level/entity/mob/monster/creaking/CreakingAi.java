@@ -16,8 +16,7 @@ import net.minecraft.world.entity.schedule.Activity;
 public class CreakingAi {
     protected static final ImmutableList<? extends SensorType<? extends Sensor<? super Creaking>>> SENSOR_TYPES = ImmutableList.of(
         SensorType.NEAREST_LIVING_ENTITIES,
-        SensorType.NEAREST_PLAYERS
-    );
+        SensorType.NEAREST_PLAYERS);
     protected static final ImmutableList<? extends MemoryModuleType<?>> MEMORY_TYPES = ImmutableList.of(
         MemoryModuleType.NEAREST_LIVING_ENTITIES,
         MemoryModuleType.NEAREST_VISIBLE_LIVING_ENTITIES,
@@ -28,8 +27,7 @@ public class CreakingAi {
         MemoryModuleType.CANT_REACH_WALK_TARGET_SINCE,
         MemoryModuleType.PATH,
         MemoryModuleType.ATTACK_TARGET,
-        MemoryModuleType.ATTACK_COOLING_DOWN
-    );
+        MemoryModuleType.ATTACK_COOLING_DOWN);
 
     static void initCoreActivity(Brain<Creaking> brain) {
         brain.addActivity(
@@ -37,13 +35,8 @@ public class CreakingAi {
             0,
             ImmutableList.of(
                 new Swim(0.8F) {
-                    @Override
-                    protected boolean checkExtraStartConditions(ServerLevel level, Mob owner) {
-                        if (owner instanceof Creaking creaking && creaking.canMove()) {
-                            return super.checkExtraStartConditions(level, owner);
-                        }
-
-                        return false;
+                    @Override protected boolean checkExtraStartConditions(ServerLevel level, Mob owner) {
+                        return owner instanceof Creaking creaking && creaking.canMove() && super.checkExtraStartConditions(level, owner);
                     }
                 },
                 new LookAtTargetSink(45, 90),
@@ -57,18 +50,13 @@ public class CreakingAi {
             Activity.IDLE,
             10,
             ImmutableList.of(
-                StartAttacking.create(
-                    Creaking::isActive,
-                    creaking -> creaking.getBrain().getMemory(MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER)
-                ),
+                StartAttacking.create(Creaking::isActive, creaking -> creaking.getBrain().getMemory(MemoryModuleType.NEAREST_VISIBLE_ATTACKABLE_PLAYER)),
                 SetEntityLookTargetSometimes.create(8.0F, UniformInt.of(30, 60)),
-                new RunOne<>(
-                    ImmutableList.of(
-                        Pair.of(RandomStroll.stroll(0.3F), 2),
-                        Pair.of(SetWalkTargetFromLookTarget.create(0.3F, 3), 2),
-                        Pair.of(new DoNothing(30, 60), 1)
-                    )
-                )
+                new RunOne<>(ImmutableList.of(
+                    Pair.of(RandomStroll.stroll(0.3F), 2),
+                    Pair.of(SetWalkTargetFromLookTarget.create(0.3F, 3), 2),
+                    Pair.of(new DoNothing(30, 60), 1)
+                ))
             )
         );
     }

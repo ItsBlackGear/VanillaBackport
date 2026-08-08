@@ -11,6 +11,8 @@ import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.BlockAndTintGetter;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.model.data.ModelData;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -18,6 +20,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
+@OnlyIn(Dist.CLIENT)
 public class EmissiveModelWrapper implements BakedModel {
     private final BakedModel baseModel;
     private final BakedModel emissiveModel;
@@ -34,9 +37,10 @@ public class EmissiveModelWrapper implements BakedModel {
 
     @Override
     public @NotNull List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, @NotNull RandomSource rand, @NotNull ModelData extraData, @Nullable net.minecraft.client.renderer.RenderType renderType) {
-        List<BakedQuad> quads = new ArrayList<>(baseModel.getQuads(state, side, rand, extraData, renderType));
-
-        List<BakedQuad> emissiveQuads = emissiveModel.getQuads(state, side, rand, extraData, renderType);
+        long seed = rand.nextLong();
+        List<BakedQuad> quads = new ArrayList<>(baseModel.getQuads(state, side, RandomSource.create(seed), extraData, renderType));
+        List<BakedQuad> emissiveQuads = emissiveModel.getQuads(state, side, RandomSource.create(seed), extraData, renderType);
+        
         for (BakedQuad quad : emissiveQuads) {
             quads.add(new EmissiveQuad(quad));
         }

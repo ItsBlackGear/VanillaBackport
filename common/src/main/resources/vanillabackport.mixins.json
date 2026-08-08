@@ -96,6 +96,7 @@
     "common.controllable_mounts.RunAroundLikeCrazyGoalMixin",
     "common.controllable_mounts.ServerPlayerMixin",
     "common.copper_golem.CarvedPumpkinBlockMixin",
+    "common.creaking_heart.ExplosionMixin",
     "common.decorated_pots.DecoratedPotBlockEntityMixin",
     "common.decorated_pots.DecoratedPotBlockMixin",
     "common.desert_ambient_sounds.DeadBushBlockMixin",

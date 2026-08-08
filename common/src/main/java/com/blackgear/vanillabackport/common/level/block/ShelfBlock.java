@@ -1,11 +1,10 @@
 package com.blackgear.vanillabackport.common.level.block;
 
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
-import com.blackgear.vanillabackport.common.level.block.states.SideChainPart;
 import com.blackgear.vanillabackport.common.level.block_entity.ShelfBlockEntity;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlockStateProperties;
 import com.blackgear.vanillabackport.core.data.tags.ModBlockTags;
-import com.blackgear.vanillabackport.core.util.ShapeRotator;
+import com.blackgear.vanillabackport.core.util.BlockShaper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.sounds.SoundEvent;
@@ -48,7 +47,7 @@ public class ShelfBlock extends BaseEntityBlock implements SelectableSlotContain
     public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final EnumProperty<SideChainPart> SIDE_CHAIN_PART = ModBlockStateProperties.SIDE_CHAIN_PART;
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
-    private static final Map<Direction, VoxelShape> SHAPES = ShapeRotator.rotateHorizontal(Shapes.or(Block.box(0.0, 12.0, 11.0, 16.0, 16.0, 13.0), Block.box(0.0, 0.0, 13.0, 16.0, 16.0, 16.0), Block.box(0.0, 0.0, 11.0, 16.0, 4.0, 13.0)));
+    private static final Map<Direction, VoxelShape> SHAPES = BlockShaper.rotateHorizontal(Shapes.or(Block.box(0.0, 12.0, 11.0, 16.0, 16.0, 13.0), Block.box(0.0, 0.0, 13.0, 16.0, 16.0, 16.0), Block.box(0.0, 0.0, 11.0, 16.0, 4.0, 13.0)));
 
     public ShelfBlock(Properties properties) {
         super(properties);

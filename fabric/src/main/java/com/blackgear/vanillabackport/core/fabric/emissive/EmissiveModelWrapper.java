@@ -1,6 +1,9 @@
 package com.blackgear.vanillabackport.core.fabric.emissive;
 
 import com.blackgear.vanillabackport.client.api.modules.emissive_models.EmissiveQuad;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.renderer.v1.mesh.MutableQuadView;
 import net.fabricmc.fabric.api.renderer.v1.model.ForwardingBakedModel;
 import net.fabricmc.fabric.api.renderer.v1.render.RenderContext;
 import net.minecraft.client.renderer.block.model.BakedQuad;
@@ -17,7 +20,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 
+@Environment(EnvType.CLIENT)
 public class EmissiveModelWrapper extends ForwardingBakedModel {
+    private static final int FULL_BRIGHT_LIGHTMAP = 0x00F000F0;
+
     private final BakedModel emissiveModel;
 
     public EmissiveModelWrapper(BakedModel baseModel, BakedModel emissiveModel) {
@@ -34,21 +40,8 @@ public class EmissiveModelWrapper extends ForwardingBakedModel {
     public void emitBlockQuads(BlockAndTintGetter blockView, BlockState state, BlockPos pos, Supplier<RandomSource> randomSupplier, RenderContext context) {
         super.emitBlockQuads(blockView, state, pos, randomSupplier, context);
 
-        context.pushTransform(quad -> {
-            quad.lightmap(0, 0x00F000F0);
-            quad.lightmap(1, 0x00F000F0);
-            quad.lightmap(2, 0x00F000F0);
-            quad.lightmap(3, 0x00F000F0);
-            return true;
-        });
-
-        if (emissiveModel instanceof ForwardingBakedModel) {
-            emissiveModel.emitBlockQuads(blockView, state, pos, randomSupplier, context);
-        } else {
-            Direction.stream().forEach(d -> context.fallbackConsumer().accept(emissiveModel));
-            context.fallbackConsumer().accept(emissiveModel);
-        }
-
+        context.pushTransform(EmissiveModelWrapper::forceFullBright);
+        emissiveModel.emitBlockQuads(blockView, state, pos, randomSupplier, context);
         context.popTransform();
     }
 
@@ -56,21 +49,17 @@ public class EmissiveModelWrapper extends ForwardingBakedModel {
     public void emitItemQuads(ItemStack stack, Supplier<RandomSource> randomSupplier, RenderContext context) {
         super.emitItemQuads(stack, randomSupplier, context);
 
-        context.pushTransform(quad -> {
-            quad.lightmap(0, 0x00F000F0);
-            quad.lightmap(1, 0x00F000F0);
-            quad.lightmap(2, 0x00F000F0);
-            quad.lightmap(3, 0x00F000F0);
-            return true;
-        });
-
-        if (emissiveModel instanceof ForwardingBakedModel) {
-            emissiveModel.emitItemQuads(stack, randomSupplier, context);
-        } else {
-            context.fallbackConsumer().accept(emissiveModel);
-        }
-
+        context.pushTransform(EmissiveModelWrapper::forceFullBright);
+        emissiveModel.emitItemQuads(stack, randomSupplier, context);
         context.popTransform();
+    }
+
+    private static boolean forceFullBright(MutableQuadView quad) {
+        quad.lightmap(0, FULL_BRIGHT_LIGHTMAP);
+        quad.lightmap(1, FULL_BRIGHT_LIGHTMAP);
+        quad.lightmap(2, FULL_BRIGHT_LIGHTMAP);
+        quad.lightmap(3, FULL_BRIGHT_LIGHTMAP);
+        return true;
     }
 
     @Override

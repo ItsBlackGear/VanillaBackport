@@ -49,6 +49,27 @@ public abstract class ZombieHorseMixin extends AbstractHorse implements Controll
     }
     
     @Override
+    public void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+        if (!this.inventory.getItem(1).isEmpty()) {
+            compound.put("ArmorItem", this.inventory.getItem(1).save(new CompoundTag()));
+        }
+    }
+    
+    @Override
+    public void readAdditionalSaveData(CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
+        if (compound.contains("ArmorItem", 10)) {
+            ItemStack stack = ItemStack.of(compound.getCompound("ArmorItem"));
+            if (!stack.isEmpty() && this.isArmor(stack)) {
+                this.inventory.setItem(1, stack);
+            }
+        }
+        
+        this.updateContainerEquipment();
+    }
+    
+    @Override
     public InteractionResult mobInteract(Player player, InteractionHand hand) {
         this.setPersistenceRequired();
         
@@ -111,10 +132,10 @@ public abstract class ZombieHorseMixin extends AbstractHorse implements Controll
     
     @Override
     public void containerChanged(Container container) {
-        ItemStack itemStack = this.getArmor();
+        ItemStack oldArmorItem = this.getArmor();
         super.containerChanged(container);
-        ItemStack itemStack2 = this.getArmor();
-        if (this.tickCount > 20 && this.isArmor(itemStack2) && itemStack != itemStack2) {
+        ItemStack newArmorItem = this.getArmor();
+        if (this.tickCount > 20 && this.isArmor(newArmorItem) && oldArmorItem != newArmorItem) {
             this.playSound(SoundEvents.HORSE_ARMOR, 0.5F, 1.0F);
         }
     }
@@ -134,10 +155,9 @@ public abstract class ZombieHorseMixin extends AbstractHorse implements Controll
         if (!this.level().isClientSide) {
             this.getAttribute(Attributes.ARMOR).removeModifier(ARMOR_MODIFIER_UUID);
             if (this.isArmor(stack)) {
-                int i = ((HorseArmorItem) stack.getItem()).getProtection();
-                if (i != 0) {
-                    this.getAttribute(Attributes.ARMOR)
-                        .addTransientModifier(new AttributeModifier(ARMOR_MODIFIER_UUID, "Horse armor bonus", (double)i, AttributeModifier.Operation.ADDITION));
+                int protection = ((HorseArmorItem) stack.getItem()).getProtection();
+                if (protection != 0) {
+                    this.getAttribute(Attributes.ARMOR).addTransientModifier(new AttributeModifier(ARMOR_MODIFIER_UUID, "Horse armor bonus", protection, AttributeModifier.Operation.ADDITION));
                 }
             }
         }

@@ -3,6 +3,7 @@ package com.blackgear.vanillabackport.common.level.block;
 import com.blackgear.vanillabackport.client.level.particle.particleoptions.TrailParticleOption;
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
+import com.blackgear.vanillabackport.core.util.WorldUtilities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -32,18 +33,9 @@ public class EyeblossomBlock extends FlowerBlock {
     @Override
     public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
         if (this.type.emitSounds() && random.nextInt(700) == 0) {
-            BlockState floorState = level.getBlockState(pos.below());
-            if (floorState.is(ModBlocks.PALE_MOSS_BLOCK.get())) {
-                level.playLocalSound(
-                    pos.getX(),
-                    pos.getY(),
-                    pos.getZ(),
-                    ModSoundEvents.EYEBLOSSOM_IDLE.get(),
-                    SoundSource.BLOCKS,
-                    1.0F,
-                    1.0F,
-                    false
-                );
+            BlockState below = level.getBlockState(pos.below());
+            if (below.is(ModBlocks.PALE_MOSS_BLOCK.get())) {
+                level.playLocalSound(pos.getX(), pos.getY(), pos.getZ(), ModSoundEvents.EYEBLOSSOM_IDLE.get(), SoundSource.BLOCKS, 1.0F, 1.0F, false);
             }
         }
     }
@@ -67,27 +59,22 @@ public class EyeblossomBlock extends FlowerBlock {
     }
 
     private boolean tryChangingState(BlockState state, ServerLevel level, BlockPos origin, RandomSource random) {
-        if (!level.dimensionType().natural()) {
-            return false;
-        } else if (CreakingHeartBlock.isNaturalNight(level) == this.type.open) {
+        boolean shouldBeOpen = WorldUtilities.EnvironmentUtils.isNaturalNight(level);
+        if (shouldBeOpen == this.type.open) {
             return false;
         } else {
-            Type type = this.type.transform();
-            level.setBlock(origin, type.state(), 3);
+            Type newType = this.type.transform();
+            level.setBlockAndUpdate(origin, newType.state());
             level.gameEvent(GameEvent.BLOCK_CHANGE, origin, GameEvent.Context.of(state));
-            type.spawnTransformParticle(level, origin, random);
-            BlockPos.betweenClosed(
-                origin.offset(-3, -2, -3),
-                origin.offset(3, 2, 3)
-            ).forEach(pos -> {
-                BlockState closeState = level.getBlockState(pos);
-                if (closeState == state) {
-                    double distance = Math.sqrt(origin.distSqr(pos));
-                    int ticks = random.nextIntBetweenInclusive((int) (distance * 5.0), (int) (distance * 10.0));
-                    level.scheduleTick(pos, state.getBlock(), ticks);
+            newType.spawnTransformParticle(level, origin, random);
+            BlockPos.betweenClosed(origin.offset(-3, -2, -3), origin.offset(3, 2, 3)).forEach(nearbyPos -> {
+                BlockState nearbyState = level.getBlockState(nearbyPos);
+                if (nearbyState == state) {
+                    double distance = Math.sqrt(origin.distSqr(nearbyPos));
+                    int delay = random.nextIntBetweenInclusive((int) (distance * 5.0), (int) (distance * 10.0));
+                    level.scheduleTick(nearbyPos, state.getBlock(), delay);
                 }
             });
-
             return true;
         }
     }
@@ -144,12 +131,12 @@ public class EyeblossomBlock extends FlowerBlock {
         }
 
         public void spawnTransformParticle(ServerLevel level, BlockPos pos, RandomSource random) {
-            Vec3 center = pos.getCenter();
-            double scale = 0.5 + random.nextDouble();
-            Vec3 offset = new Vec3(random.nextDouble() - 0.5, random.nextDouble() + 1.0, random.nextDouble() - 0.5);
-            Vec3 target = center.add(offset.scale(scale));
-            TrailParticleOption particle = new TrailParticleOption(target, this.particleColor, (int) (20.0 * scale));
-            level.sendParticles(particle, center.x, center.y, center.z, 1, 0.0, 0.0, 0.0, 0.0);
+            Vec3 start = pos.getCenter();
+            double lifetime = 0.5 + random.nextDouble();
+            Vec3 velocity = new Vec3(random.nextDouble() - 0.5, random.nextDouble() + 1.0, random.nextDouble() - 0.5);
+            Vec3 target = start.add(velocity.scale(lifetime));
+            TrailParticleOption particle = new TrailParticleOption(target, this.particleColor, (int) (20.0 * lifetime));
+            level.sendParticles(particle, start.x, start.y, start.z, 1, 0.0, 0.0, 0.0, 0.0);
         }
 
         public SoundEvent longSwitchSound() {

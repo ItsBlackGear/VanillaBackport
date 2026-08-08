@@ -142,7 +142,8 @@ public class ModBlocks {
             .mapColor(MapColor.COLOR_LIGHT_GRAY)
             .strength(0.1F)
             .sound(SoundType.MOSS)
-            .pushReaction(PushReaction.DESTROY));
+            .pushReaction(PushReaction.DESTROY)
+            .noOcclusion());
     
     public static final Supplier<Block> PALE_OAK_LEAVES = REGISTRIES.register("pale_oak_leaves",
         properties -> new ParticleLeavesBlock(50, ModParticles.PALE_OAK_LEAVES, properties),
@@ -183,7 +184,7 @@ public class ModBlocks {
             .pushReaction(PushReaction.DESTROY)
             .randomTicks());
     public static final Supplier<Block> POTTED_CLOSED_EYEBLOSSOM = REGISTRIES.registerNoItem("potted_closed_eyeblossom",
-        properties -> new EyeblossomFlowerPotBlock(CLOSED_EYEBLOSSOM.get(), properties),
+        properties -> new EyeblossomPotBlock(CLOSED_EYEBLOSSOM.get(), properties),
         SharedBlockProperties.flowerPotProperties().randomTicks());
     
     public static final Supplier<Block> OPEN_EYEBLOSSOM = REGISTRIES.register("open_eyeblossom",
@@ -197,7 +198,7 @@ public class ModBlocks {
             .pushReaction(PushReaction.DESTROY)
             .randomTicks());
     public static final Supplier<Block> POTTED_OPEN_EYEBLOSSOM = REGISTRIES.registerNoItem("potted_open_eyeblossom",
-        properties -> new EyeblossomFlowerPotBlock(OPEN_EYEBLOSSOM.get(), properties),
+        properties -> new EyeblossomPotBlock(OPEN_EYEBLOSSOM.get(), properties),
         SharedBlockProperties.flowerPotProperties().randomTicks());
     
     public static final Supplier<Block> RESIN_BLOCK = REGISTRIES.register("resin_block",

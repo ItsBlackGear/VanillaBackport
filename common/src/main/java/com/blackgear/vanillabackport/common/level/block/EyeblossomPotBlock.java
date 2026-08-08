@@ -1,6 +1,7 @@
 package com.blackgear.vanillabackport.common.level.block;
 
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
+import com.blackgear.vanillabackport.core.util.WorldUtilities.EnvironmentUtils;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
@@ -9,20 +10,19 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.FlowerPotBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class EyeblossomFlowerPotBlock extends FlowerPotBlock {
-    public EyeblossomFlowerPotBlock(Block content, Properties properties) {
+public class EyeblossomPotBlock extends FlowerPotBlock {
+    public EyeblossomPotBlock(Block content, Properties properties) {
         super(content, properties);
     }
 
     @Override
     public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         if (this.isRandomlyTicking(state) && level.dimensionType().natural()) {
-            boolean hasOpenEyeblossom = this.getContent() == ModBlocks.OPEN_EYEBLOSSOM.get();
-            boolean isNaturalNight = CreakingHeartBlock.isNaturalNight(level);
-
-            if (hasOpenEyeblossom != isNaturalNight) {
+            boolean isOpen = this.getContent() == ModBlocks.OPEN_EYEBLOSSOM.get();
+            boolean shouldBeOpen = EnvironmentUtils.isNaturalNight(level);
+            if (isOpen != shouldBeOpen) {
                 level.setBlock(pos, this.opposite(state), 3);
-                EyeblossomBlock.Type type = EyeblossomBlock.Type.fromBoolean(hasOpenEyeblossom).transform();
+                EyeblossomBlock.Type type = EyeblossomBlock.Type.fromBoolean(isOpen).transform();
                 type.spawnTransformParticle(level, pos, random);
                 level.playSound(null, pos, type.longSwitchSound(), SoundSource.BLOCKS, 1.0F, 1.0F);
             }
@@ -40,9 +40,7 @@ public class EyeblossomFlowerPotBlock extends FlowerPotBlock {
         if (state.is(ModBlocks.POTTED_OPEN_EYEBLOSSOM.get())) {
             return ModBlocks.POTTED_CLOSED_EYEBLOSSOM.get().defaultBlockState();
         } else {
-            return state.is(ModBlocks.POTTED_CLOSED_EYEBLOSSOM.get())
-                ? ModBlocks.POTTED_OPEN_EYEBLOSSOM.get().defaultBlockState()
-                : state;
+            return state.is(ModBlocks.POTTED_CLOSED_EYEBLOSSOM.get()) ? ModBlocks.POTTED_OPEN_EYEBLOSSOM.get().defaultBlockState() : state;
         }
     }
 }

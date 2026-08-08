@@ -2,7 +2,7 @@ package com.blackgear.vanillabackport.common.worldgen.features;
 
 import com.blackgear.platform.core.api.registrar.bootstrap.ConfiguredFeatureRegistrar;
 import com.blackgear.vanillabackport.common.level.block.PotentSulfurBlock;
-import com.blackgear.vanillabackport.common.level.block.states.PotentSulfurState;
+import com.blackgear.vanillabackport.common.level.block.PotentSulfurState;
 import com.blackgear.vanillabackport.common.level.worldgen.features.*;
 import com.blackgear.vanillabackport.common.level.worldgen.features.TemplateFeatureConfiguration.TemplateEntry;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;

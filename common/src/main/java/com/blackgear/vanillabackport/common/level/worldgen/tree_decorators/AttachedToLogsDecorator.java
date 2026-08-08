@@ -15,14 +15,11 @@ import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorTy
 import java.util.List;
 
 public class AttachedToLogsDecorator extends TreeDecorator {
-    public static final Codec<AttachedToLogsDecorator> CODEC = RecordCodecBuilder.create(
-        instance -> instance.group(
-            Codec.floatRange(0.0F, 1.0F).fieldOf("probability").forGetter(decorator -> decorator.probability),
-            BlockStateProvider.CODEC.fieldOf("block_provider").forGetter(decorator -> decorator.blockProvider),
-            ExtraCodecs.nonEmptyList(Direction.CODEC.listOf()).fieldOf("directions").forGetter(decorator -> decorator.directions)
-        )
-        .apply(instance, AttachedToLogsDecorator::new)
-    );
+    public static final Codec<AttachedToLogsDecorator> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+        Codec.floatRange(0.0F, 1.0F).fieldOf("probability").forGetter(decorator -> decorator.probability),
+        BlockStateProvider.CODEC.fieldOf("block_provider").forGetter(decorator -> decorator.blockProvider),
+        ExtraCodecs.nonEmptyList(Direction.CODEC.listOf()).fieldOf("directions").forGetter(decorator -> decorator.directions)
+    ).apply(instance, AttachedToLogsDecorator::new));
     private final float probability;
     private final BlockStateProvider blockProvider;
     private final List<Direction> directions;
@@ -37,12 +34,11 @@ public class AttachedToLogsDecorator extends TreeDecorator {
     public void place(Context context) {
         RandomSource random = context.random();
 
-        for (BlockPos pos : Util.shuffledCopy(context.logs(), random)) {
+        for (BlockPos logPos : Util.shuffledCopy(context.logs(), random)) {
             Direction direction = Util.getRandom(this.directions, random);
-            BlockPos offset = pos.relative(direction);
-
-            if (random.nextFloat() <= this.probability && context.isAir(offset)) {
-                context.setBlock(offset, this.blockProvider.getState(random, offset));
+            BlockPos placementPos = logPos.relative(direction);
+            if (random.nextFloat() <= this.probability && context.isAir(placementPos)) {
+                context.setBlock(placementPos, this.blockProvider.getState(random, placementPos));
             }
         }
     }
