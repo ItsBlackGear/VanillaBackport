@@ -1,10 +1,12 @@
 package com.blackgear.vanillabackport.data.server.advancement;
 
 import com.blackgear.vanillabackport.common.level.block.CreakingHeartBlock;
-import com.blackgear.vanillabackport.common.level.block.states.CreakingHeartState;
+import com.blackgear.vanillabackport.common.level.block.CreakingHeartState;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlockStateProperties;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
 import com.blackgear.vanillabackport.common.registries.entities.ModEntityTypes;
+import com.blackgear.vanillabackport.common.registries.items.ModItems;
+import com.blackgear.vanillabackport.common.triggers.SpearMobsTrigger;
 import com.blackgear.vanillabackport.core.data.tags.ModBlockTags;
 import com.blackgear.vanillabackport.core.data.tags.ModItemTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
@@ -65,7 +67,22 @@ public class AdvancementGenerator extends FabricAdvancementProvider {
                 "place_pale_oak_log", placedBlockActivatesCreakingHeart(ModBlockTags.PALE_OAK_LOGS)
             )
             .save(consumer, "adventure/heart_transplanter");
-
+        
+        AdvancementHolder killAMob = Advancement.Builder.advancement().build(ResourceLocation.withDefaultNamespace("adventure/kill_a_mob"));
+        Advancement.Builder.advancement()
+            .parent(killAMob)
+            .display(
+                ModItems.IRON_SPEAR.get(),
+                Component.translatable("advancements.adventure.spear_many_mobs.title"),
+                Component.translatable("advancements.adventure.spear_many_mobs.description"),
+                null,
+                AdvancementType.GOAL,
+                true,
+                true,
+                false
+            )
+            .addCriterion("spear_many_mobs", SpearMobsTrigger.TriggerInstance.spearMobs(5))
+            .save(consumer, "adventure/spear_many_mobs");
 
         // Husbandry advancements
         AdvancementHolder husbandry = Advancement.Builder.advancement().build(ResourceLocation.withDefaultNamespace("husbandry/root"));

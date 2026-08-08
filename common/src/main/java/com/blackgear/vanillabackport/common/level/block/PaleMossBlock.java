@@ -13,14 +13,13 @@ import net.minecraft.world.level.block.BonemealableBlock;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class PaleMossBlock extends Block implements BonemealableBlock {
-    public static final MapCodec<PaleMossBlock> CODEC = simpleCodec(PaleMossBlock::new);
     public PaleMossBlock(Properties properties) {
         super(properties);
     }
 
     @Override
     protected MapCodec<? extends Block> codec() {
-        return CODEC;
+        return simpleCodec(PaleMossBlock::new);
     }
 
     @Override

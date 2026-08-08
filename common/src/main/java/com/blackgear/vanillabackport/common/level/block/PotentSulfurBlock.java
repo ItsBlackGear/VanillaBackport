@@ -3,7 +3,6 @@ package com.blackgear.vanillabackport.common.level.block;
 import com.blackgear.vanillabackport.client.registries.ModParticles;
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
 import com.blackgear.vanillabackport.common.level.block_entity.PotentSulfurBlockEntity;
-import com.blackgear.vanillabackport.common.level.block.states.PotentSulfurState;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlockEntities;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlockStateProperties;
 import com.blackgear.vanillabackport.core.VanillaBackport;

@@ -107,10 +107,10 @@ public abstract class ZombieHorseMixin extends AbstractHorse implements Controll
     
     @Override
     public void containerChanged(Container container) {
-        ItemStack itemStack = this.getBodyArmorItem();
+        ItemStack oldArmorItem = this.getBodyArmorItem();
         super.containerChanged(container);
-        ItemStack itemStack2 = this.getBodyArmorItem();
-        if (this.tickCount > 20 && this.isBodyArmorItem(itemStack2) && itemStack != itemStack2) {
+        ItemStack newArmorItem = this.getBodyArmorItem();
+        if (this.tickCount > 20 && this.isBodyArmorItem(newArmorItem) && oldArmorItem != newArmorItem) {
             this.playSound(SoundEvents.HORSE_ARMOR, 0.5F, 1.0F);
         }
     }
@@ -122,11 +122,7 @@ public abstract class ZombieHorseMixin extends AbstractHorse implements Controll
     
     @Override
     public boolean isBodyArmorItem(ItemStack stack) {
-        if (stack.getItem() instanceof AnimalArmorItem animalArmorItem) {
-            return animalArmorItem.getBodyType() == AnimalArmorItem.BodyType.EQUESTRIAN;
-        }
-        
-        return false;
+        return stack.getItem() instanceof AnimalArmorItem armor && armor.getBodyType() == AnimalArmorItem.BodyType.EQUESTRIAN;
     }
     
     @Override

@@ -37,9 +37,10 @@ public class EmissiveModelWrapper implements BakedModel {
 
     @Override
     public @NotNull List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, @NotNull RandomSource rand, @NotNull ModelData extraData, @Nullable net.minecraft.client.renderer.RenderType renderType) {
-        List<BakedQuad> quads = new ArrayList<>(baseModel.getQuads(state, side, rand, extraData, renderType));
-
-        List<BakedQuad> emissiveQuads = emissiveModel.getQuads(state, side, rand, extraData, renderType);
+        long seed = rand.nextLong();
+        List<BakedQuad> quads = new ArrayList<>(baseModel.getQuads(state, side, RandomSource.create(seed), extraData, renderType));
+        List<BakedQuad> emissiveQuads = emissiveModel.getQuads(state, side, RandomSource.create(seed), extraData, renderType);
+        
         for (BakedQuad quad : emissiveQuads) {
             quads.add(new EmissiveQuad(quad));
         }

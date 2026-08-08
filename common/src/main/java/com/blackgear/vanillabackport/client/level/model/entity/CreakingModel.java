@@ -11,6 +11,7 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
+import net.minecraft.util.Mth;
 
 @Environment(EnvType.CLIENT)
 public class CreakingModel<T extends Creaking> extends HierarchicalModel<T> {
@@ -106,8 +107,8 @@ public class CreakingModel<T extends Creaking> extends HierarchicalModel<T> {
     @Override
     public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         this.root().getAllParts().forEach(ModelPart::resetPose);
-        this.head.xRot = headPitch * ((float) Math.PI / 180F);
-        this.head.yRot = netHeadYaw * ((float) Math.PI / 180F);
+        this.head.xRot = headPitch * Mth.DEG_TO_RAD;
+        this.head.yRot = netHeadYaw * Mth.DEG_TO_RAD;
 
         if (entity.canMove()) {
             this.animateWalk(CreakingAnimation.CREAKING_WALK, limbSwing, limbSwingAmount, 1.0F, 1.0F);
@@ -117,5 +118,4 @@ public class CreakingModel<T extends Creaking> extends HierarchicalModel<T> {
         this.animate(entity.invulnerabilityAnimationState, CreakingAnimation.CREAKING_INVULNERABLE, ageInTicks);
         this.animate(entity.deathAnimationState, CreakingAnimation.CREAKING_DEATH, ageInTicks);
     }
-
 }

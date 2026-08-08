@@ -480,7 +480,7 @@ public class HappyGhast extends Animal implements PlayerRideable, LeashableCallb
 
     private void continuousHeal() {
         if (this.level() instanceof ServerLevel server && this.isAlive() && this.deathTime == 0 && this.getMaxHealth() != this.getHealth()) {
-            boolean isFastHealing = server.dimensionType().natural() && (SkyUtils.isInClouds(this) || SkyUtils.precipitationAt(this.level(), this.blockPosition()) != Biome.Precipitation.NONE);
+            boolean isFastHealing = server.dimensionType().natural() && (EnvironmentUtils.isInClouds(this) || EnvironmentUtils.precipitationAt(this.level(), this.blockPosition()) != Biome.Precipitation.NONE);
             if (this.tickCount % (isFastHealing ? 20 : 600) == 0) {
                 this.heal(1.0F);
             }

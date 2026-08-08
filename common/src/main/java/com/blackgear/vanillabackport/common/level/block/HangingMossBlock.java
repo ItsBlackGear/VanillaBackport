@@ -4,7 +4,6 @@ import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlockStateProperties;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
 import com.blackgear.vanillabackport.core.data.tags.ModBlockTags;
-import com.mojang.serialization.MapCodec;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
@@ -24,23 +23,13 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class HangingMossBlock extends Block implements BonemealableBlock {
-    public static final MapCodec<HangingMossBlock> CODEC = simpleCodec(HangingMossBlock::new);
     private static final VoxelShape TIP_SHAPE = Block.box(1.0, 2.0, 1.0, 15.0, 16.0, 15.0);
     private static final VoxelShape BASE_SHAPE = Block.box(1.0, 0.0, 1.0, 15.0, 16.0, 15.0);
     public static final BooleanProperty TIP = ModBlockStateProperties.TIP;
 
-    @Override
-    public MapCodec<HangingMossBlock> codec() {
-        return CODEC;
-    }
-
     public HangingMossBlock(Properties properties) {
         super(properties);
-        this.registerDefaultState(
-            this.getStateDefinition()
-                .any()
-                .setValue(TIP, true)
-        );
+        this.registerDefaultState(this.getStateDefinition().any().setValue(TIP, true));
     }
 
     @Override
@@ -51,18 +40,9 @@ public class HangingMossBlock extends Block implements BonemealableBlock {
     @Override
     public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
         if (random.nextInt(500) == 0) {
-            BlockState aboveState = level.getBlockState(pos.above());
-            if (aboveState.is(ModBlockTags.PALE_OAK_LOGS) || aboveState.is(ModBlocks.PALE_OAK_LEAVES.get())) {
-                level.playLocalSound(
-                    pos.getX(),
-                    pos.getY(),
-                    pos.getZ(),
-                    ModSoundEvents.PALE_HANGING_MOSS_IDLE.get(),
-                    SoundSource.BLOCKS,
-                    1.0F,
-                    1.0F,
-                    false
-                );
+            BlockState above = level.getBlockState(pos.above());
+            if (above.is(ModBlockTags.PALE_OAK_LOGS) || above.is(ModBlocks.PALE_OAK_LEAVES.get())) {
+                level.playLocalSound(pos.getX(), pos.getY(), pos.getZ(), ModSoundEvents.PALE_HANGING_MOSS_IDLE.get(), SoundSource.BLOCKS, 1.0F, 1.0F, false);
             }
         }
     }
@@ -78,10 +58,9 @@ public class HangingMossBlock extends Block implements BonemealableBlock {
     }
 
     private boolean canStayAtPosition(BlockGetter level, BlockPos pos) {
-        BlockPos above = pos.above();
-        BlockState aboveState = level.getBlockState(above);
-        return MultifaceBlock.canAttachTo(level, Direction.UP, above, aboveState)
-            || aboveState.is(ModBlocks.PALE_HANGING_MOSS.get());
+        BlockPos neighbourPos = pos.above();
+        BlockState blockState = level.getBlockState(neighbourPos);
+        return MultifaceBlock.canAttachTo(level, Direction.UP, neighbourPos, blockState) || blockState.is(ModBlocks.PALE_HANGING_MOSS.get());
     }
 
     @Override
@@ -122,14 +101,15 @@ public class HangingMossBlock extends Block implements BonemealableBlock {
     }
 
     public BlockPos getTip(BlockGetter level, BlockPos pos) {
-        BlockPos.MutableBlockPos position = pos.mutable();
-        BlockState state;
+        BlockPos.MutableBlockPos forwardPos = pos.mutable();
+        
+        BlockState forwardState;
         do {
-            position.move(Direction.DOWN);
-            state = level.getBlockState(position);
-        } while (state.is(this));
+            forwardPos.move(Direction.DOWN);
+            forwardState = level.getBlockState(forwardPos);
+        } while (forwardState.is(this));
 
-        return position.relative(Direction.UP).immutable();
+        return forwardPos.relative(Direction.UP).immutable();
     }
 
     @Override

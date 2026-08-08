@@ -1,6 +1,5 @@
 package com.blackgear.vanillabackport.common.level.block;
 
-import com.blackgear.vanillabackport.common.level.block.states.SideChainPart;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.LevelAccessor;

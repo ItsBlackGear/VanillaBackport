@@ -1,4 +1,4 @@
-package com.blackgear.vanillabackport.common.level.block.states;
+package com.blackgear.vanillabackport.common.level.block;
 
 import net.minecraft.util.StringRepresentable;
 

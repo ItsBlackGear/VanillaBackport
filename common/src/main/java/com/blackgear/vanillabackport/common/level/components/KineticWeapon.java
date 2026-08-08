@@ -3,6 +3,7 @@ package com.blackgear.vanillabackport.common.level.components;
 import com.blackgear.vanillabackport.common.api.extensions.SoundExtensions;
 import com.blackgear.vanillabackport.common.api.extensions.entity.movement.MotionAwareEntity;
 import com.blackgear.vanillabackport.common.api.extensions.entity.spear.MobSpearHandler;
+import com.blackgear.vanillabackport.common.registries.ModCriteriaTriggers;
 import com.blackgear.vanillabackport.core.util.AdditionalCodecs;
 import com.blackgear.vanillabackport.core.util.ProjectileUtils;
 import com.mojang.serialization.Codec;
@@ -124,7 +125,7 @@ public record KineticWeapon(
             if (affected) {
                 attacker.level().broadcastEntityEvent(attacker, (byte) 2);
                 if (attacker instanceof ServerPlayer player) {
-                    //TODO: add criteria trigger
+                    ModCriteriaTriggers.SPEAR_MOBS_TRIGGER.get().trigger(player, handler.stabbedEntities(entity -> entity instanceof LivingEntity));
                 }
             }
         }

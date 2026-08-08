@@ -9,28 +9,32 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Vec3i;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecorator;
 import net.minecraft.world.level.levelgen.feature.treedecorators.TreeDecoratorType;
-import org.apache.commons.lang3.mutable.Mutable;
-import org.apache.commons.lang3.mutable.MutableObject;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class PaleMossDecorator extends TreeDecorator {
-    public static final MapCodec<PaleMossDecorator> CODEC = RecordCodecBuilder.mapCodec(
-        instance -> instance.group(
-            Codec.floatRange(0.0F, 1.0F).fieldOf("leaves_probability").forGetter(decorator -> decorator.leavesProbability),
-            Codec.floatRange(0.0F, 1.0F).fieldOf("trunk_probability").forGetter(decorator -> decorator.trunkProbability),
-            Codec.floatRange(0.0F, 1.0F).fieldOf("ground_probability").forGetter(decorator -> decorator.groundProbability)
-        ).apply(instance, PaleMossDecorator::new)
-    );
+    public static final MapCodec<PaleMossDecorator> CODEC = RecordCodecBuilder.mapCodec(instance -> instance.group(
+        Codec.floatRange(0.0F, 1.0F).fieldOf("leaves_probability").forGetter(decorator -> decorator.leavesProbability),
+        Codec.floatRange(0.0F, 1.0F).fieldOf("trunk_probability").forGetter(decorator -> decorator.trunkProbability),
+        Codec.floatRange(0.0F, 1.0F).fieldOf("ground_probability").forGetter(decorator -> decorator.groundProbability)
+    ).apply(instance, PaleMossDecorator::new));
 
     private final float leavesProbability;
     private final float trunkProbability;
     private final float groundProbability;
+    
+    @Override
+    protected TreeDecoratorType<?> type() {
+        return ModTreeDecorators.PALE_MOSS.get();
+    }
 
     public PaleMossDecorator(float leavesProbability, float trunkProbability, float groundProbability) {
         this.leavesProbability = leavesProbability;
@@ -39,46 +43,32 @@ public class PaleMossDecorator extends TreeDecorator {
     }
 
     @Override
-    protected TreeDecoratorType<?> type() {
-        return ModTreeDecorators.PALE_MOSS.get();
-    }
-
-    @Override
     public void place(Context context) {
         RandomSource random = context.random();
         WorldGenLevel level = (WorldGenLevel) context.level();
-        List<BlockPos> positions = Util.shuffledCopy(context.logs(), random);
-        if (!positions.isEmpty()) {
-            Mutable<BlockPos> mutable = new MutableObject<>(positions.getFirst());
-            positions.forEach(pos -> {
-                if (pos.getY() < mutable.getValue().getY()) {
-                    mutable.setValue(pos);
-                }
-            });
-
-            BlockPos position = mutable.getValue();
+        List<BlockPos> logs = Util.shuffledCopy(context.logs(), random);
+        if (!logs.isEmpty()) {
+            BlockPos position = Collections.min(logs, Comparator.comparingInt(Vec3i::getY));
             if (random.nextFloat() < this.groundProbability) {
                 level.registryAccess()
                     .lookup(Registries.CONFIGURED_FEATURE)
                     .flatMap(registry -> registry.get(TheGardenAwakensFeatures.PALE_MOSS_PATCH))
-                    .ifPresent(reference ->
-                        reference.value().place(level, level.getLevel().getChunkSource().getGenerator(), random, position.above())
-                    );
+                    .ifPresent(feature -> feature.value().place(level, level.getLevel().getChunkSource().getGenerator(), random, position.above()));
             }
 
             context.logs().forEach(pos -> {
                 if (random.nextFloat() < this.trunkProbability) {
-                    BlockPos below = pos.below();
-                    if (context.isAir(below)) {
-                        addMossHanger(below, context);
+                    BlockPos down = pos.below();
+                    if (context.isAir(down)) {
+                        addMossHanger(down, context);
                     }
                 }
             });
             context.leaves().forEach(pos -> {
                 if (random.nextFloat() < this.leavesProbability) {
-                    BlockPos below = pos.below();
-                    if (context.isAir(below)) {
-                        addMossHanger(below, context);
+                    BlockPos down = pos.below();
+                    if (context.isAir(down)) {
+                        addMossHanger(down, context);
                     }
                 }
             });

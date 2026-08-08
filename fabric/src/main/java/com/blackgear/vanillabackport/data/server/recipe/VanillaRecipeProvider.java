@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
+@SuppressWarnings("removal")
 public abstract class VanillaRecipeProvider implements DataProvider {
     private final PackOutput.PathProvider recipePathProvider;
     private final PackOutput.PathProvider advancementPathProvider;

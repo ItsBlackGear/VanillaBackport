@@ -96,6 +96,7 @@ public final class VanillaBackport {
         ModSoundEvents.REGISTRIES.register();
         ModSoundTypes.REGISTRIES.register();
 
+        ModCriteriaTriggers.REGISTRIES.register();
         ModRecipeSerializers.REGISTRIES.register();
         ModCreativeTabs.TABS.register();
         SpawnConditions.REGISTRIES.register();

@@ -18,12 +18,11 @@ import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 
 public class ResinClumpBlock extends MultifaceBlock implements SimpleWaterloggedBlock {
-    public static final MapCodec<ResinClumpBlock> CODEC = simpleCodec(ResinClumpBlock::new);
     private static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
 
     @Override
     protected MapCodec<? extends MultifaceBlock> codec() {
-        return CODEC;
+        return simpleCodec(ResinClumpBlock::new);
     }
 
     public ResinClumpBlock(Properties properties) {
@@ -48,9 +47,7 @@ public class ResinClumpBlock extends MultifaceBlock implements SimpleWaterlogged
 
     @Override
     public FluidState getFluidState(BlockState state) {
-        return state.getValue(WATERLOGGED)
-            ? Fluids.WATER.getSource(false)
-            : super.getFluidState(state);
+        return state.getValue(WATERLOGGED) ? Fluids.WATER.getSource(false) : super.getFluidState(state);
     }
 
     @Override

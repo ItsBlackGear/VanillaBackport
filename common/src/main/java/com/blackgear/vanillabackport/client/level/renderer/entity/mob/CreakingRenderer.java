@@ -17,7 +17,7 @@ public class CreakingRenderer<T extends Creaking> extends MobRenderer<T, Creakin
     private static final ResourceLocation EYES_TEXTURE_LOCATION = ResourceLocation.withDefaultNamespace("textures/entity/creaking/creaking_eyes.png");
 
     public CreakingRenderer(EntityRendererProvider.Context context) {
-        super(context, new CreakingModel<>(context.bakeLayer(ModModelLayers.CREAKING)), 0.7F);
+        super(context, new CreakingModel<>(context.bakeLayer(ModModelLayers.CREAKING)), 0.6F);
         this.addLayer(new LivingEntityEmissiveLayer<>(
             this,
             creaking -> EYES_TEXTURE_LOCATION,

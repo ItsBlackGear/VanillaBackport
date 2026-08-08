@@ -1,18 +1,21 @@
-package com.blackgear.vanillabackport.common.level.block.states;
+package com.blackgear.vanillabackport.common.level.block;
 
 import net.minecraft.util.StringRepresentable;
 
-public enum CreakingHeartState implements StringRepresentable {
-    UPROOTED("uprooted"),
+public enum PotentSulfurState implements StringRepresentable {
+    DRY("dry"),
+    WET("wet"),
     DORMANT("dormant"),
-    AWAKE("awake");
+    ERUPTING("erupting"),
+    CONTINUOUS("continuous");
 
     private final String name;
 
-    CreakingHeartState(String name) {
+    PotentSulfurState(String name) {
         this.name = name;
     }
 
+    @Override
     public String toString() {
         return this.name;
     }

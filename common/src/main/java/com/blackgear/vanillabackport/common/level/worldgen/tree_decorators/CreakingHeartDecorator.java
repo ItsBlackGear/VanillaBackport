@@ -1,7 +1,7 @@
 package com.blackgear.vanillabackport.common.level.worldgen.tree_decorators;
 
 import com.blackgear.vanillabackport.common.level.block.CreakingHeartBlock;
-import com.blackgear.vanillabackport.common.level.block.states.CreakingHeartState;
+import com.blackgear.vanillabackport.common.level.block.CreakingHeartState;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
 import com.blackgear.vanillabackport.common.registries.worldgen.ModTreeDecorators;
 import com.mojang.serialization.Codec;
@@ -22,7 +22,6 @@ public class CreakingHeartDecorator extends TreeDecorator {
     public static final MapCodec<CreakingHeartDecorator> CODEC = Codec.floatRange(0.0F, 1.0F)
         .fieldOf("probability")
         .xmap(CreakingHeartDecorator::new, decorator -> decorator.probability);
-
     private final float probability;
 
     public CreakingHeartDecorator(float probability) {
@@ -54,9 +53,7 @@ public class CreakingHeartDecorator extends TreeDecorator {
                 targetPos.ifPresent(pos ->
                     context.setBlock(
                         pos,
-                        ModBlocks.CREAKING_HEART.get().defaultBlockState()
-                            .setValue(CreakingHeartBlock.STATE, CreakingHeartState.DORMANT)
-                            .setValue(CreakingHeartBlock.NATURAL, true)
+                        ModBlocks.CREAKING_HEART.get().defaultBlockState().setValue(CreakingHeartBlock.STATE, CreakingHeartState.DORMANT).setValue(CreakingHeartBlock.NATURAL, true)
                     )
                 );
             }

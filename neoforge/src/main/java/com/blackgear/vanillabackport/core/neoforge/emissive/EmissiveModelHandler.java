@@ -9,6 +9,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.ModelEvent;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @EventBusSubscriber(modid = VanillaBackport.MOD_ID, value = Dist.CLIENT)
@@ -19,16 +20,17 @@ public class EmissiveModelHandler {
         "firefly_bush"
     };
 
-    private static final String EMISSIVE_SUFFIX = "_emissive";
+    private static ModelResourceLocation emissiveModel(String blockName) {
+        return ModelResourceLocation.standalone(ResourceLocation.withDefaultNamespace("block/" + blockName + "_emissive"));
+    }
 
     @SubscribeEvent
     public static void onModelBake(ModelEvent.ModifyBakingResult event) {
         Map<ModelResourceLocation, BakedModel> modelRegistry = event.getModels();
+        Map<ModelResourceLocation, BakedModel> replacements = new HashMap<>();
 
         for (String blockName : EMISSIVE_BLOCKS) {
-            ModelResourceLocation emissiveModelLocation = ModelResourceLocation.standalone(
-                ResourceLocation.withDefaultNamespace("block/" + blockName + EMISSIVE_SUFFIX)
-            );
+            ModelResourceLocation emissiveModelLocation = emissiveModel(blockName);
             BakedModel emissiveModel = modelRegistry.get(emissiveModelLocation);
 
             if (emissiveModel == null) continue;
@@ -37,21 +39,20 @@ public class EmissiveModelHandler {
                 ModelResourceLocation location = entry.getKey();
 
                 if (!location.variant().isEmpty()) continue;
+                if (!location.id().getNamespace().equals(ResourceLocation.DEFAULT_NAMESPACE)) continue;
 
                 String path = location.id().getPath();
                 if (path.equals("block/" + blockName) || path.equals(blockName)) {
-                    BakedModel wrappedModel = new EmissiveModelWrapper(entry.getValue(), emissiveModel);
-                    modelRegistry.put(location, wrappedModel);
+                    replacements.put(location, new EmissiveModelWrapper(entry.getValue(), emissiveModel));
                 }
             }
         }
+
+        modelRegistry.putAll(replacements);
     }
 
     @SubscribeEvent
     public static void onRegisterAdditionalModels(ModelEvent.RegisterAdditional event) {
-        for (String blockName : EMISSIVE_BLOCKS) {
-            ModelResourceLocation emissiveModelLocation = ModelResourceLocation.standalone(ResourceLocation.withDefaultNamespace("block/" + blockName + EMISSIVE_SUFFIX));
-            event.register(emissiveModelLocation);
-        }
+        for (String blockName : EMISSIVE_BLOCKS) event.register(emissiveModel(blockName));
     }
 }
