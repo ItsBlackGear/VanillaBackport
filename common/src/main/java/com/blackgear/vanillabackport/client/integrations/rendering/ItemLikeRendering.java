@@ -6,25 +6,17 @@ import com.blackgear.platform.client.v2.render.ItemRendererRegistry;
 import com.blackgear.vanillabackport.client.level.renderer.block_entity.CopperChestRenderer;
 import com.blackgear.vanillabackport.client.level.renderer.block_entity.CopperGolemStatueRenderer;
 import com.blackgear.vanillabackport.client.level.renderer.block_entity.ShelfRenderer;
-import com.blackgear.vanillabackport.client.level.renderer.item.BundleRenderer;
-import com.blackgear.vanillabackport.client.level.renderer.item.CopperChestItemRenderer;
-import com.blackgear.vanillabackport.client.level.renderer.item.CopperGolemStatueItemRenderer;
-import com.blackgear.vanillabackport.client.level.renderer.item.SpawnEggRenderer;
+import com.blackgear.vanillabackport.client.level.renderer.item.*;
 import com.blackgear.vanillabackport.common.level.block.CopperChestBlock;
 import com.blackgear.vanillabackport.common.level.block.CopperGolemStatueBlock;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlockEntities;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
-import com.blackgear.vanillabackport.common.registries.items.ModItems;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
-
-import java.util.function.Supplier;
 
 import static com.blackgear.platform.client.GameRendering.*;
 
@@ -39,6 +31,10 @@ public class ItemLikeRendering {
             DynamicItemRenderer.INSTANCE.get().register(item, SpawnEggRenderer.INSTANCE);
         }
         
+        for (ItemLike item : SpearRenderer.SPEARS) {
+            ItemRendererRegistry.INSTANCE.get().register(item, SpearRenderer.INSTANCE);
+        }
+        
         for (Block block : BuiltInRegistries.BLOCK) {
             if (block instanceof CopperChestBlock chest) {
                 BuiltinItemRendererRegistry.getInstance().register(block, new CopperChestItemRenderer(chest));
@@ -48,16 +44,6 @@ public class ItemLikeRendering {
                 BuiltinItemRendererRegistry.getInstance().register(block, new CopperGolemStatueItemRenderer(statue));
             }
         }
-    }
-    
-    public static void handHeldModelRendering(HandHeldModelEvent event) {
-        fetchModel(event, ModItems.WOODEN_SPEAR, "wooden");
-        fetchModel(event, ModItems.STONE_SPEAR, "stone");
-        fetchModel(event, ModItems.COPPER_SPEAR, "copper");
-        fetchModel(event, ModItems.IRON_SPEAR, "iron");
-        fetchModel(event, ModItems.GOLDEN_SPEAR, "golden");
-        fetchModel(event, ModItems.DIAMOND_SPEAR, "diamond");
-        fetchModel(event, ModItems.NETHERITE_SPEAR, "netherite");
     }
     
     public static void blockEntityRendering(BlockEntityRendererEvent event) {
@@ -99,9 +85,5 @@ public class ItemLikeRendering {
         ModBlocks.COPPER_LANTERN.forEach(holder -> event.register(RenderType.cutout(), holder.get()));
         ModBlocks.COPPER_BARS.forEach(holder -> event.register(RenderType.cutout(), holder.get()));
         ModBlocks.COPPER_CHAIN.forEach(holder -> event.register(RenderType.cutout(), holder.get()));
-    }
-    
-    private static void fetchModel(HandHeldModelEvent event, Supplier<Item> item, String material) {
-        event.register(item.get(), new ResourceLocation(material + "_spear"), new ResourceLocation(material + "_spear_in_hand"));
     }
 }

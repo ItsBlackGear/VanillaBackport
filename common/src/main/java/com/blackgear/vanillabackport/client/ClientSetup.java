@@ -45,7 +45,6 @@ public class ClientSetup {
         dispatch.enqueueWork(() -> {
             ItemPropertyIntegrations.bootstrap();
             LocalPlayerEvents.ON_LOGIN.register(player -> BundledTabSelector.bootstrap());
-            GameRendering.registerHandHeldModels(ItemLikeRendering::handHeldModelRendering);
             LivingEntityRendererCallback.APPEND_LAYERS.register(EntityRendering::renderLayers);
         });
         BundleMouseActions.bootstrap();
