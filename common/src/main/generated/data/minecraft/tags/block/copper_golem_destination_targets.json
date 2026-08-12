@@ -2,6 +2,30 @@
   "values": [
     "minecraft:chest",
     "minecraft:trapped_chest",
-    "minecraft:barrel"
+    "minecraft:barrel",
+    "lolmcv:oak_chest",
+    "lolmcv:spruce_chest",
+    "lolmcv:birch_chest",
+    "lolmcv:jungle_chest",
+    "lolmcv:acacia_chest",
+    "lolmcv:dark_oak_chest",
+    "lolmcv:mangrove_chest",
+    "lolmcv:cherry_chest",
+    "lolmcv:pale_oak_chest",
+    "lolmcv:bamboo_chest",
+    "lolmcv:crimson_chest",
+    "lolmcv:warped_chest",
+    "lolmcv:oak_trapped_chest",
+    "lolmcv:spruce_trapped_chest",
+    "lolmcv:birch_trapped_chest",
+    "lolmcv:jungle_trapped_chest",
+    "lolmcv:acacia_trapped_chest",
+    "lolmcv:dark_oak_trapped_chest",
+    "lolmcv:mangrove_trapped_chest",
+    "lolmcv:cherry_trapped_chest",
+    "lolmcv:pale_oak_trapped_chest",
+    "lolmcv:bamboo_trapped_chest",
+    "lolmcv:crimson_trapped_chest",
+    "lolmcv:warped_trapped_chest"
   ]
 }
