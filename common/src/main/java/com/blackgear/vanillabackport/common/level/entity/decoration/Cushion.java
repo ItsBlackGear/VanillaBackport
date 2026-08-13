@@ -14,6 +14,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LightningBolt;
@@ -145,6 +146,20 @@ public class Cushion extends BlockAttachedEntity {
             this.kill();
             this.dropItem(null);
         }
+    }
+
+    @Override
+    public boolean hurt(DamageSource source, float amount) {
+        return !isBreakingDeniedFor(source) && super.hurt(source, amount);
+    }
+
+    private boolean isBreakingDeniedFor(final DamageSource source) {
+        if (!(source.getEntity() instanceof Player player)) return false;
+
+        boolean deniedBecauseEntity = !player.mayBuild();
+        boolean deniedBecauseLevel = !this.level().mayInteract(player, this.pos);
+
+        return deniedBecauseEntity || deniedBecauseLevel;
     }
 
     @Override
