@@ -16,6 +16,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
@@ -137,7 +138,15 @@ public class Cushion extends BlockAttachedEntity {
         
         return false;
     }
-    
+
+    @Override
+    public void thunderHit(ServerLevel level, LightningBolt lightning) {
+        if (!this.isRemoved()) {
+            this.kill();
+            this.dropItem(null);
+        }
+    }
+
     @Override
     protected void recalculateBoundingBox() {
         this.setBoundingBox(this.makeBoundingBox());
