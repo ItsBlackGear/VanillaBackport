@@ -47,4 +47,6 @@ public class ModBlockTags {
     
     public static final TagKey<Block> WOOL_STAIRS = TAGS.register("wool_stairs");
     public static final TagKey<Block> WOOL_SLABS = TAGS.register("wool_slabs");
+
+    public static final TagKey<Block> CUSHION_USES_COLLISION_SHAPE = TAGS.register("cushion_uses_collision_shape");
 }

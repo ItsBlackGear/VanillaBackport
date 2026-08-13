@@ -3,6 +3,7 @@ package com.blackgear.vanillabackport.common.level.entity.decoration;
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
 import com.blackgear.vanillabackport.common.registries.entities.ModEntityDataSerializers;
 import com.blackgear.vanillabackport.common.registries.items.ModItems;
+import com.blackgear.vanillabackport.core.util.Utilities;
 import com.blackgear.vanillabackport.core.util.Utilities.CollisionUtils;
 import com.blackgear.vanillabackport.core.util.Utilities.PositionUtils;
 import net.minecraft.core.BlockPos;
@@ -14,6 +15,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.util.AbortableIterationConsumer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -31,6 +33,8 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.shapes.BooleanOp;
+import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
@@ -115,10 +119,28 @@ public class Cushion extends BlockAttachedEntity {
             );
         }
     }
-    
-    public static boolean wouldSurviveAt(Level level, AABB box) {
+
+    public static boolean canBePlacedAt(final Level level, final AABB boundingBox) {
+        return wouldSurviveAt(level, boundingBox) && !isAnchorBuried(level, boundingBox);
+    }
+
+    public static boolean wouldSurviveAt(final Level level, final AABB boundingBox) {
+        return hasAnchorBelow(level, boundingBox) && !isCoveredBySuffocatingBlocks(level, boundingBox);
+    }
+
+    private static boolean isCoveredBySuffocatingBlocks(final Level level, final AABB boundingBox) {
+        for (BlockPos blockPos : PositionUtils.betweenClosed(CollisionUtils.nextDeflated(boundingBox))) {
+            if (!level.getBlockState(blockPos).isSuffocating(level, blockPos)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public static boolean hasAnchorBelow(Level level, AABB box) {
         AABB anchorBox = new AABB(box.minX, box.minY - 0.015625, box.minZ, Math.nextDown(box.maxX), box.minY, Math.nextDown(box.maxZ));
-        
+
         for (BlockPos pos : PositionUtils.betweenClosed(anchorBox)) {
             BlockState state = level.getBlockState(pos);
             VoxelShape shape = state.getShape(level, pos);
@@ -126,23 +148,28 @@ public class Cushion extends BlockAttachedEntity {
                 return true;
             }
         }
-        
+
+        return false;
+    }
+
+    private static boolean isAnchorBuried(final Level level, final AABB boundingBox) {
+        AABB restingSlice = CollisionUtils.nextDeflated(
+            new AABB(boundingBox.minX, boundingBox.minY, boundingBox.minZ, boundingBox.maxX, boundingBox.minY + 0.015625, boundingBox.maxZ)
+        );
+        VoxelShape exposedSurface = Shapes.create(restingSlice);
+
+        for (VoxelShape collider : level.getBlockCollisions(null, restingSlice)) {
+            exposedSurface = Shapes.join(exposedSurface, collider, BooleanOp.ONLY_FIRST);
+            if (exposedSurface.isEmpty()) {
+                return true;
+            }
+        }
         return false;
     }
     
     @Override
     public boolean survives() {
-        Level level = this.level();
-        AABB box = this.getBoundingBox();
-        if (!wouldSurviveAt(level, box)) return false;
-        
-        for (BlockPos pos : PositionUtils.betweenClosed(CollisionUtils.nextDeflated(box))) {
-            if (!level.getBlockState(pos).isCollisionShapeFullBlock(level, pos)) {
-                return true;
-            }
-        }
-        
-        return false;
+        return wouldSurviveAt(this.level(), this.getBoundingBox());
     }
 
     @Override
@@ -158,7 +185,7 @@ public class Cushion extends BlockAttachedEntity {
         if (this.isRemoved()) return;
 
         boolean isInFire = level
-            .getBlockStates(getBoundingBox())
+            .getBlockStates(CollisionUtils.nextDeflated(getBoundingBox()))
             .anyMatch(blockState -> blockState.is(BlockTags.FIRE));
 
         if (isInFire) hurt(damageSources().inFire(), 1.0f);

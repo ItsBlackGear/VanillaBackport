@@ -229,6 +229,11 @@ public class BlockTagGenerator extends FabricTagProvider.BlockTagProvider {
             .add(Blocks.CHEST)
             .add(Blocks.TRAPPED_CHEST)
             .add(Blocks.BARREL);
+
+        this.getOrCreateTagBuilder(ModBlockTags.CUSHION_USES_COLLISION_SHAPE)
+            .forceAddTag(BlockTags.CAULDRONS)
+            .add(Blocks.HOPPER)
+            .add(Blocks.COMPOSTER);
     }
 
     protected DualTagHolder getDualTagBuilder(TagKey<Block> forge, TagKey<Block> fabric) {
