@@ -6,6 +6,7 @@ import com.blackgear.vanillabackport.common.registries.items.ModItems;
 import com.blackgear.vanillabackport.core.util.Utilities.CollisionUtils;
 import com.blackgear.vanillabackport.core.util.Utilities.PositionUtils;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -57,7 +58,9 @@ public class Cushion extends BlockAttachedEntity {
         this.showBreakingParticles();
         if (this.level() instanceof ServerLevel level && level.getGameRules().getBoolean(GameRules.RULE_DOENTITYDROPS)) {
             if (!(entity instanceof Player player && player.hasInfiniteMaterials())) {
-                this.spawnAtLocation(Cushion.getByColor(this.getColor()).cushion());
+                ItemStack cushion = new ItemStack(Cushion.getByColor(this.getColor()).cushion());
+                cushion.set(DataComponents.CUSTOM_NAME, this.getCustomName());
+                this.spawnAtLocation(cushion);
             }
         }
     }
