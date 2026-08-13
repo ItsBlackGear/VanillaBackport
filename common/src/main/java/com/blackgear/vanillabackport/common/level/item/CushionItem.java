@@ -54,6 +54,7 @@ public class CushionItem extends Item {
             cushion.moveTo(entityPos.x, entityPos.y, entityPos.z, Direction.fromYRot(placeContext.getRotation()).toYRot(), 0.0F);
             cushion.setColor(this.color);
             server.addFreshEntity(cushion);
+            cushion.destroyIfInFire(server);
             level.playSound(null, cushion.getX(), cushion.getY(), cushion.getZ(), ModSoundEvents.CUSHION_PLACE.get(), SoundSource.BLOCKS, 0.75F, 0.8F);
             cushion.gameEvent(GameEvent.ENTITY_PLACE);
             if (!placeContext.getPlayer().getAbilities().instabuild) {
