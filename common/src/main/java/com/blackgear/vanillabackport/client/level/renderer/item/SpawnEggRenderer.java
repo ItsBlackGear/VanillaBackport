@@ -114,7 +114,9 @@ public class SpawnEggRenderer implements DynamicItemRenderer.Renderer {
         Items.ZOMBIE_HORSE_SPAWN_EGG,
         ModItems.ZOMBIE_NAUTILUS_SPAWN_EGG.get(),
         Items.ZOMBIE_VILLAGER_SPAWN_EGG,
-        Items.ZOMBIFIED_PIGLIN_SPAWN_EGG
+        Items.ZOMBIFIED_PIGLIN_SPAWN_EGG,
+        Items.WITHER_SPAWN_EGG,
+        Items.ENDER_DRAGON_SPAWN_EGG
     );
 
     private static final Map<ItemLike, ModelResourceLocation> EGG_MODELS = buildModels();
