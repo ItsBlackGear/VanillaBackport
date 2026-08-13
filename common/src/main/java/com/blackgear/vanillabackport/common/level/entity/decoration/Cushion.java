@@ -13,6 +13,7 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -142,6 +143,25 @@ public class Cushion extends BlockAttachedEntity {
         }
         
         return false;
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+
+        if (level() instanceof ServerLevel serverLevel) {
+            destroyIfInFire(serverLevel);
+        }
+    }
+
+    public void destroyIfInFire(ServerLevel level) {
+        if (this.isRemoved()) return;
+
+        boolean isInFire = level
+            .getBlockStates(getBoundingBox())
+            .anyMatch(blockState -> blockState.is(BlockTags.FIRE));
+
+        if (isInFire) hurt(damageSources().inFire(), 1.0f);
     }
 
     @Override
