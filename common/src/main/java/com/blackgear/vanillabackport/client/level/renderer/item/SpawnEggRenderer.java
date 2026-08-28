@@ -19,10 +19,7 @@ import net.minecraft.client.renderer.entity.ItemRenderer;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemDisplayContext;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.ItemLike;
 
 import java.util.HashMap;
@@ -144,6 +141,8 @@ public class SpawnEggRenderer implements DynamicItemRenderer.Renderer {
 
     @Override
     public void renderFirstPerson(ItemStack stack, ItemDisplayContext context, boolean leftHand, PoseStack pose, MultiBufferSource buffer, int light, int overlay, BakedModel model, ItemModelShaper shaper, ItemColors colors) {
+        if (!(stack.getItem() instanceof SpawnEggItem)) return;
+        
         BakedModel eggModel = shaper.getModelManager().getModel(EGG_MODELS.get(stack.getItem()));
         eggModel.getTransforms().getTransform(context).apply(leftHand, pose);
         pose.translate(-0.5F, -0.5F, -0.5F);

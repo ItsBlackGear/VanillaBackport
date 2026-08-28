@@ -1,10 +1,13 @@
 package com.blackgear.vanillabackport.common.level.worldgen.features;
 
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
+import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.mojang.serialization.Codec;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.WorldGenLevel;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -16,41 +19,40 @@ public class CactusFlowerFeature extends Feature<NoneFeatureConfiguration> {
     public CactusFlowerFeature(Codec<NoneFeatureConfiguration> codec) {
         super(codec);
     }
-
+    
     @Override
     public boolean place(FeaturePlaceContext<NoneFeatureConfiguration> context) {
         WorldGenLevel level = context.level();
         BlockPos origin = context.origin();
         RandomSource random = context.random();
-        BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
-
-        for (int xRange = 0; xRange < 16; xRange++) {
-            if (random.nextFloat() > 0.25) continue;
-
-            for (int zRange = 0; zRange < 16; zRange++) {
-                if (random.nextFloat() > 0.25) continue;
-
-                int x = origin.getX() + xRange;
-                int z = origin.getZ() + zRange;
-
-                mutable.set(x, level.getHeight(Heightmap.Types.MOTION_BLOCKING, x, z) - 1, z);
-
-                if (level.getBlockState(mutable).is(Blocks.CACTUS)) {
-                    mutable.set(x, level.getHeight(Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, x, z), z);
-
-                    BlockState state = ModBlocks.CACTUS_FLOWER.get().defaultBlockState();
-
-                    if (
-                        !level.getBlockState(mutable).is(ModBlocks.CACTUS_FLOWER.get()) &&
-                            level.getBlockState(mutable).isAir() &&
-                            state.canSurvive(level, mutable)
-                    ) {
-                        level.setBlock(mutable, state, 1);
-                    }
+        
+        BlockState flower = ModBlocks.CACTUS_FLOWER.get().defaultBlockState();
+        BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos();
+        
+        double spawnChance = VanillaBackport.COMMON_CONFIG.cactusFlowerSpawnChance.get();
+        boolean placedAny = false;
+        
+        for (int x = 0; x < 16; x++) {
+            for (int z = 0; z < 16; z++) {
+                if (random.nextFloat() >= spawnChance) continue;
+                
+                int worldX = origin.getX() + x;
+                int worldZ = origin.getZ() + z;
+                
+                int surfaceY = level.getHeight(Heightmap.Types.MOTION_BLOCKING, worldX, worldZ) - 1;
+                pos.set(worldX, surfaceY, worldZ);
+                
+                if (!level.getBlockState(pos).is(Blocks.CACTUS)) continue;
+                
+                pos.move(Direction.UP);
+                
+                if (level.getBlockState(pos).isAir() && flower.canSurvive(level, pos)) {
+                    level.setBlock(pos, flower, Block.UPDATE_CLIENTS);
+                    placedAny = true;
                 }
             }
         }
-
-        return true;
+        
+        return placedAny;
     }
 }

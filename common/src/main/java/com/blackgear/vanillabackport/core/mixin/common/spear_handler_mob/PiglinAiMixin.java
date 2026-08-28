@@ -1,8 +1,8 @@
 package com.blackgear.vanillabackport.core.mixin.common.spear_handler_mob;
 
-import com.blackgear.vanillabackport.common.level.entity.ai.behavior.SpearApproach;
-import com.blackgear.vanillabackport.common.level.entity.ai.behavior.SpearAttack;
-import com.blackgear.vanillabackport.common.level.entity.ai.behavior.SpearRetreat;
+import com.blackgear.vanillabackport.common.level.entities.ai.behavior.SpearApproach;
+import com.blackgear.vanillabackport.common.level.entities.ai.behavior.SpearAttack;
+import com.blackgear.vanillabackport.common.level.entities.ai.behavior.SpearRetreat;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.world.entity.ai.behavior.BehaviorControl;
 import net.minecraft.world.entity.monster.piglin.Piglin;

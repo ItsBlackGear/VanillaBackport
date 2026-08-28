@@ -2,16 +2,14 @@ package com.blackgear.vanillabackport.common.registries.items;
 
 import com.blackgear.platform.core.helper.ItemRegistry;
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
-import com.blackgear.vanillabackport.common.level.entity.mob.animal.chicken.ChickenVariants;
-import com.blackgear.vanillabackport.common.level.item.CushionItem;
-import com.blackgear.vanillabackport.common.level.item.NautilusArmorItem;
-import com.blackgear.vanillabackport.common.level.item.PaleOakBoatItem;
-import com.blackgear.vanillabackport.common.level.item.spear.SpearItem;
-import com.blackgear.vanillabackport.common.level.item.SulfurCubeBucketItem;
+import com.blackgear.vanillabackport.common.level.entities.mob.animal.chicken.ChickenVariants;
+import com.blackgear.vanillabackport.common.level.items.CushionItem;
+import com.blackgear.vanillabackport.common.level.items.NautilusArmorItem;
+import com.blackgear.vanillabackport.common.level.items.PaleOakBoatItem;
+import com.blackgear.vanillabackport.common.level.items.spear.SpearItem;
+import com.blackgear.vanillabackport.common.level.items.SulfurCubeBucketItem;
 import com.blackgear.vanillabackport.common.registries.entities.ModEntityTypes;
 import com.blackgear.vanillabackport.core.VanillaBackport;
-import com.blackgear.vanillabackport.core.registries.experimental.FeatureHolder;
-import com.blackgear.vanillabackport.core.registries.experimental.handlers.VanillaItemRegistry;
 import com.google.common.base.Suppliers;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.resources.ResourceLocation;
@@ -27,8 +25,7 @@ import java.util.function.Supplier;
 
 public class ModItems {
     public static final ItemRegistry REGISTRIES = ItemRegistry.create(VanillaBackport.NAMESPACE);
-    public static final VanillaItemRegistry HOLDERS = VanillaItemRegistry.create();
-
+    
     // Bundles of Bravery
     
     public static final Supplier<Item> WHITE_BUNDLE = REGISTRIES.register("white_bundle",
@@ -157,37 +154,37 @@ public class ModItems {
 
     // Copper Age
     
-    public static final FeatureHolder<Item> COPPER_SWORD = HOLDERS.register("copper_sword",
+    public static final Supplier<Item> COPPER_SWORD = REGISTRIES.register("copper_sword",
         properties -> new SwordItem(ModToolMaterials.COPPER, properties),
         new Properties().attributes(SwordItem.createAttributes(ModToolMaterials.COPPER, 3, -2.4F)));
-    public static final FeatureHolder<Item> COPPER_SHOVEL = HOLDERS.register("copper_shovel",
+    public static final Supplier<Item> COPPER_SHOVEL = REGISTRIES.register("copper_shovel",
         properties -> new ShovelItem(ModToolMaterials.COPPER, properties),
         new Properties().attributes(ShovelItem.createAttributes(ModToolMaterials.COPPER, 1.5F, -3.0F)));
-    public static final FeatureHolder<Item> COPPER_PICKAXE = HOLDERS.register("copper_pickaxe",
+    public static final Supplier<Item> COPPER_PICKAXE = REGISTRIES.register("copper_pickaxe",
         properties -> new PickaxeItem(ModToolMaterials.COPPER, properties),
         new Properties().attributes(PickaxeItem.createAttributes(ModToolMaterials.COPPER, 1.0F, -2.8F)));
-    public static final FeatureHolder<Item> COPPER_AXE = HOLDERS.register("copper_axe",
+    public static final Supplier<Item> COPPER_AXE = REGISTRIES.register("copper_axe",
         properties -> new AxeItem(ModToolMaterials.COPPER, properties),
         new Properties().attributes(AxeItem.createAttributes(ModToolMaterials.COPPER, 7.0F, -3.2F)));
-    public static final FeatureHolder<Item> COPPER_HOE = HOLDERS.register("copper_hoe",
+    public static final Supplier<Item> COPPER_HOE = REGISTRIES.register("copper_hoe",
         properties -> new HoeItem(ModToolMaterials.COPPER, properties),
         new Properties().attributes(HoeItem.createAttributes(ModToolMaterials.COPPER, -1.0F, -2.0F)));
     
-    public static final FeatureHolder<Item> COPPER_HELMET = HOLDERS.register("copper_helmet",
+    public static final Supplier<Item> COPPER_HELMET = REGISTRIES.register("copper_helmet",
         properties -> new ArmorItem(ModArmorMaterials.COPPER, ArmorItem.Type.HELMET, properties),
         new Properties().durability(ArmorItem.Type.HELMET.getDurability(11)));
-    public static final FeatureHolder<Item> COPPER_CHESTPLATE = HOLDERS.register("copper_chestplate",
+    public static final Supplier<Item> COPPER_CHESTPLATE = REGISTRIES.register("copper_chestplate",
         properties -> new ArmorItem(ModArmorMaterials.COPPER, ArmorItem.Type.CHESTPLATE, properties),
         new Properties().durability(ArmorItem.Type.CHESTPLATE.getDurability(11)));
-    public static final FeatureHolder<Item> COPPER_LEGGINGS = HOLDERS.register("copper_leggings",
+    public static final Supplier<Item> COPPER_LEGGINGS = REGISTRIES.register("copper_leggings",
         properties -> new ArmorItem(ModArmorMaterials.COPPER, ArmorItem.Type.LEGGINGS, properties),
         new Properties().durability(ArmorItem.Type.LEGGINGS.getDurability(11)));
-    public static final FeatureHolder<Item> COPPER_BOOTS = HOLDERS.register("copper_boots",
+    public static final Supplier<Item> COPPER_BOOTS = REGISTRIES.register("copper_boots",
         properties -> new ArmorItem(ModArmorMaterials.COPPER, ArmorItem.Type.BOOTS, properties),
         new Properties().durability(ArmorItem.Type.BOOTS.getDurability(11)));
     
-    public static final FeatureHolder<Item> COPPER_NUGGET = HOLDERS.register("copper_nugget");
-    public static final FeatureHolder<Item> COPPER_HORSE_ARMOR = HOLDERS.register("copper_horse_armor",
+    public static final Supplier<Item> COPPER_NUGGET = REGISTRIES.register("copper_nugget");
+    public static final Supplier<Item> COPPER_HORSE_ARMOR = REGISTRIES.register("copper_horse_armor",
         properties -> new AnimalArmorItem(ModArmorMaterials.COPPER, AnimalArmorItem.BodyType.EQUESTRIAN, false, properties),
         new Properties().stacksTo(1));
     
@@ -337,11 +334,11 @@ public class ModItems {
     public static final Supplier<Item> PARCHED_SPAWN_EGG = REGISTRIES.register("parched_spawn_egg",
         () -> ItemRegistry.createSpawnEgg(ModEntityTypes.PARCHED, 7630438, 14533518, new Properties()));
     public static final Supplier<Item> CAMEL_HUSK_SPAWN_EGG = REGISTRIES.register("camel_husk_spawn_egg",
-        () -> ItemRegistry.createSpawnEgg(ModEntityTypes.CAMEL_HUSK, 7630438, 14533518, new Properties()));
+        () -> ItemRegistry.createSpawnEgg(ModEntityTypes.CAMEL_HUSK, 6444612, 5523767, new Properties()));
     public static final Supplier<Item> NAUTILUS_SPAWN_EGG = REGISTRIES.register("nautilus_spawn_egg",
-        () -> ItemRegistry.createSpawnEgg(ModEntityTypes.NAUTILUS, 7630438, 14533518, new Properties()));
+        () -> ItemRegistry.createSpawnEgg(ModEntityTypes.NAUTILUS, 14800845, 14375489, new Properties()));
     public static final Supplier<Item> ZOMBIE_NAUTILUS_SPAWN_EGG = REGISTRIES.register("zombie_nautilus_spawn_egg",
-        () -> ItemRegistry.createSpawnEgg(ModEntityTypes.ZOMBIE_NAUTILUS, 7630438, 14533518, new Properties()));
+        () -> ItemRegistry.createSpawnEgg(ModEntityTypes.ZOMBIE_NAUTILUS, 14277311, 3622707, new Properties()));
     
     // Chaos Cubed
     
@@ -356,7 +353,7 @@ public class ModItems {
             .jukeboxPlayable(ModJukeboxSongs.BOUNCE));
     
     public static final Supplier<Item> SULFUR_CUBE_SPAWN_EGG = REGISTRIES.register("sulfur_cube_spawn_egg",
-        () -> ItemRegistry.createSpawnEgg(ModEntityTypes.SULFUR_CUBE, 16777215, 8421504, new Properties()));
+        () -> ItemRegistry.createSpawnEgg(ModEntityTypes.SULFUR_CUBE, 15528848, 13948048, new Properties()));
     
     // Miscellaneous
     

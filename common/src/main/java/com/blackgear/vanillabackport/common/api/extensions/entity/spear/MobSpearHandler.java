@@ -9,25 +9,25 @@ import net.minecraft.world.phys.Vec3;
 import java.util.function.Predicate;
 
 public interface MobSpearHandler {
-    AttackRange getAttackRangeWith(ItemStack weapon);
+    AttackRange vb$getAttackRangeWith(ItemStack weapon);
 
-    boolean wasRecentlyStabbed(Entity target, int allowedTime);
+    boolean vb$wasRecentlyStabbed(Entity target, int allowedTime);
 
-    void rememberStabbedEntity(Entity target);
+    void vb$rememberStabbedEntity(Entity target);
 
-    default int stabbedEntities(Predicate<Entity> filter) {
+    default int vb$stabbedEntities(Predicate<Entity> filter) {
         return 0;
     }
 
-    boolean stabAttack(EquipmentSlot weaponSlot, Entity target, float baseDamage, boolean dealsDamage, boolean dealsKnockback, boolean dismounts);
+    boolean vb$stabAttack(EquipmentSlot weaponSlot, Entity target, float baseDamage, boolean dealsDamage, boolean dealsKnockback, boolean dismounts);
 
-    void causeExtraKnockback(Entity target, float knockback, Vec3 oldMovement);
+    void vb$causeExtraKnockback(Entity target, float knockback, Vec3 oldMovement);
 
-    default void onAttack() {}
+    default void vb$onAttack() {}
 
-    void postPiercingAttack();
+    void vb$postPiercingAttack();
 
-    float getTicksSinceLastKineticHitFeedback(float partial);
+    float vb$getTicksSinceLastKineticHitFeedback(float partial);
 
-    float getTicksUsingItem(float partial);
+    float vb$getTicksUsingItem(float partial);
 }

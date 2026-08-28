@@ -3,8 +3,7 @@ package com.blackgear.vanillabackport.core.mixin.client.spear_rendering;
 import com.blackgear.vanillabackport.common.api.extensions.entity.arms.ArmPoses;
 import com.blackgear.vanillabackport.common.level.components.SwingAnimation;
 import com.blackgear.vanillabackport.common.level.components.SwingAnimationType;
-import com.blackgear.vanillabackport.common.level.item.spear.SpearAnimations;
-import com.blackgear.vanillabackport.common.registries.items.ModDataComponents;
+import com.blackgear.vanillabackport.common.level.items.spear.SpearAnimations;
 import com.blackgear.vanillabackport.core.data.tags.ModItemTags;
 import net.minecraft.client.model.AgeableListModel;
 import net.minecraft.client.model.HumanoidModel;
@@ -97,7 +96,7 @@ public abstract class HumanoidModelMixin<T extends LivingEntity> extends Ageable
     private void vb$attackAnimation(T entity, float ageInTicks, CallbackInfo ci) {
         if (this.attackTime > 0.0F) {
             ItemStack heldItem = entity.getMainHandItem();
-            SwingAnimation animation = heldItem.get(ModDataComponents.SWING_ANIMATION.get());
+            SwingAnimation animation = SwingAnimation.get(heldItem);
 
             if (!heldItem.isEmpty() && animation != null && animation.type() == SwingAnimationType.STAB) {
                 HumanoidArm attackArm = entity.swingingArm == InteractionHand.MAIN_HAND

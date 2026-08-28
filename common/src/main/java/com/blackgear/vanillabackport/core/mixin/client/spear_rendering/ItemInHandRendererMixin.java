@@ -3,9 +3,11 @@ package com.blackgear.vanillabackport.core.mixin.client.spear_rendering;
 import com.blackgear.vanillabackport.common.api.extensions.entity.arms.ItemUseAnimations;
 import com.blackgear.vanillabackport.common.api.extensions.entity.spear.PlayerSpearHandler;
 import com.blackgear.vanillabackport.common.api.extensions.entity.spear.MobSpearHandler;
-import com.blackgear.vanillabackport.common.level.item.spear.SpearAnimations;
-import com.blackgear.vanillabackport.common.level.item.spear.SpearItem;
+import com.blackgear.vanillabackport.common.level.components.SwingAnimation;
+import com.blackgear.vanillabackport.common.level.items.spear.SpearAnimations;
 import com.blackgear.vanillabackport.common.level.components.SwingAnimationType;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.player.AbstractClientPlayer;
@@ -16,17 +18,13 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ItemInHandRenderer.class)
 public abstract class ItemInHandRendererMixin {
-    @Shadow public abstract void applyItemArmAttackTransform(PoseStack poseStack, HumanoidArm arm, float swingProgress);
-    
     @Unique private boolean vb$firstPersonAttack = false;
     
     @Inject(
@@ -47,7 +45,7 @@ public abstract class ItemInHandRendererMixin {
         if (stack.getUseAnimation() == ItemUseAnimations.REAL_SPEAR.get()) {
             poseStack.translate((float) invert * 0.56F, -0.52F, -0.72F);
             float timeHeld = (float) stack.getUseDuration(player) - ((float) player.getUseItemRemainingTicks() - partialTicks + 1.0F);
-            SpearAnimations.firstPersonUse(((MobSpearHandler) player).getTicksSinceLastKineticHitFeedback(partialTicks), poseStack, timeHeld, arm, stack);
+            SpearAnimations.firstPersonUse(((MobSpearHandler) player).vb$getTicksSinceLastKineticHitFeedback(partialTicks), poseStack, timeHeld, arm, stack);
         }
     }
     
@@ -65,13 +63,13 @@ public abstract class ItemInHandRendererMixin {
         ItemStack stack, float equippedProgress, PoseStack poseStack, MultiBufferSource buffer, int combinedLight,
         CallbackInfo ci
     ) {
-        SwingAnimationType type = SpearItem.getSwingAnimation(stack).type();
+        SwingAnimationType type = SwingAnimation.get(stack).type();
         if (type == SwingAnimationType.STAB) {
             this.vb$firstPersonAttack = true;
         }
     }
-    
-    @Redirect(
+
+    @WrapOperation(
         method = "renderArmWithItem",
         at = @At(
             value = "INVOKE",
@@ -79,8 +77,10 @@ public abstract class ItemInHandRendererMixin {
             ordinal = 12
         )
     )
-    private void vb$spearSwingTranslation(PoseStack instance, float x, float y, float z) {
-        if (!this.vb$firstPersonAttack) instance.translate(x, y, z);
+    private void vb$spearSwingTranslation(PoseStack instance, float x, float y, float z, Operation<Void> original) {
+        if (!this.vb$firstPersonAttack) {
+            original.call(instance, x, y, z);
+        }
     }
     
     @Inject(
@@ -102,8 +102,8 @@ public abstract class ItemInHandRendererMixin {
             SpearAnimations.firstPersonAttack(swingProgress, poseStack, invert);
         }
     }
-    
-    @Redirect(
+
+    @WrapOperation(
         method = "renderArmWithItem",
         at = @At(
             value = "INVOKE",
@@ -111,8 +111,10 @@ public abstract class ItemInHandRendererMixin {
             ordinal = 1
         )
     )
-    private void vb$spearAttackTransform(ItemInHandRenderer instance, PoseStack poseStack, HumanoidArm arm, float swingProgress) {
-        if (!this.vb$firstPersonAttack) this.applyItemArmAttackTransform(poseStack, arm, swingProgress);
+    private void vb$spearAttackTransform(ItemInHandRenderer instance, PoseStack poseStack, HumanoidArm arm, float swingProgress, Operation<Void> original) {
+        if (!this.vb$firstPersonAttack) {
+            original.call(instance, poseStack, arm, swingProgress);
+        }
     }
     
     @Inject(
@@ -139,12 +141,15 @@ public abstract class ItemInHandRendererMixin {
     ) {
         this.vb$firstPersonAttack = false;
     }
-    
-    @Redirect(
+
+    @WrapOperation(
         method = "tick",
-        at = @At(value = "INVOKE", target = "Lnet/minecraft/client/player/LocalPlayer;getAttackStrengthScale(F)F")
+        at = @At(
+            value = "INVOKE",
+            target = "Lnet/minecraft/client/player/LocalPlayer;getAttackStrengthScale(F)F"
+        )
     )
-    private float vb$itemSwapScale(LocalPlayer player, float scale) {
-        return ((PlayerSpearHandler) player).getItemSwapScale(scale);
+    private float vb$itemSwapScale(LocalPlayer player, float partialTicks, Operation<Float> original) {
+        return ((PlayerSpearHandler) player).vb$getItemSwapScale(partialTicks);
     }
 }

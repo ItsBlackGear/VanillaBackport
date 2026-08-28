@@ -3,7 +3,6 @@ package com.blackgear.vanillabackport.core.mixin.common.spear_behavior;
 import com.blackgear.vanillabackport.common.api.extensions.entity.arms.PlayerActions;
 import com.blackgear.vanillabackport.common.api.extensions.entity.spear.PlayerSpearHandler;
 import com.blackgear.vanillabackport.common.level.components.PiercingWeapon;
-import com.blackgear.vanillabackport.common.registries.items.ModDataComponents;
 import net.minecraft.network.protocol.game.ServerboundPlayerActionPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
@@ -31,8 +30,8 @@ public class ServerGamePacketListenerImplMixin {
             
             if (!this.player.isSpectator()) {
                 ItemStack stack = this.player.getItemInHand(InteractionHand.MAIN_HAND);
-                if (!((PlayerSpearHandler) this.player).cannotAttackWithItem(stack, 5)) {
-                    PiercingWeapon weapon = stack.get(ModDataComponents.PIERCING_WEAPON.get());
+                if (!((PlayerSpearHandler) this.player).vb$cannotAttackWithItem(stack, 5)) {
+                    PiercingWeapon weapon = PiercingWeapon.get(stack);
                     if (weapon != null) {
                         weapon.attack(this.player, EquipmentSlot.MAINHAND);
                     }

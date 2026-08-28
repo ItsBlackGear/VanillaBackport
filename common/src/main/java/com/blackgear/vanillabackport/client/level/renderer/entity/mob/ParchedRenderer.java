@@ -1,7 +1,7 @@
 package com.blackgear.vanillabackport.client.level.renderer.entity.mob;
 
 import com.blackgear.vanillabackport.client.registries.ModModelLayers;
-import com.blackgear.vanillabackport.common.level.entity.mob.monster.skeleton.Parched;
+import com.blackgear.vanillabackport.common.level.entities.mob.monster.skeleton.Parched;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;

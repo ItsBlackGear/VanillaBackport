@@ -4,7 +4,6 @@ import com.blackgear.vanillabackport.common.api.extensions.entity.arms.ArmPoses;
 import com.blackgear.vanillabackport.common.api.extensions.entity.arms.ItemUseAnimations;
 import com.blackgear.vanillabackport.common.level.components.SwingAnimation;
 import com.blackgear.vanillabackport.common.level.components.SwingAnimationType;
-import com.blackgear.vanillabackport.common.registries.items.ModDataComponents;
 import com.blackgear.vanillabackport.core.data.tags.ModItemTags;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import net.minecraft.client.model.HumanoidModel;
@@ -23,7 +22,6 @@ public class PlayerRendererMixin {
         ItemStack heldItem = player.getItemInHand(hand);
         if (heldItem.isEmpty()) return original;
         
-        
         if (player.getUsedItemHand() == hand && player.getUseItemRemainingTicks() > 0) {
             UseAnim useAnim = heldItem.getUseAnimation();
             if (useAnim == ItemUseAnimations.REAL_SPEAR.get()) {
@@ -33,8 +31,8 @@ public class PlayerRendererMixin {
             return original;
         }
         
-        SwingAnimation animation = heldItem.get(ModDataComponents.SWING_ANIMATION.get());
-        if (animation != null && animation.type() == SwingAnimationType.STAB && player.swinging) {
+        SwingAnimation animation = SwingAnimation.get(heldItem);
+        if (animation != SwingAnimation.DEFAULT && animation.type() == SwingAnimationType.STAB && player.swinging) {
             return ArmPoses.SPEAR.get();
         }
         

@@ -1,7 +1,7 @@
 package com.blackgear.vanillabackport.core.network.handlers;
 
 import com.blackgear.vanillabackport.client.level.gui.inventory.NautilusInventoryScreen;
-import com.blackgear.vanillabackport.common.level.entity.mob.animal.nautilus.AbstractNautilus;
+import com.blackgear.vanillabackport.common.level.entities.mob.animal.nautilus.AbstractNautilus;
 import com.blackgear.vanillabackport.common.level.inventory.NautilusInventoryMenu;
 import com.blackgear.vanillabackport.core.network.ClientboundNautilusScreenOpenPacket;
 import net.fabricmc.api.EnvType;

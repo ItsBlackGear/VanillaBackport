@@ -47,8 +47,11 @@ dependencies {
     compileOnly("curse.maven:jei-238222:7270455")
     compileOnly("curse.maven:just-enough-resources-jer-240630:5057220")
 
+    modCompileOnly("maven.modrinth:zeta:1.1-40-neoforge")
+    modCompileOnly "maven.modrinth:quark:4.1-482-neoforge"
     modCompileOnly "maven.modrinth:moonlight:1.21-2.29.2-neoforge"
     modCompileOnly "maven.modrinth:every-compat:1.21-2.11.25-neoforge"
+    modCompileOnly "maven.modrinth:mixed-litter:1.2.2-neoforge"
     modImplementation("com.github.glitchfiend:TerraBlender-neoforge:$rootProject.terrablender_version")
 
     common(project(path: ':common', configuration: 'namedElements')) { transitive false }

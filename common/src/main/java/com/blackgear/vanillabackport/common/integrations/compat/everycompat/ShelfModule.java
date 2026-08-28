@@ -1,7 +1,7 @@
 package com.blackgear.vanillabackport.common.integrations.compat.everycompat;
 
 import com.blackgear.vanillabackport.client.registries.ModSoundTypes;
-import com.blackgear.vanillabackport.common.level.block.ShelfBlock;
+import com.blackgear.vanillabackport.common.level.blocks.ShelfBlock;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlockEntities;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.blackgear.vanillabackport.core.data.tags.ModBlockTags;

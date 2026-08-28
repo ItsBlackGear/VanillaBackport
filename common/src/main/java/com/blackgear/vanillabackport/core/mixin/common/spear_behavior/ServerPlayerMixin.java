@@ -16,7 +16,7 @@ public class ServerPlayerMixin {
     private void vb$validateAttack(Entity target, CallbackInfo ci) {
         ServerPlayer player = (ServerPlayer)(Object) this;
         ItemStack stack = player.getMainHandItem();
-        if (stack.has(ModDataComponents.PIERCING_WEAPON.get()) && ((PlayerSpearHandler) player).cannotAttackWithItem(stack, 5)) {
+        if (stack.has(ModDataComponents.PIERCING_WEAPON.get()) && ((PlayerSpearHandler) player).vb$cannotAttackWithItem(stack, 5)) {
             ci.cancel();
         }
     }

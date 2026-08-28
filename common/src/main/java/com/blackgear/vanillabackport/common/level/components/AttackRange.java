@@ -1,6 +1,7 @@
 package com.blackgear.vanillabackport.common.level.components;
 
 import com.blackgear.vanillabackport.common.api.extensions.entity.movement.MotionAwareEntity;
+import com.blackgear.vanillabackport.common.registries.items.ModDataComponents;
 import com.blackgear.vanillabackport.core.util.AdditionalCodecs;
 import com.blackgear.vanillabackport.core.util.ProjectileUtils;
 import com.blackgear.vanillabackport.core.util.Utilities.DirectionUtils;
@@ -15,6 +16,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.phys.*;
 
@@ -117,5 +119,27 @@ public record AttackRange(
         double minReach = this.effectiveMinRange(attacker) - this.hitboxMargin - extraBuffer;
         double maxReach = this.effectiveMaxRange(attacker) + this.hitboxMargin + extraBuffer;
         return distance >= minReach && distance <= maxReach;
+    }
+    
+    public static AttackRange get(ItemStack stack) {
+        Object component = stack.get(ModDataComponents.ATTACK_RANGE.get());
+        
+        if (component == null) return null;
+        if (component instanceof AttackRange range) return range;
+        
+        try {
+            Class<?> clazz = component.getClass();
+            
+            float minReach = (float) clazz.getMethod("minReach").invoke(component);
+            float maxReach = (float) clazz.getMethod("maxReach").invoke(component);
+            float minCreativeReach = (float) clazz.getMethod("minCreativeReach").invoke(component);
+            float maxCreativeReach = (float) clazz.getMethod("maxCreativeReach").invoke(component);
+            float hitboxMargin = (float) clazz.getMethod("hitboxMargin").invoke(component);
+            float mobFactor = (float) clazz.getMethod("mobFactor").invoke(component);
+            
+            return new AttackRange(minReach, maxReach, minCreativeReach, maxCreativeReach, hitboxMargin, mobFactor);
+        } catch (Exception e) {
+            return null;
+        }
     }
 }

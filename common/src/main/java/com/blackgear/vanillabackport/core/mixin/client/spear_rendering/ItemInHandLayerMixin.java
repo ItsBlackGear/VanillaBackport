@@ -1,9 +1,9 @@
 package com.blackgear.vanillabackport.core.mixin.client.spear_rendering;
 
 import com.blackgear.vanillabackport.common.api.extensions.entity.arms.ArmPoses;
+import com.blackgear.vanillabackport.common.level.components.SwingAnimation;
 import com.blackgear.vanillabackport.common.level.components.SwingAnimationType;
-import com.blackgear.vanillabackport.common.level.item.spear.SpearAnimations;
-import com.blackgear.vanillabackport.common.level.item.spear.SpearItem;
+import com.blackgear.vanillabackport.common.level.items.spear.SpearAnimations;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ArmedModel;
@@ -48,7 +48,7 @@ public abstract class ItemInHandLayerMixin<T extends LivingEntity, M extends Ent
         CallbackInfo ci
     ) {
         float partial = Minecraft.getInstance().getTimer().getGameTimeDeltaPartialTick(true);
-        if (entity.getAttackAnim(partial) > 0.0F && entity.getMainArm() == arm && SpearItem.getSwingAnimation(stack).type() == SwingAnimationType.STAB) {
+        if (entity.getAttackAnim(partial) > 0.0F && entity.getMainArm() == arm && SwingAnimation.get(stack).type() == SwingAnimationType.STAB) {
             SpearAnimations.thirdPersonAttackItem(entity, pose);
         }
 

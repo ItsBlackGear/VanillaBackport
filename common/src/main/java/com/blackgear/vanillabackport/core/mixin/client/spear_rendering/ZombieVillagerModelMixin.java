@@ -2,7 +2,6 @@ package com.blackgear.vanillabackport.core.mixin.client.spear_rendering;
 
 import com.blackgear.vanillabackport.common.level.components.SwingAnimation;
 import com.blackgear.vanillabackport.common.level.components.SwingAnimationType;
-import com.blackgear.vanillabackport.common.registries.items.ModDataComponents;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.client.model.AnimationUtils;
@@ -30,7 +29,7 @@ public abstract class ZombieVillagerModelMixin<T extends Zombie> {
         Operation<Void> original,
         T entity
     ) {
-        SwingAnimation animation = entity.getMainHandItem().get(ModDataComponents.SWING_ANIMATION.get());
+        SwingAnimation animation = SwingAnimation.get(entity.getMainHandItem());
         boolean animateAttack = animation != null && animation.type() == SwingAnimationType.STAB;
         if (!animateAttack) {
             original.call(leftArm, rightArm, isAggressive, attackTime, ageInTicks);

@@ -1,14 +1,16 @@
 package com.blackgear.vanillabackport.core.mixin.client.entity_rendering;
 
 import com.blackgear.vanillabackport.client.api.modules.mob_variants.CowVariantRenderer;
+import com.blackgear.vanillabackport.client.api.modules.mob_variants.LivingRendererAccess;
 import com.blackgear.vanillabackport.client.api.modules.mob_variants.RenderConditions;
 import com.blackgear.vanillabackport.client.api.modules.mob_variants.SpecialMobRenderer;
-import com.blackgear.vanillabackport.core.mixin.client.extension.MobRendererMixin;
+import com.blackgear.vanillabackport.core.compat.ClientCompat;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.CowModel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.CowRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.animal.Cow;
 import org.spongepowered.asm.mixin.Mixin;
@@ -19,7 +21,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(CowRenderer.class)
-public abstract class CowRendererMixin extends MobRendererMixin<Cow, CowModel<Cow>> {
+public abstract class CowRendererMixin extends MobRenderer<Cow, CowModel<Cow>> implements LivingRendererAccess<Cow, CowModel<Cow>> {
     @Unique private SpecialMobRenderer<Cow, CowModel<Cow>> renderer;
 
     public CowRendererMixin(EntityRendererProvider.Context context, CowModel<Cow> model, float shadowRadius) {
@@ -37,12 +39,15 @@ public abstract class CowRendererMixin extends MobRendererMixin<Cow, CowModel<Co
         cancellable = true
     )
     private void vb$getTextureLocation(Cow entity, CallbackInfoReturnable<ResourceLocation> cir) {
+        if (ClientCompat.hasQuarkCowTexture(entity)) return;
+        if (ClientCompat.getNMLActiveRemodel(entity)) return;
         this.renderer.getTexture(entity).ifPresent(cir::setReturnValue);
     }
 
     @Override
-    public void render(Cow entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource buffer, int packedLight) {
-        this.model = this.renderer.getModel(entity).orElseGet(() -> this.defaultModel);
-        super.render(entity, entityYaw, partialTicks, poseStack, buffer, packedLight);
+    public void onRender(Cow entity, float entityYaw, float partialTicks, PoseStack pose, MultiBufferSource buffer, int packedLight) {
+        if (ClientCompat.hasQuarkCowTexture(entity)) return;
+        if (ClientCompat.getNMLActiveRemodel(entity)) return;
+        this.model = this.renderer.getModel(entity).orElseGet(this::getDefaultModel);
     }
 }

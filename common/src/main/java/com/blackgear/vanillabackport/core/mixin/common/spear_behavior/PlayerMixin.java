@@ -55,15 +55,15 @@ public abstract class PlayerMixin extends LivingEntity implements PlayerSpearHan
     @Inject(method = "attack", at = @At("TAIL"))
     private void vb$onAttack(Entity target, CallbackInfo ci) {
         if (target.isAttackable()) {
-            this.onAttack();
+            this.vb$onAttack();
             if (!target.skipAttackInteraction(this)) {
-                this.postPiercingAttack();
+                this.vb$postPiercingAttack();
             }
         }
     }
 
     @Override
-    public boolean cannotAttackWithItem(ItemStack stack, int tolerance) {
+    public boolean vb$cannotAttackWithItem(ItemStack stack, int tolerance) {
         float requiredStrength = stack.getOrDefault(ModDataComponents.MINIMUM_ATTACK_CHARGE.get(), 0.0F);
         float optimisticStrength = (this.attackStrengthTicker + tolerance) / this.getCurrentItemAttackStrengthDelay();
         return requiredStrength > 0.0F && optimisticStrength < requiredStrength;
@@ -75,7 +75,7 @@ public abstract class PlayerMixin extends LivingEntity implements PlayerSpearHan
     }
     
     @Override
-    public float getItemSwapScale(float scale) {
+    public float vb$getItemSwapScale(float scale) {
         return Mth.clamp((this.itemSwapTicker + scale) / this.getCurrentItemAttackStrengthDelay(), 0.0F, 1.0F);
     }
 
@@ -85,13 +85,12 @@ public abstract class PlayerMixin extends LivingEntity implements PlayerSpearHan
     }
 
     @Override
-    public void onAttack() {
+    public void vb$onAttack() {
         this.attackStrengthTicker = 0;
-        MobSpearHandler.super.onAttack();
     }
 
     @Override
-    public boolean stabAttack(EquipmentSlot weaponSlot, Entity target, float baseDamage, boolean dealsDamage, boolean dealsKnockback, boolean dismounts) {
+    public boolean vb$stabAttack(EquipmentSlot weaponSlot, Entity target, float baseDamage, boolean dealsDamage, boolean dealsKnockback, boolean dismounts) {
         Player self = (Player) (Object) this;
         if (!target.isAttackable() || target.skipAttackInteraction(this)) {
             return false;
@@ -103,10 +102,10 @@ public abstract class PlayerMixin extends LivingEntity implements PlayerSpearHan
             
             if (!this.isUsingItem() || handSlot != weaponSlot) {
                 magicBoost *= this.getAttackStrengthScale(0.5F);
-                baseDamage *= this.baseDamageScaleFactor();
+                baseDamage *= this.vb$baseDamageScaleFactor();
             }
 
-            if (dealsKnockback && this.deflectProjectile(target)) {
+            if (dealsKnockback && this.vb$deflectProjectile(target)) {
                 return true;
             } else {
                 float totalDamage = dealsDamage ? baseDamage + magicBoost : 0.0F;
@@ -115,7 +114,7 @@ public abstract class PlayerMixin extends LivingEntity implements PlayerSpearHan
                 boolean wasHurt = dealsDamage && target.level() instanceof ServerLevel && target.hurt(damageSource, totalDamage);
                 
                 if (dealsKnockback) {
-                    this.causeExtraKnockback(target, 0.4F + this.getKnockback(target, damageSource), oldMovement);
+                    this.vb$causeExtraKnockback(target, 0.4F + this.getKnockback(target, damageSource), oldMovement);
                 }
 
                 boolean dismounted = false;
@@ -127,10 +126,10 @@ public abstract class PlayerMixin extends LivingEntity implements PlayerSpearHan
                 if (!wasHurt && !dealsKnockback && !dismounted) {
                     return false;
                 } else {
-                    this.attackVisualEffects(target, dealsDamage, magicBoost);
+                    this.vb$attackVisualEffects(target, dealsDamage, magicBoost);
                     this.setLastHurtMob(target);
-                    this.itemAttackInteraction(target, weaponItem, damageSource, wasHurt);
-                    this.damageStatsAndHearts(target, oldTargetHealth);
+                    this.vb$itemAttackInteraction(target, weaponItem, damageSource, wasHurt);
+                    this.vb$damageStatsAndHearts(target, oldTargetHealth);
                     this.causeFoodExhaustion(0.1F);
                     return true;
                 }
@@ -139,7 +138,7 @@ public abstract class PlayerMixin extends LivingEntity implements PlayerSpearHan
     }
 
     @Unique
-    private void attackVisualEffects(Entity target, boolean dealsDamage, float magicBoost) {
+    private void vb$attackVisualEffects(Entity target, boolean dealsDamage, float magicBoost) {
         this.level().playSound(null, this.getX(), this.getY(), this.getZ(), dealsDamage ? SoundEvents.PLAYER_ATTACK_STRONG : SoundEvents.PLAYER_ATTACK_WEAK, this.getSoundSource(), 1.0F, 1.0F);
 
         if (magicBoost > 0.0F) {
@@ -148,7 +147,7 @@ public abstract class PlayerMixin extends LivingEntity implements PlayerSpearHan
     }
 
     @Unique
-    private void damageStatsAndHearts(Entity target, float oldTargetHealth) {
+    private void vb$damageStatsAndHearts(Entity target, float oldTargetHealth) {
         if (target instanceof LivingEntity living) {
             float actualDamage = oldTargetHealth - living.getHealth();
             this.awardStat(Stats.DAMAGE_DEALT, Math.round(actualDamage * 10.0F));
@@ -160,7 +159,7 @@ public abstract class PlayerMixin extends LivingEntity implements PlayerSpearHan
     }
     
     @Override
-    public void causeExtraKnockback(Entity target, float knockback, Vec3 oldMovement) {
+    public void vb$causeExtraKnockback(Entity target, float knockback, Vec3 oldMovement) {
         if (knockback > 0.0F) {
             if (target instanceof LivingEntity living) {
                 living.knockback(knockback, Mth.sin(this.getYRot() * Mth.DEG_TO_RAD), -Mth.cos(this.getYRot() * Mth.DEG_TO_RAD));
@@ -180,7 +179,7 @@ public abstract class PlayerMixin extends LivingEntity implements PlayerSpearHan
     }
 
     @Unique
-    private void itemAttackInteraction(Entity target, ItemStack weapon, DamageSource damageSource, boolean wasHurt) {
+    private void vb$itemAttackInteraction(Entity target, ItemStack weapon, DamageSource damageSource, boolean wasHurt) {
         Player self = (Player)(Object) this;
         Entity hurtTarget = target;
         if (target instanceof EnderDragonPart part) {
@@ -214,7 +213,7 @@ public abstract class PlayerMixin extends LivingEntity implements PlayerSpearHan
     }
 
     @Unique
-    private boolean deflectProjectile(final Entity entity) {
+    private boolean vb$deflectProjectile(Entity entity) {
         if (entity.getType().is(EntityTypeTags.REDIRECTABLE_PROJECTILE)
             && entity instanceof Projectile projectile
             && projectile.deflect(ProjectileDeflection.AIM_DEFLECT, this, this, true)) {
@@ -226,7 +225,7 @@ public abstract class PlayerMixin extends LivingEntity implements PlayerSpearHan
     }
     
     @Unique
-    private float baseDamageScaleFactor() {
+    private float vb$baseDamageScaleFactor() {
         float attackStrengthScale = this.getAttackStrengthScale(0.5F);
         return 0.2F + attackStrengthScale * attackStrengthScale * 0.8F;
     }

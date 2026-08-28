@@ -7,6 +7,4 @@ import net.minecraft.world.level.ServerLevelAccessor;
 
 public interface MobBehaviorAccess {
     default void vb$finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficultyInstance, MobSpawnType reason, SpawnGroupData data) { /* NO-OP */ }
-    
-    default void vb$tick() { /* NO-OP */ }
 }

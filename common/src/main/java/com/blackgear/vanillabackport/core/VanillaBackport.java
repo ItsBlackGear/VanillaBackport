@@ -29,8 +29,7 @@ import com.blackgear.vanillabackport.common.registries.enchantment.ModEnchantmen
 import com.blackgear.vanillabackport.common.registries.items.ModItems;
 import com.blackgear.vanillabackport.common.registries.worldgen.*;
 import com.blackgear.vanillabackport.core.data.tags.*;
-import com.blackgear.vanillabackport.core.network.ClientboundNautilusScreenOpenPacket;
-import com.blackgear.vanillabackport.core.network.ServerboundSelectBundleItemPacket;
+import com.blackgear.vanillabackport.core.network.*;
 import com.mojang.logging.LogUtils;
 import net.minecraft.resources.ResourceLocation;
 import org.slf4j.Logger;
@@ -82,9 +81,7 @@ public final class VanillaBackport {
         ModParticles.REGISTRIES.register();
 
         ModBlocks.REGISTRIES.register();
-        ModBlocks.HOLDERS.register();
         ModItems.REGISTRIES.register();
-        ModItems.HOLDERS.register();
         ModBlockEntities.REGISTRIES.register();
         
         ModPoiTypes.REGISTRIES.register();
@@ -105,6 +102,7 @@ public final class VanillaBackport {
         ModTreeDecorators.REGISTRIES.register();
         
         ModEntityDataSerializers.SERIALIZERS.register();
+        ModSyncedEntityData.init();
         
         Networking.register(registrar -> {
             registrar.registerToServer(

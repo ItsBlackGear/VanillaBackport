@@ -32,6 +32,8 @@ public class CommonConfig {
     public final ConfigBuilder.ConfigValue<Boolean> hasCamelSpawns;
     public final ConfigBuilder.ConfigValue<Boolean> doMerchantTradeSpringToLifeContents;
     public final ConfigBuilder.ConfigValue<Boolean> hasLodestoneLoot;
+    public final ConfigBuilder.ConfigValue<Double> mobVariantSpawnChance;
+    public final ConfigBuilder.ConfigValue<Double> cactusFlowerSpawnChance;
 
     // Chase the Skies
     public final ConfigBuilder.ConfigValue<Boolean> hasDriedGhasts;
@@ -122,6 +124,10 @@ public class CommonConfig {
             .define("camel_spawns", true);
         this.hasLodestoneLoot = builder.comment("allow lodestones to appear on chests at ruined portals")
             .define("lodestone_loot", true);
+        this.mobVariantSpawnChance = builder.comment("determine the spawn chance for all mob variants, for specific weighting you should use datapacks instead")
+            .define("mob_variants_spawn_chance", 1.0);
+        this.cactusFlowerSpawnChance = builder.comment("determine the spawn chance for cactus flowers")
+            .define("cactus_flower_spawn_chance", 0.25);
         builder.pop();
 
         builder.push("Chase the Skies");

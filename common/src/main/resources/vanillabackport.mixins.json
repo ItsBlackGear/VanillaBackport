@@ -27,7 +27,7 @@
     "client.entity_rendering.PigRendererMixin",
     "client.entity_rendering.WolfRendererMixin",
     "client.extension.HumanoidArmPoseMixin",
-    "client.extension.MobRendererMixin",
+    "client.extension.LivingEntityRendererMixin",
     "client.falling_leaves.LeavesBlockMixin",
     "client.game_options.OptionsMixin",
     "client.game_options.SoundOptionsScreenMixin",
@@ -52,7 +52,8 @@
     "client.spear_rendering.PiglinModelMixin",
     "client.spear_rendering.PlayerRendererMixin",
     "client.spear_rendering.ZombieVillagerModelMixin",
-    "common.spear_behavior.LocalPlayerMixin"
+    "common.spear_behavior.LocalPlayerMixin",
+    "compat.backports.LayerDefinitionsMixin"
   ],
   "mixins": [
     "common.access.AbstractMinecartAccessor",
@@ -72,6 +73,7 @@
     "common.access.PlayerAccessor",
     "common.access.ProjectileAccessor",
     "common.access.RangedAttributeAccessor",
+    "common.access.ReferenceAccessor",
     "common.access.ServerPlayerAccessor",
     "common.access.TreeDecoratorTypeAccessor",
     "common.access.WolfAccessor",
@@ -100,6 +102,7 @@
     "common.entity_movement.AbstractMinecartMixin",
     "common.entity_movement.EntityMixin",
     "common.entity_movement.ServerPlayerMixin",
+    "common.extension.BlockBehaviourMixin",
     "common.extension.BlockMixin",
     "common.extension.entity.MobMixin",
     "common.extension.entity.ServerboundPlayerActionPacketMixin",

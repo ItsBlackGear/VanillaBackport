@@ -1,7 +1,6 @@
 package com.blackgear.vanillabackport.core.mixin.common.spear_behavior;
 
 import com.blackgear.vanillabackport.common.level.components.UseEffects;
-import com.blackgear.vanillabackport.common.registries.items.ModDataComponents;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -55,6 +54,6 @@ public abstract class LocalPlayerMixin extends AbstractClientPlayer {
 
     @Unique
     private boolean isSlowDueToUsingItem() {
-        return this.isUsingItem() && !this.useItem.getOrDefault(ModDataComponents.USE_EFFECTS.get(), UseEffects.DEFAULT).canSprint();
+        return this.isUsingItem() && !UseEffects.get(this.useItem).canSprint();
     }
 }

@@ -1,8 +1,9 @@
 package com.blackgear.vanillabackport.common.worldgen.features;
 
 import com.blackgear.platform.core.api.registrar.bootstrap.ConfiguredFeatureRegistrar;
-import com.blackgear.vanillabackport.common.level.block.LeafLitterBlock;
+import com.blackgear.vanillabackport.common.level.blocks.LeafLitterBlock;
 import com.blackgear.vanillabackport.common.level.worldgen.features.FallenTreeConfiguration;
+import com.blackgear.vanillabackport.common.level.worldgen.features.LeafLitterConfiguration;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
 import com.blackgear.vanillabackport.common.registries.worldgen.ModFeatures;
 import com.blackgear.vanillabackport.common.level.worldgen.tree_decorators.AttachedToLogsDecorator;
@@ -116,8 +117,14 @@ public class SpringToLifeFeatures {
                     )
                 )
             ));
-    public static final ResourceKey<ConfiguredFeature<?, ?>> LEAF_LITTER = REGISTRIES.register("leaf_litter",
-        ModFeatures.LEAF_LITTER.get());
+    
+    public static final ResourceKey<ConfiguredFeature<?, ?>> LEAF_LITTER_SPARSE = REGISTRIES.register("leaf_litter_sparse",
+        ModFeatures.LEAF_LITTER.get(),
+        (features, placements) -> new LeafLitterConfiguration(96, 4, 2, new WeightedStateProvider(leafLitterPatchBuilder(1, 3))));
+    public static final ResourceKey<ConfiguredFeature<?, ?>> LEAF_LITTER_THICK = REGISTRIES.register("leaf_litter_thick",
+        ModFeatures.LEAF_LITTER.get(),
+        (features, placements) -> new LeafLitterConfiguration(150, 2, 2, new WeightedStateProvider(leafLitterPatchBuilder(1, 4))));
+    
     public static final ResourceKey<ConfiguredFeature<?, ?>> CACTUS_FLOWER = REGISTRIES.register("cactus_flower",
         ModFeatures.CACTUS_FLOWER.get());
 

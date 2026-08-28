@@ -3,7 +3,7 @@ package com.blackgear.vanillabackport.client.level.renderer.entity.mob;
 import com.blackgear.vanillabackport.client.level.layer.LivingEntityEmissiveLayer;
 import com.blackgear.vanillabackport.client.level.model.entity.CreakingModel;
 import com.blackgear.vanillabackport.client.registries.ModModelLayers;
-import com.blackgear.vanillabackport.common.level.entity.mob.monster.creaking.Creaking;
+import com.blackgear.vanillabackport.common.level.entities.mob.monster.creaking.Creaking;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.renderer.RenderType;

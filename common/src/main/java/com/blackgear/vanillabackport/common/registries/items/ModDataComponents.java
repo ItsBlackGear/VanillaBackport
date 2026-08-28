@@ -3,7 +3,7 @@ package com.blackgear.vanillabackport.common.registries.items;
 import com.blackgear.platform.core.CoreRegistry;
 import com.blackgear.platform.core.api.RegistryKey;
 import com.blackgear.vanillabackport.common.level.components.*;
-import com.blackgear.vanillabackport.common.level.entity.mob.animal.chicken.ChickenVariant;
+import com.blackgear.vanillabackport.common.level.entities.mob.animal.chicken.ChickenVariant;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.blackgear.vanillabackport.core.util.AdditionalCodecs;
 import net.minecraft.core.component.DataComponentType;

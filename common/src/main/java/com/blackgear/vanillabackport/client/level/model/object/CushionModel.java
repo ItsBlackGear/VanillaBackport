@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.client.level.model.object;
 
-import com.blackgear.vanillabackport.common.level.entity.decoration.Cushion;
+import com.blackgear.vanillabackport.common.level.entities.decoration.Cushion;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.fabricmc.api.EnvType;

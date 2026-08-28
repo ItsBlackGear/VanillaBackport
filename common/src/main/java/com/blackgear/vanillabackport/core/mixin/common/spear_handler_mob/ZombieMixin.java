@@ -1,6 +1,7 @@
 package com.blackgear.vanillabackport.core.mixin.common.spear_handler_mob;
 
 import com.blackgear.vanillabackport.common.registries.items.ModItems;
+import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
@@ -34,7 +35,7 @@ public class ZombieMixin extends Monster {
     
     @Inject(method = "populateDefaultEquipmentSlots", at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/util/RandomSource;nextInt(I)I"))
     private void vb$setSpearEquipment(RandomSource random, DifficultyInstance difficulty, CallbackInfo ci, @Local(ordinal = 0) int chance) {
-        if (chance == 1) {
+        if (VanillaBackport.COMMON_CONFIG.canMobsSpawnWithSpears.get() && chance == 1) {
             this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(ModItems.IRON_SPEAR.get()));
         }
     }

@@ -3,9 +3,8 @@ package com.blackgear.vanillabackport.core.mixin.common.spear_behavior;
 import com.blackgear.vanillabackport.common.api.extensions.entity.spear.MobSpearHandler;
 import com.blackgear.vanillabackport.common.level.components.AttackRange;
 import com.blackgear.vanillabackport.common.level.components.KineticWeapon;
-import com.blackgear.vanillabackport.common.level.item.spear.SpearItem;
+import com.blackgear.vanillabackport.common.level.components.SwingAnimation;
 import com.blackgear.vanillabackport.common.registries.enchantment.EnchantmentUtils;
-import com.blackgear.vanillabackport.common.registries.items.ModDataComponents;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import it.unimi.dsi.fastutil.objects.Object2LongMap;
 import it.unimi.dsi.fastutil.objects.Object2LongOpenHashMap;
@@ -54,8 +53,8 @@ public abstract class LivingEntityMixin extends Entity implements MobSpearHandle
     }
     
     @Override
-    public AttackRange getAttackRangeWith(ItemStack weapon) {
-        AttackRange attackRange = weapon.get(ModDataComponents.ATTACK_RANGE.get());
+    public AttackRange vb$getAttackRangeWith(ItemStack weapon) {
+        AttackRange attackRange = AttackRange.get(weapon);
         return attackRange != null ? attackRange : AttackRange.defaultFor((LivingEntity)(Object)this);
     }
     
@@ -68,7 +67,7 @@ public abstract class LivingEntityMixin extends Entity implements MobSpearHandle
         )
     )
     private void vb$startUsingItem(InteractionHand hand, CallbackInfo ci) {
-        if (this.useItem.has(ModDataComponents.KINETIC_WEAPON.get())) {
+        if (KineticWeapon.get(this.useItem) != null) {
             this.recentKineticEnemies = new Object2LongOpenHashMap<>();
         }
     }
@@ -92,11 +91,11 @@ public abstract class LivingEntityMixin extends Entity implements MobSpearHandle
     private int vb$getCurrentSwingDuration(int original) {
         InteractionHand hand = this.swingingArm != null ? this.swingingArm : InteractionHand.MAIN_HAND;
         ItemStack heldItem = this.getItemInHand(hand);
-        return SpearItem.getSwingAnimation(heldItem).duration();
+        return SwingAnimation.get(heldItem).duration();
     }
     
     @Override
-    public boolean wasRecentlyStabbed(Entity target, int allowedTime) {
+    public boolean vb$wasRecentlyStabbed(Entity target, int allowedTime) {
         if (this.recentKineticEnemies == null) {
             return false;
         } else if (this.recentKineticEnemies.containsKey(target)) {
@@ -107,18 +106,18 @@ public abstract class LivingEntityMixin extends Entity implements MobSpearHandle
     }
     
     @Override
-    public void rememberStabbedEntity(Entity target) {
+    public void vb$rememberStabbedEntity(Entity target) {
         if (this.recentKineticEnemies != null)
             this.recentKineticEnemies.put(target, this.level().getGameTime());
     }
     
     @Override
-    public int stabbedEntities(Predicate<Entity> filter) {
+    public int vb$stabbedEntities(Predicate<Entity> filter) {
         return this.recentKineticEnemies == null ? 0 : (int) this.recentKineticEnemies.keySet().stream().filter(filter).count();
     }
     
     @Override
-    public boolean stabAttack(EquipmentSlot weaponSlot, Entity target, float baseDamage, boolean dealsDamage, boolean dealsKnockback, boolean dismounts) {
+    public boolean vb$stabAttack(EquipmentSlot weaponSlot, Entity target, float baseDamage, boolean dealsDamage, boolean dealsKnockback, boolean dismounts) {
         LivingEntity self = (LivingEntity)(Object)this;
         
         if (!(this.level() instanceof ServerLevel server)) return false;
@@ -131,8 +130,8 @@ public abstract class LivingEntityMixin extends Entity implements MobSpearHandle
         boolean affected = dealsKnockback | dealtDamage;
         
         if (dealsKnockback) {
-            this.causeExtraKnockback(target, 0.4F, oldMovement);
-            this.causeExtraKnockback(target, this.getKnockback(target, damageSource), oldMovement);
+            this.vb$causeExtraKnockback(target, 0.4F, oldMovement);
+            this.vb$causeExtraKnockback(target, this.getKnockback(target, damageSource), oldMovement);
         }
         
         if (dismounts && target.isPassenger()) {
@@ -157,7 +156,7 @@ public abstract class LivingEntityMixin extends Entity implements MobSpearHandle
     }
     
     @Override
-    public void causeExtraKnockback(Entity target, float knockback, Vec3 oldMovement) {
+    public void vb$causeExtraKnockback(Entity target, float knockback, Vec3 oldMovement) {
         if (knockback > 0.0F && target instanceof LivingEntity living) {
             living.knockback(knockback, Mth.sin(this.getYRot() * Mth.DEG_TO_RAD), -Mth.cos(this.getYRot() * Mth.DEG_TO_RAD));
             this.setDeltaMovement(this.getDeltaMovement().multiply(0.6, 1.0, 0.6));
@@ -165,7 +164,7 @@ public abstract class LivingEntityMixin extends Entity implements MobSpearHandle
     }
     
     @Override
-    public void postPiercingAttack() {
+    public void vb$postPiercingAttack() {
         if (this.level() instanceof ServerLevel level) {
             EnchantmentUtils.doPostPiercingAttackEffects(level, (LivingEntity)(Object)this);
         }
@@ -177,12 +176,12 @@ public abstract class LivingEntityMixin extends Entity implements MobSpearHandle
     }
     
     @Override
-    public float getTicksUsingItem(float partial) {
+    public float vb$getTicksUsingItem(float partial) {
         return !this.isUsingItem() ? 0.0F : this.getTicksUsingItem() + partial;
     }
     
     @Override
-    public float getTicksSinceLastKineticHitFeedback(float partial) {
+    public float vb$getTicksSinceLastKineticHitFeedback(float partial) {
         return this.lastKineticHitFeedbackTime < 0L
             ? 0.0F
             : (float) (this.level().getGameTime() - this.lastKineticHitFeedbackTime) + partial;
@@ -192,7 +191,7 @@ public abstract class LivingEntityMixin extends Entity implements MobSpearHandle
     private void onKineticHit() {
         if (this.level().getGameTime() - this.lastKineticHitFeedbackTime > 10L) {
             this.lastKineticHitFeedbackTime = this.level().getGameTime();
-            KineticWeapon kineticWeapon = this.useItem.get(ModDataComponents.KINETIC_WEAPON.get());
+            KineticWeapon kineticWeapon = KineticWeapon.get(this.useItem);
             if (kineticWeapon != null) {
                 kineticWeapon.makeLocalHitSound(this);
             }

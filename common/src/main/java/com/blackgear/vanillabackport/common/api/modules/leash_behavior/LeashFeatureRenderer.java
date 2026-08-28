@@ -90,16 +90,6 @@ public class LeashFeatureRenderer<T extends Entity> {
             addVertexPair(builder, matrices, dx, dy, dz, LEASH_WIDTH, dxOff, dzOff, segment, true, state);
         }
 
-        if (!state.slack) {
-            for (int segment = 0; segment <= 24; segment++) {
-                addVertexPair(builder, matrices, dx, dy, dz, LEASH_WIDTH, -dxOff, dzOff, segment, false, state);
-            }
-
-            for (int segment = 24; segment >= 0; segment--) {
-                addVertexPair(builder, matrices, dx, dy, dz, LEASH_WIDTH, -dxOff, dzOff, segment, true, state);
-            }
-        }
-
         stack.popPose();
     }
 

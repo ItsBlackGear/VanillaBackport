@@ -1,9 +1,9 @@
 package com.blackgear.vanillabackport.common.registries.enchantment;
 
 import com.blackgear.platform.core.CoreRegistry;
-import com.blackgear.vanillabackport.common.level.item.enchantment.effects.ApplyEntityImpulse;
-import com.blackgear.vanillabackport.common.level.item.enchantment.effects.ApplyExhaustion;
-import com.blackgear.vanillabackport.common.level.item.enchantment.effects.PlaySoundEffect;
+import com.blackgear.vanillabackport.common.level.items.enchantment.effects.ApplyEntityImpulse;
+import com.blackgear.vanillabackport.common.level.items.enchantment.effects.ApplyExhaustion;
+import com.blackgear.vanillabackport.common.level.items.enchantment.effects.PlaySoundEffect;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.mojang.serialization.MapCodec;
 import net.minecraft.core.registries.Registries;

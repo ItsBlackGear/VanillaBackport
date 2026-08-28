@@ -5,9 +5,9 @@ import com.blackgear.vanillabackport.client.api.modules.mob_variants.ZombieNauti
 import com.blackgear.vanillabackport.client.level.layer.SimpleEquipmentLayer;
 import com.blackgear.vanillabackport.client.level.model.entity.nautilus.NautilusModel;
 import com.blackgear.vanillabackport.client.registries.ModModelLayers;
-import com.blackgear.vanillabackport.common.level.entity.mob.animal.nautilus.AbstractNautilus;
-import com.blackgear.vanillabackport.common.level.entity.mob.animal.nautilus.ZombieNautilus;
-import com.blackgear.vanillabackport.common.level.item.NautilusArmorItem;
+import com.blackgear.vanillabackport.common.level.entities.mob.animal.nautilus.AbstractNautilus;
+import com.blackgear.vanillabackport.common.level.entities.mob.animal.nautilus.ZombieNautilus;
+import com.blackgear.vanillabackport.common.level.items.NautilusArmorItem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

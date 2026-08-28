@@ -2,6 +2,7 @@ package com.blackgear.vanillabackport.common.level.components;
 
 import com.blackgear.vanillabackport.common.api.extensions.SoundExtensions;
 import com.blackgear.vanillabackport.common.api.extensions.entity.spear.MobSpearHandler;
+import com.blackgear.vanillabackport.common.registries.items.ModDataComponents;
 import com.blackgear.vanillabackport.core.util.ProjectileUtils;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -70,21 +71,42 @@ public record PiercingWeapon(
         MobSpearHandler handler = (MobSpearHandler) attacker;
         float damage = (float) attacker.getAttributeValue(Attributes.ATTACK_DAMAGE);
         ItemStack weapon = attacker.getItemBySlot(hand);
-        AttackRange attackRange = handler.getAttackRangeWith(weapon);
+        AttackRange attackRange = handler.vb$getAttackRangeWith(weapon);
         boolean hitSomething = false;
 
         Collection<EntityHitResult> hitResults = ProjectileUtils.getHitEntitiesAlong(attacker, attackRange, target -> canHitEntity(attacker, target), ClipContext.Block.COLLIDER).map(a -> List.of(), e -> e);
         for (EntityHitResult hitResult : hitResults) {
-            hitSomething |= handler.stabAttack(hand, hitResult.getEntity(), damage, true, this.dealsKnockback, this.dismounts);
+            hitSomething |= handler.vb$stabAttack(hand, hitResult.getEntity(), damage, true, this.dealsKnockback, this.dismounts);
         }
 
-        handler.onAttack();
-        handler.postPiercingAttack();
+        handler.vb$onAttack();
+        handler.vb$postPiercingAttack();
         if (hitSomething) {
             this.makeHitSound(attacker);
         }
 
         this.makeSound(attacker);
         attacker.swing(InteractionHand.MAIN_HAND, false);
+    }
+    
+    @SuppressWarnings("unchecked")
+    public static PiercingWeapon get(ItemStack stack) {
+        Object component = stack.get(ModDataComponents.PIERCING_WEAPON.get());
+        
+        if (component == null) return null;
+        if (component instanceof PiercingWeapon weapon) return weapon;
+        
+        try {
+            Class<?> clazz = component.getClass();
+            
+            boolean dealsKnockback = (boolean) clazz.getMethod("dealsKnockback").invoke(component);
+            boolean dismounts = (boolean) clazz.getMethod("dismounts").invoke(component);
+            Optional<Holder<SoundEvent>> sound = (Optional<Holder<SoundEvent>>) clazz.getMethod("sound").invoke(component);
+            Optional<Holder<SoundEvent>> hitSound = (Optional<Holder<SoundEvent>>) clazz.getMethod("hitSound").invoke(component);
+            
+            return new PiercingWeapon(dealsKnockback, dismounts, sound, hitSound);
+        } catch (Exception e) {
+            return null;
+        }
     }
 }

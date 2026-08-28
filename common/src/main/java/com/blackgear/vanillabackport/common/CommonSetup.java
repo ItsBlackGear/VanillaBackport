@@ -16,22 +16,22 @@ import com.blackgear.vanillabackport.common.integrations.TradeIntegrations;
 import com.blackgear.vanillabackport.common.integrations.worldgen.BiomeGeneration;
 import com.blackgear.vanillabackport.common.api.modules.sound_variant.WolfSoundVariant;
 import com.blackgear.vanillabackport.common.api.modules.sound_variant.WolfSoundVariants;
-import com.blackgear.vanillabackport.common.level.entity.mob.animal.cat.CatDataVariant;
-import com.blackgear.vanillabackport.common.level.entity.mob.animal.cat.CatDataVariants;
-import com.blackgear.vanillabackport.common.level.entity.mob.animal.chicken.ChickenVariant;
-import com.blackgear.vanillabackport.common.level.entity.mob.animal.chicken.ChickenVariants;
-import com.blackgear.vanillabackport.common.level.entity.mob.animal.cow.CowVariant;
-import com.blackgear.vanillabackport.common.level.entity.mob.animal.cow.CowVariants;
-import com.blackgear.vanillabackport.common.level.entity.mob.animal.frog.FrogDataVariant;
-import com.blackgear.vanillabackport.common.level.entity.mob.animal.frog.FrogDataVariants;
-import com.blackgear.vanillabackport.common.level.entity.mob.animal.nautilus.ZombieNautilusVariant;
-import com.blackgear.vanillabackport.common.level.entity.mob.animal.nautilus.ZombieNautilusVariants;
-import com.blackgear.vanillabackport.common.level.entity.mob.animal.pig.PigVariant;
-import com.blackgear.vanillabackport.common.level.entity.mob.animal.pig.PigVariants;
-import com.blackgear.vanillabackport.common.level.entity.mob.animal.wolf.WolfDataVariant;
-import com.blackgear.vanillabackport.common.level.entity.mob.animal.wolf.WolfDataVariants;
-import com.blackgear.vanillabackport.common.level.entity.mob.monster.sulfur_cube.SulfurCubeArchetype;
-import com.blackgear.vanillabackport.common.level.entity.mob.monster.sulfur_cube.SulfurCubeArchetypes;
+import com.blackgear.vanillabackport.common.level.entities.mob.animal.cat.CatDataVariant;
+import com.blackgear.vanillabackport.common.level.entities.mob.animal.cat.CatDataVariants;
+import com.blackgear.vanillabackport.common.level.entities.mob.animal.chicken.ChickenVariant;
+import com.blackgear.vanillabackport.common.level.entities.mob.animal.chicken.ChickenVariants;
+import com.blackgear.vanillabackport.common.level.entities.mob.animal.cow.CowVariant;
+import com.blackgear.vanillabackport.common.level.entities.mob.animal.cow.CowVariants;
+import com.blackgear.vanillabackport.common.level.entities.mob.animal.frog.FrogDataVariant;
+import com.blackgear.vanillabackport.common.level.entities.mob.animal.frog.FrogDataVariants;
+import com.blackgear.vanillabackport.common.level.entities.mob.animal.nautilus.ZombieNautilusVariant;
+import com.blackgear.vanillabackport.common.level.entities.mob.animal.nautilus.ZombieNautilusVariants;
+import com.blackgear.vanillabackport.common.level.entities.mob.animal.pig.PigVariant;
+import com.blackgear.vanillabackport.common.level.entities.mob.animal.pig.PigVariants;
+import com.blackgear.vanillabackport.common.level.entities.mob.animal.wolf.WolfDataVariant;
+import com.blackgear.vanillabackport.common.level.entities.mob.animal.wolf.WolfDataVariants;
+import com.blackgear.vanillabackport.common.level.entities.mob.monster.sulfur_cube.SulfurCubeArchetype;
+import com.blackgear.vanillabackport.common.level.entities.mob.monster.sulfur_cube.SulfurCubeArchetypes;
 import com.blackgear.vanillabackport.common.registries.entities.ModEntityTypes;
 import com.blackgear.vanillabackport.common.integrations.worldgen.WorldGeneration;
 import com.blackgear.vanillabackport.core.VanillaBackport;
@@ -47,10 +47,10 @@ public class CommonSetup {
             event.register(VanillaBackport.resource("wolf_variants"), WolfDataVariants.REGISTRIES, WolfDataVariant.CODEC);
             event.register(VanillaBackport.resource("frog_variants"), FrogDataVariants.REGISTRIES, FrogDataVariant.CODEC);
             event.register(VanillaBackport.resource("cat_variants"), CatDataVariants.REGISTRIES, CatDataVariant.CODEC);
-            event.register(VanillaBackport.resource("sulfur_cube_archetype"), SulfurCubeArchetypes.REGISTRIES, SulfurCubeArchetype.CODEC);
             event.register(VanillaBackport.resource("zombie_nautilus_variant"), ZombieNautilusVariants.REGISTRIES, ZombieNautilusVariant.CODEC);
+            event.register(VanillaBackport.resource("sulfur_cube_archetype"), SulfurCubeArchetypes.REGISTRIES, SulfurCubeArchetype.CODEC);
         });
-
+        
         MobIntegration.registerIntegrations(MobIntegrations::bootstrap);
     }
 

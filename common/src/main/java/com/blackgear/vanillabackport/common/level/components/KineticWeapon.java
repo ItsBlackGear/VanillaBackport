@@ -4,6 +4,7 @@ import com.blackgear.vanillabackport.common.api.extensions.SoundExtensions;
 import com.blackgear.vanillabackport.common.api.extensions.entity.movement.MotionAwareEntity;
 import com.blackgear.vanillabackport.common.api.extensions.entity.spear.MobSpearHandler;
 import com.blackgear.vanillabackport.common.registries.ModCriteriaTriggers;
+import com.blackgear.vanillabackport.common.registries.items.ModDataComponents;
 import com.blackgear.vanillabackport.core.util.AdditionalCodecs;
 import com.blackgear.vanillabackport.core.util.ProjectileUtils;
 import com.mojang.serialization.Codec;
@@ -96,7 +97,7 @@ public record KineticWeapon(
             Vec3 attackerLookVector = attacker.getLookAngle();
             double attackerSpeedProjection = attackerLookVector.dot(getMotion(attacker));
             float actionFactor = attacker instanceof Player ? 1.0F : 0.2F;
-            AttackRange attackRange = handler.getAttackRangeWith(stack);
+            AttackRange attackRange = handler.vb$getAttackRangeWith(stack);
             double baseMobDamage = attacker.getAttributeBaseValue(Attributes.ATTACK_DAMAGE);
             boolean affected = false;
 
@@ -107,9 +108,9 @@ public record KineticWeapon(
                     otherEntity = part.parentMob;
                 }
 
-                boolean wasStabbed = handler.wasRecentlyStabbed(otherEntity, this.contactCooldownTicks);
+                boolean wasStabbed = handler.vb$wasRecentlyStabbed(otherEntity, this.contactCooldownTicks);
                 if (!wasStabbed) {
-                    handler.rememberStabbedEntity(otherEntity);
+                    handler.vb$rememberStabbedEntity(otherEntity);
                     double targetSpeedProjection = attackerLookVector.dot(getMotion(otherEntity));
                     double relativeSpeed = Math.max(0.0, attackerSpeedProjection - targetSpeedProjection);
                     boolean dealsDismount = this.dismountConditions.isPresent() && this.dismountConditions.get().test(ticksUsed, attackerSpeedProjection, relativeSpeed, actionFactor);
@@ -117,7 +118,7 @@ public record KineticWeapon(
                     boolean dealsDamage = this.damageConditions.isPresent() && this.damageConditions.get().test(ticksUsed, attackerSpeedProjection, relativeSpeed, actionFactor);
                     if (dealsDismount || dealsKnockback || dealsDamage) {
                         float damageDealt = (float) baseMobDamage + Mth.floor(relativeSpeed * this.damageMultiplier);
-                        affected |= handler.stabAttack(equipmentSlot, otherEntity, damageDealt, dealsDamage, dealsKnockback, dealsDismount);
+                        affected |= handler.vb$stabAttack(equipmentSlot, otherEntity, damageDealt, dealsDamage, dealsKnockback, dealsDismount);
                     }
                 }
             }
@@ -125,12 +126,73 @@ public record KineticWeapon(
             if (affected) {
                 attacker.level().broadcastEntityEvent(attacker, (byte) 2);
                 if (attacker instanceof ServerPlayer player) {
-                    ModCriteriaTriggers.SPEAR_MOBS_TRIGGER.get().trigger(player, handler.stabbedEntities(entity -> entity instanceof LivingEntity));
+                    ModCriteriaTriggers.SPEAR_MOBS_TRIGGER.get().trigger(player, handler.vb$stabbedEntities(entity -> entity instanceof LivingEntity));
                 }
             }
         }
     }
-
+    
+    @SuppressWarnings("unchecked")
+    public static KineticWeapon get(ItemStack stack) {
+        Object component = stack.get(ModDataComponents.KINETIC_WEAPON.get());
+        
+        if (component == null) return null;
+        if (component instanceof KineticWeapon weapon) return weapon;
+        
+        try {
+            Class<?> clazz = component.getClass();
+            
+            int contactCooldownTicks = (int) clazz.getMethod("contactCooldownTicks").invoke(component);
+            int delayTicks = (int) clazz.getMethod("delayTicks").invoke(component);
+            
+            Optional<Condition> dismountConditions = convertConditionOpt(clazz.getMethod("dismountConditions").invoke(component));
+            Optional<Condition> knockbackConditions = convertConditionOpt(clazz.getMethod("knockbackConditions").invoke(component));
+            Optional<Condition> damageConditions = convertConditionOpt(clazz.getMethod("damageConditions").invoke(component));
+            
+            float forwardMovement = (float) clazz.getMethod("forwardMovement").invoke(component);
+            float damageMultiplier = (float) clazz.getMethod("damageMultiplier").invoke(component);
+            
+            Optional<Holder<SoundEvent>> sound = (Optional<Holder<SoundEvent>>) clazz.getMethod("sound").invoke(component);
+            Optional<Holder<SoundEvent>> hitSound = (Optional<Holder<SoundEvent>>) clazz.getMethod("hitSound").invoke(component);
+            
+            return new KineticWeapon(
+                contactCooldownTicks,
+                delayTicks,
+                dismountConditions,
+                knockbackConditions,
+                damageConditions,
+                forwardMovement,
+                damageMultiplier,
+                sound,
+                hitSound
+            );
+        } catch (Exception e) {
+            return null;
+        }
+    }
+    
+    private static Optional<Condition> convertConditionOpt(Object optRaw) {
+        if (!(optRaw instanceof Optional<?> opt) || opt.isEmpty()) {
+            return Optional.empty();
+        }
+        
+        Object rawCond = opt.get();
+        if (rawCond instanceof Condition cond) {
+            return Optional.of(cond);
+        }
+        
+        try {
+            Class<?> condClass = rawCond.getClass();
+            int maxDurationTicks = (int) condClass.getMethod("maxDurationTicks").invoke(rawCond);
+            float minSpeed = (float) condClass.getMethod("minSpeed").invoke(rawCond);
+            float minRelativeSpeed = (float) condClass.getMethod("minRelativeSpeed").invoke(rawCond);
+            
+            return Optional.of(new Condition(maxDurationTicks, minSpeed, minRelativeSpeed));
+        } catch (Exception e) {
+            return Optional.empty();
+        }
+    }
+    
     public record Condition(
         int maxDurationTicks,
         float minSpeed,

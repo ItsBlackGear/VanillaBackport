@@ -172,6 +172,9 @@ public class BlockTagGenerator extends FabricTagProvider.BlockTagProvider {
         this.getOrCreateTagBuilder(ModBlockTags.SUPPORTS_CACTUS)
             .forceAddTag(BlockTags.SAND);
 
+        this.getOrCreateTagBuilder(ModBlockTags.SUPPORT_OVERRIDE_CACTUS_FLOWER)
+            .add(Blocks.CACTUS, Blocks.FARMLAND);
+
         this.getOrCreateTagBuilder(ModBlockTags.CREAKING_HEART_HOLDERS)
             .forceAddTag(ModBlockTags.PALE_OAK_LOGS);
 

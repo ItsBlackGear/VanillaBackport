@@ -4,7 +4,6 @@ import com.blackgear.platform.core.BuiltInCoreRegistry;
 import com.blackgear.platform.core.api.RegistryKey;
 import com.blackgear.vanillabackport.common.api.modules.mob_variant.VariantDataHolder;
 import com.blackgear.vanillabackport.common.api.modules.mob_variant.VariantUtils;
-import com.blackgear.vanillabackport.core.ModChecker;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.EntityModel;
@@ -26,7 +25,7 @@ public abstract class AbstractVariantRenderer<T extends LivingEntity, M extends 
     protected abstract Map<E, M> bakeModels(EntityRendererProvider.Context context);
 
     protected Optional<V> getVariant(T entity) {
-        return VariantDataHolder.<V>getHolder(entity).getVariantData();
+        return VariantDataHolder.<V>getHolder(entity).flatMap(VariantDataHolder::getVariantData);
     }
 
     protected abstract E getModelType(V variant);
@@ -49,8 +48,6 @@ public abstract class AbstractVariantRenderer<T extends LivingEntity, M extends 
 
     @Override
     public Optional<M> getModel(T entity) {
-        if (ModChecker.MIXED_LITTER) return Optional.empty();
-
         Optional<V> variant = this.getVariant(entity);
         if (variant.isEmpty()) return Optional.empty();
 

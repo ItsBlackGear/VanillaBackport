@@ -10,6 +10,7 @@ import com.blackgear.platform.core.events.ResourcePackManager;
 import com.blackgear.platform.core.events.ResourceReloadManager;
 import com.blackgear.vanillabackport.client.api.modules.bundle_ui.BundleMouseActions;
 import com.blackgear.vanillabackport.client.api.bundled_tabs.BundledTabSelector;
+import com.blackgear.vanillabackport.client.api.modules.leaf_litter.DryLeafColorReloadListener;
 import com.blackgear.vanillabackport.client.integrations.*;
 import com.blackgear.vanillabackport.client.integrations.rendering.ColorRendering;
 import com.blackgear.vanillabackport.client.integrations.rendering.EntityRendering;
@@ -29,6 +30,7 @@ public class ClientSetup {
         ResourceReloadManager.registerClient(event -> {
             event.register(ResourceLocation.withDefaultNamespace("dry_foliage"), DryFoliageColorReloadListener.INSTANCE);
             event.register(ResourceLocation.withDefaultNamespace("leaf_colors"), LeafColorReloadListener.INSTANCE);
+            event.register(ResourceLocation.withDefaultNamespace("dry_foliage_colors"), DryLeafColorReloadListener.INSTANCE);
         });
 
         GameRendering.registerParticleFactories(ParticleRendering::factories);
@@ -36,7 +38,7 @@ public class ClientSetup {
         GameRendering.registerEntityRenderers(EntityRendering::renderers);
         GameRendering.registerBlockColors(ColorRendering::blockColors);
         GameRendering.registerItemColors(ColorRendering::itemColors);
-        GameRendering.registerSpecialModels(ItemLikeRendering::specialRendering);
+        GameRendering.registerItemLikeRenderers(ItemLikeRendering::itemLikeRendering);
         GameRendering.registerBlockEntityRenderers(ItemLikeRendering::blockEntityRendering);
     }
 
