@@ -5,7 +5,7 @@ import com.blackgear.vanillabackport.common.integrations.dispenser.ArmadilloBrus
 import com.blackgear.vanillabackport.common.integrations.dispenser.BoatDispenseBehavior;
 import com.blackgear.vanillabackport.common.integrations.dispenser.EggVariantProjectileDispenseBehavior;
 import com.blackgear.vanillabackport.common.integrations.dispenser.SulfurCubeBucketDispenseBehavior;
-import com.blackgear.vanillabackport.common.level.entity.mob.animal.chicken.ChickenVariants;
+import com.blackgear.vanillabackport.common.level.entities.mob.animal.chicken.ChickenVariants;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
 import com.blackgear.vanillabackport.common.registries.items.ModItems;
 import com.blackgear.vanillabackport.core.data.tags.ModItemTags;

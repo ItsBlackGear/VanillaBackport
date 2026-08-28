@@ -1,7 +1,7 @@
 package com.blackgear.vanillabackport.common.registries.items;
 
 import com.blackgear.platform.core.CoreRegistry;
-import com.blackgear.vanillabackport.common.level.item.enchantment.LungeEnchantment;
+import com.blackgear.vanillabackport.common.level.items.enchantment.LungeEnchantment;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.EquipmentSlot;

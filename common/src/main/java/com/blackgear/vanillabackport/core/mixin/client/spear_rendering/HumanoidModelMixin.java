@@ -1,9 +1,9 @@
 package com.blackgear.vanillabackport.core.mixin.client.spear_rendering;
 
 import com.blackgear.vanillabackport.common.api.extensions.entity.arms.ArmPoses;
-import com.blackgear.vanillabackport.common.level.item.spear.SpearAnimations;
-import com.blackgear.vanillabackport.common.level.item.spear.SwingAnimation;
-import com.blackgear.vanillabackport.common.level.item.spear.SwingAnimationType;
+import com.blackgear.vanillabackport.common.level.items.spear.SpearAnimations;
+import com.blackgear.vanillabackport.common.level.items.spear.SwingAnimation;
+import com.blackgear.vanillabackport.common.level.items.spear.SwingAnimationType;
 import com.blackgear.vanillabackport.core.data.tags.ModItemTags;
 import net.minecraft.client.model.AgeableListModel;
 import net.minecraft.client.model.HumanoidModel;

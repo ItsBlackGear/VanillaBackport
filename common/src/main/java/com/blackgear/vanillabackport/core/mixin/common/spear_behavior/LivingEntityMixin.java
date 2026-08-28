@@ -1,10 +1,10 @@
 package com.blackgear.vanillabackport.core.mixin.common.spear_behavior;
 
 import com.blackgear.vanillabackport.common.api.extensions.entity.spear.MobSpearHandler;
-import com.blackgear.vanillabackport.common.level.item.enchantment.EnchantmentUtils;
-import com.blackgear.vanillabackport.common.level.item.spear.AttackRange;
-import com.blackgear.vanillabackport.common.level.item.spear.KineticWeapon;
-import com.blackgear.vanillabackport.common.level.item.spear.SwingAnimation;
+import com.blackgear.vanillabackport.common.level.items.enchantment.EnchantmentUtils;
+import com.blackgear.vanillabackport.common.level.items.spear.AttackRange;
+import com.blackgear.vanillabackport.common.level.items.spear.KineticWeapon;
+import com.blackgear.vanillabackport.common.level.items.spear.SwingAnimation;
 import com.blackgear.vanillabackport.core.util.WorldUtilities.EntityUtils;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import it.unimi.dsi.fastutil.objects.Object2LongMap;
@@ -50,8 +50,8 @@ public abstract class LivingEntityMixin extends Entity implements MobSpearHandle
     }
     
     @Override
-    public AttackRange getAttackRangeWith(ItemStack weapon) {
-        AttackRange range = AttackRange.getAttackRange(weapon);
+    public AttackRange vb$getAttackRangeWith(ItemStack weapon) {
+        AttackRange range = AttackRange.get(weapon);
         return range != null ? range : AttackRange.defaultFor((LivingEntity) (Object) this);
     }
     
@@ -91,7 +91,7 @@ public abstract class LivingEntityMixin extends Entity implements MobSpearHandle
     }
     
     @Override
-    public boolean wasRecentlyStabbed(Entity target, int allowedTime) {
+    public boolean vb$wasRecentlyStabbed(Entity target, int allowedTime) {
         if (this.recentKineticEnemies == null) {
             return false;
         } else if (this.recentKineticEnemies.containsKey(target)) {
@@ -102,18 +102,18 @@ public abstract class LivingEntityMixin extends Entity implements MobSpearHandle
     }
     
     @Override
-    public void rememberStabbedEntity(Entity target) {
+    public void vb$rememberStabbedEntity(Entity target) {
         if (this.recentKineticEnemies != null)
             this.recentKineticEnemies.put(target, this.level().getGameTime());
     }
     
     @Override
-    public int stabbedEntities(Predicate<Entity> filter) {
+    public int vb$stabbedEntities(Predicate<Entity> filter) {
         return this.recentKineticEnemies == null ? 0 : (int) this.recentKineticEnemies.keySet().stream().filter(filter).count();
     }
     
     @Override
-    public boolean stabAttack(EquipmentSlot weaponSlot, Entity target, float baseDamage, boolean dealsDamage, boolean dealsKnockback, boolean dismounts) {
+    public boolean vb$stabAttack(EquipmentSlot weaponSlot, Entity target, float baseDamage, boolean dealsDamage, boolean dealsKnockback, boolean dismounts) {
         LivingEntity self = (LivingEntity)(Object)this;
         
         if (!(this.level() instanceof ServerLevel)) return false;
@@ -133,8 +133,8 @@ public abstract class LivingEntityMixin extends Entity implements MobSpearHandle
         boolean affected = dealsKnockback | dealtDamage;
         
         if (dealsKnockback) {
-            this.causeExtraKnockback(target, 0.4F, oldMovement);
-            this.causeExtraKnockback(target, EntityUtils.getKnockback(self), oldMovement);
+            this.vb$causeExtraKnockback(target, 0.4F, oldMovement);
+            this.vb$causeExtraKnockback(target, EntityUtils.getKnockback(self), oldMovement);
         }
         
         if (dismounts && target.isPassenger()) {
@@ -159,7 +159,7 @@ public abstract class LivingEntityMixin extends Entity implements MobSpearHandle
     }
     
     @Override
-    public void causeExtraKnockback(Entity target, float knockback, Vec3 oldMovement) {
+    public void vb$causeExtraKnockback(Entity target, float knockback, Vec3 oldMovement) {
         if (knockback > 0.0F && target instanceof LivingEntity living) {
             living.knockback(knockback, Mth.sin(this.getYRot() * Mth.DEG_TO_RAD), -Mth.cos(this.getYRot() * Mth.DEG_TO_RAD));
             this.setDeltaMovement(this.getDeltaMovement().multiply(0.6, 1.0, 0.6));
@@ -167,7 +167,7 @@ public abstract class LivingEntityMixin extends Entity implements MobSpearHandle
     }
     
     @Override
-    public void postPiercingAttack() {
+    public void vb$postPiercingAttack() {
         if (this.level() instanceof ServerLevel level) {
             EnchantmentUtils.doPostPiercingAttack(level, (LivingEntity)(Object)this);
         }
@@ -179,12 +179,12 @@ public abstract class LivingEntityMixin extends Entity implements MobSpearHandle
     }
     
     @Override
-    public float getTicksUsingItem(float partial) {
+    public float vb$getTicksUsingItem(float partial) {
         return !this.isUsingItem() ? 0.0F : this.getTicksUsingItem() + partial;
     }
     
     @Override
-    public float getTicksSinceLastKineticHitFeedback(float partial) {
+    public float vb$getTicksSinceLastKineticHitFeedback(float partial) {
         return this.lastKineticHitFeedbackTime < 0L
             ? 0.0F
             : (float) (this.level().getGameTime() - this.lastKineticHitFeedbackTime) + partial;

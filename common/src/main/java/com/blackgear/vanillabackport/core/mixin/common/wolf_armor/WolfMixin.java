@@ -1,8 +1,8 @@
 package com.blackgear.vanillabackport.core.mixin.common.wolf_armor;
 
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
-import com.blackgear.vanillabackport.common.level.entity.mob.animal.wolf.ModCrackiness;
-import com.blackgear.vanillabackport.common.level.item.WolfArmorItem;
+import com.blackgear.vanillabackport.common.level.entities.mob.animal.wolf.ModCrackiness;
+import com.blackgear.vanillabackport.common.level.items.WolfArmorItem;
 import com.blackgear.vanillabackport.common.registries.items.ModItems;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;

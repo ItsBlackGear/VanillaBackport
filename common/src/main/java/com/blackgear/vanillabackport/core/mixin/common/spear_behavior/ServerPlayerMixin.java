@@ -1,7 +1,7 @@
 package com.blackgear.vanillabackport.core.mixin.common.spear_behavior;
 
 import com.blackgear.vanillabackport.common.api.extensions.entity.spear.PlayerSpearHandler;
-import com.blackgear.vanillabackport.common.level.item.spear.PiercingWeapon;
+import com.blackgear.vanillabackport.common.level.items.spear.PiercingWeapon;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
@@ -16,7 +16,7 @@ public class ServerPlayerMixin {
     private void vb$validateAttack(Entity target, CallbackInfo ci) {
         ServerPlayer player = (ServerPlayer)(Object) this;
         ItemStack stack = player.getMainHandItem();
-        if (PiercingWeapon.hasPiercingWeapon(stack) && ((PlayerSpearHandler) player).cannotAttackWithItem(stack, 5)) {
+        if (PiercingWeapon.hasPiercingWeapon(stack) && ((PlayerSpearHandler) player).vb$cannotAttackWithItem(stack, 5)) {
             ci.cancel();
         }
     }

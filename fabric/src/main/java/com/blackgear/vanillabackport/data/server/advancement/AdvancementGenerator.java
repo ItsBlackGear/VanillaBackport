@@ -1,9 +1,9 @@
 package com.blackgear.vanillabackport.data.server.advancement;
 
 import com.blackgear.vanillabackport.common.triggers.PlayerShearedEquipmentTrigger;
-import com.blackgear.vanillabackport.common.level.block.CreakingHeartBlock;
-import com.blackgear.vanillabackport.common.level.block.CreakingHeartState;
-import com.blackgear.vanillabackport.common.level.entity.mob.animal.wolf.WolfVariants;
+import com.blackgear.vanillabackport.common.level.blocks.CreakingHeartBlock;
+import com.blackgear.vanillabackport.common.level.blocks.CreakingHeartState;
+import com.blackgear.vanillabackport.common.level.entities.mob.animal.wolf.WolfVariants;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlockStateProperties;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
 import com.blackgear.vanillabackport.common.registries.entities.ModEntityTypes;

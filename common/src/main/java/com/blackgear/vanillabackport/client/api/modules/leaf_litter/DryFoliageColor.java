@@ -16,11 +16,11 @@ public class DryFoliageColor {
         return get(temperature, humidity, pixels);
     }
 
-    static int get(double temperature, double humidity, int[] pixels) {
-        humidity *= temperature;
-        int tempOffset = (int) ((1.0 - temperature) * 255.0);
-        int humidityOffset = (int) ((1.0 - humidity) * 255.0);
-        int index = humidityOffset << 8 | tempOffset;
+    static int get(double temperature, double rain, int[] pixels) {
+        rain *= temperature;
+        int x = (int) ((1.0 - temperature) * 255.0);
+        int y = (int) ((1.0 - rain) * 255.0);
+        int index = y << 8 | x;
         return index >= pixels.length ? DryFoliageColor.FOLIAGE_DRY_DEFAULT : pixels[index];
     }
 }

@@ -2,16 +2,14 @@ package com.blackgear.vanillabackport.common.registries.blocks;
 
 import com.blackgear.platform.core.helper.BlockEntityRegistry;
 import com.blackgear.platform.core.helper.BlockEntityTypeBuilder;
-import com.blackgear.vanillabackport.common.level.block_entity.*;
+import com.blackgear.vanillabackport.common.level.block_entities.*;
 import com.blackgear.vanillabackport.core.VanillaBackport;
-import com.blackgear.vanillabackport.core.registries.experimental.handlers.VanillaBlockEntityRegistry;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 
 import java.util.function.Supplier;
 
 public class ModBlockEntities {
     public static final BlockEntityRegistry REGISTRIES = BlockEntityRegistry.create(VanillaBackport.NAMESPACE);
-    public static final VanillaBlockEntityRegistry HOLDERS = VanillaBlockEntityRegistry.create();
 
     // The Garden Awakens
     

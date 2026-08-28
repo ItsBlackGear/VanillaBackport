@@ -1,11 +1,11 @@
 package com.blackgear.vanillabackport.core.mixin.client.entity_rendering;
 
 import com.blackgear.vanillabackport.common.api.modules.mob_variant.VariantDataHolder;
-import com.blackgear.vanillabackport.common.level.entity.mob.animal.cat.CatDataVariant;
-import com.blackgear.vanillabackport.core.mixin.client.extension.entity.MobRendererMixin;
+import com.blackgear.vanillabackport.common.level.entities.mob.animal.cat.CatDataVariant;
 import net.minecraft.client.model.CatModel;
 import net.minecraft.client.renderer.entity.CatRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.animal.Cat;
 import org.spongepowered.asm.mixin.Mixin;
@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(CatRenderer.class)
-public abstract class CatRendererMixin extends MobRendererMixin<Cat, CatModel<Cat>> {
+public abstract class CatRendererMixin extends MobRenderer<Cat, CatModel<Cat>> {
     public CatRendererMixin(EntityRendererProvider.Context context, CatModel<Cat> model, float shadowRadius) {
         super(context, model, shadowRadius);
     }
@@ -25,6 +25,6 @@ public abstract class CatRendererMixin extends MobRendererMixin<Cat, CatModel<Ca
         cancellable = true
     )
     private void vb$getTextureLocation(Cat entity, CallbackInfoReturnable<ResourceLocation> cir) {
-        VariantDataHolder.<CatDataVariant>getHolder(entity).getVariantData().ifPresent(variant -> cir.setReturnValue(variant.assetInfo().path()));
+        VariantDataHolder.<CatDataVariant>getHolder(entity).flatMap(VariantDataHolder::getVariantData).ifPresent(variant -> cir.setReturnValue(variant.assetInfo().path()));
     }
 }

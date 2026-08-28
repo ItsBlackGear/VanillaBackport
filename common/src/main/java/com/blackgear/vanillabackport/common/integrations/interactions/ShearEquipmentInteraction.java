@@ -2,8 +2,8 @@ package com.blackgear.vanillabackport.common.integrations.interactions;
 
 import com.blackgear.platform.common.integration.MobInteraction;
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
-import com.blackgear.vanillabackport.common.level.item.NautilusArmorItem;
-import com.blackgear.vanillabackport.common.level.item.WolfArmorItem;
+import com.blackgear.vanillabackport.common.level.items.NautilusArmorItem;
+import com.blackgear.vanillabackport.common.level.items.WolfArmorItem;
 import com.blackgear.vanillabackport.common.registries.ModCriteriaTriggers;
 import com.blackgear.vanillabackport.core.data.tags.ModItemTags;
 import net.minecraft.server.level.ServerPlayer;

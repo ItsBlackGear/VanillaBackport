@@ -4,11 +4,10 @@ import com.blackgear.platform.core.helper.BlockRegistry;
 import com.blackgear.vanillabackport.client.registries.ModParticles;
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
 import com.blackgear.vanillabackport.client.registries.ModSoundTypes;
-import com.blackgear.vanillabackport.common.level.block.*;
-import com.blackgear.vanillabackport.common.level.block.properties.SharedBlockProperties;
+import com.blackgear.vanillabackport.common.level.blocks.*;
+import com.blackgear.vanillabackport.common.level.blocks.properties.SharedBlockProperties;
 import com.blackgear.vanillabackport.common.registries.worldgen.ModTreeGrowers;
 import com.blackgear.vanillabackport.core.VanillaBackport;
-import com.blackgear.vanillabackport.core.registries.experimental.handlers.VanillaBlockRegistry;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.SimpleParticleType;
@@ -26,7 +25,6 @@ import java.util.function.Supplier;
 
 public class ModBlocks {
     public static final BlockRegistry REGISTRIES = BlockRegistry.create(VanillaBackport.NAMESPACE);
-    public static final VanillaBlockRegistry HOLDERS = VanillaBlockRegistry.create();
 
     // The Garden Awakens
     
@@ -240,7 +238,6 @@ public class ModBlocks {
             .noCollission()
             .sound(SoundType.PINK_PETALS)
             .pushReaction(PushReaction.DESTROY));
-    
     public static final Supplier<Block> BUSH = REGISTRIES.register("bush",
         ActualBushBlock::new,
         Properties.of()

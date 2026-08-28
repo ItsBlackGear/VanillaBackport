@@ -1,7 +1,7 @@
 package com.blackgear.vanillabackport.core.mixin.common.spear_behavior;
 
 import com.blackgear.vanillabackport.common.api.extensions.entity.spear.MobSpearHandler;
-import com.blackgear.vanillabackport.common.level.item.spear.AttackRange;
+import com.blackgear.vanillabackport.common.level.items.spear.AttackRange;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -26,7 +26,7 @@ public abstract class MobMixin extends LivingEntity implements MobSpearHandler {
         at = @At("TAIL")
     )
     private void vb$doHurtTarget(Entity target, CallbackInfoReturnable<Boolean> cir) {
-        this.postPiercingAttack();
+        this.vb$postPiercingAttack();
     }
     
     @Inject(
@@ -37,7 +37,7 @@ public abstract class MobMixin extends LivingEntity implements MobSpearHandler {
     private void vb$isWithinMeleeAttackRange(LivingEntity entity, CallbackInfoReturnable<Boolean> cir) {
         ItemStack activeItem = this.isUsingItem() ? this.getUseItem() : this.getMainHandItem();
         
-        AttackRange range = AttackRange.getAttackRange(activeItem);
+        AttackRange range = AttackRange.get(activeItem);
         if (range == null) return;
         
         double maxRange = range.effectiveMaxRange(this);

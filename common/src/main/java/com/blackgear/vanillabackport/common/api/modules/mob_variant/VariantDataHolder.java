@@ -9,34 +9,38 @@ import java.util.Optional;
 
 @SuppressWarnings("unchecked")
 public interface VariantDataHolder<T> {
-    static <T> VariantDataHolder<T> getHolder(Entity entity) {
-        return entity instanceof VariantDataHolder<?> ? (VariantDataHolder<T>) entity : null;
+    static <T> Optional<VariantDataHolder<T>> getHolder(Entity entity) {
+        return entity instanceof VariantDataHolder<?> ? Optional.of((VariantDataHolder<T>) entity) : Optional.empty();
     }
-
-    static <A, B> void trySetOffspringVariant(LivingEntity child, LivingEntity father, LivingEntity mother) {
-        RandomSource random = child.getRandom();
-        Optional<B> dataVariant;
-
-        Optional<B> fromFather = VariantDataHolder.<B>getHolder(father).getVariantData();
-        Optional<B> fromMother = VariantDataHolder.<B>getHolder(mother).getVariantData();
-
-        if (fromFather.isPresent() && fromMother.isPresent()) { // if both parents have data variants, pick one randomly
-            dataVariant = random.nextBoolean() ? fromFather : fromMother;
-        } else if (random.nextBoolean()) { // else, try to get one from either parent
-            dataVariant = fromFather.or(() -> fromMother);
-        } else { // else, no data variant available
-            dataVariant = Optional.empty();
-        }
-
-        if (dataVariant.isPresent()) { // if it's present, then apply
-            dataVariant.ifPresent(variant -> getHolder(child).setVariantData(variant));
-        } else { // if no data variant is present, fallback to vanilla behavior
-            A variant = random.nextBoolean() ? ((VariantHolder<A>) father).getVariant() : ((VariantHolder<A>) mother).getVariant();
-            ((VariantHolder<A>) child).setVariant(variant);
-        }
-    }
-
-    Optional<T> getVariantData();
-
+    
     void setVariantData(T variant);
+    
+    Optional<T> getVariantData();
+    
+    static <T, V> void trySetOffspringVariant(LivingEntity child, LivingEntity father, LivingEntity mother) {
+        Optional<T> fatherData = VariantDataHolder.<T>getHolder(father).flatMap(VariantDataHolder::getVariantData);
+        Optional<T> motherData = VariantDataHolder.<T>getHolder(mother).flatMap(VariantDataHolder::getVariantData);
+        
+        RandomSource random = child.getRandom();
+        Optional<T> heritableData;
+        if (fatherData.isPresent() && motherData.isPresent()) {
+            heritableData = random.nextBoolean() ? fatherData : motherData;
+        } else if (fatherData.isPresent()) {
+            heritableData = random.nextBoolean() ? fatherData : Optional.empty();
+        } else if (motherData.isPresent()) {
+            heritableData = random.nextBoolean() ? motherData : Optional.empty();
+        } else {
+            heritableData = Optional.empty();
+        }
+        
+        if (heritableData.isPresent()) {
+            VariantDataHolder.<T>getHolder(child).ifPresent(h -> h.setVariantData(heritableData.get()));
+            return;
+        }
+        
+        if (father instanceof VariantHolder<?> && mother instanceof VariantHolder<?>) {
+            V variant = random.nextBoolean() ? ((VariantHolder<V>) father).getVariant() : ((VariantHolder<V>) mother).getVariant();
+            if (child instanceof VariantHolder<?>) ((VariantHolder<V>) child).setVariant(variant);
+        }
+    }
 }

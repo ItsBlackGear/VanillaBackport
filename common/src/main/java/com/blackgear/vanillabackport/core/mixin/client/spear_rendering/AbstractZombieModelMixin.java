@@ -1,7 +1,7 @@
 package com.blackgear.vanillabackport.core.mixin.client.spear_rendering;
 
-import com.blackgear.vanillabackport.common.level.item.spear.SwingAnimation;
-import com.blackgear.vanillabackport.common.level.item.spear.SwingAnimationType;
+import com.blackgear.vanillabackport.common.level.items.spear.SwingAnimation;
+import com.blackgear.vanillabackport.common.level.items.spear.SwingAnimationType;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.client.model.AbstractZombieModel;

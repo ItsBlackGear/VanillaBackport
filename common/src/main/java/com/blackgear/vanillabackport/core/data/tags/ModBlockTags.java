@@ -20,6 +20,7 @@ public class ModBlockTags {
 
     public static final TagKey<Block> ALLOWS_LEAF_LITTER = TAGS.register("allows_leaf_litter");
     public static final TagKey<Block> SUPPORTS_CACTUS = TAGS.register("supports_cactus");
+    public static final TagKey<Block> SUPPORT_OVERRIDE_CACTUS_FLOWER = TAGS.register("support_override_cactus_flower");
 
     public static final TagKey<Block> SPAWN_FALLING_LEAVES = TAGS.register("spawn_falling_leaves");
     public static final TagKey<Block> SPAWN_FALLING_NEEDLES = TAGS.register("spawn_falling_needles");

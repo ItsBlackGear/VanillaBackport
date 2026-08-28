@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.core.mixin.common.spear_behavior;
 
-import com.blackgear.vanillabackport.common.level.item.spear.SpearItem;
+import com.blackgear.vanillabackport.common.level.items.spear.SpearItem;
 import net.minecraft.world.item.Item;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

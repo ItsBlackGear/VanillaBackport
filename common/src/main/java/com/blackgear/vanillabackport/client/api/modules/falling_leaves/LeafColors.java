@@ -1,7 +1,7 @@
 package com.blackgear.vanillabackport.client.api.modules.falling_leaves;
 
 import com.blackgear.vanillabackport.client.api.modules.leaf_litter.DryFoliageColor;
-import com.blackgear.vanillabackport.core.data.tags.ModBiomeTags;
+import com.blackgear.vanillabackport.client.api.modules.leaf_litter.DryLeafColorReloadListener;
 import com.blackgear.vanillabackport.core.mixin.common.access.BiomeAccessor;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -16,16 +16,12 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.function.Predicate;
+import java.util.OptionalInt;
 
 @Environment(EnvType.CLIENT)
 public class LeafColors {
-    private static final Map<Predicate<Holder<Biome>>, Integer> COLOR_MAP = new ConcurrentHashMap<>();
-
     public static final ColorResolver DRY_FOLIAGE_COLOR_RESOLVER = (biome, d, e) -> {
-        Biome.ClimateSettings settings = ((BiomeAccessor)(Object)biome).getClimateSettings();
+        Biome.ClimateSettings settings = ((BiomeAccessor) (Object) biome).getClimateSettings();
         double temperature = Mth.clamp(settings.temperature(), 0.0F, 1.0F);
         double humidity = Mth.clamp(settings.downfall(), 0.0F, 1.0F);
         return DryFoliageColor.get(temperature, humidity);
@@ -33,17 +29,13 @@ public class LeafColors {
 
     public static int getAverageDryFoliageColor(BlockPos pos) {
         ClientLevel level = Minecraft.getInstance().level;
-        if (level != null) {
-            Holder<Biome> biome = level.getBiome(pos);
-
-            return COLOR_MAP.entrySet().stream()
-                .filter(entry -> entry.getKey().test(biome))
-                .findFirst()
-                .map(Map.Entry::getValue)
-                .orElseGet(() -> new BlockTintCache(value -> level.calculateBlockTint(value, DRY_FOLIAGE_COLOR_RESOLVER)).getColor(pos));
-        } else {
-            return DryFoliageColor.FOLIAGE_DRY_DEFAULT;
-        }
+        if (level == null) return DryFoliageColor.FOLIAGE_DRY_DEFAULT;
+        
+        Holder<Biome> biome = level.getBiome(pos);
+        OptionalInt customColor = DryLeafColorReloadListener.getColorForBiome(biome);
+        if (customColor.isPresent()) return customColor.getAsInt();
+        
+        return new BlockTintCache(value -> level.calculateBlockTint(value, DRY_FOLIAGE_COLOR_RESOLVER)).getColor(pos);
     }
 
     public static int getClientLeafTintColor(BlockPos pos) {
@@ -58,10 +50,5 @@ public class LeafColors {
         }
 
         return Minecraft.getInstance().getBlockColors().getColor(state, level, pos, 0);
-    }
-
-    static {
-        COLOR_MAP.put(holder -> holder.is(ModBiomeTags.HAS_PALE_LEAF_LITTER), 10528412);
-        COLOR_MAP.put(holder -> holder.is(ModBiomeTags.HAS_DARK_LEAF_LITTER), 8082228);
     }
 }

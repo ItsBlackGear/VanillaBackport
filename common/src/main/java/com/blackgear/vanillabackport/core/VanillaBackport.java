@@ -74,11 +74,8 @@ public final class VanillaBackport {
         ModParticles.REGISTRIES.register();
 
         ModBlocks.REGISTRIES.register();
-        ModBlocks.HOLDERS.register();
         ModItems.REGISTRIES.register();
-        ModItems.HOLDERS.register();
         ModBlockEntities.REGISTRIES.register();
-        ModBlockEntities.HOLDERS.register();
         
         ModPoiTypes.REGISTRIES.register();
         
@@ -98,8 +95,9 @@ public final class VanillaBackport {
         ModTreeDecorators.REGISTRIES.register();
 
         ModEntityDataSerializers.SERIALIZERS.register();
-        ModGameRules.bootstrap();
+        ModSyncedEntityData.init();
         
+        ModGameRules.bootstrap();
         NetworkHandler.bootstrap();
         
         if (ModChecker.EVERY_COMPAT) EveryCompatHandler.bootstrap();

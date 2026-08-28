@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.Mixin;
 @Mixin(DeadBushBlock.class)
 public class DeadBushBlockMixin implements BlockExtension {
     @Override
-    public void vb$AnimateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
+    public void vb$animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
         AmbientDesertBlockSoundsPlayer.playAmbientDeadBushSounds(level, pos, random);
     }
 }

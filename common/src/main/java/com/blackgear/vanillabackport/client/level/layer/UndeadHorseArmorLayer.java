@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.client.level.layer;
 
-import com.blackgear.vanillabackport.client.api.modules.emissive_models.LazyModel;
+import com.blackgear.vanillabackport.client.api.modules.models.LazyModel;
 import com.blackgear.vanillabackport.client.registries.ModModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;

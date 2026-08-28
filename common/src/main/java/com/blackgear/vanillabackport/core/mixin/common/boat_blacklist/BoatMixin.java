@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.core.mixin.common.boat_blacklist;
 
-import com.blackgear.vanillabackport.common.level.entity.mob.animal.nautilus.AbstractNautilus;
+import com.blackgear.vanillabackport.common.level.entities.mob.animal.nautilus.AbstractNautilus;
 import com.blackgear.vanillabackport.common.registries.entities.ModEntityTypes;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;

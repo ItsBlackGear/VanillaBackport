@@ -12,6 +12,7 @@ import com.blackgear.vanillabackport.client.api.modules.bundle_ui.BundleMouseAct
 import com.blackgear.vanillabackport.client.api.bundled_tabs.BundledTabSelector;
 import com.blackgear.vanillabackport.client.api.modules.leaf_litter.DryFoliageColorReloadListener;
 import com.blackgear.vanillabackport.client.api.modules.falling_leaves.LeafColorReloadListener;
+import com.blackgear.vanillabackport.client.api.modules.leaf_litter.DryLeafColorReloadListener;
 import com.blackgear.vanillabackport.client.integrations.ItemPropertyIntegrations;
 import com.blackgear.vanillabackport.client.integrations.VanillaTabIntegrations;
 import com.blackgear.vanillabackport.client.integrations.rendering.ColorRendering;
@@ -30,6 +31,7 @@ public class ClientSetup {
         ResourceReloadManager.registerClient(event -> {
             event.register(new ResourceLocation("dry_foliage"), DryFoliageColorReloadListener.INSTANCE);
             event.register(new ResourceLocation("leaf_colors"), LeafColorReloadListener.INSTANCE);
+            event.register(new ResourceLocation("dry_foliage_colors"), DryLeafColorReloadListener.INSTANCE);
         });
         
         GameRendering.registerParticleFactories(ParticleRendering::factories);

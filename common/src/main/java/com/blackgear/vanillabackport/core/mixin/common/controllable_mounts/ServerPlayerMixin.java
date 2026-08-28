@@ -1,7 +1,7 @@
 package com.blackgear.vanillabackport.core.mixin.common.controllable_mounts;
 
 import com.blackgear.vanillabackport.common.api.extensions.entity.mounts.MountInventoryHandler;
-import com.blackgear.vanillabackport.common.level.entity.mob.animal.nautilus.AbstractNautilus;
+import com.blackgear.vanillabackport.common.level.entities.mob.animal.nautilus.AbstractNautilus;
 import com.blackgear.vanillabackport.common.level.inventory.NautilusInventoryMenu;
 import com.blackgear.vanillabackport.core.network.ClientboundNautilusScreenOpenPacket;
 import com.blackgear.vanillabackport.core.network.NetworkHandler;

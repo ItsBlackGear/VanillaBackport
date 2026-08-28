@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.core.mixin.common.mob_variants;
 
-import com.blackgear.vanillabackport.common.level.entity.mob.animal.sheep.SheepColorSpawnRules;
+import com.blackgear.vanillabackport.common.level.entities.mob.animal.sheep.SheepColorSpawnRules;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.animal.Animal;

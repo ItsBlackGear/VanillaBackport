@@ -1,8 +1,8 @@
 package com.blackgear.vanillabackport.client.level.renderer.item;
 
 import com.blackgear.platform.client.v2.render.BuiltinItemRendererRegistry;
-import com.blackgear.vanillabackport.common.level.block.CopperChestBlock;
-import com.blackgear.vanillabackport.common.level.block_entity.CopperChestBlockEntity;
+import com.blackgear.vanillabackport.common.level.blocks.CopperChestBlock;
+import com.blackgear.vanillabackport.common.level.block_entities.CopperChestBlockEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;

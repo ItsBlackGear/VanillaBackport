@@ -1,7 +1,7 @@
 package com.blackgear.vanillabackport.client.level.model.entity;
 
 import com.blackgear.vanillabackport.client.level.animation.BatAnimation;
-import com.blackgear.vanillabackport.common.level.entity.mob.animal.bat.BatAnimator;
+import com.blackgear.vanillabackport.common.level.entities.mob.animal.bat.BatAnimator;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.HierarchicalModel;

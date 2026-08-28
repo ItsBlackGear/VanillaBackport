@@ -41,7 +41,8 @@ public class ConfiguredFeatureGenerator extends FabricDynamicRegistryProvider {
         this.add(provider, entries, SpringToLifeFeatures.PATCH_DRY_GRASS);
 
         this.add(provider, entries, SpringToLifeFeatures.PATCH_LEAF_LITTER);
-        this.add(provider, entries, SpringToLifeFeatures.LEAF_LITTER);
+        this.add(provider, entries, SpringToLifeFeatures.LEAF_LITTER_SPARSE);
+        this.add(provider, entries, SpringToLifeFeatures.LEAF_LITTER_THICK);
 
         this.add(provider, entries, SpringToLifeFeatures.CACTUS_FLOWER);
 

@@ -1,8 +1,8 @@
 package com.blackgear.vanillabackport.client.level.model.entity;
 
 import com.blackgear.vanillabackport.client.level.animation.CopperGolemAnimation;
-import com.blackgear.vanillabackport.common.level.entity.mob.animal.golem.copper_golem.CopperGolem;
-import com.blackgear.vanillabackport.common.level.entity.mob.animal.golem.copper_golem.CopperGolemState;
+import com.blackgear.vanillabackport.common.level.entities.mob.animal.golem.copper_golem.CopperGolem;
+import com.blackgear.vanillabackport.common.level.entities.mob.animal.golem.copper_golem.CopperGolemState;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.fabricmc.api.EnvType;

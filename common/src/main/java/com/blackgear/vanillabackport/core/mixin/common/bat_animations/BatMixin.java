@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.core.mixin.common.bat_animations;
 
-import com.blackgear.vanillabackport.common.level.entity.mob.animal.bat.BatAnimator;
+import com.blackgear.vanillabackport.common.level.entities.mob.animal.bat.BatAnimator;
 import net.minecraft.world.entity.AnimationState;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.ambient.AmbientCreature;

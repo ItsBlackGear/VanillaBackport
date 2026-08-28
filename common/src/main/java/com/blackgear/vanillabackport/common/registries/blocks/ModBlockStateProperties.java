@@ -1,9 +1,9 @@
 package com.blackgear.vanillabackport.common.registries.blocks;
 
-import com.blackgear.vanillabackport.common.level.block.CopperGolemStatueBlock;
-import com.blackgear.vanillabackport.common.level.block.CreakingHeartState;
-import com.blackgear.vanillabackport.common.level.block.PotentSulfurState;
-import com.blackgear.vanillabackport.common.level.block.SideChainPart;
+import com.blackgear.vanillabackport.common.level.blocks.CopperGolemStatueBlock;
+import com.blackgear.vanillabackport.common.level.blocks.CreakingHeartState;
+import com.blackgear.vanillabackport.common.level.blocks.PotentSulfurState;
+import com.blackgear.vanillabackport.common.level.blocks.SideChainPart;
 import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;

@@ -2,10 +2,10 @@ package com.blackgear.vanillabackport.client.level.renderer.block_entity;
 
 import com.blackgear.vanillabackport.client.level.model.block_entity.CopperGolemStatueModel;
 import com.blackgear.vanillabackport.client.registries.ModModelLayers;
-import com.blackgear.vanillabackport.common.level.block.CopperGolemStatueBlock;
-import com.blackgear.vanillabackport.common.level.block.CopperGolemStatueBlock.Pose;
-import com.blackgear.vanillabackport.common.level.block_entity.CopperGolemStatueBlockEntity;
-import com.blackgear.vanillabackport.common.level.entity.mob.animal.golem.copper_golem.CopperGolemOxidationLevels;
+import com.blackgear.vanillabackport.common.level.blocks.CopperGolemStatueBlock;
+import com.blackgear.vanillabackport.common.level.blocks.CopperGolemStatueBlock.Pose;
+import com.blackgear.vanillabackport.common.level.block_entities.CopperGolemStatueBlockEntity;
+import com.blackgear.vanillabackport.common.level.entities.mob.animal.golem.copper_golem.CopperGolemOxidationLevels;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlockStateProperties;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;

@@ -74,12 +74,21 @@ public class SpringToLifePlacements {
     public static final ResourceKey<PlacedFeature> PATCH_LEAF_LITTER = REGISTRIES.register("patch_leaf_litter",
         SpringToLifeFeatures.PATCH_LEAF_LITTER,
         VegetationPlacements.worldSurfaceSquaredWithCount(2));
-    public static final ResourceKey<PlacedFeature> LEAF_LITTER = REGISTRIES.register("leaf_litter",
-        SpringToLifeFeatures.LEAF_LITTER,
-        VegetationPlacements.treePlacement(PlacementUtils.countExtra(16, 0.1F, 1)));
+    public static final ResourceKey<PlacedFeature> LEAF_LITTER_SPARSE = REGISTRIES.register("leaf_litter_sparse",
+        SpringToLifeFeatures.LEAF_LITTER_SPARSE,
+        SurfaceWaterDepthFilter.forMaxDepth(0),
+        PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
+        BiomeFilter.biome());
+    public static final ResourceKey<PlacedFeature> LEAF_LITTER_THICK = REGISTRIES.register("leaf_litter_thick",
+        SpringToLifeFeatures.LEAF_LITTER_THICK,
+        SurfaceWaterDepthFilter.forMaxDepth(0),
+        PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
+        BiomeFilter.biome());
     public static final ResourceKey<PlacedFeature> CACTUS_FLOWER = REGISTRIES.register("cactus_flower",
         SpringToLifeFeatures.CACTUS_FLOWER,
-        VegetationPlacements.treePlacement(PlacementUtils.countExtra(16, 0.1F, 1)));
+        SurfaceWaterDepthFilter.forMaxDepth(0),
+        PlacementUtils.HEIGHTMAP_OCEAN_FLOOR,
+        BiomeFilter.biome());
     
     // TREE PLACEMENTS
     

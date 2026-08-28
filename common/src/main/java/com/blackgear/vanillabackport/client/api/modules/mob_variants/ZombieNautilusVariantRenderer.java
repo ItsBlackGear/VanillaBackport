@@ -5,14 +5,13 @@ import com.blackgear.platform.core.api.RegistryKey;
 import com.blackgear.vanillabackport.client.level.model.entity.nautilus.NautilusModel;
 import com.blackgear.vanillabackport.client.level.model.entity.nautilus.ZombieNautilusCoralModel;
 import com.blackgear.vanillabackport.client.registries.ModModelLayers;
-import com.blackgear.vanillabackport.common.level.entity.mob.animal.nautilus.ZombieNautilus;
-import com.blackgear.vanillabackport.common.level.entity.mob.animal.nautilus.ZombieNautilusVariant;
-import com.blackgear.vanillabackport.common.level.entity.mob.animal.nautilus.ZombieNautilusVariants;
+import com.blackgear.vanillabackport.common.level.entities.mob.animal.nautilus.ZombieNautilus;
+import com.blackgear.vanillabackport.common.level.entities.mob.animal.nautilus.ZombieNautilusVariant;
+import com.blackgear.vanillabackport.common.level.entities.mob.animal.nautilus.ZombieNautilusVariants;
 import com.google.common.collect.Maps;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 
 import java.util.Map;

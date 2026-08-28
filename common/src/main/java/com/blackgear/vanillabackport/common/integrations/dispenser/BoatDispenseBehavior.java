@@ -1,7 +1,7 @@
 package com.blackgear.vanillabackport.common.integrations.dispenser;
 
-import com.blackgear.vanillabackport.common.level.entity.boat.PaleOakBoat;
-import com.blackgear.vanillabackport.common.level.entity.boat.PaleOakChestBoat;
+import com.blackgear.vanillabackport.common.level.entities.boat.PaleOakBoat;
+import com.blackgear.vanillabackport.common.level.entities.boat.PaleOakChestBoat;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockSource;
 import net.minecraft.core.Direction;

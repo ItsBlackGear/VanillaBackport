@@ -8,7 +8,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 
@@ -26,7 +25,7 @@ public abstract class AbstractVariantRenderer<T extends LivingEntity, M extends 
     protected abstract Map<E, M> bakeModels(EntityRendererProvider.Context context);
 
     protected Optional<V> getVariant(T entity) {
-        return VariantDataHolder.<V>getHolder(entity).getVariantData();
+        return VariantDataHolder.<V>getHolder(entity).flatMap(VariantDataHolder::getVariantData);
     }
 
     protected abstract E getModelType(V variant);

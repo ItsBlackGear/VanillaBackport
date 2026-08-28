@@ -1,7 +1,7 @@
 package com.blackgear.vanillabackport.common.level.worldgen.tree_decorators;
 
-import com.blackgear.vanillabackport.common.level.block.CreakingHeartBlock;
-import com.blackgear.vanillabackport.common.level.block.CreakingHeartState;
+import com.blackgear.vanillabackport.common.level.blocks.CreakingHeartBlock;
+import com.blackgear.vanillabackport.common.level.blocks.CreakingHeartState;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
 import com.blackgear.vanillabackport.common.registries.worldgen.ModTreeDecorators;
 import com.mojang.serialization.Codec;

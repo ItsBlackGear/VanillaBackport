@@ -1,8 +1,8 @@
 package com.blackgear.vanillabackport.core.mixin.common.copper_golem;
 
-import com.blackgear.vanillabackport.common.level.block.CopperChestBlock;
-import com.blackgear.vanillabackport.common.level.entity.mob.animal.golem.copper_golem.CopperGolem;
-import com.blackgear.vanillabackport.common.level.entity.mob.animal.golem.copper_golem.WeatheredState;
+import com.blackgear.vanillabackport.common.level.blocks.CopperChestBlock;
+import com.blackgear.vanillabackport.common.level.entities.mob.animal.golem.copper_golem.CopperGolem;
+import com.blackgear.vanillabackport.common.level.entities.mob.animal.golem.copper_golem.WeatheredState;
 import com.blackgear.vanillabackport.common.registries.entities.ModEntityTypes;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.blackgear.vanillabackport.core.data.tags.ModBlockTags;

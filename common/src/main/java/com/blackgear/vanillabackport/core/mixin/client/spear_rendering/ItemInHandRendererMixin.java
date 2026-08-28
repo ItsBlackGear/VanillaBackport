@@ -3,9 +3,9 @@ package com.blackgear.vanillabackport.core.mixin.client.spear_rendering;
 import com.blackgear.vanillabackport.common.api.extensions.entity.arms.ItemUseAnimations;
 import com.blackgear.vanillabackport.common.api.extensions.entity.spear.PlayerSpearHandler;
 import com.blackgear.vanillabackport.common.api.extensions.entity.spear.MobSpearHandler;
-import com.blackgear.vanillabackport.common.level.item.spear.SpearAnimations;
-import com.blackgear.vanillabackport.common.level.item.spear.SwingAnimation;
-import com.blackgear.vanillabackport.common.level.item.spear.SwingAnimationType;
+import com.blackgear.vanillabackport.common.level.items.spear.SpearAnimations;
+import com.blackgear.vanillabackport.common.level.items.spear.SwingAnimation;
+import com.blackgear.vanillabackport.common.level.items.spear.SwingAnimationType;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
@@ -33,7 +33,7 @@ public abstract class ItemInHandRendererMixin {
 
     @Redirect(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/player/LocalPlayer;getAttackStrengthScale(F)F"))
     private float vb$attackAnimation(LocalPlayer player, float scale) {
-        return ((PlayerSpearHandler) player).getItemSwapScale(scale);
+        return ((PlayerSpearHandler) player).vb$getItemSwapScale(scale);
     }
 
     @Inject(
@@ -62,7 +62,7 @@ public abstract class ItemInHandRendererMixin {
         if (stack.getUseAnimation() == ItemUseAnimations.REAL_SPEAR.get()) {
             pose.translate(invert * 0.56F, -0.52F, -0.72F);
             float timeHeld = stack.getUseDuration() - ((float) player.getUseItemRemainingTicks() - partial + 1.0F);
-            SpearAnimations.firstPersonUse(((MobSpearHandler) player).getTicksSinceLastKineticHitFeedback(partial), pose, timeHeld, arm, stack);
+            SpearAnimations.firstPersonUse(((MobSpearHandler) player).vb$getTicksSinceLastKineticHitFeedback(partial), pose, timeHeld, arm, stack);
         }
     }
 

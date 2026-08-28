@@ -6,6 +6,7 @@ import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
 import com.blackgear.vanillabackport.common.registries.items.ModItems;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.advancements.critereon.*;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.entity.EntityType;
@@ -24,12 +25,11 @@ import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
 import java.util.List;
-import java.util.Set;
 
 public class LootIntegrations implements LootModifier.LootTableModifier {
     public static final LootIntegrations INSTANCE = new LootIntegrations();
     
-    private static final Set<ResourceLocation> CONTAIN_BUNDLE = Set.of(
+    private static final List<ResourceLocation> CONTAIN_BUNDLE = List.of(
         BuiltInLootTables.VILLAGE_WEAPONSMITH,
         BuiltInLootTables.VILLAGE_CARTOGRAPHER,
         BuiltInLootTables.VILLAGE_TANNERY,
@@ -39,85 +39,75 @@ public class LootIntegrations implements LootModifier.LootTableModifier {
         BuiltInLootTables.VILLAGE_SNOWY_HOUSE,
         BuiltInLootTables.VILLAGE_DESERT_HOUSE
     );
+    
+    private static final List<ResourceLocation> CONTAIN_NAUTILUS_ARMOR = List.of(
+        BuiltInLootTables.BURIED_TREASURE,
+        BuiltInLootTables.UNDERWATER_RUIN_BIG,
+        BuiltInLootTables.UNDERWATER_RUIN_SMALL,
+        BuiltInLootTables.SHIPWRECK_SUPPLY,
+        BuiltInLootTables.SHIPWRECK_MAP,
+        BuiltInLootTables.SHIPWRECK_TREASURE
+    );
 
     @Override
-    public void modify(ResourceLocation path, LootModifier.LootTableContext context, boolean builtin) {
+    public void modify(ResourceLocation path, LootModifier.LootTableContext context, boolean builtin, RegistryAccess registries) {
         if (path.equals(EntityType.GHAST.getDefaultLootTable()) && VanillaBackport.COMMON_CONFIG.hasTearsMusicDisc.get()) {
-            context.addPool(
-                LootPool.lootPool()
-                    .setRolls(ConstantValue.exactly(1.0F))
-                    .add(LootItem.lootTableItem(ModItems.MUSIC_DISC_TEARS.get()))
-                    .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F)))
-                    .when(DamageSourceCondition.hasDamageSource(
-                        DamageSourcePredicate.Builder.damageType()
-                            .tag(TagPredicate.is(DamageTypeTags.IS_PROJECTILE))
-                            .direct(EntityPredicate.Builder.entity().of(EntityType.FIREBALL)))
-                    )
-                    .when(LootItemKilledByPlayerCondition.killedByPlayer())
-            );
+            context.addPool(LootPool.lootPool()
+                .setRolls(ConstantValue.exactly(1.0F))
+                .add(LootItem.lootTableItem(ModItems.MUSIC_DISC_TEARS.get()))
+                .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F)))
+                .when(DamageSourceCondition.hasDamageSource(
+                    DamageSourcePredicate.Builder.damageType()
+                        .tag(TagPredicate.is(DamageTypeTags.IS_PROJECTILE))
+                        .direct(EntityPredicate.Builder.entity().of(EntityType.FIREBALL))))
+                .when(LootItemKilledByPlayerCondition.killedByPlayer()));
         }
 
         if (path.equals(BuiltInLootTables.PIGLIN_BARTERING) && VanillaBackport.COMMON_CONFIG.hasDriedGhasts.get()) {
-            context.addToPool(
-                LootItem.lootTableItem(ModBlocks.DRIED_GHAST.get())
-                    .setWeight(10)
-                    .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F)))
-                    .build()
-            );
+            context.addToPool(LootItem.lootTableItem(ModBlocks.DRIED_GHAST.get())
+                .setWeight(10)
+                .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F)))
+                .build());
         }
 
         if (path.equals(EntityType.ZOMBIE.getDefaultLootTable()) && VanillaBackport.COMMON_CONFIG.hasLavaChickenMusicDisc.get()) {
-            context.addPool(
-                LootPool.lootPool()
-                    .add(LootItem.lootTableItem(ModItems.MUSIC_DISC_LAVA_CHICKEN.get()))
-                    .when(LootItemKilledByPlayerCondition.killedByPlayer())
-                    .when(
-                        LootItemEntityPropertyCondition.hasProperties(
-                            LootContext.EntityTarget.THIS,
-                            EntityPredicate.Builder.entity()
-                                .flags(EntityFlagsPredicate.Builder.flags().setIsBaby(true).build())
-                                .vehicle(EntityPredicate.Builder.entity().of(EntityType.CHICKEN).build())
-                        )
-                    )
-            );
+            context.addPool(LootPool.lootPool()
+                .add(LootItem.lootTableItem(ModItems.MUSIC_DISC_LAVA_CHICKEN.get()))
+                .when(LootItemKilledByPlayerCondition.killedByPlayer())
+                .when(LootItemEntityPropertyCondition.hasProperties(
+                    LootContext.EntityTarget.THIS,
+                    EntityPredicate.Builder.entity()
+                        .flags(EntityFlagsPredicate.Builder.flags().setIsBaby(true).build())
+                        .vehicle(EntityPredicate.Builder.entity().of(EntityType.CHICKEN).build())
+                )));
         }
 
         if (path.equals(BuiltInLootTables.WOODLAND_MANSION) && VanillaBackport.COMMON_CONFIG.hasResinLoot.get()) {
-            context.addToPool(
-                1,
-                LootItem.lootTableItem(ModBlocks.RESIN_CLUMP.get())
-                    .setWeight(50)
-                    .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 4.0F)))
-                    .build()
-            );
+            context.addToPool(1, LootItem.lootTableItem(ModBlocks.RESIN_CLUMP.get())
+                .setWeight(50)
+                .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 4.0F)))
+                .build());
         }
 
         if (CONTAIN_BUNDLE.contains(path) && VanillaBackport.COMMON_CONFIG.hasBundleLoot.get()) {
-            context.addPool(
-                LootPool.lootPool()
-                    .setRolls(ConstantValue.exactly(1.0F))
-                    .add(LootItem.lootTableItem(Items.BUNDLE).setWeight(1).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F))))
-                    .add(EmptyLootItem.emptyItem().setWeight(2))
-            );
+            context.addPool(LootPool.lootPool()
+                .setRolls(ConstantValue.exactly(1.0F))
+                .add(LootItem.lootTableItem(Items.BUNDLE).setWeight(1).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F))))
+                .add(EmptyLootItem.emptyItem().setWeight(2)));
         }
 
         if (path.equals(BuiltInLootTables.RUINED_PORTAL) && VanillaBackport.COMMON_CONFIG.hasLodestoneLoot.get()) {
-            context.addPool(
-                LootPool.lootPool()
-                    .setRolls(ConstantValue.exactly(1.0F))
-                    .add(LootItem.lootTableItem(Items.LODESTONE).setWeight(2).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F))))
-                    .add(EmptyLootItem.emptyItem().setWeight(1))
-            );
+            context.addPool(LootPool.lootPool()
+                .setRolls(ConstantValue.exactly(1.0F))
+                .add(LootItem.lootTableItem(Items.LODESTONE).setWeight(2).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F))))
+                .add(EmptyLootItem.emptyItem().setWeight(1)));
         }
 
         if (path.equals(BuiltInLootTables.ABANDONED_MINESHAFT) && VanillaBackport.COMMON_CONFIG.hasBounceMusicDisc.get()) {
-            context.addToPool(
-                2,
-                LootItem.lootTableItem(ModItems.MUSIC_DISC_BOUNCE.get())
-                    .when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiome(ModBiomes.SULFUR_CAVES)))
-                    .setWeight(10)
-                    .build()
-            );
+            context.addToPool(2, LootItem.lootTableItem(ModItems.MUSIC_DISC_BOUNCE.get())
+                .when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiome(ModBiomes.SULFUR_CAVES)))
+                .setWeight(10)
+                .build());
         }
         
         // GENERATE COPPER HORSE ARMOR
@@ -151,32 +141,22 @@ public class LootIntegrations implements LootModifier.LootTableModifier {
             }
         }
         
-        if (VanillaBackport.COMMON_CONFIG.hasNautilusArmorLoot.get()) {
-            if (path.equals(BuiltInLootTables.BURIED_TREASURE)
-                || path.equals(BuiltInLootTables.UNDERWATER_RUIN_BIG)
-                || path.equals(BuiltInLootTables.UNDERWATER_RUIN_SMALL)
-                || path.equals(BuiltInLootTables.SHIPWRECK_SUPPLY)
-                || path.equals(BuiltInLootTables.SHIPWRECK_MAP)
-                || path.equals(BuiltInLootTables.SHIPWRECK_TREASURE)
-            ) {
-                context.addPool(
-                    LootPool.lootPool()
-                        .setRolls(ConstantValue.exactly(1.0F))
-                        .add(EmptyLootItem.emptyItem().setQuality(148))
-                        .add(LootItem.lootTableItem(ModItems.COPPER_NAUTILUS_ARMOR.get())
-                                .setWeight(20)
-                                .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F))))
-                        .add(LootItem.lootTableItem(ModItems.IRON_NAUTILUS_ARMOR.get())
-                                .setWeight(10)
-                                .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F))))
-                        .add(LootItem.lootTableItem(ModItems.GOLDEN_NAUTILUS_ARMOR.get())
-                                .setWeight(5)
-                                .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F))))
-                        .add(LootItem.lootTableItem(ModItems.DIAMOND_NAUTILUS_ARMOR.get())
-                                .setWeight(2)
-                                .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F))))
-                );
-            }
+        if (CONTAIN_NAUTILUS_ARMOR.contains(path) && VanillaBackport.COMMON_CONFIG.hasNautilusArmorLoot.get()) {
+            context.addPool(LootPool.lootPool()
+                .setRolls(ConstantValue.exactly(1.0F))
+                .add(EmptyLootItem.emptyItem().setQuality(148))
+                .add(LootItem.lootTableItem(ModItems.COPPER_NAUTILUS_ARMOR.get())
+                    .setWeight(20)
+                    .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F))))
+                .add(LootItem.lootTableItem(ModItems.IRON_NAUTILUS_ARMOR.get())
+                    .setWeight(10)
+                    .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F))))
+                .add(LootItem.lootTableItem(ModItems.GOLDEN_NAUTILUS_ARMOR.get())
+                    .setWeight(5)
+                    .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F))))
+                .add(LootItem.lootTableItem(ModItems.DIAMOND_NAUTILUS_ARMOR.get())
+                    .setWeight(2)
+                    .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F)))));
         }
     }
 }

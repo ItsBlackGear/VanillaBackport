@@ -1,14 +1,16 @@
 package com.blackgear.vanillabackport.core.mixin.client.entity_rendering;
 
+import com.blackgear.vanillabackport.client.api.modules.mob_variants.LivingRendererAccess;
 import com.blackgear.vanillabackport.client.api.modules.mob_variants.SpecialMobRenderer;
 import com.blackgear.vanillabackport.client.api.modules.mob_variants.ChickenVariantRenderer;
 import com.blackgear.vanillabackport.client.api.modules.mob_variants.RenderConditions;
-import com.blackgear.vanillabackport.core.mixin.client.extension.entity.MobRendererMixin;
+import com.blackgear.vanillabackport.core.compat.ClientCompat;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.ChickenModel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.ChickenRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.animal.Chicken;
 import org.spongepowered.asm.mixin.Mixin;
@@ -19,7 +21,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ChickenRenderer.class)
-public abstract class ChickenRendererMixin extends MobRendererMixin<Chicken, ChickenModel<Chicken>> {
+public abstract class ChickenRendererMixin extends MobRenderer<Chicken, ChickenModel<Chicken>> implements LivingRendererAccess<Chicken, ChickenModel<Chicken>> {
     @Unique private SpecialMobRenderer<Chicken, ChickenModel<Chicken>> renderer;
 
     public ChickenRendererMixin(EntityRendererProvider.Context context, ChickenModel<Chicken> model, float shadowRadius) {
@@ -37,12 +39,13 @@ public abstract class ChickenRendererMixin extends MobRendererMixin<Chicken, Chi
         cancellable = true
     )
     private void vb$getTextureLocation(Chicken entity, CallbackInfoReturnable<ResourceLocation> cir) {
+        if (ClientCompat.hasQuarkChickenTexture(entity)) return;
         this.renderer.getTexture(entity).ifPresent(cir::setReturnValue);
     }
 
     @Override
-    public void render(Chicken entity, float entityYaw, float partialTicks, PoseStack pose, MultiBufferSource buffer, int packedLight) {
-        this.model = this.renderer.getModel(entity).orElseGet(() -> this.defaultModel);
-        super.render(entity, entityYaw, partialTicks, pose, buffer, packedLight);
+    public void onRender(Chicken entity, float entityYaw, float partialTicks, PoseStack pose, MultiBufferSource buffer, int packedLight) {
+        if (ClientCompat.hasQuarkChickenTexture(entity)) return;
+        this.model = this.renderer.getModel(entity).orElseGet(this::getDefaultModel);
     }
 }

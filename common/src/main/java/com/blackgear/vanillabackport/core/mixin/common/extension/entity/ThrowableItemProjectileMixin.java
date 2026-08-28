@@ -18,14 +18,6 @@ public abstract class ThrowableItemProjectileMixin extends Entity implements Ent
     }
     
     @Inject(
-        method = "defineSynchedData",
-        at = @At("RETURN")
-    )
-    protected void vb$onDefineSynchedData(CallbackInfo ci) {
-        this.vb$defineSynchedData();
-    }
-    
-    @Inject(
         method = "addAdditionalSaveData",
         at = @At("RETURN")
     )

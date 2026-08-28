@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.core.mixin.common.spear_behavior;
 
-import com.blackgear.vanillabackport.common.level.item.spear.UseEffects;
+import com.blackgear.vanillabackport.common.level.items.spear.UseEffects;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.client.multiplayer.ClientLevel;

@@ -1,7 +1,7 @@
 package com.blackgear.vanillabackport.core.util;
 
 import com.blackgear.vanillabackport.common.api.extensions.entity.movement.MotionAwareEntity;
-import com.blackgear.vanillabackport.common.level.item.spear.AttackRange;
+import com.blackgear.vanillabackport.common.level.items.spear.AttackRange;
 import com.blackgear.vanillabackport.core.util.Utilities.DirectionUtils;
 import com.mojang.datafixers.util.Either;
 import net.minecraft.core.BlockPos;

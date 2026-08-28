@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.common.level.worldgen.tree_decorators;
 
-import com.blackgear.vanillabackport.common.level.block.HangingMossBlock;
+import com.blackgear.vanillabackport.common.level.blocks.HangingMossBlock;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
 import com.blackgear.vanillabackport.common.registries.worldgen.ModTreeDecorators;
 import com.blackgear.vanillabackport.common.worldgen.features.TheGardenAwakensFeatures;

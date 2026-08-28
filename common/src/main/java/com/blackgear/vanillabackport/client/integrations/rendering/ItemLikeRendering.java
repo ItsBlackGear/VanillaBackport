@@ -7,8 +7,8 @@ import com.blackgear.vanillabackport.client.level.renderer.block_entity.CopperCh
 import com.blackgear.vanillabackport.client.level.renderer.block_entity.CopperGolemStatueRenderer;
 import com.blackgear.vanillabackport.client.level.renderer.block_entity.ShelfRenderer;
 import com.blackgear.vanillabackport.client.level.renderer.item.*;
-import com.blackgear.vanillabackport.common.level.block.CopperChestBlock;
-import com.blackgear.vanillabackport.common.level.block.CopperGolemStatueBlock;
+import com.blackgear.vanillabackport.common.level.blocks.CopperChestBlock;
+import com.blackgear.vanillabackport.common.level.blocks.CopperGolemStatueBlock;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlockEntities;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
 import net.fabricmc.api.EnvType;

@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.core.mixin.common.creaking_heart;
 
-import com.blackgear.vanillabackport.common.level.block.CreakingHeartBlock;
+import com.blackgear.vanillabackport.common.level.blocks.CreakingHeartBlock;
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Explosion;

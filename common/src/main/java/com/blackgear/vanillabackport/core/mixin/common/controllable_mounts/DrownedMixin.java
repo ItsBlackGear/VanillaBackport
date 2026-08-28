@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.core.mixin.common.controllable_mounts;
 
-import com.blackgear.vanillabackport.common.level.entity.mob.animal.nautilus.ZombieNautilus;
+import com.blackgear.vanillabackport.common.level.entities.mob.animal.nautilus.ZombieNautilus;
 import com.blackgear.vanillabackport.common.registries.entities.ModEntityTypes;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.nbt.CompoundTag;

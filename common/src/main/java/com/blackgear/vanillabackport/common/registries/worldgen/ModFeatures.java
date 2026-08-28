@@ -17,9 +17,9 @@ public class ModFeatures {
         "fallen_tree",
         () -> new FallenTreeFeature(FallenTreeConfiguration.CODEC)
     );
-    public static final Supplier<Feature<NoneFeatureConfiguration>> LEAF_LITTER = REGISTRIES.register(
+    public static final Supplier<Feature<LeafLitterConfiguration>> LEAF_LITTER = REGISTRIES.register(
         "leaf_litter",
-        () -> new LeafLitterFeature(NoneFeatureConfiguration.CODEC)
+        () -> new LeafLitterFeature(LeafLitterConfiguration.CODEC)
     );
     public static final Supplier<Feature<NoneFeatureConfiguration>> CACTUS_FLOWER = REGISTRIES.register(
         "cactus_flower",

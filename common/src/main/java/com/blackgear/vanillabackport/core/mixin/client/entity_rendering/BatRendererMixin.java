@@ -1,14 +1,16 @@
 package com.blackgear.vanillabackport.core.mixin.client.entity_rendering;
 
+import com.blackgear.vanillabackport.client.api.modules.mob_variants.LivingRendererAccess;
 import com.blackgear.vanillabackport.client.api.modules.mob_variants.RenderConditions;
 import com.blackgear.vanillabackport.client.api.modules.mob_variants.SpecialMobRenderer;
 import com.blackgear.vanillabackport.client.api.modules.mob_variants.BatSpecialRenderer;
-import com.blackgear.vanillabackport.core.mixin.client.extension.entity.MobRendererMixin;
+import com.blackgear.vanillabackport.core.mixin.client.extension.entity.LivingEntityRendererMixin;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.BatModel;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.BatRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.ambient.Bat;
 import org.spongepowered.asm.mixin.Mixin;
@@ -19,7 +21,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(BatRenderer.class)
-public abstract class BatRendererMixin extends MobRendererMixin<Bat, BatModel> {
+public abstract class BatRendererMixin extends MobRenderer<Bat, BatModel> implements LivingRendererAccess<Bat, BatModel> {
     @Unique private SpecialMobRenderer<Bat, BatModel> renderer;
 
     public BatRendererMixin(EntityRendererProvider.Context context, BatModel model, float shadowRadius) {
@@ -39,13 +41,12 @@ public abstract class BatRendererMixin extends MobRendererMixin<Bat, BatModel> {
     private void vb$getTextureLocation(Bat entity, CallbackInfoReturnable<ResourceLocation> cir) {
         this.renderer.getTexture(entity).ifPresent(cir::setReturnValue);
     }
-
+    
     @Override
-    public void render(Bat entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource buffer, int packedLight) {
-        this.model = this.renderer.getModel(entity).orElseGet(() -> this.defaultModel);
-        super.render(entity, entityYaw, partialTicks, poseStack, buffer, packedLight);
+    public void onRender(Bat entity, float entityYaw, float partialTicks, PoseStack pose, MultiBufferSource buffer, int packedLight) {
+        this.model = this.renderer.getModel(entity).orElseGet(this::getDefaultModel);
     }
-
+    
     @Inject(
         method = "scale(Lnet/minecraft/world/entity/ambient/Bat;Lcom/mojang/blaze3d/vertex/PoseStack;F)V",
         at = @At("HEAD"),

@@ -3,7 +3,7 @@ package com.blackgear.vanillabackport.core.mixin.client.spear_behavior;
 import com.blackgear.vanillabackport.common.api.extensions.entity.spear.ServerSpearHandler;
 import com.blackgear.vanillabackport.common.api.extensions.entity.arms.PlayerActions;
 import com.blackgear.vanillabackport.common.api.extensions.entity.spear.MobSpearHandler;
-import com.blackgear.vanillabackport.common.level.item.spear.PiercingWeapon;
+import com.blackgear.vanillabackport.common.level.items.spear.PiercingWeapon;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.client.multiplayer.MultiPlayerGameMode;
@@ -24,8 +24,8 @@ public abstract class MultiPlayerGameModeMixin implements ServerSpearHandler {
     public void piercingAttack(PiercingWeapon piercingWeapon) {
         this.ensureHasSentCarriedItem();
         this.connection.send(new ServerboundPlayerActionPacket(PlayerActions.STAB.get(), BlockPos.ZERO, Direction.DOWN));
-        ((MobSpearHandler) this.minecraft.player).onAttack();
-        ((MobSpearHandler) this.minecraft.player).postPiercingAttack();
+        ((MobSpearHandler) this.minecraft.player).vb$onAttack();
+        ((MobSpearHandler) this.minecraft.player).vb$postPiercingAttack();
         piercingWeapon.makeSound(this.minecraft.player);
     }
 }
