@@ -35,6 +35,7 @@ public class ModItemTags {
     
     public static final TagKey<Item> COPPER = TAGS.register("copper");
     public static final TagKey<Item> COPPER_GOLEM_STATUES = TAGS.register("copper_golem_statues");
+    public static final TagKey<Item> COPPER_CHESTS = TAGS.register("copper_chests");
     public static final TagKey<Item> SHEARABLE_FROM_COPPER_GOLEM = TAGS.register("shearable_from_copper_golem");
     
     public static final TagKey<Item> BARS = TAGS.register("bars");

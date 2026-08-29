@@ -154,6 +154,18 @@
   },
   "requirements": [
     [
+      "minecraft:rusty"
+    ],
+    [
+      "minecraft:ashen"
+    ],
+    [
+      "minecraft:snowy"
+    ],
+    [
+      "minecraft:black"
+    ],
+    [
       "minecraft:woods"
     ],
     [
@@ -167,18 +179,6 @@
     ],
     [
       "minecraft:chestnut"
-    ],
-    [
-      "minecraft:rusty"
-    ],
-    [
-      "minecraft:ashen"
-    ],
-    [
-      "minecraft:snowy"
-    ],
-    [
-      "minecraft:black"
     ]
   ],
   "rewards": {

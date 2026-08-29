@@ -1,7 +1,10 @@
 {
   "replace": false,
   "values": [
+    "minecraft:yellow_wool_stairs",
+    "minecraft:yellow_wool_slab",
     "minecraft:yellow_bundle",
-    "minecraft:yellow_harness"
+    "minecraft:yellow_harness",
+    "minecraft:yellow_cushion"
   ]
 }

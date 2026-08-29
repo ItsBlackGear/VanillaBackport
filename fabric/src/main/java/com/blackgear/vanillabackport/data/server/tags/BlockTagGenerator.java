@@ -216,7 +216,7 @@ public class BlockTagGenerator extends FabricTagProvider.BlockTagProvider {
                 ModBlocks.SULFUR.get(),
                 ModBlocks.CINNABAR.get()
             );
-        
+
         this.getOrCreateTagBuilder(ModBlockTags.COPPER_CHESTS)
             .add(
                 ModBlocks.COPPER_CHEST.get(),
