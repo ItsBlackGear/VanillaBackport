@@ -216,18 +216,6 @@ public class BlockTagGenerator extends FabricTagProvider.BlockTagProvider {
             .forceAddTag(BlockTags.NEEDS_DIAMOND_TOOL)
             .forceAddTag(BlockTags.NEEDS_IRON_TOOL);
         
-        this.getOrCreateTagBuilder(ModBlockTags.COPPER_CHESTS)
-            .add(
-                ModBlocks.COPPER_CHEST.get(),
-                ModBlocks.EXPOSED_COPPER_CHEST.get(),
-                ModBlocks.WEATHERED_COPPER_CHEST.get(),
-                ModBlocks.OXIDIZED_COPPER_CHEST.get(),
-                ModBlocks.WAXED_COPPER_CHEST.get(),
-                ModBlocks.WAXED_EXPOSED_COPPER_CHEST.get(),
-                ModBlocks.WAXED_WEATHERED_COPPER_CHEST.get(),
-                ModBlocks.WAXED_OXIDIZED_COPPER_CHEST.get()
-            );
-        
         this.getOrCreateTagBuilder(ModBlockTags.COPPER_GOLEM_DESTINATION_TARGETS)
             .add(Blocks.CHEST)
             .add(Blocks.TRAPPED_CHEST)

@@ -1,6 +1,9 @@
 {
   "values": [
+    "minecraft:orange_wool_stairs",
+    "minecraft:orange_wool_slab",
     "minecraft:orange_bundle",
-    "minecraft:orange_harness"
+    "minecraft:orange_harness",
+    "minecraft:orange_cushion"
   ]
 }

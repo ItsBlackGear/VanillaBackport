@@ -1,6 +1,9 @@
 {
   "values": [
+    "minecraft:green_wool_stairs",
+    "minecraft:green_wool_slab",
     "minecraft:green_bundle",
-    "minecraft:green_harness"
+    "minecraft:green_harness",
+    "minecraft:gray_cushion"
   ]
 }
