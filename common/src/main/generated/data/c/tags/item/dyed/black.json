@@ -2,6 +2,8 @@
   "values": [
     "minecraft:black_wool_stairs",
     "minecraft:black_wool_slab",
+    "minecraft:black_concrete_stairs",
+    "minecraft:black_concrete_slab",
     "minecraft:black_bundle",
     "minecraft:black_harness",
     "minecraft:black_cushion"

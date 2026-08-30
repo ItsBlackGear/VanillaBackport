@@ -1,6 +1,8 @@
 {
   "values": [
     "minecraft:cyan_wool_stairs",
-    "minecraft:cyan_wool_slab"
+    "minecraft:cyan_wool_slab",
+    "minecraft:cyan_concrete_stairs",
+    "minecraft:cyan_concrete_slab"
   ]
 }

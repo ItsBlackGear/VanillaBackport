@@ -2,6 +2,8 @@
   "values": [
     "minecraft:light_blue_wool_stairs",
     "minecraft:light_blue_wool_slab",
+    "minecraft:light_blue_concrete_stairs",
+    "minecraft:light_blue_concrete_slab",
     "minecraft:light_blue_bundle",
     "minecraft:light_blue_harness",
     "minecraft:light_blue_cushion"
