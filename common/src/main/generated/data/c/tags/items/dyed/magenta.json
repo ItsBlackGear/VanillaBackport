@@ -3,6 +3,8 @@
   "values": [
     "minecraft:magenta_wool_stairs",
     "minecraft:magenta_wool_slab",
+    "minecraft:magenta_concrete_stairs",
+    "minecraft:magenta_concrete_slab",
     "minecraft:magenta_bundle",
     "minecraft:magenta_harness",
     "minecraft:magenta_cushion"

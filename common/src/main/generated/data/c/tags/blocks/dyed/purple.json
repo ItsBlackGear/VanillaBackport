@@ -2,6 +2,8 @@
   "replace": false,
   "values": [
     "minecraft:purple_wool_stairs",
-    "minecraft:purple_wool_slab"
+    "minecraft:purple_wool_slab",
+    "minecraft:purple_concrete_stairs",
+    "minecraft:purple_concrete_slab"
   ]
 }
