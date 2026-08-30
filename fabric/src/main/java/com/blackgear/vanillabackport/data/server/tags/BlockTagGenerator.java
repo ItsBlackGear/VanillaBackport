@@ -109,7 +109,9 @@ public class BlockTagGenerator extends FabricTagProvider.BlockTagProvider {
             .addTag(ModBlockTags.LIGHTNING_RODS)
             .addTag(ModBlockTags.LANTERNS)
             .addTag(ModBlockTags.CHAINS)
-            .addTag(ModBlockTags.BARS);
+            .addTag(ModBlockTags.BARS)
+            .addTag(ModBlockTags.CONCRETE_SLABS)
+            .addTag(ModBlockTags.CONCRETE_STAIRS);
         
         this.getOrCreateTagBuilder(BlockTags.NEEDS_STONE_TOOL)
             .addTag(ModBlockTags.COPPER_CHESTS)

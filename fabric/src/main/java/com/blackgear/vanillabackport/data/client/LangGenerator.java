@@ -588,6 +588,40 @@ public class LangGenerator extends FabricLanguageProvider {
         builder.add(ModBlocks.LIME_WOOL_SLAB.get(), "Lime Wool Slab");
         builder.add(ModBlocks.BROWN_WOOL_SLAB.get(), "Brown Wool Slab");
         builder.add(ModBlocks.ORANGE_WOOL_SLAB.get(), "Orange Wool Slab");
+
+        builder.add(ModBlocks.BLACK_CONCRETE_STAIRS.get(), "Black Concrete Stairs");
+        builder.add(ModBlocks.WHITE_CONCRETE_STAIRS.get(), "White Concrete Stairs");
+        builder.add(ModBlocks.GRAY_CONCRETE_STAIRS.get(), "Gray Concrete Stairs");
+        builder.add(ModBlocks.LIGHT_GRAY_CONCRETE_STAIRS.get(), "Light Gray Concrete Stairs");
+        builder.add(ModBlocks.LIGHT_BLUE_CONCRETE_STAIRS.get(), "Light Blue Concrete Stairs");
+        builder.add(ModBlocks.BLUE_CONCRETE_STAIRS.get(), "Blue Concrete Stairs");
+        builder.add(ModBlocks.CYAN_CONCRETE_STAIRS.get(), "Cyan Concrete Stairs");
+        builder.add(ModBlocks.YELLOW_CONCRETE_STAIRS.get(), "Yellow Concrete Stairs");
+        builder.add(ModBlocks.RED_CONCRETE_STAIRS.get(), "Red Concrete Stairs");
+        builder.add(ModBlocks.PURPLE_CONCRETE_STAIRS.get(), "Purple Concrete Stairs");
+        builder.add(ModBlocks.MAGENTA_CONCRETE_STAIRS.get(), "Magenta Concrete Stairs");
+        builder.add(ModBlocks.PINK_CONCRETE_STAIRS.get(), "Pink Concrete Stairs");
+        builder.add(ModBlocks.GREEN_CONCRETE_STAIRS.get(), "Green Concrete Stairs");
+        builder.add(ModBlocks.LIME_CONCRETE_STAIRS.get(), "Lime Concrete Stairs");
+        builder.add(ModBlocks.BROWN_CONCRETE_STAIRS.get(), "Brown Concrete Stairs");
+        builder.add(ModBlocks.ORANGE_CONCRETE_STAIRS.get(), "Orange Concrete Stairs");
+
+        builder.add(ModBlocks.BLACK_CONCRETE_SLAB.get(), "Black Concrete Slab");
+        builder.add(ModBlocks.WHITE_CONCRETE_SLAB.get(), "White Concrete Slab");
+        builder.add(ModBlocks.GRAY_CONCRETE_SLAB.get(), "Gray Concrete Slab");
+        builder.add(ModBlocks.LIGHT_GRAY_CONCRETE_SLAB.get(), "Light Gray Concrete Slab");
+        builder.add(ModBlocks.LIGHT_BLUE_CONCRETE_SLAB.get(), "Light Blue Concrete Slab");
+        builder.add(ModBlocks.BLUE_CONCRETE_SLAB.get(), "Blue Concrete Slab");
+        builder.add(ModBlocks.CYAN_CONCRETE_SLAB.get(), "Cyan Concrete Slab");
+        builder.add(ModBlocks.YELLOW_CONCRETE_SLAB.get(), "Yellow Concrete Slab");
+        builder.add(ModBlocks.RED_CONCRETE_SLAB.get(), "Red Concrete Slab");
+        builder.add(ModBlocks.PURPLE_CONCRETE_SLAB.get(), "Purple Concrete Slab");
+        builder.add(ModBlocks.MAGENTA_CONCRETE_SLAB.get(), "Magenta Concrete Slab");
+        builder.add(ModBlocks.PINK_CONCRETE_SLAB.get(), "Pink Concrete Slab");
+        builder.add(ModBlocks.GREEN_CONCRETE_SLAB.get(), "Green Concrete Slab");
+        builder.add(ModBlocks.LIME_CONCRETE_SLAB.get(), "Lime Concrete Slab");
+        builder.add(ModBlocks.BROWN_CONCRETE_SLAB.get(), "Brown Concrete Slab");
+        builder.add(ModBlocks.ORANGE_CONCRETE_SLAB.get(), "Orange Concrete Slab");
         
         builder.add(ModItems.BLACK_CUSHION.get(), "Black Cushion");
         builder.add(ModItems.WHITE_CUSHION.get(), "White Cushion");

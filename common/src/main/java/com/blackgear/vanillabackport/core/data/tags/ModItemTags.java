@@ -56,4 +56,7 @@ public class ModItemTags {
     public static final TagKey<Item> CUSHIONS = TAGS.register("cushions");
     public static final TagKey<Item> WOOL_STAIRS = TAGS.register("wool_stairs");
     public static final TagKey<Item> WOOL_SLABS = TAGS.register("wool_slabs");
+
+    public static final TagKey<Item> CONCRETE_STAIRS = TAGS.register("concrete_stairs");
+    public static final TagKey<Item> CONCRETE_SLABS = TAGS.register("concrete_slabs");
 }
