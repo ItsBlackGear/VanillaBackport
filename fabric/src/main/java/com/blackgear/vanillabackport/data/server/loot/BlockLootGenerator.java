@@ -211,6 +211,40 @@ public class BlockLootGenerator extends FabricBlockLootTableProvider {
         this.dropSelf(ModBlocks.GREEN_WOOL_SLAB.get());
         this.dropSelf(ModBlocks.RED_WOOL_SLAB.get());
         this.dropSelf(ModBlocks.BLACK_WOOL_SLAB.get());
+
+        this.dropSelf(ModBlocks.WHITE_CONCRETE_STAIRS.get());
+        this.dropSelf(ModBlocks.ORANGE_CONCRETE_STAIRS.get());
+        this.dropSelf(ModBlocks.MAGENTA_CONCRETE_STAIRS.get());
+        this.dropSelf(ModBlocks.LIGHT_BLUE_CONCRETE_STAIRS.get());
+        this.dropSelf(ModBlocks.YELLOW_CONCRETE_STAIRS.get());
+        this.dropSelf(ModBlocks.LIME_CONCRETE_STAIRS.get());
+        this.dropSelf(ModBlocks.PINK_CONCRETE_STAIRS.get());
+        this.dropSelf(ModBlocks.GRAY_CONCRETE_STAIRS.get());
+        this.dropSelf(ModBlocks.LIGHT_GRAY_CONCRETE_STAIRS.get());
+        this.dropSelf(ModBlocks.CYAN_CONCRETE_STAIRS.get());
+        this.dropSelf(ModBlocks.PURPLE_CONCRETE_STAIRS.get());
+        this.dropSelf(ModBlocks.BLUE_CONCRETE_STAIRS.get());
+        this.dropSelf(ModBlocks.BROWN_CONCRETE_STAIRS.get());
+        this.dropSelf(ModBlocks.GREEN_CONCRETE_STAIRS.get());
+        this.dropSelf(ModBlocks.RED_CONCRETE_STAIRS.get());
+        this.dropSelf(ModBlocks.BLACK_CONCRETE_STAIRS.get());
+
+        this.dropSelf(ModBlocks.WHITE_CONCRETE_SLAB.get());
+        this.dropSelf(ModBlocks.ORANGE_CONCRETE_SLAB.get());
+        this.dropSelf(ModBlocks.MAGENTA_CONCRETE_SLAB.get());
+        this.dropSelf(ModBlocks.LIGHT_BLUE_CONCRETE_SLAB.get());
+        this.dropSelf(ModBlocks.YELLOW_CONCRETE_SLAB.get());
+        this.dropSelf(ModBlocks.LIME_CONCRETE_SLAB.get());
+        this.dropSelf(ModBlocks.PINK_CONCRETE_SLAB.get());
+        this.dropSelf(ModBlocks.GRAY_CONCRETE_SLAB.get());
+        this.dropSelf(ModBlocks.LIGHT_GRAY_CONCRETE_SLAB.get());
+        this.dropSelf(ModBlocks.CYAN_CONCRETE_SLAB.get());
+        this.dropSelf(ModBlocks.PURPLE_CONCRETE_SLAB.get());
+        this.dropSelf(ModBlocks.BLUE_CONCRETE_SLAB.get());
+        this.dropSelf(ModBlocks.BROWN_CONCRETE_SLAB.get());
+        this.dropSelf(ModBlocks.GREEN_CONCRETE_SLAB.get());
+        this.dropSelf(ModBlocks.RED_CONCRETE_SLAB.get());
+        this.dropSelf(ModBlocks.BLACK_CONCRETE_SLAB.get());
     }
 
     protected LootTable.Builder createMultifaceBlockDrops(Block block) {

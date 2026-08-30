@@ -222,6 +222,42 @@ public abstract class BlockItemTagGenerator {
         this.tag(BlockTags.DAMPENS_VIBRATIONS, ItemTags.DAMPENS_VIBRATIONS)
             .addTag(ModBlockTags.WOOL_STAIRS)
             .addTag(ModBlockTags.WOOL_SLABS);
+
+        this.tag(ModBlockTags.CONCRETE_STAIRS, ModItemTags.CONCRETE_STAIRS)
+            .add(ModBlocks.BLACK_CONCRETE_STAIRS.get())
+            .add(ModBlocks.BLUE_CONCRETE_STAIRS.get())
+            .add(ModBlocks.BROWN_CONCRETE_STAIRS.get())
+            .add(ModBlocks.CYAN_CONCRETE_STAIRS.get())
+            .add(ModBlocks.GRAY_CONCRETE_STAIRS.get())
+            .add(ModBlocks.GREEN_CONCRETE_STAIRS.get())
+            .add(ModBlocks.LIGHT_BLUE_CONCRETE_STAIRS.get())
+            .add(ModBlocks.LIGHT_GRAY_CONCRETE_STAIRS.get())
+            .add(ModBlocks.LIME_CONCRETE_STAIRS.get())
+            .add(ModBlocks.MAGENTA_CONCRETE_STAIRS.get())
+            .add(ModBlocks.ORANGE_CONCRETE_STAIRS.get())
+            .add(ModBlocks.PINK_CONCRETE_STAIRS.get())
+            .add(ModBlocks.PURPLE_CONCRETE_STAIRS.get())
+            .add(ModBlocks.RED_CONCRETE_STAIRS.get())
+            .add(ModBlocks.YELLOW_CONCRETE_STAIRS.get())
+            .add(ModBlocks.WHITE_CONCRETE_STAIRS.get());
+
+        this.tag(ModBlockTags.CONCRETE_SLABS, ModItemTags.CONCRETE_SLABS)
+            .add(ModBlocks.BLACK_CONCRETE_SLAB.get())
+            .add(ModBlocks.BLUE_CONCRETE_SLAB.get())
+            .add(ModBlocks.BROWN_CONCRETE_SLAB.get())
+            .add(ModBlocks.CYAN_CONCRETE_SLAB.get())
+            .add(ModBlocks.GRAY_CONCRETE_SLAB.get())
+            .add(ModBlocks.GREEN_CONCRETE_SLAB.get())
+            .add(ModBlocks.LIGHT_BLUE_CONCRETE_SLAB.get())
+            .add(ModBlocks.LIGHT_GRAY_CONCRETE_SLAB.get())
+            .add(ModBlocks.LIME_CONCRETE_SLAB.get())
+            .add(ModBlocks.MAGENTA_CONCRETE_SLAB.get())
+            .add(ModBlocks.ORANGE_CONCRETE_SLAB.get())
+            .add(ModBlocks.PINK_CONCRETE_SLAB.get())
+            .add(ModBlocks.PURPLE_CONCRETE_SLAB.get())
+            .add(ModBlocks.RED_CONCRETE_SLAB.get())
+            .add(ModBlocks.YELLOW_CONCRETE_SLAB.get())
+            .add(ModBlocks.WHITE_CONCRETE_SLAB.get());
     }
 
     private void handleConventionalTags() {

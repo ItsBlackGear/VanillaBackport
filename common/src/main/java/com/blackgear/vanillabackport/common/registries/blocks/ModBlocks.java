@@ -633,6 +633,88 @@ public class ModBlocks {
         SlabBlock::new, Properties.ofFullCopy(Blocks.RED_WOOL));
     public static final Supplier<Block> BLACK_WOOL_SLAB = REGISTRIES.register("black_wool_slab",
         SlabBlock::new, Properties.ofFullCopy(Blocks.BLACK_WOOL));
+
+    public static final Supplier<Block> BLACK_CONCRETE_STAIRS = REGISTRIES.register("black_concrete_stairs",
+        properties -> new StairBlock(Blocks.BLACK_CONCRETE.defaultBlockState(), properties),
+        Properties.ofFullCopy(Blocks.BLACK_CONCRETE));
+    public static final Supplier<Block> BLUE_CONCRETE_STAIRS = REGISTRIES.register("blue_concrete_stairs",
+        properties -> new StairBlock(Blocks.BLUE_CONCRETE.defaultBlockState(), properties),
+        Properties.ofFullCopy(Blocks.BLUE_CONCRETE));
+    public static final Supplier<Block> BROWN_CONCRETE_STAIRS = REGISTRIES.register("brown_concrete_stairs",
+        properties -> new StairBlock(Blocks.BROWN_CONCRETE.defaultBlockState(), properties),
+        Properties.ofFullCopy(Blocks.BROWN_CONCRETE));
+    public static final Supplier<Block> CYAN_CONCRETE_STAIRS = REGISTRIES.register("cyan_concrete_stairs",
+        properties -> new StairBlock(Blocks.CYAN_CONCRETE.defaultBlockState(), properties),
+        Properties.ofFullCopy(Blocks.CYAN_CONCRETE));
+    public static final Supplier<Block> GRAY_CONCRETE_STAIRS = REGISTRIES.register("gray_concrete_stairs",
+        properties -> new StairBlock(Blocks.GRAY_CONCRETE.defaultBlockState(), properties),
+        Properties.ofFullCopy(Blocks.GRAY_CONCRETE));
+    public static final Supplier<Block> GREEN_CONCRETE_STAIRS = REGISTRIES.register("green_concrete_stairs",
+        properties -> new StairBlock(Blocks.GREEN_CONCRETE.defaultBlockState(), properties),
+        Properties.ofFullCopy(Blocks.GREEN_CONCRETE));
+    public static final Supplier<Block> LIGHT_BLUE_CONCRETE_STAIRS = REGISTRIES.register("light_blue_concrete_stairs",
+        properties -> new StairBlock(Blocks.LIGHT_BLUE_CONCRETE.defaultBlockState(), properties),
+        Properties.ofFullCopy(Blocks.LIGHT_BLUE_CONCRETE));
+    public static final Supplier<Block> LIGHT_GRAY_CONCRETE_STAIRS = REGISTRIES.register("light_gray_concrete_stairs",
+        properties -> new StairBlock(Blocks.LIGHT_GRAY_CONCRETE.defaultBlockState(), properties),
+        Properties.ofFullCopy(Blocks.LIGHT_GRAY_CONCRETE));
+    public static final Supplier<Block> LIME_CONCRETE_STAIRS = REGISTRIES.register("lime_concrete_stairs",
+        properties -> new StairBlock(Blocks.LIME_CONCRETE.defaultBlockState(), properties),
+        Properties.ofFullCopy(Blocks.LIME_CONCRETE));
+    public static final Supplier<Block> MAGENTA_CONCRETE_STAIRS = REGISTRIES.register("magenta_concrete_stairs",
+        properties -> new StairBlock(Blocks.MAGENTA_CONCRETE.defaultBlockState(), properties),
+        Properties.ofFullCopy(Blocks.MAGENTA_CONCRETE));
+    public static final Supplier<Block> ORANGE_CONCRETE_STAIRS = REGISTRIES.register("orange_concrete_stairs",
+        properties -> new StairBlock(Blocks.ORANGE_CONCRETE.defaultBlockState(), properties),
+        Properties.ofFullCopy(Blocks.ORANGE_CONCRETE));
+    public static final Supplier<Block> PINK_CONCRETE_STAIRS = REGISTRIES.register("pink_concrete_stairs",
+        properties -> new StairBlock(Blocks.PINK_CONCRETE.defaultBlockState(), properties),
+        Properties.ofFullCopy(Blocks.PINK_CONCRETE));
+    public static final Supplier<Block> PURPLE_CONCRETE_STAIRS = REGISTRIES.register("purple_concrete_stairs",
+        properties -> new StairBlock(Blocks.PURPLE_CONCRETE.defaultBlockState(), properties),
+        Properties.ofFullCopy(Blocks.PURPLE_CONCRETE));
+    public static final Supplier<Block> RED_CONCRETE_STAIRS = REGISTRIES.register("red_concrete_stairs",
+        properties -> new StairBlock(Blocks.RED_CONCRETE.defaultBlockState(), properties),
+        Properties.ofFullCopy(Blocks.RED_CONCRETE));
+    public static final Supplier<Block> YELLOW_CONCRETE_STAIRS = REGISTRIES.register("yellow_concrete_stairs",
+        properties -> new StairBlock(Blocks.YELLOW_CONCRETE.defaultBlockState(), properties),
+        Properties.ofFullCopy(Blocks.YELLOW_CONCRETE));
+    public static final Supplier<Block> WHITE_CONCRETE_STAIRS = REGISTRIES.register("white_concrete_stairs",
+        properties -> new StairBlock(Blocks.WHITE_CONCRETE.defaultBlockState(), properties),
+        Properties.ofFullCopy(Blocks.WHITE_CONCRETE));
+
+    public static final Supplier<Block> BLACK_CONCRETE_SLAB = REGISTRIES.register("black_concrete_slab",
+        SlabBlock::new, Properties.ofFullCopy(Blocks.BLACK_CONCRETE));
+    public static final Supplier<Block> BLUE_CONCRETE_SLAB = REGISTRIES.register("blue_concrete_slab",
+        SlabBlock::new, Properties.ofFullCopy(Blocks.BLUE_CONCRETE));
+    public static final Supplier<Block> BROWN_CONCRETE_SLAB = REGISTRIES.register("brown_concrete_slab",
+        SlabBlock::new, Properties.ofFullCopy(Blocks.BROWN_CONCRETE));
+    public static final Supplier<Block> CYAN_CONCRETE_SLAB = REGISTRIES.register("cyan_concrete_slab",
+        SlabBlock::new, Properties.ofFullCopy(Blocks.CYAN_CONCRETE));
+    public static final Supplier<Block> GRAY_CONCRETE_SLAB = REGISTRIES.register("gray_concrete_slab",
+        SlabBlock::new, Properties.ofFullCopy(Blocks.GRAY_CONCRETE));
+    public static final Supplier<Block> GREEN_CONCRETE_SLAB = REGISTRIES.register("green_concrete_slab",
+        SlabBlock::new, Properties.ofFullCopy(Blocks.GREEN_CONCRETE));
+    public static final Supplier<Block> LIGHT_BLUE_CONCRETE_SLAB = REGISTRIES.register("light_blue_concrete_slab",
+        SlabBlock::new, Properties.ofFullCopy(Blocks.LIGHT_BLUE_CONCRETE));
+    public static final Supplier<Block> LIGHT_GRAY_CONCRETE_SLAB = REGISTRIES.register("light_gray_concrete_slab",
+        SlabBlock::new, Properties.ofFullCopy(Blocks.LIGHT_GRAY_CONCRETE));
+    public static final Supplier<Block> LIME_CONCRETE_SLAB = REGISTRIES.register("lime_concrete_slab",
+        SlabBlock::new, Properties.ofFullCopy(Blocks.LIME_CONCRETE));
+    public static final Supplier<Block> MAGENTA_CONCRETE_SLAB = REGISTRIES.register("magenta_concrete_slab",
+        SlabBlock::new, Properties.ofFullCopy(Blocks.MAGENTA_CONCRETE));
+    public static final Supplier<Block> ORANGE_CONCRETE_SLAB = REGISTRIES.register("orange_concrete_slab",
+        SlabBlock::new, Properties.ofFullCopy(Blocks.ORANGE_CONCRETE));
+    public static final Supplier<Block> PINK_CONCRETE_SLAB = REGISTRIES.register("pink_concrete_slab",
+        SlabBlock::new, Properties.ofFullCopy(Blocks.PINK_CONCRETE));
+    public static final Supplier<Block> PURPLE_CONCRETE_SLAB = REGISTRIES.register("purple_concrete_slab",
+        SlabBlock::new, Properties.ofFullCopy(Blocks.PURPLE_CONCRETE));
+    public static final Supplier<Block> RED_CONCRETE_SLAB = REGISTRIES.register("red_concrete_slab",
+        SlabBlock::new, Properties.ofFullCopy(Blocks.RED_CONCRETE));
+    public static final Supplier<Block> YELLOW_CONCRETE_SLAB = REGISTRIES.register("yellow_concrete_slab",
+        SlabBlock::new, Properties.ofFullCopy(Blocks.YELLOW_CONCRETE));
+    public static final Supplier<Block> WHITE_CONCRETE_SLAB = REGISTRIES.register("white_concrete_slab",
+        SlabBlock::new, Properties.ofFullCopy(Blocks.WHITE_CONCRETE));
     
     // Helper
     

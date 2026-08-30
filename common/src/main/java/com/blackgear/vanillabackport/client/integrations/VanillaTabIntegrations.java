@@ -372,6 +372,41 @@ public class VanillaTabIntegrations {
                     ModBlocks.PURPLE_WOOL_SLAB.get(),
                     ModBlocks.MAGENTA_WOOL_SLAB.get(),
                     ModBlocks.PINK_WOOL_SLAB.get());
+
+            output.before(Items.WHITE_CONCRETE_POWDER).add(
+                    ModBlocks.WHITE_CONCRETE_STAIRS.get(),
+                    ModBlocks.LIGHT_GRAY_CONCRETE_STAIRS.get(),
+                    ModBlocks.GRAY_CONCRETE_STAIRS.get(),
+                    ModBlocks.BLACK_CONCRETE_STAIRS.get(),
+                    ModBlocks.BROWN_CONCRETE_STAIRS.get(),
+                    ModBlocks.RED_CONCRETE_STAIRS.get(),
+                    ModBlocks.ORANGE_CONCRETE_STAIRS.get(),
+                    ModBlocks.YELLOW_CONCRETE_STAIRS.get(),
+                    ModBlocks.LIME_CONCRETE_STAIRS.get(),
+                    ModBlocks.GREEN_CONCRETE_STAIRS.get(),
+                    ModBlocks.CYAN_CONCRETE_STAIRS.get(),
+                    ModBlocks.LIGHT_BLUE_CONCRETE_STAIRS.get(),
+                    ModBlocks.BLUE_CONCRETE_STAIRS.get(),
+                    ModBlocks.PURPLE_CONCRETE_STAIRS.get(),
+                    ModBlocks.MAGENTA_CONCRETE_STAIRS.get(),
+                    ModBlocks.PINK_CONCRETE_STAIRS.get())
+                .add(
+                    ModBlocks.WHITE_CONCRETE_SLAB.get(),
+                    ModBlocks.LIGHT_GRAY_CONCRETE_SLAB.get(),
+                    ModBlocks.GRAY_CONCRETE_SLAB.get(),
+                    ModBlocks.BLACK_CONCRETE_SLAB.get(),
+                    ModBlocks.BROWN_CONCRETE_SLAB.get(),
+                    ModBlocks.RED_CONCRETE_SLAB.get(),
+                    ModBlocks.ORANGE_CONCRETE_SLAB.get(),
+                    ModBlocks.YELLOW_CONCRETE_SLAB.get(),
+                    ModBlocks.LIME_CONCRETE_SLAB.get(),
+                    ModBlocks.GREEN_CONCRETE_SLAB.get(),
+                    ModBlocks.CYAN_CONCRETE_SLAB.get(),
+                    ModBlocks.LIGHT_BLUE_CONCRETE_SLAB.get(),
+                    ModBlocks.BLUE_CONCRETE_SLAB.get(),
+                    ModBlocks.PURPLE_CONCRETE_SLAB.get(),
+                    ModBlocks.MAGENTA_CONCRETE_SLAB.get(),
+                    ModBlocks.PINK_CONCRETE_SLAB.get());
             
             output.before(Items.CANDLE).add(
                 ModItems.WHITE_CUSHION.get(),
