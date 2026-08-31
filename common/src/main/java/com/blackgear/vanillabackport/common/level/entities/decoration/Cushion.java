@@ -60,7 +60,9 @@ public class Cushion extends BlockAttachedEntity {
         this.showBreakingParticles();
         if (this.level() instanceof ServerLevel level && level.getGameRules().getBoolean(GameRules.RULE_DOENTITYDROPS)) {
             if (!(entity instanceof Player player && player.getAbilities().instabuild)) {
-                this.spawnAtLocation(Cushion.getByColor(this.getColor()).cushion());
+                ItemStack cushion = new ItemStack(Cushion.getByColor(this.getColor()).cushion());
+                cushion.setHoverName(getCustomName());
+                this.spawnAtLocation(cushion);
             }
         }
     }
