@@ -7,6 +7,11 @@ assignees: ItsBlackGear
 
 ---
 
+**Disclaimer:**
+in order for your issue to be considered it's requested to fill the template or at least provide valid information to know what's the issue or how to reproduce it, the lack of information or vague descriptions may cause your issue to be ignored and closed.
+
+We cannot fix the issue if we don't know what's causing it.
+
 **Environment:**
  - Version [e.g. 1.20.1]
  - Loader [e.g. Forge, Fabric]
