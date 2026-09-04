@@ -152,6 +152,18 @@ public abstract class BlockItemTagGenerator {
             .add(ModBlocks.WAXED_EXPOSED_LIGHTNING_ROD.get())
             .add(ModBlocks.WAXED_WEATHERED_LIGHTNING_ROD.get())
             .add(ModBlocks.WAXED_OXIDIZED_LIGHTNING_ROD.get());
+
+        this.tag(ModBlockTags.COPPER_CHESTS, ModItemTags.COPPER_CHESTS)
+            .add(
+                ModBlocks.COPPER_CHEST.get(),
+                ModBlocks.EXPOSED_COPPER_CHEST.get(),
+                ModBlocks.WEATHERED_COPPER_CHEST.get(),
+                ModBlocks.OXIDIZED_COPPER_CHEST.get(),
+                ModBlocks.WAXED_COPPER_CHEST.get(),
+                ModBlocks.WAXED_EXPOSED_COPPER_CHEST.get(),
+                ModBlocks.WAXED_WEATHERED_COPPER_CHEST.get(),
+                ModBlocks.WAXED_OXIDIZED_COPPER_CHEST.get()
+            );
         
         this.tag(ModBlockTags.WOODEN_SHELVES, ModItemTags.WOODEN_SHELVES)
             .add(ModBlocks.ACACIA_SHELF.get())
@@ -210,14 +222,123 @@ public abstract class BlockItemTagGenerator {
         this.tag(BlockTags.DAMPENS_VIBRATIONS, ItemTags.DAMPENS_VIBRATIONS)
             .addTag(ModBlockTags.WOOL_STAIRS)
             .addTag(ModBlockTags.WOOL_SLABS);
+
+        this.tag(ModBlockTags.CONCRETE_STAIRS, ModItemTags.CONCRETE_STAIRS)
+            .add(ModBlocks.BLACK_CONCRETE_STAIRS.get())
+            .add(ModBlocks.BLUE_CONCRETE_STAIRS.get())
+            .add(ModBlocks.BROWN_CONCRETE_STAIRS.get())
+            .add(ModBlocks.CYAN_CONCRETE_STAIRS.get())
+            .add(ModBlocks.GRAY_CONCRETE_STAIRS.get())
+            .add(ModBlocks.GREEN_CONCRETE_STAIRS.get())
+            .add(ModBlocks.LIGHT_BLUE_CONCRETE_STAIRS.get())
+            .add(ModBlocks.LIGHT_GRAY_CONCRETE_STAIRS.get())
+            .add(ModBlocks.LIME_CONCRETE_STAIRS.get())
+            .add(ModBlocks.MAGENTA_CONCRETE_STAIRS.get())
+            .add(ModBlocks.ORANGE_CONCRETE_STAIRS.get())
+            .add(ModBlocks.PINK_CONCRETE_STAIRS.get())
+            .add(ModBlocks.PURPLE_CONCRETE_STAIRS.get())
+            .add(ModBlocks.RED_CONCRETE_STAIRS.get())
+            .add(ModBlocks.YELLOW_CONCRETE_STAIRS.get())
+            .add(ModBlocks.WHITE_CONCRETE_STAIRS.get());
+
+        this.tag(ModBlockTags.CONCRETE_SLABS, ModItemTags.CONCRETE_SLABS)
+            .add(ModBlocks.BLACK_CONCRETE_SLAB.get())
+            .add(ModBlocks.BLUE_CONCRETE_SLAB.get())
+            .add(ModBlocks.BROWN_CONCRETE_SLAB.get())
+            .add(ModBlocks.CYAN_CONCRETE_SLAB.get())
+            .add(ModBlocks.GRAY_CONCRETE_SLAB.get())
+            .add(ModBlocks.GREEN_CONCRETE_SLAB.get())
+            .add(ModBlocks.LIGHT_BLUE_CONCRETE_SLAB.get())
+            .add(ModBlocks.LIGHT_GRAY_CONCRETE_SLAB.get())
+            .add(ModBlocks.LIME_CONCRETE_SLAB.get())
+            .add(ModBlocks.MAGENTA_CONCRETE_SLAB.get())
+            .add(ModBlocks.ORANGE_CONCRETE_SLAB.get())
+            .add(ModBlocks.PINK_CONCRETE_SLAB.get())
+            .add(ModBlocks.PURPLE_CONCRETE_SLAB.get())
+            .add(ModBlocks.RED_CONCRETE_SLAB.get())
+            .add(ModBlocks.YELLOW_CONCRETE_SLAB.get())
+            .add(ModBlocks.WHITE_CONCRETE_SLAB.get());
     }
 
     private void handleConventionalTags() {
         this.tag(ConventionalBlockTags.STRIPPED_LOGS, ConventionalItemTags.STRIPPED_LOGS)
             .add(ModBlocks.STRIPPED_PALE_OAK_LOG.get());
 
-        this.tag(ConventionalBlockTags.STRIPPED_WOOD, ConventionalItemTags.STRIPPED_WOOD)
+        this.tag(ConventionalBlockTags.STRIPPED_WOODS, ConventionalItemTags.STRIPPED_WOOD)
             .add(ModBlocks.STRIPPED_PALE_OAK_WOOD.get());
+
+        this.tag(ConventionalBlockTags.FENCE_GATES_WOODEN, ConventionalItemTags.FENCE_GATES_WOODEN)
+            .add(ModBlocks.PALE_OAK_FENCE_GATE.get());
+
+        this.tag(ConventionalBlockTags.CHESTS, ConventionalItemTags.CHESTS)
+            .addTag(ModBlockTags.COPPER_CHESTS);
+
+        this.tag(ConventionalBlockTags.STORAGE_BLOCKS_RESIN, ConventionalItemTags.STORAGE_BLOCKS_RESIN)
+            .add(ModBlocks.RESIN_BLOCK.get());
+
+        this.tag(ConventionalBlockTags.DYED_BLACK, ConventionalItemTags.DYED_BLACK)
+            .add(ModBlocks.BLACK_WOOL_STAIRS.get(), ModBlocks.BLACK_WOOL_SLAB.get(),
+                ModBlocks.BLACK_CONCRETE_STAIRS.get(), ModBlocks.BLACK_CONCRETE_SLAB.get());
+
+        this.tag(ConventionalBlockTags.DYED_BLUE, ConventionalItemTags.DYED_BLUE)
+            .add(ModBlocks.BLUE_WOOL_STAIRS.get(), ModBlocks.BLUE_WOOL_SLAB.get(),
+                ModBlocks.BLUE_CONCRETE_STAIRS.get(), ModBlocks.BLUE_CONCRETE_SLAB.get());
+
+        this.tag(ConventionalBlockTags.DYED_BROWN, ConventionalItemTags.DYED_BROWN)
+            .add(ModBlocks.BROWN_WOOL_STAIRS.get(), ModBlocks.BROWN_WOOL_SLAB.get(),
+                ModBlocks.BROWN_CONCRETE_STAIRS.get(), ModBlocks.BROWN_CONCRETE_SLAB.get());
+
+        this.tag(ConventionalBlockTags.DYED_CYAN, ConventionalItemTags.DYED_CYAN)
+            .add(ModBlocks.CYAN_WOOL_STAIRS.get(), ModBlocks.CYAN_WOOL_SLAB.get(),
+                ModBlocks.CYAN_CONCRETE_STAIRS.get(), ModBlocks.CYAN_CONCRETE_SLAB.get());
+
+        this.tag(ConventionalBlockTags.DYED_GRAY, ConventionalItemTags.DYED_GRAY)
+            .add(ModBlocks.GRAY_WOOL_STAIRS.get(), ModBlocks.GRAY_WOOL_SLAB.get(),
+                ModBlocks.GRAY_CONCRETE_STAIRS.get(), ModBlocks.GRAY_CONCRETE_SLAB.get());
+
+        this.tag(ConventionalBlockTags.DYED_GREEN, ConventionalItemTags.DYED_GREEN)
+            .add(ModBlocks.GREEN_WOOL_STAIRS.get(), ModBlocks.GREEN_WOOL_SLAB.get(),
+                ModBlocks.GREEN_CONCRETE_STAIRS.get(), ModBlocks.GREEN_CONCRETE_SLAB.get());
+
+        this.tag(ConventionalBlockTags.DYED_LIGHT_BLUE, ConventionalItemTags.DYED_LIGHT_BLUE)
+            .add(ModBlocks.LIGHT_BLUE_WOOL_STAIRS.get(), ModBlocks.LIGHT_BLUE_WOOL_SLAB.get(),
+                ModBlocks.LIGHT_BLUE_CONCRETE_STAIRS.get(), ModBlocks.LIGHT_BLUE_CONCRETE_SLAB.get());
+
+        this.tag(ConventionalBlockTags.DYED_LIGHT_GRAY, ConventionalItemTags.DYED_LIGHT_GRAY)
+            .add(ModBlocks.LIGHT_GRAY_WOOL_STAIRS.get(), ModBlocks.LIGHT_GRAY_WOOL_SLAB.get(),
+                ModBlocks.LIGHT_GRAY_CONCRETE_STAIRS.get(), ModBlocks.LIGHT_GRAY_CONCRETE_SLAB.get());
+
+        this.tag(ConventionalBlockTags.DYED_LIME, ConventionalItemTags.DYED_LIME)
+            .add(ModBlocks.LIME_WOOL_STAIRS.get(), ModBlocks.LIME_WOOL_SLAB.get(),
+                ModBlocks.LIME_CONCRETE_STAIRS.get(), ModBlocks.LIME_CONCRETE_SLAB.get());
+
+        this.tag(ConventionalBlockTags.DYED_MAGENTA, ConventionalItemTags.DYED_MAGENTA)
+            .add(ModBlocks.MAGENTA_WOOL_STAIRS.get(), ModBlocks.MAGENTA_WOOL_SLAB.get(),
+                ModBlocks.MAGENTA_CONCRETE_STAIRS.get(), ModBlocks.MAGENTA_CONCRETE_SLAB.get());
+
+        this.tag(ConventionalBlockTags.DYED_ORANGE, ConventionalItemTags.DYED_ORANGE)
+            .add(ModBlocks.ORANGE_WOOL_STAIRS.get(), ModBlocks.ORANGE_WOOL_SLAB.get(),
+                ModBlocks.ORANGE_CONCRETE_STAIRS.get(), ModBlocks.ORANGE_CONCRETE_SLAB.get());
+
+        this.tag(ConventionalBlockTags.DYED_PINK, ConventionalItemTags.DYED_PINK)
+            .add(ModBlocks.PINK_WOOL_STAIRS.get(), ModBlocks.PINK_WOOL_SLAB.get(),
+                ModBlocks.PINK_CONCRETE_STAIRS.get(), ModBlocks.PINK_CONCRETE_SLAB.get());
+
+        this.tag(ConventionalBlockTags.DYED_PURPLE, ConventionalItemTags.DYED_PURPLE)
+            .add(ModBlocks.PURPLE_WOOL_STAIRS.get(), ModBlocks.PURPLE_WOOL_SLAB.get(),
+                ModBlocks.PURPLE_CONCRETE_STAIRS.get(), ModBlocks.PURPLE_CONCRETE_SLAB.get());
+
+        this.tag(ConventionalBlockTags.DYED_RED, ConventionalItemTags.DYED_RED)
+            .add(ModBlocks.RED_WOOL_STAIRS.get(), ModBlocks.RED_WOOL_SLAB.get(),
+                ModBlocks.RED_CONCRETE_STAIRS.get(), ModBlocks.RED_CONCRETE_SLAB.get());
+
+        this.tag(ConventionalBlockTags.DYED_WHITE, ConventionalItemTags.DYED_WHITE)
+            .add(ModBlocks.WHITE_WOOL_STAIRS.get(), ModBlocks.WHITE_WOOL_SLAB.get(),
+                ModBlocks.WHITE_CONCRETE_STAIRS.get(), ModBlocks.WHITE_CONCRETE_SLAB.get());
+
+        this.tag(ConventionalBlockTags.DYED_YELLOW, ConventionalItemTags.DYED_YELLOW)
+            .add(ModBlocks.YELLOW_WOOL_STAIRS.get(), ModBlocks.YELLOW_WOOL_SLAB.get(),
+                ModBlocks.YELLOW_CONCRETE_STAIRS.get(), ModBlocks.YELLOW_CONCRETE_SLAB.get());
     }
 
     protected abstract TagHolder tag(TagKey<Block> block, TagKey<Item> item);
