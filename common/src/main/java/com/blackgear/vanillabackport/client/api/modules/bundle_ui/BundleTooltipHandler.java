@@ -2,6 +2,7 @@ package com.blackgear.vanillabackport.client.api.modules.bundle_ui;
 
 import com.blackgear.vanillabackport.common.api.modules.bundle_ui.BundleFeatures;
 import com.blackgear.vanillabackport.common.api.modules.bundle_ui.BundleSelectionTooltip;
+import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -50,8 +51,8 @@ public class BundleTooltipHandler {
         return this.selectedItem != -1;
     }
     
-    public int getWidth(Font font) {
-        return 96;
+    public int getWidth() {
+        return gridSizeX() * 24;
     }
     
     public int getHeight() {
@@ -67,24 +68,32 @@ public class BundleTooltipHandler {
     }
     
     private int getContentXOffset(int width) {
-        return (width - 96) / 2;
+        return (width - getWidth()) / 2;
     }
-    
+
+    private int gridSizeX() {
+        return VanillaBackport.CLIENT_CONFIG.endlessBundleUi.get()
+            ? Math.max(4, Mth.ceil(Math.sqrt(this.items.size())))
+            : 4;
+    }
+
     private int gridSizeY() {
-        return Mth.positiveCeilDiv(this.slotCount(), 4);
+        return Mth.positiveCeilDiv(this.slotCount(), gridSizeX());
     }
-    
+
     public int slotCount() {
-        return Math.min(12, this.items.size());
+        return VanillaBackport.CLIENT_CONFIG.endlessBundleUi.get()
+            ? this.items.size()
+            : Math.min(12, this.items.size());
     }
     
     public boolean renderImage(Font font, int x, int y, GuiGraphics graphics) {
         if (!BundleFeatures.onBundleUpdate()) return false;
         
         if (this.items.isEmpty()) {
-            this.renderEmptyBundleTooltip(font, x, y, this.getWidth(font), graphics);
+            this.renderEmptyBundleTooltip(font, x, y, this.getWidth(), graphics);
         } else {
-            this.renderBundleWithItemsTooltip(font, x, y, this.getWidth(font), graphics);
+            this.renderBundleWithItemsTooltip(font, x, y, this.getWidth(), graphics);
         }
         
         return true;
@@ -98,12 +107,12 @@ public class BundleTooltipHandler {
     private void renderBundleWithItemsTooltip(Font font, int x, int y, int width, GuiGraphics graphics) {
         boolean maxDisplay = this.items.size() > 12;
         List<ItemStack> stacks = this.getShownItems(BundleFeatures.getItemsToShow(this.items));
-        int xOffset = x + this.getContentXOffset(width) + 96;
+        int xOffset = x + this.getContentXOffset(width) + getWidth();
         int yOffset = y + this.gridSizeY() * 24;
         int index = 1;
         
         for (int row = 1; row <= this.gridSizeY(); row++) {
-            for (int column = 1; column <= 4; column++) {
+            for (int column = 1; column <= gridSizeX(); column++) {
                 int slotX = xOffset - column * 24;
                 int slotY = yOffset - row * 24;
                 if (this.shouldRenderSurplusText(maxDisplay, column, row)) {
@@ -125,7 +134,7 @@ public class BundleTooltipHandler {
     }
     
     private boolean shouldRenderSurplusText(boolean maxDisplay, int column, int row) {
-        return maxDisplay && column * row == 1;
+        return !VanillaBackport.CLIENT_CONFIG.endlessBundleUi.get() && maxDisplay && column * row == 1;
     }
     
     private boolean shouldRenderItemSlot(List<ItemStack> items, int itemIndex) {
@@ -186,24 +195,24 @@ public class BundleTooltipHandler {
             graphics.blitNineSliced(BUNDLE_PROGRESS_BAR_TEXTURE, x + 1, y, progress > 1 ? progress : 2, 13, 2, 6, 6, isFull ? 6 : 0, 12);
         }
         
-        graphics.blitNineSliced(BUNDLE_PROGRESS_BAR_TEXTURE, x, y, 96, 13, 2, 12, 12, 0, 0);
+        graphics.blitNineSliced(BUNDLE_PROGRESS_BAR_TEXTURE, x, y, getWidth(), 13, 2, 12, 12, 0, 0);
         
         Component fillText = this.getProgressBarFillText();
         if (fillText != null) {
-            graphics.drawCenteredString(textRenderer, fillText, x + 48, y + 3, -1);
+            graphics.drawCenteredString(textRenderer, fillText, x + (getWidth() / 2), y + 3, -1);
         }
     }
     
     private void drawEmptyBundleDescriptionText(int x, int y, Font font, GuiGraphics graphics) {
-        graphics.drawWordWrap(font, BUNDLE_EMPTY_DESCRIPTION, x, y, 96, -5592406);
+        graphics.drawWordWrap(font, BUNDLE_EMPTY_DESCRIPTION, x, y, getWidth(), -5592406);
     }
     
     private int getEmptyBundleDescriptionTextHeight(Font font) {
-        return font.split(BUNDLE_EMPTY_DESCRIPTION, 96).size() * 9;
+        return font.split(BUNDLE_EMPTY_DESCRIPTION, getWidth()).size() * 9;
     }
     
     private int getProgressBarFill() {
-        return Mth.clamp((this.weight * 94) / 64, 0, 94);
+        return Mth.clamp((this.weight * (getWidth() - 2)) / 64, 0, getWidth() - 2);
     }
     
     @Nullable
