@@ -9,6 +9,7 @@ import com.mojang.math.Axis;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.Util;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderer;
@@ -17,6 +18,7 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.phys.EntityHitResult;
 
 import java.util.EnumMap;
 
@@ -33,7 +35,16 @@ public class CushionRenderer extends EntityRenderer<Cushion> {
         super(context);
         this.model = new CushionModel(context.bakeLayer(ModModelLayers.CUSHION));
     }
-    
+
+    @Override
+    protected boolean shouldShowName(Cushion entity) {
+        return entity.shouldShowName() || entity.hasCustomName() && isTargetingEntity(entity);
+    }
+
+    private static boolean isTargetingEntity(Cushion entity) {
+        return Minecraft.getInstance().hitResult instanceof EntityHitResult entityHitResult && entityHitResult.getEntity() == entity;
+    }
+
     @Override
     public ResourceLocation getTextureLocation(Cushion cushion) {
         return TEXTURES_BY_COLOR.get(cushion.getColor());
