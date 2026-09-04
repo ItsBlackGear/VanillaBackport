@@ -16,6 +16,9 @@ public class ClientConfig {
     public final ConfigBuilder.ConfigValue<Boolean> endFlashSkyVisuals;
     public final ConfigBuilder.ConfigValue<Boolean> endFlashTerrainVisuals;
 
+    // Enhancements
+    public final ConfigBuilder.ConfigValue<Boolean> endlessBundleUi;
+
     public ClientConfig(ConfigBuilder builder) {
         builder.push("Bats and Pots");
         this.hasUpdatedBatModel = builder.comment("Use the updated bat model for bats")
@@ -38,6 +41,11 @@ public class ClientConfig {
             .define("end_flash_sky_visuals", true);
         this.endFlashTerrainVisuals = builder.comment("toggle the end flash terrain visuals")
             .define("end_flash_terrain_visuals", true);
+        builder.pop();
+
+        builder.push("Enhancements");
+        this.endlessBundleUi = builder.comment("makes all items in a bundle accessible not only the first 12")
+            .define("endless_bundle_ui", false);
         builder.pop();
     }
 }
