@@ -1,7 +1,12 @@
 {
   "replace": false,
   "values": [
+    "minecraft:red_wool_stairs",
+    "minecraft:red_wool_slab",
+    "minecraft:red_concrete_stairs",
+    "minecraft:red_concrete_slab",
     "minecraft:red_bundle",
-    "minecraft:red_harness"
+    "minecraft:red_harness",
+    "minecraft:red_cushion"
   ]
 }

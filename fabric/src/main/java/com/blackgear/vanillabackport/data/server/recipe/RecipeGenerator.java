@@ -516,6 +516,14 @@ public class RecipeGenerator extends VanillaRecipeProvider {
         this.cushionRecipe(output, ModBlocks.GREEN_WOOL_SLAB.get().asItem(), ModItems.GREEN_CUSHION.get());
         this.cushionRecipe(output, ModBlocks.RED_WOOL_SLAB.get().asItem(), ModItems.RED_CUSHION.get());
         this.cushionRecipe(output, ModBlocks.BLACK_WOOL_SLAB.get().asItem(), ModItems.BLACK_CUSHION.get());
+
+        List<BlockFamily> concrete_families = List.of(BlockFamilies.BLACK_CONCRETE, BlockFamilies.BLUE_CONCRETE,
+            BlockFamilies.BROWN_CONCRETE, BlockFamilies.CYAN_CONCRETE, BlockFamilies.GRAY_CONCRETE,
+            BlockFamilies.GREEN_CONCRETE, BlockFamilies.LIGHT_BLUE_CONCRETE, BlockFamilies.LIGHT_GRAY_CONCRETE,
+            BlockFamilies.LIME_CONCRETE, BlockFamilies.MAGENTA_CONCRETE, BlockFamilies.ORANGE_CONCRETE,
+            BlockFamilies.PINK_CONCRETE, BlockFamilies.PURPLE_CONCRETE, BlockFamilies.RED_CONCRETE,
+            BlockFamilies.YELLOW_CONCRETE, BlockFamilies.WHITE_CONCRETE);
+        concrete_families.forEach(blockFamily -> this.generateStonecutterRecipes(output, blockFamily, FeatureFlagSet.of(FeatureFlags.VANILLA)));
     }
 
     public static ShapedRecipeBuilder shaped(RecipeCategory category, ItemLike entry) {

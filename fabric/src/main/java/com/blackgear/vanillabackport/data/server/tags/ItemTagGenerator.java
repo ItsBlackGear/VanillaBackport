@@ -362,78 +362,57 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
     private void handleConventionalTags() {
         this.getDualTagBuilder(ForgeItemTags.EGGS, FabricItemTags.EGGS)
             .addTag(ModItemTags.EGGS);
-        
-        this.getDualTagBuilder(ForgeItemTags.DYED, FabricItemTags.DYED)
-            .addTag(ModItemTags.HARNESSES)
-            .add(
-                ModItems.BLACK_BUNDLE.get(),
-                ModItems.BLUE_BUNDLE.get(),
-                ModItems.BROWN_BUNDLE.get(),
-                ModItems.CYAN_BUNDLE.get(),
-                ModItems.GRAY_BUNDLE.get(),
-                ModItems.GREEN_BUNDLE.get(),
-                ModItems.LIGHT_BLUE_BUNDLE.get(),
-                ModItems.LIGHT_GRAY_BUNDLE.get(),
-                ModItems.LIME_BUNDLE.get(),
-                ModItems.MAGENTA_BUNDLE.get(),
-                ModItems.ORANGE_BUNDLE.get(),
-                ModItems.PINK_BUNDLE.get(),
-                ModItems.PURPLE_BUNDLE.get(),
-                ModItems.RED_BUNDLE.get(),
-                ModItems.YELLOW_BUNDLE.get(),
-                ModItems.WHITE_BUNDLE.get()
-            )
-            .addTag(ModItemTags.CUSHIONS)
-            .addTag(ModItemTags.WOOL_STAIRS)
-            .addTag(ModItemTags.WOOL_SLABS);
 
         this.getDualTagBuilder(ForgeItemTags.DYED_BLACK, FabricItemTags.DYED_BLACK)
-            .add(ModItems.BLACK_BUNDLE.get(), ModItems.BLACK_HARNESS.get());
+            .add(ModItems.BLACK_BUNDLE.get(), ModItems.BLACK_HARNESS.get(), ModItems.BLACK_CUSHION.get());
 
         this.getDualTagBuilder(ForgeItemTags.DYED_BLUE, FabricItemTags.DYED_BLUE)
-            .add(ModItems.BLUE_BUNDLE.get(), ModItems.BLUE_HARNESS.get());
+            .add(ModItems.BLUE_BUNDLE.get(), ModItems.BLUE_HARNESS.get(), ModItems.BLUE_CUSHION.get());
 
         this.getDualTagBuilder(ForgeItemTags.DYED_BROWN, FabricItemTags.DYED_BROWN)
-            .add(ModItems.BROWN_BUNDLE.get(), ModItems.BROWN_HARNESS.get());
+            .add(ModItems.BROWN_BUNDLE.get(), ModItems.BROWN_HARNESS.get(), ModItems.BROWN_CUSHION.get());
 
         this.getDualTagBuilder(ForgeItemTags.DYED_CYAN, FabricItemTags.DYED_CYAN)
-            .add(ModItems.CYAN_BUNDLE.get(), ModItems.CYAN_HARNESS.get());
+            .add(ModItems.CYAN_BUNDLE.get(), ModItems.CYAN_HARNESS.get(), ModItems.CYAN_CUSHION.get());
 
         this.getDualTagBuilder(ForgeItemTags.DYED_GRAY, FabricItemTags.DYED_GRAY)
-            .add(ModItems.GRAY_BUNDLE.get(), ModItems.GRAY_HARNESS.get());
+            .add(ModItems.GRAY_BUNDLE.get(), ModItems.GRAY_HARNESS.get(), ModItems.GRAY_CUSHION.get());
 
         this.getDualTagBuilder(ForgeItemTags.DYED_GREEN, FabricItemTags.DYED_GREEN)
-            .add(ModItems.GREEN_BUNDLE.get(), ModItems.GREEN_HARNESS.get());
+            .add(ModItems.GREEN_BUNDLE.get(), ModItems.GREEN_HARNESS.get(), ModItems.GRAY_CUSHION.get());
 
         this.getDualTagBuilder(ForgeItemTags.DYED_LIGHT_BLUE, FabricItemTags.DYED_LIGHT_BLUE)
-            .add(ModItems.LIGHT_BLUE_BUNDLE.get(), ModItems.LIGHT_BLUE_HARNESS.get());
+            .add(ModItems.LIGHT_BLUE_BUNDLE.get(), ModItems.LIGHT_BLUE_HARNESS.get(), ModItems.LIGHT_BLUE_CUSHION.get());
 
         this.getDualTagBuilder(ForgeItemTags.DYED_LIGHT_GRAY, FabricItemTags.DYED_LIGHT_GRAY)
-            .add(ModItems.LIGHT_GRAY_BUNDLE.get(), ModItems.LIGHT_GRAY_HARNESS.get());
+            .add(ModItems.LIGHT_GRAY_BUNDLE.get(), ModItems.LIGHT_GRAY_HARNESS.get(), ModItems.LIGHT_GRAY_CUSHION.get());
 
         this.getDualTagBuilder(ForgeItemTags.DYED_LIME, FabricItemTags.DYED_LIME)
-            .add(ModItems.LIME_BUNDLE.get(), ModItems.LIME_HARNESS.get());
+            .add(ModItems.LIME_BUNDLE.get(), ModItems.LIME_HARNESS.get(), ModItems.LIME_CUSHION.get());
 
         this.getDualTagBuilder(ForgeItemTags.DYED_MAGENTA, FabricItemTags.DYED_MAGENTA)
-            .add(ModItems.MAGENTA_BUNDLE.get(), ModItems.MAGENTA_HARNESS.get());
+            .add(ModItems.MAGENTA_BUNDLE.get(), ModItems.MAGENTA_HARNESS.get(), ModItems.MAGENTA_CUSHION.get());
 
         this.getDualTagBuilder(ForgeItemTags.DYED_ORANGE, FabricItemTags.DYED_ORANGE)
-            .add(ModItems.ORANGE_BUNDLE.get(), ModItems.ORANGE_HARNESS.get());
+            .add(ModItems.ORANGE_BUNDLE.get(), ModItems.ORANGE_HARNESS.get(), ModItems.ORANGE_CUSHION.get());
 
         this.getDualTagBuilder(ForgeItemTags.DYED_PINK, FabricItemTags.DYED_PINK)
-            .add(ModItems.PINK_BUNDLE.get(), ModItems.PINK_HARNESS.get());
+            .add(ModItems.PINK_BUNDLE.get(), ModItems.PINK_HARNESS.get(), ModItems.PINK_CUSHION.get());
 
         this.getDualTagBuilder(ForgeItemTags.DYED_PURPLE, FabricItemTags.DYED_PURPLE)
-            .add(ModItems.PURPLE_BUNDLE.get(), ModItems.PURPLE_HARNESS.get());
+            .add(ModItems.PURPLE_BUNDLE.get(), ModItems.PURPLE_HARNESS.get(), ModItems.PURPLE_CUSHION.get());
 
         this.getDualTagBuilder(ForgeItemTags.DYED_RED, FabricItemTags.DYED_RED)
-            .add(ModItems.RED_BUNDLE.get(), ModItems.RED_HARNESS.get());
+            .add(ModItems.RED_BUNDLE.get(), ModItems.RED_HARNESS.get(), ModItems.RED_CUSHION.get());
 
         this.getDualTagBuilder(ForgeItemTags.DYED_YELLOW, FabricItemTags.DYED_YELLOW)
-            .add(ModItems.YELLOW_BUNDLE.get(), ModItems.YELLOW_HARNESS.get());
+            .add(ModItems.YELLOW_BUNDLE.get(), ModItems.YELLOW_HARNESS.get(), ModItems.YELLOW_CUSHION.get());
 
         this.getDualTagBuilder(ForgeItemTags.DYED_WHITE, FabricItemTags.DYED_WHITE)
-            .add(ModItems.WHITE_BUNDLE.get(), ModItems.WHITE_HARNESS.get());
+            .add(ModItems.WHITE_BUNDLE.get(), ModItems.WHITE_HARNESS.get(), ModItems.WHITE_CUSHION.get());
+
+      this.getDualTagBuilder(ForgeItemTags.NUGGETS_COPPER, FabricItemTags.NUGGETS_COPPER)
+            .add(ModItems.COPPER_NUGGET.get());
 
         this.getDualTagBuilder(ForgeItemTags.MUSIC_DISCS, FabricItemTags.MUSIC_DISCS)
             .add(

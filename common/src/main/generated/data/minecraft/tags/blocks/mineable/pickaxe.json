@@ -39,6 +39,8 @@
     "#minecraft:lightning_rods",
     "#minecraft:lanterns",
     "#minecraft:chains",
-    "#minecraft:bars"
+    "#minecraft:bars",
+    "#minecraft:concrete_slabs",
+    "#minecraft:concrete_stairs"
   ]
 }
