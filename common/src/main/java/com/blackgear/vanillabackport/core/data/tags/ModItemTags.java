@@ -32,6 +32,7 @@ public class ModItemTags {
     public static final TagKey<Item> SULFUR_CUBE_ARCHETYPE_HOT = TAGS.register("sulfur_cube_archetype/hot");
     
     public static final TagKey<Item> SULFUR_CUBE_SWALLOWABLE = TAGS.register("sulfur_cube_swallowable");
+    public static final TagKey<Item> DISABLES_WAYPOINT_TRACKING = TAGS.register("disables_waypoint_tracking");
     
     public static final TagKey<Item> COPPER = TAGS.register("copper");
     public static final TagKey<Item> COPPER_GOLEM_STATUES = TAGS.register("copper_golem_statues");

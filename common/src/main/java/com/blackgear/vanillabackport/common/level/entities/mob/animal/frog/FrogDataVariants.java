@@ -13,12 +13,6 @@ import net.minecraft.world.level.biome.Biome;
 public class FrogDataVariants {
     public static final BuiltInCoreRegistry<FrogDataVariant> REGISTRIES = BuiltInCoreRegistry.create(new ResourceLocation("frog_variants"), VanillaBackport.NAMESPACE);
 
-//    public static final ResourceKey<FrogDataVariant> TEST = register(
-//        "test",
-//        "cold_frog",
-//        BiomeTags.IS_FOREST
-//    );
-
     private static RegistryKey<FrogDataVariant> register(String key, String assetId, TagKey<Biome> biome) {
         return register(key, assetId, SpawnPrioritySelectors.single(new RawBiomeCheck(biome), 1));
     }

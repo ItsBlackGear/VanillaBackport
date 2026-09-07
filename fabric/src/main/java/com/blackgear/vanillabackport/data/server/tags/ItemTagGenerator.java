@@ -178,6 +178,10 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
         
         this.getOrCreateTagBuilder(ModItemTags.LUNGE_ENCHANTABLE)
             .addTag(ModItemTags.SPEARS);
+        
+        this.getOrCreateTagBuilder(ModItemTags.DISABLES_WAYPOINT_TRACKING)
+            .add(Items.CARVED_PUMPKIN)
+            .add(Items.PLAYER_HEAD, Items.CREEPER_HEAD, Items.ZOMBIE_HEAD, Items.SKELETON_SKULL, Items.WITHER_SKELETON_SKULL, Items.DRAGON_HEAD, Items.PIGLIN_HEAD);
     }
 
     private void handleArchetypes() {

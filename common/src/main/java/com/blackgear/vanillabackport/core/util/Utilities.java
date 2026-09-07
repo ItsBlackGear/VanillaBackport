@@ -1,13 +1,20 @@
 package com.blackgear.vanillabackport.core.util;
 
+import com.blackgear.vanillabackport.common.api.modules.waypoints.Waypoint;
+import com.blackgear.vanillabackport.common.api.modules.waypoints.WaypointStyleAsset;
+import com.blackgear.vanillabackport.common.api.modules.waypoints.WaypointStyleAssets;
 import com.google.common.collect.AbstractIterator;
 import com.google.common.collect.ImmutableList;
+import com.mojang.datafixers.util.Either;
 import it.unimi.dsi.fastutil.longs.LongOpenHashSet;
 import it.unimi.dsi.fastutil.longs.LongSet;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.FastColor.ARGB32;
 import net.minecraft.util.Mth;
 import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.entity.LivingEntity;
@@ -33,6 +40,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.TimeUnit;
+import java.util.function.BiConsumer;
+import java.util.function.Function;
 
 import static net.minecraft.util.FastColor.ARGB32.*;
 
@@ -116,6 +125,10 @@ public class Utilities {
             float yaw = (float) Math.atan2(-source.x, source.z) * Mth.RAD_TO_DEG;
             float pitch = (float) Math.asin(-source.y / Math.sqrt(source.x * source.x + source.y * source.y + source.z * source.z)) * Mth.RAD_TO_DEG;
             return new Vec2(pitch, yaw);
+        }
+        
+        public static Vec3 rotateClockwise90(Vec3 source) {
+            return new Vec3(-source.z, source.y, source.x);
         }
     }
     
@@ -582,11 +595,11 @@ public class Utilities {
             int red = Mth.lerpInt(alpha, red(p0), red(p1));
             int green = Mth.lerpInt(alpha, green(p0), green(p1));
             int blue = Mth.lerpInt(alpha, blue(p0), blue(p1));
-            return color(a, red, green, blue);
+            return ARGB32.color(a, red, green, blue);
         }
         
         public static int scaleRGB(int color, float red, float green, float blue) {
-            return color(
+            return ARGB32.color(
                 alpha(color),
                 Mth.clamp((int) (red(color) * red), 0, 255),
                 Mth.clamp((int) (green(color) * green), 0, 255),
@@ -595,7 +608,7 @@ public class Utilities {
         }
         
         public static int colorFromFloat(float alpha, float red, float green, float blue) {
-            return color(
+            return ARGB32.color(
                 (int) (alpha * 255),
                 (int) (red * 255),
                 (int) (green * 255),
@@ -629,6 +642,94 @@ public class Utilities {
             container.setItem(1, new ItemStack(DyeItem.byColor(colorB)));
             return container;
         }
+        
+        public static int color(int red, int green, int blue) {
+            return ARGB32.color(255, red, green, blue);
+        }
+        
+        public static int color(int alpha, int color) {
+            return alpha << 24 | color & 16777215;
+        }
+        
+        public static int setBrightness(int color, float brightness) {
+            int red = red(color);
+            int green = green(color);
+            int blue = blue(color);
+            int alpha = alpha(color);
+            int rgbMax = Math.max(Math.max(red, green), blue);
+            int rgbMin = Math.min(Math.min(red, green), blue);
+            float rgbConstantRange = rgbMax - rgbMin;
+            float saturation;
+            if (rgbMax != 0) {
+                saturation = rgbConstantRange / rgbMax;
+            } else {
+                saturation = 0.0F;
+            }
+            
+            float hue;
+            if (saturation == 0.0F) {
+                hue = 0.0F;
+            } else {
+                float constantRed = (rgbMax - red) / rgbConstantRange;
+                float constantGreen = (rgbMax - green) / rgbConstantRange;
+                float constantBlue = (rgbMax - blue) / rgbConstantRange;
+                if (red == rgbMax) {
+                    hue = constantBlue - constantGreen;
+                } else if (green == rgbMax) {
+                    hue = 2.0F + constantRed - constantBlue;
+                } else {
+                    hue = 4.0F + constantGreen - constantRed;
+                }
+                
+                hue /= 6.0F;
+                if (hue < 0.0F) {
+                    hue++;
+                }
+            }
+            
+            if (saturation == 0.0F) {
+                red = green = blue = Math.round(brightness * 255.0F);
+            } else {
+                float colorWheelSegment = (hue - (float)Math.floor(hue)) * 6.0F;
+                float colorWheelOffset = colorWheelSegment - (float)Math.floor(colorWheelSegment);
+                float primaryColor = brightness * (1.0F - saturation);
+                float secondaryColor = brightness * (1.0F - saturation * colorWheelOffset);
+                float tertiaryColor = brightness * (1.0F - saturation * (1.0F - colorWheelOffset));
+                switch ((int)colorWheelSegment) {
+                    case 0:
+                        red = Math.round(brightness * 255.0F);
+                        green = Math.round(tertiaryColor * 255.0F);
+                        blue = Math.round(primaryColor * 255.0F);
+                        break;
+                    case 1:
+                        red = Math.round(secondaryColor * 255.0F);
+                        green = Math.round(brightness * 255.0F);
+                        blue = Math.round(primaryColor * 255.0F);
+                        break;
+                    case 2:
+                        red = Math.round(primaryColor * 255.0F);
+                        green = Math.round(brightness * 255.0F);
+                        blue = Math.round(tertiaryColor * 255.0F);
+                        break;
+                    case 3:
+                        red = Math.round(primaryColor * 255.0F);
+                        green = Math.round(secondaryColor * 255.0F);
+                        blue = Math.round(brightness * 255.0F);
+                        break;
+                    case 4:
+                        red = Math.round(tertiaryColor * 255.0F);
+                        green = Math.round(primaryColor * 255.0F);
+                        blue = Math.round(brightness * 255.0F);
+                        break;
+                    case 5:
+                        red = Math.round(brightness * 255.0F);
+                        green = Math.round(primaryColor * 255.0F);
+                        blue = Math.round(secondaryColor * 255.0F);
+                }
+            }
+            
+            return ARGB32.color(alpha, red, green, blue);
+        }
     }
     
     public static class TimeUtils {
@@ -640,6 +741,33 @@ public class Utilities {
         
         public static UniformInt rangeOfSeconds(int from, int to) {
             return UniformInt.of(from * 20, to * 20);
+        }
+    }
+    
+    public static class BufferUtils {
+        public static <L, R> void writeEither(FriendlyByteBuf buf, Either<L, R> value, BiConsumer<? super FriendlyByteBuf, L> leftWriter, BiConsumer<? super FriendlyByteBuf, R> rightWriter) {
+            value.ifLeft(l -> {
+                buf.writeBoolean(true);
+                leftWriter.accept(buf, l);
+            }).ifRight(r -> {
+                buf.writeBoolean(false);
+                rightWriter.accept(buf, r);
+            });
+        }
+        
+        public static <L, R> Either<L, R> readEither(FriendlyByteBuf buf, Function<? super FriendlyByteBuf, L> leftReader, Function<? super FriendlyByteBuf, R> rightReader) {
+            return buf.readBoolean() ? Either.left(leftReader.apply(buf)) : Either.right(rightReader.apply(buf));
+        }
+        
+        public static void writeIcon(FriendlyByteBuf buf, Waypoint.Icon icon) {
+            buf.writeResourceLocation(icon.style.location());
+            buf.writeOptional(icon.color, FriendlyByteBuf::writeVarInt);
+        }
+        
+        public static Waypoint.Icon readIcon(FriendlyByteBuf buf) {
+            ResourceKey<WaypointStyleAsset> style = ResourceKey.create(WaypointStyleAssets.ROOT_ID, buf.readResourceLocation());
+            Optional<Integer> color = buf.readOptional(FriendlyByteBuf::readVarInt);
+            return new Waypoint.Icon(style, color);
         }
     }
 }

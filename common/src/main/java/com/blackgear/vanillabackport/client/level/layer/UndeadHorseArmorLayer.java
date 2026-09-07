@@ -1,6 +1,5 @@
 package com.blackgear.vanillabackport.client.level.layer;
 
-import com.blackgear.vanillabackport.client.api.modules.models.LazyModel;
 import com.blackgear.vanillabackport.client.registries.ModModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -21,11 +20,11 @@ import net.minecraft.world.item.ItemStack;
 
 @Environment(EnvType.CLIENT)
 public class UndeadHorseArmorLayer extends RenderLayer<AbstractHorse, HorseModel<AbstractHorse>> {
-	private final LazyModel<AbstractHorse, HorseModel<AbstractHorse>> model;
+	private final HorseModel<AbstractHorse> model;
 
 	public UndeadHorseArmorLayer(RenderLayerParent<AbstractHorse, HorseModel<AbstractHorse>> renderer, EntityModelSet models) {
 		super(renderer);
-		this.model = LazyModel.of(models, ModModelLayers.UNDEAD_HORSE_ARMOR, HorseModel::new);
+		this.model = new HorseModel<>(models.bakeLayer(ModModelLayers.UNDEAD_HORSE_ARMOR));
 	}
 
 	@Override
@@ -43,9 +42,9 @@ public class UndeadHorseArmorLayer extends RenderLayer<AbstractHorse, HorseModel
 	) {
 		ItemStack equipment = entity.getItemBySlot(EquipmentSlot.CHEST);
 		if (equipment.getItem() instanceof HorseArmorItem armor) {
-            this.getParentModel().copyPropertiesTo(this.model.get());
-			this.model.get().prepareMobModel(entity, limbSwing, limbSwingAmount, partialTicks);
-			this.model.get().setupAnim(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+            this.getParentModel().copyPropertiesTo(this.model);
+			this.model.prepareMobModel(entity, limbSwing, limbSwingAmount, partialTicks);
+			this.model.setupAnim(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
 			float r = 1.0F;
 			float g = 1.0F;
 			float b = 1.0F;
@@ -57,7 +56,7 @@ public class UndeadHorseArmorLayer extends RenderLayer<AbstractHorse, HorseModel
 			}
 			
 			VertexConsumer consumer = buffer.getBuffer(RenderType.entityCutoutNoCull(armor.getTexture()));
-			this.model.get().renderToBuffer(poseStack, consumer, packedLight, OverlayTexture.NO_OVERLAY, r, g, b, 1.0F);
+			this.model.renderToBuffer(poseStack, consumer, packedLight, OverlayTexture.NO_OVERLAY, r, g, b, 1.0F);
 		}
 	}
 }
