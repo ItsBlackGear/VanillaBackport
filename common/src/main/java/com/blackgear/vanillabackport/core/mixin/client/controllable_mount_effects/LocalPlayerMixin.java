@@ -25,11 +25,7 @@ public abstract class LocalPlayerMixin extends AbstractClientPlayer {
         super(clientLevel, gameProfile);
     }
 
-    @Inject(
-        method = "startRiding",
-        at = @At("HEAD"),
-        cancellable = true
-    )
+    @Inject(method = "startRiding", at = @At("HEAD"), cancellable = true)
     private void onStartRiding(Entity vehicle, boolean force, CallbackInfoReturnable<Boolean> cir) {
         if (super.startRiding(vehicle, force)) {
             if (vehicle instanceof HappyGhast ghast) {

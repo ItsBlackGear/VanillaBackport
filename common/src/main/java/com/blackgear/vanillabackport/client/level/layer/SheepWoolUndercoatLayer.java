@@ -1,10 +1,8 @@
 package com.blackgear.vanillabackport.client.level.layer;
 
-import com.blackgear.vanillabackport.client.api.modules.models.LazyModel;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.SheepFurModel;
 import net.minecraft.client.model.SheepModel;
 import net.minecraft.client.model.geom.EntityModelSet;
@@ -21,11 +19,11 @@ import net.minecraft.world.item.DyeColor;
 @Environment(EnvType.CLIENT)
 public class SheepWoolUndercoatLayer extends RenderLayer<Sheep, SheepModel<Sheep>> {
     private static final ResourceLocation SHEEP_WOOL_UNDERCOAT_TEXTURE = ResourceLocation.withDefaultNamespace("textures/entity/sheep/sheep_wool_undercoat.png");
-    private final LazyModel<Sheep, EntityModel<Sheep>> model;
+    private final SheepFurModel<Sheep> model;
 
     public SheepWoolUndercoatLayer(RenderLayerParent<Sheep, SheepModel<Sheep>> renderer, EntityModelSet models) {
         super(renderer);
-        this.model = LazyModel.of(models, ModelLayers.SHEEP, SheepFurModel::new);
+        this.model = new SheepFurModel<>(models.bakeLayer(ModelLayers.SHEEP));
     }
 
     @Override
@@ -45,7 +43,7 @@ public class SheepWoolUndercoatLayer extends RenderLayer<Sheep, SheepModel<Sheep
                 color = Sheep.getColor(sheep.getColor());
             }
 
-            coloredCutoutModelCopyLayerRender(this.getParentModel(), this.model.get(), SHEEP_WOOL_UNDERCOAT_TEXTURE, poseStack, buffer, packedLight, sheep, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, partialTick, color);
+            coloredCutoutModelCopyLayerRender(this.getParentModel(), this.model, SHEEP_WOOL_UNDERCOAT_TEXTURE, poseStack, buffer, packedLight, sheep, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, partialTick, color);
         }
     }
 }

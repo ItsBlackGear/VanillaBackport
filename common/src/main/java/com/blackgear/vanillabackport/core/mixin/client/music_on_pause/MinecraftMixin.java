@@ -7,27 +7,18 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.sounds.MusicManager;
 import net.minecraft.client.sounds.SoundManager;
 import net.minecraft.sounds.SoundSource;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Minecraft.class)
 public class MinecraftMixin {
-    @Shadow @Final private MusicManager musicManager;
-    @Shadow private boolean pause;
-    
     @WrapOperation(method = "pauseGame", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/sounds/SoundManager;pause()V"))
     private void vb$dontPauseMusic(SoundManager instance, Operation<Void> original) {
         ((MusicTickAccess) instance).pauseAllExcept(SoundSource.MUSIC);
     }
     
-    @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/sounds/SoundManager;tick(Z)V"))
-    private void vb$keepTickingSoundManager(CallbackInfo ci) {
-        if (this.pause) {
-            this.musicManager.tick();
-        }
+    @WrapOperation(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/sounds/MusicManager;tick()V"))
+    private void vb$forceMusicTick(MusicManager instance, Operation<Void> original) {
+        instance.tick();
     }
 }

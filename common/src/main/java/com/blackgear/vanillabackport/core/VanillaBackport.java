@@ -2,6 +2,7 @@ package com.blackgear.vanillabackport.core;
 
 import com.blackgear.platform.core.Environment;
 import com.blackgear.platform.core.ModInstance;
+import com.blackgear.platform.core.events.ServerLifecycleEvents;
 import com.blackgear.platform.core.networking.Networking;
 import com.blackgear.platform.core.util.config.ConfigLoader;
 import com.blackgear.platform.core.util.config.ModConfig;
@@ -14,6 +15,7 @@ import com.blackgear.vanillabackport.client.registries.ModSoundTypes;
 import com.blackgear.vanillabackport.common.CommonConfig;
 import com.blackgear.vanillabackport.common.CommonSetup;
 import com.blackgear.vanillabackport.common.api.modules.mob_variant.spawn.SpawnConditions;
+import com.blackgear.vanillabackport.common.api.modules.waypoints.ServerWaypointManager;
 import com.blackgear.vanillabackport.common.integrations.compat.everycompat.EveryCompatHandler;
 import com.blackgear.vanillabackport.common.registries.*;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlockEntities;
@@ -71,6 +73,7 @@ public final class VanillaBackport {
         ModValueProviders.REGISTRIES.register();
         ModMaterialRules.REGISTRIES.registrar();
         ModMaterialConditions.REGISTRIES.registrar();
+        ModArgumentTypes.REGISTRIES.register();
 
         ModAttributes.REGISTRIES.register();
         ModMobEffects.REGISTRIES.register();
@@ -104,6 +107,8 @@ public final class VanillaBackport {
         ModEntityDataSerializers.SERIALIZERS.register();
         ModSyncedEntityData.init();
         
+        ModGameRules.bootstrap();
+        
         Networking.register(registrar -> {
             registrar.registerToServer(
                 ServerboundSelectBundleItemPacket.TYPE,
@@ -116,9 +121,17 @@ public final class VanillaBackport {
                 ClientboundNautilusScreenOpenPacket.STREAM_CODEC,
                 ClientboundNautilusScreenOpenPacket::handler
             );
+            
+            registrar.registerToClient(
+                ClientboundTrackedWaypointPacket.TYPE,
+                ClientboundTrackedWaypointPacket.STREAM_CODEC,
+                ClientboundTrackedWaypointPacket::handler
+            );
         });
         
         if (ModChecker.EVERY_COMPAT) EveryCompatHandler.bootstrap();
+        ServerWaypointManager.bootstrap();
+        ServerLifecycleEvents.STOPPING.register(server -> ServerWaypointManager.clearAll());
     }
 
     public static ResourceLocation resource(String path) {

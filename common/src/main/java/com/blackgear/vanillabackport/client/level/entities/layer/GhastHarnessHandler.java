@@ -1,5 +1,6 @@
 package com.blackgear.vanillabackport.client.level.entities.layer;
 
+import com.blackgear.vanillabackport.client.level.layer.GhastEquipmentManager;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.resources.ResourceLocation;
@@ -11,6 +12,6 @@ import net.minecraft.world.item.ItemStack;
 @Environment(EnvType.CLIENT) @Deprecated(forRemoval = true)
 public class GhastHarnessHandler {
     public static void register(ItemStack stack, ResourceLocation texture) {
-        com.blackgear.vanillabackport.client.level.layer.GhastHarnessHandler.register(stack.getItem(), texture);
+        GhastEquipmentManager.register(stack.getItem(), texture);
     }
 }

@@ -1,0 +1,9 @@
+{
+  "sources": [
+    {
+      "type": "directory",
+      "source": "hud/locator_bar_dot",
+      "prefix": "hud/locator_bar_dot/"
+    }
+  ]
+}

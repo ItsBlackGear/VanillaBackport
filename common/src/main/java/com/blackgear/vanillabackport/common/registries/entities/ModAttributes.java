@@ -9,29 +9,41 @@ import net.minecraft.world.entity.ai.attributes.RangedAttribute;
 
 public class ModAttributes {
     public static final CoreRegistry<Attribute> REGISTRIES = CoreRegistry.create(BuiltInRegistries.ATTRIBUTE, VanillaBackport.NAMESPACE);
-
+    
+    public static final Holder<Attribute> WAYPOINT_TRANSMIT_RANGE = REGISTRIES.holder("waypoint_transmit_range",
+        () -> new RangedAttribute(
+            "attribute.name.waypoint_transmit_range",
+            0.0,
+            0.0,
+            6.0E7
+        ).setSentiment(Attribute.Sentiment.NEUTRAL));
+    public static final Holder<Attribute> WAYPOINT_RECEIVE_RANGE = REGISTRIES.holder("waypoint_receive_range",
+        () -> new RangedAttribute(
+            "attribute.name.waypoint_receive_range",
+            0.0,
+            0.0,
+            6.0E7
+        ).setSentiment(Attribute.Sentiment.NEUTRAL));
+    
     public static final Holder<Attribute> AIR_DRAG_MODIFIER = REGISTRIES.holder("air_drag_modifier",
         () -> new RangedAttribute(
             "attribute.name.air_drag_modifier",
             1.0,
             0.0,
             2048.0
-        ).setSyncable(true)
-    );
+        ).setSyncable(true));
     public static final Holder<Attribute> BOUNCINESS = REGISTRIES.holder("bounciness",
         () -> new RangedAttribute(
             "attribute.name.bounciness",
             0.0,
             0.0,
             1.0
-        ).setSyncable(true)
-    );
+        ).setSyncable(true));
     public static final Holder<Attribute> FRICTION_MODIFIER = REGISTRIES.holder("friction_modifier",
         () -> new RangedAttribute(
             "attribute.name.friction_modifier",
             1.0,
             0.0,
             2048.0
-        ).setSyncable(true)
-    );
+        ).setSyncable(true));
 }

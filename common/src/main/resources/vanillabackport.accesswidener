@@ -39,6 +39,8 @@ accessible field net/minecraft/world/entity/vehicle/Boat status Lnet/minecraft/w
 
 accessible method net/minecraft/client/renderer/entity/EntityRenderer renderLeash (Lnet/minecraft/world/entity/Entity;FLcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;Lnet/minecraft/world/entity/Entity;)V
 
+accessible class net/minecraft/server/level/ServerLevel$EntityCallbacks
+
 accessible method net/minecraft/world/entity/LivingEntity collectEquipmentChanges ()Ljava/util/Map;
 extendable method net/minecraft/world/entity/LivingEntity collectEquipmentChanges ()Ljava/util/Map;
 

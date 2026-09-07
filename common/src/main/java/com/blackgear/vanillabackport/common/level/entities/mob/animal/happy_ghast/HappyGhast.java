@@ -62,12 +62,12 @@ import java.util.EnumSet;
 import java.util.function.BooleanSupplier;
 
 public class HappyGhast extends Animal implements PlayerRideable, LeashableCallback, PositionAwareEntity {
-    public static final Ingredient IS_FOOD = Ingredient.of(ModItemTags.HAPPY_GHAST_FOOD);
-    private int leashHolderTime = 0;
-    private int serverStillTimeout;
     private static final EntityDataAccessor<Boolean> IS_LEASH_HOLDER = SynchedEntityData.defineId(HappyGhast.class, EntityDataSerializers.BOOLEAN);
     private static final EntityDataAccessor<Boolean> STAYS_STILL = SynchedEntityData.defineId(HappyGhast.class, EntityDataSerializers.BOOLEAN);
+    public static final Ingredient IS_FOOD = Ingredient.of(ModItemTags.HAPPY_GHAST_FOOD);
     private boolean requiresPrecisePosition;
+    private int serverStillTimeout;
+    private int leashHolderTime = 0;
 
     public HappyGhast(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
@@ -245,7 +245,12 @@ public class HappyGhast extends Animal implements PlayerRideable, LeashableCallb
     protected @Nullable SoundEvent getDeathSound() {
         return this.isBaby() ? ModSoundEvents.GHASTLING_DEATH.get() : ModSoundEvents.HAPPY_GHAST_DEATH.get();
     }
-
+    
+    @Override
+    protected float getSoundVolume() {
+        return this.isBaby() ? 1.0F : 4.0F;
+    }
+    
     @Override
     public int getMaxSpawnClusterSize() {
         return 1;

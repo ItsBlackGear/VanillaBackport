@@ -1,6 +1,7 @@
 package com.blackgear.vanillabackport.common;
 
 import com.blackgear.platform.common.data.LootModifier;
+import com.blackgear.platform.common.events.CommandRegistrar;
 import com.blackgear.platform.common.integration.BlockIntegration;
 import com.blackgear.platform.common.integration.MobIntegration;
 import com.blackgear.platform.common.integration.TradeIntegration;
@@ -9,6 +10,7 @@ import com.blackgear.platform.common.worldgen.placement.BiomePlacement;
 import com.blackgear.platform.core.ParallelDispatch;
 import com.blackgear.platform.core.events.ResourceReloadManager;
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
+import com.blackgear.vanillabackport.common.commands.WaypointCommand;
 import com.blackgear.vanillabackport.common.integrations.BlockIntegrations;
 import com.blackgear.vanillabackport.common.integrations.LootIntegrations;
 import com.blackgear.vanillabackport.common.integrations.MobIntegrations;
@@ -52,6 +54,7 @@ public class CommonSetup {
         });
         
         MobIntegration.registerIntegrations(MobIntegrations::bootstrap);
+        CommandRegistrar.EVENT.register((dispatcher, context, selection) -> WaypointCommand.register(dispatcher, context));
     }
 
     public static void asyncSetup(ParallelDispatch dispatch) {

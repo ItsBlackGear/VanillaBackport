@@ -17,6 +17,7 @@ public class ModItemTags {
     public static final TagKey<Item> EGGS = TAGS.register("eggs");
 
     public static final TagKey<Item> SULFUR_CUBE_FOOD = TAGS.register("sulfur_cube_food");
+    public static final TagKey<Item> DISABLES_WAYPOINT_TRACKING = TAGS.register("disables_waypoint_tracking");
 
     public static final TagKey<Item> SULFUR_CUBE_ARCHETYPE_REGULAR = TAGS.register("sulfur_cube_archetype/regular");
     public static final TagKey<Item> SULFUR_CUBE_ARCHETYPE_BOUNCY = TAGS.register("sulfur_cube_archetype/bouncy");

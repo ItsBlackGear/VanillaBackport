@@ -69,19 +69,20 @@
       "mob/nautilus/swim9"
     ],
     "subtitle": "subtitles.entity.baby_nautilus.swim"
-  },"entity.nautilus.ambient": {
-  "sounds": [
-    "mob/nautilus/ambient1",
-    "mob/nautilus/ambient2",
-    "mob/nautilus/ambient3",
-    "mob/nautilus/ambient4",
-    "mob/nautilus/ambient5",
-    "mob/nautilus/ambient6",
-    "mob/nautilus/ambient7",
-    "mob/nautilus/ambient8"
-  ],
-  "subtitle": "subtitles.entity.nautilus.ambient"
-},
+  },
+  "entity.nautilus.ambient": {
+    "sounds": [
+      "mob/nautilus/ambient1",
+      "mob/nautilus/ambient2",
+      "mob/nautilus/ambient3",
+      "mob/nautilus/ambient4",
+      "mob/nautilus/ambient5",
+      "mob/nautilus/ambient6",
+      "mob/nautilus/ambient7",
+      "mob/nautilus/ambient8"
+    ],
+    "subtitle": "subtitles.entity.nautilus.ambient"
+  },
   "entity.nautilus.ambient_land": {
     "sounds": [
       "mob/nautilus/ambient_land1",
@@ -1748,413 +1749,6 @@
     ],
     "subtitle": "subtitles.entity.wolf.whine"
   },
-  "music.game": {
-    "replace": false,
-    "sounds": [
-      {
-        "name": "music/game/below_and_above",
-        "stream": true,
-        "volume": 0.4
-      },
-      {
-        "name": "music/game/broken_clocks",
-        "stream": true,
-        "volume": 0.4
-      },
-      {
-        "name": "music/game/fireflies",
-        "stream": true,
-        "volume": 0.4
-      },
-      {
-        "name": "music/game/lilypad",
-        "stream": true,
-        "volume": 0.4
-      },
-      {
-        "name": "music/game/os_piano",
-        "stream": true,
-        "volume": 0.4
-      },
-      {
-        "name": "music/game/shores",
-        "stream": true,
-        "volume": 0.4,
-        "weight": 2
-      },
-      {
-        "name": "music/game/ebb",
-        "stream": true,
-        "volume": 0.4,
-        "weight": 2
-      },
-      {
-        "name": "music/game/home",
-        "stream": true,
-        "volume": 0.4,
-        "weight": 2
-      },
-      {
-        "name": "music/game/memories",
-        "stream": true,
-        "volume": 0.4,
-        "weight": 2
-      },
-      {
-        "name": "music/game/nightly",
-        "stream": true,
-        "volume": 0.4,
-        "weight": 2
-      }
-    ]
-  },
-  "music.menu": {
-    "replace": false,
-    "sounds": [
-      {
-        "name": "music/game/below_and_above",
-        "stream": true,
-        "volume": 0.4
-      },
-      {
-        "name": "music/game/broken_clocks",
-        "stream": true,
-        "volume": 0.4
-      },
-      {
-        "name": "music/game/fireflies",
-        "stream": true,
-        "volume": 0.4
-      },
-      {
-        "name": "music/game/lilypad",
-        "stream": true,
-        "volume": 0.4
-      },
-      {
-        "name": "music/game/os_piano",
-        "stream": true,
-        "volume": 0.4
-      },
-      {
-        "name": "music/game/shores",
-        "stream": true,
-        "volume": 0.4,
-        "weight": 2
-      },
-      {
-        "name": "music/game/ebb",
-        "stream": true,
-        "volume": 0.4,
-        "weight": 2
-      },
-      {
-        "name": "music/game/home",
-        "stream": true,
-        "volume": 0.4,
-        "weight": 2
-      },
-      {
-        "name": "music/game/memories",
-        "stream": true,
-        "volume": 0.4,
-        "weight": 2
-      },
-      {
-        "name": "music/game/nightly",
-        "stream": true,
-        "volume": 0.4,
-        "weight": 2
-      }
-    ]
-  },
-  "music.overworld.badlands": {
-    "replace": false,
-    "sounds": [
-      {
-        "name": "music/game/memories",
-        "stream": true,
-        "volume": 0.4,
-        "weight": 2
-      }
-    ]
-  },
-  "music.overworld.bamboo_jungle": {
-    "replace": false,
-    "sounds": [
-      {
-        "name": "music/game/home",
-        "stream": true,
-        "volume": 0.4,
-        "weight": 2
-      }
-    ]
-  },
-  "music.overworld.jungle": {
-    "replace": false,
-    "sounds": [
-      {
-        "name": "music/game/home",
-        "stream": true,
-        "volume": 0.4,
-        "weight": 2
-      }
-    ]
-  },
-  "music.overworld.sparse_jungle": {
-    "replace": false,
-    "sounds": [
-      {
-        "name": "music/game/home",
-        "stream": true,
-        "volume": 0.4,
-        "weight": 2
-      }
-    ]
-  },
-  "music.overworld.cherry_grove": {
-    "replace": false,
-    "sounds": [
-      {
-        "name": "music/game/below_and_above",
-        "stream": true,
-        "volume": 0.4,
-        "weight": 2
-      },
-      {
-        "name": "music/game/home",
-        "stream": true,
-        "volume": 0.4,
-        "weight": 2
-      },
-      {
-        "name": "music/game/memories",
-        "stream": true,
-        "volume": 0.4,
-        "weight": 2
-      },
-      {
-        "name": "music/game/nightly",
-        "stream": true,
-        "volume": 0.4,
-        "weight": 2
-      }
-    ]
-  },
-  "music.overworld.meadow": {
-    "replace": false,
-    "sounds": [
-      {
-        "name": "music/game/home",
-        "stream": true,
-        "volume": 0.4,
-        "weight": 2
-      }
-    ]
-  },
-  "music.overworld.forest": {
-    "replace": false,
-    "sounds": [
-      {
-        "name": "music/game/broken_clocks",
-        "stream": true,
-        "volume": 0.4,
-        "weight": 2
-      },
-      {
-        "name": "music/game/shores",
-        "stream": true,
-        "volume": 0.4,
-        "weight": 2
-      },
-      {
-        "name": "music/game/memories",
-        "stream": true,
-        "volume": 0.4,
-        "weight": 2
-      }
-    ]
-  },
-  "music.overworld.desert": {
-    "replace": false,
-    "sounds": [
-      {
-        "name": "music/game/fireflies",
-        "stream": true,
-        "volume": 0.4,
-        "weight": 2
-      },
-      {
-        "name": "music/game/memories",
-        "stream": true,
-        "volume": 0.4,
-        "weight": 2
-      }
-    ]
-  },
-  "music.overworld.frozen_peaks": {
-    "replace": false,
-    "sounds": [
-      {
-        "name": "music/game/fireflies",
-        "stream": true,
-        "volume": 0.4
-      },
-      {
-        "name": "music/game/ebb",
-        "stream": true,
-        "volume": 0.4,
-        "weight": 2
-      },
-      {
-        "name": "music/game/home",
-        "stream": true,
-        "volume": 0.4,
-        "weight": 2
-      },
-      {
-        "name": "music/game/nightly",
-        "stream": true,
-        "volume": 0.4,
-        "weight": 2
-      }
-    ]
-  },
-  "music.overworld.jagged_peaks": {
-    "replace": false,
-    "sounds": [
-      {
-        "name": "music/game/ebb",
-        "stream": true,
-        "volume": 0.4,
-        "weight": 2
-      },
-      {
-        "name": "music/game/nightly",
-        "stream": true,
-        "volume": 0.4,
-        "weight": 2
-      }
-    ]
-  },
-  "music.overworld.stony_peaks": {
-    "replace": false,
-    "sounds": [
-      {
-        "name": "music/game/nightly",
-        "stream": true,
-        "volume": 0.4,
-        "weight": 2
-      }
-    ]
-  },
-  "music.overworld.snowy_slopes": {
-    "replace": false,
-    "sounds": [
-      {
-        "name": "music/game/nightly",
-        "stream": true,
-        "volume": 0.4,
-        "weight": 2
-      }
-    ]
-  },
-  "music.overworld.grove": {
-    "replace": false,
-    "sounds": [
-      {
-        "name": "music/game/fireflies",
-        "stream": true,
-        "volume": 0.4,
-        "weight": 2
-      },
-      {
-        "name": "music/game/shores",
-        "stream": true,
-        "volume": 0.4,
-        "weight": 2
-      }
-    ]
-  },
-  "music.overworld.swamp": {
-    "replace": false,
-    "sounds": [
-      {
-        "name": "music/game/ebb",
-        "stream": true,
-        "volume": 0.4,
-        "weight": 2
-      }
-    ]
-  },
-  "music.overworld.flower_forest": {
-    "replace": false,
-    "sounds": [
-      {
-        "name": "music/game/shores",
-        "stream": true,
-        "volume": 0.4,
-        "weight": 2
-      },
-      {
-        "name": "music/game/memories",
-        "stream": true,
-        "volume": 0.4,
-        "weight": 2
-      }
-    ]
-  },
-  "music.overworld.old_growth_taiga": {
-    "replace": false,
-    "sounds": [
-      {
-        "name": "music/game/shores",
-        "stream": true,
-        "volume": 0.4,
-        "weight": 2
-      }
-    ]
-  },
-  "music.overworld.lush_caves": {
-    "replace": false,
-    "sounds": [
-      {
-        "name": "music/game/os_piano",
-        "stream": true,
-        "volume": 0.4,
-        "weight": 2
-      },
-      {
-        "name": "music/game/shores",
-        "stream": true,
-        "volume": 0.4,
-        "weight": 2
-      }
-    ]
-  },
-  "music.overworld.dripstone_caves": {
-    "replace": false,
-    "sounds": [
-      {
-        "name": "music/game/shores",
-        "stream": true,
-        "volume": 0.4,
-        "weight": 2
-      },
-      {
-        "name": "music/game/ebb",
-        "stream": true,
-        "volume": 0.4,
-        "weight": 2
-      },
-      {
-        "name": "music/game/nightly",
-        "stream": true,
-        "volume": 0.4,
-        "weight": 2
-      }
-    ]
-  },
   "music.overworld.sulfur_caves": {
     "sounds": [
       {
@@ -2878,7 +2472,6 @@
     ],
     "subtitle": "subtitles.block.dried_ghast.transition"
   },
-
   "entity.ghastling.ambient": {
     "sounds": [
       "mob/ghastling/ghastling1",
@@ -2913,8 +2506,6 @@
     ],
     "subtitle": "subtitles.entity.ghastling.spawn"
   },
-
-
   "entity.happy_ghast.ambient": {
     "sounds": [
       "mob/happy_ghast/ambient1",
@@ -2998,7 +2589,6 @@
     ],
     "subtitle": "subtitles.entity.happy_ghast.unequip"
   },
-
   "music_disc.tears": {
     "sounds": [
       {
@@ -3249,7 +2839,6 @@
     ],
     "subtitle": "subtitles.block.dry_grass.ambient"
   },
-
   "block.leaf_litter.break": {
     "sounds": [
       "block/leaf_litter/break1",

@@ -160,6 +160,16 @@ public class LangGenerator extends FabricLanguageProvider {
         builder.add("subtitles.entity.happy_ghast.harness_goggles_up", "Happy Ghast stops");
         builder.add("subtitles.entity.happy_ghast.unequip", "Harness unequips");
         builder.add("subtitles.entity.happy_ghast.equip", "Harness equips");
+        
+        builder.add("attribute.name.waypoint_receive_range", "Waypoint Receive Range");
+        builder.add("attribute.name.waypoint_transmit_range", "Waypoint Transmit Range");
+        
+        builder.add("argument.waypoint.invalid", "Selected entity is not a waypoint");
+        builder.add("commands.waypoint.list.empty", "No waypoints in %s");
+        builder.add("commands.waypoint.list.success", "%s waypoint(s) in %s: %s");
+        builder.add("commands.waypoint.modify.color", "Waypoint color is now %s");
+        builder.add("commands.waypoint.modify.color.reset", "Reset waypoint color");
+        builder.add("commands.waypoint.modify.style", "Waypoint style changed");
 
         // Spring to Life
         builder.add(ModBlocks.BUSH.get(), "Bush");

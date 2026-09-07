@@ -1,6 +1,5 @@
 package com.blackgear.vanillabackport.client.level.layer;
 
-import com.blackgear.vanillabackport.client.api.modules.models.LazyModel;
 import com.blackgear.vanillabackport.client.registries.ModModelLayers;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
@@ -22,11 +21,11 @@ import net.minecraft.world.item.component.DyedItemColor;
 
 @Environment(EnvType.CLIENT)
 public class UndeadHorseArmorLayer extends RenderLayer<AbstractHorse, HorseModel<AbstractHorse>> {
-	private final LazyModel<AbstractHorse, HorseModel<AbstractHorse>> model;
+	private final HorseModel<AbstractHorse> model;
 
 	public UndeadHorseArmorLayer(RenderLayerParent<AbstractHorse, HorseModel<AbstractHorse>> renderer, EntityModelSet models) {
 		super(renderer);
-		this.model = LazyModel.of(models, ModModelLayers.UNDEAD_HORSE_ARMOR, HorseModel::new);
+		this.model = new HorseModel<>(models.bakeLayer(ModModelLayers.UNDEAD_HORSE_ARMOR));
 	}
 
 	@Override
@@ -44,13 +43,13 @@ public class UndeadHorseArmorLayer extends RenderLayer<AbstractHorse, HorseModel
 	) {
 		ItemStack equipment = entity.getBodyArmorItem();
 		if (equipment.getItem() instanceof AnimalArmorItem armor && armor.getBodyType() == AnimalArmorItem.BodyType.EQUESTRIAN) {
-			this.getParentModel().copyPropertiesTo(this.model.get());
-			this.model.get().prepareMobModel(entity, limbSwing, limbSwingAmount, partialTicks);
-			this.model.get().setupAnim(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+			this.getParentModel().copyPropertiesTo(this.model);
+			this.model.prepareMobModel(entity, limbSwing, limbSwingAmount, partialTicks);
+			this.model.setupAnim(entity, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
 			int color = equipment.is(ItemTags.DYEABLE) ? ARGB32.opaque(DyedItemColor.getOrDefault(equipment, -6265536)) : -1;
 			
 			VertexConsumer consumer = buffer.getBuffer(RenderType.entityCutoutNoCull(armor.getTexture()));
-			this.model.get().renderToBuffer(poseStack, consumer, packedLight, OverlayTexture.NO_OVERLAY, color);
+			this.model.renderToBuffer(poseStack, consumer, packedLight, OverlayTexture.NO_OVERLAY, color);
 		}
 	}
 }
