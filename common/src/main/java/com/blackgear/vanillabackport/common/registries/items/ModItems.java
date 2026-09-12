@@ -150,7 +150,7 @@ public class ModItems {
     public static final Supplier<Item> COPPER_AXE = REGISTRIES.register("copper_axe",
         properties -> new AxeItem(ModToolMaterials.COPPER, 7.0F, -3.2F, properties));
     public static final Supplier<Item> COPPER_HOE = REGISTRIES.register("copper_hoe",
-        properties -> new HoeItem(ModToolMaterials.COPPER, 1, -2.0F, properties));
+        properties -> new HoeItem(ModToolMaterials.COPPER, -1, -2.0F, properties));
     
     public static final Supplier<Item> COPPER_HELMET = REGISTRIES.register("copper_helmet",
         properties -> new ArmorItem(ModArmorMaterials.COPPER, ArmorItem.Type.HELMET, properties));

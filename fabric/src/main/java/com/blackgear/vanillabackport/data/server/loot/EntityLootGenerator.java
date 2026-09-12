@@ -31,6 +31,15 @@ public class EntityLootGenerator extends SimpleFabricLootTableProvider {
         output.accept(ModEntityTypes.HAPPY_GHAST.get().getDefaultLootTable(), LootTable.lootTable());
         output.accept(ModEntityTypes.ARMADILLO.get().getDefaultLootTable(), LootTable.lootTable());
         output.accept(ModEntityTypes.SULFUR_CUBE.get().getDefaultLootTable(), LootTable.lootTable());
+        output.accept(
+            ModEntityTypes.COPPER_GOLEM.get().getDefaultLootTable(),
+            LootTable.lootTable()
+                .withPool(LootPool.lootPool()
+                    .setRolls(ConstantValue.exactly(1))
+                    .add(LootItem.lootTableItem(Items.COPPER_INGOT)
+                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 3.0F)))
+                        .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F)))))
+        );
         output.accept(ModEntityTypes.PARCHED.get().getDefaultLootTable(),
             LootTable.lootTable()
                 .withPool(LootPool.lootPool()

@@ -23,7 +23,7 @@ public class ZombifiedPiglinMixin extends Zombie {
     
     @Inject(method = "populateDefaultEquipmentSlots", at = @At("TAIL"))
     private void vb$spawnWithSpear(RandomSource random, DifficultyInstance difficulty, CallbackInfo ci) {
-        if (!VanillaBackport.COMMON_CONFIG.canMobsSpawnWithSpears.get()) return;
+        if (!VanillaBackport.COMMON_CONFIG.canMonstersSpawnWithSpears.get()) return;
         
         if (random.nextInt(20) == 0) {
             this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(ModItems.GOLDEN_SPEAR.get()));

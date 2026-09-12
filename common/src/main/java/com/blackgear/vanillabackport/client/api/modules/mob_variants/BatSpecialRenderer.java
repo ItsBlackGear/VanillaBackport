@@ -30,4 +30,9 @@ public class BatSpecialRenderer<T extends LivingEntity, M extends EntityModel<T>
     public Optional<M> getModel(T entity) {
         return Optional.ofNullable(this.model);
     }
+    
+    @Override
+    public boolean suppressScale(T entity) {
+        return true;
+    }
 }

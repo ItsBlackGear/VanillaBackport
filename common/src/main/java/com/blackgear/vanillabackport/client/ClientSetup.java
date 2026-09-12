@@ -3,7 +3,6 @@ package com.blackgear.vanillabackport.client;
 import com.blackgear.platform.client.GameRendering;
 import com.blackgear.platform.client.event.LocalPlayerEvents;
 import com.blackgear.platform.client.event.rendering.LivingEntityRendererCallback;
-import com.blackgear.platform.client.event.screen.HudRendering;
 import com.blackgear.platform.common.block.WoodTypeRegistry;
 import com.blackgear.platform.common.events.TickEvents;
 import com.blackgear.platform.common.v2.creative_tabs.CreativeTabIntegrations;
@@ -44,14 +43,14 @@ public class ClientSetup {
             event.register(new ResourceLocation("ghast_equipment"), GhastEquipmentManager.INSTANCE);
         });
         
-        HudRendering.RENDERING.register((minecraft, guiGraphics, v) -> LocatorBarRenderer.INSTANCE.renderWaypoints(guiGraphics));
+        LocatorBarRenderer.bootstrap();
         
         GameRendering.registerParticleFactories(ParticleRendering::factories);
         GameRendering.registerModelLayers(EntityRendering::modelLayers);
         GameRendering.registerEntityRenderers(EntityRendering::renderers);
         GameRendering.registerBlockColors(ColorRendering::blockColors);
         GameRendering.registerItemColors(ColorRendering::itemColors);
-        GameRendering.registerSpecialModels(ItemLikeRendering::specialRendering);
+        GameRendering.registerItemLikeRenderers(ItemLikeRendering::itemLikeRendering);
         GameRendering.registerBlockEntityRenderers(ItemLikeRendering::blockEntityRendering);
         TickEvents.CLIENT_TICK_POST.register(() -> ClientWaypointManager.INSTANCE.tick(Minecraft.getInstance().player));
     }

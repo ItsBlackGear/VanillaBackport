@@ -1,6 +1,7 @@
 package com.blackgear.vanillabackport.common.level.entities.mob.animal.golem.copper_golem;
 
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
+import com.blackgear.vanillabackport.common.level.entities.mob.animal.golem.copper_golem.container.ContainerManager;
 import com.blackgear.vanillabackport.common.registries.entities.ModMemoryModuleTypes;
 import com.blackgear.vanillabackport.core.data.tags.ModBlockTags;
 import com.google.common.collect.ImmutableList;
@@ -28,8 +29,8 @@ import java.util.function.Predicate;
 import static com.blackgear.vanillabackport.common.level.entities.mob.animal.golem.copper_golem.TransportItemsBetweenContainers.*;
 
 public class CopperGolemAi {
-    private static final Predicate<BlockState> TRANSPORT_ITEM_SOURCE_BLOCK = block -> block.is(ModBlockTags.COPPER_CHESTS);
-    private static final Predicate<BlockState> TRANSPORT_ITEM_DESTINATION_BLOCK = block -> block.is(ModBlockTags.COPPER_GOLEM_DESTINATION_TARGETS);
+    private static final Predicate<BlockState> TRANSPORT_ITEM_SOURCE_BLOCK = block -> block.is(ModBlockTags.TRANSPORT_ITEM_SOURCE_BLOCKS);
+    private static final Predicate<BlockState> TRANSPORT_ITEM_DESTINATION_BLOCK = block -> block.is(ModBlockTags.TRANSPORT_ITEM_DESTINATION_BLOCKS);
     private static final ImmutableList<SensorType<? extends Sensor<? super CopperGolem>>> SENSOR_TYPES = ImmutableList.of(
         SensorType.NEAREST_LIVING_ENTITIES,
         SensorType.HURT_BY
@@ -128,7 +129,7 @@ public class CopperGolemAi {
         return (entity, target, tickSinceReachingTarget) -> {
             if (entity instanceof CopperGolem golem) {
                 if (tickSinceReachingTarget == 1) {
-                    ContainerHandler.startOpen(target.blockEntity(), golem);
+                    ContainerManager.startOpen(target.blockEntity(), golem);
                     golem.setOpenedChestPos(target.pos());
                     golem.setState(state);
                 }
@@ -138,8 +139,8 @@ public class CopperGolemAi {
                 }
 
                 if (tickSinceReachingTarget == 60) {
-                    if (ContainerHandler.getEntitiesWithContainerOpen(target.blockEntity()).contains(golem)) {
-                        ContainerHandler.stopOpen(target.blockEntity(), golem);
+                    if (ContainerManager.getEntitiesWithContainerOpen(target.blockEntity()).contains(golem)) {
+                        ContainerManager.stopOpen(target.blockEntity(), golem);
                     }
 
                     golem.clearOpenedChestPos();
@@ -158,6 +159,6 @@ public class CopperGolemAi {
     }
 
     private static Predicate<TransportItemTarget> shouldQueueForTarget() {
-        return target -> !ContainerHandler.getEntitiesWithContainerOpen(target.blockEntity()).isEmpty();
+        return target -> !ContainerManager.getEntitiesWithContainerOpen(target.blockEntity()).isEmpty();
     }
 }

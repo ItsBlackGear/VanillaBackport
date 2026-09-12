@@ -6,6 +6,7 @@ import com.blackgear.vanillabackport.client.level.model.entity.chicken.ColdChick
 import com.blackgear.vanillabackport.client.registries.ModModelLayers;
 import com.blackgear.vanillabackport.common.level.entities.mob.animal.chicken.ChickenVariant;
 import com.blackgear.vanillabackport.common.level.entities.mob.animal.chicken.ChickenVariants;
+import com.blackgear.vanillabackport.core.compat.ClientCompat;
 import com.google.common.collect.Maps;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -36,7 +37,8 @@ public class ChickenVariantRenderer extends AbstractVariantRenderer<Chicken, Chi
     }
 
     @Override
-    protected ResourceLocation getTexture(ChickenVariant variant) {
+    protected ResourceLocation getTexture(Chicken chicken, ChickenVariant variant) {
+        if (ClientCompat.hasQuarkChickenTexture(chicken)) return null;
         return variant.modelAndTexture().asset().path();
     }
 

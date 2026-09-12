@@ -2,6 +2,8 @@ package com.blackgear.vanillabackport.data.server.tags;
 
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
 import com.blackgear.vanillabackport.core.data.tags.ModBlockTags;
+import com.blackgear.vanillabackport.core.data.tags.fabric.FabricBlockTags;
+import com.blackgear.vanillabackport.core.data.tags.forge.ForgeBlockTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.core.HolderLookup;
@@ -231,10 +233,16 @@ public class BlockTagGenerator extends FabricTagProvider.BlockTagProvider {
                 ModBlocks.WAXED_OXIDIZED_COPPER_CHEST.get()
             );
         
-        this.getOrCreateTagBuilder(ModBlockTags.COPPER_GOLEM_DESTINATION_TARGETS)
+        this.getOrCreateTagBuilder(ModBlockTags.TRANSPORT_ITEM_SOURCE_BLOCKS)
+            .forceAddTag(ModBlockTags.COPPER_CHESTS);
+        
+        this.getOrCreateTagBuilder(ModBlockTags.TRANSPORT_ITEM_DESTINATION_BLOCKS)
             .add(Blocks.CHEST)
             .add(Blocks.TRAPPED_CHEST)
-            .add(Blocks.BARREL);
+            .forceAddTag(ForgeBlockTags.CHESTS_WOODEN)
+            .forceAddTag(ForgeBlockTags.CHESTS_TRAPPED)
+            .forceAddTag(FabricBlockTags.CHESTS_WOODEN)
+            .forceAddTag(FabricBlockTags.CHESTS_TRAPPED);
 
         this.getOrCreateTagBuilder(ModBlockTags.CUSHION_USES_COLLISION_SHAPE)
             .forceAddTag(BlockTags.CAULDRONS)

@@ -3,9 +3,12 @@ package com.blackgear.vanillabackport.common.level.entities.mob.animal.golem.cop
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
 import com.blackgear.vanillabackport.common.level.blocks.CopperGolemStatueBlock;
 import com.blackgear.vanillabackport.common.level.block_entities.CopperGolemStatueBlockEntity;
+import com.blackgear.vanillabackport.common.level.entities.mob.animal.golem.copper_golem.container.ContainerManager;
+import com.blackgear.vanillabackport.common.level.entities.mob.animal.golem.copper_golem.container.ContainerUser;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
 import com.blackgear.vanillabackport.common.registries.entities.ModEntityDataSerializers;
 import com.blackgear.vanillabackport.common.registries.entities.ModMemoryModuleTypes;
+import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.blackgear.vanillabackport.core.data.tags.ModItemTags;
 import com.blackgear.vanillabackport.core.util.WorldUtilities.EntityUtils;
 import com.mojang.serialization.Dynamic;
@@ -169,7 +172,7 @@ public class CopperGolem extends AbstractGolem implements ContainerUser, Shearab
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
-        this.nextWeatheringTick = compound.getLong("next_weather_age");
+        this.nextWeatheringTick = compound.contains("next_weather_age") ? compound.getLong("next_weather_age") : -1L;
         this.setWeatherState(WeatheredState.fromName(compound.getString("weather_state")));
     }
     
@@ -221,7 +224,9 @@ public class CopperGolem extends AbstractGolem implements ContainerUser, Shearab
         } else if (level.isClientSide) {
             return InteractionResult.PASS;
         } else if (stack.is(Items.HONEYCOMB) && this.nextWeatheringTick != -2L) {
-            level.levelEvent(null, 3003, this.blockPosition(), 0);
+            BlockPos pos = this.blockPosition();
+            level.levelEvent(null, 3003, pos, 0);
+            level.playSound(null, pos, SoundEvents.HONEYCOMB_WAX_ON, SoundSource.BLOCKS, 1.0F, 1.0F);
             this.nextWeatheringTick = -2L;
             if (!player.getAbilities().instabuild) stack.shrink(1);
             
@@ -252,7 +257,7 @@ public class CopperGolem extends AbstractGolem implements ContainerUser, Shearab
     private void updateWeathering(ServerLevel level, RandomSource random, long gameTime) {
         if (this.nextWeatheringTick != -2L) {
             if (this.nextWeatheringTick == -1L) {
-                this.nextWeatheringTick = gameTime + random.nextIntBetweenInclusive(504000, 552000);
+                this.nextWeatheringTick = gameTime + random.nextIntBetweenInclusive(VanillaBackport.COMMON_CONFIG.golemWeatheringTickFrom.get(), VanillaBackport.COMMON_CONFIG.golemWeatheringTickTo.get());
             } else {
                 WeatheredState weatherState = this.getWeatherState();
                 boolean isFullyOxidized = weatherState.equals(WeatheredState.OXIDIZED);
@@ -277,13 +282,12 @@ public class CopperGolem extends AbstractGolem implements ContainerUser, Shearab
     private void turnToStatue(ServerLevel level) {
         BlockPos pos = this.blockPosition();
         
-        level.setBlock(
+        level.setBlockAndUpdate(
             pos,
             ModBlocks.OXIDIZED_COPPER_GOLEM_STATUE.get()
                 .defaultBlockState()
                 .setValue(CopperGolemStatueBlock.POSE, CopperGolemStatueBlock.Pose.values()[this.random.nextInt(0, CopperGolemStatueBlock.Pose.values().length)])
-                .setValue(CopperGolemStatueBlock.FACING, Direction.fromYRot(this.getYRot())),
-            3
+                .setValue(CopperGolemStatueBlock.FACING, Direction.fromYRot(this.getYRot()))
         );
         
         if (level.getBlockEntity(pos) instanceof CopperGolemStatueBlockEntity golem) {
@@ -366,7 +370,7 @@ public class CopperGolem extends AbstractGolem implements ContainerUser, Shearab
     
     private void playHeadSpinSound() {
         if (!this.isSilent()) {
-            this.level().playLocalSound(this.getX(), this.getY(), this.getZ(), this.getSpinHeadSound(), this.getSoundSource(), 0.5F, 1.0F, false);
+            this.level().playLocalSound(this.getX(), this.getY(), this.getZ(), this.getSpinHeadSound(), this.getSoundSource(), 1.0F, 1.0F, false);
         }
     }
     
@@ -403,7 +407,7 @@ public class CopperGolem extends AbstractGolem implements ContainerUser, Shearab
             return this.openedChestPos.equals(blockPos)
                 || blockState.getBlock() instanceof ChestBlock
                 && blockState.getValue(ChestBlock.TYPE) != ChestType.SINGLE
-                && ContainerHandler.getConnectedBlockPos(this.openedChestPos, blockState).equals(blockPos);
+                && ContainerManager.getConnectedBlockPos(this.openedChestPos, blockState).equals(blockPos);
         }
     }
     

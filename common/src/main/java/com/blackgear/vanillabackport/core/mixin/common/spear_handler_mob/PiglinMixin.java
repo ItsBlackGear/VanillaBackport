@@ -50,7 +50,7 @@ public abstract class PiglinMixin extends AbstractPiglin {
         )
     )
     private ItemLike vb$spawnWithSpear(ItemLike original) {
-        if (!VanillaBackport.COMMON_CONFIG.canMobsSpawnWithSpears.get()) return original;
+        if (!VanillaBackport.COMMON_CONFIG.canMonstersSpawnWithSpears.get()) return original;
         return this.random.nextInt(10) == 0 ? ModItems.GOLDEN_SPEAR.get() : original;
     }
 }

@@ -415,6 +415,9 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
         this.getDualTagBuilder(ForgeItemTags.DYED_WHITE, FabricItemTags.DYED_WHITE)
             .add(ModItems.WHITE_BUNDLE.get(), ModItems.WHITE_HARNESS.get(), ModItems.WHITE_CUSHION.get());
 
+      this.getDualTagBuilder(ForgeItemTags.NUGGETS, FabricItemTags.NUGGETS)
+            .add(ModItems.COPPER_NUGGET.get());
+      
       this.getDualTagBuilder(ForgeItemTags.NUGGETS_COPPER, FabricItemTags.NUGGETS_COPPER)
             .add(ModItems.COPPER_NUGGET.get());
 

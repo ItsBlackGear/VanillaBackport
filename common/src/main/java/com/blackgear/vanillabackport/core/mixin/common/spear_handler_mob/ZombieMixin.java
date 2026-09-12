@@ -35,7 +35,7 @@ public abstract class ZombieMixin extends Monster {
     
     @Inject(method = "populateDefaultEquipmentSlots", at = @At(value = "INVOKE_ASSIGN", target = "Lnet/minecraft/util/RandomSource;nextInt(I)I"))
     private void vb$setSpearEquipment(RandomSource random, DifficultyInstance difficulty, CallbackInfo ci, @Local(ordinal = 0) int chance) {
-        if (VanillaBackport.COMMON_CONFIG.canMobsSpawnWithSpears.get() && chance == 1) {
+        if (VanillaBackport.COMMON_CONFIG.canMonstersSpawnWithSpears.get() && chance == 1) {
             this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(ModItems.IRON_SPEAR.get()));
         }
     }

@@ -4,7 +4,6 @@ import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
 import com.blackgear.vanillabackport.common.registries.entities.ModAttributes;
 import com.blackgear.vanillabackport.common.registries.entities.ModEntityTypes;
 import com.blackgear.vanillabackport.common.registries.entities.ModMobEffects;
-import com.blackgear.vanillabackport.common.registries.items.ModEnchantments;
 import com.blackgear.vanillabackport.common.registries.items.ModItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
@@ -401,7 +400,8 @@ public class LangGenerator extends FabricLanguageProvider {
         
         builder.add(ModMobEffects.BREATH_OF_THE_NAUTILUS, "Breath of the Nautilus");
         
-        builder.add(ModEnchantments.LUNGE.get(), "Lunge");
+        builder.add("enchantment.minecraft.lunge", "Lunge");
+        builder.add("enchantment.minecraft.lunge.desc", "The user lunges forward when using the spear");
         
         builder.add("advancements.adventure.spear_many_mobs.title", "Mob Kabob");
         builder.add("advancements.adventure.spear_many_mobs.description", "Hit five mobs in the same Charge attack using the Spear");

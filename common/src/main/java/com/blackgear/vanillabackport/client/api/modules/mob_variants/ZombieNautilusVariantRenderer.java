@@ -36,7 +36,7 @@ public class ZombieNautilusVariantRenderer extends AbstractVariantRenderer<Zombi
     }
 
     @Override
-    protected ResourceLocation getTexture(ZombieNautilusVariant variant) {
+    protected ResourceLocation getTexture(ZombieNautilus nautilus, ZombieNautilusVariant variant) {
         return variant.modelAndTexture().asset().path();
     }
 

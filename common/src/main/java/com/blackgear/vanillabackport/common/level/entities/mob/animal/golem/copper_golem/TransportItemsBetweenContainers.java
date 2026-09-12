@@ -1,6 +1,8 @@
 package com.blackgear.vanillabackport.common.level.entities.mob.animal.golem.copper_golem;
 
+import com.blackgear.vanillabackport.common.level.entities.mob.animal.golem.copper_golem.container.ContainerManager;
 import com.blackgear.vanillabackport.common.registries.entities.ModMemoryModuleTypes;
+import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.blackgear.vanillabackport.core.mixin.common.access.BaseContainerBlockEntityAccessor;
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.core.BlockPos;
@@ -365,7 +367,7 @@ public class TransportItemsBetweenContainers extends Behavior<PathfinderMob> {
 
     private Stream<TransportItemTarget> getConnectedTargets(TransportItemTarget target, Level level) {
         if (target.state.getBlock() instanceof ChestBlock && target.state.getOptionalValue(ChestBlock.TYPE).orElse(ChestType.SINGLE) != ChestType.SINGLE) {
-            TransportItemTarget connectedTarget = TransportItemTarget.tryCreatePossibleTarget(ContainerHandler.getConnectedBlockPos(target.pos, target.state), level);
+            TransportItemTarget connectedTarget = TransportItemTarget.tryCreatePossibleTarget(ContainerManager.getConnectedBlockPos(target.pos, target.state), level);
             return connectedTarget != null ? Stream.of(target, connectedTarget) : Stream.of(target);
         } else {
             return Stream.of(target);
@@ -510,7 +512,7 @@ public class TransportItemsBetweenContainers extends Behavior<PathfinderMob> {
         for (int i = 0; i < container.getContainerSize(); i++) {
             ItemStack itemStack = container.getItem(i);
             if (!itemStack.isEmpty()) {
-                int itemCount = Math.min(itemStack.getCount(), 16);
+                int itemCount = Math.min(itemStack.getCount(), VanillaBackport.COMMON_CONFIG.golemItemCarryAmount.get());
                 return container.removeItem(slot, itemCount);
             }
 

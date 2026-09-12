@@ -93,59 +93,7 @@ public class RecipeGenerator extends VanillaRecipeProvider {
         this.harness(output, ModItems.RED_HARNESS.get(), Blocks.RED_WOOL);
         this.harness(output, ModItems.BLACK_HARNESS.get(), Blocks.BLACK_WOOL);
 
-        shaped(RecipeCategory.COMBAT, Items.SADDLE)
-            .define('X', Items.LEATHER)
-            .define('#', Items.IRON_INGOT)
-            .pattern(" X ")
-            .pattern("X#X")
-            .unlockedBy("has_leather", has(Items.LEATHER))
-            .save(output);
-        shaped(RecipeCategory.TOOLS, Items.LEAD, 2)
-            .define('~', Items.STRING)
-            .pattern("~~ ")
-            .pattern("~~ ")
-            .pattern("  ~")
-            .unlockedBy("has_string", has(Items.STRING))
-            .save(output);
-
         oneToOneConversionRecipe(output, Items.PINK_DYE, ModBlocks.CACTUS_FLOWER.get(), "pink_dye");
-
-        shaped(RecipeCategory.DECORATIONS, Blocks.LODESTONE)
-            .define('S', Items.CHISELED_STONE_BRICKS)
-            .define('#', Items.IRON_INGOT)
-            .pattern("SSS")
-            .pattern("S#S")
-            .pattern("SSS")
-            .unlockedBy("has_iron_ingot", has(Items.IRON_INGOT))
-            .unlockedBy("has_lodestone", has(Items.LODESTONE))
-            .save(output);
-
-        shaped(RecipeCategory.TOOLS, Items.BUNDLE)
-            .define('-', Items.STRING)
-            .define('#', Items.LEATHER)
-            .pattern("-")
-            .pattern("#")
-            .unlockedBy("has_string", has(Items.STRING))
-            .save(output);
-
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.FOOD, Items.PUMPKIN_PIE)
-            .requires(Blocks.PUMPKIN)
-            .requires(Items.SUGAR)
-            .requires(ModItemTags.EGGS)
-            .unlockedBy("has_carved_pumpkin", has(Blocks.CARVED_PUMPKIN))
-            .unlockedBy("has_pumpkin", has(Blocks.PUMPKIN))
-            .save(output);
-
-        shaped(RecipeCategory.FOOD, Blocks.CAKE)
-            .define('A', Items.MILK_BUCKET)
-            .define('B', Items.SUGAR)
-            .define('C', Items.WHEAT)
-            .define('E', ModItemTags.EGGS)
-            .pattern("AAA")
-            .pattern("BEB")
-            .pattern("CCC")
-            .unlockedBy("has_egg", has(ModItemTags.EGGS))
-            .save(output);
 
         shaped(RecipeCategory.COMBAT, ModItems.WOLF_ARMOR.get())
             .define('X', ModItems.ARMADILLO_SCUTE.get())
@@ -383,59 +331,6 @@ public class RecipeGenerator extends VanillaRecipeProvider {
             .save(output);
         
         // Mounts of Mayhem
-        SimpleCookingRecipeBuilder.smelting(
-                Ingredient.of(
-                    ModItems.GOLDEN_SPEAR.get(),
-                    ModItems.GOLDEN_NAUTILUS_ARMOR.get()
-                ),
-                RecipeCategory.MISC,
-                Items.GOLD_NUGGET,
-                0.1F,
-                200
-            )
-            .unlockedBy("has_golden_spear", has(ModItems.GOLDEN_SPEAR.get()))
-            .unlockedBy("has_iron_nautilus_armor", has(ModItems.GOLDEN_NAUTILUS_ARMOR.get()))
-            .save(output, getSmeltingRecipeName(Items.GOLD_NUGGET));
-        SimpleCookingRecipeBuilder.smelting(
-                Ingredient.of(
-                    ModItems.IRON_SPEAR.get(),
-                    ModItems.IRON_NAUTILUS_ARMOR.get()
-                ),
-                RecipeCategory.MISC,
-                Items.IRON_NUGGET,
-                0.1F,
-                200
-            )
-            .unlockedBy("has_iron_spear", has(ModItems.IRON_SPEAR.get()))
-            .unlockedBy("has_iron_nautilus_armor", has(ModItems.IRON_NAUTILUS_ARMOR.get()))
-            .save(output, getSmeltingRecipeName(Items.IRON_NUGGET));
-        SimpleCookingRecipeBuilder.blasting(
-                Ingredient.of(
-                    ModItems.GOLDEN_SPEAR.get(),
-                    ModItems.GOLDEN_NAUTILUS_ARMOR.get()
-                ),
-                RecipeCategory.MISC,
-                Items.GOLD_NUGGET,
-                0.1F,
-                100
-            )
-            .unlockedBy("has_golden_spear", has(ModItems.GOLDEN_SPEAR.get()))
-            .unlockedBy("has_iron_nautilus_armor", has(ModItems.GOLDEN_NAUTILUS_ARMOR.get()))
-            .save(output, getBlastingRecipeName(Items.GOLD_NUGGET));
-        SimpleCookingRecipeBuilder.blasting(
-                Ingredient.of(
-                    ModItems.IRON_SPEAR.get(),
-                    ModItems.IRON_NAUTILUS_ARMOR.get()
-                ),
-                RecipeCategory.MISC,
-                Items.IRON_NUGGET,
-                0.1F,
-                100
-            )
-            .unlockedBy("has_iron_spear", has(ModItems.IRON_SPEAR.get()))
-            .unlockedBy("has_iron_nautilus_armor", has(ModItems.IRON_NAUTILUS_ARMOR.get()))
-            .save(output, getBlastingRecipeName(Items.IRON_NUGGET));
-        
         shaped(RecipeCategory.COMBAT, ModItems.DIAMOND_SPEAR.get())
             .define('#', Items.STICK)
             .define('X', Items.DIAMOND)

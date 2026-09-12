@@ -236,6 +236,7 @@
   "death.attack.sulfurCubeHot.player": "%2$s showed %1$s that not just the floor is lava",
   "effect.minecraft.breath_of_the_nautilus": "Breath of the Nautilus",
   "enchantment.minecraft.lunge": "Lunge",
+  "enchantment.minecraft.lunge.desc": "The user lunges forward when using the spear",
   "entity.minecraft.armadillo": "Armadillo",
   "entity.minecraft.camel_husk": "Camel Husk",
   "entity.minecraft.copper_golem": "Copper Golem",

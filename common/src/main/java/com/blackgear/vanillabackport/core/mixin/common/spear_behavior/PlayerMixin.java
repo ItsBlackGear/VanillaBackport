@@ -47,15 +47,30 @@ public abstract class PlayerMixin extends LivingEntity implements PlayerSpearHan
     protected PlayerMixin(EntityType<? extends LivingEntity> entityType, Level level) {
         super(entityType, level);
     }
-
-    @Inject(method = "attack", at = @At("TAIL"))
-    private void vb$onAttack(Entity target, CallbackInfo ci) {
-        if (target.isAttackable()) {
-            this.vb$onAttack();
-            if (!target.skipAttackInteraction(this)) {
-                this.vb$postPiercingAttack();
-            }
+    
+    @Inject(method = "attack", at = @At("HEAD"), cancellable = true)
+    private void vb$handleSpecialInteractions(Entity target, CallbackInfo ci) {
+        Player player = (Player) (Object) this;
+        
+        if (target.isAttackable() && target.skipAttackInteraction(player)) {
+            ci.cancel();
         }
+    }
+    
+    @Inject(
+        method = "attack",
+        at = @At(
+            value = "INVOKE",
+            target = "Lnet/minecraft/world/entity/player/Player;resetAttackStrengthTicker()V"
+        )
+    )
+    private void vb$onAttackBeforeReset(Entity target, CallbackInfo ci) {
+        this.vb$onAttack();
+    }
+    
+    @Inject(method = "attack", at = @At("TAIL"))
+    private void vb$postPiercingAttackTail(Entity target, CallbackInfo ci) {
+        this.vb$postPiercingAttack();
     }
 
     @Override

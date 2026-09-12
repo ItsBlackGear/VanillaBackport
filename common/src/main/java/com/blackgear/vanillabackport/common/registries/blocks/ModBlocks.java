@@ -499,7 +499,7 @@ public class ModBlocks {
             .forceSolidOn()
             .requiresCorrectToolForDrops()
             .strength(5.0F, 6.0F)
-            .sound(SoundType.COPPER)
+            .sound(SoundType.CHAIN)
             .noOcclusion());
     
     // Chaos Cubed
