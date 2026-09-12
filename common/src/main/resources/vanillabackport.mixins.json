@@ -21,12 +21,7 @@
     "client.end_flashes.ClientLevelMixin",
     "client.end_flashes.LevelRendererMixin",
     "client.end_flashes.LightTextureMixin",
-    "client.entity_rendering.CatRendererMixin",
-    "client.entity_rendering.ChickenRendererMixin",
-    "client.entity_rendering.CowRendererMixin",
-    "client.entity_rendering.FrogRendererMixin",
-    "client.entity_rendering.PigRendererMixin",
-    "client.entity_rendering.WolfRendererMixin",
+    "client.entity_rendering.LivingEntityRendererMixin",
     "client.extension.HumanoidArmPoseMixin",
     "client.extension.LivingEntityRendererMixin",
     "client.falling_leaves.LeavesBlockMixin",
@@ -56,7 +51,7 @@
     "client.waypoints.CameraMixin",
     "client.waypoints.GameRendererMixin",
     "client.waypoints.LocalPlayerMixin",
-    "common.spear_behavior.LocalPlayerMixin",
+    "client.spear_behavior.LocalPlayerMixin",
     "compat.backports.LayerDefinitionsMixin"
   ],
   "mixins": [

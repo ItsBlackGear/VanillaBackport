@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.common.level.blocks;
 
-import com.blackgear.vanillabackport.common.level.entities.mob.animal.golem.copper_golem.ContainerHandler;
+import com.blackgear.vanillabackport.common.level.entities.mob.animal.golem.copper_golem.container.ContainerManager;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
@@ -24,7 +24,7 @@ public class WeatheringCopperChestBlock extends CopperChestBlock implements Weat
     public void randomTick(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         if (state.getValue(TYPE) != ChestType.RIGHT
             && level.getBlockEntity(pos) instanceof ChestBlockEntity chest
-            && ContainerHandler.getEntitiesWithContainerOpen(chest).isEmpty()) {
+            && ContainerManager.getEntitiesWithContainerOpen(chest).isEmpty()) {
             this.changeOverTime(state, level, pos, random);
         }
     }

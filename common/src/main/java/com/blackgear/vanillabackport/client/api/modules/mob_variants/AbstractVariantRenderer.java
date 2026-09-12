@@ -30,7 +30,7 @@ public abstract class AbstractVariantRenderer<T extends LivingEntity, M extends 
 
     protected abstract E getModelType(V variant);
 
-    protected abstract ResourceLocation getTexture(V variant);
+    protected abstract ResourceLocation getTexture(T entity, V variant);
 
     protected abstract BuiltInCoreRegistry<V> getRegistry();
 
@@ -43,7 +43,7 @@ public abstract class AbstractVariantRenderer<T extends LivingEntity, M extends 
     @Override
     public Optional<ResourceLocation> getTexture(T entity) {
         Optional<V> variant = this.getVariant(entity);
-        return variant.filter(v -> !this.isDefaultVariant(v)).map(this::getTexture);
+        return variant.filter(v -> !this.isDefaultVariant(v)).map(v -> this.getTexture(entity, v));
     }
 
     @Override

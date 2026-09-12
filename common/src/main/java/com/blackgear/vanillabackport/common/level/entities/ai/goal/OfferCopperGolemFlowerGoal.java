@@ -36,15 +36,15 @@ public class OfferCopperGolemFlowerGoal extends Goal {
 			return false;
 		} else {
 			this.entity = EntityUtils.getNearestEntity(
-					this.golem.level(),
-					ModEntityTypeTags.ACCEPTS_IRON_GOLEM_GIFT,
-					OFFER_TARGET_CONTEXT,
-					this.golem,
-					this.golem.getX(),
-					this.golem.getY(),
-					this.golem.getZ(),
-					this.getGolemBoundingBox()
-				);
+				this.golem.level(),
+				ModEntityTypeTags.ACCEPTS_IRON_GOLEM_GIFT,
+				OFFER_TARGET_CONTEXT,
+				this.golem,
+				this.golem.getX(),
+				this.golem.getY(),
+				this.golem.getZ(),
+				this.getGolemBoundingBox()
+			);
 			return this.entity != null;
 		}
 	}

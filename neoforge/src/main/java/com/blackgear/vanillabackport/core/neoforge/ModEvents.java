@@ -29,8 +29,7 @@ public class ModEvents {
         ModBlocks.OXIDIZED_COPPER_CHEST.get(),
         ModBlocks.WAXED_OXIDIZED_COPPER_CHEST.get()
     );
-
-
+    
     event.registerBlockEntity(
         Capabilities.ItemHandler.BLOCK,
         ModBlockEntities.SHELF.get(),

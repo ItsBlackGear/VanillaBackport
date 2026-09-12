@@ -1,4 +1,4 @@
-package com.blackgear.vanillabackport.core.mixin.common.spear_behavior;
+package com.blackgear.vanillabackport.core.mixin.client.spear_behavior;
 
 import com.blackgear.vanillabackport.common.level.components.UseEffects;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;

@@ -1,6 +1,7 @@
 package com.blackgear.vanillabackport.common.api.modules.mob_variant;
 
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.VariantHolder;
 
@@ -8,7 +9,7 @@ import java.util.Optional;
 
 @SuppressWarnings("unchecked")
 public interface VariantDataHolder<T> {
-    static <T> Optional<VariantDataHolder<T>> getHolder(LivingEntity entity) {
+    static <T> Optional<VariantDataHolder<T>> getHolder(Entity entity) {
         return entity instanceof VariantDataHolder<?> ? Optional.of((VariantDataHolder<T>) entity) : Optional.empty();
     }
     

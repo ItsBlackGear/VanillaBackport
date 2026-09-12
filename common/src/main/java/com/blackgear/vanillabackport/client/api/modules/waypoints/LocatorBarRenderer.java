@@ -1,11 +1,12 @@
 package com.blackgear.vanillabackport.client.api.modules.waypoints;
 
+import com.blackgear.platform.client.event.screen.hud.HudElementRegistryImpl;
+import com.blackgear.platform.client.event.screen.hud.VanillaHudElements;
 import com.blackgear.vanillabackport.common.api.modules.waypoints.TrackedWaypoint;
 import com.blackgear.vanillabackport.common.api.modules.waypoints.TrackedWaypoint.*;
 import com.blackgear.vanillabackport.common.api.modules.waypoints.Waypoint.Icon;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.blackgear.vanillabackport.core.util.Utilities.ColorUtils;
-import com.mojang.blaze3d.systems.RenderSystem;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.Optionull;
@@ -36,8 +37,23 @@ public class LocatorBarRenderer {
     
     private final Minecraft minecraft = Minecraft.getInstance();
     
+    public static void bootstrap() {
+        HudElementRegistryImpl.attachElementBefore(
+            VanillaHudElements.EXPERIENCE_LEVEL,
+            ResourceLocation.withDefaultNamespace("locator_bar_background"),
+            LocatorBarRenderer.INSTANCE::renderBackground
+        );
+        
+        HudElementRegistryImpl.attachElementAfter(
+            VanillaHudElements.EXPERIENCE_LEVEL,
+            ResourceLocation.withDefaultNamespace("locator_bar_icons"),
+            LocatorBarRenderer.INSTANCE::renderWaypoints
+        );
+    }
+    
     public void renderBackground(GuiGraphics graphics, DeltaTracker tracker) {
-        if (VanillaBackport.CLIENT_CONFIG.locatorDisplayXpBar.get() || this.shouldSkipRendering()) return;
+        if (this.shouldSkipRendering()) return;
+        if (VanillaBackport.CLIENT_CONFIG.locatorDisplayInfoBar.get() && this.shouldHideBackgroundForHud()) return;
         
         graphics.blitSprite(LOCATOR_BAR_BACKGROUND, (this.minecraft.getWindow().getGuiScaledWidth() - 182) / 2, this.minecraft.getWindow().getGuiScaledHeight() - 24 - 5, 182, 5);
     }
@@ -94,22 +110,26 @@ public class LocatorBarRenderer {
     }
     
     private boolean willPrioritizeExperienceInfo() {
-        return ExperienceDisplay.of(this.minecraft.player).getExperienceDisplayStartTick() + 100 > this.minecraft.player.tickCount;
+        return this.minecraft.player != null && ExperienceDisplay.of(this.minecraft.player).getExperienceDisplayStartTick() + 100 > this.minecraft.player.tickCount;
     }
     
     private boolean willPrioritizeJumpInfo() {
+        if (this.minecraft.player == null) return false;
         return this.minecraft.player.getJumpRidingScale() > 0.0F
             || Optionull.mapOrDefault(this.minecraft.player.jumpableVehicle(), PlayerRideableJumping::getJumpCooldown, 0) > 0;
     }
+
+    private boolean shouldHideBackgroundForHud() {
+        if (this.minecraft.player == null) return false;
+        if (this.minecraft.player.jumpableVehicle() != null) return true;
+        return this.minecraft.gameMode != null && this.minecraft.gameMode.hasExperience();
+    }
     
     private boolean shouldSkipRendering() {
-        if (!VanillaBackport.CLIENT_CONFIG.renderLocatorBar.get()) return true;
+        if (!VanillaBackport.CLIENT_CONFIG.enableLocatorBar.get()) return true;
         if (!ClientWaypointManager.INSTANCE.hasWaypoints()) return true;
         
-        if (this.minecraft.player.jumpableVehicle() != null) {
-            return this.willPrioritizeJumpInfo();
-        }
-        
+        if (this.minecraft.player.jumpableVehicle() != null) return this.willPrioritizeJumpInfo();
         return this.minecraft.gameMode.hasExperience() && this.willPrioritizeExperienceInfo();
     }
     

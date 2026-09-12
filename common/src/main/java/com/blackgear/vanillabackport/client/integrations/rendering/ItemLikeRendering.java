@@ -12,6 +12,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.item.DyeItem;
 
 import static com.blackgear.platform.client.GameRendering.*;
 
@@ -21,6 +22,8 @@ public class ItemLikeRendering {
         event.simple(BundleRenderer.INSTANCE, BundleRenderer.BUNDLES);
         event.dynamic(SpawnEggRenderer.INSTANCE, SpawnEggRenderer.SPAWN_EGGS);
         event.simple(SpearRenderer.INSTANCE, SpearRenderer.SPEARS);
+        
+        BuiltInRegistries.ITEM.stream().filter(item -> item instanceof DyeItem).forEach(item -> event.dynamic(DyePaletteRenderer.INSTANCE, item));
         
         BuiltInRegistries.BLOCK.forEach(block -> {
             if (block instanceof CopperChestBlock chest) event.builtin(new CopperChestItemRenderer(chest), chest);

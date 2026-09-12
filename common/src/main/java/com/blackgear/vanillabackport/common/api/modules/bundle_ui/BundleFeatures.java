@@ -41,7 +41,7 @@ public class BundleFeatures {
     }
 
     public static boolean onBundleUpdate() {
-        return VanillaBackport.COMMON_CONFIG.hasUpdatedBundles.get();
+        return VanillaBackport.COMMON_CONFIG.hasModernBundles.get();
     }
 
     public static boolean canItemBeInBundle(ItemStack stack) {

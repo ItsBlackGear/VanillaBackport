@@ -43,23 +43,38 @@ public abstract class PlayerMixin extends LivingEntity implements PlayerSpearHan
     @Shadow public abstract void causeFoodExhaustion(float exhaustion);
     @Shadow public abstract float getCurrentItemAttackStrengthDelay();
     @Shadow public abstract void magicCrit(Entity entityHit);
-    
+
     @Shadow protected abstract float getEnchantedDamage(Entity entity, float damage, DamageSource damageSource);
-    
+
     @Unique private int itemSwapTicker;
 
     protected PlayerMixin(EntityType<? extends LivingEntity> entityType, Level level) {
         super(entityType, level);
     }
-
-    @Inject(method = "attack", at = @At("TAIL"))
-    private void vb$onAttack(Entity target, CallbackInfo ci) {
-        if (target.isAttackable()) {
-            this.vb$onAttack();
-            if (!target.skipAttackInteraction(this)) {
-                this.vb$postPiercingAttack();
-            }
+    
+    @Inject(method = "attack", at = @At("HEAD"), cancellable = true)
+    private void vb$handleSpecialInteractions(Entity target, CallbackInfo ci) {
+        Player player = (Player) (Object) this;
+        
+        if (target.isAttackable() && target.skipAttackInteraction(player)) {
+            ci.cancel();
         }
+    }
+    
+    @Inject(
+        method = "attack",
+        at = @At(
+            value = "INVOKE",
+            target = "Lnet/minecraft/world/entity/player/Player;resetAttackStrengthTicker()V"
+        )
+    )
+    private void vb$onAttackBeforeReset(Entity target, CallbackInfo ci) {
+        this.vb$onAttack();
+    }
+    
+    @Inject(method = "attack", at = @At("TAIL"))
+    private void vb$postPiercingAttackTail(Entity target, CallbackInfo ci) {
+        this.vb$postPiercingAttack();
     }
 
     @Override
@@ -73,7 +88,7 @@ public abstract class PlayerMixin extends LivingEntity implements PlayerSpearHan
     private void vb$onTick(CallbackInfo ci) {
         this.itemSwapTicker++;
     }
-    
+
     @Override
     public float vb$getItemSwapScale(float scale) {
         return Mth.clamp((this.itemSwapTicker + scale) / this.getCurrentItemAttackStrengthDelay(), 0.0F, 1.0F);
@@ -99,7 +114,7 @@ public abstract class PlayerMixin extends LivingEntity implements PlayerSpearHan
             DamageSource damageSource = this.damageSources().playerAttack(self);
             float magicBoost = this.getEnchantedDamage(target, baseDamage, damageSource) - baseDamage;
             EquipmentSlot handSlot = this.getUsedItemHand() == InteractionHand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND;
-            
+
             if (!this.isUsingItem() || handSlot != weaponSlot) {
                 magicBoost *= this.getAttackStrengthScale(0.5F);
                 baseDamage *= this.vb$baseDamageScaleFactor();
@@ -112,7 +127,7 @@ public abstract class PlayerMixin extends LivingEntity implements PlayerSpearHan
                 float oldTargetHealth = target instanceof LivingEntity living ? living.getHealth() : 0.0F;
                 Vec3 oldMovement = target.getDeltaMovement();
                 boolean wasHurt = dealsDamage && target.level() instanceof ServerLevel && target.hurt(damageSource, totalDamage);
-                
+
                 if (dealsKnockback) {
                     this.vb$causeExtraKnockback(target, 0.4F + this.getKnockback(target, damageSource), oldMovement);
                 }
@@ -157,7 +172,7 @@ public abstract class PlayerMixin extends LivingEntity implements PlayerSpearHan
             }
         }
     }
-    
+
     @Override
     public void vb$causeExtraKnockback(Entity target, float knockback, Vec3 oldMovement) {
         if (knockback > 0.0F) {
@@ -166,11 +181,11 @@ public abstract class PlayerMixin extends LivingEntity implements PlayerSpearHan
             } else {
                 target.push(-Mth.sin(this.getYRot() * Mth.DEG_TO_RAD) * knockback, 0.1, Mth.cos(this.getYRot() * Mth.DEG_TO_RAD) * knockback);
             }
-            
+
             this.setDeltaMovement(this.getDeltaMovement().multiply(0.6, 1.0, 0.6));
             this.setSprinting(false);
         }
-        
+
         if (target instanceof ServerPlayer player && player.hurtMarked) {
             player.connection.send(new ClientboundSetEntityMotionPacket(target));
             target.hurtMarked = false;
@@ -223,7 +238,7 @@ public abstract class PlayerMixin extends LivingEntity implements PlayerSpearHan
             return false;
         }
     }
-    
+
     @Unique
     private float vb$baseDamageScaleFactor() {
         float attackStrengthScale = this.getAttackStrengthScale(0.5F);

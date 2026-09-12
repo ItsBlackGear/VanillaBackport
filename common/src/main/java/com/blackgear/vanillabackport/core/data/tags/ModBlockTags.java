@@ -36,7 +36,8 @@ public class ModBlockTags {
     
     public static final TagKey<Block> COPPER_GOLEM_STATUES = TAGS.register("copper_golem_statues");
     public static final TagKey<Block> COPPER_CHESTS = TAGS.register("copper_chests");
-    public static final TagKey<Block> COPPER_GOLEM_DESTINATION_TARGETS = TAGS.register("copper_golem_destination_targets");
+    public static final TagKey<Block> TRANSPORT_ITEM_SOURCE_BLOCKS = TAGS.register("transport_item_source_blocks");
+    public static final TagKey<Block> TRANSPORT_ITEM_DESTINATION_BLOCKS = TAGS.register("transport_item_destination_blocks");
     public static final TagKey<Block> COPPER = TAGS.register("copper");
     
     public static final TagKey<Block> BARS = TAGS.register("bars");

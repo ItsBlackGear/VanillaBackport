@@ -7,4 +7,5 @@ public class ModChecker {
     public static final boolean QUARK = Environment.hasModLoaded("quark");
     public static final boolean SABLE = Environment.hasModLoaded("sable");
     public static final boolean EVERY_COMPAT = Environment.hasModLoaded("everycomp");
+    public static final boolean TINY_TAKEOVER = Environment.hasModLoaded("tiny_takeover_backport");
 }

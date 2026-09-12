@@ -3,8 +3,6 @@ package com.blackgear.vanillabackport.client;
 import com.blackgear.platform.client.GameRendering;
 import com.blackgear.platform.client.event.LocalPlayerEvents;
 import com.blackgear.platform.client.event.rendering.LivingEntityRendererCallback;
-import com.blackgear.platform.client.event.screen.hud.HudElementRegistryImpl;
-import com.blackgear.platform.client.event.screen.hud.VanillaHudElements;
 import com.blackgear.platform.common.block.WoodTypeRegistry;
 import com.blackgear.platform.common.events.TickEvents;
 import com.blackgear.platform.common.v2.creative_tabs.CreativeTabIntegrations;
@@ -44,17 +42,7 @@ public class ClientSetup {
             event.register(ResourceLocation.withDefaultNamespace("ghast_equipment"), GhastEquipmentManager.INSTANCE);
         });
         
-        HudElementRegistryImpl.attachElementBefore(
-            VanillaHudElements.EXPERIENCE_LEVEL,
-            ResourceLocation.withDefaultNamespace("locator_bar_background"),
-            LocatorBarRenderer.INSTANCE::renderBackground
-        );
-        
-        HudElementRegistryImpl.attachElementAfter(
-            VanillaHudElements.EXPERIENCE_LEVEL,
-            ResourceLocation.withDefaultNamespace("locator_bar_icons"),
-            LocatorBarRenderer.INSTANCE::renderWaypoints
-        );
+        LocatorBarRenderer.bootstrap();
         
         GameRendering.registerParticleFactories(ParticleRendering::factories);
         GameRendering.registerModelLayers(EntityRendering::modelLayers);

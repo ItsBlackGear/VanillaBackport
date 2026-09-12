@@ -373,6 +373,8 @@ public class LangGenerator extends FabricLanguageProvider {
         builder.add(ModMobEffects.BREATH_OF_THE_NAUTILUS.value(), "Breath of the Nautilus");
         
         builder.add("enchantment.minecraft.lunge", "Lunge");
+        builder.add("enchantment.minecraft.lunge.desc", "The user lunges forward when using the spear");
+        
         
         builder.add("advancements.adventure.spear_many_mobs.title", "Mob Kabob");
         builder.add("advancements.adventure.spear_many_mobs.description", "Hit five mobs in the same Charge attack using the Spear");

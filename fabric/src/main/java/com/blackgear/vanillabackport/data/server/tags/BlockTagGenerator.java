@@ -2,6 +2,7 @@ package com.blackgear.vanillabackport.data.server.tags;
 
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
 import com.blackgear.vanillabackport.core.data.tags.ModBlockTags;
+import com.blackgear.vanillabackport.core.data.tags.loader.ConventionalBlockTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.core.HolderLookup;
@@ -218,10 +219,14 @@ public class BlockTagGenerator extends FabricTagProvider.BlockTagProvider {
             .forceAddTag(BlockTags.NEEDS_DIAMOND_TOOL)
             .forceAddTag(BlockTags.NEEDS_IRON_TOOL);
         
-        this.getOrCreateTagBuilder(ModBlockTags.COPPER_GOLEM_DESTINATION_TARGETS)
+        this.getOrCreateTagBuilder(ModBlockTags.TRANSPORT_ITEM_SOURCE_BLOCKS)
+            .forceAddTag(ModBlockTags.COPPER_CHESTS);
+        
+        this.getOrCreateTagBuilder(ModBlockTags.TRANSPORT_ITEM_DESTINATION_BLOCKS)
             .add(Blocks.CHEST)
             .add(Blocks.TRAPPED_CHEST)
-            .add(Blocks.BARREL);
+            .forceAddTag(ConventionalBlockTags.CHESTS_WOODEN)
+            .forceAddTag(ConventionalBlockTags.CHESTS_TRAPPED);
 
         this.getOrCreateTagBuilder(ModBlockTags.CUSHION_USES_COLLISION_SHAPE)
             .forceAddTag(BlockTags.CAULDRONS)

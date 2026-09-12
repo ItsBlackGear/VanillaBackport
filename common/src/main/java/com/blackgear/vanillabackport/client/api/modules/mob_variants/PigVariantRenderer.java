@@ -6,6 +6,7 @@ import com.blackgear.vanillabackport.client.level.model.entity.pig.ColdPigModel;
 import com.blackgear.vanillabackport.client.registries.ModModelLayers;
 import com.blackgear.vanillabackport.common.level.entities.mob.animal.pig.PigVariant;
 import com.blackgear.vanillabackport.common.level.entities.mob.animal.pig.PigVariants;
+import com.blackgear.vanillabackport.core.compat.ClientCompat;
 import com.google.common.collect.Maps;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -21,29 +22,31 @@ public class PigVariantRenderer extends AbstractVariantRenderer<Pig, PigModel<Pi
     public PigVariantRenderer(EntityRendererProvider.Context context) {
         super(context);
     }
-
-    public Map<PigVariant.ModelType, PigModel<Pig>> bakeModels(EntityRendererProvider.Context context) {
+    
+    @Override
+    protected Map<PigVariant.ModelType, PigModel<Pig>> bakeModels(EntityRendererProvider.Context context) {
         Map<PigVariant.ModelType, PigModel<Pig>> map = Maps.newEnumMap(PigVariant.ModelType.class);
         map.put(PigVariant.ModelType.NORMAL, null);
         map.put(PigVariant.ModelType.COLD, new ColdPigModel<>(context.bakeLayer(ModModelLayers.COLD_PIG)));
         return map;
     }
-
+    
     @Override
     protected PigVariant.ModelType getModelType(PigVariant variant) {
         return variant.modelAndTexture().model();
     }
-
+    
     @Override
-    protected ResourceLocation getTexture(PigVariant variant) {
+    protected ResourceLocation getTexture(Pig pig, PigVariant variant) {
+        if (ClientCompat.hasQuarkPigTexture(pig)) return null;
         return variant.modelAndTexture().asset().path();
     }
-
+    
     @Override
     protected BuiltInCoreRegistry<PigVariant> getRegistry() {
         return PigVariants.REGISTRIES;
     }
-
+    
     @Override
     protected RegistryKey<PigVariant> getDefaultVariant() {
         return PigVariants.TEMPERATE;

@@ -27,7 +27,7 @@ public abstract class MinecraftMixin {
     @Shadow @Nullable public LocalPlayer player;
     @Shadow @Nullable public ClientLevel level;
     @Shadow protected int missTime;
-    
+
     @Inject(
         method = "startAttack",
         at = @At(
@@ -38,17 +38,17 @@ public abstract class MinecraftMixin {
     )
     private void vb$startAttack(CallbackInfoReturnable<Boolean> cir) {
         if (this.player == null || this.level == null || this.gameMode == null) return;
-        
+
         ItemStack stack = this.player.getItemInHand(InteractionHand.MAIN_HAND);
         if (!stack.isItemEnabled(this.level.enabledFeatures())) {
             return;
         }
-        
+
         if (((PlayerSpearHandler) this.player).vb$cannotAttackWithItem(stack, 0)) {
             cir.setReturnValue(false);
             return;
         }
-        
+
         PiercingWeapon weapon = PiercingWeapon.get(stack);
         if (weapon != null && this.gameMode.getPlayerMode() != GameType.SPECTATOR) {
             ((ServerSpearHandler) this.gameMode).piercingAttack(weapon);
@@ -56,7 +56,7 @@ public abstract class MinecraftMixin {
             cir.setReturnValue(true);
         }
     }
-    
+
     @Inject(
         method = "startAttack",
         at = @At(
@@ -67,14 +67,14 @@ public abstract class MinecraftMixin {
     )
     private void vb$checkAttackRange(CallbackInfoReturnable<Boolean> cir) {
         if (this.player == null || this.hitResult == null) return;
-        
+
         ItemStack stack = this.player.getItemInHand(InteractionHand.MAIN_HAND);
         AttackRange range = AttackRange.get(stack);
         if (range != null && !range.isInRange(this.player, this.hitResult.getLocation())) {
             cir.setReturnValue(false);
         }
     }
-    
+
     @Inject(
         method = "startAttack",
         at = @At(
@@ -88,11 +88,11 @@ public abstract class MinecraftMixin {
             cir.setReturnValue(false);
         }
     }
-    
+
     @Inject(method = "continueAttack", at = @At("HEAD"), cancellable = true)
     private void vb$continueAttack(boolean down, CallbackInfo ci) {
         if (this.player == null) return;
-        
+
         ItemStack stack = this.player.getItemInHand(InteractionHand.MAIN_HAND);
         if (PiercingWeapon.get(stack) != null) {
             if (!down) this.missTime = 0;

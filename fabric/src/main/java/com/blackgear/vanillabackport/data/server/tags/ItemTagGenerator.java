@@ -409,6 +409,9 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
         this.getOrCreateTagBuilder(ConventionalItemTags.DYED_WHITE)
             .add(ModItems.WHITE_BUNDLE.get(), ModItems.WHITE_HARNESS.get(), ModItems.WHITE_CUSHION.get());
 
+        this.getOrCreateTagBuilder(ConventionalItemTags.NUGGETS)
+            .add(ModItems.COPPER_NUGGET.get());
+        
         this.getOrCreateTagBuilder(ConventionalItemTags.NUGGETS_COPPER)
             .add(ModItems.COPPER_NUGGET.get());
 

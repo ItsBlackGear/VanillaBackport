@@ -1,4 +1,4 @@
-package com.blackgear.vanillabackport.common.level.entities.mob.animal.golem.copper_golem;
+package com.blackgear.vanillabackport.common.level.entities.mob.animal.golem.copper_golem.container;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.LivingEntity;

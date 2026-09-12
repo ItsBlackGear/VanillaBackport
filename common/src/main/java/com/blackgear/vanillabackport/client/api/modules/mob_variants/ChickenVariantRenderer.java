@@ -6,6 +6,7 @@ import com.blackgear.vanillabackport.client.level.model.entity.chicken.ColdChick
 import com.blackgear.vanillabackport.client.registries.ModModelLayers;
 import com.blackgear.vanillabackport.common.level.entities.mob.animal.chicken.ChickenVariant;
 import com.blackgear.vanillabackport.common.level.entities.mob.animal.chicken.ChickenVariants;
+import com.blackgear.vanillabackport.core.compat.ClientCompat;
 import com.google.common.collect.Maps;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -21,7 +22,7 @@ public class ChickenVariantRenderer extends AbstractVariantRenderer<Chicken, Chi
     public ChickenVariantRenderer(EntityRendererProvider.Context context) {
         super(context);
     }
-
+    
     @Override
     protected Map<ChickenVariant.ModelType, ChickenModel<Chicken>> bakeModels(EntityRendererProvider.Context context) {
         Map<ChickenVariant.ModelType, ChickenModel<Chicken>> map = Maps.newEnumMap(ChickenVariant.ModelType.class);
@@ -29,22 +30,23 @@ public class ChickenVariantRenderer extends AbstractVariantRenderer<Chicken, Chi
         map.put(ChickenVariant.ModelType.COLD, new ColdChickenModel<>(context.bakeLayer(ModModelLayers.COLD_CHICKEN)));
         return map;
     }
-
+    
     @Override
     protected ChickenVariant.ModelType getModelType(ChickenVariant variant) {
         return variant.modelAndTexture().model();
     }
-
+    
     @Override
-    protected ResourceLocation getTexture(ChickenVariant variant) {
+    protected ResourceLocation getTexture(Chicken chicken, ChickenVariant variant) {
+        if (ClientCompat.hasQuarkChickenTexture(chicken)) return null;
         return variant.modelAndTexture().asset().path();
     }
-
+    
     @Override
     protected BuiltInCoreRegistry<ChickenVariant> getRegistry() {
         return ChickenVariants.REGISTRIES;
     }
-
+    
     @Override
     protected RegistryKey<ChickenVariant> getDefaultVariant() {
         return ChickenVariants.TEMPERATE;
