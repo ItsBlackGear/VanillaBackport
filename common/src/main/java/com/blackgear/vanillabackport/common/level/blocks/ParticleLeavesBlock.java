@@ -1,5 +1,6 @@
 package com.blackgear.vanillabackport.common.level.blocks;
 
+import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleOptions;
@@ -24,6 +25,12 @@ public class ParticleLeavesBlock extends LeavesBlock {
     @Override
     public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
         super.animateTick(state, level, pos, random);
+
+        if (level.isClientSide && !VanillaBackport.CLIENT_CONFIG.hasFallingLeaves.get())
+        {
+            return;
+        }
+
         if (random.nextInt(this.chance) == 0) {
             BlockPos below = pos.below();
             BlockState belowState = level.getBlockState(below);
