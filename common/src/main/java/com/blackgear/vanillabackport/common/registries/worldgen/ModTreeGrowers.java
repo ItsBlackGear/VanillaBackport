@@ -11,12 +11,12 @@ public class ModTreeGrowers {
     public static final AbstractMegaTreeGrower PALE_OAK_TREE = new AbstractMegaTreeGrower() {
         @Override
         protected @Nullable ResourceKey<ConfiguredFeature<?, ?>> getConfiguredMegaFeature(RandomSource random) {
-            return null;
+            return TheGardenAwakensFeatures.PALE_OAK_BONEMEAL;
         }
         
         @Override
         protected @Nullable ResourceKey<ConfiguredFeature<?, ?>> getConfiguredFeature(RandomSource random, boolean hasFlowers) {
-            return TheGardenAwakensFeatures.PALE_OAK_BONEMEAL;
+            return null;
         }
     };
 }
