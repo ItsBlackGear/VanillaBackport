@@ -17,6 +17,9 @@ public class EntityTypeTagGenerator extends FabricTagProvider.EntityTypeTagProvi
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
+        this.getOrCreateTagBuilder(EntityTypeTags.SKELETONS)
+            .add(ModEntityTypes.PARCHED.get());
+
         this.getOrCreateTagBuilder(EntityTypeTags.FALL_DAMAGE_IMMUNE)
             .add(ModEntityTypes.HAPPY_GHAST.get());
 

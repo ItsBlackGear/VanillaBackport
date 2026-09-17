@@ -3,9 +3,13 @@
   "values": [
     "minecraft:chest",
     "minecraft:trapped_chest",
-    "#forge:chests/wooden",
-    "#forge:chests/trapped",
-    "#c:chests/wooden",
-    "#c:chests/trapped"
+    {
+      "id": "#forge:chests",
+      "required": false
+    },
+    {
+      "id": "#c:chests",
+      "required": false
+    }
   ]
 }

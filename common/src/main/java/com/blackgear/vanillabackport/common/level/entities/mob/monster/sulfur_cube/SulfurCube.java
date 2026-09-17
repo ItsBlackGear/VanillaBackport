@@ -591,11 +591,10 @@ public class SulfurCube extends AbstractCubeMob implements Bucketable, Shearable
     }
 
     @Override
-    public void setCustomName(@Nullable Component name) {
-        super.setCustomName(name);
-        this.setPersistenceRequired(); // Prevents named Sulfur Cubes to despawn
+    public boolean isPersistenceRequired() {
+        return super.isPersistenceRequired() || this.hasCustomName();
     }
-
+    
     @Override
     public SoundSource getSoundSource() {
         return SoundSource.NEUTRAL;

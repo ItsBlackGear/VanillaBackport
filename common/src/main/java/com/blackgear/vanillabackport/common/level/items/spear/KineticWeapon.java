@@ -103,10 +103,10 @@ public record KineticWeapon(
     }
     
     public static boolean hasKineticWeapon(ItemStack stack) {
-        return getKineticWeapon(stack) != null;
+        return get(stack) != null;
     }
     
-    public static @Nullable KineticWeapon getKineticWeapon(ItemStack stack) {
+    public static @Nullable KineticWeapon get(ItemStack stack) {
         return stack.getItem() instanceof SpearItem spear ? spear.getKineticWeapon() : null;
     }
     

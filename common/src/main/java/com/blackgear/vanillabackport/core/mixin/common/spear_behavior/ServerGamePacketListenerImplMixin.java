@@ -18,23 +18,21 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(ServerGamePacketListenerImpl.class)
 public class ServerGamePacketListenerImplMixin {
     @Shadow public ServerPlayer player;
-
+    
     @Inject(method = "handlePlayerAction", at = @At("HEAD"), cancellable = true)
     private void vb$handlePlayerAction(ServerboundPlayerActionPacket packet, CallbackInfo ci) {
-        if (packet.getAction() != PlayerActions.STAB.get()) return;
-        
-        ci.cancel();
-        
-        this.player.server.execute(() -> {
+        if (packet.getAction() == PlayerActions.STAB.get()) {
+            ci.cancel();
             this.player.resetLastActionTime();
-    
             if (!this.player.isSpectator()) {
                 ItemStack stack = this.player.getItemInHand(InteractionHand.MAIN_HAND);
-                PiercingWeapon weapon = PiercingWeapon.get(stack);
-                if (!((PlayerSpearHandler) this.player).vb$cannotAttackWithItem(stack, 5) && weapon != null) {
-                    weapon.attack(this.player, EquipmentSlot.MAINHAND);
+                if (!((PlayerSpearHandler) this.player).vb$cannotAttackWithItem(stack, 5)) {
+                    PiercingWeapon weapon = PiercingWeapon.get(stack);
+                    if (weapon != null) {
+                        weapon.attack(this.player, EquipmentSlot.MAINHAND);
+                    }
                 }
             }
-        });
+        }
     }
 }

@@ -251,6 +251,8 @@
   "entity.minecraft.sulfur_cube.content": "Contains: %s",
   "entity.minecraft.sulfur_cube.explosion_disabled": "Sulfur Cube explosions are disabled",
   "entity.minecraft.zombie_nautilus": "Zombie Nautilus",
+  "gamerule.locatorBar": "Enable player Locator Bar",
+  "gamerule.locatorBar.description": "When enabled, a bar is shown on the screen to indicate the direction of players.",
   "item.minecraft.armadillo_scute": "Armadillo Scute",
   "item.minecraft.armadillo_spawn_egg": "Armadillo Spawn Egg",
   "item.minecraft.black_bundle": "Black Bundle",

@@ -2,6 +2,7 @@ package com.blackgear.vanillabackport.core.mixin.client.entity_rendering;
 
 import com.blackgear.vanillabackport.client.api.modules.mob_rendering.DynamicMobRendererRegistry;
 import com.blackgear.vanillabackport.client.api.modules.mob_variants.SpecialMobRenderer;
+import com.blackgear.vanillabackport.core.compat.ClientCompat;
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
@@ -49,7 +50,7 @@ public abstract class LivingEntityRendererMixin<T extends LivingEntity, M extend
     
     @WrapMethod(method = "render(Lnet/minecraft/world/entity/LivingEntity;FFLcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;I)V")
     private void vb$changeModel(T entity, float yaw, float partialTicks, PoseStack pose, MultiBufferSource buffer, int light, Operation<Void> original) {
-        if (this.renderer == null) {
+        if (this.renderer == null || ClientCompat.shouldBypassBabyModel(entity)) {
             original.call(entity, yaw, partialTicks, pose, buffer, light);
             return;
         }

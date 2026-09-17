@@ -41,7 +41,7 @@ public class SpearAttack extends Behavior<PathfinderMob> {
     }
 
     private int getKineticWeaponUseDuration(PathfinderMob mob) {
-        return Optional.ofNullable(KineticWeapon.getKineticWeapon(mob.getMainHandItem())).map(KineticWeapon::computeDamageUseDuration).orElse(0);
+        return Optional.ofNullable(KineticWeapon.get(mob.getMainHandItem())).map(KineticWeapon::computeDamageUseDuration).orElse(0);
     }
 
     @Override

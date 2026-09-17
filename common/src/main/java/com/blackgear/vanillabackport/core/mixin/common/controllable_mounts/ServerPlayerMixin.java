@@ -32,7 +32,7 @@ public abstract class ServerPlayerMixin extends Player implements MountInventory
         }
         
         this.nextContainerCounter();
-        NetworkHandler.DEFAULT_CHANNEL.sendToPlayer(new ClientboundNautilusScreenOpenPacket(this.containerMenu.containerId, container.getContainerSize(), nautilus.getId()), this);
+        NetworkHandler.DEFAULT_CHANNEL.sendToPlayer(new ClientboundNautilusScreenOpenPacket(this.containerCounter, container.getContainerSize(), nautilus.getId()), this);
         this.containerMenu = new NautilusInventoryMenu(this.containerCounter, this.getInventory(), container, nautilus);
         this.initMenu(this.containerMenu);
     }

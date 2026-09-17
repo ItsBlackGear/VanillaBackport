@@ -15,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:saddle"
+        "recipe": "vanillabackport:saddle"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

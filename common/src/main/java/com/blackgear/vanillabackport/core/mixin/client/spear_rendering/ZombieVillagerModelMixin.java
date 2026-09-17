@@ -29,7 +29,7 @@ public abstract class ZombieVillagerModelMixin<T extends Zombie> {
         Operation<Void> original,
         T entity
     ) {
-        SwingAnimation animation = SwingAnimation.getSwingAnimation(entity.getMainHandItem());
+        SwingAnimation animation = SwingAnimation.get(entity.getMainHandItem());
         boolean animateAttack = animation != null && animation.type() == SwingAnimationType.STAB;
         if (!animateAttack) {
             original.call(leftArm, rightArm, isAggressive, attackTime, ageInTicks);

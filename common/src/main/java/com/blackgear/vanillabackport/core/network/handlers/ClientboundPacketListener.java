@@ -7,6 +7,7 @@ import com.blackgear.vanillabackport.core.network.ClientboundNautilusScreenOpenP
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
+import net.minecraft.world.Container;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
@@ -16,8 +17,8 @@ import net.minecraft.world.level.Level;
 public class ClientboundPacketListener {
     public static void handleNautilusScreenOpen(ClientboundNautilusScreenOpenPacket packet, Player player, Level level) {
         Entity entity = level.getEntity(packet.entityId());
-        SimpleContainer container = new SimpleContainer(packet.size());
         if (entity instanceof AbstractNautilus nautilus) {
+            SimpleContainer container = new SimpleContainer(packet.size());
             NautilusInventoryMenu menu = new NautilusInventoryMenu(packet.containerId(), player.getInventory(), container, nautilus);
             player.containerMenu = menu;
             Minecraft.getInstance().setScreen(new NautilusInventoryScreen(menu, player.getInventory(), nautilus));

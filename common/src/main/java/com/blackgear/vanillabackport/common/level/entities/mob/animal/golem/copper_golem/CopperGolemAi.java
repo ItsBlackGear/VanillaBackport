@@ -91,7 +91,7 @@ public class CopperGolemAi {
                     new TransportItemsBetweenContainers(
                         1.0F,
                         TRANSPORT_ITEM_SOURCE_BLOCK,
-                        TRANSPORT_ITEM_DESTINATION_BLOCK,
+                        state -> TRANSPORT_ITEM_DESTINATION_BLOCK.test(state) && !TRANSPORT_ITEM_SOURCE_BLOCK.test(state),
                         32,
                         8,
                         getTargetReachedInteractions(),

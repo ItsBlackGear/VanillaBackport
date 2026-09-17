@@ -23,28 +23,26 @@ public class SpearAnimations {
     }
 
     public static <T extends LivingEntity> void thirdPersonHandUse(
+        HumanoidModel<T> model,
         ModelPart arm,
         ModelPart head,
-        boolean holdingInRightArm,
+        HumanoidArm holdingArm,
         ItemStack item,
         T entity
     ) {
-        float partial = Minecraft.getInstance().getDeltaFrameTime();
-        MobSpearHandler handler = (MobSpearHandler) entity;
-
-        int invert = holdingInRightArm ? 1 : -1;
+        int invert = holdingArm == HumanoidArm.RIGHT ? 1 : -1;
         arm.yRot = -0.1F * invert + head.yRot;
         arm.xRot = -Mth.HALF_PI + head.xRot + 0.8F;
-        if (entity.isFallFlying() || entity.getSwimAmount(partial) > 0.0F) {
+        if (entity.isFallFlying() || model.swimAmount > 0.0F) {
             arm.xRot -= 0.9599311F;
         }
 
         arm.yRot = Mth.DEG_TO_RAD * Mth.clamp(Mth.RAD_TO_DEG * arm.yRot, -60.0F, 60.0F);
         arm.xRot = Mth.DEG_TO_RAD * Mth.clamp(Mth.RAD_TO_DEG * arm.xRot, -120.0F, 30.0F);
-        if (handler.vb$getTicksUsingItem(partial) > 0.0F && (!entity.isUsingItem() || entity.getUsedItemHand() == (holdingInRightArm ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND))) {
-            KineticWeapon kineticWeapon = KineticWeapon.getKineticWeapon(item);
+        if (entity.getTicksUsingItem() > 0.0F && (!entity.isUsingItem() || entity.getUsedItemHand() == (holdingArm == HumanoidArm.RIGHT ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND))) {
+            KineticWeapon kineticWeapon = KineticWeapon.get(item);
             if (kineticWeapon != null) {
-                UseParams params = UseParams.fromKineticWeapon(kineticWeapon, handler.vb$getTicksUsingItem(partial));
+                UseParams params = UseParams.fromKineticWeapon(kineticWeapon, entity.getTicksUsingItem());
                 arm.yRot += -invert * params.swayScaleFast() * Mth.DEG_TO_RAD * params.swayIntensity() * 1.0F;
                 arm.zRot += -invert * params.swayScaleSlow() * Mth.DEG_TO_RAD * params.swayIntensity() * 0.5F;
                 arm.xRot += Mth.DEG_TO_RAD * (-40.0F * params.raiseProgressStart() + 30.0F * params.raiseProgressMiddle() + -20.0F * params.raiseProgressEnd() + 20.0F * params.lowerProgress() + 10.0F * params.raiseBackProgress() + 0.6F * params.swayScaleSlow() * params.swayIntensity());
@@ -53,17 +51,18 @@ public class SpearAnimations {
     }
 
     public static <T extends LivingEntity> void thirdPersonUseItem(
+        HumanoidModel<T> model,
         T entity,
         PoseStack pose,
         float timeHeld,
         HumanoidArm arm,
         ItemStack actualItem
     ) {
-        KineticWeapon kineticWeapon = KineticWeapon.getKineticWeapon(actualItem);
+        KineticWeapon kineticWeapon = KineticWeapon.get(actualItem);
         if (kineticWeapon != null && timeHeld != 0.0F) {
             float partial = Minecraft.getInstance().getDeltaFrameTime();
-            float attack = Ease.inQuad(progress(entity.getAttackAnim(partial), 0.05F, 0.2F));
-            float retract = Ease.inOutExpo(progress(entity.getAttackAnim(partial), 0.4F, 1.0F));
+            float attack = Ease.inQuad(progress(model.attackTime, 0.05F, 0.2F));
+            float retract = Ease.inOutExpo(progress(model.attackTime, 0.4F, 1.0F));
             UseParams params = UseParams.fromKineticWeapon(kineticWeapon, timeHeld);
             int invert = arm == HumanoidArm.RIGHT ? 1 : -1;
             float raiseProgressModified = 1.0F - Ease.outBack(1.0F - params.raiseProgress());
@@ -76,34 +75,29 @@ public class SpearAnimations {
 
     public static <T extends LivingEntity> void thirdPersonAttackHand(
         HumanoidModel<T> model,
-        T entity
+        float animation,
+        HumanoidArm attackArm
     ) {
-        float partial = Minecraft.getInstance().getDeltaFrameTime();
-        float attackTime = entity.getAttackAnim(partial);
-        HumanoidArm attackArm = entity.swingingArm == InteractionHand.MAIN_HAND ? entity.getMainArm() : entity.getMainArm().getOpposite();
-
         model.rightArm.yRot = model.rightArm.yRot - model.body.yRot;
         model.leftArm.yRot = model.leftArm.yRot - model.body.yRot;
         model.leftArm.xRot = model.leftArm.xRot - model.body.yRot;
-        float prepare = Ease.inOutSine(progress(attackTime, 0.0F, 0.05F));
-        float attack = Ease.inQuad(progress(attackTime, 0.05F, 0.2F));
-        float retract = Ease.inOutExpo(progress(attackTime, 0.4F, 1.0F));
+        float prepare = Ease.inOutSine(progress(animation, 0.0F, 0.05F));
+        float attack = Ease.inQuad(progress(animation, 0.05F, 0.2F));
+        float retract = Ease.inOutExpo(progress(animation, 0.4F, 1.0F));
         ModelPart arm = attackArm == HumanoidArm.RIGHT ? model.rightArm : model.leftArm;
         arm.xRot += (90.0F * prepare - 120.0F * attack + 30.0F * retract) * Mth.DEG_TO_RAD;
     }
 
     public static <T extends LivingEntity> void thirdPersonAttackItem(
+        HumanoidModel<T> model,
         T entity,
         PoseStack pose
     ) {
-        float partial = Minecraft.getInstance().getDeltaFrameTime();
-        float attackTime = entity.getAttackAnim(partial);
-
-        if (!(attackTime <= 0.0F)) {
-            KineticWeapon kineticWeapon = KineticWeapon.getKineticWeapon(entity.getMainHandItem());
+        if (model.attackTime > 0.0F) {
+            KineticWeapon kineticWeapon = KineticWeapon.get(entity.getMainHandItem());
             float jetForward = kineticWeapon != null ? kineticWeapon.forwardMovement() : 0.0F;
-            float attack = Ease.inQuad(progress(attackTime, 0.05F, 0.2F));
-            float retract = Ease.inOutExpo(progress(attackTime, 0.4F, 1.0F));
+            float attack = Ease.inQuad(progress(model.attackTime, 0.05F, 0.2F));
+            float retract = Ease.inOutExpo(progress(model.attackTime, 0.4F, 1.0F));
             pose.rotateAround(Axis.XN.rotationDegrees(70.0F * (attack - retract)), 0.0F, -0.125F, 0.125F);
             pose.translate(0.0F, jetForward * (attack - retract), 0.0F);
         }
@@ -120,7 +114,7 @@ public class SpearAnimations {
         HumanoidArm arm,
         ItemStack stack
     ) {
-        KineticWeapon kineticWeapon = KineticWeapon.getKineticWeapon(stack);
+        KineticWeapon kineticWeapon = KineticWeapon.get(stack);
         if (kineticWeapon != null) {
             UseParams params = UseParams.fromKineticWeapon(kineticWeapon, timeHeld);
             int invert = arm == HumanoidArm.RIGHT ? 1 : -1;

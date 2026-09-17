@@ -27,7 +27,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:lodestone"
+        "recipe": "vanillabackport:lodestone"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

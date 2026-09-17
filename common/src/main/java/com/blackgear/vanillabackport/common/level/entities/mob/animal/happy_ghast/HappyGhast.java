@@ -3,6 +3,7 @@ package com.blackgear.vanillabackport.common.level.entities.mob.animal.happy_gha
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
 import com.blackgear.vanillabackport.common.api.extensions.entity.movement.PositionAwareEntity;
 import com.blackgear.vanillabackport.common.api.modules.leash_behavior.Leashable;
+import com.blackgear.vanillabackport.common.integrations.interactions.ShearEquipmentInteraction;
 import com.blackgear.vanillabackport.common.registries.entities.ModEntityTypes;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.blackgear.vanillabackport.core.data.tags.ModBlockTags;
@@ -301,22 +302,30 @@ public class HappyGhast extends Animal implements PlayerRideable, Leashable, Pos
                     return result;
                 }
             }
-
-            if (!stack.is(Items.SHEARS) || this.isVehicle() || !this.isHarnessed() && !player.isCreative()) {
-                if (this.isHarnessed()) {
-                    if (!this.level().isClientSide()) player.startRiding(this);
-
-                    return InteractionResult.sidedSuccess(this.level().isClientSide());
-                } else {
-                    return super.mobInteract(player, hand);
-                }
+            
+            if (stack.is(Items.SHEARS) && !this.isVehicle()) {
+                ShearEquipmentInteraction.tryShear(
+                    this,
+                    player,
+                    hand,
+                    stack,
+                    this.getItemBySlot(EquipmentSlot.CHEST),
+                    s -> s.is(ModItemTags.HARNESSES),
+                    ModSoundEvents.HARNESS_UNEQUIP.get(),
+                    (mob, equipment) -> {
+                        mob.setItemSlot(EquipmentSlot.CHEST, ItemStack.EMPTY);
+                        mob.setGuaranteedDrop(EquipmentSlot.CHEST);
+                    }
+                );
+                
+                return InteractionResult.sidedSuccess(this.level().isClientSide);
+            }
+            
+            if (this.isHarnessed()) {
+                if (!this.level().isClientSide()) player.startRiding(this);
+                return InteractionResult.sidedSuccess(this.level().isClientSide());
             } else {
-                stack.hurtAndBreak(1, player, p -> p.broadcastBreakEvent(hand));
-                this.playSound(ModSoundEvents.HARNESS_UNEQUIP.get());
-                ItemStack harness = this.getItemBySlot(EquipmentSlot.CHEST);
-                this.setItemSlot(EquipmentSlot.CHEST, ItemStack.EMPTY);
-                this.spawnAtLocation(harness, this.getBbHeight() + 0.5F);
-                return InteractionResult.SUCCESS;
+                return super.mobInteract(player, hand);
             }
         }
     }

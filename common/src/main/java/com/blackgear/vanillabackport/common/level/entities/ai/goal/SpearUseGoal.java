@@ -48,7 +48,7 @@ public class SpearUseGoal<T extends Monster> extends Goal {
     }
 
     private int getKineticWeaponUseDuration() {
-        int durationTicks = Optional.ofNullable(KineticWeapon.getKineticWeapon(this.mob.getMainHandItem()))
+        int durationTicks = Optional.ofNullable(KineticWeapon.get(this.mob.getMainHandItem()))
             .map(KineticWeapon::computeDamageUseDuration)
             .orElse(0);
         return reducedTickDelay(durationTicks);

@@ -7,5 +7,6 @@ public class ModChecker {
     public static final boolean QUARK = Environment.hasModLoaded("quark");
     public static final boolean BACKPORTED_WOLVES = Environment.hasModLoaded("backported_wolves");
     public static final boolean COPPER_AGE_BACKPORT = Environment.hasModLoaded("copperagebackport");
+    public static final boolean TINY_TAKEOVER = Environment.hasModLoaded("tiny_takeover_backport");
     public static final boolean EVERY_COMPAT = Environment.hasModLoaded("everycomp");
 }

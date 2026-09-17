@@ -9,7 +9,7 @@ public record UseEffects(
 ) {
     public static final UseEffects DEFAULT = new UseEffects(false, true, 0.2F);
     
-    public static UseEffects getUseEffects(ItemStack stack) {
+    public static UseEffects get(ItemStack stack) {
         return stack.getItem() instanceof SpearItem spear ? spear.getUseEffects() : DEFAULT;
     }
 }

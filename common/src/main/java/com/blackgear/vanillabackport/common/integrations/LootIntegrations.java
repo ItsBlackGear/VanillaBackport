@@ -6,7 +6,6 @@ import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
 import com.blackgear.vanillabackport.common.registries.items.ModItems;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.advancements.critereon.*;
-import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.entity.EntityType;
@@ -50,7 +49,7 @@ public class LootIntegrations implements LootModifier.LootTableModifier {
     );
 
     @Override
-    public void modify(ResourceLocation path, LootModifier.LootTableContext context, boolean builtin, RegistryAccess registries) {
+    public void modify(ResourceLocation path, LootModifier.LootTableContext context, boolean builtin) {
         if (path.equals(EntityType.GHAST.getDefaultLootTable()) && VanillaBackport.COMMON_CONFIG.hasTearsMusicDisc.get()) {
             context.addPool(LootPool.lootPool()
                 .setRolls(ConstantValue.exactly(1.0F))

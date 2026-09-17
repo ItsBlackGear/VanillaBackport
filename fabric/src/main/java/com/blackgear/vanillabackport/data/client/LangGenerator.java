@@ -167,6 +167,9 @@ public class LangGenerator extends FabricLanguageProvider {
         builder.add("commands.waypoint.modify.color", "Waypoint color is now %s");
         builder.add("commands.waypoint.modify.color.reset", "Reset waypoint color");
         builder.add("commands.waypoint.modify.style", "Waypoint style changed");
+        
+        builder.add("gamerule.locatorBar", "Enable player Locator Bar");
+        builder.add("gamerule.locatorBar.description", "When enabled, a bar is shown on the screen to indicate the direction of players.");
 
         // Spring to Life
         builder.add(ModBlocks.BUSH.get(), "Bush");

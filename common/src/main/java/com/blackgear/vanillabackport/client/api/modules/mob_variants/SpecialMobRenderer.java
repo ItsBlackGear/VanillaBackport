@@ -48,6 +48,12 @@ public abstract class SpecialMobRenderer <T extends LivingEntity, M extends Enti
             }
             
             @Override
+            public boolean suppressScale(T entity) {
+                R renderer = this.get();
+                return renderer != null && renderer.suppressScale(entity);
+            }
+            
+            @Override
             public void ifPresent(Consumer<SpecialMobRenderer<T, M>> consumer) {
                 R renderer = this.get();
                 if (renderer != null) {

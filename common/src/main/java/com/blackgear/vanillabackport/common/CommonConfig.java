@@ -60,7 +60,7 @@ public class CommonConfig {
     public final ConfigBuilder.ConfigValue<Boolean> hasCamelHusks;
     public final ConfigBuilder.ConfigValue<Boolean> hasNautilus;
     public final ConfigBuilder.ConfigValue<Boolean> hasZombieHorses;
-    public final ConfigBuilder.ConfigValue<Boolean> hasZombieNautilus;
+    public final ConfigBuilder.ConfigValue<Double> zombieNautilusSpawnChance;
     public final ConfigBuilder.ConfigValue<Boolean> hasNautilusArmorLoot;
     public final ConfigBuilder.ConfigValue<Boolean> canMonstersSpawnWithSpears;
     public final ConfigBuilder.ConfigValue<Boolean> canMountsFloatWhileRidden;
@@ -182,8 +182,8 @@ public class CommonConfig {
                 .define("has_nautilus", true);
             this.hasZombieHorses = builder.comment("allow Zombie Horses to spawn naturally")
                 .define("has_zombie_horses", true);
-            this.hasZombieNautilus = builder.comment("allow Zombie Nautilus to spawn naturally")
-                .define("has_zombie_nautilus", true);
+            this.zombieNautilusSpawnChance = builder.comment("chance for a drowned to spawn riding a nautilus")
+                .defineInRange("zombie_nautilus_spawn_chance", 0.5, 0.0, 1.0);
             this.hasNautilusArmorLoot = builder.comment("allow Nautilus Armor to generate in loot chests")
                 .define("has_nautilus_armor_loot", true);
             this.canMonstersSpawnWithSpears = builder.comment("allow Zombies, Husks, Piglins and Zombified Piglins to spawn holding spears")

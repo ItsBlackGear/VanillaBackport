@@ -29,7 +29,7 @@ public abstract class AbstractZombieModelMixin<T extends Monster> {
         Operation<Void> original,
         T entity
     ) {
-        SwingAnimation animation = SwingAnimation.getSwingAnimation(entity.getMainHandItem());
+        SwingAnimation animation = SwingAnimation.get(entity.getMainHandItem());
         boolean animateAttack = animation != null && animation.type() == SwingAnimationType.STAB;
         if (!animateAttack) {
             original.call(leftArm, rightArm, isAggressive, attackTime, ageInTicks);

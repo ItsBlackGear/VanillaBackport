@@ -112,7 +112,7 @@ public abstract class ItemInHandRendererMixin {
         int combinedLight,
         CallbackInfo ci
     ) {
-        SwingAnimation animation = SwingAnimation.getSwingAnimation(stack);
+        SwingAnimation animation = SwingAnimation.get(stack);
         if (animation == null) return;
         
         this.vb$performStabAnimation = animation.type() == SwingAnimationType.STAB;

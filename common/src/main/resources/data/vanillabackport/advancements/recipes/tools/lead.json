@@ -15,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "minecraft:lead"
+        "recipe": "vanillabackport:lead"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

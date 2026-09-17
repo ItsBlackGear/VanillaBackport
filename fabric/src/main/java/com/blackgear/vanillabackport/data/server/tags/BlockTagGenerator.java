@@ -239,10 +239,8 @@ public class BlockTagGenerator extends FabricTagProvider.BlockTagProvider {
         this.getOrCreateTagBuilder(ModBlockTags.TRANSPORT_ITEM_DESTINATION_BLOCKS)
             .add(Blocks.CHEST)
             .add(Blocks.TRAPPED_CHEST)
-            .forceAddTag(ForgeBlockTags.CHESTS_WOODEN)
-            .forceAddTag(ForgeBlockTags.CHESTS_TRAPPED)
-            .forceAddTag(FabricBlockTags.CHESTS_WOODEN)
-            .forceAddTag(FabricBlockTags.CHESTS_TRAPPED);
+            .addOptionalTag(ForgeBlockTags.CHESTS)
+            .addOptionalTag(FabricBlockTags.CHESTS);
 
         this.getOrCreateTagBuilder(ModBlockTags.CUSHION_USES_COLLISION_SHAPE)
             .forceAddTag(BlockTags.CAULDRONS)

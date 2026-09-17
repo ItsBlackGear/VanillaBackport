@@ -28,6 +28,4 @@ public interface MobSpearHandler {
     void vb$postPiercingAttack();
     
     float vb$getTicksSinceLastKineticHitFeedback(float partial);
-    
-    float vb$getTicksUsingItem(float partial);
 }
