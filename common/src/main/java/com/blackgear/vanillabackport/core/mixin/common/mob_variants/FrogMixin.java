@@ -1,6 +1,5 @@
 package com.blackgear.vanillabackport.core.mixin.common.mob_variants;
 
-import com.blackgear.vanillabackport.common.api.extensions.access.entity.EntityDataHolder;
 import com.blackgear.vanillabackport.common.api.extensions.access.entity.MobBehaviorAccess;
 import com.blackgear.vanillabackport.common.api.modules.mob_variant.spawn.SpawnContext;
 import com.blackgear.vanillabackport.common.api.modules.mob_variant.VariantDataHolder;
@@ -17,6 +16,7 @@ import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.frog.Frog;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -25,7 +25,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.Optional;
 
 @Mixin(Frog.class)
-public abstract class FrogMixin extends Animal implements VariantDataHolder<FrogDataVariant>, EntityDataHolder, MobBehaviorAccess {
+public abstract class FrogMixin extends Animal implements VariantDataHolder<FrogDataVariant>, MobBehaviorAccess {
     protected FrogMixin(EntityType<? extends Animal> entityType, Level level) {
         super(entityType, level);
     }
@@ -51,8 +51,8 @@ public abstract class FrogMixin extends Animal implements VariantDataHolder<Frog
     }
 
     @Override
-    public void vb$finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, SpawnGroupData spawnData) {
-        VariantUtils.selectVariantToSpawn(SpawnContext.create(level, this.blockPosition()), FrogDataVariants.REGISTRIES)
-            .ifPresent(this::setVariantData);
+    public SpawnGroupData vb$finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, @Nullable SpawnGroupData spawnData) {
+        VariantUtils.selectVariantToSpawn(SpawnContext.create(level, this.blockPosition()), FrogDataVariants.REGISTRIES).ifPresent(this::setVariantData);
+        return spawnData;
     }
 }

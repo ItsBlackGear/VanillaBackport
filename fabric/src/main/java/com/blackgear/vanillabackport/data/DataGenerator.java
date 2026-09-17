@@ -53,6 +53,7 @@ public class DataGenerator implements DataGeneratorEntrypoint {
         pack.addProvider(EntityTypeTagGenerator::new);
         pack.addProvider(DamageTypeTagGenerator::new);
         pack.addProvider(PaintingVariantTagGenerator::new);
+        pack.addProvider(EnchantmentTagGenerator::new);
 
         pack.addProvider(PaintVariantsGenerator::new);
         pack.addProvider(TrimMaterialGenerator::new);

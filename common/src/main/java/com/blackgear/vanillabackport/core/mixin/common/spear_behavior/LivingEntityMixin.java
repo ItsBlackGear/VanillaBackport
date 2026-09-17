@@ -9,6 +9,7 @@ import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import it.unimi.dsi.fastutil.objects.Object2LongMap;
 import it.unimi.dsi.fastutil.objects.Object2LongOpenHashMap;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.stats.Stats;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
@@ -17,6 +18,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
@@ -33,8 +35,6 @@ import java.util.function.Predicate;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends Entity implements MobSpearHandler {
-    @Shadow public abstract boolean isUsingItem();
-    @Shadow public abstract int getTicksUsingItem();
     @Shadow public abstract ItemStack getItemBySlot(EquipmentSlot slot);
     @Shadow public abstract void setLastHurtMob(Entity entity);
     @Shadow public abstract ItemStack getItemInHand(InteractionHand hand);
@@ -139,8 +139,11 @@ public abstract class LivingEntityMixin extends Entity implements MobSpearHandle
             target.stopRiding();
         }
         
-        if (target instanceof LivingEntity living && self instanceof Player player) {
-            weapon.hurtEnemy(living, player);
+        if (target instanceof LivingEntity living) {
+            Item usedItem = weapon.getItem();
+            if (usedItem.hurtEnemy(weapon, living, self) && self instanceof Player player) {
+                player.awardStat(Stats.ITEM_USED.get(usedItem));
+            }
         }
         
         if (dealtDamage) {
@@ -170,14 +173,12 @@ public abstract class LivingEntityMixin extends Entity implements MobSpearHandle
         }
     }
     
-    @Inject(method = "handleEntityEvent", at = @At("HEAD"))
+    @Inject(method = "handleEntityEvent", at = @At("HEAD"), cancellable = true)
     private void vb$handleEntityEvent(byte id, CallbackInfo ci) {
-        if (id == 2) this.onKineticHit();
-    }
-    
-    @Override
-    public float vb$getTicksUsingItem(float partial) {
-        return !this.isUsingItem() ? 0.0F : this.getTicksUsingItem() + partial;
+        if (id == 2) {
+            this.onKineticHit();
+            ci.cancel();
+        }
     }
     
     @Override

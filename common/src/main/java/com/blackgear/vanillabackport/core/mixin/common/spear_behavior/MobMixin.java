@@ -24,7 +24,7 @@ public abstract class MobMixin extends LivingEntity implements MobSpearHandler {
     
     @Inject(
         method = "doHurtTarget",
-        at = @At("TAIL")
+        at = @At("RETURN")
     )
     private void vb$doHurtTarget(Entity target, CallbackInfoReturnable<Boolean> cir) {
         this.vb$postPiercingAttack();
@@ -43,14 +43,14 @@ public abstract class MobMixin extends LivingEntity implements MobSpearHandler {
             double minRange = attackRange.effectiveMinRange(this);
             AABB hitbox = ((LivingEntityAccessor) entity).callGetHitbox();
 
-            cir.setReturnValue(this.getAttackBoundingBox(maxRange).intersects(hitbox) && (minRange <= 0.0 || !this.getAttackBoundingBox(minRange).intersects(hitbox)));
+            cir.setReturnValue(this.vb$getAttackBoundingBox(maxRange).intersects(hitbox) && (minRange <= 0.0 || !this.vb$getAttackBoundingBox(minRange).intersects(hitbox)));
         }
     }
     
     @Unique
-    protected AABB getAttackBoundingBox(double horizontalExpansion) {
+    protected AABB vb$getAttackBoundingBox(double horizontalExpansion) {
         Entity vehicle = this.getVehicle();
-        AABB aabb = this.getBoundingBox();
+        AABB aabb;
         if (vehicle != null) {
             AABB mountAabb = vehicle.getBoundingBox();
             AABB ownAabb = this.getBoundingBox();
@@ -62,6 +62,8 @@ public abstract class MobMixin extends LivingEntity implements MobSpearHandler {
                 ownAabb.maxY,
                 Math.max(ownAabb.maxZ, mountAabb.maxZ)
             );
+        } else {
+            aabb = this.getBoundingBox();
         }
         
         return aabb.inflate(horizontalExpansion, 0.0, horizontalExpansion);

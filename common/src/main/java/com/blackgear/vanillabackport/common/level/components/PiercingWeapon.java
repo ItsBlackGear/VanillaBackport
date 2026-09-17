@@ -48,7 +48,7 @@ public record PiercingWeapon(
     );
 
     public void makeSound(Entity causer) {
-        this.sound.ifPresent(sound -> ((SoundExtensions) causer.level()).playSound(causer, causer.getX(), causer.getY(), causer.getZ(), sound, causer.getSoundSource(), 1.0F, 1.0F));
+        this.sound.ifPresent(sound -> ((SoundExtensions) causer.level()).playSound(null, causer.getX(), causer.getY(), causer.getZ(), sound, causer.getSoundSource(), 1.0F, 1.0F));
     }
 
     public void makeHitSound(Entity causer) {
@@ -56,11 +56,11 @@ public record PiercingWeapon(
     }
 
     public static boolean canHitEntity(Entity jabber, Entity target) {
-        if (
-            (target.isInvulnerable() || !target.isAlive()) ||
-            target instanceof Interaction ||
-            !target.canBeHitByProjectile()
-        ) {
+        if (target.isInvulnerable() || !target.isAlive()) {
+            return false;
+        } else if (target instanceof Interaction) {
+            return true;
+        } else if (!target.canBeHitByProjectile()) {
             return false;
         } else {
             return (!(target instanceof Player targetPlayer) || !(jabber instanceof Player jabbingPlayer) || jabbingPlayer.canHarmPlayer(targetPlayer)) && !jabber.isPassengerOfSameVehicle(target);
@@ -86,7 +86,7 @@ public record PiercingWeapon(
         }
 
         this.makeSound(attacker);
-        attacker.swing(InteractionHand.MAIN_HAND, false);
+        attacker.swing(InteractionHand.MAIN_HAND);
     }
     
     @SuppressWarnings("unchecked")

@@ -21,6 +21,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -56,9 +57,9 @@ public abstract class ChickenMixin extends Animal implements VariantDataHolder<C
     }
     
     @Override
-    public void vb$finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, SpawnGroupData spawnData) {
-        VariantUtils.selectVariantToSpawn(SpawnContext.create(level, this.blockPosition()), ChickenVariants.REGISTRIES, VariantSpawner.FARM_ANIMALS)
-            .ifPresent(this::setVariantData);
+    public SpawnGroupData vb$finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, @Nullable SpawnGroupData spawnData) {
+        VariantUtils.selectVariantToSpawn(SpawnContext.create(level, this.blockPosition()), ChickenVariants.REGISTRIES, VariantSpawner.FARM_ANIMALS).ifPresent(this::setVariantData);
+        return spawnData;
     }
     
     @Inject(

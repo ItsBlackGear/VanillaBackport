@@ -12,7 +12,11 @@ import net.minecraft.world.item.enchantment.Enchantment;
 public class EnchantmentUtils {
     public static void doPostPiercingAttackEffects(ServerLevel server, LivingEntity user) {
         EnchantmentHelperAccessor.callRunIterationOnItem(user.getWeaponItem(), EquipmentSlot.MAINHAND, user,
-            (enchantment, level, item) -> doPostPiercingAttack(enchantment.value(), server, level, item, user));
+            (enchantment, level, item) -> {
+                if (!user.isInWater()) {
+                    doPostPiercingAttack(enchantment.value(), server, level, item, user);
+                }
+            });
     }
     
     private static void doPostPiercingAttack(Enchantment enchantment, ServerLevel server, int level, EnchantedItemInUse item, Entity user) {

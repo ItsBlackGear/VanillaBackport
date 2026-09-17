@@ -1,6 +1,5 @@
 package com.blackgear.vanillabackport.core.mixin.common.mob_variants;
 
-import com.blackgear.vanillabackport.common.api.extensions.access.entity.EntityDataHolder;
 import com.blackgear.vanillabackport.common.api.extensions.access.entity.MobBehaviorAccess;
 import com.blackgear.vanillabackport.common.api.modules.mob_variant.VariantDataHolder;
 import com.blackgear.vanillabackport.common.api.modules.mob_variant.VariantUtils;
@@ -29,7 +28,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.util.Optional;
 
 @Mixin(Cat.class)
-public abstract class CatMixin extends TamableAnimal implements VariantDataHolder<CatDataVariant>, EntityDataHolder, MobBehaviorAccess {
+public abstract class CatMixin extends TamableAnimal implements VariantDataHolder<CatDataVariant>, MobBehaviorAccess {
     @Shadow @Final private static EntityDataAccessor<Integer> DATA_COLLAR_COLOR;
     @Shadow public abstract DyeColor getCollarColor();
 
@@ -58,9 +57,9 @@ public abstract class CatMixin extends TamableAnimal implements VariantDataHolde
     }
 
     @Override
-    public void vb$finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, SpawnGroupData spawnData) {
-        VariantUtils.selectVariantToSpawn(SpawnContext.create(level, this.blockPosition()), CatDataVariants.REGISTRIES)
-            .ifPresent(this::setVariantData);
+    public SpawnGroupData vb$finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, SpawnGroupData spawnData) {
+        VariantUtils.selectVariantToSpawn(SpawnContext.create(level, this.blockPosition()), CatDataVariants.REGISTRIES).ifPresent(this::setVariantData);
+        return spawnData;
     }
 
     @Inject(

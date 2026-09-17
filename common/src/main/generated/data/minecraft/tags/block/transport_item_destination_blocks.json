@@ -2,7 +2,6 @@
   "values": [
     "minecraft:chest",
     "minecraft:trapped_chest",
-    "#c:chests/wooden",
-    "#c:chests/trapped"
+    "#c:chests"
   ]
 }

@@ -10,8 +10,8 @@ import net.minecraft.world.item.ItemStack;
 public enum ArmPoses {
     SPEAR(false, true) {
         @Override
-        public <T extends LivingEntity> void animateUseItem(T entity, PoseStack pose, float ticksUsingItem, HumanoidArm arm, ItemStack actualItem, float partial) {
-            SpearAnimations.thirdPersonUseItem(entity, pose, ticksUsingItem, arm, actualItem);
+        public <T extends LivingEntity> void animateUseItem(HumanoidModel<T> model, T entity, PoseStack pose, float ticksUsingItem, HumanoidArm arm, ItemStack actualItem) {
+            SpearAnimations.thirdPersonUseItem(model, entity, pose, ticksUsingItem, arm, actualItem);
         }
     };
 
@@ -32,12 +32,12 @@ public enum ArmPoses {
     }
 
     public <T extends LivingEntity> void animateUseItem(
+        HumanoidModel<T> model,
         T entity,
         PoseStack pose,
         float ticksUsingItem,
         HumanoidArm arm,
-        ItemStack actualItem,
-        float partial
+        ItemStack actualItem
     ) {}
 
     public HumanoidModel.ArmPose get() {

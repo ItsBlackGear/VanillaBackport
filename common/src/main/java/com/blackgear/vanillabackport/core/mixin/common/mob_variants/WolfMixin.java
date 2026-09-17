@@ -1,6 +1,5 @@
 package com.blackgear.vanillabackport.core.mixin.common.mob_variants;
 
-import com.blackgear.vanillabackport.common.api.extensions.access.entity.EntityDataHolder;
 import com.blackgear.vanillabackport.common.api.extensions.access.entity.MobBehaviorAccess;
 import com.blackgear.vanillabackport.common.api.modules.mob_variant.VariantDataHolder;
 import com.blackgear.vanillabackport.common.api.modules.mob_variant.VariantUtils;
@@ -23,6 +22,7 @@ import net.minecraft.world.entity.animal.Wolf;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -33,7 +33,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.util.Optional;
 
 @Mixin(Wolf.class)
-public abstract class WolfMixin extends TamableAnimal implements SoundVariantHolder<WolfSoundVariant>, VariantDataHolder<WolfDataVariant>, EntityDataHolder, MobBehaviorAccess {
+public abstract class WolfMixin extends TamableAnimal implements SoundVariantHolder<WolfSoundVariant>, VariantDataHolder<WolfDataVariant>, MobBehaviorAccess {
     @Shadow public abstract DyeColor getCollarColor();
     
     protected WolfMixin(EntityType<? extends TamableAnimal> entityType, Level level) {
@@ -91,10 +91,10 @@ public abstract class WolfMixin extends TamableAnimal implements SoundVariantHol
     }
     
     @Override
-    public void vb$finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, SpawnGroupData spawnData) {
+    public SpawnGroupData vb$finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, @Nullable SpawnGroupData spawnData) {
         this.vb$setSoundVariant(WolfSoundVariants.REGISTRIES.getRandomElement(level.getRandom()));
-        VariantUtils.selectVariantToSpawn(SpawnContext.create(level, this.blockPosition()), WolfDataVariants.REGISTRIES)
-            .ifPresent(this::setVariantData);
+        VariantUtils.selectVariantToSpawn(SpawnContext.create(level, this.blockPosition()), WolfDataVariants.REGISTRIES).ifPresent(this::setVariantData);
+        return spawnData;
     }
     
     @Inject(

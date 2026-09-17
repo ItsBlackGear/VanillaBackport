@@ -15,9 +15,8 @@ import net.minecraft.world.level.Level;
 @Environment(EnvType.CLIENT)
 public class ClientboundPayloadListener {
     public static void handleNautilusScreenOpen(ClientboundNautilusScreenOpenPacket packet, Player player, Level level) {
-        Entity entity = level.getEntity(packet.entityId());
-        SimpleContainer container = new SimpleContainer(packet.size());
-        if (entity instanceof AbstractNautilus nautilus) {
+        if (level.getEntity(packet.entityId()) instanceof AbstractNautilus nautilus) {
+            SimpleContainer container = new SimpleContainer(packet.size());
             NautilusInventoryMenu menu = new NautilusInventoryMenu(packet.containerId(), player.getInventory(), container, nautilus);
             player.containerMenu = menu;
             Minecraft.getInstance().setScreen(new NautilusInventoryScreen(menu, player.getInventory(), nautilus));

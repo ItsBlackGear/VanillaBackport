@@ -29,8 +29,10 @@ public abstract class MobMixin extends LivingEntity implements EntityDataHolder,
         this.vb$readAdditionalSaveData(tag);
     }
 
-    @Inject(method = "finalizeSpawn", at = @At("RETURN"))
+    @Inject(method = "finalizeSpawn", at = @At("RETURN"), cancellable = true)
     protected void vb$onFinalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, SpawnGroupData spawnData, CallbackInfoReturnable<SpawnGroupData> cir) {
-        this.vb$finalizeSpawn(level, difficulty, reason, spawnData);
+        SpawnGroupData original = cir.getReturnValue();
+        SpawnGroupData handled = this.vb$finalizeSpawn(level, difficulty, reason, original);
+        if (handled != original) cir.setReturnValue(handled);
     }
 }

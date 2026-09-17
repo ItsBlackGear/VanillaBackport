@@ -38,6 +38,7 @@
     "client.music_toast.PauseScreenMixin",
     "client.music_toast.ToastComponentMixin",
     "client.sound_extension.ClientLevelMixin",
+    "client.spear_behavior.LocalPlayerMixin",
     "client.spear_behavior.MinecraftMixin",
     "client.spear_behavior.MultiPlayerGameModeMixin",
     "client.spear_rendering.AbstractZombieModelMixin",
@@ -51,7 +52,6 @@
     "client.waypoints.CameraMixin",
     "client.waypoints.GameRendererMixin",
     "client.waypoints.LocalPlayerMixin",
-    "client.spear_behavior.LocalPlayerMixin",
     "compat.backports.LayerDefinitionsMixin"
   ],
   "mixins": [
@@ -89,10 +89,12 @@
     "common.bundle_ui.MutableBundleContentsMixin",
     "common.cactus_flowers.CactusBlockMixin",
     "common.controllable_mounts.CamelPanicMixin",
+    "common.controllable_mounts.DrownedMixin",
     "common.controllable_mounts.HuskMixin",
     "common.controllable_mounts.LivingEntityMixin",
     "common.controllable_mounts.PanicGoalMixin",
     "common.controllable_mounts.RunAroundLikeCrazyGoalMixin",
+    "common.controllable_mounts.ServerPlayerMixin",
     "common.copper_golem.CarvedPumpkinBlockMixin",
     "common.desert_ambient_sounds.ColoringFallingBlockMixin",
     "common.desert_ambient_sounds.DeadBushBlockMixin",

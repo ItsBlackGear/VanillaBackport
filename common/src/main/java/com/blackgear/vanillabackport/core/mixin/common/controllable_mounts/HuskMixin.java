@@ -1,5 +1,6 @@
 package com.blackgear.vanillabackport.core.mixin.common.controllable_mounts;
 
+import com.blackgear.vanillabackport.common.api.extensions.access.entity.MobBehaviorAccess;
 import com.blackgear.vanillabackport.common.level.entities.mob.animal.camel.CamelHusk;
 import com.blackgear.vanillabackport.common.level.entities.mob.monster.skeleton.Parched;
 import com.blackgear.vanillabackport.common.registries.entities.ModEntityTypes;
@@ -20,40 +21,37 @@ import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 
 @Mixin(Husk.class)
-public class HuskMixin extends Zombie {
+public class HuskMixin extends Zombie implements MobBehaviorAccess {
     public HuskMixin(EntityType<? extends Zombie> entityType, Level level) {
         super(entityType, level);
     }
     
     @Override
-    public @Nullable SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, @Nullable SpawnGroupData data) {
+    public SpawnGroupData vb$finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, @Nullable SpawnGroupData data) {
+        Husk husk = (Husk) (Object) this;
         RandomSource random = level.getRandom();
-        data = super.finalizeSpawn(level, difficulty, reason, data);
-        float difficultyModifier = difficulty.getSpecialMultiplier();
-        if (reason != MobSpawnType.CONVERSION) {
-            this.setCanPickUpLoot(random.nextFloat() < 0.55F * difficultyModifier);
-        }
         
         if (data != null) {
-            data = new CamelHusk.HuskGroupData((ZombieGroupData) data);
-            ((CamelHusk.HuskGroupData) data).triedToSpawnCamelHusk = reason != MobSpawnType.NATURAL;
+            data = new CamelHusk.HuskGroupData((Zombie.ZombieGroupData) data);
+            ((CamelHusk.HuskGroupData) data).triedToSpawnCamelHusk = (reason != MobSpawnType.NATURAL);
         }
         
         if (data instanceof CamelHusk.HuskGroupData huskData && !huskData.triedToSpawnCamelHusk) {
-            BlockPos pos = this.blockPosition();
+            BlockPos pos = husk.blockPosition();
             if (level.noCollision(ModEntityTypes.CAMEL_HUSK.get().getSpawnAABB(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5))) {
                 huskData.triedToSpawnCamelHusk = true;
                 if (random.nextFloat() < 0.1F) {
-                    this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(ModItems.IRON_SPEAR.get()));
-                    CamelHusk camel = ModEntityTypes.CAMEL_HUSK.get().create(this.level());
+                    husk.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(ModItems.IRON_SPEAR.get()));
+                    CamelHusk camel = ModEntityTypes.CAMEL_HUSK.get().create(husk.level());
                     if (camel != null) {
-                        camel.setPos(this.getX(), this.getY(), this.getZ());
+                        camel.setPos(husk.getX(), husk.getY(), husk.getZ());
                         camel.finalizeSpawn(level, difficulty, reason, null);
-                        this.startRiding(camel, true);
+                        husk.startRiding(camel, true);
                         level.addFreshEntity(camel);
-                        Parched parched = ModEntityTypes.PARCHED.get().create(this.level());
+                        
+                        Parched parched = ModEntityTypes.PARCHED.get().create(husk.level());
                         if (parched != null) {
-                            parched.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), 0.0F);
+                            parched.moveTo(husk.getX(), husk.getY(), husk.getZ(), husk.getYRot(), 0.0F);
                             parched.finalizeSpawn(level, difficulty, reason, null);
                             parched.startRiding(camel, false);
                             level.addFreshEntityWithPassengers(parched);

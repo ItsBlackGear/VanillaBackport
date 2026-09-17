@@ -21,13 +21,9 @@ public class ServerGamePacketListenerImplMixin {
 
     @Inject(method = "handlePlayerAction", at = @At("HEAD"), cancellable = true)
     private void vb$handlePlayerAction(ServerboundPlayerActionPacket packet, CallbackInfo ci) {
-        if (packet.getAction() != PlayerActions.STAB.get()) return;
-
-        ci.cancel();
-        
-        this.player.server.execute(() -> {
+        if (packet.getAction() == PlayerActions.STAB.get()) {
+            ci.cancel();
             this.player.resetLastActionTime();
-            
             if (!this.player.isSpectator()) {
                 ItemStack stack = this.player.getItemInHand(InteractionHand.MAIN_HAND);
                 if (!((PlayerSpearHandler) this.player).vb$cannotAttackWithItem(stack, 5)) {
@@ -37,7 +33,6 @@ public class ServerGamePacketListenerImplMixin {
                     }
                 }
             }
-        });
+        }
     }
-
 }

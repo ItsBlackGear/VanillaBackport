@@ -113,9 +113,8 @@ public abstract class PlayerMixin extends LivingEntity implements PlayerSpearHan
             ItemStack weaponItem = this.getItemBySlot(weaponSlot);
             DamageSource damageSource = this.damageSources().playerAttack(self);
             float magicBoost = this.getEnchantedDamage(target, baseDamage, damageSource) - baseDamage;
-            EquipmentSlot handSlot = this.getUsedItemHand() == InteractionHand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND;
-
-            if (!this.isUsingItem() || handSlot != weaponSlot) {
+            
+            if (!this.isUsingItem() || (this.getUsedItemHand() == InteractionHand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND) != weaponSlot) {
                 magicBoost *= this.getAttackStrengthScale(0.5F);
                 baseDamage *= this.vb$baseDamageScaleFactor();
             }
@@ -126,10 +125,11 @@ public abstract class PlayerMixin extends LivingEntity implements PlayerSpearHan
                 float totalDamage = dealsDamage ? baseDamage + magicBoost : 0.0F;
                 float oldTargetHealth = target instanceof LivingEntity living ? living.getHealth() : 0.0F;
                 Vec3 oldMovement = target.getDeltaMovement();
-                boolean wasHurt = dealsDamage && target.level() instanceof ServerLevel && target.hurt(damageSource, totalDamage);
+                boolean wasHurt = dealsDamage && target.hurt(damageSource, totalDamage);
 
                 if (dealsKnockback) {
-                    this.vb$causeExtraKnockback(target, 0.4F + this.getKnockback(target, damageSource), oldMovement);
+                    this.vb$causeExtraKnockback(target, 0.4F, oldMovement);
+                    this.vb$causeExtraKnockback(target, this.getKnockback(target, damageSource), oldMovement);
                 }
 
                 boolean dismounted = false;

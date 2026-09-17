@@ -1,4 +1,4 @@
-package com.blackgear.vanillabackport.common.api.extensions.entity;
+package com.blackgear.vanillabackport.common.api.extensions.entity.mounts;
 
 import net.minecraft.world.entity.Entity;
 

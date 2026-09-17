@@ -21,7 +21,9 @@ public class NautilusInventoryMenu extends AbstractContainerMenu {
 		this.horseContainer = container;
 		this.armorContainer = nautilus.getBodyArmorAccess();
 		this.nautilus = nautilus;
+		
 		container.startOpen(inventory.player);
+		
 		this.addSlot(new Slot(container, 0, 8, 18) {
 			@Override
 			public boolean mayPlace(ItemStack stack) {
@@ -33,6 +35,7 @@ public class NautilusInventoryMenu extends AbstractContainerMenu {
 				return nautilus.isSaddleable();
 			}
 		});
+		
 		this.addSlot(new ArmorSlot(this.armorContainer, nautilus, EquipmentSlot.BODY, 0, 8, 36, null) {
 			@Override
 			public boolean mayPlace(ItemStack stack) {
@@ -45,14 +48,14 @@ public class NautilusInventoryMenu extends AbstractContainerMenu {
 			}
 		});
 
-		for (int k = 0; k < 3; k++) {
-			for (int l = 0; l < 9; l++) {
-				this.addSlot(new Slot(inventory, l + k * 9 + 9, 8 + l * 18, 102 + k * 18 + -18));
+		for (int row = 0; row < 3; row++) {
+			for (int col = 0; col < 9; col++) {
+				this.addSlot(new Slot(inventory, col + row * 9 + 9, 8 + col * 18, 102 + row * 18 + -18));
 			}
 		}
 
-		for (int k = 0; k < 9; k++) {
-			this.addSlot(new Slot(inventory, k, 8 + k * 18, 142));
+		for (int col = 0; col < 9; col++) {
+			this.addSlot(new Slot(inventory, col, 8 + col * 18, 142));
 		}
 	}
 
@@ -67,50 +70,50 @@ public class NautilusInventoryMenu extends AbstractContainerMenu {
 
 	@Override
 	public ItemStack quickMoveStack(Player player, int index) {
-		ItemStack clicked = ItemStack.EMPTY;
+		ItemStack itemStack = ItemStack.EMPTY;
 		Slot slot = this.slots.get(index);
 		if (slot != null && slot.hasItem()) {
-			ItemStack stack = slot.getItem();
-			clicked = stack.copy();
-			int playerContainerStart = this.horseContainer.getContainerSize() + 1;
-			if (index < playerContainerStart) {
-				if (!this.moveItemStackTo(stack, playerContainerStart, this.slots.size(), true)) {
+			ItemStack itemStack2 = slot.getItem();
+			itemStack = itemStack2.copy();
+			int i = this.horseContainer.getContainerSize() + 1;
+			if (index < i) {
+				if (!this.moveItemStackTo(itemStack2, i, this.slots.size(), true)) {
 					return ItemStack.EMPTY;
 				}
-			} else if (this.getSlot(1).mayPlace(stack) && !this.getSlot(1).hasItem()) {
-				if (!this.moveItemStackTo(stack, 1, 2, false)) {
+			} else if (this.getSlot(1).mayPlace(itemStack2) && !this.getSlot(1).hasItem()) {
+				if (!this.moveItemStackTo(itemStack2, 1, 2, false)) {
 					return ItemStack.EMPTY;
 				}
-			} else if (this.getSlot(0).mayPlace(stack)) {
-				if (!this.moveItemStackTo(stack, 0, 1, false)) {
+			} else if (this.getSlot(0).mayPlace(itemStack2)) {
+				if (!this.moveItemStackTo(itemStack2, 0, 1, false)) {
 					return ItemStack.EMPTY;
 				}
-			} else if (playerContainerStart <= 1 || !this.moveItemStackTo(stack, 2, playerContainerStart, false)) {
-				int playerContainerEnd = playerContainerStart + 27;
-				int playerHotBarEnd = playerContainerEnd + 9;
-				if (index >= playerContainerEnd && index < playerHotBarEnd) {
-					if (!this.moveItemStackTo(stack, playerContainerStart, playerContainerEnd, false)) {
+			} else if (i <= 1 || !this.moveItemStackTo(itemStack2, 2, i, false)) {
+				int k = i + 27;
+				int m = k + 9;
+				if (index >= k && index < m) {
+					if (!this.moveItemStackTo(itemStack2, i, k, false)) {
 						return ItemStack.EMPTY;
 					}
-				} else if (index >= playerContainerStart && index < playerContainerEnd) {
-					if (!this.moveItemStackTo(stack, playerContainerEnd, playerHotBarEnd, false)) {
+				} else if (index >= i && index < k) {
+					if (!this.moveItemStackTo(itemStack2, k, m, false)) {
 						return ItemStack.EMPTY;
 					}
-				} else if (!this.moveItemStackTo(stack, playerContainerEnd, playerContainerEnd, false)) {
+				} else if (!this.moveItemStackTo(itemStack2, k, k, false)) {
 					return ItemStack.EMPTY;
 				}
-
+				
 				return ItemStack.EMPTY;
 			}
-
-			if (stack.isEmpty()) {
+			
+			if (itemStack2.isEmpty()) {
 				slot.setByPlayer(ItemStack.EMPTY);
 			} else {
 				slot.setChanged();
 			}
 		}
 
-		return clicked;
+		return itemStack;
 	}
 
 	@Override

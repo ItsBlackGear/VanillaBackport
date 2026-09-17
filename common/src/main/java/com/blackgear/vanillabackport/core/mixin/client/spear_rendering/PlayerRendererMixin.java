@@ -1,7 +1,6 @@
 package com.blackgear.vanillabackport.core.mixin.client.spear_rendering;
 
 import com.blackgear.vanillabackport.common.api.extensions.entity.arms.ArmPoses;
-import com.blackgear.vanillabackport.common.api.extensions.entity.arms.ItemUseAnimations;
 import com.blackgear.vanillabackport.common.level.components.SwingAnimation;
 import com.blackgear.vanillabackport.common.level.components.SwingAnimationType;
 import com.blackgear.vanillabackport.core.data.tags.ModItemTags;
@@ -10,36 +9,46 @@ import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.player.AbstractClientPlayer;
 import net.minecraft.client.renderer.entity.player.PlayerRenderer;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.HumanoidArm;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.UseAnim;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 
 @Mixin(PlayerRenderer.class)
-public class PlayerRendererMixin {
+public abstract class PlayerRendererMixin {
     @ModifyReturnValue(method = "getArmPose", at = @At("RETURN"))
     private static HumanoidModel.ArmPose vb$getArmPose(HumanoidModel.ArmPose original, AbstractClientPlayer player, InteractionHand hand) {
         ItemStack heldItem = player.getItemInHand(hand);
-        if (heldItem.isEmpty()) return original;
+        HumanoidArm arm = (hand == InteractionHand.MAIN_HAND)
+            ? player.getMainArm()
+            : player.getMainArm().getOpposite();
         
-        if (player.getUsedItemHand() == hand && player.getUseItemRemainingTicks() > 0) {
-            UseAnim useAnim = heldItem.getUseAnimation();
-            if (useAnim == ItemUseAnimations.REAL_SPEAR.get()) {
-                return ArmPoses.SPEAR.get();
-            }
-            
-            return original;
-        }
-        
-        SwingAnimation animation = SwingAnimation.get(heldItem);
-        if (animation != SwingAnimation.DEFAULT && animation.type() == SwingAnimationType.STAB && player.swinging) {
-            return ArmPoses.SPEAR.get();
-        }
-        
-        if (heldItem.is(ModItemTags.SPEARS)) {
+        if (vb$usesSpearPose(heldItem, arm, player)) {
             return ArmPoses.SPEAR.get();
         }
         
         return original;
+    }
+    
+    @Unique
+    private static boolean vb$usesSpearPose(ItemStack item, HumanoidArm arm, LivingEntity entity) {
+        if (entity.swinging) {
+            InteractionHand swingingHand = entity.swingingArm;
+            HumanoidArm swingingArm = (swingingHand == InteractionHand.MAIN_HAND)
+                ? entity.getMainArm()
+                : entity.getMainArm().getOpposite();
+            
+            if (swingingArm == arm) {
+                ItemStack swingingItem = entity.getItemInHand(swingingHand);
+                SwingAnimation animation = SwingAnimation.get(swingingItem);
+                if (animation != null && animation.type() == SwingAnimationType.STAB) {
+                    return true;
+                }
+            }
+        }
+        
+        return item.is(ModItemTags.SPEARS);
     }
 }

@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:bundle"
+      "vanillabackport:bundle"
     ]
   }
 }

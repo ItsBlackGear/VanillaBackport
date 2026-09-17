@@ -15,7 +15,7 @@
       "conditions": {
         "recipe": "minecraft:saddle"
       },
-      "trigger": "minecraft:recipe_unlocked"
+      "trigger": "vanillabackport:recipe_unlocked"
     }
   },
   "requirements": [
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "minecraft:saddle"
+      "vanillabackport:saddle"
     ]
   }
 }

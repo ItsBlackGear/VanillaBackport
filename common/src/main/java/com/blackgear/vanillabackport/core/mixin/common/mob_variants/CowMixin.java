@@ -17,6 +17,7 @@ import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.Cow;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -51,9 +52,9 @@ public abstract class CowMixin extends Animal implements VariantDataHolder<CowVa
     }
     
     @Override
-    public void vb$finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, SpawnGroupData spawnData) {
-        VariantUtils.selectVariantToSpawn(SpawnContext.create(level, this.blockPosition()), CowVariants.REGISTRIES, VariantSpawner.FARM_ANIMALS)
-            .ifPresent(this::setVariantData);
+    public SpawnGroupData vb$finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, @Nullable SpawnGroupData spawnData) {
+        VariantUtils.selectVariantToSpawn(SpawnContext.create(level, this.blockPosition()), CowVariants.REGISTRIES, VariantSpawner.FARM_ANIMALS).ifPresent(this::setVariantData);
+        return spawnData;
     }
     
     @Inject(

@@ -5,7 +5,6 @@ import com.blackgear.vanillabackport.common.level.components.SwingAnimation;
 import com.blackgear.vanillabackport.common.level.components.SwingAnimationType;
 import com.blackgear.vanillabackport.common.level.items.spear.SpearAnimations;
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ArmedModel;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.HumanoidModel;
@@ -29,6 +28,7 @@ public abstract class ItemInHandLayerMixin<T extends LivingEntity, M extends Ent
         super(renderer);
     }
 
+    @SuppressWarnings("unchecked")
     @Inject(
         method = "renderArmWithItem",
         at = @At(
@@ -47,17 +47,18 @@ public abstract class ItemInHandLayerMixin<T extends LivingEntity, M extends Ent
         int packedLight,
         CallbackInfo ci
     ) {
-        float partial = Minecraft.getInstance().getTimer().getGameTimeDeltaPartialTick(true);
-        if (entity.getAttackAnim(partial) > 0.0F && entity.getMainArm() == arm && SwingAnimation.get(stack).type() == SwingAnimationType.STAB) {
-            SpearAnimations.thirdPersonAttackItem(entity, pose);
-        }
-
-        float ticksUsingItem = entity.isUsingItem() && entity.getUsedItemHand() == InteractionHand.MAIN_HAND == (arm == entity.getMainArm()) ? entity.getTicksUsingItem() : 0.0F;
         EntityModel<T> model = this.getParentModel();
-        if (ticksUsingItem != 0.0F && model instanceof HumanoidModel<T> parent) {
-            HumanoidModel.ArmPose armPose = (arm == HumanoidArm.RIGHT ? parent.rightArmPose : parent.leftArmPose);
-            if (armPose == ArmPoses.SPEAR.get()) {
-                ArmPoses.SPEAR.animateUseItem(entity, pose, ticksUsingItem, arm, stack, partial);
+        if (model instanceof HumanoidModel<?> parent) {
+            if (parent.attackTime > 0.0F && entity.getMainArm() == arm && SwingAnimation.get(stack).type() == SwingAnimationType.STAB) {
+                SpearAnimations.thirdPersonAttackItem((HumanoidModel<? super LivingEntity>) parent, entity, pose);
+            }
+    
+            float ticksUsingItem = entity.isUsingItem() && entity.getUsedItemHand() == InteractionHand.MAIN_HAND == (arm == entity.getMainArm()) ? entity.getTicksUsingItem() : 0.0F;
+            if (ticksUsingItem != 0.0F) {
+                HumanoidModel.ArmPose armPose = (arm == HumanoidArm.RIGHT ? parent.rightArmPose : parent.leftArmPose);
+                if (armPose == ArmPoses.SPEAR.get()) {
+                    ArmPoses.SPEAR.animateUseItem((HumanoidModel<? super LivingEntity>) parent, entity, pose, ticksUsingItem, arm, stack);
+                }
             }
         }
     }

@@ -18,7 +18,7 @@ public class ClientCompat {
             return entity.getType() == EntityType.COW || entity.getType() == EntityType.CHICKEN || entity.getType() == EntityType.PIG;
         }
         
-        return getNMLActiveRemodel(entity) || ModChecker.TINY_TAKEOVER && entity.isBaby();
+        return getNMLActiveRemodel(entity);
     }
     
     @ExpectPlatform

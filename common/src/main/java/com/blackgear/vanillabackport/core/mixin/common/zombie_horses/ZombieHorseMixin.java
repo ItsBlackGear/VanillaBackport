@@ -1,7 +1,8 @@
 package com.blackgear.vanillabackport.core.mixin.common.zombie_horses;
 
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
-import com.blackgear.vanillabackport.common.api.extensions.entity.ControllableMob;
+import com.blackgear.vanillabackport.common.api.extensions.access.entity.MobBehaviorAccess;
+import com.blackgear.vanillabackport.common.api.extensions.entity.mounts.ControllableMob;
 import com.blackgear.vanillabackport.common.registries.items.ModItems;
 import com.blackgear.vanillabackport.core.data.tags.ModItemTags;
 import net.minecraft.sounds.SoundEvent;
@@ -34,14 +35,22 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.util.function.DoubleSupplier;
 
 @Mixin(ZombieHorse.class)
-public abstract class ZombieHorseMixin extends AbstractHorse implements ControllableMob {
+public abstract class ZombieHorseMixin extends AbstractHorse implements ControllableMob, MobBehaviorAccess {
     protected ZombieHorseMixin(EntityType<? extends AbstractHorse> entityType, Level level) {
         super(entityType, level);
     }
     
-    @Inject(method = "createAttributes", at = @At("RETURN"), cancellable = true)
+    @Inject(method = "createAttributes", at = @At("RETURN"))
     private static void vb$createAttributes(CallbackInfoReturnable<AttributeSupplier.Builder> cir) {
-        cir.setReturnValue(createBaseHorseAttributes().add(Attributes.MAX_HEALTH, 25.0));
+        cir.getReturnValue()
+            .add(Attributes.MAX_HEALTH, 25.0)
+            .add(Attributes.MOVEMENT_SPEED, 0.225);
+    }
+    
+    @Inject(method = "randomizeAttributes", at = @At("TAIL"))
+    private void vb$randomizeAttributes(RandomSource random, CallbackInfo ci) {
+        this.getAttribute(Attributes.JUMP_STRENGTH).setBaseValue(generateZombieHorseJumpStrength(random::nextDouble));
+        this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(generateZombieHorseSpeed(random::nextDouble));
     }
     
     @Override
@@ -67,19 +76,18 @@ public abstract class ZombieHorseMixin extends AbstractHorse implements Controll
     }
     
     @Override
-    public boolean removeWhenFarAway(double distanceToClosestPlayer) {
-        return true;
-    }
-    
-    @Override
-    public boolean isMobControlled() {
-        return this.getFirstPassenger() instanceof Mob;
-    }
-    
-    @Inject(method = "randomizeAttributes", at = @At("TAIL"))
-    private void vb$randomizeAttributes(RandomSource random, CallbackInfo ci) {
-        this.getAttribute(Attributes.JUMP_STRENGTH).setBaseValue(generateZombieHorseJumpStrength(random::nextDouble));
-        this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(generateZombieHorseSpeed(random::nextDouble));
+    public SpawnGroupData vb$finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, @Nullable SpawnGroupData data) {
+        if (reason == MobSpawnType.NATURAL) {
+            Zombie zombie = EntityType.ZOMBIE.create(this.level());
+            if (zombie != null) {
+                zombie.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), 0.0F);
+                zombie.finalizeSpawn(level, difficulty, reason, null);
+                zombie.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(ModItems.IRON_SPEAR.get()));
+                zombie.startRiding((ZombieHorse) (Object) this, false);
+            }
+        }
+        
+        return MobBehaviorAccess.super.vb$finalizeSpawn(level, difficulty, reason, data);
     }
     
     @Unique
@@ -92,7 +100,32 @@ public abstract class ZombieHorseMixin extends AbstractHorse implements Controll
     
     @Unique
     private static double generateZombieHorseSpeed(DoubleSupplier probabilityProvider) {
-        return (9.0D + probabilityProvider.getAsDouble() + probabilityProvider.getAsDouble() + probabilityProvider.getAsDouble()) / 42.16;
+        return (9.0 + probabilityProvider.getAsDouble() + probabilityProvider.getAsDouble() + probabilityProvider.getAsDouble()) / 42.16;
+    }
+    
+    @Override
+    public boolean isMobControlled() {
+        return this.getFirstPassenger() instanceof Mob;
+    }
+    
+    @Override
+    public float chargeSpeedModifier() {
+        return 1.4F;
+    }
+    
+    @Override
+    public boolean isFood(ItemStack stack) {
+        return stack.is(ModItemTags.ZOMBIE_HORSE_FOOD);
+    }
+    
+    @Override
+    public boolean removeWhenFarAway(double distanceToClosestPlayer) {
+        return true;
+    }
+    
+    @Override
+    public boolean canBeLeashed() {
+        return this.isTamed() || !this.isMobControlled();
     }
     
     @Override
@@ -106,16 +139,6 @@ public abstract class ZombieHorseMixin extends AbstractHorse implements Controll
     }
     
     @Override
-    public void containerChanged(Container container) {
-        ItemStack oldArmorItem = this.getBodyArmorItem();
-        super.containerChanged(container);
-        ItemStack newArmorItem = this.getBodyArmorItem();
-        if (this.tickCount > 20 && this.isBodyArmorItem(newArmorItem) && oldArmorItem != newArmorItem) {
-            this.playSound(SoundEvents.HORSE_ARMOR, 0.5F, 1.0F);
-        }
-    }
-    
-    @Override
     public boolean canUseSlot(EquipmentSlot slot) {
         return true;
     }
@@ -126,28 +149,13 @@ public abstract class ZombieHorseMixin extends AbstractHorse implements Controll
     }
     
     @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, @Nullable SpawnGroupData spawnData) {
-        if (reason == MobSpawnType.NATURAL) {
-            Zombie zombie = EntityType.ZOMBIE.create(this.level());
-            if (zombie != null) {
-                zombie.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), 0.0F);
-                zombie.finalizeSpawn(level, difficulty, reason, null);
-                zombie.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(ModItems.IRON_SPEAR.get()));
-                zombie.startRiding((ZombieHorse) (Object) this, false);
-            }
+    public void containerChanged(Container container) {
+        ItemStack oldArmorItem = this.getBodyArmorItem();
+        super.containerChanged(container);
+        ItemStack newArmorItem = this.getBodyArmorItem();
+        if (this.tickCount > 20 && this.isBodyArmorItem(newArmorItem) && oldArmorItem != newArmorItem) {
+            this.playSound(SoundEvents.HORSE_ARMOR, 0.5F, 1.0F);
         }
-        
-        return super.finalizeSpawn(level, difficulty, reason, spawnData);
-    }
-    
-    @Override
-    public boolean canBeLeashed() {
-        return this.isTamed() || !this.isMobControlled();
-    }
-    
-    @Override
-    public boolean isFood(ItemStack stack) {
-        return stack.is(ModItemTags.ZOMBIE_HORSE_FOOD);
     }
     
     @Override
@@ -170,10 +178,5 @@ public abstract class ZombieHorseMixin extends AbstractHorse implements Controll
                 this.igniteForSeconds(8.0F);
             }
         }
-    }
-    
-    @Override
-    public float chargeSpeedModifier() {
-        return 1.4F;
     }
 }

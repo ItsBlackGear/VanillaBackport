@@ -1,13 +1,13 @@
 package com.blackgear.vanillabackport.common.integrations;
 
 import com.blackgear.platform.common.data.LootModifier;
+import com.blackgear.platform.core.events.ServerLifecycleEvents;
 import com.blackgear.vanillabackport.common.registries.worldgen.ModBiomes;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
 import com.blackgear.vanillabackport.common.registries.items.ModItems;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.core.HolderSet;
-import net.minecraft.core.RegistryAccess;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.DamageTypeTags;
@@ -53,7 +53,7 @@ public class LootIntegrations implements LootModifier.LootTableModifier {
     );
 
     @Override
-    public void modify(ResourceKey<LootTable> key, LootModifier.LootTableContext context, boolean builtin, RegistryAccess registries) {
+    public void modify(ResourceKey<LootTable> key, LootModifier.LootTableContext context, boolean builtin) {
         if (key.equals(EntityType.GHAST.getDefaultLootTable()) && VanillaBackport.COMMON_CONFIG.hasTearsMusicDisc.get()) {
             context.addPool(LootPool.lootPool()
                 .setRolls(ConstantValue.exactly(1.0F))
@@ -105,14 +105,17 @@ public class LootIntegrations implements LootModifier.LootTableModifier {
                 .add(LootItem.lootTableItem(Items.LODESTONE).setWeight(2).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 2.0F))))
                 .add(EmptyLootItem.emptyItem().setWeight(1)));
         }
-
-        if (key.equals(BuiltInLootTables.ABANDONED_MINESHAFT) && VanillaBackport.COMMON_CONFIG.hasBounceMusicDisc.get()) {
-            var biomes = registries.lookupOrThrow(Registries.BIOME);
-            context.addToPool(2, LootItem.lootTableItem(ModItems.MUSIC_DISC_BOUNCE.get())
-                .when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(HolderSet.direct(biomes.getOrThrow(ModBiomes.SULFUR_CAVES)))))
-                .setWeight(10)
-                .build());
-        }
+        
+        ServerLifecycleEvents.STARTING.register(server -> {
+           var registries = server.registryAccess();
+            if (key.equals(BuiltInLootTables.ABANDONED_MINESHAFT) && VanillaBackport.COMMON_CONFIG.hasBounceMusicDisc.get()) {
+                var biomes = registries.lookupOrThrow(Registries.BIOME);
+                context.addToPool(2, LootItem.lootTableItem(ModItems.MUSIC_DISC_BOUNCE.get())
+                    .when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(HolderSet.direct(biomes.getOrThrow(ModBiomes.SULFUR_CAVES)))))
+                    .setWeight(10)
+                    .build());
+            }
+        });
         
         // GENERATE COPPER HORSE ARMOR
         if (VanillaBackport.COMMON_CONFIG.hasCopperHorseArmorLoot.get()) {

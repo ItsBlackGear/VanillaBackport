@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.common.level.entities.ai.goal;
 
-import com.blackgear.vanillabackport.common.api.extensions.entity.ControllableMob;
+import com.blackgear.vanillabackport.common.api.extensions.entity.mounts.ControllableMob;
 import com.blackgear.vanillabackport.common.level.components.KineticWeapon;
 import com.blackgear.vanillabackport.common.registries.items.ModDataComponents;
 import com.blackgear.vanillabackport.core.util.WorldUtilities.PathfindingUtils;

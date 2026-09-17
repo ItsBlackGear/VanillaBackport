@@ -111,7 +111,7 @@ public class Nautilus extends AbstractNautilus {
     }
     
     protected void handleAirSupply(int preTickAirSupply) {
-        if (this.isAlive() && !this.isInWaterOrBubble()) {
+        if (this.isAlive() && !this.isInWater()) {
             this.setAirSupply(preTickAirSupply - 1);
             if (this.getAirSupply() <= -20) {
                 this.setAirSupply(0);
