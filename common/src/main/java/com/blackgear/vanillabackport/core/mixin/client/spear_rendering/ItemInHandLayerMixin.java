@@ -48,15 +48,18 @@ public abstract class ItemInHandLayerMixin<T extends LivingEntity, M extends Ent
     ) {
         EntityModel<T> model = this.getParentModel();
         if (model instanceof HumanoidModel<?> parent) {
-            if (parent.attackTime > 0.0F && entity.getMainArm() == arm && SwingAnimation.get(stack).type() == SwingAnimationType.STAB) {
-                SpearAnimations.thirdPersonAttackItem((HumanoidModel<? super LivingEntity>) parent, entity, pose);
-            }
-            
-            float ticksUsingItem = entity.isUsingItem() && entity.getUsedItemHand() == InteractionHand.MAIN_HAND == (arm == entity.getMainArm()) ? entity.getTicksUsingItem() : 0.0F;
-            if (ticksUsingItem != 0.0F) {
-                HumanoidModel.ArmPose armPose = (arm == HumanoidArm.RIGHT ? parent.rightArmPose : parent.leftArmPose);
-                if (armPose == ArmPoses.SPEAR.get()) {
-                    ArmPoses.SPEAR.animateUseItem((HumanoidModel<? super LivingEntity>) parent, entity, pose, ticksUsingItem, arm, stack);
+            var swingAnimation = SwingAnimation.get(stack);
+            if (swingAnimation != null) {
+                if (parent.attackTime > 0.0F && entity.getMainArm() == arm && swingAnimation.type() == SwingAnimationType.STAB) {
+                    SpearAnimations.thirdPersonAttackItem((HumanoidModel<? super LivingEntity>) parent, entity, pose);
+                }
+                
+                float ticksUsingItem = entity.isUsingItem() && entity.getUsedItemHand() == InteractionHand.MAIN_HAND == (arm == entity.getMainArm()) ? entity.getTicksUsingItem() : 0.0F;
+                if (ticksUsingItem != 0.0F) {
+                    HumanoidModel.ArmPose armPose = (arm == HumanoidArm.RIGHT ? parent.rightArmPose : parent.leftArmPose);
+                    if (armPose == ArmPoses.SPEAR.get()) {
+                        ArmPoses.SPEAR.animateUseItem((HumanoidModel<? super LivingEntity>) parent, entity, pose, ticksUsingItem, arm, stack);
+                    }
                 }
             }
         }
