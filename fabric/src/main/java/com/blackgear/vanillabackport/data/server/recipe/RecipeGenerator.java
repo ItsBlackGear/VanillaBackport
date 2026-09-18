@@ -132,7 +132,7 @@ public class RecipeGenerator extends VanillaRecipeProvider {
         stonecutterResultFromBase(output, RecipeCategory.BUILDING_BLOCKS, ModBlocks.SULFUR_BRICKS.get(), ModBlocks.POLISHED_SULFUR.get(), 1);
         stonecutterResultFromBase(output, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CINNABAR_BRICKS.get(), ModBlocks.POLISHED_CINNABAR.get(), 1);
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.SULFUR.get(), 4)
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.SULFUR.get(), 1)
             .define('S', ModBlocks.SULFUR_SPIKE.get())
             .pattern("SS")
             .pattern("SS")
