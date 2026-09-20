@@ -33,6 +33,7 @@ public class ModBlockTags {
 
     public static final TagKey<Block> SPELEOTHEMS = TAGS.register("speleothems");
     public static final TagKey<Block> SULFUR_SPIKE_REPLACEABLE = TAGS.register("sulfur_spike_replaceable");
+    public static final TagKey<Block> SUPPRESSES_BOUNCE = TAGS.register("suppresses_bounce");
     
     public static final TagKey<Block> COPPER_GOLEM_STATUES = TAGS.register("copper_golem_statues");
     public static final TagKey<Block> COPPER_CHESTS = TAGS.register("copper_chests");

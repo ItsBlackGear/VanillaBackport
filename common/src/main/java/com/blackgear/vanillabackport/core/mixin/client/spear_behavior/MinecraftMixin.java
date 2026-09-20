@@ -1,9 +1,12 @@
 package com.blackgear.vanillabackport.core.mixin.client.spear_behavior;
 
+import com.blackgear.platform.core.networking.PayloadDistributor;
 import com.blackgear.vanillabackport.common.api.extensions.entity.spear.PlayerSpearHandler;
 import com.blackgear.vanillabackport.common.api.extensions.entity.spear.ServerSpearHandler;
+import com.blackgear.vanillabackport.common.api.extensions.entity.spear.SpearSwingTracker;
 import com.blackgear.vanillabackport.common.level.components.AttackRange;
 import com.blackgear.vanillabackport.common.level.components.PiercingWeapon;
+import com.blackgear.vanillabackport.core.network.ServerboundUpdateSpearSwingPacket;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.client.Minecraft;
@@ -87,6 +90,22 @@ public abstract class MinecraftMixin {
             if (PiercingWeapon.get(stack) != null) {
                 ci.cancel();
             }
+        }
+    }
+    
+    @Inject(method = "startAttack", at = @At("HEAD"))
+    private void vb$onStartAttack(CallbackInfoReturnable<Boolean> cir) {
+        if (this.player != null) {
+            ((SpearSwingTracker) this.player).vb$setAttackSwing(true);
+            PayloadDistributor.sendToServer(new ServerboundUpdateSpearSwingPacket(true));
+        }
+    }
+    
+    @Inject(method = "startUseItem", at = @At("HEAD"))
+    private void vb$onStartUseItem(CallbackInfo ci) {
+        if (this.player != null) {
+            ((SpearSwingTracker) this.player).vb$setAttackSwing(false);
+            PayloadDistributor.sendToServer(new ServerboundUpdateSpearSwingPacket(false));
         }
     }
 }

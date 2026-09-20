@@ -127,6 +127,18 @@ public final class VanillaBackport {
                 ClientboundTrackedWaypointPacket.STREAM_CODEC,
                 ClientboundTrackedWaypointPacket::handler
             );
+            
+            registrar.registerToClient(
+                ClientboundUpdateSpearSwingPacket.TYPE,
+                ClientboundUpdateSpearSwingPacket.STREAM_CODEC,
+                ClientboundUpdateSpearSwingPacket::handler
+            );
+            
+            registrar.registerToServer(
+                ServerboundUpdateSpearSwingPacket.TYPE,
+                ServerboundUpdateSpearSwingPacket.STREAM_CODEC,
+                ServerboundUpdateSpearSwingPacket::handler
+            );
         });
         
         if (ModChecker.EVERY_COMPAT) EveryCompatHandler.bootstrap();

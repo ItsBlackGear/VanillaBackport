@@ -53,8 +53,8 @@ public class BundledTabSelector {
     private CreativeModeTab lastTab;
 
     private BundledTabSelector() {
-        HudRendering.RENDER_BACKGROUND.register(this::renderBackground);
         HudRendering.POST_INITIALIZE.register(this::init);
+        HudRendering.RENDER_BACKGROUND.register(this::renderBackground);
         HudRendering.CLOSE_CONTAINER.register(this::onClose);
         HudInteractions.SCROLLING_PRE.register(this::onScroll);
     }
@@ -97,9 +97,7 @@ public class BundledTabSelector {
             CreativeModeTab tab = CreativeModeInventoryScreenAccessor.getSelectedTab();
 
             if (this.isValidTab(tab)) {
-                graphics.pose().pushPose();
                 graphics.blit(SELECTOR_BAR, this.guiLeft - 30, this.guiTop + 2, 0, 0, 30, 120);
-                graphics.pose().popPose();
             }
 
             if (this.lastTab != tab) {
@@ -166,23 +164,21 @@ public class BundledTabSelector {
     }
 
     private void updateItems(CreativeModeInventoryScreen screen) {
-        Set<ItemStack> seen = new HashSet<>();
         LinkedHashSet<ItemStack> display = new LinkedHashSet<>();
-        boolean hasSelection = this.hasSelectedBundle();
 
-        ModCreativeTabs.VANILLA_BACKPORT.get().getDisplayItems().forEach(stack -> {
-            if (!hasSelection) {
-                if (seen.add(stack)) display.add(stack.copy());
-            } else {
-                this.bundles.stream()
-                    .filter(BundledTabs::isSelected)
-                    .filter(bundle -> bundle.contains(stack))
-                    .findFirst()
-                    .ifPresent(bundle -> {
-                        if (seen.add(stack)) display.add(stack.copy());
-                    });
-            }
-        });
+        if (!this.hasSelectedBundle()) {
+            ModCreativeTabs.VANILLA_BACKPORT.get().getDisplayItems().forEach(stack -> display.add(stack.copy()));
+        } else {
+            this.bundles.stream()
+                .filter(BundledTabs::isSelected)
+                .forEach(bundle -> {
+                    for (ItemStack stack : bundle.getDisplayItems()) {
+                        if (!stack.isEmpty()) {
+                            display.add(stack.copy());
+                        }
+                    }
+                });
+        }
 
         NonNullList<ItemStack> items = screen.getMenu().items;
         items.clear();

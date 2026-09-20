@@ -13,7 +13,6 @@ import com.blackgear.vanillabackport.core.data.tags.ModItemTags;
 import com.blackgear.vanillabackport.core.mixin.common.access.LivingEntityAccessor;
 import com.blackgear.vanillabackport.core.util.Utilities.*;
 import com.blackgear.vanillabackport.core.util.WorldUtilities.*;
-import it.unimi.dsi.fastutil.doubles.DoubleDoubleImmutablePair;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
@@ -231,9 +230,7 @@ public class SulfurCube extends AbstractCubeMob implements Bucketable, Shearable
     }
 
     @Override
-    protected void addTargetingGoals() {
-        // NO-OP
-    }
+    protected void addTargetingGoals() { /* NO-OP */ }
 
     @Override
     public float getLightLevelDependentMagicValue() {
@@ -252,60 +249,63 @@ public class SulfurCube extends AbstractCubeMob implements Bucketable, Shearable
 
     @Override
     public boolean requiresCustomPersistence() {
-        return super.requiresCustomPersistence() || this.hasBodyItem();
+        return super.requiresCustomPersistence() || this.hasBodyItem() || this.fromBucket();
     }
 
     @Override
     public boolean canBeLeashed() {
         return this.hasBodyItem();
     }
-
+    
     @Override
     public boolean hurt(DamageSource source, float damage) {
-        this.pendingKnockbackSource = null;
-        this.pendingKnockbackDamage = 0F;
         this.pendingKnockbackSource = source;
         this.pendingKnockbackDamage = damage;
-
+        
         if (!this.level().isClientSide() && this.hasBodyItem()) {
             if (this.canExplode() && !this.isPrimed()) {
                 Entity attacker = source.getDirectEntity();
-                if (source.is(DamageTypeTags.IS_FIRE) || attacker instanceof AbstractArrow projectile && projectile.isOnFire()) {
+                if (source.is(DamageTypeTags.IS_FIRE) || (attacker instanceof AbstractArrow arrow && arrow.isOnFire())) {
                     this.primeTime(false);
                 } else if (source.is(DamageTypeTags.IS_EXPLOSION)) {
                     this.primeTime(true);
                 }
             }
-
+            
             if (source.is(ModDamageTypeTags.SULFUR_CUBE_WITH_BLOCK_IMMUNE_TO)) {
                 if (!source.is(ModDamageTypeTags.NO_KNOCKBACK)) {
-                    // deal default knockback
-                    double xd = 0.0;
-                    double zd = 0.0;
-                    if (source.getDirectEntity() instanceof Projectile projectile) {
-                        double dx = projectile.getDeltaMovement().x;
-                        double dz = projectile.getDeltaMovement().z;
-                        if (projectile instanceof FireworkRocketEntity || projectile instanceof ThrownPotion) {
-                            dx = this.position().x - projectile.position().x;
-                            dz = this.position().z - projectile.position().z;
-                        }
-
-                        DoubleDoubleImmutablePair knockbackDirection = DoubleDoubleImmutablePair.of(dx, dz);
-                        xd = -knockbackDirection.leftDouble();
-                        zd = -knockbackDirection.rightDouble();
-                    } else if (source.getSourcePosition() != null) {
-                        xd = source.getSourcePosition().x() - this.getX();
-                        zd = source.getSourcePosition().z() - this.getZ();
-                    }
-
-                    this.knockback(0.4F, xd, zd);
+                    this.dealDefaultKnockback(source, damage, true);
                 }
-
                 return true;
             }
         }
-
+        
         return super.hurt(source, damage);
+    }
+    
+    public void dealDefaultKnockback(DamageSource source, float damage, boolean blocked) {
+        double xd = 0.0;
+        double zd = 0.0;
+        
+        if (source.getDirectEntity() instanceof Projectile projectile) {
+            if (projectile instanceof FireworkRocketEntity || projectile instanceof ThrownPotion) {
+                xd = projectile.getX() - this.getX();
+                zd = projectile.getZ() - this.getZ();
+            } else {
+                Vec3 delta = projectile.getDeltaMovement();
+                xd = -delta.x;
+                zd = -delta.z;
+            }
+        } else if (source.getSourcePosition() != null) {
+            Vec3 pos = source.getSourcePosition();
+            xd = pos.x() - this.getX();
+            zd = pos.z() - this.getZ();
+        }
+        
+        this.knockback(0.4F, xd, zd);
+        if (!blocked) {
+            this.indicateDamage(xd, zd);
+        }
     }
 
     public boolean hasBodyItem() {
@@ -384,9 +384,7 @@ public class SulfurCube extends AbstractCubeMob implements Bucketable, Shearable
             && VanillaBackport.COMMON_CONFIG.doSulfurCubesExplode.get()
             && !this.isPrimed()) {
             int fuse = this.explosionData.get().fuse();
-            int fuseTime = imminent
-                ? this.getRandom().nextInt(fuse / 4) + fuse / 8
-                : fuse;
+            int fuseTime = imminent ? this.getRandom().nextInt(fuse / 4) + fuse / 8 : fuse;
             this.setInvulnerable(true);
             this.setFuse(fuseTime);
             this.entityData.set(MAX_FUSE, fuseTime);
@@ -564,7 +562,7 @@ public class SulfurCube extends AbstractCubeMob implements Bucketable, Shearable
             }
         }
     }
-
+    
     private static <T extends LivingEntity & Bucketable> Optional<InteractionResult> bucketMobPickup(Player player, InteractionHand hand, T pickupEntity) {
         ItemStack itemStack = player.getItemInHand(hand);
         if (itemStack.getItem() == Items.BUCKET && pickupEntity.isAlive()) {
@@ -858,31 +856,9 @@ public class SulfurCube extends AbstractCubeMob implements Bucketable, Shearable
             float horizontalPower = this.knockbackModifier.horizontalPower();
             float verticalPower = this.knockbackModifier.verticalPower();
             Vec2 originalAngle = new Vec2((float) xd, (float) zd);
-            Vec2 newAngle = this.applyHorizontalHitAngleScale(
-                1.6F,
-                originalAngle,
-                attacker.getEyePosition(),
-                attacker.getLookAngle().normalize(),
-                this.getBoundingBox().getCenter()
-            );
-            Vec2 newPower = this.applyVerticalHitAnglePowerTransfer(
-                0.5F,
-                horizontalPower,
-                verticalPower,
-                attacker.getEyePosition(),
-                attacker.getLookAngle().normalize(),
-                this.getBoundingBox().getCenter(),
-                this.getBbHeight()
-            );
-            newPower = this.applyVerticalPositionAnglePowerRotation(
-                0.8F,
-                newPower.x,
-                newPower.y,
-                horizontalPower,
-                verticalPower,
-                attacker.position(),
-                this.position()
-            );
+            Vec2 newAngle = this.applyHorizontalHitAngleScale(1.6F, originalAngle, attacker.getEyePosition(), attacker.getLookAngle().normalize(), this.getBoundingBox().getCenter());
+            Vec2 newPower = this.applyVerticalHitAnglePowerTransfer(0.5F, horizontalPower, verticalPower, attacker.getEyePosition(), attacker.getLookAngle().normalize(), this.getBoundingBox().getCenter(), this.getBbHeight());
+            newPower = this.applyVerticalPositionAnglePowerRotation(0.8F, newPower.x, newPower.y, horizontalPower, verticalPower, attacker.position(), this.position());
             horizontalPower = newPower.x;
             verticalPower = newPower.y;
             xd = newAngle.x;

@@ -8,6 +8,7 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 public record SwingAnimation(SwingAnimationType type, int duration) {
     public static final SwingAnimation DEFAULT = new SwingAnimation(SwingAnimationType.WHACK, 6);
@@ -24,11 +25,18 @@ public record SwingAnimation(SwingAnimationType type, int duration) {
     );
     
     public static SwingAnimation get(ItemStack stack) {
-        Object component = stack.get(ModDataComponents.SWING_ANIMATION.get());
+        if (stack == null || stack.isEmpty()) return DEFAULT;
         
+        var component = stack.get(ModDataComponents.SWING_ANIMATION.get());
         if (component == null) return SwingAnimation.DEFAULT;
         if (component instanceof SwingAnimation animation) return animation;
         
+        return parseForeign(component);
+    }
+    
+    @Deprecated(forRemoval = true)
+    @SuppressWarnings("DeprecatedIsStillUsed")
+    private static @NotNull SwingAnimation parseForeign(Object component) {
         try {
             Class<?> clazz = component.getClass();
             int duration = (int) clazz.getMethod("duration").invoke(component);

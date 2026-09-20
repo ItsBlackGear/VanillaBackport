@@ -19,6 +19,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.phys.*;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
 import java.util.function.Predicate;
@@ -127,6 +128,10 @@ public record AttackRange(
         if (component == null) return null;
         if (component instanceof AttackRange range) return range;
         
+        return parseForeign(component);
+    }
+    
+    private static @Nullable AttackRange parseForeign(Object component) {
         try {
             Class<?> clazz = component.getClass();
             

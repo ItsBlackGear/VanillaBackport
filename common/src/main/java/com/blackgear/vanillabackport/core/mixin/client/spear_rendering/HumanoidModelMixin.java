@@ -1,6 +1,7 @@
 package com.blackgear.vanillabackport.core.mixin.client.spear_rendering;
 
 import com.blackgear.vanillabackport.common.api.extensions.entity.arms.ArmPoses;
+import com.blackgear.vanillabackport.common.api.extensions.entity.spear.SpearSwingTracker;
 import com.blackgear.vanillabackport.common.level.components.SwingAnimation;
 import com.blackgear.vanillabackport.common.level.components.SwingAnimationType;
 import com.blackgear.vanillabackport.common.level.items.spear.SpearAnimations;
@@ -22,12 +23,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class HumanoidModelMixin<T extends LivingEntity> extends AgeableListModel<T> {
     @Shadow public HumanoidModel.ArmPose rightArmPose;
     @Shadow public HumanoidModel.ArmPose leftArmPose;
-
+    
     @Shadow @Final public ModelPart rightArm;
     @Shadow @Final public ModelPart leftArm;
     @Shadow @Final public ModelPart head;
     @Shadow @Final public ModelPart body;
-
+    
     @Inject(method = "poseRightArm", at = @At("HEAD"), cancellable = true)
     private void vb$poseRightArm(T entity, CallbackInfo ci) {
         if (this.rightArmPose == ArmPoses.SPEAR.get()) {
@@ -57,10 +58,11 @@ public abstract class HumanoidModelMixin<T extends LivingEntity> extends Ageable
             ci.cancel();
         }
     }
-
+    
     @Inject(method = "setupAttackAnimation", at = @At("HEAD"), cancellable = true)
-    private void vb$applySpearStabAttack(T entity, float ageInTicks, CallbackInfo ci) {
+    private void vb$attackAnimation(T entity, float ageInTicks, CallbackInfo ci) {
         if (this.attackTime <= 0.0F) return;
+        if (entity instanceof SpearSwingTracker tracker && !tracker.vb$isAttackSwing()) return;
         
         InteractionHand hand = entity.swingingArm;
         ItemStack heldItem = entity.getItemInHand(hand);

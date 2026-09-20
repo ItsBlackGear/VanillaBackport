@@ -1,6 +1,7 @@
 package com.blackgear.vanillabackport.core.mixin.common.spear_behavior;
 
 import com.blackgear.vanillabackport.common.api.extensions.entity.spear.MobSpearHandler;
+import com.blackgear.vanillabackport.common.api.extensions.entity.spear.SpearSwingTracker;
 import com.blackgear.vanillabackport.common.level.components.AttackRange;
 import com.blackgear.vanillabackport.common.level.components.KineticWeapon;
 import com.blackgear.vanillabackport.common.level.components.SwingAnimation;
@@ -34,7 +35,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.function.Predicate;
 
 @Mixin(LivingEntity.class)
-public abstract class LivingEntityMixin extends Entity implements MobSpearHandler {
+public abstract class LivingEntityMixin extends Entity implements MobSpearHandler, SpearSwingTracker {
     @Shadow public abstract ItemStack getItemBySlot(EquipmentSlot slot);
     @Shadow public abstract void setLastHurtMob(Entity entity);
     @Shadow public abstract ItemStack getItemInHand(InteractionHand hand);
@@ -47,9 +48,20 @@ public abstract class LivingEntityMixin extends Entity implements MobSpearHandle
     
     @Unique @Nullable protected Object2LongMap<Entity> recentKineticEnemies;
     @Unique private long lastKineticHitFeedbackTime = -2147483648L;
+    @Unique private boolean vb$isAttackSwing = true;
     
     public LivingEntityMixin(EntityType<?> entityType, Level level) {
         super(entityType, level);
+    }
+    
+    @Override
+    public void vb$setAttackSwing(boolean isAttack) {
+        this.vb$isAttackSwing = isAttack;
+    }
+    
+    @Override
+    public boolean vb$isAttackSwing() {
+        return this.vb$isAttackSwing;
     }
     
     @Override
@@ -89,6 +101,7 @@ public abstract class LivingEntityMixin extends Entity implements MobSpearHandle
             args = "intValue=6"
         ))
     private int vb$getCurrentSwingDuration(int original) {
+        if (!this.vb$isAttackSwing()) return original;
         InteractionHand hand = this.swingingArm != null ? this.swingingArm : InteractionHand.MAIN_HAND;
         ItemStack heldItem = this.getItemInHand(hand);
         return SwingAnimation.get(heldItem).duration();

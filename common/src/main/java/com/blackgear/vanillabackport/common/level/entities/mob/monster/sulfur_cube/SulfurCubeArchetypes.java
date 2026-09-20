@@ -63,7 +63,7 @@ public class SulfurCubeArchetypes {
         soundSettings(ModSoundEvents.SULFUR_CUBE_SLOW_FLAT_HIT, ModSoundEvents.SULFUR_CUBE_SLOW_FLAT_PUSH, 0.03F, 0.9F));
     public static final RegistryKey<SulfurCubeArchetype> FAST_FLAT = register("fast_flat",
         ModItemTags.SULFUR_CUBE_ARCHETYPE_FAST_FLAT,
-        archetype(2.0F, 0.5F, 0.2F, 0.01F),
+        archetype(1.0F, 0.5F, 0.2F, 0.01F),
         false,
         Optional.empty(),
         Optional.empty(),
