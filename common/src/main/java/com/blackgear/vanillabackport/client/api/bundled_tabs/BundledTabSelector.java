@@ -165,23 +165,21 @@ public class BundledTabSelector {
     }
 
     private void updateItems(CreativeModeInventoryScreen screen) {
-        Set<ItemStack> seen = new HashSet<>();
         LinkedHashSet<ItemStack> display = new LinkedHashSet<>();
-        boolean hasSelection = this.hasSelectedBundle();
 
-        ModCreativeTabs.VANILLA_BACKPORT.get().getDisplayItems().forEach(stack -> {
-            if (!hasSelection) {
-                if (seen.add(stack)) display.add(stack.copy());
-            } else {
-                this.bundles.stream()
-                    .filter(BundledTabs::isSelected)
-                    .filter(bundle -> bundle.contains(stack))
-                    .findFirst()
-                    .ifPresent(bundle -> {
-                        if (seen.add(stack)) display.add(stack.copy());
-                    });
-            }
-        });
+        if (!this.hasSelectedBundle()) {
+            ModCreativeTabs.VANILLA_BACKPORT.get().getDisplayItems().forEach(stack -> display.add(stack.copy()));
+        } else {
+            this.bundles.stream()
+                .filter(BundledTabs::isSelected)
+                .forEach(bundle -> {
+                    for (ItemStack stack : bundle.getDisplayItems()) {
+                        if (!stack.isEmpty()) {
+                            display.add(stack.copy());
+                        }
+                    }
+                });
+        }
 
         NonNullList<ItemStack> items = screen.getMenu().items;
         items.clear();

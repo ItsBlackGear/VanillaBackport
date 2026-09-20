@@ -1,6 +1,7 @@
 package com.blackgear.vanillabackport.core.mixin.client.spear_rendering;
 
 import com.blackgear.vanillabackport.common.api.extensions.entity.arms.ArmPoses;
+import com.blackgear.vanillabackport.common.api.extensions.entity.spear.SpearSwingTracker;
 import com.blackgear.vanillabackport.common.level.items.spear.SpearAnimations;
 import com.blackgear.vanillabackport.common.level.items.spear.SwingAnimation;
 import com.blackgear.vanillabackport.common.level.items.spear.SwingAnimationType;
@@ -59,8 +60,10 @@ public abstract class HumanoidModelMixin<T extends LivingEntity> extends Ageable
     @Inject(method = "setupAttackAnimation", at = @At("HEAD"), cancellable = true)
     private void vb$attackAnimation(T entity, float ageInTicks, CallbackInfo ci) {
         if (this.attackTime <= 0.0F) return;
+        if (entity instanceof SpearSwingTracker tracker && !tracker.vb$isAttackSwing()) return;
         
         InteractionHand hand = entity.swingingArm;
+        if (hand == null) return;
         ItemStack heldItem = entity.getItemInHand(hand);
         
         SwingAnimation animation = SwingAnimation.get(heldItem);

@@ -230,9 +230,7 @@ public class SulfurCube extends AbstractCubeMob implements Bucketable, Shearable
     }
 
     @Override
-    protected void addTargetingGoals() {
-        // NO-OP
-    }
+    protected void addTargetingGoals() { /* NO-OP */ }
 
     @Override
     public float getLightLevelDependentMagicValue() {
@@ -251,7 +249,7 @@ public class SulfurCube extends AbstractCubeMob implements Bucketable, Shearable
 
     @Override
     public boolean requiresCustomPersistence() {
-        return super.requiresCustomPersistence() || this.hasBodyItem();
+        return super.requiresCustomPersistence() || this.hasBodyItem() || this.fromBucket();
     }
 
     @Override
@@ -383,9 +381,7 @@ public class SulfurCube extends AbstractCubeMob implements Bucketable, Shearable
             && VanillaBackport.COMMON_CONFIG.doSulfurCubesExplode.get()
             && !this.isPrimed()) {
             int fuse = this.explosionData.get().fuse();
-            int fuseTime = imminent
-                ? this.getRandom().nextInt(fuse / 4) + fuse / 8
-                : fuse;
+            int fuseTime = imminent ? this.getRandom().nextInt(fuse / 4) + fuse / 8 : fuse;
             this.setInvulnerable(true);
             this.setFuse(fuseTime);
             this.entityData.set(MAX_FUSE, fuseTime);

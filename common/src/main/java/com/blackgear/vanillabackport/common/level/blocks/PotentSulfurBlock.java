@@ -96,14 +96,7 @@ public class PotentSulfurBlock extends BaseEntityBlock {
         super.onPlace(state, level, pos, oldState, movedByPiston);
         if (state.getValue(STATE) == PotentSulfurState.ERUPTING || state.getValue(STATE) == PotentSulfurState.CONTINUOUS) {
             level.blockEvent(pos, this, 0, 0);
-            level.playSound(
-                null,
-                pos,
-                state.getValue(STATE) == PotentSulfurState.CONTINUOUS ? ModSoundEvents.GEYSER_CONTINUOUS_START.get() : ModSoundEvents.GEYSER_ERUPTION_START.get(),
-                SoundSource.BLOCKS,
-                1.0F,
-                1.0F
-            );
+            level.playSound(null, pos, state.getValue(STATE) == PotentSulfurState.CONTINUOUS ? ModSoundEvents.GEYSER_CONTINUOUS_START.get() : ModSoundEvents.GEYSER_ERUPTION_START.get(), SoundSource.BLOCKS, 1.0F, 1.0F);
             level.gameEvent(GameEvent.BLOCK_ACTIVATE, pos, GameEvent.Context.of(state));
         }
     }
@@ -115,31 +108,14 @@ public class PotentSulfurBlock extends BaseEntityBlock {
                 spawnBubbleParticlesAt(level, random, pos.getX(), pos.getY() + 1, pos.getZ());
                 spawnBubbleParticlesAt(level, random, pos.getX(), pos.getY() + 1, pos.getZ());
                 if (random.nextInt(10) == 0) {
-                    level.playLocalSound(
-                        pos.getX(),
-                        pos.getY(),
-                        pos.getZ(),
-                        ModSoundEvents.NOXIOUS_GAS.get(),
-                        SoundSource.AMBIENT,
-                        1.0F,
-                        1.0F,
-                        false
-                    );
+                    level.playLocalSound(pos.getX(), pos.getY(), pos.getZ(), ModSoundEvents.NOXIOUS_GAS.get(), SoundSource.AMBIENT, 1.0F, 1.0F, false);
                 }
             }
         }
     }
 
     private static void spawnBubbleParticlesAt(Level level, RandomSource random, double x, double y, double z) {
-        level.addAlwaysVisibleParticle(
-            ModParticles.SULFUR_BUBBLES.get(),
-            x + random.nextFloat(),
-            y + random.nextFloat(),
-            z + random.nextFloat(),
-            0.0,
-            0.0,
-            0.0
-        );
+        level.addAlwaysVisibleParticle(ModParticles.SULFUR_BUBBLES.get(), x + random.nextFloat(), y + random.nextFloat(), z + random.nextFloat(), 0.0, 0.0, 0.0);
     }
 
     @Override
@@ -156,13 +132,9 @@ public class PotentSulfurBlock extends BaseEntityBlock {
         boolean client = level.isClientSide();
 
         if (!VanillaBackport.COMMON_CONFIG.doGeysersErupt.get()) {
-            return createTickerHelper(
-                type,
-                ModBlockEntities.POTENT_SULFUR.get(),
-                state.getValue(STATE) == PotentSulfurState.DRY
-                    ? null
-                    : client ? CLIENT_NOXIOUS_GAS_TICKER : SERVER_NAUSEA_EFFECT_TICKER
-            );
+            return createTickerHelper(type, ModBlockEntities.POTENT_SULFUR.get(), state.getValue(STATE) == PotentSulfurState.DRY
+                ? null
+                : client ? CLIENT_NOXIOUS_GAS_TICKER : SERVER_NAUSEA_EFFECT_TICKER);
         }
 
         return createTickerHelper(

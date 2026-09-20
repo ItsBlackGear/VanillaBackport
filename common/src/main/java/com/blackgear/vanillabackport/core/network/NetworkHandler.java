@@ -10,8 +10,10 @@ public class NetworkHandler {
     public static void bootstrap() {
         DEFAULT_CHANNEL.registerPacket(NetworkDirection.CLIENTBOUND, ClientboundNautilusScreenOpenPacket.ID, ClientboundNautilusScreenOpenPacket.HANDLER, ClientboundNautilusScreenOpenPacket.class);
         DEFAULT_CHANNEL.registerPacket(NetworkDirection.CLIENTBOUND, ClientboundTrackedWaypointPacket.ID, ClientboundTrackedWaypointPacket.HANDLER, ClientboundTrackedWaypointPacket.class);
+        DEFAULT_CHANNEL.registerPacket(NetworkDirection.CLIENTBOUND, ClientboundUpdateSpearSwingPacket.ID, ClientboundUpdateSpearSwingPacket.HANDLER, ClientboundUpdateSpearSwingPacket.class);
         
         DEFAULT_CHANNEL.registerPacket(NetworkDirection.SERVERBOUND, ServerboundSelectBundleItemPacket.ID, ServerboundSelectBundleItemPacket.HANDLER, ServerboundSelectBundleItemPacket.class);
         DEFAULT_CHANNEL.registerPacket(NetworkDirection.SERVERBOUND, ServerboundClientTickEndPacket.ID, ServerboundClientTickEndPacket.HANDLER, ServerboundClientTickEndPacket.class);
+        DEFAULT_CHANNEL.registerPacket(NetworkDirection.SERVERBOUND, ServerboundUpdateSpearSwingPacket.ID, ServerboundUpdateSpearSwingPacket.HANDLER, ServerboundUpdateSpearSwingPacket.class);
     }
 }

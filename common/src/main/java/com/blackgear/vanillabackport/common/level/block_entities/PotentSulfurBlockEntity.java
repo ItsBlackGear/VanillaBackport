@@ -128,6 +128,7 @@ public class PotentSulfurBlockEntity extends BlockEntity {
                 entityToBeLaunched.checkSlowFallDistance();
                 if (!(entityToBeLaunched instanceof Player player && player.getAbilities().flying)
                     && !entityToBeLaunched.getType().is(ModEntityTypeTags.NOT_AFFECTED_BY_GEYSERS)
+                    && !entityToBeLaunched.isPassenger()
                     && velocity.y < 0.3F + waterBlocks * 0.1) {
                     entityToBeLaunched.addDeltaMovement(new Vec3(0.0, 0.2F, 0.0));
                     entityToBeLaunched.hurtMarked = true;

@@ -57,11 +57,9 @@ public class ClientSetup {
 
     public static void asyncSetup(ParallelDispatch dispatch) {
         dispatch.enqueueWork(() -> {
+            BundledTabSelector.bootstrap();
             ItemPropertyIntegrations.bootstrap();
-            LocalPlayerEvents.ON_LOGIN.register(player -> {
-                BundledTabSelector.bootstrap();
-                ClientWaypointManager.bootstrap();
-            });
+            LocalPlayerEvents.ON_LOGIN.register(player -> ClientWaypointManager.bootstrap());
             LivingEntityRendererCallback.APPEND_LAYERS.register(EntityRendering::renderLayers);
             LocalPlayerEvents.ON_LOGOUT.register(player -> ClientWaypointManager.INSTANCE.clear());
         });

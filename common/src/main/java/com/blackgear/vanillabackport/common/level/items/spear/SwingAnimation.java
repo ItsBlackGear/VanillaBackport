@@ -7,6 +7,6 @@ public record SwingAnimation(SwingAnimationType type, int duration) {
     public static final SwingAnimation DEFAULT = new SwingAnimation(SwingAnimationType.WHACK, 6);
     
     public static @Nullable SwingAnimation get(ItemStack stack) {
-        return stack.getItem() instanceof SpearItem spear ? spear.getSwingAnimation() : null;
+        return stack.getItem() instanceof SpearItem spear ? spear.getSwingAnimation() : DEFAULT;
     }
 }

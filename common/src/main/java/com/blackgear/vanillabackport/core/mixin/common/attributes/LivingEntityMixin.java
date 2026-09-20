@@ -9,6 +9,7 @@ import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -29,14 +30,12 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends EntityMixin {
     @Shadow protected abstract boolean isAffectedByFluids();
-
+    
     @ModifyReturnValue(method = "createLivingAttributes", at = @At("RETURN"))
-    private static AttributeSupplier.Builder createLivingAttributes(AttributeSupplier.Builder original) {
-        original.add(ModAttributes.AIR_DRAG_MODIFIER);
-        original.add(ModAttributes.BOUNCINESS);
-        original.add(ModAttributes.FRICTION_MODIFIER);
-
-        return original;
+    private static AttributeSupplier.Builder vb$registerAttributes(AttributeSupplier.Builder original) {
+        return original.add(ModAttributes.AIR_DRAG_MODIFIER)
+            .add(ModAttributes.BOUNCINESS)
+            .add(ModAttributes.FRICTION_MODIFIER);
     }
 
     @Inject(
@@ -55,7 +54,7 @@ public abstract class LivingEntityMixin extends EntityMixin {
             }
         }
     }
-
+    
     @ModifyArg(
         method = "travel",
         at = @At(
@@ -64,14 +63,14 @@ public abstract class LivingEntityMixin extends EntityMixin {
         ),
         index = 1
     )
-    private float vb$handleMovementFriction(float rawFriction) {
+    private float vb$modifyGroundFriction(float rawFriction) {
         LivingEntity self = (LivingEntity) (Object) this;
-        if (!self.onGround()) return 1.0F;
-        var inst = self.getAttribute(ModAttributes.FRICTION_MODIFIER);
-        if (inst == null) return rawFriction;
-        return vb$computeModifiedFriction(rawFriction, (float) inst.getValue());
+        if (!self.onGround()) return rawFriction;
+        
+        double modifier = vb$getOrDefault(self, ModAttributes.FRICTION_MODIFIER, 1.0);
+        return modifier == 1.0 ? rawFriction : vb$computeFriction(rawFriction, (float) modifier);
     }
-
+    
     @WrapOperation(
         method = "travel",
         at = @At(
@@ -80,47 +79,47 @@ public abstract class LivingEntityMixin extends EntityMixin {
             ordinal = 3
         )
     )
-    private void vb$applyAirDrag(LivingEntity self, double argX, double argY, double argZ, Operation<Void> original) {
-        BlockPos posBelow = ((EntityAccessor) self).callGetBlockPosBelowThatAffectsMyMovement();
-        boolean isFlyingAnimal = self instanceof FlyingAnimal;
-        float rawFriction = self.level().getBlockState(posBelow).getBlock().getFriction();
-
-        float xzFriction = self.onGround() ? rawFriction * 0.91F : 0.91F;
-        float yFriction = isFlyingAnimal ? xzFriction : 0.98F;
-
-        double xMovement = xzFriction != 0.0F ? argX / xzFriction : argX;
-        double zMovement = xzFriction != 0.0F ? argZ / xzFriction : argZ;
-        double yMovement = yFriction != 0.0F ? argY / yFriction : argY;
-
-        float frictionModifier = (float) vb$getOrDefault(self, ModAttributes.FRICTION_MODIFIER);
-        float airDragModifier = (float) vb$getOrDefault(self, ModAttributes.AIR_DRAG_MODIFIER);
-
-        float blockFriction = self.onGround()
-            ? vb$computeModifiedFriction(rawFriction, frictionModifier)
-            : 1.0F;
-        float airDrag = vb$computeModifiedFriction(0.91F, airDragModifier);
-        float friction = blockFriction * airDrag;
-
-        boolean omnidirectional = self instanceof TravelAwareEntity traveller && traveller.omnidirectionalAirMover();
-        float verticalFriction = vb$computeModifiedFriction(0.98F, airDragModifier);
-
-        if (omnidirectional || isFlyingAnimal) {
-            verticalFriction = friction;
+    private void vb$applyAirAndBlockDrag(LivingEntity self, double rawX, double rawY, double rawZ, Operation<Void> original) {
+        double frictionModifier = vb$getOrDefault(self, ModAttributes.FRICTION_MODIFIER, 1.0);
+        double airDragModifier = vb$getOrDefault(self, ModAttributes.AIR_DRAG_MODIFIER, 1.0);
+        
+        if (frictionModifier == 1.0 && airDragModifier == 1.0) {
+            original.call(self, rawX, rawY, rawZ);
+            return;
         }
-
-        original.call(self, xMovement * friction, yMovement * verticalFriction, zMovement * friction);
+        
+        BlockPos posBelow = ((EntityAccessor) self).callGetBlockPosBelowThatAffectsMyMovement();
+        float rawFriction = self.level().getBlockState(posBelow).getBlock().getFriction();
+        
+        boolean isFlyingAnimal = self instanceof FlyingAnimal;
+        float vanillaFriction = self.onGround() ? rawFriction * 0.91F : 0.91F;
+        float vanillaVertical = isFlyingAnimal ? vanillaFriction : 0.98F;
+        
+        double cleanX = vanillaFriction != 0.0F ? rawX / vanillaFriction : rawX;
+        double cleanY = vanillaVertical != 0.0F ? rawY / vanillaVertical : rawY;
+        double cleanZ = vanillaFriction != 0.0F ? rawZ / vanillaFriction : rawZ;
+        
+        float blockFriction = self.onGround() ? vb$computeFriction(rawFriction, (float) frictionModifier) : 1.0F;
+        float airDrag = vb$computeFriction(0.91F, (float) airDragModifier);
+        float horizontalFriction = blockFriction * airDrag;
+        
+        boolean isOmnidirectional = self instanceof TravelAwareEntity traveller && traveller.omnidirectionalAirMover();
+        float verticalFriction = (isFlyingAnimal || isOmnidirectional)
+            ? airDrag
+            : vb$computeFriction(0.98F, (float) airDragModifier);
+        
+        original.call(self, cleanX * horizontalFriction, cleanY * verticalFriction, cleanZ * horizontalFriction);
     }
-
+    
     @Unique
-    private static float vb$computeModifiedFriction(float friction, float modifier) {
+    private static float vb$computeFriction(float friction, float modifier) {
         return Mth.clamp(1.0F - (1.0F - friction) * modifier, 0.0F, 1.0F);
     }
-
+    
     @Unique
-    private static double vb$getOrDefault(Entity entity, Attribute attribute) {
-        if (!(entity instanceof LivingEntity living)) return 1.0;
-
+    private static double vb$getOrDefault(Entity entity, Attribute attribute, double fallback) {
+        if (!(entity instanceof LivingEntity living)) return fallback;
         AttributeInstance instance = living.getAttribute(attribute);
-        return instance != null ? instance.getValue() : 1.0;
+        return instance != null ? instance.getValue() : fallback;
     }
 }

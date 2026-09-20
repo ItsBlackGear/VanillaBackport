@@ -48,9 +48,9 @@ public abstract class ItemInHandLayerMixin<T extends LivingEntity, M extends Ent
     ) {
         EntityModel<T> model = this.getParentModel();
         if (model instanceof HumanoidModel<?> parent) {
-            var swingAnimation = SwingAnimation.get(stack);
-            if (swingAnimation != null) {
-                if (parent.attackTime > 0.0F && entity.getMainArm() == arm && swingAnimation.type() == SwingAnimationType.STAB) {
+            var animation = SwingAnimation.get(stack);
+            if (animation != null) {
+                if (parent.attackTime > 0.0F && entity.getMainArm() == arm && animation.type() == SwingAnimationType.STAB) {
                     SpearAnimations.thirdPersonAttackItem((HumanoidModel<? super LivingEntity>) parent, entity, pose);
                 }
                 

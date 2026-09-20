@@ -220,6 +220,9 @@ public class BlockTagGenerator extends FabricTagProvider.BlockTagProvider {
                 ModBlocks.SULFUR.get(),
                 ModBlocks.CINNABAR.get()
             );
+        
+        this.getOrCreateTagBuilder(ModBlockTags.SUPPRESSES_BOUNCE)
+            .add(Blocks.HONEY_BLOCK);
 
         this.getOrCreateTagBuilder(ModBlockTags.COPPER_CHESTS)
             .add(

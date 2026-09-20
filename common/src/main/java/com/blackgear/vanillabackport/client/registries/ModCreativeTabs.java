@@ -28,6 +28,7 @@ public interface ModCreativeTabs {
                     tabs.forEach(tab -> tab.populate(provider));
                     tabs.stream()
                         .flatMap(tab -> tab.getDisplayItems().stream())
+                        .filter(stack -> !stack.isEmpty())
                         .forEach(output::accept);
                 }
             })

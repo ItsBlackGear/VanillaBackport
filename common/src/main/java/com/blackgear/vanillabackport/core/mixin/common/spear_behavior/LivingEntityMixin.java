@@ -1,6 +1,7 @@
 package com.blackgear.vanillabackport.core.mixin.common.spear_behavior;
 
 import com.blackgear.vanillabackport.common.api.extensions.entity.spear.MobSpearHandler;
+import com.blackgear.vanillabackport.common.api.extensions.entity.spear.SpearSwingTracker;
 import com.blackgear.vanillabackport.common.level.items.enchantment.EnchantmentUtils;
 import com.blackgear.vanillabackport.common.level.items.spear.AttackRange;
 import com.blackgear.vanillabackport.common.level.items.spear.KineticWeapon;
@@ -32,7 +33,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.function.Predicate;
 
 @Mixin(LivingEntity.class)
-public abstract class LivingEntityMixin extends Entity implements MobSpearHandler {
+public abstract class LivingEntityMixin extends Entity implements MobSpearHandler, SpearSwingTracker {
     @Shadow public abstract ItemStack getItemBySlot(EquipmentSlot slot);
     @Shadow public abstract void setLastHurtMob(Entity entity);
     @Shadow public abstract ItemStack getItemInHand(InteractionHand hand);
@@ -44,9 +45,20 @@ public abstract class LivingEntityMixin extends Entity implements MobSpearHandle
     
     @Unique @Nullable protected Object2LongMap<Entity> recentKineticEnemies;
     @Unique private long lastKineticHitFeedbackTime = -2147483648L;
+    @Unique private boolean vb$isAttackSwing = true;
     
     public LivingEntityMixin(EntityType<?> entityType, Level level) {
         super(entityType, level);
+    }
+    
+    @Override
+    public void vb$setAttackSwing(boolean isAttack) {
+        this.vb$isAttackSwing = isAttack;
+    }
+    
+    @Override
+    public boolean vb$isAttackSwing() {
+        return this.vb$isAttackSwing;
     }
     
     @Override
@@ -84,6 +96,7 @@ public abstract class LivingEntityMixin extends Entity implements MobSpearHandle
             args = "intValue=6"
         ))
     private int vb$getCurrentSwingDuration(int original) {
+        if (!this.vb$isAttackSwing()) return original;
         ItemStack heldItem = this.getItemInHand(InteractionHand.MAIN_HAND);
         SwingAnimation animation = SwingAnimation.get(heldItem);
         if (animation == null) return original;
@@ -176,7 +189,7 @@ public abstract class LivingEntityMixin extends Entity implements MobSpearHandle
         }
     }
     
-    @Inject(method = "handleEntityEvent", at = @At("HEAD"))
+    @Inject(method = "handleEntityEvent", at = @At("HEAD"), cancellable = true)
     private void vb$handleEntityEvent(byte id, CallbackInfo ci) {
         if (id == 2) {
             this.onKineticHit();

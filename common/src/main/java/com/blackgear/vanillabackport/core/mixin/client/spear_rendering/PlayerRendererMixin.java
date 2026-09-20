@@ -1,6 +1,7 @@
 package com.blackgear.vanillabackport.core.mixin.client.spear_rendering;
 
 import com.blackgear.vanillabackport.common.api.extensions.entity.arms.ArmPoses;
+import com.blackgear.vanillabackport.common.api.extensions.entity.spear.SpearSwingTracker;
 import com.blackgear.vanillabackport.common.level.items.spear.SwingAnimation;
 import com.blackgear.vanillabackport.common.level.items.spear.SwingAnimationType;
 import com.blackgear.vanillabackport.core.data.tags.ModItemTags;
@@ -35,6 +36,7 @@ public abstract class PlayerRendererMixin {
     @Unique
     private static boolean vb$usesSpearPose(ItemStack item, HumanoidArm arm, LivingEntity entity) {
         if (entity.swinging) {
+            if (entity instanceof SpearSwingTracker tracker && !tracker.vb$isAttackSwing()) return false;
             InteractionHand swingingHand = entity.swingingArm;
             HumanoidArm swingingArm = (swingingHand == InteractionHand.MAIN_HAND)
                 ? entity.getMainArm()
