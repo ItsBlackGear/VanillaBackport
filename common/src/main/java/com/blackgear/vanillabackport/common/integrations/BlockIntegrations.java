@@ -7,6 +7,7 @@ import com.blackgear.vanillabackport.common.integrations.dispenser.EggVariantPro
 import com.blackgear.vanillabackport.common.integrations.dispenser.SulfurCubeBucketDispenseBehavior;
 import com.blackgear.vanillabackport.common.level.entities.mob.animal.chicken.ChickenVariants;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
+import com.blackgear.vanillabackport.common.registries.entities.ModBoatTypes;
 import com.blackgear.vanillabackport.common.registries.items.ModItems;
 import com.blackgear.vanillabackport.core.data.tags.ModItemTags;
 import net.minecraft.world.item.Items;
@@ -52,7 +53,9 @@ public class BlockIntegrations {
         event.registerFlammableBlock(ModBlocks.TALL_DRY_GRASS.get(), 60, 100);
         event.registerFlammableBlock(ModBlocks.LEAF_LITTER.get(), 60, 100);
         
-        // Miscellaneous
+        // Wilderness Bound
+        event.registerFlammableBlock(ModBlocks.STRAW_BED.get(), 30, 60);
+        
         event.registerFlammableBlock(ModBlocks.WHITE_WOOL_STAIRS.get(), 30, 60);
         event.registerFlammableBlock(ModBlocks.ORANGE_WOOL_STAIRS.get(), 30, 60);
         event.registerFlammableBlock(ModBlocks.MAGENTA_WOOL_STAIRS.get(), 30, 60);
@@ -94,7 +97,7 @@ public class BlockIntegrations {
         event.registerCompostableItem(ModBlocks.PALE_OAK_SAPLING.get(), 0.3F);
         event.registerCompostableItem(ModBlocks.PALE_MOSS_CARPET.get(), 0.3F);
         event.registerCompostableItem(ModBlocks.PALE_HANGING_MOSS.get(), 0.3F);
-        event.registerCompostableItem(ModBlocks.PALE_MOSS_BLOCK.get(), 0.3F);
+        event.registerCompostableItem(ModBlocks.PALE_MOSS_BLOCK.get(), 0.65F);
         event.registerCompostableItem(ModBlocks.OPEN_EYEBLOSSOM.get(), 0.65F);
         event.registerCompostableItem(ModBlocks.CLOSED_EYEBLOSSOM.get(), 0.65F);
         
@@ -112,6 +115,10 @@ public class BlockIntegrations {
         // The Garden Awakens
         event.registerStrippableBlock(ModBlocks.PALE_OAK_LOG.get(), ModBlocks.STRIPPED_PALE_OAK_LOG.get());
         event.registerStrippableBlock(ModBlocks.PALE_OAK_WOOD.get(), ModBlocks.STRIPPED_PALE_OAK_WOOD.get());
+        
+        // Wilderness Bound
+        event.registerStrippableBlock(ModBlocks.POPLAR_LOG.get(), ModBlocks.STRIPPED_POPLAR_LOG.get());
+        event.registerStrippableBlock(ModBlocks.POPLAR_WOOD.get(), ModBlocks.STRIPPED_POPLAR_WOOD.get());
     }
     
     private static void registerWaxables(Event event) {
@@ -157,8 +164,8 @@ public class BlockIntegrations {
         event.registerDispenserBehavior(Items.BRUSH, new ArmadilloBrushDispenseBehavior());
         
         // The Garden Awakens
-        event.registerDispenserBehavior(ModItems.PALE_OAK_BOAT.get(), new BoatDispenseBehavior());
-        event.registerDispenserBehavior(ModItems.PALE_OAK_CHEST_BOAT.get(), new BoatDispenseBehavior(true));
+        event.registerDispenserBehavior(ModItems.PALE_OAK_BOAT.get(), new BoatDispenseBehavior(ModBoatTypes.PALE_OAK));
+        event.registerDispenserBehavior(ModItems.PALE_OAK_CHEST_BOAT.get(), new BoatDispenseBehavior(ModBoatTypes.PALE_OAK, true));
         
         // Spring to Life
         event.registerDispenserBehavior(ModItems.BLUE_EGG.get(), new EggVariantProjectileDispenseBehavior(ChickenVariants.COLD));
@@ -166,6 +173,10 @@ public class BlockIntegrations {
         
         // Chaos Cubed
         event.registerDispenserBehavior(ModItems.SULFUR_CUBE_BUCKET.get(), new SulfurCubeBucketDispenseBehavior());
+        
+        // Wilderness Bound
+        event.registerDispenserBehavior(ModItems.POPLAR_BOAT.get(), new BoatDispenseBehavior(ModBoatTypes.POPLAR));
+        event.registerDispenserBehavior(ModItems.POPLAR_CHEST_BOAT.get(), new BoatDispenseBehavior(ModBoatTypes.POPLAR, true));
     }
     
     public static void bootstrap(Event event) {

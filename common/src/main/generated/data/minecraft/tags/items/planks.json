@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "minecraft:pale_oak_planks"
+    "minecraft:pale_oak_planks",
+    "minecraft:poplar_planks"
   ]
 }

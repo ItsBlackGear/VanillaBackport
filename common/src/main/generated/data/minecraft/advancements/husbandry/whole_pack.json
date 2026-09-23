@@ -154,31 +154,31 @@
   },
   "requirements": [
     [
-      "minecraft:striped"
-    ],
-    [
-      "minecraft:chestnut"
-    ],
-    [
-      "minecraft:rusty"
-    ],
-    [
-      "minecraft:ashen"
-    ],
-    [
-      "minecraft:snowy"
+      "minecraft:woods"
     ],
     [
       "minecraft:black"
     ],
     [
-      "minecraft:woods"
+      "minecraft:snowy"
     ],
     [
-      "minecraft:spotted"
+      "minecraft:ashen"
+    ],
+    [
+      "minecraft:rusty"
+    ],
+    [
+      "minecraft:chestnut"
+    ],
+    [
+      "minecraft:striped"
     ],
     [
       "minecraft:pale"
+    ],
+    [
+      "minecraft:spotted"
     ]
   ],
   "rewards": {

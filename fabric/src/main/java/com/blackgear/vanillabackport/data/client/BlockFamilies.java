@@ -75,6 +75,20 @@ public class BlockFamilies {
         .slab(ModBlocks.CINNABAR_BRICK_SLAB.get())
         .getFamily();
     
+    public static final BlockFamily POPLAR_PLANKS = familyBuilder(ModBlocks.POPLAR_PLANKS.get())
+        .button(ModBlocks.POPLAR_BUTTON.get())
+        .fence(ModBlocks.POPLAR_FENCE.get())
+        .fenceGate(ModBlocks.POPLAR_FENCE_GATE.get())
+        .pressurePlate(ModBlocks.POPLAR_PRESSURE_PLATE.get())
+        .sign(ModBlocks.POPLAR_SIGN.getFirst().get(), ModBlocks.POPLAR_SIGN.getSecond().get())
+        .slab(ModBlocks.POPLAR_SLAB.get())
+        .stairs(ModBlocks.POPLAR_STAIRS.get())
+        .door(ModBlocks.POPLAR_DOOR.get())
+        .trapdoor(ModBlocks.POPLAR_TRAPDOOR.get())
+        .recipeGroupPrefix("wooden")
+        .recipeUnlockedBy("has_planks")
+        .getFamily();
+    
     public static final BlockFamily BLACK_WOOL = familyBuilder(Blocks.BLACK_WOOL)
         .stairs(ModBlocks.BLACK_WOOL_STAIRS.get())
         .slab(ModBlocks.BLACK_WOOL_SLAB.get())

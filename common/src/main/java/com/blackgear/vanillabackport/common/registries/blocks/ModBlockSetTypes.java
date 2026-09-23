@@ -4,4 +4,5 @@ import net.minecraft.world.level.block.state.properties.BlockSetType;
 
 public class ModBlockSetTypes {
     public static final BlockSetType PALE_OAK = new BlockSetType("pale_oak");
+    public static final BlockSetType POPLAR = new BlockSetType("poplar");
 }

@@ -56,4 +56,24 @@ public class ModBiomeTags {
 
     public static final TagKey<Biome> HAS_DARK_LEAF_LITTER = TAGS.register("has_dark_leaf_litter");
     public static final TagKey<Biome> HAS_PALE_LEAF_LITTER = TAGS.register("has_pale_leaf_litter");
+    public static final TagKey<Biome> HAS_RED_LEAF_LITTER = TAGS.register("has_red_leaf_litter");
+    
+    public static final TagKey<Biome> HAS_ABANDONED_CAMP_BAMBOO_JUNGLE = TAGS.register("has_structure/abandoned_camp_bamboo_jungle");
+    public static final TagKey<Biome> HAS_ABANDONED_CAMP_BIRCH_FOREST = TAGS.register("has_structure/abandoned_camp_birch_forest");
+    public static final TagKey<Biome> HAS_ABANDONED_CAMP_CHERRY_GROVE = TAGS.register("has_structure/abandoned_camp_cherry_grove");
+    public static final TagKey<Biome> HAS_ABANDONED_CAMP_DAPPLED_FOREST = TAGS.register("has_structure/abandoned_camp_dappled_forest");
+    public static final TagKey<Biome> HAS_ABANDONED_CAMP_FLOWER_FOREST = TAGS.register("has_structure/abandoned_camp_flower_forest");
+    public static final TagKey<Biome> HAS_ABANDONED_CAMP_FOREST = TAGS.register("has_structure/abandoned_camp_forest");
+    public static final TagKey<Biome> HAS_ABANDONED_CAMP_MEADOW = TAGS.register("has_structure/abandoned_camp_meadow");
+    public static final TagKey<Biome> HAS_ABANDONED_CAMP_OLD_GROWTH_BIRCH_FOREST = TAGS.register("has_structure/abandoned_camp_old_growth_birch_forest");
+    public static final TagKey<Biome> HAS_ABANDONED_CAMP_OLD_GROWTH_PINE_TAIGA = TAGS.register("has_structure/abandoned_camp_old_growth_pine_taiga");
+    public static final TagKey<Biome> HAS_ABANDONED_CAMP_OLD_GROWTH_SPRUCE_TAIGA = TAGS.register("has_structure/abandoned_camp_old_growth_spruce_taiga");
+    public static final TagKey<Biome> HAS_ABANDONED_CAMP_PALE_GARDEN = TAGS.register("has_structure/abandoned_camp_pale_garden");
+    public static final TagKey<Biome> HAS_ABANDONED_CAMP_SAVANNA = TAGS.register("has_structure/abandoned_camp_savanna");
+    public static final TagKey<Biome> HAS_ABANDONED_CAMP_SNOWY_TAIGA = TAGS.register("has_structure/abandoned_camp_snowy_taiga");
+    public static final TagKey<Biome> HAS_ABANDONED_CAMP_SPARSE_JUNGLE = TAGS.register("has_structure/abandoned_camp_sparse_jungle");
+    public static final TagKey<Biome> HAS_ABANDONED_CAMP_SWAMP = TAGS.register("has_structure/abandoned_camp_swamp");
+    public static final TagKey<Biome> HAS_ABANDONED_CAMP_TAIGA = TAGS.register("has_structure/abandoned_camp_taiga");
+    public static final TagKey<Biome> HAS_ABANDONED_CAMP_WINDSWEPT_FOREST = TAGS.register("has_structure/abandoned_camp_windswept_forest");
+    public static final TagKey<Biome> HAS_ABANDONED_CAMP_WOODED_BADLANDS = TAGS.register("has_structure/abandoned_camp_wooded_badlands");
 }

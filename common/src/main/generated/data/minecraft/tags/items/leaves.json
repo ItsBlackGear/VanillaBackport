@@ -1,6 +1,9 @@
 {
   "replace": false,
   "values": [
-    "minecraft:pale_oak_leaves"
+    "minecraft:pale_oak_leaves",
+    "minecraft:red_poplar_leaves",
+    "minecraft:orange_poplar_leaves",
+    "minecraft:yellow_poplar_leaves"
   ]
 }

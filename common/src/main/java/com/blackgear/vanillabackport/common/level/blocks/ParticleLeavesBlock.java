@@ -14,24 +14,20 @@ import java.util.function.Supplier;
 
 public class ParticleLeavesBlock extends LeavesBlock {
     private final Supplier<? extends ParticleOptions> particle;
-    private final int chance;
-
-    public ParticleLeavesBlock(int chance, Supplier<? extends ParticleOptions> particle, Properties properties) {
+    private final float leafParticleChance;
+    
+    public ParticleLeavesBlock(float leafParticleChance, Supplier<? extends ParticleOptions> particle, Properties properties) {
         super(properties);
-        this.chance = chance;
+        this.leafParticleChance = leafParticleChance;
         this.particle = particle;
     }
 
     @Override
     public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource random) {
         super.animateTick(state, level, pos, random);
-
-        if (level.isClientSide && !VanillaBackport.CLIENT_CONFIG.hasFallingLeaves.get())
-        {
-            return;
-        }
-
-        if (random.nextInt(this.chance) == 0) {
+        if (level.isClientSide && !VanillaBackport.CLIENT_CONFIG.hasFallingLeaves.get()) return;
+        
+        if (random.nextFloat() < this.leafParticleChance) {
             BlockPos below = pos.below();
             BlockState belowState = level.getBlockState(below);
             if (!isFaceFull(belowState.getCollisionShape(level, below), Direction.UP)) {

@@ -1,10 +1,14 @@
 package com.blackgear.vanillabackport.common.level.blocks.properties;
 
 import com.blackgear.vanillabackport.client.registries.ModSoundTypes;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
@@ -61,6 +65,16 @@ public class SharedBlockProperties {
         .requiresCorrectToolForDrops()
         .strength(1.5F, 6.0F);
     
+    // Wilderness Bound
+    
+    public static final Properties POPLAR = Properties.of()
+        .mapColor(MapColor.COLOR_LIGHT_GRAY)
+        .instrument(NoteBlockInstrument.BASS)
+        .strength(2.0F, 3.0F)
+        .sound(SoundType.WOOD)
+        .ignitedByLava();
+    
+    
     // Shared Properties
     
     public static Properties logProperties(MapColor topColor, MapColor sideColor, SoundType sound) {
@@ -81,5 +95,40 @@ public class SharedBlockProperties {
             .instabreak()
             .noOcclusion()
             .pushReaction(PushReaction.DESTROY);
+    }
+    
+    public static Properties leavesProperties(SoundType sound) {
+        return Properties.of()
+            .mapColor(MapColor.COLOR_ORANGE)
+            .strength(0.2F)
+            .randomTicks()
+            .sound(sound)
+            .noOcclusion()
+            .isValidSpawn(SharedBlockProperties::ocelotOrParrot)
+            .isSuffocating(SharedBlockProperties::never)
+            .isViewBlocking(SharedBlockProperties::never)
+            .ignitedByLava()
+            .pushReaction(PushReaction.DESTROY)
+            .isRedstoneConductor(SharedBlockProperties::never);
+    }
+    
+    private static Boolean never(BlockState state, BlockGetter level, BlockPos pos, EntityType<?> type) {
+        return false;
+    }
+    
+    private static Boolean always(BlockState state, BlockGetter level, BlockPos pos, EntityType<?> type) {
+        return true;
+    }
+    
+    private static Boolean ocelotOrParrot(BlockState state, BlockGetter level, BlockPos pos, EntityType<?> type) {
+        return type == EntityType.OCELOT || type == EntityType.PARROT;
+    }
+    
+    private static boolean always(BlockState state, BlockGetter level, BlockPos pos) {
+        return true;
+    }
+    
+    private static boolean never(BlockState state, BlockGetter level, BlockPos pos) {
+        return false;
     }
 }

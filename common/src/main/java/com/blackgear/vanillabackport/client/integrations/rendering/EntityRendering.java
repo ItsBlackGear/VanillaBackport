@@ -22,7 +22,7 @@ import com.blackgear.vanillabackport.client.level.model.entity.sulfur_cube.Small
 import com.blackgear.vanillabackport.client.level.model.entity.sulfur_cube.SulfurCubeModel;
 import com.blackgear.vanillabackport.client.level.model.entity.wolf.WolfArmorModel;
 import com.blackgear.vanillabackport.client.level.model.object.CushionModel;
-import com.blackgear.vanillabackport.client.level.renderer.entity.PaleOakBoatRenderer;
+import com.blackgear.vanillabackport.client.level.renderer.entity.CustomBoatRenderer;
 import com.blackgear.vanillabackport.client.level.renderer.entity.mob.*;
 import com.blackgear.vanillabackport.client.level.renderer.object.CushionRenderer;
 import com.blackgear.vanillabackport.client.registries.ModModelLayers;
@@ -50,8 +50,8 @@ public class EntityRendering {
         event.register(ModModelLayers.WOLF_ARMOR, () -> LayerDefinition.create(WolfArmorModel.createMeshDefinition(new CubeDeformation(0.2F)), 64, 32));
         
         event.register(ModModelLayers.CREAKING, CreakingModel::createBodyLayer);
-        event.register(ModModelLayers.PALE_OAK_BOAT, BoatModel::createBodyModel);
-        event.register(ModModelLayers.PALE_OAK_CHEST_BOAT, ChestBoatModel::createBodyModel);
+        event.register(ModModelLayers.CUSTOM_BOAT, BoatModel::createBodyModel);
+        event.register(ModModelLayers.CUSTOM_CHEST_BOAT, ChestBoatModel::createBodyModel);
         
         event.register(ModModelLayers.COLD_PIG, ColdPigModel::createBodyLayer);
         event.register(ModModelLayers.COLD_CHICKEN, ColdChickenModel::createBodyLayer);
@@ -91,8 +91,8 @@ public class EntityRendering {
         event.register(ModEntityTypes.ARMADILLO.get(), ArmadilloRenderer::new);
         
         event.register(ModEntityTypes.CREAKING.get(), CreakingRenderer::new);
-        event.register(ModEntityTypes.PALE_OAK_BOAT.get(), context -> new PaleOakBoatRenderer(context, false));
-        event.register(ModEntityTypes.PALE_OAK_CHEST_BOAT.get(), context -> new PaleOakBoatRenderer(context, true));
+        event.register(ModEntityTypes.CUSTOM_BOAT.get(), context -> new CustomBoatRenderer(context, false));
+        event.register(ModEntityTypes.CUSTOM_CHEST_BOAT.get(), context -> new CustomBoatRenderer(context, true));
         
         event.register(ModEntityTypes.HAPPY_GHAST.get(), HappyGhastRenderer::new);
         

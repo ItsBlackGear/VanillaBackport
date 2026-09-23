@@ -519,4 +519,38 @@ public class VanillaBlockModels extends BlockModelGenerators {
             return sideChainPart != null ? Condition.and(facing, powered, Condition.condition().term(ModBlockStateProperties.SIDE_CHAIN_PART, sideChainPart)) : Condition.and(facing, powered);
         }
     }
+    
+    public void createShelfMushroom() {
+        ResourceLocation shelfMushroom = ModelLocationUtils.getModelLocation(ModBlocks.SHELF_MUSHROOM.get(), "_stage0");
+        this.delegateItemModel(ModBlocks.SHELF_MUSHROOM.get(), shelfMushroom);
+        this.blockStateOutput.accept(MultiVariantGenerator.multiVariant(ModBlocks.SHELF_MUSHROOM.get())
+            .with(PropertyDispatch.property(BlockStateProperties.AGE_1)
+                .select(0, Variant.variant().with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(ModBlocks.SHELF_MUSHROOM.get(), "_stage0")))
+                .select(1, Variant.variant().with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(ModBlocks.SHELF_MUSHROOM.get(), "_stage1"))))
+            .with(createHorizontalFacingDispatch())
+        );
+    }
+    
+    public void createStrawBed() {
+        Block strawBed = ModBlocks.STRAW_BED.get();
+        ResourceLocation head = ModelLocationUtils.getModelLocation(strawBed, "_head");
+        ResourceLocation foot = ModelLocationUtils.getModelLocation(strawBed, "_foot");
+        this.skipAutoItemBlock(strawBed);
+        this.blockStateOutput.accept(createStrawBed(strawBed, head, foot));
+    }
+    
+    private static MultiVariantGenerator createStrawBed(Block block, ResourceLocation headModelLocation, ResourceLocation footModelLocation) {
+        return MultiVariantGenerator.multiVariant(block)
+            .with(
+                PropertyDispatch.properties(BlockStateProperties.HORIZONTAL_FACING, BlockStateProperties.BED_PART)
+                    .select(Direction.NORTH, BedPart.HEAD, Variant.variant().with(VariantProperties.MODEL, headModelLocation).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180))
+                    .select(Direction.SOUTH, BedPart.HEAD, Variant.variant().with(VariantProperties.MODEL, headModelLocation))
+                    .select(Direction.EAST, BedPart.HEAD, Variant.variant().with(VariantProperties.MODEL, headModelLocation).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270))
+                    .select(Direction.WEST, BedPart.HEAD, Variant.variant().with(VariantProperties.MODEL, headModelLocation).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90))
+                    .select(Direction.NORTH, BedPart.FOOT, Variant.variant().with(VariantProperties.MODEL, footModelLocation).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180))
+                    .select(Direction.SOUTH, BedPart.FOOT, Variant.variant().with(VariantProperties.MODEL, footModelLocation))
+                    .select(Direction.EAST, BedPart.FOOT, Variant.variant().with(VariantProperties.MODEL, footModelLocation).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270))
+                    .select(Direction.WEST, BedPart.FOOT, Variant.variant().with(VariantProperties.MODEL, footModelLocation).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90))
+            );
+    }
 }

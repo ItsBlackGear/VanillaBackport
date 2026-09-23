@@ -6,9 +6,8 @@ import com.blackgear.vanillabackport.common.level.worldgen.features.FallenTreeCo
 import com.blackgear.vanillabackport.common.level.worldgen.features.LeafLitterConfiguration;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
 import com.blackgear.vanillabackport.common.registries.worldgen.ModFeatures;
-import com.blackgear.vanillabackport.common.level.worldgen.tree_decorators.AttachedToLogsDecorator;
+import com.blackgear.vanillabackport.common.level.worldgen.tree.decorators.AttachedToLogsDecorator;
 import com.blackgear.vanillabackport.core.VanillaBackport;
-import com.google.common.collect.ImmutableList;
 import net.minecraft.core.Direction;
 import net.minecraft.data.worldgen.features.FeatureUtils;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
@@ -178,7 +177,7 @@ public class SpringToLifeFeatures {
     }
     
     private static FallenTreeConfiguration.FallenTreeConfigurationBuilder createFallenOak() {
-        return createFallenTrees(Blocks.OAK_LOG, 4, 7).stumpDecorators(ImmutableList.of(TrunkVineDecorator.INSTANCE));
+        return createFallenTrees(Blocks.OAK_LOG, 4, 7).stumpDecorator(TrunkVineDecorator.INSTANCE);
     }
     
     private static FallenTreeConfiguration.FallenTreeConfigurationBuilder createFallenBirch(int i) {
@@ -186,7 +185,7 @@ public class SpringToLifeFeatures {
     }
     
     private static FallenTreeConfiguration.FallenTreeConfigurationBuilder createFallenJungle() {
-        return createFallenTrees(Blocks.JUNGLE_LOG, 4, 11).stumpDecorators(ImmutableList.of(TrunkVineDecorator.INSTANCE));
+        return createFallenTrees(Blocks.JUNGLE_LOG, 4, 11).stumpDecorator(TrunkVineDecorator.INSTANCE);
     }
     
     private static FallenTreeConfiguration.FallenTreeConfigurationBuilder createFallenSpruce() {
@@ -195,17 +194,15 @@ public class SpringToLifeFeatures {
     
     private static FallenTreeConfiguration.FallenTreeConfigurationBuilder createFallenTrees(Block block, int minLength, int maxLength) {
         return new FallenTreeConfiguration.FallenTreeConfigurationBuilder(BlockStateProvider.simple(block), UniformInt.of(minLength, maxLength))
-            .logDecorators(
-                ImmutableList.of(
-                    new AttachedToLogsDecorator(
-                        0.1F,
-                        new WeightedStateProvider(
-                            SimpleWeightedRandomList.<BlockState>builder()
-                                .add(Blocks.RED_MUSHROOM.defaultBlockState(), 2)
-                                .add(Blocks.BROWN_MUSHROOM.defaultBlockState(), 1)
-                        ),
-                        List.of(Direction.UP)
-                    )
+            .logDecorator(
+                new AttachedToLogsDecorator(
+                    0.1F,
+                    new WeightedStateProvider(
+                        SimpleWeightedRandomList.<BlockState>builder()
+                            .add(Blocks.RED_MUSHROOM.defaultBlockState(), 2)
+                            .add(Blocks.BROWN_MUSHROOM.defaultBlockState(), 1)
+                    ),
+                    List.of(Direction.UP)
                 )
             );
     }

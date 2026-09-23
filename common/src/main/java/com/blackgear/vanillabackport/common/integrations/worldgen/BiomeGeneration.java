@@ -18,14 +18,83 @@ public class BiomeGeneration {
     public static final List<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> PALE_GARDEN = Util.make(() -> {
         List<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters = new ArrayList<>();
         
-        addPaleGarden(parameters, Placement.MID_SLICE, Continentalness.FAR_INLAND.parameter(), Erosion.EROSION_1);
-        addPaleGarden(parameters, Placement.MID_SLICE, Continentalness.FAR_INLAND.parameter(), Erosion.EROSION_2);
+        addBiome(parameters,
+            ModBiomes.PALE_GARDEN,
+            Placement.MID_SLICE_VARIANT,
+            Temperature.NEUTRAL,
+            Humidity.HUMID,
+            Continentalness.FAR_INLAND.parameter(),
+            Erosion.EROSION_1.parameter()
+        );
         
-        addPaleGarden(parameters, Placement.HIGH_SLICE, Continentalness.span(Continentalness.MID_INLAND, Continentalness.FAR_INLAND), Erosion.EROSION_2);
-        addPaleGarden(parameters, Placement.HIGH_SLICE, Continentalness.FAR_INLAND.parameter(), Erosion.EROSION_3);
+        addBiome(parameters,
+            ModBiomes.PALE_GARDEN,
+            Placement.MID_SLICE_VARIANT,
+            Temperature.NEUTRAL,
+            Humidity.HUMID,
+            Continentalness.FAR_INLAND.parameter(),
+            Erosion.EROSION_2.parameter()
+        );
         
-        addPaleGarden(parameters, Placement.PEAK, Continentalness.span(Continentalness.MID_INLAND, Continentalness.FAR_INLAND), Erosion.EROSION_2);
-        addPaleGarden(parameters, Placement.PEAK, Continentalness.FAR_INLAND.parameter(), Erosion.EROSION_3);
+        addBiome(parameters,
+            ModBiomes.PALE_GARDEN,
+            Placement.HIGH_SLICE_VARIANT,
+            Temperature.NEUTRAL,
+            Humidity.HUMID,
+            Continentalness.span(Continentalness.MID_INLAND, Continentalness.FAR_INLAND),
+            Erosion.EROSION_2.parameter()
+        );
+        
+        addBiome(parameters,
+            ModBiomes.PALE_GARDEN,
+            Placement.HIGH_SLICE_VARIANT,
+            Temperature.NEUTRAL,
+            Humidity.HUMID,
+            Continentalness.FAR_INLAND.parameter(),
+            Erosion.EROSION_3.parameter()
+        );
+        
+        addBiome(parameters,
+            ModBiomes.PALE_GARDEN,
+            Placement.PEAK_VARIANT,
+            Temperature.NEUTRAL,
+            Humidity.HUMID,
+            Continentalness.span(Continentalness.MID_INLAND, Continentalness.FAR_INLAND),
+            Erosion.EROSION_2.parameter()
+        );
+        
+        addBiome(parameters,
+            ModBiomes.PALE_GARDEN,
+            Placement.PEAK_VARIANT,
+            Temperature.NEUTRAL,
+            Humidity.HUMID,
+            Continentalness.FAR_INLAND.parameter(),
+            Erosion.EROSION_3.parameter()
+        );
+        
+        return List.copyOf(parameters);
+    });
+    
+    public static final List<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> DAPPLED_FOREST = Util.make(() -> {
+        List<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters = new ArrayList<>();
+        
+        addBiome(parameters,
+            ModBiomes.DAPPLED_FOREST,
+            Placement.MID_SLICE_VARIANT,
+            Temperature.COOL,
+            Humidity.ARID,
+            Continentalness.span(Continentalness.NEAR_INLAND, Continentalness.FAR_INLAND),
+            Erosion.span(Erosion.EROSION_2, Erosion.EROSION_4)
+        );
+        
+        addBiome(parameters,
+            ModBiomes.DAPPLED_FOREST,
+            Placement.HIGH_SLICE_VARIANT,
+            Temperature.COOL,
+            Humidity.ARID,
+            Continentalness.span(Continentalness.COAST, Continentalness.FAR_INLAND),
+            Erosion.span(Erosion.EROSION_2, Erosion.EROSION_4)
+        );
         
         return List.copyOf(parameters);
     });
@@ -49,21 +118,32 @@ public class BiomeGeneration {
         
         if (VanillaBackport.COMMON_CONFIG.hasSulfurCaves.get())
             event.add(SULFUR_CAVES);
+        
+        if (VanillaBackport.COMMON_CONFIG.hasDappledForest.get())
+            DAPPLED_FOREST.forEach(event::add);
     }
     
-    private static void addPaleGarden(List<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, Placement placement, Climate.Parameter continentalness, Erosion erosion) {
+    private static void addBiome(
+        List<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters,
+        ResourceKey<Biome> biome,
+        Placement placement,
+        Temperature temperature,
+        Humidity humidity,
+        Climate.Parameter continentalness,
+        Climate.Parameter erosion
+    ) {
         for (Weirdness weirdness : placement.getWeirdnesses()) {
             parameters.add(Pair.of(
                 Climate.parameters(
-                    Temperature.NEUTRAL.parameter(),
-                    Humidity.HUMID.parameter(),
+                    temperature.parameter(),
+                    humidity.parameter(),
                     continentalness,
-                    erosion.parameter(),
+                    erosion,
                     Depth.SURFACE.parameter(),
                     weirdness.parameter(),
                     0.0F
                 ),
-                ModBiomes.PALE_GARDEN
+                biome
             ));
         }
     }

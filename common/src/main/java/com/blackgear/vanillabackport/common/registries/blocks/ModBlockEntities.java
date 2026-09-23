@@ -57,6 +57,7 @@ public class ModBlockEntities {
             ModBlocks.MANGROVE_SHELF,
             ModBlocks.OAK_SHELF,
             ModBlocks.PALE_OAK_SHELF,
+            ModBlocks.POPLAR_SHELF,
             ModBlocks.SPRUCE_SHELF,
             ModBlocks.WARPED_SHELF));
     

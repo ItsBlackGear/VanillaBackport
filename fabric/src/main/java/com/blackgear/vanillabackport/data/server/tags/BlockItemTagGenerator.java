@@ -25,37 +25,50 @@ public abstract class BlockItemTagGenerator {
         this.handleConventionalTags();
 
         this.tag(BlockTags.PLANKS, ItemTags.PLANKS)
-            .add(ModBlocks.PALE_OAK_PLANKS.get());
+            .add(ModBlocks.PALE_OAK_PLANKS.get())
+            .add(ModBlocks.POPLAR_PLANKS.get());
 
         this.tag(BlockTags.WOODEN_BUTTONS, ItemTags.WOODEN_BUTTONS)
-            .add(ModBlocks.PALE_OAK_BUTTON.get());
+            .add(ModBlocks.PALE_OAK_BUTTON.get())
+            .add(ModBlocks.POPLAR_BUTTON.get());
 
         this.tag(BlockTags.WOODEN_DOORS, ItemTags.WOODEN_DOORS)
-            .add(ModBlocks.PALE_OAK_DOOR.get());
+            .add(ModBlocks.PALE_OAK_DOOR.get())
+            .add(ModBlocks.POPLAR_DOOR.get());
 
         this.tag(BlockTags.WOODEN_STAIRS, ItemTags.WOODEN_STAIRS)
-            .add(ModBlocks.PALE_OAK_STAIRS.get());
+            .add(ModBlocks.PALE_OAK_STAIRS.get())
+            .add(ModBlocks.POPLAR_STAIRS.get());
 
         this.tag(BlockTags.WOODEN_SLABS, ItemTags.WOODEN_SLABS)
-            .add(ModBlocks.PALE_OAK_SLAB.get());
+            .add(ModBlocks.PALE_OAK_SLAB.get())
+            .add(ModBlocks.POPLAR_SLAB.get());
 
         this.tag(BlockTags.WOODEN_FENCES, ItemTags.WOODEN_FENCES)
-            .add(ModBlocks.PALE_OAK_FENCE.get());
+            .add(ModBlocks.PALE_OAK_FENCE.get())
+            .add(ModBlocks.POPLAR_FENCE.get());
 
         this.tag(BlockTags.FENCE_GATES, ItemTags.FENCE_GATES)
-            .add(ModBlocks.PALE_OAK_FENCE_GATE.get());
+            .add(ModBlocks.PALE_OAK_FENCE_GATE.get())
+            .add(ModBlocks.POPLAR_FENCE_GATE.get());
 
         this.tag(BlockTags.WOODEN_PRESSURE_PLATES, ItemTags.WOODEN_PRESSURE_PLATES)
-            .add(ModBlocks.PALE_OAK_PRESSURE_PLATE.get());
+            .add(ModBlocks.PALE_OAK_PRESSURE_PLATE.get())
+            .add(ModBlocks.POPLAR_PRESSURE_PLATE.get());
 
         this.tag(BlockTags.SAPLINGS, ItemTags.SAPLINGS)
-            .add(ModBlocks.PALE_OAK_SAPLING.get());
+            .add(ModBlocks.PALE_OAK_SAPLING.get())
+            .add(ModBlocks.POPLAR_SAPLING.get());
 
         this.tag(ModBlockTags.PALE_OAK_LOGS, ModItemTags.PALE_OAK_LOGS)
             .add(ModBlocks.PALE_OAK_LOG.get(), ModBlocks.PALE_OAK_WOOD.get(), ModBlocks.STRIPPED_PALE_OAK_LOG.get(), ModBlocks.STRIPPED_PALE_OAK_WOOD.get());
+            
+        this.tag(ModBlockTags.POPLAR_LOGS, ModItemTags.POPLAR_LOGS)
+            .add(ModBlocks.POPLAR_LOG.get(), ModBlocks.POPLAR_WOOD.get(), ModBlocks.STRIPPED_POPLAR_LOG.get(), ModBlocks.STRIPPED_POPLAR_WOOD.get());
 
         this.tag(BlockTags.LOGS_THAT_BURN, ItemTags.LOGS_THAT_BURN)
-            .addTag(ModBlockTags.PALE_OAK_LOGS);
+            .addTag(ModBlockTags.PALE_OAK_LOGS)
+            .addTag(ModBlockTags.POPLAR_LOGS);
 
         this.tag(BlockTags.SLABS, ItemTags.SLABS)
             .add(
@@ -93,10 +106,14 @@ public abstract class BlockItemTagGenerator {
             .addTag(ModBlockTags.WOOL_STAIRS);
 
         this.tag(BlockTags.LEAVES, ItemTags.LEAVES)
-            .add(ModBlocks.PALE_OAK_LEAVES.get());
+            .add(ModBlocks.PALE_OAK_LEAVES.get())
+            .add(ModBlocks.RED_POPLAR_LEAVES.get())
+            .add(ModBlocks.ORANGE_POPLAR_LEAVES.get())
+            .add(ModBlocks.YELLOW_POPLAR_LEAVES.get());
 
         this.tag(BlockTags.WOODEN_TRAPDOORS, ItemTags.WOODEN_TRAPDOORS)
-            .add(ModBlocks.PALE_OAK_TRAPDOOR.get());
+            .add(ModBlocks.PALE_OAK_TRAPDOOR.get())
+            .add(ModBlocks.POPLAR_TRAPDOOR.get());
 
         this.tag(BlockTags.SMALL_FLOWERS, ItemTags.SMALL_FLOWERS)
             .add(ModBlocks.OPEN_EYEBLOSSOM.get(), ModBlocks.CLOSED_EYEBLOSSOM.get());
@@ -108,10 +125,12 @@ public abstract class BlockItemTagGenerator {
             .add(ModBlocks.PALE_MOSS_BLOCK.get());
 
         this.tag(BlockTags.STANDING_SIGNS, ItemTags.SIGNS)
-            .add(ModBlocks.PALE_OAK_SIGN.getFirst().get());
+            .add(ModBlocks.PALE_OAK_SIGN.getFirst().get())
+            .add(ModBlocks.POPLAR_SIGN.getFirst().get());
 
         this.tag(BlockTags.CEILING_HANGING_SIGNS, ItemTags.HANGING_SIGNS)
-            .add(ModBlocks.PALE_OAK_HANGING_SIGN.getFirst().get());
+            .add(ModBlocks.PALE_OAK_HANGING_SIGN.getFirst().get())
+            .add(ModBlocks.POPLAR_HANGING_SIGN.getFirst().get());
         
         this.tag(ModBlockTags.COPPER, ModItemTags.COPPER) //TODO: check for conventional tag
             .add(Blocks.COPPER_BLOCK)
@@ -179,7 +198,8 @@ public abstract class BlockItemTagGenerator {
             .add(ModBlocks.OAK_SHELF.get())
             .add(ModBlocks.PALE_OAK_SHELF.get())
             .add(ModBlocks.SPRUCE_SHELF.get())
-            .add(ModBlocks.WARPED_SHELF.get());
+            .add(ModBlocks.WARPED_SHELF.get())
+            .add(ModBlocks.POPLAR_SHELF.get());
         
         this.tag(ModBlockTags.WOOL_STAIRS, ModItemTags.WOOL_STAIRS)
             .add(
@@ -265,13 +285,16 @@ public abstract class BlockItemTagGenerator {
     private void handleConventionalTags() {
         // Forge
         this.tag(ForgeBlockTags.STRIPPED_LOGS, ForgeItemTags.STRIPPED_LOGS)
-            .add(ModBlocks.STRIPPED_PALE_OAK_LOG.get());
+            .add(ModBlocks.STRIPPED_PALE_OAK_LOG.get())
+            .add(ModBlocks.STRIPPED_POPLAR_LOG.get());
 
         this.tag(ForgeBlockTags.STRIPPED_WOODS, ForgeItemTags.STRIPPED_WOODS)
-            .add(ModBlocks.STRIPPED_PALE_OAK_WOOD.get());
+            .add(ModBlocks.STRIPPED_PALE_OAK_WOOD.get())
+            .add(ModBlocks.STRIPPED_POPLAR_WOOD.get());
 
         this.tag(ForgeBlockTags.FENCE_GATES_WOODEN, ForgeItemTags.FENCE_GATES_WOODEN)
-            .add(ModBlocks.PALE_OAK_FENCE_GATE.get());
+            .add(ModBlocks.PALE_OAK_FENCE_GATE.get())
+            .add(ModBlocks.POPLAR_FENCE_GATE.get());
 
         this.tag(ForgeBlockTags.CHESTS, ForgeItemTags.CHESTS)
             .addTag(ModBlockTags.COPPER_CHESTS);
@@ -345,13 +368,16 @@ public abstract class BlockItemTagGenerator {
 
         // Fabric
         this.tag(FabricBlockTags.STRIPPED_LOGS, FabricItemTags.STRIPPED_LOGS)
-            .add(ModBlocks.STRIPPED_PALE_OAK_LOG.get());
+            .add(ModBlocks.STRIPPED_PALE_OAK_LOG.get())
+            .add(ModBlocks.STRIPPED_POPLAR_LOG.get());
 
         this.tag(FabricBlockTags.STRIPPED_WOODS, FabricItemTags.STRIPPED_WOODS)
-            .add(ModBlocks.STRIPPED_PALE_OAK_WOOD.get());
+            .add(ModBlocks.STRIPPED_PALE_OAK_WOOD.get())
+            .add(ModBlocks.STRIPPED_POPLAR_WOOD.get());
 
         this.tag(FabricBlockTags.FENCE_GATES_WOODEN, FabricItemTags.FENCE_GATES_WOODEN)
-            .add(ModBlocks.PALE_OAK_FENCE_GATE.get());
+            .add(ModBlocks.PALE_OAK_FENCE_GATE.get())
+            .add(ModBlocks.POPLAR_FENCE_GATE.get());
 
         this.tag(FabricBlockTags.CHESTS, FabricItemTags.CHESTS)
             .addTag(ModBlockTags.COPPER_CHESTS);

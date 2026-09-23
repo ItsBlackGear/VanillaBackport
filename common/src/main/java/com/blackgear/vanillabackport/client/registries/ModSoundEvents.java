@@ -371,4 +371,29 @@ public class ModSoundEvents {
     public static final Supplier<SoundEvent> MUSIC_DISC_TEARS = REGISTRIES.soundEvent("music_disc.tears");
     public static final Supplier<SoundEvent> MUSIC_DISC_LAVA_CHICKEN = REGISTRIES.soundEvent("music_disc.lava_chicken");
     public static final Supplier<SoundEvent> MUSIC_DISC_BOUNCE = REGISTRIES.soundEvent("music_disc.bounce");
+    
+    // Wilderness Bound
+    
+    public static final Supplier<SoundEvent> SHELF_MUSHROOM_BREAK = REGISTRIES.register("block.shelf_mushroom.break");
+    public static final Supplier<SoundEvent> SHELF_MUSHROOM_FALL = REGISTRIES.register("block.shelf_mushroom.fall");
+    public static final Supplier<SoundEvent> SHELF_MUSHROOM_PLACE = REGISTRIES.register("block.shelf_mushroom.place");
+    public static final Supplier<SoundEvent> SHELF_MUSHROOM_STEP = REGISTRIES.register("block.shelf_mushroom.step");
+    public static final Supplier<SoundEvent> SHELF_MUSHROOM_BOUNCE = REGISTRIES.register("block.shelf_mushroom.bounce");
+    
+    public static final Supplier<SoundEvent> POPLAR_LEAVES_BREAK = REGISTRIES.register("block.poplar_leaves.break");
+    public static final Supplier<SoundEvent> POPLAR_LEAVES_HIT = REGISTRIES.register("block.poplar_leaves.hit");
+    public static final Supplier<SoundEvent> POPLAR_LEAVES_FALL = REGISTRIES.register("block.poplar_leaves.fall");
+    public static final Supplier<SoundEvent> POPLAR_LEAVES_PLACE = REGISTRIES.register("block.poplar_leaves.place");
+    public static final Supplier<SoundEvent> POPLAR_LEAVES_STEP = REGISTRIES.register("block.poplar_leaves.step");
+    public static final Holder<SoundEvent> POPLAR_LEAVES_AMBIENT = REGISTRIES.holder("block.poplar_leaves.ambient");
+    
+    public static final Supplier<SoundEvent> STRAW_BED_BREAK = REGISTRIES.register("block.straw_bed.break");
+    public static final Supplier<SoundEvent> STRAW_BED_BREAK_LEAVE = REGISTRIES.register("block.straw_bed.break_leave");
+    public static final Supplier<SoundEvent> STRAW_BED_STEP = REGISTRIES.register("block.straw_bed.step");
+    public static final Supplier<SoundEvent> STRAW_BED_PLACE = REGISTRIES.register("block.straw_bed.place");
+    public static final Supplier<SoundEvent> STRAW_BED_HIT = REGISTRIES.register("block.straw_bed.hit");
+    public static final Supplier<SoundEvent> STRAW_BED_FALL = REGISTRIES.register("block.straw_bed.fall");
+    
+    public static final Supplier<SoundEvent> RED_SHRUB_BREAK = REGISTRIES.register("block.red_shrub.break");
+    public static final Supplier<SoundEvent> RED_SHRUB_PLACE = REGISTRIES.register("block.red_shrub.place");
 }

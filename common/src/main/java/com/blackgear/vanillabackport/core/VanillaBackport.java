@@ -96,7 +96,11 @@ public final class VanillaBackport {
 
         ModFeatures.REGISTRIES.register();
         ModTreeDecorators.REGISTRIES.register();
-
+        ModTrunkPlacers.REGISTRIES.register();
+        ModFoliagePlacers.REGISTRIES.register();
+        
+        ModBoatTypes.bootstrap();
+        
         ModEntityDataSerializers.SERIALIZERS.register();
         ModSyncedEntityData.init();
         

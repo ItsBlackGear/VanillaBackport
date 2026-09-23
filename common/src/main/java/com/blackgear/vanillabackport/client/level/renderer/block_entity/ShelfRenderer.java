@@ -129,7 +129,7 @@ public class ShelfRenderer implements BlockEntityRenderer<ShelfBlockEntity> {
     
     private static boolean isFlatModel(AABB box) {
         double smallestDimension = Math.min(box.maxX - box.minX, Math.min(box.maxY - box.minY, box.maxZ - box.minZ));
-        return smallestDimension < 0.25;
+        return smallestDimension < 0.06255;
     }
     
     private record ItemScaleData(AABB bounds, float scale) {}

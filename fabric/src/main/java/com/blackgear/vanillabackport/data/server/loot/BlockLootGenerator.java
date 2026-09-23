@@ -3,6 +3,7 @@ package com.blackgear.vanillabackport.data.server.loot;
 import com.blackgear.vanillabackport.common.level.blocks.CopperGolemStatueBlock;
 import com.blackgear.vanillabackport.common.level.blocks.MossyCarpetBlock;
 import com.blackgear.vanillabackport.common.level.blocks.SegmentableBlock;
+import com.blackgear.vanillabackport.common.level.blocks.ShelfMushroomBlock;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
@@ -12,6 +13,7 @@ import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.entity.DecoratedPotBlockEntity;
+import net.minecraft.world.level.block.state.properties.BedPart;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.storage.loot.IntRange;
 import net.minecraft.world.level.storage.loot.LootPool;
@@ -178,7 +180,51 @@ public class BlockLootGenerator extends FabricBlockLootTableProvider {
         ModBlocks.COPPER_BARS.forEach(holder -> this.dropSelf(holder.get()));
         ModBlocks.COPPER_CHAIN.forEach(holder -> this.dropSelf(holder.get()));
         
-        // Miscellaneous
+        // Wilderness bound
+        
+        this.dropSelf(ModBlocks.POPLAR_PLANKS.get());
+        this.dropSelf(ModBlocks.POPLAR_SAPLING.get());
+        this.dropSelf(ModBlocks.POPLAR_LOG.get());
+        this.dropSelf(ModBlocks.STRIPPED_POPLAR_LOG.get());
+        this.dropSelf(ModBlocks.POPLAR_WOOD.get());
+        this.dropSelf(ModBlocks.STRIPPED_POPLAR_WOOD.get());
+        this.dropSelf(ModBlocks.POPLAR_SIGN.getFirst().get());
+        this.dropSelf(ModBlocks.POPLAR_HANGING_SIGN.getFirst().get());
+        this.dropSelf(ModBlocks.POPLAR_PRESSURE_PLATE.get());
+        this.dropSelf(ModBlocks.POPLAR_TRAPDOOR.get());
+        this.dropSelf(ModBlocks.POPLAR_BUTTON.get());
+        this.dropSelf(ModBlocks.POPLAR_STAIRS.get());
+        this.dropSelf(ModBlocks.POPLAR_FENCE_GATE.get());
+        this.dropSelf(ModBlocks.POPLAR_FENCE.get());
+        this.dropSelf(ModBlocks.POPLAR_SHELF.get());
+        this.add(ModBlocks.POPLAR_SLAB.get(), this::createSlabItemTable);
+        this.add(ModBlocks.POPLAR_DOOR.get(), this::createDoorTable);
+        this.add(ModBlocks.RED_POPLAR_LEAVES.get(), block -> this.createLeavesDrops(block, ModBlocks.POPLAR_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
+        this.add(ModBlocks.ORANGE_POPLAR_LEAVES.get(), block -> this.createLeavesDrops(block, ModBlocks.POPLAR_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
+        this.add(ModBlocks.YELLOW_POPLAR_LEAVES.get(), block -> this.createLeavesDrops(block, ModBlocks.POPLAR_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
+        
+        this.dropPottedContents(ModBlocks.POTTED_POPLAR_SAPLING.get());
+        this.dropSelf(ModBlocks.RED_SHRUB.get());
+        this.add(ModBlocks.SHELF_MUSHROOM.get(),
+            block -> LootTable.lootTable()
+                .withPool(
+                    LootPool.lootPool()
+                        .setRolls(ConstantValue.exactly(1))
+                        .add(
+                            this.applyExplosionDecay(
+                                block,
+                                LootItem.lootTableItem(ModBlocks.SHELF_MUSHROOM.get())
+                                    .apply(
+                                        SetItemCountFunction.setCount(ConstantValue.exactly(2))
+                                            .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(ShelfMushroomBlock.AGE, 1)))
+                                    )
+                            )
+                        )
+                )
+        );
+        
+        this.add(ModBlocks.STRAW_BED.get(), block -> this.createSinglePropConditionTable(block, BedBlock.PART, BedPart.HEAD));
+        
         this.dropSelf(ModBlocks.WHITE_WOOL_STAIRS.get());
         this.dropSelf(ModBlocks.ORANGE_WOOL_STAIRS.get());
         this.dropSelf(ModBlocks.MAGENTA_WOOL_STAIRS.get());

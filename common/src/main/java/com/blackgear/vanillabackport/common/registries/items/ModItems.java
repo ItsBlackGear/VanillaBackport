@@ -5,6 +5,7 @@ import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
 import com.blackgear.vanillabackport.common.level.entities.mob.animal.chicken.ChickenVariants;
 import com.blackgear.vanillabackport.common.level.items.*;
 import com.blackgear.vanillabackport.common.level.items.spear.SpearItem;
+import com.blackgear.vanillabackport.common.registries.entities.ModBoatTypes;
 import com.blackgear.vanillabackport.common.registries.entities.ModEntityTypes;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.google.common.collect.ImmutableMultimap;
@@ -67,9 +68,9 @@ public class ModItems {
     // The Garden Awakens
     
     public static final Supplier<Item> PALE_OAK_BOAT = REGISTRIES.register("pale_oak_boat",
-        () -> new PaleOakBoatItem(false, new Properties().stacksTo(1)));
+        () -> new CustomBoatItem(ModBoatTypes.PALE_OAK, false, new Properties().stacksTo(1)));
     public static final Supplier<Item> PALE_OAK_CHEST_BOAT = REGISTRIES.register("pale_oak_chest_boat",
-        () -> new PaleOakBoatItem(true, new Properties().stacksTo(1)));
+        () -> new CustomBoatItem(ModBoatTypes.PALE_OAK, true, new Properties().stacksTo(1)));
     
     public static final Supplier<Item> CREAKING_SPAWN_EGG = REGISTRIES.register("creaking_spawn_egg",
         () -> ItemRegistry.createSpawnEgg(ModEntityTypes.CREAKING, 6250335, 16545810, new Properties()));
@@ -315,7 +316,12 @@ public class ModItems {
     public static final Supplier<Item> SULFUR_CUBE_SPAWN_EGG = REGISTRIES.register("sulfur_cube_spawn_egg",
         () -> ItemRegistry.createSpawnEgg(ModEntityTypes.SULFUR_CUBE, 15528848, 13948048, new Properties()));
     
-    // Miscellaneous
+    // Wilderness Bound
+    
+    public static final Supplier<Item> POPLAR_BOAT = REGISTRIES.register("poplar_boat",
+        () -> new CustomBoatItem(ModBoatTypes.POPLAR, false, new Properties().stacksTo(1)));
+    public static final Supplier<Item> POPLAR_CHEST_BOAT = REGISTRIES.register("poplar_chest_boat",
+        () -> new CustomBoatItem(ModBoatTypes.POPLAR, true, new Properties().stacksTo(1)));
     
     public static final Supplier<Item> WHITE_CUSHION = REGISTRIES.register("white_cushion",
         properties -> new CushionItem(properties.stacksTo(16), DyeColor.WHITE));

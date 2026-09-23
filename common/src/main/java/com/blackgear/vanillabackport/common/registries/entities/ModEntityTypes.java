@@ -1,8 +1,8 @@
 package com.blackgear.vanillabackport.common.registries.entities;
 
 import com.blackgear.platform.core.helper.EntityRegistry;
-import com.blackgear.vanillabackport.common.level.entities.boat.PaleOakBoat;
-import com.blackgear.vanillabackport.common.level.entities.boat.PaleOakChestBoat;
+import com.blackgear.vanillabackport.common.level.entities.boat.CustomBoat;
+import com.blackgear.vanillabackport.common.level.entities.boat.CustomChestBoat;
 import com.blackgear.vanillabackport.common.level.entities.decoration.Cushion;
 import com.blackgear.vanillabackport.common.level.entities.mob.animal.armadillo.Armadillo;
 import com.blackgear.vanillabackport.common.level.entities.mob.animal.camel.CamelHusk;
@@ -36,12 +36,12 @@ public class ModEntityTypes {
             .sized(0.9F, 2.7F)
             .clientTrackingRange(8));
     
-    public static final Supplier<EntityType<PaleOakBoat>> PALE_OAK_BOAT = REGISTRIES.entity("pale_oak_boat",
-        EntityType.Builder.<PaleOakBoat>of(PaleOakBoat::new, MobCategory.MISC)
+    public static final Supplier<EntityType<CustomBoat>> CUSTOM_BOAT = REGISTRIES.entity("custom_boat",
+        EntityType.Builder.<CustomBoat>of(CustomBoat::new, MobCategory.MISC)
             .sized(1.375F, 0.5625F)
             .clientTrackingRange(10));
-    public static final Supplier<EntityType<PaleOakChestBoat>> PALE_OAK_CHEST_BOAT = REGISTRIES.entity("pale_oak_chest_boat",
-        EntityType.Builder.<PaleOakChestBoat>of(PaleOakChestBoat::new, MobCategory.MISC)
+    public static final Supplier<EntityType<CustomChestBoat>> CUSTOM_CHEST_BOAT = REGISTRIES.entity("pale_oak_chest_boat",
+        EntityType.Builder.<CustomChestBoat>of(CustomChestBoat::new, MobCategory.MISC)
             .sized(1.375F, 0.5625F)
             .clientTrackingRange(10));
     

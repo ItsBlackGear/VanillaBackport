@@ -22,6 +22,7 @@ public class ItemLikeRendering {
         event.simple(BundleRenderer.INSTANCE, BundleRenderer.BUNDLES);
         event.dynamic(SpawnEggRenderer.INSTANCE, SpawnEggRenderer.SPAWN_EGGS);
         event.simple(SpearRenderer.INSTANCE, SpearRenderer.SPEARS);
+        event.dynamic(StrawBedItemRenderer.INSTANCE, ModBlocks.STRAW_BED.get());
         
         BuiltInRegistries.ITEM.stream().filter(item -> item instanceof DyeItem).forEach(item -> event.dynamic(DyePaletteRenderer.INSTANCE, item));
         
@@ -40,7 +41,10 @@ public class ItemLikeRendering {
     public static void renderTypes(BlockRendererEvent event) {
         event.register(
             RenderType.cutoutMipped(),
-            ModBlocks.PALE_OAK_LEAVES.get()
+            ModBlocks.PALE_OAK_LEAVES.get(),
+            ModBlocks.RED_POPLAR_LEAVES.get(),
+            ModBlocks.ORANGE_POPLAR_LEAVES.get(),
+            ModBlocks.YELLOW_POPLAR_LEAVES.get()
         );
         event.register(
             RenderType.cutout(),
@@ -64,7 +68,13 @@ public class ItemLikeRendering {
             ModBlocks.PALE_OAK_TRAPDOOR.get(),
             ModBlocks.SULFUR_SPIKE.get(),
             ModBlocks.COPPER_TORCH.getFirst().get(),
-            ModBlocks.COPPER_TORCH.getSecond().get()
+            ModBlocks.COPPER_TORCH.getSecond().get(),
+            ModBlocks.POPLAR_DOOR.get(),
+            ModBlocks.POPLAR_TRAPDOOR.get(),
+            ModBlocks.POPLAR_SAPLING.get(),
+            ModBlocks.POTTED_POPLAR_SAPLING.get(),
+            ModBlocks.RED_SHRUB.get(),
+            ModBlocks.STRAW_BED.get()
         );
         
         ModBlocks.COPPER_LANTERN.forEach(holder -> event.register(RenderType.cutout(), holder.get()));

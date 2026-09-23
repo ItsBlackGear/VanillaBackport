@@ -35,21 +35,21 @@ public class FallenTreeConfiguration implements FeatureConfiguration {
     public static class FallenTreeConfigurationBuilder {
         private final BlockStateProvider trunkProvider;
         private final IntProvider logLength;
-        private List<TreeDecorator> stumpDecorators = new ArrayList<>();
-        private List<TreeDecorator> logDecorators = new ArrayList<>();
-
+        private final List<TreeDecorator> stumpDecorators = new ArrayList<>();
+        private final List<TreeDecorator> logDecorators = new ArrayList<>();
+        
         public FallenTreeConfigurationBuilder(BlockStateProvider trunkProvider, IntProvider logLength) {
             this.trunkProvider = trunkProvider;
             this.logLength = logLength;
         }
-
-        public FallenTreeConfigurationBuilder stumpDecorators(List<TreeDecorator> decorators) {
-            this.stumpDecorators = decorators;
+        
+        public FallenTreeConfigurationBuilder stumpDecorator(TreeDecorator decorator) {
+            this.stumpDecorators.add(decorator);
             return this;
         }
-
-        public FallenTreeConfigurationBuilder logDecorators(List<TreeDecorator> decorators) {
-            this.logDecorators = decorators;
+        
+        public FallenTreeConfigurationBuilder logDecorator(TreeDecorator decorator) {
+            this.logDecorators.add(decorator);
             return this;
         }
 
