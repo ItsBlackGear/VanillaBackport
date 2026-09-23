@@ -112,6 +112,23 @@ public class ModelGenerator extends VanillaModelGenerator {
         gen.createSpawnEgg(ModItems.CAMEL_HUSK_SPAWN_EGG.get());
         gen.createSpawnEgg(ModItems.NAUTILUS_SPAWN_EGG.get());
         gen.createSpawnEgg(ModItems.ZOMBIE_NAUTILUS_SPAWN_EGG.get());
+        
+        // Wilderness Bound
+        gen.createHangingSign(ModBlocks.STRIPPED_POPLAR_LOG.get(), ModBlocks.POPLAR_HANGING_SIGN.getFirst().get(), ModBlocks.POPLAR_HANGING_SIGN.getSecond().get());
+        gen.createTrivialBlock(ModBlocks.RED_POPLAR_LEAVES.get(), TexturedModel.LEAVES);
+        gen.createTrivialBlock(ModBlocks.ORANGE_POPLAR_LEAVES.get(), TexturedModel.LEAVES);
+        gen.createTrivialBlock(ModBlocks.YELLOW_POPLAR_LEAVES.get(), TexturedModel.LEAVES);
+        gen.woodProvider(ModBlocks.POPLAR_LOG.get())
+            .logWithHorizontal(ModBlocks.POPLAR_LOG.get())
+            .wood(ModBlocks.POPLAR_WOOD.get());
+        gen.woodProvider(ModBlocks.STRIPPED_POPLAR_LOG.get())
+            .logWithHorizontal(ModBlocks.STRIPPED_POPLAR_LOG.get())
+            .wood(ModBlocks.STRIPPED_POPLAR_WOOD.get());
+        gen.createPlant(ModBlocks.POPLAR_SAPLING.get(), ModBlocks.POTTED_POPLAR_SAPLING.get(), BlockModelGenerators.TintState.NOT_TINTED);
+        gen.createCrossBlockWithDefaultItem(ModBlocks.RED_SHRUB.get(), BlockModelGenerators.TintState.TINTED);
+        gen.createShelfMushroom();
+        gen.createShelf(ModBlocks.POPLAR_SHELF.get(), ModBlocks.STRIPPED_PALE_OAK_LOG.get());
+        gen.createStrawBed();
     }
 
     @Override
@@ -181,7 +198,9 @@ public class ModelGenerator extends VanillaModelGenerator {
         gen.createFlatItem(ModItems.SULFUR_CUBE_BUCKET.get());
         gen.createMusicDisc(ModItems.MUSIC_DISC_BOUNCE.get());
         
-        // Miscellaneous
+        // Wilderness Bound
+        gen.createFlatItem(ModItems.POPLAR_BOAT.get());
+        gen.createFlatItem(ModItems.POPLAR_CHEST_BOAT.get());
         gen.createFlatItem(ModItems.WHITE_CUSHION.get());
         gen.createFlatItem(ModItems.ORANGE_CUSHION.get());
         gen.createFlatItem(ModItems.MAGENTA_CUSHION.get());

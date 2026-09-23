@@ -10,6 +10,7 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
@@ -224,13 +225,17 @@ public class Cushion extends BlockAttachedEntity {
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
-        compound.putByte("color", (byte) this.getColor().getId());
+        compound.putString("color", this.getColor().getName());
     }
     
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
-        this.setColor(DyeColor.byId(compound.getByte("color")));
+        if (compound.contains("color", Tag.TAG_STRING)) {
+            this.setColor(DyeColor.byName(compound.getString("color"), DEFAULT_COLOR));
+        } else {
+            this.setColor(DEFAULT_COLOR);
+        }
     }
     
     public static void register(DyeColor color, Block wool, Item cushion) {

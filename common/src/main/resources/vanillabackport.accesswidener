@@ -13,8 +13,14 @@ accessible class net/minecraft/world/entity/ai/control/MoveControl$Operation
 accessible field net/minecraft/world/entity/ai/control/MoveControl operation Lnet/minecraft/world/entity/ai/control/MoveControl$Operation;
 mutable field net/minecraft/world/entity/ai/control/MoveControl operation Lnet/minecraft/world/entity/ai/control/MoveControl$Operation;
 
+accessible class net/minecraft/server/level/ServerPlayer$RespawnPosAngle
 accessible class net/minecraft/world/level/biome/Biome$ClimateSettings
 accessible class net/minecraft/world/inventory/ArmorSlot
+
+accessible class net/minecraft/world/level/block/grower/TreeGrower
+extendable class net/minecraft/world/level/block/grower/TreeGrower
+accessible method net/minecraft/world/level/block/grower/TreeGrower getConfiguredFeature (Lnet/minecraft/util/RandomSource;Z)Lnet/minecraft/resources/ResourceKey;
+extendable method net/minecraft/world/level/block/grower/TreeGrower getConfiguredFeature (Lnet/minecraft/util/RandomSource;Z)Lnet/minecraft/resources/ResourceKey;
 
 accessible field net/minecraft/world/level/block/entity/ContainerOpenersCounter openCount I
 mutable field net/minecraft/world/level/block/entity/ContainerOpenersCounter openCount I

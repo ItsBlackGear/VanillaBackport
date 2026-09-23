@@ -51,6 +51,8 @@ public class ModBlockTags {
     public static final TagKey<Block> WOOL_STAIRS = TAGS.register("wool_stairs");
     public static final TagKey<Block> WOOL_SLABS = TAGS.register("wool_slabs");
 
+    public static final TagKey<Block> POPLAR_LOGS = TAGS.register("poplar_logs");
+    public static final TagKey<Block> REQUIRED_FOR_POPLAR_LEAF_AMBIENCE = TAGS.register("required_for_poplar_leaf_ambience");
     public static final TagKey<Block> CUSHION_USES_COLLISION_SHAPE = TAGS.register("cushion_uses_collision_shape");
 
     public static final TagKey<Block> CONCRETE_STAIRS = TAGS.register("concrete_stairs");

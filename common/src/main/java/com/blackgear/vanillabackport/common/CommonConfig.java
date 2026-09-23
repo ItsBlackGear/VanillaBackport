@@ -69,6 +69,9 @@ public class CommonConfig {
     public final ConfigBuilder.ConfigValue<Boolean> doSulfurCubesDealDamage;
     public final ConfigBuilder.ConfigValue<Boolean> doMerchantTradeChaosCubedContents;
     public final ConfigBuilder.ConfigValue<Boolean> hasBounceMusicDisc;
+    
+    // Wilderness Bound
+    public final ConfigBuilder.ConfigValue<Boolean> hasDappledForest;
 
     public CommonConfig(ConfigBuilder builder) {
         builder.push("Bundles of Bravery");
@@ -195,6 +198,11 @@ public class CommonConfig {
                 .define("do_merchant_trade_chaos_cubed_contents", true);
             this.hasBounceMusicDisc = builder.comment("allows the Bounce music disc to generate in Abandoned Mineshafts loot chests")
                 .define("has_bounce_music_disc", true);
+        builder.pop();
+        
+        builder.push("Wilderness Bound");
+        this.hasDappledForest = builder.comment("allow Dappled Forest biomes to generate")
+            .define("has_dappled_forest", true);
         builder.pop();
     }
 }

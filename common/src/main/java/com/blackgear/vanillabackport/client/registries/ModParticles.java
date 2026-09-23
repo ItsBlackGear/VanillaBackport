@@ -73,6 +73,9 @@ public class ModParticles {
         GeyserParticleOptions::codec,
         GeyserParticleOptions::streamCodec
     );
+    public static final Supplier<SimpleParticleType> RED_POPLAR_LEAVES = REGISTRIES.register("red_poplar_leaves", false);
+    public static final Supplier<SimpleParticleType> ORANGE_POPLAR_LEAVES = REGISTRIES.register("orange_poplar_leaves", false);
+    public static final Supplier<SimpleParticleType> YELLOW_POPLAR_LEAVES = REGISTRIES.register("yellow_poplar_leaves", false);
 
     public static <T extends ParticleOptions> int sendParticles(ServerLevel level, T particle, double x, double y, double z, int particleCount, double xOffset, double yOffset, double zOffset, double speed) {
         return sendParticles(level, particle, false, false, x, y, z, particleCount, xOffset, yOffset, zOffset, speed);

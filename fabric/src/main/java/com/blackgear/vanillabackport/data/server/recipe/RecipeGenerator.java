@@ -377,7 +377,16 @@ public class RecipeGenerator extends VanillaRecipeProvider {
         netheriteSmithing(output, Items.DIAMOND_HORSE_ARMOR, RecipeCategory.COMBAT, ModItems.NETHERITE_HORSE_ARMOR.get());
         netheriteSmithing(output, ModItems.DIAMOND_NAUTILUS_ARMOR.get(), RecipeCategory.COMBAT, ModItems.NETHERITE_NAUTILUS_ARMOR.get());
         
-        // Miscellaneous
+        // Wilderness Bound
+        
+        planksFromLog(output, ModBlocks.POPLAR_PLANKS.get(), ModItemTags.POPLAR_LOGS, 4);
+        woodFromLogs(output, ModBlocks.POPLAR_WOOD.get(), ModBlocks.POPLAR_LOG.get());
+        woodFromLogs(output, ModBlocks.STRIPPED_POPLAR_WOOD.get(), ModBlocks.STRIPPED_POPLAR_LOG.get());
+        woodenBoat(output, ModItems.POPLAR_BOAT.get(), ModBlocks.POPLAR_PLANKS.get());
+        chestBoat(output, ModItems.POPLAR_CHEST_BOAT.get(), ModItems.POPLAR_BOAT.get());
+        hangingSign(output, ModBlocks.POPLAR_HANGING_SIGN.getFirst().get(), ModBlocks.STRIPPED_POPLAR_LOG.get());
+        this.shelf(output, ModBlocks.POPLAR_SHELF.get(), ModBlocks.STRIPPED_POPLAR_LOG.get());
+        
         List<Item> dyes = List.of(Items.BLACK_DYE, Items.BLUE_DYE, Items.BROWN_DYE, Items.CYAN_DYE, Items.GRAY_DYE, Items.GREEN_DYE, Items.LIGHT_BLUE_DYE, Items.LIGHT_GRAY_DYE, Items.LIME_DYE, Items.MAGENTA_DYE, Items.ORANGE_DYE, Items.PINK_DYE, Items.PURPLE_DYE, Items.RED_DYE, Items.YELLOW_DYE, Items.WHITE_DYE);
         List<Item> wool_stairs = List.of(ModBlocks.BLACK_WOOL_STAIRS.get().asItem(), ModBlocks.BLUE_WOOL_STAIRS.get().asItem(), ModBlocks.BROWN_WOOL_STAIRS.get().asItem(), ModBlocks.CYAN_WOOL_STAIRS.get().asItem(), ModBlocks.GRAY_WOOL_STAIRS.get().asItem(), ModBlocks.GREEN_WOOL_STAIRS.get().asItem(), ModBlocks.LIGHT_BLUE_WOOL_STAIRS.get().asItem(), ModBlocks.LIGHT_GRAY_WOOL_STAIRS.get().asItem(), ModBlocks.LIME_WOOL_STAIRS.get().asItem(), ModBlocks.MAGENTA_WOOL_STAIRS.get().asItem(), ModBlocks.ORANGE_WOOL_STAIRS.get().asItem(), ModBlocks.PINK_WOOL_STAIRS.get().asItem(), ModBlocks.PURPLE_WOOL_STAIRS.get().asItem(), ModBlocks.RED_WOOL_STAIRS.get().asItem(), ModBlocks.YELLOW_WOOL_STAIRS.get().asItem(), ModBlocks.WHITE_WOOL_STAIRS.get().asItem());
         List<Item> wool_slabs = List.of(ModBlocks.BLACK_WOOL_SLAB.get().asItem(), ModBlocks.BLUE_WOOL_SLAB.get().asItem(), ModBlocks.BROWN_WOOL_SLAB.get().asItem(), ModBlocks.CYAN_WOOL_SLAB.get().asItem(), ModBlocks.GRAY_WOOL_SLAB.get().asItem(), ModBlocks.GREEN_WOOL_SLAB.get().asItem(), ModBlocks.LIGHT_BLUE_WOOL_SLAB.get().asItem(), ModBlocks.LIGHT_GRAY_WOOL_SLAB.get().asItem(), ModBlocks.LIME_WOOL_SLAB.get().asItem(), ModBlocks.MAGENTA_WOOL_SLAB.get().asItem(), ModBlocks.ORANGE_WOOL_SLAB.get().asItem(), ModBlocks.PINK_WOOL_SLAB.get().asItem(), ModBlocks.PURPLE_WOOL_SLAB.get().asItem(), ModBlocks.RED_WOOL_SLAB.get().asItem(), ModBlocks.YELLOW_WOOL_SLAB.get().asItem(), ModBlocks.WHITE_WOOL_SLAB.get().asItem());
@@ -412,6 +421,13 @@ public class RecipeGenerator extends VanillaRecipeProvider {
             BlockFamilies.PINK_CONCRETE, BlockFamilies.PURPLE_CONCRETE, BlockFamilies.RED_CONCRETE,
             BlockFamilies.YELLOW_CONCRETE, BlockFamilies.WHITE_CONCRETE);
         concrete_families.forEach(blockFamily -> this.generateStonecutterRecipes(output, blockFamily, FeatureFlagSet.of(FeatureFlags.VANILLA)));
+        
+        shaped(RecipeCategory.DECORATIONS, ModBlocks.STRAW_BED.get(), 4)
+            .define('X', Items.HAY_BLOCK)
+            .pattern("XXX")
+            .unlockedBy("has_hay_block", has(Items.HAY_BLOCK))
+            .unlockedBy("has_straw_bed", has(ModBlocks.STRAW_BED.get()))
+            .save(output);
     }
 
     public static ShapedRecipeBuilder shaped(RecipeCategory category, ItemLike entry) {

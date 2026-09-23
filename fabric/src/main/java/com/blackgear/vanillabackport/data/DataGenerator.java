@@ -1,5 +1,6 @@
 package com.blackgear.vanillabackport.data;
 
+import com.blackgear.vanillabackport.common.level.worldgen.structure.AbandonedCampStructurePools;
 import com.blackgear.vanillabackport.common.registries.entities.ModDamageTypes;
 import com.blackgear.vanillabackport.common.registries.enchantment.ModEnchantments;
 import com.blackgear.vanillabackport.common.registries.items.ModJukeboxSongs;
@@ -10,15 +11,20 @@ import com.blackgear.vanillabackport.common.registries.worldgen.ModNoises;
 import com.blackgear.vanillabackport.common.worldgen.features.ChaosCubedFeatures;
 import com.blackgear.vanillabackport.common.worldgen.features.SpringToLifeFeatures;
 import com.blackgear.vanillabackport.common.worldgen.features.TheGardenAwakensFeatures;
+import com.blackgear.vanillabackport.common.worldgen.features.WildernessBoundFeatures;
 import com.blackgear.vanillabackport.common.worldgen.placements.ChaosCubedPlacements;
 import com.blackgear.vanillabackport.common.worldgen.placements.SpringToLifePlacements;
 import com.blackgear.vanillabackport.common.worldgen.placements.TheGardenAwakensPlacements;
+import com.blackgear.vanillabackport.common.worldgen.placements.WildernessBoundPlacements;
+import com.blackgear.vanillabackport.common.worldgen.structures.WildernessBoundStructureSets;
+import com.blackgear.vanillabackport.common.worldgen.structures.WildernessBoundStructures;
 import com.blackgear.vanillabackport.data.client.LangGenerator;
 import com.blackgear.vanillabackport.data.client.ModelGenerator;
 import com.blackgear.vanillabackport.data.client.WaypointStyleProvider;
 import com.blackgear.vanillabackport.data.server.advancement.AdvancementGenerator;
 import com.blackgear.vanillabackport.data.server.builder.*;
 import com.blackgear.vanillabackport.data.server.loot.BlockLootGenerator;
+import com.blackgear.vanillabackport.data.server.loot.ChestLootGenerator;
 import com.blackgear.vanillabackport.data.server.loot.EntityLootGenerator;
 import com.blackgear.vanillabackport.data.server.loot.GiftLootGenerator;
 import com.blackgear.vanillabackport.data.server.recipe.RecipeGenerator;
@@ -44,6 +50,7 @@ public class DataGenerator implements DataGeneratorEntrypoint {
         pack.addProvider(BlockLootGenerator::new);
         pack.addProvider(GiftLootGenerator::new);
         pack.addProvider(EntityLootGenerator::new);
+        pack.addProvider(ChestLootGenerator::new);
 
         pack.addProvider(RecipeGenerator::new);
 
@@ -54,6 +61,7 @@ public class DataGenerator implements DataGeneratorEntrypoint {
         pack.addProvider(DamageTypeTagGenerator::new);
         pack.addProvider(PaintingVariantTagGenerator::new);
         pack.addProvider(EnchantmentTagGenerator::new);
+        pack.addProvider(StructureTagGenerator::new);
 
         pack.addProvider(PaintVariantsGenerator::new);
         pack.addProvider(TrimMaterialGenerator::new);
@@ -62,6 +70,7 @@ public class DataGenerator implements DataGeneratorEntrypoint {
         pack.addProvider(DamageTypeGenerator::new);
         pack.addProvider(ConfiguredFeatureGenerator::new);
         pack.addProvider(PlacedFeatureGenerator::new);
+        pack.addProvider(StructureGenerator::new);
         pack.addProvider(JukeboxSongGenerator::new);
         pack.addProvider(EnchantmentGenerator::new);
     }
@@ -78,8 +87,13 @@ public class DataGenerator implements DataGeneratorEntrypoint {
         builder.add(Registries.CONFIGURED_FEATURE, TheGardenAwakensFeatures.REGISTRIES::bootstrap);
         builder.add(Registries.CONFIGURED_FEATURE, SpringToLifeFeatures.REGISTRIES::bootstrap);
         builder.add(Registries.CONFIGURED_FEATURE, ChaosCubedFeatures.REGISTRIES::bootstrap);
+        builder.add(Registries.CONFIGURED_FEATURE, WildernessBoundFeatures.REGISTRIES::bootstrap);
         builder.add(Registries.PLACED_FEATURE, TheGardenAwakensPlacements.REGISTRIES::bootstrap);
         builder.add(Registries.PLACED_FEATURE, SpringToLifePlacements.REGISTRIES::bootstrap);
         builder.add(Registries.PLACED_FEATURE, ChaosCubedPlacements.REGISTRIES::bootstrap);
+        builder.add(Registries.PLACED_FEATURE, WildernessBoundPlacements.REGISTRIES::bootstrap);
+        builder.add(Registries.STRUCTURE, WildernessBoundStructures.REGISTRIES::bootstrap);
+        builder.add(Registries.STRUCTURE_SET, WildernessBoundStructureSets.REGISTRIES::bootstrap);
+        builder.add(Registries.TEMPLATE_POOL, AbandonedCampStructurePools::bootstrap);
     }
 }

@@ -33,12 +33,14 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
         }.addTags();
         this.handleConventionalTags();
         this.handleArchetypes();
-
+        
         this.getOrCreateTagBuilder(ItemTags.BOATS)
-            .add(ModItems.PALE_OAK_BOAT.get());
+            .add(ModItems.PALE_OAK_BOAT.get())
+            .add(ModItems.POPLAR_BOAT.get());
 
         this.getOrCreateTagBuilder(ItemTags.CHEST_BOATS)
-            .add(ModItems.PALE_OAK_CHEST_BOAT.get());
+            .add(ModItems.PALE_OAK_CHEST_BOAT.get())
+            .add(ModItems.POPLAR_CHEST_BOAT.get());
 
         this.getOrCreateTagBuilder(ModItemTags.BUNDLES)
             .add(
@@ -479,10 +481,12 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
             );
 
         this.getOrCreateTagBuilder(CreateItemTags.MODDED_STRIPPED_WOOD)
-            .add(ModBlocks.STRIPPED_PALE_OAK_WOOD.get().asItem());
+            .add(ModBlocks.STRIPPED_PALE_OAK_WOOD.get().asItem())
+            .add(ModBlocks.STRIPPED_POPLAR_WOOD.get().asItem());
 
         this.getOrCreateTagBuilder(CreateItemTags.MODDED_STRIPPED_LOGS)
-            .add(ModBlocks.STRIPPED_PALE_OAK_LOG.get().asItem());
+            .add(ModBlocks.STRIPPED_PALE_OAK_LOG.get().asItem())
+            .add(ModBlocks.STRIPPED_POPLAR_LOG.get().asItem());
         
         this.getOrCreateTagBuilder(ModItemTags.SHEARABLE_FROM_COPPER_GOLEM)
             .add(Items.POPPY);

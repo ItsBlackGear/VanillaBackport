@@ -28,5 +28,9 @@ public class ParticleRendering {
         event.register(ModParticles.GEYSER_BASE, GeyserBaseParticle.Provider::new);
         event.register(ModParticles.GEYSER_POOF, GeyserBaseParticle.Provider::new);
         event.register(ModParticles.GEYSER_PLUME, GeyserPlumeParticle.Provider::new);
+        
+        event.register(ModParticles.RED_POPLAR_LEAVES, FallingLeavesParticle.PoplarProvider::new);
+        event.register(ModParticles.ORANGE_POPLAR_LEAVES, FallingLeavesParticle.PoplarProvider::new);
+        event.register(ModParticles.YELLOW_POPLAR_LEAVES, FallingLeavesParticle.PoplarProvider::new);
     }
 }

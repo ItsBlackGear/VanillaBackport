@@ -3,6 +3,7 @@ package com.blackgear.vanillabackport.data.server.builder;
 import com.blackgear.vanillabackport.common.worldgen.placements.ChaosCubedPlacements;
 import com.blackgear.vanillabackport.common.worldgen.placements.SpringToLifePlacements;
 import com.blackgear.vanillabackport.common.worldgen.placements.TheGardenAwakensPlacements;
+import com.blackgear.vanillabackport.common.worldgen.placements.WildernessBoundPlacements;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
 import net.minecraft.core.HolderLookup;
@@ -66,6 +67,16 @@ public class PlacedFeatureGenerator extends FabricDynamicRegistryProvider {
         this.add(provider, entries, ChaosCubedPlacements.ROOTED_SULFUR_SPRING);
         this.add(provider, entries, ChaosCubedPlacements.SULFUR_SPIKE_CLUSTER);
         this.add(provider, entries, ChaosCubedPlacements.SULFUR_SPIKE);
+        
+        // Wilderness Bound
+        this.add(provider, entries, WildernessBoundPlacements.RED_POPLAR);
+        this.add(provider, entries, WildernessBoundPlacements.ORANGE_POPLAR);
+        this.add(provider, entries, WildernessBoundPlacements.YELLOW_POPLAR);
+        this.add(provider, entries, WildernessBoundPlacements.FALLEN_POPLAR_TREE);
+        this.add(provider, entries, WildernessBoundPlacements.PATCH_RED_SHRUB);
+        this.add(provider, entries, WildernessBoundPlacements.BROWN_MUSHROOM_DAPPLED_FOREST);
+        this.add(provider, entries, WildernessBoundPlacements.BAMBOO_IN_STRUCTURE);
+        this.add(provider, entries, WildernessBoundPlacements.TREES_DAPPLED_FOREST);
     }
 
     private void add(HolderLookup.Provider provider, Entries entries, ResourceKey<PlacedFeature> key) {

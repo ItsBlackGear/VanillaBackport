@@ -3,6 +3,7 @@ package com.blackgear.vanillabackport.data.server.builder;
 import com.blackgear.vanillabackport.common.worldgen.features.ChaosCubedFeatures;
 import com.blackgear.vanillabackport.common.worldgen.features.SpringToLifeFeatures;
 import com.blackgear.vanillabackport.common.worldgen.features.TheGardenAwakensFeatures;
+import com.blackgear.vanillabackport.common.worldgen.features.WildernessBoundFeatures;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
 import net.minecraft.core.HolderLookup;
@@ -58,6 +59,15 @@ public class ConfiguredFeatureGenerator extends FabricDynamicRegistryProvider {
         this.add(provider, entries, ChaosCubedFeatures.ROOTED_SULFUR_SPRING);
         this.add(provider, entries, ChaosCubedFeatures.SULFUR_SPIKE_CLUSTER);
         this.add(provider, entries, ChaosCubedFeatures.SULFUR_SPIKE);
+        
+        // Wilderness Bound
+        this.add(provider, entries, WildernessBoundFeatures.RED_POPLAR);
+        this.add(provider, entries, WildernessBoundFeatures.ORANGE_POPLAR);
+        this.add(provider, entries, WildernessBoundFeatures.YELLOW_POPLAR);
+        this.add(provider, entries, WildernessBoundFeatures.FALLEN_POPLAR_TREE);
+        this.add(provider, entries, WildernessBoundFeatures.RED_SHRUB);
+        this.add(provider, entries, WildernessBoundFeatures.BROWN_MUSHROOM);
+        this.add(provider, entries, WildernessBoundFeatures.TREES_DAPPLED_FOREST);
     }
 
     private void add(HolderLookup.Provider provider, Entries entries, ResourceKey<ConfiguredFeature<?, ?>> key) {

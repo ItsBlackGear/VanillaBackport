@@ -1,11 +1,12 @@
 package com.blackgear.vanillabackport.common.integrations.dispenser;
 
-import com.blackgear.vanillabackport.common.level.entities.boat.PaleOakBoat;
-import com.blackgear.vanillabackport.common.level.entities.boat.PaleOakChestBoat;
+import com.blackgear.vanillabackport.common.level.entities.boat.CustomBoat;
+import com.blackgear.vanillabackport.common.level.entities.boat.CustomChestBoat;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.entity.EntityType;
@@ -17,14 +18,16 @@ import net.minecraft.world.phys.Vec3;
 public class BoatDispenseBehavior extends DefaultDispenseItemBehavior {
     private final DefaultDispenseItemBehavior defaultDispenseItemBehavior;
     private final boolean isChestBoat;
+    private final ResourceLocation type;
 
-    public BoatDispenseBehavior() {
-        this(false);
+    public BoatDispenseBehavior(ResourceLocation type) {
+        this(type, false);
     }
 
-    public BoatDispenseBehavior(boolean isChestBoat) {
+    public BoatDispenseBehavior(ResourceLocation type, boolean isChestBoat) {
         this.defaultDispenseItemBehavior = new DefaultDispenseItemBehavior();
         this.isChestBoat = isChestBoat;
+        this.type = type;
     }
 
     public ItemStack execute(BlockSource source, ItemStack stack) {
@@ -45,7 +48,7 @@ public class BoatDispenseBehavior extends DefaultDispenseItemBehavior {
             }
         }
 
-        Boat boat = this.isChestBoat ? new PaleOakChestBoat(level, x, y, z) : new PaleOakBoat(level, x, y, z);
+        Boat boat = this.isChestBoat ? new CustomChestBoat(level, x, y, z, this.type) : new CustomBoat(level, x, y, z, this.type);
         boat.setYRot(direction.toYRot());
         boat.setPos(x, y + offset, z);
         level.addFreshEntity(boat);

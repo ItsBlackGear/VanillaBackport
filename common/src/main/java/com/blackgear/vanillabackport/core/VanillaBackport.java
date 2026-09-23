@@ -69,6 +69,7 @@ public final class VanillaBackport {
         ModBiomeTags.TAGS.register();
         ModEntityTypeTags.TAGS.register();
         ModDamageTypeTags.TAGS.register();
+        ModStructureTags.TAGS.register();
 
         ModValueProviders.REGISTRIES.register();
         ModMaterialRules.REGISTRIES.registrar();
@@ -103,6 +104,10 @@ public final class VanillaBackport {
 
         ModFeatures.REGISTRIES.register();
         ModTreeDecorators.REGISTRIES.register();
+        ModTrunkPlacers.REGISTRIES.register();
+        ModFoliagePlacers.REGISTRIES.register();
+        
+        ModMapDecorationTypes.REGISTRIES.register();
         
         ModEntityDataSerializers.SERIALIZERS.register();
         ModSyncedEntityData.init();

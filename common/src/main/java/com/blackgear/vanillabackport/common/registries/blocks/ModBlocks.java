@@ -6,8 +6,10 @@ import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
 import com.blackgear.vanillabackport.client.registries.ModSoundTypes;
 import com.blackgear.vanillabackport.common.level.blocks.*;
 import com.blackgear.vanillabackport.common.level.blocks.properties.SharedBlockProperties;
+import com.blackgear.vanillabackport.common.level.sounds.AmbientLeavesBlockSoundPlayer;
 import com.blackgear.vanillabackport.common.registries.worldgen.ModTreeGrowers;
 import com.blackgear.vanillabackport.core.VanillaBackport;
+import com.blackgear.vanillabackport.core.data.tags.ModBlockTags;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.SimpleParticleType;
@@ -144,7 +146,7 @@ public class ModBlocks {
             .noOcclusion());
     
     public static final Supplier<Block> PALE_OAK_LEAVES = REGISTRIES.register("pale_oak_leaves",
-        properties -> new ParticleLeavesBlock(50, ModParticles.PALE_OAK_LEAVES, properties),
+        properties -> new ParticleLeavesBlock(0.02F, ModParticles.PALE_OAK_LEAVES, properties),
         Properties.of()
             .mapColor(MapColor.TERRACOTTA_GREEN)
             .strength(0.2F)
@@ -159,7 +161,7 @@ public class ModBlocks {
             .isRedstoneConductor(REGISTRIES::never));
     
     public static final Supplier<Block> PALE_OAK_SAPLING = REGISTRIES.register("pale_oak_sapling",
-        properties -> new SaplingBlock(ModTreeGrowers.PALE_OAK_TREE, properties),
+        properties -> new SaplingBlock(ModTreeGrowers.PALE_OAK.get(), properties),
         Properties.of()
             .mapColor(MapColor.COLOR_LIGHT_GRAY)
             .noCollission()
@@ -550,7 +552,144 @@ public class ModBlocks {
                 .isRedstoneConductor(REGISTRIES::never)
                 .noOcclusion()));
     
-    // Miscellaneous
+    // Wilderness Bound
+    
+    public static final Supplier<Block> POPLAR_LOG = REGISTRIES.register("poplar_log",
+        RotatedPillarBlock::new,
+        SharedBlockProperties.logProperties(MapColor.COLOR_LIGHT_GRAY, MapColor.PODZOL, SoundType.WOOD));
+    public static final Supplier<Block> STRIPPED_POPLAR_LOG = REGISTRIES.register("stripped_poplar_log",
+        RotatedPillarBlock::new,
+        SharedBlockProperties.logProperties(MapColor.COLOR_LIGHT_GRAY, MapColor.COLOR_LIGHT_GRAY, SoundType.WOOD));
+    public static final Supplier<Block> POPLAR_WOOD = REGISTRIES.register("poplar_wood",
+        RotatedPillarBlock::new,
+        Properties.of()
+            .mapColor(MapColor.PODZOL)
+            .instrument(NoteBlockInstrument.BASS)
+            .strength(2.0F)
+            .sound(SoundType.WOOD)
+            .ignitedByLava());
+    public static final Supplier<Block> STRIPPED_POPLAR_WOOD = REGISTRIES.register("stripped_poplar_wood",
+        RotatedPillarBlock::new,
+        Properties.of()
+            .mapColor(MapColor.COLOR_LIGHT_GRAY)
+            .instrument(NoteBlockInstrument.BASS)
+            .strength(2.0F)
+            .sound(SoundType.WOOD)
+            .ignitedByLava());
+    
+    public static final Supplier<Block> POPLAR_PLANKS = REGISTRIES.register("poplar_planks", SharedBlockProperties.POPLAR);
+    public static final Supplier<Block> POPLAR_SLAB = REGISTRIES.register("poplar_slab", SlabBlock::new, SharedBlockProperties.POPLAR);
+    public static final Supplier<Block> POPLAR_STAIRS = REGISTRIES.register("poplar_stairs", () -> new StairBlock(POPLAR_PLANKS.get().defaultBlockState(), SharedBlockProperties.POPLAR));
+    
+    public static final Pair<Supplier<Block>, Supplier<Block>> POPLAR_SIGN = sign("poplar",
+        ModWoodTypes.POPLAR,
+        MapColor.COLOR_LIGHT_GRAY);
+    public static final Pair<Supplier<Block>, Supplier<Block>> POPLAR_HANGING_SIGN = hangingSign("poplar",
+        ModWoodTypes.POPLAR,
+        MapColor.COLOR_LIGHT_GRAY);
+    public static final Supplier<Block> POPLAR_BUTTON = REGISTRIES.register("poplar_button",
+        properties -> new ButtonBlock(ModBlockSetTypes.POPLAR, 30, properties),
+        SharedBlockProperties.buttonProperties());
+    public static final Supplier<Block> POPLAR_PRESSURE_PLATE = REGISTRIES.register("poplar_pressure_plate",
+        properties -> new PressurePlateBlock(ModBlockSetTypes.POPLAR, properties),
+        Properties.of()
+            .mapColor(MapColor.COLOR_LIGHT_GRAY)
+            .forceSolidOn()
+            .instrument(NoteBlockInstrument.BASS)
+            .noCollission()
+            .strength(0.5F)
+            .ignitedByLava()
+            .pushReaction(PushReaction.DESTROY));
+    public static final Supplier<Block> POPLAR_DOOR = REGISTRIES.register("poplar_door",
+        properties -> new DoorBlock(ModBlockSetTypes.POPLAR, properties),
+        Properties.of()
+            .mapColor(MapColor.COLOR_LIGHT_GRAY)
+            .instrument(NoteBlockInstrument.BASS)
+            .strength(3.0F)
+            .noOcclusion()
+            .ignitedByLava()
+            .pushReaction(PushReaction.DESTROY));
+    public static final Supplier<Block> POPLAR_FENCE = REGISTRIES.register("poplar_fence",
+        FenceBlock::new,
+        Properties.of()
+            .mapColor(MapColor.COLOR_LIGHT_GRAY)
+            .instrument(NoteBlockInstrument.BASS)
+            .strength(2.0F, 3.0F)
+            .sound(SoundType.WOOD)
+            .ignitedByLava());
+    public static final Supplier<Block> POPLAR_FENCE_GATE = REGISTRIES.register("poplar_fence_gate",
+        properties -> new FenceGateBlock(ModWoodTypes.POPLAR, properties),
+        Properties.of()
+            .mapColor(MapColor.COLOR_LIGHT_GRAY)
+            .forceSolidOn()
+            .instrument(NoteBlockInstrument.BASS)
+            .strength(2.0F, 3.0F)
+            .ignitedByLava());
+    public static final Supplier<Block> POPLAR_TRAPDOOR = REGISTRIES.register("poplar_trapdoor",
+        properties -> new TrapDoorBlock(ModBlockSetTypes.POPLAR, properties),
+        Properties.of()
+            .mapColor(MapColor.COLOR_LIGHT_GRAY)
+            .instrument(NoteBlockInstrument.BASS)
+            .strength(3.0F)
+            .noOcclusion()
+            .isValidSpawn(REGISTRIES::never)
+            .ignitedByLava());
+    
+    public static final Supplier<Block> POPLAR_SHELF = REGISTRIES.register("poplar_shelf",
+        ShelfBlock::new,
+        SharedBlockProperties.SHELF.mapColor(MapColor.COLOR_LIGHT_GRAY));
+    
+    public static final Supplier<Block> RED_POPLAR_LEAVES = REGISTRIES.register("red_poplar_leaves",
+        properties -> new AtmosphericLeavesBlock(0.01F, ModParticles.RED_POPLAR_LEAVES, properties, AmbientLeavesBlockSoundPlayer.of(ModSoundEvents.POPLAR_LEAVES_AMBIENT, ModBlockTags.REQUIRED_FOR_POPLAR_LEAF_AMBIENCE)),
+        SharedBlockProperties.leavesProperties(ModSoundTypes.POPLAR_LEAVES).mapColor(MapColor.COLOR_RED));
+    public static final Supplier<Block> ORANGE_POPLAR_LEAVES = REGISTRIES.register("orange_poplar_leaves",
+        properties -> new AtmosphericLeavesBlock(0.01F, ModParticles.ORANGE_POPLAR_LEAVES, properties, AmbientLeavesBlockSoundPlayer.of(ModSoundEvents.POPLAR_LEAVES_AMBIENT, ModBlockTags.REQUIRED_FOR_POPLAR_LEAF_AMBIENCE)),
+        SharedBlockProperties.leavesProperties(ModSoundTypes.POPLAR_LEAVES).mapColor(MapColor.COLOR_ORANGE));
+    public static final Supplier<Block> YELLOW_POPLAR_LEAVES = REGISTRIES.register("yellow_poplar_leaves",
+        properties -> new AtmosphericLeavesBlock(0.01F, ModParticles.YELLOW_POPLAR_LEAVES, properties, AmbientLeavesBlockSoundPlayer.of(ModSoundEvents.POPLAR_LEAVES_AMBIENT, ModBlockTags.REQUIRED_FOR_POPLAR_LEAF_AMBIENCE)),
+        SharedBlockProperties.leavesProperties(ModSoundTypes.POPLAR_LEAVES).mapColor(MapColor.COLOR_YELLOW));
+    
+    public static final Supplier<Block> POPLAR_SAPLING = REGISTRIES.register("poplar_sapling",
+        properties -> new SaplingBlock(ModTreeGrowers.POPLAR.get(), properties),
+        Properties.of()
+            .mapColor(MapColor.METAL)
+            .noCollission()
+            .randomTicks()
+            .instabreak()
+            .sound(SoundType.GRASS)
+            .pushReaction(PushReaction.DESTROY));
+    public static final Supplier<Block> POTTED_POPLAR_SAPLING = REGISTRIES.registerNoItem("potted_poplar_sapling",
+        properties -> new FlowerPotBlock(POPLAR_SAPLING.get(), properties),
+        SharedBlockProperties.flowerPotProperties());
+    
+    public static final Supplier<Block> RED_SHRUB = REGISTRIES.register("red_shrub",
+        ActualBushBlock::new,
+        Properties.of()
+            .mapColor(MapColor.CRIMSON_NYLIUM)
+            .replaceable()
+            .noCollission()
+            .instabreak()
+            .sound(ModSoundTypes.RED_SHRUB)
+            .ignitedByLava()
+            .pushReaction(PushReaction.DESTROY));
+    public static final Supplier<Block> SHELF_MUSHROOM = REGISTRIES.register("shelf_mushroom",
+        ShelfMushroomBlock::new,
+        Properties.of()
+            .mapColor(MapColor.TERRACOTTA_YELLOW)
+            .sound(ModSoundTypes.SHELF_MUSHROOM)
+            .noOcclusion()
+            .pushReaction(PushReaction.DESTROY));
+    
+    public static final Supplier<Block> STRAW_BED = REGISTRIES.register("straw_bed",
+        StrawBedBlock::new,
+        Properties.of()
+            .mapColor(MapColor.COLOR_YELLOW)
+            .sound(ModSoundTypes.STRAW_BED)
+            .strength(0.2F)
+            .noOcclusion()
+            .ignitedByLava()
+            .pushReaction(PushReaction.DESTROY)
+    );
     
     public static final Supplier<Block> WHITE_WOOL_STAIRS = REGISTRIES.register("white_wool_stairs",
         properties -> new StairBlock(Blocks.WHITE_WOOL.defaultBlockState(), properties),

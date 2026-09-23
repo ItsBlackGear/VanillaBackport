@@ -30,7 +30,8 @@ public class BlockTagGenerator extends FabricTagProvider.BlockTagProvider {
         }.addTags();
 
         this.getOrCreateTagBuilder(BlockTags.OVERWORLD_NATURAL_LOGS)
-            .add(ModBlocks.PALE_OAK_LOG.get());
+            .add(ModBlocks.PALE_OAK_LOG.get())
+            .add(ModBlocks.POPLAR_LOG.get());
 
         this.getOrCreateTagBuilder(BlockTags.ENDERMAN_HOLDABLE)
             .add(ModBlocks.CACTUS_FLOWER.get());
@@ -39,14 +40,17 @@ public class BlockTagGenerator extends FabricTagProvider.BlockTagProvider {
             .add(
                 ModBlocks.POTTED_OPEN_EYEBLOSSOM.get(),
                 ModBlocks.POTTED_CLOSED_EYEBLOSSOM.get(),
-                ModBlocks.POTTED_PALE_OAK_SAPLING.get()
+                ModBlocks.POTTED_PALE_OAK_SAPLING.get(),
+                ModBlocks.POTTED_POPLAR_SAPLING.get()
             );
 
         this.getOrCreateTagBuilder(BlockTags.WALL_SIGNS)
-            .add(ModBlocks.PALE_OAK_SIGN.getSecond().get());
+            .add(ModBlocks.PALE_OAK_SIGN.getSecond().get())
+            .add(ModBlocks.POPLAR_SIGN.getSecond().get());
 
         this.getOrCreateTagBuilder(BlockTags.WALL_HANGING_SIGNS)
-            .add(ModBlocks.PALE_OAK_HANGING_SIGN.getSecond().get());
+            .add(ModBlocks.PALE_OAK_HANGING_SIGN.getSecond().get())
+            .add(ModBlocks.POPLAR_HANGING_SIGN.getSecond().get());
 
         this.getOrCreateTagBuilder(BlockTags.WALL_POST_OVERRIDE)
             .add(ModBlocks.CACTUS_FLOWER.get())
@@ -66,7 +70,11 @@ public class BlockTagGenerator extends FabricTagProvider.BlockTagProvider {
             .add(
                 ModBlocks.PALE_OAK_LEAVES.get(),
                 ModBlocks.PALE_MOSS_BLOCK.get(),
-                ModBlocks.PALE_MOSS_CARPET.get()
+                ModBlocks.PALE_MOSS_CARPET.get(),
+                ModBlocks.RED_POPLAR_LEAVES.get(),
+                ModBlocks.ORANGE_POPLAR_LEAVES.get(),
+                ModBlocks.YELLOW_POPLAR_LEAVES.get(),
+                ModBlocks.STRAW_BED.get()
             );
 
         this.getOrCreateTagBuilder(BlockTags.MINEABLE_WITH_PICKAXE)
@@ -125,8 +133,13 @@ public class BlockTagGenerator extends FabricTagProvider.BlockTagProvider {
                 ModBlocks.FIREFLY_BUSH.get(),
                 ModBlocks.LEAF_LITTER.get(),
                 ModBlocks.SHORT_DRY_GRASS.get(),
-                ModBlocks.TALL_DRY_GRASS.get()
+                ModBlocks.TALL_DRY_GRASS.get(),
+                ModBlocks.RED_SHRUB.get(),
+                ModBlocks.SHELF_MUSHROOM.get()
             );
+        
+        this.getOrCreateTagBuilder(ModBlockTags.REQUIRED_FOR_POPLAR_LEAF_AMBIENCE)
+            .forceAddTag(BlockTags.OVERWORLD_NATURAL_LOGS);
 
         this.getOrCreateTagBuilder(BlockTags.SNIFFER_DIGGABLE_BLOCK)
             .add(ModBlocks.PALE_MOSS_BLOCK.get());
@@ -170,7 +183,8 @@ public class BlockTagGenerator extends FabricTagProvider.BlockTagProvider {
                 Blocks.OAK_LEAVES,
                 Blocks.BIRCH_LEAVES,
                 Blocks.DARK_OAK_LEAVES
-            );
+            )
+            .add(ModBlocks.RED_POPLAR_LEAVES.get(), ModBlocks.ORANGE_POPLAR_LEAVES.get(), ModBlocks.YELLOW_POPLAR_LEAVES.get());
 
         this.getOrCreateTagBuilder(ModBlockTags.SUPPORTS_CACTUS)
             .forceAddTag(BlockTags.SAND);

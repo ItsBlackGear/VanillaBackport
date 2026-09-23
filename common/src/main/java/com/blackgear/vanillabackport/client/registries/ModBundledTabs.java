@@ -17,6 +17,7 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.BlockItemStateProperties;
 import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.item.enchantment.EnchantmentInstance;
+import net.minecraft.world.level.block.Blocks;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -314,11 +315,35 @@ public class ModBundledTabs {
             .build()
     );
     
-    public static final BundledTabs MISCELLANEOUS = register(
+    public static final BundledTabs WILDERNESS_BOUND = register(
         BundledTabs.builder()
-            .title(Component.translatable("bundled_tab.miscellaneous.title"))
-            .icon(new ItemStack(Items.NAME_TAG))
+            .title(Component.translatable("bundled_tab.wilderness_bound.title"))
+            .icon(new ItemStack(Blocks.CAMPFIRE))
             .displayItems((provider, output) -> {
+                output.accept(ModBlocks.POPLAR_LOG.get());
+                output.accept(ModBlocks.STRIPPED_POPLAR_LOG.get());
+                output.accept(ModBlocks.POPLAR_WOOD.get());
+                output.accept(ModBlocks.STRIPPED_POPLAR_WOOD.get());
+                output.accept(ModBlocks.POPLAR_PLANKS.get());
+                output.accept(ModBlocks.POPLAR_STAIRS.get());
+                output.accept(ModBlocks.POPLAR_SLAB.get());
+                output.accept(ModBlocks.POPLAR_SIGN.getFirst().get());
+                output.accept(ModBlocks.POPLAR_HANGING_SIGN.getFirst().get());
+                output.accept(ModBlocks.POPLAR_BUTTON.get());
+                output.accept(ModBlocks.POPLAR_PRESSURE_PLATE.get());
+                output.accept(ModBlocks.POPLAR_DOOR.get());
+                output.accept(ModBlocks.POPLAR_FENCE.get());
+                output.accept(ModBlocks.POPLAR_FENCE_GATE.get());
+                output.accept(ModBlocks.POPLAR_TRAPDOOR.get());
+                output.accept(ModBlocks.POPLAR_SHELF.get());
+                output.accept(ModItems.POPLAR_BOAT.get());
+                output.accept(ModItems.POPLAR_CHEST_BOAT.get());
+                output.accept(ModBlocks.RED_POPLAR_LEAVES.get());
+                output.accept(ModBlocks.ORANGE_POPLAR_LEAVES.get());
+                output.accept(ModBlocks.YELLOW_POPLAR_LEAVES.get());
+                output.accept(ModBlocks.POPLAR_SAPLING.get());
+                output.accept(ModBlocks.RED_SHRUB.get());
+                output.accept(ModBlocks.SHELF_MUSHROOM.get());
                 output.accept(ModBlocks.WHITE_WOOL_STAIRS.get());
                 output.accept(ModBlocks.WHITE_WOOL_SLAB.get());
                 output.accept(ModBlocks.WHITE_CONCRETE_STAIRS.get());
@@ -399,6 +424,7 @@ public class ModBundledTabs {
                 output.accept(ModBlocks.PINK_CONCRETE_STAIRS.get());
                 output.accept(ModBlocks.PINK_CONCRETE_SLAB.get());
                 output.accept(ModItems.PINK_CUSHION.get());
+                output.accept(ModBlocks.STRAW_BED.get());
             })
             .build()
     );
