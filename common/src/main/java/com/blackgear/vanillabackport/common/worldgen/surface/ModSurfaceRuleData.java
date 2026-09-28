@@ -15,14 +15,21 @@ public class ModSurfaceRuleData {
         SurfaceRules.RuleSource cinnabar = makeStateRule(ModBlocks.CINNABAR.get());
         SurfaceRules.RuleSource sulfur = makeStateRule(ModBlocks.SULFUR.get());
         SurfaceRules.RuleSource stone = makeStateRule(Blocks.STONE);
+        SurfaceRules.RuleSource coarse_dirt = makeStateRule(Blocks.COARSE_DIRT);
 
-        return SurfaceRules.ifTrue(
-            SurfaceRules.isBiome(ModBiomes.SULFUR_CAVES),
-            SurfaceRules.sequence(
-                SurfaceRules.ifTrue(noiseCondition3d(ModNoises.SULFUR_CAVE_GRADIENT, -0.4F, -0.1F), cinnabar),
-                SurfaceRules.ifTrue(noiseCondition3d(ModNoises.SULFUR_CAVE_GRADIENT, 0.0F, 0.4F), sulfur),
-                SurfaceRules.ifTrue(noiseCondition3d(ModNoises.SULFUR_CAVE_GRADIENT, 0.4F), cinnabar),
-                SurfaceRules.ifTrue(SurfaceRules.abovePreliminarySurface(), stone)
+        return SurfaceRules.sequence(
+            SurfaceRules.ifTrue(
+                SurfaceRules.isBiome(ModBiomes.DAPPLED_FOREST),
+                SurfaceRules.ifTrue(SurfaceRules.noiseCondition(ModNoises.SMALL_PATCH, 1.2F), coarse_dirt)
+            ),
+            SurfaceRules.ifTrue(
+                SurfaceRules.isBiome(ModBiomes.SULFUR_CAVES),
+                SurfaceRules.sequence(
+                    SurfaceRules.ifTrue(noiseCondition3d(ModNoises.SULFUR_CAVE_GRADIENT, -0.4F, -0.1F), cinnabar),
+                    SurfaceRules.ifTrue(noiseCondition3d(ModNoises.SULFUR_CAVE_GRADIENT, 0.0F, 0.4F), sulfur),
+                    SurfaceRules.ifTrue(noiseCondition3d(ModNoises.SULFUR_CAVE_GRADIENT, 0.4F), cinnabar),
+                    SurfaceRules.ifTrue(SurfaceRules.abovePreliminarySurface(), stone)
+                )
             )
         );
     }

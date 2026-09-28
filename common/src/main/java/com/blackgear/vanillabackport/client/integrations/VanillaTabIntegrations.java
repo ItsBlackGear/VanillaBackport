@@ -19,7 +19,7 @@ public class VanillaTabIntegrations {
         registerCopperAge(event);
         registerMountsOfMayhem(event);
         registerChaosCubed(event);
-        registerFallDrop(event);
+        registerWildernessBound(event);
     }
     
     private static void registerArmoredPaws(Event event) {
@@ -351,7 +351,24 @@ public class VanillaTabIntegrations {
         });
     }
     
-    private static void registerFallDrop(Event event) {
+    private static void registerWildernessBound(Event event) {
+        event.register(VanillaTabs.BUILDING_BLOCKS, (flags, output, operator) -> {
+            output.after(ModBlocks.PALE_OAK_BUTTON.get()).add(
+                ModBlocks.POPLAR_LOG.get(),
+                ModBlocks.POPLAR_WOOD.get(),
+                ModBlocks.STRIPPED_POPLAR_LOG.get(),
+                ModBlocks.STRIPPED_POPLAR_WOOD.get(),
+                ModBlocks.POPLAR_PLANKS.get(),
+                ModBlocks.POPLAR_STAIRS.get(),
+                ModBlocks.POPLAR_SLAB.get(),
+                ModBlocks.POPLAR_FENCE.get(),
+                ModBlocks.POPLAR_FENCE_GATE.get(),
+                ModBlocks.POPLAR_DOOR.get(),
+                ModBlocks.POPLAR_TRAPDOOR.get(),
+                ModBlocks.POPLAR_PRESSURE_PLATE.get(),
+                ModBlocks.POPLAR_BUTTON.get());
+        });
+        
         event.register(VanillaTabs.COLORED_BLOCKS, (flags, output, operator) -> {
             output.before(Items.WHITE_CARPET).add(
                 ModBlocks.WHITE_WOOL_STAIRS.get(),
@@ -389,39 +406,39 @@ public class VanillaTabIntegrations {
                 ModBlocks.PINK_WOOL_SLAB.get());
 
             output.before(Items.WHITE_CONCRETE_POWDER).add(
-                    ModBlocks.WHITE_CONCRETE_STAIRS.get(),
-                    ModBlocks.LIGHT_GRAY_CONCRETE_STAIRS.get(),
-                    ModBlocks.GRAY_CONCRETE_STAIRS.get(),
-                    ModBlocks.BLACK_CONCRETE_STAIRS.get(),
-                    ModBlocks.BROWN_CONCRETE_STAIRS.get(),
-                    ModBlocks.RED_CONCRETE_STAIRS.get(),
-                    ModBlocks.ORANGE_CONCRETE_STAIRS.get(),
-                    ModBlocks.YELLOW_CONCRETE_STAIRS.get(),
-                    ModBlocks.LIME_CONCRETE_STAIRS.get(),
-                    ModBlocks.GREEN_CONCRETE_STAIRS.get(),
-                    ModBlocks.CYAN_CONCRETE_STAIRS.get(),
-                    ModBlocks.LIGHT_BLUE_CONCRETE_STAIRS.get(),
-                    ModBlocks.BLUE_CONCRETE_STAIRS.get(),
-                    ModBlocks.PURPLE_CONCRETE_STAIRS.get(),
-                    ModBlocks.MAGENTA_CONCRETE_STAIRS.get(),
-                    ModBlocks.PINK_CONCRETE_STAIRS.get())
-                .add(
-                    ModBlocks.WHITE_CONCRETE_SLAB.get(),
-                    ModBlocks.LIGHT_GRAY_CONCRETE_SLAB.get(),
-                    ModBlocks.GRAY_CONCRETE_SLAB.get(),
-                    ModBlocks.BLACK_CONCRETE_SLAB.get(),
-                    ModBlocks.BROWN_CONCRETE_SLAB.get(),
-                    ModBlocks.RED_CONCRETE_SLAB.get(),
-                    ModBlocks.ORANGE_CONCRETE_SLAB.get(),
-                    ModBlocks.YELLOW_CONCRETE_SLAB.get(),
-                    ModBlocks.LIME_CONCRETE_SLAB.get(),
-                    ModBlocks.GREEN_CONCRETE_SLAB.get(),
-                    ModBlocks.CYAN_CONCRETE_SLAB.get(),
-                    ModBlocks.LIGHT_BLUE_CONCRETE_SLAB.get(),
-                    ModBlocks.BLUE_CONCRETE_SLAB.get(),
-                    ModBlocks.PURPLE_CONCRETE_SLAB.get(),
-                    ModBlocks.MAGENTA_CONCRETE_SLAB.get(),
-                    ModBlocks.PINK_CONCRETE_SLAB.get());
+                ModBlocks.WHITE_CONCRETE_STAIRS.get(),
+                ModBlocks.LIGHT_GRAY_CONCRETE_STAIRS.get(),
+                ModBlocks.GRAY_CONCRETE_STAIRS.get(),
+                ModBlocks.BLACK_CONCRETE_STAIRS.get(),
+                ModBlocks.BROWN_CONCRETE_STAIRS.get(),
+                ModBlocks.RED_CONCRETE_STAIRS.get(),
+                ModBlocks.ORANGE_CONCRETE_STAIRS.get(),
+                ModBlocks.YELLOW_CONCRETE_STAIRS.get(),
+                ModBlocks.LIME_CONCRETE_STAIRS.get(),
+                ModBlocks.GREEN_CONCRETE_STAIRS.get(),
+                ModBlocks.CYAN_CONCRETE_STAIRS.get(),
+                ModBlocks.LIGHT_BLUE_CONCRETE_STAIRS.get(),
+                ModBlocks.BLUE_CONCRETE_STAIRS.get(),
+                ModBlocks.PURPLE_CONCRETE_STAIRS.get(),
+                ModBlocks.MAGENTA_CONCRETE_STAIRS.get(),
+                ModBlocks.PINK_CONCRETE_STAIRS.get())
+            .add(
+                ModBlocks.WHITE_CONCRETE_SLAB.get(),
+                ModBlocks.LIGHT_GRAY_CONCRETE_SLAB.get(),
+                ModBlocks.GRAY_CONCRETE_SLAB.get(),
+                ModBlocks.BLACK_CONCRETE_SLAB.get(),
+                ModBlocks.BROWN_CONCRETE_SLAB.get(),
+                ModBlocks.RED_CONCRETE_SLAB.get(),
+                ModBlocks.ORANGE_CONCRETE_SLAB.get(),
+                ModBlocks.YELLOW_CONCRETE_SLAB.get(),
+                ModBlocks.LIME_CONCRETE_SLAB.get(),
+                ModBlocks.GREEN_CONCRETE_SLAB.get(),
+                ModBlocks.CYAN_CONCRETE_SLAB.get(),
+                ModBlocks.LIGHT_BLUE_CONCRETE_SLAB.get(),
+                ModBlocks.BLUE_CONCRETE_SLAB.get(),
+                ModBlocks.PURPLE_CONCRETE_SLAB.get(),
+                ModBlocks.MAGENTA_CONCRETE_SLAB.get(),
+                ModBlocks.PINK_CONCRETE_SLAB.get());
             
             output.before(Items.CANDLE).add(
                 ModItems.WHITE_CUSHION.get(),
@@ -440,6 +457,24 @@ public class VanillaTabIntegrations {
                 ModItems.PURPLE_CUSHION.get(),
                 ModItems.MAGENTA_CUSHION.get(),
                 ModItems.PINK_CUSHION.get());
+        });
+        
+        event.register(VanillaTabs.NATURAL_BLOCKS, (flags, output, operator) -> {
+            output.after(ModBlocks.PALE_OAK_LOG.get()).add(ModBlocks.POPLAR_LOG.get());
+            output.after(ModBlocks.PALE_OAK_LEAVES.get()).add(ModBlocks.RED_POPLAR_LEAVES.get(), ModBlocks.ORANGE_POPLAR_LEAVES.get(), ModBlocks.YELLOW_POPLAR_LEAVES.get());
+            output.after(ModBlocks.PALE_OAK_SAPLING.get()).add(ModBlocks.POPLAR_SAPLING.get());
+            output.after(Items.RED_MUSHROOM).add(ModBlocks.SHELF_MUSHROOM.get());
+            output.after(ModBlocks.BUSH.get()).add(ModBlocks.RED_SHRUB.get());
+        });
+        
+        event.register(VanillaTabs.FUNCTIONAL_BLOCKS, (flags, output, operator) -> {
+            output.after(ModBlocks.PALE_OAK_SHELF.get()).add(ModBlocks.POPLAR_SHELF.get());
+            output.after(ModBlocks.PALE_OAK_HANGING_SIGN.getFirst().get()).add(ModBlocks.POPLAR_SIGN.getFirst().get(), ModBlocks.POPLAR_HANGING_SIGN.getFirst().get());
+            output.before(Items.CANDLE).add(ModBlocks.STRAW_BED.get());
+        });
+        
+        event.register(VanillaTabs.TOOLS_AND_UTILITIES, (flags, output, operator) -> {
+            output.after(ModItems.PALE_OAK_CHEST_BOAT.get()).add(ModItems.POPLAR_BOAT.get(), ModItems.POPLAR_CHEST_BOAT.get());
         });
     }
 }

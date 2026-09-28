@@ -21,19 +21,12 @@ public abstract class MobMixin extends LivingEntity implements MobSpearHandler {
         super(entityType, level);
     }
     
-    @Inject(
-        method = "doHurtTarget",
-        at = @At("RETURN")
-    )
+    @Inject(method = "doHurtTarget", at = @At("RETURN"))
     private void vb$doHurtTarget(Entity target, CallbackInfoReturnable<Boolean> cir) {
         this.vb$postPiercingAttack();
     }
     
-    @Inject(
-        method = "isWithinMeleeAttackRange",
-        at = @At("HEAD"),
-        cancellable = true
-    )
+    @Inject(method = "isWithinMeleeAttackRange", at = @At("HEAD"), cancellable = true)
     private void vb$isWithinMeleeAttackRange(LivingEntity entity, CallbackInfoReturnable<Boolean> cir) {
         ItemStack activeItem = this.isUsingItem() ? this.getUseItem() : this.getMainHandItem();
         AttackRange range = AttackRange.get(activeItem);

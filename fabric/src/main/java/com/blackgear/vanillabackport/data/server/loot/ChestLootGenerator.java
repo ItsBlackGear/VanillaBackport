@@ -42,7 +42,6 @@ public class ChestLootGenerator extends SimpleFabricLootTableProvider {
         super(output, LootContextParamSets.CHEST);
     }
     
-    
     @Override
     public void generate(BiConsumer<ResourceLocation, LootTable.Builder> output) {
         output.accept(

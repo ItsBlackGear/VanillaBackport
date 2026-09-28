@@ -32,8 +32,8 @@ public class ClientConfig {
     
     public ClientConfig(ConfigBuilder builder) {
         builder.push("Bats and Pots");
-        this.hasUpdatedBatModel = builder.comment("Use the updated bat model for bats")
-            .define("updated_bat_model", true);
+            this.hasUpdatedBatModel = builder.comment("Use the updated bat model for bats")
+                .define("updated_bat_model", true);
         builder.pop();
         
         builder.push("Bundles of Bravery");

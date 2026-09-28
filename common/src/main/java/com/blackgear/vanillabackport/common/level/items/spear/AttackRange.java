@@ -96,10 +96,6 @@ public record AttackRange(
         return distance >= minReach && distance <= maxReach;
     }
     
-    public static boolean hasAttackRange(ItemStack stack) {
-        return get(stack) != null;
-    }
-    
     public static @Nullable AttackRange get(ItemStack stack) {
         return stack.getItem() instanceof SpearItem spear ? spear.getAttackRange() : null;
     }

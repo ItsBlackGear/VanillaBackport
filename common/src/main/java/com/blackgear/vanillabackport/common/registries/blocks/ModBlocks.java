@@ -688,7 +688,9 @@ public class ModBlocks {
             .strength(0.2F)
             .noOcclusion()
             .ignitedByLava()
-            .pushReaction(PushReaction.DESTROY)
+            .pushReaction(PushReaction.DESTROY),
+        BlockItem::new,
+        new Item.Properties().stacksTo(16)
     );
     
     public static final Supplier<Block> WHITE_WOOL_STAIRS = REGISTRIES.register("white_wool_stairs",

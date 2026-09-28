@@ -3300,8 +3300,7 @@
       "block/shelf_mushroom/bounce3",
       "block/shelf_mushroom/bounce4",
       "block/shelf_mushroom/bounce5"
-    ],
-    "subtitle": "subtitles.block.generic.fall"
+    ]
   },
   "block.shelf_mushroom.place": {
     "sounds": [
@@ -3499,8 +3498,7 @@
       "block/leaf_litter/step4",
       "block/leaf_litter/step5",
       "block/leaf_litter/step6"
-    ],
-    "subtitle": "subtitles.block.generic.fall"
+    ]
   },
   "block.poplar_leaves.hit": {
     "sounds": [
@@ -3557,8 +3555,7 @@
       "block/straw_bed/hit4",
       "block/straw_bed/hit5",
       "block/straw_bed/hit6"
-    ],
-    "subtitle": "subtitles.block.generic.fall"
+    ]
   },
   "block.straw_bed.hit": {
     "sounds": [

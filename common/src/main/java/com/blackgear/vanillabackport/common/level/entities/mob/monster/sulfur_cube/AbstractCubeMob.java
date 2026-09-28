@@ -228,11 +228,6 @@ public abstract class AbstractCubeMob extends AgeableMob implements TravelAwareE
         }
     }
 
-    @Override
-    protected float getStandingEyeHeight(Pose pose, EntityDimensions dimensions) {
-        return 0.175F;
-    }
-
     protected boolean isDealsDamage() {
         return !this.isTiny() && this.isEffectiveAi();
     }

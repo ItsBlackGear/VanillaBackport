@@ -39,9 +39,7 @@ public abstract class PlayerMixin extends LivingEntity implements PlayerSpearHan
     @Shadow public abstract void causeFoodExhaustion(float exhaustion);
     @Shadow public abstract float getCurrentItemAttackStrengthDelay();
     @Shadow public abstract void magicCrit(Entity entityHit);
-    
     @Shadow public abstract boolean canBeHitByProjectile();
-    
     @Unique private int itemSwapTicker;
 
     protected PlayerMixin(EntityType<? extends LivingEntity> entityType, Level level) {
@@ -57,13 +55,7 @@ public abstract class PlayerMixin extends LivingEntity implements PlayerSpearHan
         }
     }
     
-    @Inject(
-        method = "attack",
-        at = @At(
-            value = "INVOKE",
-            target = "Lnet/minecraft/world/entity/player/Player;resetAttackStrengthTicker()V"
-        )
-    )
+    @Inject(method = "attack", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;resetAttackStrengthTicker()V"))
     private void vb$onAttackBeforeReset(Entity target, CallbackInfo ci) {
         this.vb$onAttack();
     }

@@ -107,6 +107,11 @@ public class SulfurCube extends AbstractCubeMob implements Bucketable, Shearable
         this.lookControl = new SulfurCubeLookControl();
         this.moveControl = new SulfurCubeMoveControl<>(this);
     }
+    
+    @Override
+    protected float getStandingEyeHeight(Pose pose, EntityDimensions dimensions) {
+        return 0.35F * dimensions.height;
+    }
 
     @Override
     protected void defineSynchedData() {
@@ -184,12 +189,6 @@ public class SulfurCube extends AbstractCubeMob implements Bucketable, Shearable
     @Override
     public boolean canBreatheUnderwater() {
         return this.hasBodyItem() || super.canBreatheUnderwater();
-    }
-
-    @Override
-    public Vec3 getLightProbePosition(float partialTicks) {
-        Vec3 base = super.getLightProbePosition(partialTicks);
-        return base.add(0, 0.5 * this.getSize(), 0);
     }
 
     @Override
