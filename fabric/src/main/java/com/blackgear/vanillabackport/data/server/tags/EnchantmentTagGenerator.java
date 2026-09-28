@@ -17,5 +17,7 @@ public class EnchantmentTagGenerator extends FabricTagProvider.EnchantmentTagPro
     protected void addTags(HolderLookup.Provider registries) {
         this.getOrCreateTagBuilder(EnchantmentTags.NON_TREASURE)
             .add(ModEnchantments.LUNGE);
+        this.getOrCreateTagBuilder(EnchantmentTags.TRADEABLE)
+            .add(ModEnchantments.LUNGE);
     }
 }

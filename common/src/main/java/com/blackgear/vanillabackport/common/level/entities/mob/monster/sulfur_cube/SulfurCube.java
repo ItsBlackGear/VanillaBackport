@@ -187,12 +187,6 @@ public class SulfurCube extends AbstractCubeMob implements Bucketable, Shearable
     }
 
     @Override
-    public Vec3 getLightProbePosition(float partialTicks) {
-        Vec3 base = super.getLightProbePosition(partialTicks);
-        return base.add(0, 0.5 * this.getSize(), 0);
-    }
-
-    @Override
     public void postTravelInFluid() {
         if (this.hasBodyItem() && this.floatsInLiquids) {
             float vibeAmount = 0.2F * Mth.sin(this.tickCount * 0.4F);

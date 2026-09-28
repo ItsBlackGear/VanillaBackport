@@ -26,6 +26,9 @@ public class ClientConfig {
     public final ConfigBuilder.ConfigValue<Boolean> enableModernDyeTextures;
     public final ConfigBuilder.ConfigValue<Boolean> endFlashSkyVisuals;
     public final ConfigBuilder.ConfigValue<Boolean> endFlashTerrainVisuals;
+    
+    // Wilderness Bound
+    public final ConfigBuilder.ConfigValue<Boolean> explorerMapRedesign;
 
     public ClientConfig(ConfigBuilder builder) {
         builder.push("Bundles of Bravery");
@@ -70,6 +73,11 @@ public class ClientConfig {
                 .define("end_flash_sky_visuals", true);
             this.endFlashTerrainVisuals = builder.comment("enable End Flash terrain effects")
                 .define("end_flash_terrain_visuals", true);
+        builder.pop();
+        
+        builder.push("Wilderness Bound");
+        this.explorerMapRedesign = builder.comment("enable the explorer map redesigns")
+            .define("explorer_map_redesign", true);
         builder.pop();
     }
 }
