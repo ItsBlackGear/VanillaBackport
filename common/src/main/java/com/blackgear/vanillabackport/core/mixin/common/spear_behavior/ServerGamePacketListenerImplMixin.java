@@ -3,6 +3,7 @@ package com.blackgear.vanillabackport.core.mixin.common.spear_behavior;
 import com.blackgear.vanillabackport.common.api.extensions.entity.arms.PlayerActions;
 import com.blackgear.vanillabackport.common.api.extensions.entity.spear.PlayerSpearHandler;
 import com.blackgear.vanillabackport.common.level.components.PiercingWeapon;
+import net.minecraft.network.protocol.PacketUtils;
 import net.minecraft.network.protocol.game.ServerboundPlayerActionPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
@@ -22,6 +23,9 @@ public class ServerGamePacketListenerImplMixin {
     @Inject(method = "handlePlayerAction", at = @At("HEAD"), cancellable = true)
     private void vb$handlePlayerAction(ServerboundPlayerActionPacket packet, CallbackInfo ci) {
         if (packet.getAction() == PlayerActions.STAB.get()) {
+            ServerGamePacketListenerImpl self = (ServerGamePacketListenerImpl) (Object) this;
+            PacketUtils.ensureRunningOnSameThread(packet, self, this.player.serverLevel());
+
             ci.cancel();
             this.player.resetLastActionTime();
             if (!this.player.isSpectator()) {
