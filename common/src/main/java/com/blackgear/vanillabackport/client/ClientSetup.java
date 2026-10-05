@@ -9,6 +9,7 @@ import com.blackgear.platform.common.v2.creative_tabs.CreativeTabIntegrations;
 import com.blackgear.platform.core.ParallelDispatch;
 import com.blackgear.platform.core.events.ResourcePackManager;
 import com.blackgear.platform.core.events.ResourceReloadManager;
+import com.blackgear.vanillabackport.client.api.modules.block_rendering.DynamicBlockRenderingHandler;
 import com.blackgear.vanillabackport.client.api.modules.bundle_ui.BundleMouseActions;
 import com.blackgear.vanillabackport.client.api.bundled_tabs.BundledTabSelector;
 import com.blackgear.vanillabackport.client.api.modules.leaf_litter.DryFoliageColorReloadListener;
@@ -52,7 +53,9 @@ public class ClientSetup {
         GameRendering.registerItemColors(ColorRendering::itemColors);
         GameRendering.registerItemLikeRenderers(ItemLikeRendering::itemLikeRendering);
         GameRendering.registerBlockEntityRenderers(ItemLikeRendering::blockEntityRendering);
+        GameRendering.registerBlockRenderers(ItemLikeRendering::blockRendering);
         TickEvents.CLIENT_TICK_POST.register(() -> ClientWaypointManager.INSTANCE.tick(Minecraft.getInstance().player));
+        TickEvents.CLIENT_TICK_POST.register(DynamicBlockRenderingHandler.INSTANCE::tick);
     }
 
     public static void asyncSetup(ParallelDispatch dispatch) {
