@@ -15,6 +15,67 @@ public class LangGenerator extends FabricLanguageProvider {
 
     @Override
     public void generateTranslations(TranslationBuilder builder) {
+        // Miscellaneous
+        
+        builder.add(ModBlocks.COPPER_BULB.get(), "Copper Bulb");
+        builder.add(ModBlocks.EXPOSED_COPPER_BULB.get(), "Exposed Copper Bulb");
+        builder.add(ModBlocks.WEATHERED_COPPER_BULB.get(), "Weathered Copper Bulb");
+        builder.add(ModBlocks.OXIDIZED_COPPER_BULB.get(), "Oxidized Copper Bulb");
+        builder.add(ModBlocks.WAXED_COPPER_BULB.get(), "Waxed Copper Bulb");
+        builder.add(ModBlocks.WAXED_EXPOSED_COPPER_BULB.get(), "Waxed Exposed Copper Bulb");
+        builder.add(ModBlocks.WAXED_WEATHERED_COPPER_BULB.get(), "Waxed Weathered Copper Bulb");
+        builder.add(ModBlocks.WAXED_OXIDIZED_COPPER_BULB.get(), "Waxed Oxidized Copper Bulb");
+        
+        builder.add(ModBlocks.CHISELED_COPPER.get(), "Chiseled Copper");
+        builder.add(ModBlocks.EXPOSED_CHISELED_COPPER.get(), "Exposed Chiseled Copper");
+        builder.add(ModBlocks.WEATHERED_CHISELED_COPPER.get(), "Weathered Chiseled Copper");
+        builder.add(ModBlocks.OXIDIZED_CHISELED_COPPER.get(), "Oxidized Chiseled Copper");
+        builder.add(ModBlocks.WAXED_CHISELED_COPPER.get(), "Waxed Chiseled Copper");
+        builder.add(ModBlocks.WAXED_EXPOSED_CHISELED_COPPER.get(), "Waxed Exposed Chiseled Copper");
+        builder.add(ModBlocks.WAXED_WEATHERED_CHISELED_COPPER.get(), "Waxed Weathered Chiseled Copper");
+        builder.add(ModBlocks.WAXED_OXIDIZED_CHISELED_COPPER.get(), "Waxed Oxidized Chiseled Copper");
+        
+        builder.add(ModBlocks.COPPER_GRATE.get(), "Copper Grate");
+        builder.add(ModBlocks.EXPOSED_COPPER_GRATE.get(), "Exposed Copper Grate");
+        builder.add(ModBlocks.WEATHERED_COPPER_GRATE.get(), "Weathered Copper Grate");
+        builder.add(ModBlocks.OXIDIZED_COPPER_GRATE.get(), "Oxidized Copper Grate");
+        builder.add(ModBlocks.WAXED_COPPER_GRATE.get(), "Waxed Copper Grate");
+        builder.add(ModBlocks.WAXED_EXPOSED_COPPER_GRATE.get(), "Waxed Exposed Copper Grate");
+        builder.add(ModBlocks.WAXED_WEATHERED_COPPER_GRATE.get(), "Waxed Weathered Copper Grate");
+        builder.add(ModBlocks.WAXED_OXIDIZED_COPPER_GRATE.get(), "Waxed Oxidized Copper Grate");
+        
+        builder.add(ModBlocks.COPPER_DOOR.get(), "Copper Door");
+        builder.add(ModBlocks.EXPOSED_COPPER_DOOR.get(), "Exposed Copper Door");
+        builder.add(ModBlocks.WEATHERED_COPPER_DOOR.get(), "Weathered Copper Door");
+        builder.add(ModBlocks.OXIDIZED_COPPER_DOOR.get(), "Oxidized Copper Door");
+        builder.add(ModBlocks.WAXED_COPPER_DOOR.get(), "Waxed Copper Door");
+        builder.add(ModBlocks.WAXED_EXPOSED_COPPER_DOOR.get(), "Waxed Exposed Copper Door");
+        builder.add(ModBlocks.WAXED_WEATHERED_COPPER_DOOR.get(), "Waxed Weathered Copper Door");
+        builder.add(ModBlocks.WAXED_OXIDIZED_COPPER_DOOR.get(), "Waxed Oxidized Copper Door");
+        
+        builder.add(ModBlocks.COPPER_TRAPDOOR.get(), "Copper Trapdoor");
+        builder.add(ModBlocks.EXPOSED_COPPER_TRAPDOOR.get(), "Exposed Copper Trapdoor");
+        builder.add(ModBlocks.WEATHERED_COPPER_TRAPDOOR.get(), "Weathered Copper Trapdoor");
+        builder.add(ModBlocks.OXIDIZED_COPPER_TRAPDOOR.get(), "Oxidized Copper Trapdoor");
+        builder.add(ModBlocks.WAXED_COPPER_TRAPDOOR.get(), "Waxed Copper Trapdoor");
+        builder.add(ModBlocks.WAXED_EXPOSED_COPPER_TRAPDOOR.get(), "Waxed Exposed Copper Trapdoor");
+        builder.add(ModBlocks.WAXED_WEATHERED_COPPER_TRAPDOOR.get(), "Waxed Weathered Copper Trapdoor");
+        builder.add(ModBlocks.WAXED_OXIDIZED_COPPER_TRAPDOOR.get(), "Waxed Oxidized Copper Trapdoor");
+        
+        builder.add(ModBlocks.TUFF_STAIRS.get(), "Tuff Stairs");
+        builder.add(ModBlocks.TUFF_SLAB.get(), "Tuff Slab");
+        builder.add(ModBlocks.TUFF_WALL.get(), "Tuff Wall");
+        builder.add(ModBlocks.CHISELED_TUFF.get(), "Chiseled Tuff");
+        builder.add(ModBlocks.POLISHED_TUFF.get(), "Polished Tuff");
+        builder.add(ModBlocks.POLISHED_TUFF_STAIRS.get(), "Polished Tuff Stairs");
+        builder.add(ModBlocks.POLISHED_TUFF_SLAB.get(), "Polished Tuff Slab");
+        builder.add(ModBlocks.POLISHED_TUFF_WALL.get(), "Polished Tuff Wall");
+        builder.add(ModBlocks.TUFF_BRICKS.get(), "Tuff Bricks");
+        builder.add(ModBlocks.TUFF_BRICK_STAIRS.get(), "Tuff Brick Stairs");
+        builder.add(ModBlocks.TUFF_BRICK_SLAB.get(), "Tuff Brick Slab");
+        builder.add(ModBlocks.TUFF_BRICK_WALL.get(), "Tuff Brick Wall");
+        builder.add(ModBlocks.CHISELED_TUFF_BRICKS.get(), "Chiseled Tuff Bricks");
+        
         // THE GARDEN AWAKENS
 
         // Biomes

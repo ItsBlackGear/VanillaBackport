@@ -10,6 +10,34 @@ import java.util.function.Supplier;
 public class ModSoundEvents {
     public static final SoundRegistry REGISTRIES = SoundRegistry.create(VanillaBackport.NAMESPACE);
 
+    // Miscellaneous
+    public static final Supplier<SoundEvent> COPPER_BULB_BREAK = REGISTRIES.register("block.copper_bulb.break");
+    public static final Supplier<SoundEvent> COPPER_BULB_STEP = REGISTRIES.register("block.copper_bulb.step");
+    public static final Supplier<SoundEvent> COPPER_BULB_PLACE = REGISTRIES.register("block.copper_bulb.place");
+    public static final Supplier<SoundEvent> COPPER_BULB_HIT = REGISTRIES.register("block.copper_bulb.hit");
+    public static final Supplier<SoundEvent> COPPER_BULB_FALL = REGISTRIES.register("block.copper_bulb.fall");
+    public static final Supplier<SoundEvent> COPPER_BULB_TURN_ON = REGISTRIES.register("block.copper_bulb.turn_on");
+    public static final Supplier<SoundEvent> COPPER_BULB_TURN_OFF = REGISTRIES.register("block.copper_bulb.turn_off");
+    public static final Supplier<SoundEvent> COPPER_DOOR_CLOSE = REGISTRIES.register("block.copper_door.close");
+    public static final Supplier<SoundEvent> COPPER_DOOR_OPEN = REGISTRIES.register("block.copper_door.open");
+    public static final Supplier<SoundEvent> COPPER_GRATE_BREAK = REGISTRIES.register("block.copper_grate.break");
+    public static final Supplier<SoundEvent> COPPER_GRATE_STEP = REGISTRIES.register("block.copper_grate.step");
+    public static final Supplier<SoundEvent> COPPER_GRATE_PLACE = REGISTRIES.register("block.copper_grate.place");
+    public static final Supplier<SoundEvent> COPPER_GRATE_HIT = REGISTRIES.register("block.copper_grate.hit");
+    public static final Supplier<SoundEvent> COPPER_GRATE_FALL = REGISTRIES.register("block.copper_grate.fall");
+    public static final Supplier<SoundEvent> COPPER_TRAPDOOR_CLOSE = REGISTRIES.register("block.copper_trapdoor.close");
+    public static final Supplier<SoundEvent> COPPER_TRAPDOOR_OPEN = REGISTRIES.register("block.copper_trapdoor.open");
+    public static final Supplier<SoundEvent> TUFF_BRICKS_BREAK = REGISTRIES.register("block.tuff_bricks.break");
+    public static final Supplier<SoundEvent> TUFF_BRICKS_FALL = REGISTRIES.register("block.tuff_bricks.fall");
+    public static final Supplier<SoundEvent> TUFF_BRICKS_HIT = REGISTRIES.register("block.tuff_bricks.hit");
+    public static final Supplier<SoundEvent> TUFF_BRICKS_PLACE = REGISTRIES.register("block.tuff_bricks.place");
+    public static final Supplier<SoundEvent> TUFF_BRICKS_STEP = REGISTRIES.register("block.tuff_bricks.step");
+    public static final Supplier<SoundEvent> POLISHED_TUFF_BREAK = REGISTRIES.register("block.polished_tuff.break");
+    public static final Supplier<SoundEvent> POLISHED_TUFF_FALL = REGISTRIES.register("block.polished_tuff.fall");
+    public static final Supplier<SoundEvent> POLISHED_TUFF_HIT = REGISTRIES.register("block.polished_tuff.hit");
+    public static final Supplier<SoundEvent> POLISHED_TUFF_PLACE = REGISTRIES.register("block.polished_tuff.place");
+    public static final Supplier<SoundEvent> POLISHED_TUFF_STEP = REGISTRIES.register("block.polished_tuff.step");
+    
     // BLOCKS
     public static final Supplier<SoundEvent> EYEBLOSSOM_OPEN_LONG = REGISTRIES.soundEvent("block.eyeblossom.open_long");
     public static final Supplier<SoundEvent> EYEBLOSSOM_OPEN = REGISTRIES.soundEvent("block.eyeblossom.open");

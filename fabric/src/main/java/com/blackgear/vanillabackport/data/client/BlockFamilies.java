@@ -13,7 +13,28 @@ import java.util.stream.Stream;
 
 public class BlockFamilies {
     private static final Map<Block, BlockFamily> MAP = Maps.newHashMap();
-
+    
+    public static final BlockFamily TUFF = familyBuilder(Blocks.TUFF)
+        .wall(ModBlocks.TUFF_WALL.get())
+        .stairs(ModBlocks.TUFF_STAIRS.get())
+        .slab(ModBlocks.TUFF_SLAB.get())
+        .chiseled(ModBlocks.CHISELED_TUFF.get())
+        .polished(ModBlocks.POLISHED_TUFF.get())
+        .getFamily();
+    
+    public static final BlockFamily POLISHED_TUFF = familyBuilder(ModBlocks.POLISHED_TUFF.get())
+        .wall(ModBlocks.POLISHED_TUFF_WALL.get())
+        .stairs(ModBlocks.POLISHED_TUFF_STAIRS.get())
+        .slab(ModBlocks.POLISHED_TUFF_SLAB.get())
+        .getFamily();
+    
+    public static final BlockFamily TUFF_BRICKS = familyBuilder(ModBlocks.TUFF_BRICKS.get())
+        .wall(ModBlocks.TUFF_BRICK_WALL.get())
+        .stairs(ModBlocks.TUFF_BRICK_STAIRS.get())
+        .slab(ModBlocks.TUFF_BRICK_SLAB.get())
+        .chiseled(ModBlocks.CHISELED_TUFF_BRICKS.get())
+        .getFamily();
+    
     public static final BlockFamily PALE_OAK_PLANKS = familyBuilder(ModBlocks.PALE_OAK_PLANKS.get())
         .button(ModBlocks.PALE_OAK_BUTTON.get())
         .fence(ModBlocks.PALE_OAK_FENCE.get())

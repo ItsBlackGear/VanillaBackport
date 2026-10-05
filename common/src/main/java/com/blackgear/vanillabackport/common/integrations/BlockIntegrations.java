@@ -122,6 +122,31 @@ public class BlockIntegrations {
     }
     
     private static void registerWaxables(Event event) {
+        event.registerWaxableBlock(ModBlocks.COPPER_BULB.get(), ModBlocks.WAXED_COPPER_BULB.get());
+        event.registerWaxableBlock(ModBlocks.EXPOSED_COPPER_BULB.get(), ModBlocks.WAXED_EXPOSED_COPPER_BULB.get());
+        event.registerWaxableBlock(ModBlocks.WEATHERED_COPPER_BULB.get(), ModBlocks.WAXED_WEATHERED_COPPER_BULB.get());
+        event.registerWaxableBlock(ModBlocks.OXIDIZED_COPPER_BULB.get(), ModBlocks.WAXED_OXIDIZED_COPPER_BULB.get());
+        
+        event.registerWaxableBlock(ModBlocks.CHISELED_COPPER.get(), ModBlocks.WAXED_CHISELED_COPPER.get());
+        event.registerWaxableBlock(ModBlocks.EXPOSED_CHISELED_COPPER.get(), ModBlocks.WAXED_EXPOSED_CHISELED_COPPER.get());
+        event.registerWaxableBlock(ModBlocks.WEATHERED_CHISELED_COPPER.get(), ModBlocks.WAXED_WEATHERED_CHISELED_COPPER.get());
+        event.registerWaxableBlock(ModBlocks.OXIDIZED_CHISELED_COPPER.get(), ModBlocks.WAXED_OXIDIZED_CHISELED_COPPER.get());
+        
+        event.registerWaxableBlock(ModBlocks.COPPER_GRATE.get(), ModBlocks.WAXED_COPPER_GRATE.get());
+        event.registerWaxableBlock(ModBlocks.EXPOSED_COPPER_GRATE.get(), ModBlocks.WAXED_EXPOSED_COPPER_GRATE.get());
+        event.registerWaxableBlock(ModBlocks.WEATHERED_COPPER_GRATE.get(), ModBlocks.WAXED_WEATHERED_COPPER_GRATE.get());
+        event.registerWaxableBlock(ModBlocks.OXIDIZED_COPPER_GRATE.get(), ModBlocks.WAXED_OXIDIZED_COPPER_GRATE.get());
+        
+        event.registerWaxableBlock(ModBlocks.COPPER_DOOR.get(), ModBlocks.WAXED_COPPER_DOOR.get());
+        event.registerWaxableBlock(ModBlocks.EXPOSED_COPPER_DOOR.get(), ModBlocks.WAXED_EXPOSED_COPPER_DOOR.get());
+        event.registerWaxableBlock(ModBlocks.WEATHERED_COPPER_DOOR.get(), ModBlocks.WAXED_WEATHERED_COPPER_DOOR.get());
+        event.registerWaxableBlock(ModBlocks.OXIDIZED_COPPER_DOOR.get(), ModBlocks.WAXED_OXIDIZED_COPPER_DOOR.get());
+        
+        event.registerWaxableBlock(ModBlocks.COPPER_TRAPDOOR.get(), ModBlocks.WAXED_COPPER_TRAPDOOR.get());
+        event.registerWaxableBlock(ModBlocks.EXPOSED_COPPER_TRAPDOOR.get(), ModBlocks.WAXED_EXPOSED_COPPER_TRAPDOOR.get());
+        event.registerWaxableBlock(ModBlocks.WEATHERED_COPPER_TRAPDOOR.get(), ModBlocks.WAXED_WEATHERED_COPPER_TRAPDOOR.get());
+        event.registerWaxableBlock(ModBlocks.OXIDIZED_COPPER_TRAPDOOR.get(), ModBlocks.WAXED_OXIDIZED_COPPER_TRAPDOOR.get());
+        
         event.registerWaxableBlock(ModBlocks.COPPER_CHEST.get(), ModBlocks.WAXED_COPPER_CHEST.get());
         event.registerWaxableBlock(ModBlocks.EXPOSED_COPPER_CHEST.get(), ModBlocks.WAXED_EXPOSED_COPPER_CHEST.get());
         event.registerWaxableBlock(ModBlocks.WEATHERED_COPPER_CHEST.get(), ModBlocks.WAXED_WEATHERED_COPPER_CHEST.get());
@@ -142,6 +167,26 @@ public class BlockIntegrations {
     }
     
     private static void registerOxidables(Event event) {
+        event.registerOxidableBlock(ModBlocks.COPPER_BULB.get(), ModBlocks.EXPOSED_COPPER_BULB.get());
+        event.registerOxidableBlock(ModBlocks.EXPOSED_COPPER_BULB.get(), ModBlocks.WEATHERED_COPPER_BULB.get());
+        event.registerOxidableBlock(ModBlocks.WEATHERED_COPPER_BULB.get(), ModBlocks.OXIDIZED_COPPER_BULB.get());
+        
+        event.registerOxidableBlock(ModBlocks.CHISELED_COPPER.get(), ModBlocks.EXPOSED_CHISELED_COPPER.get());
+        event.registerOxidableBlock(ModBlocks.EXPOSED_CHISELED_COPPER.get(), ModBlocks.WEATHERED_CHISELED_COPPER.get());
+        event.registerOxidableBlock(ModBlocks.WEATHERED_CHISELED_COPPER.get(), ModBlocks.OXIDIZED_CHISELED_COPPER.get());
+        
+        event.registerOxidableBlock(ModBlocks.COPPER_GRATE.get(), ModBlocks.EXPOSED_COPPER_GRATE.get());
+        event.registerOxidableBlock(ModBlocks.EXPOSED_COPPER_GRATE.get(), ModBlocks.WEATHERED_COPPER_GRATE.get());
+        event.registerOxidableBlock(ModBlocks.WEATHERED_COPPER_GRATE.get(), ModBlocks.OXIDIZED_COPPER_GRATE.get());
+        
+        event.registerOxidableBlock(ModBlocks.COPPER_DOOR.get(), ModBlocks.EXPOSED_COPPER_DOOR.get());
+        event.registerOxidableBlock(ModBlocks.EXPOSED_COPPER_DOOR.get(), ModBlocks.WEATHERED_COPPER_DOOR.get());
+        event.registerOxidableBlock(ModBlocks.WEATHERED_COPPER_DOOR.get(), ModBlocks.OXIDIZED_COPPER_DOOR.get());
+        
+        event.registerOxidableBlock(ModBlocks.COPPER_TRAPDOOR.get(), ModBlocks.EXPOSED_COPPER_TRAPDOOR.get());
+        event.registerOxidableBlock(ModBlocks.EXPOSED_COPPER_TRAPDOOR.get(), ModBlocks.WEATHERED_COPPER_TRAPDOOR.get());
+        event.registerOxidableBlock(ModBlocks.WEATHERED_COPPER_TRAPDOOR.get(), ModBlocks.OXIDIZED_COPPER_TRAPDOOR.get());
+        
         event.registerOxidableBlock(ModBlocks.COPPER_CHEST.get(), ModBlocks.EXPOSED_COPPER_CHEST.get());
         event.registerOxidableBlock(ModBlocks.EXPOSED_COPPER_CHEST.get(), ModBlocks.WEATHERED_COPPER_CHEST.get());
         event.registerOxidableBlock(ModBlocks.WEATHERED_COPPER_CHEST.get(), ModBlocks.OXIDIZED_COPPER_CHEST.get());

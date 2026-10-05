@@ -7,6 +7,9 @@
     "minecraft:cinnabar_brick_wall",
     "minecraft:sulfur_wall",
     "minecraft:polished_sulfur_wall",
-    "minecraft:sulfur_brick_wall"
+    "minecraft:sulfur_brick_wall",
+    "minecraft:tuff_wall",
+    "minecraft:polished_tuff_wall",
+    "minecraft:tuff_brick_wall"
   ]
 }

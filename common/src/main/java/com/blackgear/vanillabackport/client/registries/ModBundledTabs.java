@@ -437,6 +437,68 @@ public class ModBundledTabs {
             })
             .build()
     );
+    
+    public static final BundledTabs MISCELLANEOUS = register(
+        BundledTabs.builder()
+            .title(Component.translatable("bundled_tab.miscellaneous.title"))
+            .icon(new ItemStack(Items.NAME_TAG))
+            .displayItems((provider, output) -> {
+                output.accept(ModBlocks.COPPER_BULB.get());
+                output.accept(ModBlocks.EXPOSED_COPPER_BULB.get());
+                output.accept(ModBlocks.WEATHERED_COPPER_BULB.get());
+                output.accept(ModBlocks.OXIDIZED_COPPER_BULB.get());
+                output.accept(ModBlocks.WAXED_COPPER_BULB.get());
+                output.accept(ModBlocks.WAXED_EXPOSED_COPPER_BULB.get());
+                output.accept(ModBlocks.WAXED_WEATHERED_COPPER_BULB.get());
+                output.accept(ModBlocks.WAXED_OXIDIZED_COPPER_BULB.get());
+                output.accept(ModBlocks.CHISELED_COPPER.get());
+                output.accept(ModBlocks.EXPOSED_CHISELED_COPPER.get());
+                output.accept(ModBlocks.WEATHERED_CHISELED_COPPER.get());
+                output.accept(ModBlocks.OXIDIZED_CHISELED_COPPER.get());
+                output.accept(ModBlocks.WAXED_CHISELED_COPPER.get());
+                output.accept(ModBlocks.WAXED_EXPOSED_CHISELED_COPPER.get());
+                output.accept(ModBlocks.WAXED_WEATHERED_CHISELED_COPPER.get());
+                output.accept(ModBlocks.WAXED_OXIDIZED_CHISELED_COPPER.get());
+                output.accept(ModBlocks.COPPER_GRATE.get());
+                output.accept(ModBlocks.EXPOSED_COPPER_GRATE.get());
+                output.accept(ModBlocks.WEATHERED_COPPER_GRATE.get());
+                output.accept(ModBlocks.OXIDIZED_COPPER_GRATE.get());
+                output.accept(ModBlocks.WAXED_COPPER_GRATE.get());
+                output.accept(ModBlocks.WAXED_EXPOSED_COPPER_GRATE.get());
+                output.accept(ModBlocks.WAXED_WEATHERED_COPPER_GRATE.get());
+                output.accept(ModBlocks.WAXED_OXIDIZED_COPPER_GRATE.get());
+                output.accept(ModBlocks.COPPER_DOOR.get());
+                output.accept(ModBlocks.EXPOSED_COPPER_DOOR.get());
+                output.accept(ModBlocks.WEATHERED_COPPER_DOOR.get());
+                output.accept(ModBlocks.OXIDIZED_COPPER_DOOR.get());
+                output.accept(ModBlocks.WAXED_COPPER_DOOR.get());
+                output.accept(ModBlocks.WAXED_EXPOSED_COPPER_DOOR.get());
+                output.accept(ModBlocks.WAXED_WEATHERED_COPPER_DOOR.get());
+                output.accept(ModBlocks.WAXED_OXIDIZED_COPPER_DOOR.get());
+                output.accept(ModBlocks.COPPER_TRAPDOOR.get());
+                output.accept(ModBlocks.EXPOSED_COPPER_TRAPDOOR.get());
+                output.accept(ModBlocks.WEATHERED_COPPER_TRAPDOOR.get());
+                output.accept(ModBlocks.OXIDIZED_COPPER_TRAPDOOR.get());
+                output.accept(ModBlocks.WAXED_COPPER_TRAPDOOR.get());
+                output.accept(ModBlocks.WAXED_EXPOSED_COPPER_TRAPDOOR.get());
+                output.accept(ModBlocks.WAXED_WEATHERED_COPPER_TRAPDOOR.get());
+                output.accept(ModBlocks.WAXED_OXIDIZED_COPPER_TRAPDOOR.get());
+                output.accept(ModBlocks.TUFF_STAIRS.get());
+                output.accept(ModBlocks.TUFF_SLAB.get());
+                output.accept(ModBlocks.TUFF_WALL.get());
+                output.accept(ModBlocks.CHISELED_TUFF.get());
+                output.accept(ModBlocks.POLISHED_TUFF.get());
+                output.accept(ModBlocks.POLISHED_TUFF_STAIRS.get());
+                output.accept(ModBlocks.POLISHED_TUFF_SLAB.get());
+                output.accept(ModBlocks.POLISHED_TUFF_WALL.get());
+                output.accept(ModBlocks.TUFF_BRICKS.get());
+                output.accept(ModBlocks.TUFF_BRICK_STAIRS.get());
+                output.accept(ModBlocks.TUFF_BRICK_SLAB.get());
+                output.accept(ModBlocks.TUFF_BRICK_WALL.get());
+                output.accept(ModBlocks.CHISELED_TUFF_BRICKS.get());
+            })
+            .build()
+    );
 
     public static BundledTabs register(BundledTabs builder) {
         FILTERS.add(builder);

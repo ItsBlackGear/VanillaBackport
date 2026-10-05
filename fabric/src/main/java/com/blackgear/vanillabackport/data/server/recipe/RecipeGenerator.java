@@ -44,6 +44,72 @@ public class RecipeGenerator extends VanillaRecipeProvider {
         BlockFamilies.getAllFamilies()
             .filter(family -> family.shouldGenerateRecipe(FeatureFlagSet.of(FeatureFlags.VANILLA)))
             .forEach(family -> generateRecipes(output, family));
+
+        // Miscellaneous
+        copperBulb(output, ModBlocks.COPPER_BULB.get(), Blocks.COPPER_BLOCK);
+        copperBulb(output, ModBlocks.EXPOSED_COPPER_BULB.get(), Blocks.EXPOSED_COPPER);
+        copperBulb(output, ModBlocks.WEATHERED_COPPER_BULB.get(), Blocks.WEATHERED_COPPER);
+        copperBulb(output, ModBlocks.OXIDIZED_COPPER_BULB.get(), Blocks.OXIDIZED_COPPER);
+        copperBulb(output, ModBlocks.WAXED_COPPER_BULB.get(), Blocks.WAXED_COPPER_BLOCK);
+        copperBulb(output, ModBlocks.WAXED_EXPOSED_COPPER_BULB.get(), Blocks.WAXED_EXPOSED_COPPER);
+        copperBulb(output, ModBlocks.WAXED_WEATHERED_COPPER_BULB.get(), Blocks.WAXED_WEATHERED_COPPER);
+        copperBulb(output, ModBlocks.WAXED_OXIDIZED_COPPER_BULB.get(), Blocks.WAXED_OXIDIZED_COPPER);
+        
+        chiseled(output, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CHISELED_COPPER.get(), Blocks.CUT_COPPER_SLAB);
+        chiseled(output, RecipeCategory.BUILDING_BLOCKS, ModBlocks.WEATHERED_CHISELED_COPPER.get(), Blocks.WEATHERED_CUT_COPPER_SLAB);
+        chiseled(output, RecipeCategory.BUILDING_BLOCKS, ModBlocks.EXPOSED_CHISELED_COPPER.get(), Blocks.EXPOSED_CUT_COPPER_SLAB);
+        chiseled(output, RecipeCategory.BUILDING_BLOCKS, ModBlocks.OXIDIZED_CHISELED_COPPER.get(), Blocks.OXIDIZED_CUT_COPPER_SLAB);
+        
+        chiseled(output, RecipeCategory.BUILDING_BLOCKS, ModBlocks.WAXED_CHISELED_COPPER.get(), Blocks.WAXED_CUT_COPPER_SLAB);
+        chiseled(output, RecipeCategory.BUILDING_BLOCKS, ModBlocks.WAXED_WEATHERED_CHISELED_COPPER.get(), Blocks.WAXED_WEATHERED_CUT_COPPER_SLAB);
+        chiseled(output, RecipeCategory.BUILDING_BLOCKS, ModBlocks.WAXED_EXPOSED_CHISELED_COPPER.get(), Blocks.WAXED_EXPOSED_CUT_COPPER_SLAB);
+        chiseled(output, RecipeCategory.BUILDING_BLOCKS, ModBlocks.WAXED_OXIDIZED_CHISELED_COPPER.get(), Blocks.WAXED_OXIDIZED_CUT_COPPER_SLAB);
+        
+        stonecutterResultFromBase(output, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CHISELED_COPPER.get(), Blocks.COPPER_BLOCK, 4);
+        stonecutterResultFromBase(output, RecipeCategory.BUILDING_BLOCKS, ModBlocks.EXPOSED_CHISELED_COPPER.get(), Blocks.EXPOSED_COPPER, 4);
+        stonecutterResultFromBase(output, RecipeCategory.BUILDING_BLOCKS, ModBlocks.WEATHERED_CHISELED_COPPER.get(), Blocks.WEATHERED_COPPER, 4);
+        stonecutterResultFromBase(output, RecipeCategory.BUILDING_BLOCKS, ModBlocks.OXIDIZED_CHISELED_COPPER.get(), Blocks.OXIDIZED_COPPER, 4);
+        stonecutterResultFromBase(output, RecipeCategory.BUILDING_BLOCKS, ModBlocks.WAXED_CHISELED_COPPER.get(), Blocks.WAXED_COPPER_BLOCK, 4);
+        stonecutterResultFromBase(output, RecipeCategory.BUILDING_BLOCKS, ModBlocks.WAXED_EXPOSED_CHISELED_COPPER.get(), Blocks.WAXED_EXPOSED_COPPER, 4);
+        stonecutterResultFromBase(output, RecipeCategory.BUILDING_BLOCKS, ModBlocks.WAXED_WEATHERED_CHISELED_COPPER.get(), Blocks.WAXED_WEATHERED_COPPER, 4);
+        stonecutterResultFromBase(output, RecipeCategory.BUILDING_BLOCKS, ModBlocks.WAXED_OXIDIZED_CHISELED_COPPER.get(), Blocks.WAXED_OXIDIZED_COPPER, 4);
+        
+        stonecutterResultFromBase(output, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CHISELED_COPPER.get(), Blocks.CUT_COPPER, 1);
+        stonecutterResultFromBase(output, RecipeCategory.BUILDING_BLOCKS, ModBlocks.EXPOSED_CHISELED_COPPER.get(), Blocks.EXPOSED_CUT_COPPER, 1);
+        stonecutterResultFromBase(output, RecipeCategory.BUILDING_BLOCKS, ModBlocks.WEATHERED_CHISELED_COPPER.get(), Blocks.WEATHERED_CUT_COPPER, 1);
+        stonecutterResultFromBase(output, RecipeCategory.BUILDING_BLOCKS, ModBlocks.OXIDIZED_CHISELED_COPPER.get(), Blocks.OXIDIZED_CUT_COPPER, 1);
+        stonecutterResultFromBase(output, RecipeCategory.BUILDING_BLOCKS, ModBlocks.WAXED_CHISELED_COPPER.get(), Blocks.WAXED_CUT_COPPER, 1);
+        stonecutterResultFromBase(output, RecipeCategory.BUILDING_BLOCKS, ModBlocks.WAXED_EXPOSED_CHISELED_COPPER.get(), Blocks.WAXED_EXPOSED_CUT_COPPER, 1);
+        stonecutterResultFromBase(output, RecipeCategory.BUILDING_BLOCKS, ModBlocks.WAXED_WEATHERED_CHISELED_COPPER.get(), Blocks.WAXED_WEATHERED_CUT_COPPER, 1);
+        stonecutterResultFromBase(output, RecipeCategory.BUILDING_BLOCKS, ModBlocks.WAXED_OXIDIZED_CHISELED_COPPER.get(), Blocks.WAXED_OXIDIZED_CUT_COPPER, 1);
+        
+        stonecutterResultFromBase(output, RecipeCategory.BUILDING_BLOCKS, ModBlocks.COPPER_GRATE.get(), Blocks.COPPER_BLOCK, 4);
+        stonecutterResultFromBase(output, RecipeCategory.BUILDING_BLOCKS, ModBlocks.EXPOSED_COPPER_GRATE.get(), Blocks.EXPOSED_COPPER, 4);
+        stonecutterResultFromBase(output, RecipeCategory.BUILDING_BLOCKS, ModBlocks.WEATHERED_COPPER_GRATE.get(), Blocks.WEATHERED_COPPER, 4);
+        stonecutterResultFromBase(output, RecipeCategory.BUILDING_BLOCKS, ModBlocks.OXIDIZED_COPPER_GRATE.get(), Blocks.OXIDIZED_COPPER, 4);
+        stonecutterResultFromBase(output, RecipeCategory.BUILDING_BLOCKS, ModBlocks.WAXED_COPPER_GRATE.get(), Blocks.WAXED_COPPER_BLOCK, 4);
+        stonecutterResultFromBase(output, RecipeCategory.BUILDING_BLOCKS, ModBlocks.WAXED_EXPOSED_COPPER_GRATE.get(), Blocks.WAXED_EXPOSED_COPPER, 4);
+        stonecutterResultFromBase(output, RecipeCategory.BUILDING_BLOCKS, ModBlocks.WAXED_WEATHERED_COPPER_GRATE.get(), Blocks.WAXED_WEATHERED_COPPER, 4);
+        stonecutterResultFromBase(output, RecipeCategory.BUILDING_BLOCKS, ModBlocks.WAXED_OXIDIZED_COPPER_GRATE.get(), Blocks.WAXED_OXIDIZED_COPPER, 4);
+        
+        doorBuilder(ModBlocks.COPPER_DOOR.get(), Ingredient.of(Items.COPPER_INGOT))
+            .unlockedBy(getHasName(Items.COPPER_INGOT), has(Items.COPPER_INGOT))
+            .save(output);
+        twoByTwoPacker(output, RecipeCategory.REDSTONE, ModBlocks.COPPER_TRAPDOOR.get(), Items.COPPER_INGOT);
+        
+        this.generateStonecutterRecipes(output, BlockFamilies.TUFF, FeatureFlagSet.of(FeatureFlags.VANILLA));
+        this.generateStonecutterRecipes(output, BlockFamilies.POLISHED_TUFF, FeatureFlagSet.of(FeatureFlags.VANILLA));
+        this.generateStonecutterRecipes(output, BlockFamilies.TUFF_BRICKS, FeatureFlagSet.of(FeatureFlags.VANILLA));
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.TUFF_BRICKS.get(), 4)
+            .define('S', ModBlocks.POLISHED_TUFF.get())
+            .pattern("SS")
+            .pattern("SS")
+            .unlockedBy("has_polished_tuff", has(ModBlocks.POLISHED_TUFF.get()))
+            .save(output);
+        stonecutterResultFromBase(output, RecipeCategory.BUILDING_BLOCKS, ModBlocks.TUFF_BRICKS.get(), ModBlocks.POLISHED_TUFF.get(), 1);
+        
+        // The Garden Awakens
+        
         planksFromLog(output, ModBlocks.PALE_OAK_PLANKS.get(), ModItemTags.PALE_OAK_LOGS, 4);
         woodFromLogs(output, ModBlocks.PALE_OAK_WOOD.get(), ModBlocks.PALE_OAK_LOG.get());
         woodFromLogs(output, ModBlocks.STRIPPED_PALE_OAK_WOOD.get(), ModBlocks.STRIPPED_PALE_OAK_LOG.get());
@@ -141,8 +207,6 @@ public class RecipeGenerator extends VanillaRecipeProvider {
         threeByThreePacker(output, RecipeCategory.BUILDING_BLOCKS, ModBlocks.POTENT_SULFUR.get(), ModBlocks.SULFUR.get());
         
         // Copper Age
-        nineBlockStorageRecipesWithCustomPacking(output, RecipeCategory.MISC, ModItems.COPPER_NUGGET.get(), RecipeCategory.MISC, Items.COPPER_INGOT, "copper_ingot_from_nuggets", "copper_ingot");
-        
         this.shelf(output, ModBlocks.ACACIA_SHELF.get(), Items.STRIPPED_ACACIA_LOG);
         this.shelf(output, ModBlocks.BAMBOO_SHELF.get(), Items.STRIPPED_BAMBOO_BLOCK);
         this.shelf(output, ModBlocks.BIRCH_SHELF.get(), Items.STRIPPED_BIRCH_LOG);
@@ -156,72 +220,6 @@ public class RecipeGenerator extends VanillaRecipeProvider {
         this.shelf(output, ModBlocks.SPRUCE_SHELF.get(), Items.STRIPPED_SPRUCE_LOG);
         this.shelf(output, ModBlocks.WARPED_SHELF.get(), Items.STRIPPED_WARPED_STEM);
         
-        shaped(RecipeCategory.TOOLS, ModItems.COPPER_AXE.get())
-            .define('#', Items.STICK)
-            .define('X', Items.COPPER_INGOT)
-            .pattern("XX")
-            .pattern("X#")
-            .pattern(" #")
-            .unlockedBy("has_copper_ingot", has(Items.COPPER_INGOT))
-            .save(output);
-        shaped(RecipeCategory.TOOLS, ModItems.COPPER_HOE.get())
-            .define('#', Items.STICK)
-            .define('X', Items.COPPER_INGOT)
-            .pattern("XX")
-            .pattern(" #")
-            .pattern(" #")
-            .unlockedBy("has_copper_ingot", has(Items.COPPER_INGOT))
-            .save(output);
-        shaped(RecipeCategory.TOOLS, ModItems.COPPER_PICKAXE.get())
-            .define('#', Items.STICK)
-            .define('X', Items.COPPER_INGOT)
-            .pattern("XXX")
-            .pattern(" # ")
-            .pattern(" # ")
-            .unlockedBy("has_copper_ingot", has(Items.COPPER_INGOT))
-            .save(output);
-        shaped(RecipeCategory.TOOLS, ModItems.COPPER_SHOVEL.get())
-            .define('#', Items.STICK)
-            .define('X', Items.COPPER_INGOT)
-            .pattern("X")
-            .pattern("#")
-            .pattern("#")
-            .unlockedBy("has_copper_ingot", has(Items.COPPER_INGOT))
-            .save(output);
-        shaped(RecipeCategory.COMBAT, ModItems.COPPER_SWORD.get())
-            .define('#', Items.STICK)
-            .define('X', Items.COPPER_INGOT)
-            .pattern("X")
-            .pattern("X")
-            .pattern("#")
-            .unlockedBy("has_copper_ingot", has(Items.COPPER_INGOT))
-            .save(output);
-        shaped(RecipeCategory.COMBAT, ModItems.COPPER_HELMET.get())
-            .define('X', Items.COPPER_INGOT)
-            .pattern("XXX")
-            .pattern("X X")
-            .unlockedBy("has_copper_ingot", has(Items.COPPER_INGOT))
-            .save(output);
-        shaped(RecipeCategory.COMBAT, ModItems.COPPER_CHESTPLATE.get())
-            .define('X', Items.COPPER_INGOT)
-            .pattern("X X")
-            .pattern("XXX")
-            .pattern("XXX")
-            .unlockedBy("has_copper_ingot", has(Items.COPPER_INGOT))
-            .save(output);
-        shaped(RecipeCategory.COMBAT, ModItems.COPPER_LEGGINGS.get())
-            .define('X', Items.COPPER_INGOT)
-            .pattern("XXX")
-            .pattern("X X")
-            .pattern("X X")
-            .unlockedBy("has_copper_ingot", has(Items.COPPER_INGOT))
-            .save(output);
-        shaped(RecipeCategory.COMBAT, ModItems.COPPER_BOOTS.get())
-            .define('X', Items.COPPER_INGOT)
-            .pattern("X X")
-            .pattern("X X")
-            .unlockedBy("has_copper_ingot", has(Items.COPPER_INGOT))
-            .save(output);
         shaped(RecipeCategory.DECORATIONS, ModBlocks.COPPER_CHEST.get())
             .define('#', Items.COPPER_INGOT)
             .define('X', Items.CHEST)
@@ -230,72 +228,6 @@ public class RecipeGenerator extends VanillaRecipeProvider {
             .pattern("###")
             .unlockedBy("has_copper_chest", has(ModBlocks.COPPER_CHEST.get()))
             .save(output);
-        SimpleCookingRecipeBuilder.smelting(
-                Ingredient.of(
-                    ModItems.COPPER_PICKAXE.get(),
-                    ModItems.COPPER_SHOVEL.get(),
-                    ModItems.COPPER_AXE.get(),
-                    ModItems.COPPER_HOE.get(),
-                    ModItems.COPPER_SWORD.get(),
-                    ModItems.COPPER_SPEAR.get(),
-                    ModItems.COPPER_HELMET.get(),
-                    ModItems.COPPER_CHESTPLATE.get(),
-                    ModItems.COPPER_LEGGINGS.get(),
-                    ModItems.COPPER_BOOTS.get(),
-                    ModItems.COPPER_HORSE_ARMOR.get(),
-                    ModItems.COPPER_NAUTILUS_ARMOR.get()
-                ),
-                RecipeCategory.MISC,
-                ModItems.COPPER_NUGGET.get(),
-                0.1F,
-                200
-            )
-            .unlockedBy("has_copper_pickaxe", has(ModItems.COPPER_PICKAXE.get()))
-            .unlockedBy("has_copper_shovel", has(ModItems.COPPER_SHOVEL.get()))
-            .unlockedBy("has_copper_axe", has(ModItems.COPPER_AXE.get()))
-            .unlockedBy("has_copper_hoe", has(ModItems.COPPER_HOE.get()))
-            .unlockedBy("has_copper_sword", has(ModItems.COPPER_SWORD.get()))
-            .unlockedBy("has_copper_spear", has(ModItems.COPPER_SPEAR.get()))
-            .unlockedBy("has_copper_helmet", has(ModItems.COPPER_HELMET.get()))
-            .unlockedBy("has_copper_chestplate", has(ModItems.COPPER_CHESTPLATE.get()))
-            .unlockedBy("has_copper_leggings", has(ModItems.COPPER_LEGGINGS.get()))
-            .unlockedBy("has_copper_boots", has(ModItems.COPPER_BOOTS.get()))
-            .unlockedBy("has_copper_horse_armor", has(ModItems.COPPER_HORSE_ARMOR.get()))
-            .unlockedBy("has_copper_nautilus_armor", has(ModItems.COPPER_NAUTILUS_ARMOR.get()))
-            .save(output, getSmeltingRecipeName(ModItems.COPPER_NUGGET.get()));
-        SimpleCookingRecipeBuilder.blasting(
-                Ingredient.of(
-                    ModItems.COPPER_PICKAXE.get(),
-                    ModItems.COPPER_SHOVEL.get(),
-                    ModItems.COPPER_AXE.get(),
-                    ModItems.COPPER_HOE.get(),
-                    ModItems.COPPER_SWORD.get(),
-                    ModItems.COPPER_SPEAR.get(),
-                    ModItems.COPPER_HELMET.get(),
-                    ModItems.COPPER_CHESTPLATE.get(),
-                    ModItems.COPPER_LEGGINGS.get(),
-                    ModItems.COPPER_BOOTS.get(),
-                    ModItems.COPPER_HORSE_ARMOR.get(),
-                    ModItems.COPPER_NAUTILUS_ARMOR.get()
-                ),
-                RecipeCategory.MISC,
-                ModItems.COPPER_NUGGET.get(),
-                0.1F,
-                100
-            )
-            .unlockedBy("has_copper_pickaxe", has(ModItems.COPPER_PICKAXE.get()))
-            .unlockedBy("has_copper_shovel", has(ModItems.COPPER_SHOVEL.get()))
-            .unlockedBy("has_copper_axe", has(ModItems.COPPER_AXE.get()))
-            .unlockedBy("has_copper_hoe", has(ModItems.COPPER_HOE.get()))
-            .unlockedBy("has_copper_sword", has(ModItems.COPPER_SWORD.get()))
-            .unlockedBy("has_copper_spear", has(ModItems.COPPER_SPEAR.get()))
-            .unlockedBy("has_copper_helmet", has(ModItems.COPPER_HELMET.get()))
-            .unlockedBy("has_copper_chestplate", has(ModItems.COPPER_CHESTPLATE.get()))
-            .unlockedBy("has_copper_leggings", has(ModItems.COPPER_LEGGINGS.get()))
-            .unlockedBy("has_copper_boots", has(ModItems.COPPER_BOOTS.get()))
-            .unlockedBy("has_copper_horse_armor", has(ModItems.COPPER_HORSE_ARMOR.get()))
-            .unlockedBy("has_copper_nautilus_armor", has(ModItems.COPPER_NAUTILUS_ARMOR.get()))
-            .save(output, getBlastingRecipeName(ModItems.COPPER_NUGGET.get()));
         
         shaped(RecipeCategory.DECORATIONS, ModBlocks.COPPER_TORCH.getFirst().get(), 4)
             .define('X', Ingredient.of(Items.COAL, Items.CHARCOAL))
@@ -331,54 +263,6 @@ public class RecipeGenerator extends VanillaRecipeProvider {
             .save(output);
         
         // Mounts of Mayhem
-        shaped(RecipeCategory.COMBAT, ModItems.DIAMOND_SPEAR.get())
-            .define('#', Items.STICK)
-            .define('X', Items.DIAMOND)
-            .pattern("  X")
-            .pattern(" # ")
-            .pattern("#  ")
-            .unlockedBy("has_diamond", has(Items.DIAMOND))
-            .save(output);
-        shaped(RecipeCategory.COMBAT, ModItems.GOLDEN_SPEAR.get())
-            .define('#', Items.STICK)
-            .define('X', Items.GOLD_INGOT)
-            .pattern("  X")
-            .pattern(" # ")
-            .pattern("#  ")
-            .unlockedBy("has_gold_ingot", has(Items.GOLD_INGOT))
-            .save(output);
-        shaped(RecipeCategory.COMBAT, ModItems.IRON_SPEAR.get())
-            .define('#', Items.STICK)
-            .define('X', Items.IRON_INGOT)
-            .pattern("  X")
-            .pattern(" # ")
-            .pattern("#  ")
-            .unlockedBy("has_iron_ingot", has(Items.IRON_INGOT))
-            .save(output);
-        shaped(RecipeCategory.COMBAT, ModItems.COPPER_SPEAR.get())
-            .define('#', Items.STICK)
-            .define('X', Items.COPPER_INGOT)
-            .pattern("  X")
-            .pattern(" # ")
-            .pattern("#  ")
-            .unlockedBy("has_copper_ingot", has(Items.COPPER_INGOT))
-            .save(output);
-        shaped(RecipeCategory.COMBAT, ModItems.STONE_SPEAR.get())
-            .define('#', Items.STICK)
-            .define('X', ItemTags.STONE_TOOL_MATERIALS)
-            .pattern("  X")
-            .pattern(" # ")
-            .pattern("#  ")
-            .unlockedBy("has_cobblestone", has(ItemTags.STONE_TOOL_MATERIALS))
-            .save(output);
-        shaped(RecipeCategory.COMBAT, ModItems.WOODEN_SPEAR.get())
-            .define('#', Items.STICK)
-            .define('X', ItemTags.PLANKS)
-            .pattern("  X")
-            .pattern(" # ")
-            .pattern("#  ")
-            .unlockedBy("has_stick", has(Items.STICK))
-            .save(output);
         
         netheriteSmithing(output, ModItems.DIAMOND_SPEAR.get(), RecipeCategory.COMBAT, ModItems.NETHERITE_SPEAR.get());
         netheriteSmithing(output, Items.DIAMOND_HORSE_ARMOR, RecipeCategory.COMBAT, ModItems.NETHERITE_HORSE_ARMOR.get());
@@ -515,6 +399,18 @@ public class RecipeGenerator extends VanillaRecipeProvider {
     @FunctionalInterface
     private interface FamilyStonecutterRecipeProvider {
         void create(Consumer<FinishedRecipe> exporter, ItemLike result, ItemLike base);
+    }
+    
+    protected static void copperBulb(Consumer<FinishedRecipe> output, Block bulbBlock, Block material) {
+        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, bulbBlock, 4)
+            .define('C', material)
+            .define('R', Items.REDSTONE)
+            .define('B', Items.BLAZE_ROD)
+            .pattern(" C ")
+            .pattern("CBC")
+            .pattern(" R ")
+            .unlockedBy(getHasName(material), has(material))
+            .save(output);
     }
 
     @Override

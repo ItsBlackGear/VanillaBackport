@@ -5,6 +5,7 @@ import com.blackgear.platform.common.events.CommandRegistrar;
 import com.blackgear.platform.common.integration.BlockIntegration;
 import com.blackgear.platform.common.integration.MobIntegration;
 import com.blackgear.platform.common.integration.TradeIntegration;
+import com.blackgear.platform.common.v2.recipe.DynamicRecipeManager;
 import com.blackgear.platform.common.worldgen.modifier.BiomeManager;
 import com.blackgear.platform.common.worldgen.placement.BiomePlacement;
 import com.blackgear.platform.core.ParallelDispatch;
@@ -33,6 +34,7 @@ import com.blackgear.vanillabackport.common.level.entities.mob.animal.wolf.WolfV
 import com.blackgear.vanillabackport.common.level.entities.mob.animal.wolf.WolfVariants;
 import com.blackgear.vanillabackport.common.level.entities.mob.monster.sulfur_cube.SulfurCubeArchetype;
 import com.blackgear.vanillabackport.common.level.entities.mob.monster.sulfur_cube.SulfurCubeArchetypes;
+import com.blackgear.vanillabackport.common.level.recipes.VanillaDynamicRecipes;
 import com.blackgear.vanillabackport.common.registries.entities.ModEntityTypes;
 import com.blackgear.vanillabackport.common.integrations.worldgen.BiomeGeneration;
 import com.blackgear.vanillabackport.common.integrations.worldgen.WorldGeneration;
@@ -52,6 +54,8 @@ public class CommonSetup {
             event.register(VanillaBackport.resource("zombie_nautilus_variant"), ZombieNautilusVariants.REGISTRIES, ZombieNautilusVariant.CODEC);
             event.register(VanillaBackport.resource("sulfur_cube_archetype"), SulfurCubeArchetypes.REGISTRIES, SulfurCubeArchetype.CODEC);
         });
+        
+        DynamicRecipeManager.register(new VanillaDynamicRecipes(), VanillaBackport.MOD_ID);
 
         MobIntegration.registerIntegrations(MobIntegrations::bootstrap);
         CommandRegistrar.EVENT.register((dispatcher, context, selection) -> WaypointCommand.register(dispatcher, context));

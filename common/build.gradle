@@ -26,4 +26,5 @@ dependencies {
     modCompileOnly "curse.maven:just-enough-resources-jer-240630:5057223"
 
     modCompileOnly "maven.modrinth:terrablender:3.0.1.10-fabric"
+    modCompileOnly "maven.modrinth:lithostitched:1.4.11-fabric-1.20"
 }

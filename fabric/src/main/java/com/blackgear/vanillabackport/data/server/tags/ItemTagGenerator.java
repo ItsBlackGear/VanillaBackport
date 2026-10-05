@@ -184,6 +184,13 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
         this.getOrCreateTagBuilder(ModItemTags.DISABLES_WAYPOINT_TRACKING)
             .add(Items.CARVED_PUMPKIN)
             .add(Items.PLAYER_HEAD, Items.CREEPER_HEAD, Items.ZOMBIE_HEAD, Items.SKELETON_SKULL, Items.WITHER_SKELETON_SKULL, Items.DRAGON_HEAD, Items.PIGLIN_HEAD);
+        
+        this.getOrCreateTagBuilder(ModItemTags.MUSHROOMS).add(
+            Items.BROWN_MUSHROOM,
+            Items.RED_MUSHROOM,
+            ModBlocks.SHELF_MUSHROOM.get().asItem())
+        .addOptionalTag(ForgeItemTags.MUSHROOMS)
+        .addOptionalTag(FabricItemTags.MUSHROOMS);
     }
 
     private void handleArchetypes() {
@@ -208,7 +215,9 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
                 Items.CHISELED_RED_SANDSTONE,
                 Items.CHISELED_SANDSTONE,
                 Items.CHISELED_STONE_BRICKS,
-                ModBlocks.CHISELED_SULFUR.get().asItem()
+                ModBlocks.CHISELED_SULFUR.get().asItem(),
+                ModBlocks.CHISELED_TUFF.get().asItem(),
+                ModBlocks.CHISELED_TUFF_BRICKS.get().asItem()
             )
             .add(ModBlocks.CINNABAR.get().asItem(), ModBlocks.CINNABAR_BRICKS.get().asItem(), Items.COBBLED_DEEPSLATE, Items.COBBLESTONE)
             // Cracked Blocks
@@ -251,7 +260,8 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
                 Items.POLISHED_DEEPSLATE,
                 Items.POLISHED_DIORITE,
                 Items.POLISHED_GRANITE,
-                ModBlocks.POLISHED_SULFUR.get().asItem()
+                ModBlocks.POLISHED_SULFUR.get().asItem(),
+                ModBlocks.POLISHED_TUFF.get().asItem()
             )
             .add(
                 Items.PRISMARINE,
@@ -271,6 +281,7 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
                 ModBlocks.SULFUR.get().asItem(),
                 ModBlocks.SULFUR_BRICKS.get().asItem(),
                 Items.TUFF,
+                ModBlocks.TUFF_BRICKS.get().asItem(),
                 Items.WARPED_NYLIUM
             )
             .forceAddTag(FabricItemTags.CONCRETE)
@@ -318,10 +329,10 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
             .add(Items.NETHERITE_BLOCK, Items.ANCIENT_DEBRIS)
             // Copper Blocks
             .add(Items.COPPER_BLOCK, Items.EXPOSED_COPPER, Items.WEATHERED_COPPER, Items.OXIDIZED_COPPER, Items.WAXED_COPPER_BLOCK, Items.WAXED_EXPOSED_COPPER, Items.WAXED_WEATHERED_COPPER, Items.WAXED_OXIDIZED_COPPER)
-//            .add(Items.COPPER_BULB)
+            .add(ModBlocks.COPPER_BULB.get().asItem(), ModBlocks.EXPOSED_COPPER_BULB.get().asItem(), ModBlocks.WEATHERED_COPPER_BULB.get().asItem(), ModBlocks.OXIDIZED_COPPER_BULB.get().asItem(), ModBlocks.WAXED_COPPER_BULB.get().asItem(), ModBlocks.WAXED_EXPOSED_COPPER_BULB.get().asItem(), ModBlocks.WAXED_WEATHERED_COPPER_BULB.get().asItem(), ModBlocks.WAXED_OXIDIZED_COPPER_BULB.get().asItem())
             // Cut Copper Blocks
             .add(Items.CUT_COPPER, Items.EXPOSED_CUT_COPPER, Items.WEATHERED_CUT_COPPER, Items.OXIDIZED_CUT_COPPER, Items.WAXED_CUT_COPPER, Items.WAXED_EXPOSED_CUT_COPPER, Items.WAXED_WEATHERED_CUT_COPPER, Items.WAXED_OXIDIZED_CUT_COPPER)
-//            .add(Items.CHISELED_COPPER);
+            .add(ModBlocks.CHISELED_COPPER.get().asItem(), ModBlocks.EXPOSED_CHISELED_COPPER.get().asItem(), ModBlocks.WEATHERED_CHISELED_COPPER.get().asItem(), ModBlocks.OXIDIZED_CHISELED_COPPER.get().asItem(), ModBlocks.WAXED_CHISELED_COPPER.get().asItem(), ModBlocks.WAXED_EXPOSED_CHISELED_COPPER.get().asItem(), ModBlocks.WAXED_WEATHERED_CHISELED_COPPER.get().asItem(), ModBlocks.WAXED_OXIDIZED_CHISELED_COPPER.get().asItem())
             // Metal Ores
             .forceAddTag(ItemTags.GOLD_ORES)
             .forceAddTag(ItemTags.IRON_ORES)

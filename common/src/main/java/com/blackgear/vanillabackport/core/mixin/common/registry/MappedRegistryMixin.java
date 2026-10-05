@@ -18,8 +18,7 @@ import java.util.Map;
 @Mixin(MappedRegistry.class)
 public abstract class MappedRegistryMixin<T> {
     @Shadow @Final private Map<ResourceLocation, Holder.Reference<T>> byLocation;
-    @Shadow @Nullable
-    private Map<T, Holder.Reference<T>> unregisteredIntrusiveHolders;
+    @Shadow @Nullable private Map<T, Holder.Reference<T>> unregisteredIntrusiveHolders;
     
     @Inject(method = "register", at = @At("HEAD"), cancellable = true)
     private void vb$interceptDuplicates(ResourceKey<T> key, T value, Lifecycle lifecycle, CallbackInfoReturnable<Holder.Reference<T>> cir) {

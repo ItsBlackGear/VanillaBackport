@@ -18,16 +18,182 @@ import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.WeatheringCopper.WeatherState;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 
 import java.util.function.Supplier;
+import java.util.function.ToIntFunction;
 
 public class ModBlocks {
     public static final BlockRegistry REGISTRIES = BlockRegistry.create(VanillaBackport.NAMESPACE);
 
+    // Miscellaneous
+    public static final Supplier<Block> COPPER_BULB = REGISTRIES.register("copper_bulb",
+        properties -> new WeatheringCopperBulbBlock(WeatherState.UNAFFECTED, properties),
+        SharedBlockProperties.COPPER_BULB
+            .lightLevel(litBlockEmission(15)));
+    public static final Supplier<Block> EXPOSED_COPPER_BULB = REGISTRIES.register("exposed_copper_bulb",
+        properties -> new WeatheringCopperBulbBlock(WeatherState.EXPOSED, properties),
+        SharedBlockProperties.COPPER_BULB
+            .mapColor(MapColor.TERRACOTTA_LIGHT_GRAY)
+            .lightLevel(litBlockEmission(12)));
+    public static final Supplier<Block> WEATHERED_COPPER_BULB = REGISTRIES.register("weathered_copper_bulb",
+        properties -> new WeatheringCopperBulbBlock(WeatherState.WEATHERED, properties),
+        SharedBlockProperties.COPPER_BULB
+            .mapColor(MapColor.WARPED_STEM)
+            .lightLevel(litBlockEmission(8)));
+    public static final Supplier<Block> OXIDIZED_COPPER_BULB = REGISTRIES.register("oxidized_copper_bulb",
+        properties -> new WeatheringCopperBulbBlock(WeatherState.OXIDIZED, properties),
+        SharedBlockProperties.COPPER_BULB
+            .mapColor(MapColor.WARPED_NYLIUM)
+            .lightLevel(litBlockEmission(4)));
+    
+    public static final Supplier<Block> WAXED_COPPER_BULB = REGISTRIES.register("waxed_copper_bulb",
+        CopperBulbBlock::new,
+        SharedBlockProperties.COPPER_BULB
+            .lightLevel(litBlockEmission(15)));
+    public static final Supplier<Block> WAXED_EXPOSED_COPPER_BULB = REGISTRIES.register("waxed_exposed_copper_bulb",
+        CopperBulbBlock::new,
+        SharedBlockProperties.COPPER_BULB
+            .mapColor(MapColor.TERRACOTTA_LIGHT_GRAY)
+            .lightLevel(litBlockEmission(12)));
+    public static final Supplier<Block> WAXED_WEATHERED_COPPER_BULB = REGISTRIES.register("waxed_weathered_copper_bulb",
+        CopperBulbBlock::new,
+        SharedBlockProperties.COPPER_BULB
+            .mapColor(MapColor.WARPED_STEM)
+            .lightLevel(litBlockEmission(8)));
+    public static final Supplier<Block> WAXED_OXIDIZED_COPPER_BULB = REGISTRIES.register("waxed_oxidized_copper_bulb",
+        CopperBulbBlock::new,
+        SharedBlockProperties.COPPER_BULB
+            .mapColor(MapColor.WARPED_NYLIUM)
+            .lightLevel(litBlockEmission(4)));
+    
+    public static final Supplier<Block> CHISELED_COPPER = REGISTRIES.register("chiseled_copper",
+        properties -> new WeatheringCopperFullBlock(WeatherState.UNAFFECTED, properties),
+        Properties.copy(Blocks.COPPER_BLOCK));
+    public static final Supplier<Block> EXPOSED_CHISELED_COPPER = REGISTRIES.register("exposed_chiseled_copper",
+        properties -> new WeatheringCopperFullBlock(WeatherState.EXPOSED, properties),
+        Properties.copy(Blocks.EXPOSED_COPPER));
+    public static final Supplier<Block> WEATHERED_CHISELED_COPPER = REGISTRIES.register("weathered_chiseled_copper",
+        properties -> new WeatheringCopperFullBlock(WeatherState.WEATHERED, properties),
+        Properties.copy(Blocks.WEATHERED_COPPER));
+    public static final Supplier<Block> OXIDIZED_CHISELED_COPPER = REGISTRIES.register("oxidized_chiseled_copper",
+        properties -> new WeatheringCopperFullBlock(WeatherState.OXIDIZED, properties),
+        Properties.copy(Blocks.OXIDIZED_COPPER));
+    
+    public static final Supplier<Block> WAXED_CHISELED_COPPER = REGISTRIES.register("waxed_chiseled_copper",
+        Block::new,
+        Properties.copy(Blocks.COPPER_BLOCK));
+    public static final Supplier<Block> WAXED_EXPOSED_CHISELED_COPPER = REGISTRIES.register("waxed_exposed_chiseled_copper",
+        Block::new,
+        Properties.copy(Blocks.EXPOSED_COPPER));
+    public static final Supplier<Block> WAXED_WEATHERED_CHISELED_COPPER = REGISTRIES.register("waxed_weathered_chiseled_copper",
+        Block::new,
+        Properties.copy(Blocks.WEATHERED_COPPER));
+    public static final Supplier<Block> WAXED_OXIDIZED_CHISELED_COPPER = REGISTRIES.register("waxed_oxidized_chiseled_copper",
+        Block::new,
+        Properties.copy(Blocks.OXIDIZED_COPPER));
+    
+    public static final Supplier<Block> COPPER_GRATE = REGISTRIES.register("copper_grate",
+        properties -> new WeatheringCopperGrateBlock(WeatherState.UNAFFECTED, properties),
+        SharedBlockProperties.COPPER_GRATE);
+    public static final Supplier<Block> EXPOSED_COPPER_GRATE = REGISTRIES.register("exposed_copper_grate",
+        properties -> new WeatheringCopperGrateBlock(WeatherState.EXPOSED, properties),
+        SharedBlockProperties.COPPER_GRATE.mapColor(MapColor.TERRACOTTA_LIGHT_GRAY));
+    public static final Supplier<Block> WEATHERED_COPPER_GRATE = REGISTRIES.register("weathered_copper_grate",
+        properties -> new WeatheringCopperGrateBlock(WeatherState.WEATHERED, properties),
+        SharedBlockProperties.COPPER_GRATE.mapColor(MapColor.WARPED_STEM));
+    public static final Supplier<Block> OXIDIZED_COPPER_GRATE = REGISTRIES.register("oxidized_copper_grate",
+        properties -> new WeatheringCopperGrateBlock(WeatherState.OXIDIZED, properties),
+        SharedBlockProperties.COPPER_GRATE.mapColor(MapColor.WARPED_NYLIUM));
+    
+    public static final Supplier<Block> WAXED_COPPER_GRATE = REGISTRIES.register("waxed_copper_grate",
+        WaterloggedTransparentBlock::new,
+        SharedBlockProperties.COPPER_GRATE);
+    public static final Supplier<Block> WAXED_EXPOSED_COPPER_GRATE = REGISTRIES.register("waxed_exposed_copper_grate",
+        WaterloggedTransparentBlock::new,
+        SharedBlockProperties.COPPER_GRATE);
+    public static final Supplier<Block> WAXED_WEATHERED_COPPER_GRATE = REGISTRIES.register("waxed_weathered_copper_grate",
+        WaterloggedTransparentBlock::new,
+        SharedBlockProperties.COPPER_GRATE);
+    public static final Supplier<Block> WAXED_OXIDIZED_COPPER_GRATE = REGISTRIES.register("waxed_oxidized_copper_grate",
+        WaterloggedTransparentBlock::new,
+        SharedBlockProperties.COPPER_GRATE);
+    
+    public static final Supplier<Block> COPPER_DOOR = REGISTRIES.register("copper_door",
+        properties -> new WeatheringCopperDoorBlock(WeatherState.UNAFFECTED, properties, ModBlockSetTypes.COPPER),
+        SharedBlockProperties.COPPER_DOOR);
+    public static final Supplier<Block> EXPOSED_COPPER_DOOR = REGISTRIES.register("exposed_copper_door",
+        properties -> new WeatheringCopperDoorBlock(WeatherState.EXPOSED, properties, ModBlockSetTypes.COPPER),
+        SharedBlockProperties.COPPER_DOOR.mapColor(Blocks.EXPOSED_COPPER.defaultMapColor()));
+    public static final Supplier<Block> OXIDIZED_COPPER_DOOR = REGISTRIES.register("oxidized_copper_door",
+        properties -> new WeatheringCopperDoorBlock(WeatherState.OXIDIZED, properties, ModBlockSetTypes.COPPER),
+        SharedBlockProperties.COPPER_DOOR.mapColor(Blocks.OXIDIZED_COPPER.defaultMapColor()));
+    public static final Supplier<Block> WEATHERED_COPPER_DOOR = REGISTRIES.register("weathered_copper_door",
+        properties -> new WeatheringCopperDoorBlock(WeatherState.WEATHERED, properties, ModBlockSetTypes.COPPER),
+        SharedBlockProperties.COPPER_DOOR.mapColor(Blocks.WEATHERED_COPPER.defaultMapColor()));
+    
+    public static final Supplier<Block> WAXED_COPPER_DOOR = REGISTRIES.register("waxed_copper_door",
+        properties -> new DoorBlock(properties, ModBlockSetTypes.COPPER),
+        SharedBlockProperties.COPPER_DOOR);
+    public static final Supplier<Block> WAXED_EXPOSED_COPPER_DOOR = REGISTRIES.register("waxed_exposed_copper_door",
+        properties -> new DoorBlock(properties, ModBlockSetTypes.COPPER),
+        SharedBlockProperties.COPPER_DOOR.mapColor(Blocks.EXPOSED_COPPER.defaultMapColor()));
+    public static final Supplier<Block> WAXED_OXIDIZED_COPPER_DOOR = REGISTRIES.register("waxed_oxidized_copper_door",
+        properties -> new DoorBlock(properties, ModBlockSetTypes.COPPER),
+        SharedBlockProperties.COPPER_DOOR.mapColor(Blocks.OXIDIZED_COPPER.defaultMapColor()));
+    public static final Supplier<Block> WAXED_WEATHERED_COPPER_DOOR = REGISTRIES.register("waxed_weathered_copper_door",
+        properties -> new DoorBlock(properties, ModBlockSetTypes.COPPER),
+        SharedBlockProperties.COPPER_DOOR.mapColor(Blocks.WEATHERED_COPPER.defaultMapColor()));
+    
+    public static final Supplier<Block> COPPER_TRAPDOOR = REGISTRIES.register("copper_trapdoor",
+        properties -> new WeatheringCopperTrapDoorBlock(WeatherState.UNAFFECTED, properties, ModBlockSetTypes.COPPER),
+        SharedBlockProperties.COPPER_TRAPDOOR);
+    public static final Supplier<Block> EXPOSED_COPPER_TRAPDOOR = REGISTRIES.register("exposed_copper_trapdoor",
+        properties -> new WeatheringCopperTrapDoorBlock(WeatherState.EXPOSED, properties, ModBlockSetTypes.COPPER),
+        SharedBlockProperties.COPPER_TRAPDOOR.mapColor(Blocks.EXPOSED_COPPER.defaultMapColor()));
+    public static final Supplier<Block> OXIDIZED_COPPER_TRAPDOOR = REGISTRIES.register("oxidized_copper_trapdoor",
+        properties -> new WeatheringCopperTrapDoorBlock(WeatherState.OXIDIZED, properties, ModBlockSetTypes.COPPER),
+        SharedBlockProperties.COPPER_TRAPDOOR.mapColor(Blocks.OXIDIZED_COPPER.defaultMapColor()));
+    public static final Supplier<Block> WEATHERED_COPPER_TRAPDOOR = REGISTRIES.register("weathered_copper_trapdoor",
+        properties -> new WeatheringCopperTrapDoorBlock(WeatherState.WEATHERED, properties, ModBlockSetTypes.COPPER),
+        SharedBlockProperties.COPPER_TRAPDOOR.mapColor(Blocks.WEATHERED_COPPER.defaultMapColor()));
+    
+    public static final Supplier<Block> WAXED_COPPER_TRAPDOOR = REGISTRIES.register("waxed_copper_trapdoor",
+        properties -> new TrapDoorBlock(properties, ModBlockSetTypes.COPPER),
+        SharedBlockProperties.COPPER_TRAPDOOR);
+    public static final Supplier<Block> WAXED_EXPOSED_COPPER_TRAPDOOR = REGISTRIES.register("waxed_exposed_copper_trapdoor",
+        properties -> new TrapDoorBlock(properties, ModBlockSetTypes.COPPER),
+        SharedBlockProperties.COPPER_TRAPDOOR.mapColor(Blocks.EXPOSED_COPPER.defaultMapColor()));
+    public static final Supplier<Block> WAXED_OXIDIZED_COPPER_TRAPDOOR = REGISTRIES.register("waxed_oxidized_copper_trapdoor",
+        properties -> new TrapDoorBlock(properties, ModBlockSetTypes.COPPER),
+        SharedBlockProperties.COPPER_TRAPDOOR.mapColor(Blocks.OXIDIZED_COPPER.defaultMapColor()));
+    public static final Supplier<Block> WAXED_WEATHERED_COPPER_TRAPDOOR = REGISTRIES.register("waxed_weathered_copper_trapdoor",
+        properties -> new TrapDoorBlock(properties, ModBlockSetTypes.COPPER),
+        SharedBlockProperties.COPPER_TRAPDOOR.mapColor(Blocks.WEATHERED_COPPER.defaultMapColor()));
+    
+    public static final Supplier<Block> TUFF_SLAB = REGISTRIES.register("tuff_slab", SlabBlock::new, Properties.copy(Blocks.TUFF));
+    public static final Supplier<Block> TUFF_STAIRS = REGISTRIES.register("tuff_stairs", properties -> new StairBlock(Blocks.TUFF.defaultBlockState(), properties), Properties.copy(Blocks.TUFF));
+    public static final Supplier<Block> TUFF_WALL = REGISTRIES.register("tuff_wall", WallBlock::new, Properties.copy(Blocks.TUFF));
+    
+    public static final Supplier<Block> POLISHED_TUFF = REGISTRIES.register("polished_tuff", Properties.copy(Blocks.TUFF).sound(ModSoundTypes.POLISHED_TUFF));
+    public static final Supplier<Block> POLISHED_TUFF_SLAB = REGISTRIES.register("polished_tuff_slab", SlabBlock::new, Properties.copy(Blocks.TUFF).sound(ModSoundTypes.POLISHED_TUFF));
+    public static final Supplier<Block> POLISHED_TUFF_STAIRS = REGISTRIES.register("polished_tuff_stairs", properties -> new StairBlock(Blocks.TUFF.defaultBlockState(), properties), Properties.copy(Blocks.TUFF).sound(ModSoundTypes.POLISHED_TUFF));
+    public static final Supplier<Block> POLISHED_TUFF_WALL = REGISTRIES.register("polished_tuff_wall", WallBlock::new, Properties.copy(Blocks.TUFF).sound(ModSoundTypes.POLISHED_TUFF));
+    
+    public static final Supplier<Block> CHISELED_TUFF = REGISTRIES.register("chiseled_tuff", Properties.copy(Blocks.TUFF));
+    
+    public static final Supplier<Block> TUFF_BRICKS = REGISTRIES.register("tuff_bricks", Properties.copy(Blocks.TUFF).sound(ModSoundTypes.TUFF_BRICKS));
+    public static final Supplier<Block> TUFF_BRICK_SLAB = REGISTRIES.register("tuff_brick_slab", SlabBlock::new, Properties.copy(Blocks.TUFF).sound(ModSoundTypes.TUFF_BRICKS));
+    public static final Supplier<Block> TUFF_BRICK_STAIRS = REGISTRIES.register("tuff_brick_stairs", properties -> new StairBlock(Blocks.TUFF.defaultBlockState(), properties), Properties.copy(Blocks.TUFF).sound(ModSoundTypes.TUFF_BRICKS));
+    public static final Supplier<Block> TUFF_BRICK_WALL = REGISTRIES.register("tuff_brick_wall", WallBlock::new, Properties.copy(Blocks.TUFF).sound(ModSoundTypes.TUFF_BRICKS));
+    
+    public static final Supplier<Block> CHISELED_TUFF_BRICKS = REGISTRIES.register("chiseled_tuff_bricks", Properties.copy(Blocks.TUFF).sound(ModSoundTypes.TUFF_BRICKS));
+    
     // The Garden Awakens
     
     public static final Supplier<Block> CREAKING_HEART = REGISTRIES.register("creaking_heart",
@@ -899,5 +1065,9 @@ public class ModBlocks {
         Supplier<Block> wall_torch = REGISTRIES.registerNoItem(name + "_wall_torch", () -> new LazyWallTorchBlock(particle, properties.dropsLike(torch.get())));
         REGISTRIES.registerItem(name + "_torch", () -> new StandingAndWallBlockItem(torch.get(), wall_torch.get(), new Item.Properties(), Direction.DOWN));
         return new Pair<>(torch, wall_torch);
+    }
+    
+    private static ToIntFunction<BlockState> litBlockEmission(int value) {
+        return state -> state.getValue(BlockStateProperties.LIT) ? value : 0;
     }
 }

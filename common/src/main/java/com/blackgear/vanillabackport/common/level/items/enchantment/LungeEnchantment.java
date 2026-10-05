@@ -18,7 +18,7 @@ public class LungeEnchantment extends Enchantment {
     
     @Override
     public int getMaxCost(int level) {
-        return this.getMinCost(level) + 25;
+        return this.getMinCost(level) + 20;
     }
     
     @Override

@@ -7,7 +7,35 @@ import net.minecraft.world.level.block.SoundType;
 
 public class ModSoundTypes {
     public static final SoundRegistry REGISTRIES = SoundRegistry.create(VanillaBackport.NAMESPACE);
-
+    
+    public static final SoundType COPPER_BULB = REGISTRIES.soundType(
+        ModSoundEvents.COPPER_BULB_BREAK,
+        ModSoundEvents.COPPER_BULB_STEP,
+        ModSoundEvents.COPPER_BULB_PLACE,
+        ModSoundEvents.COPPER_BULB_HIT,
+        ModSoundEvents.COPPER_BULB_FALL
+    );
+    public static final SoundType COPPER_GRATE = REGISTRIES.soundType(
+        ModSoundEvents.COPPER_GRATE_BREAK,
+        ModSoundEvents.COPPER_GRATE_STEP,
+        ModSoundEvents.COPPER_GRATE_PLACE,
+        ModSoundEvents.COPPER_GRATE_HIT,
+        ModSoundEvents.COPPER_GRATE_FALL
+    );
+    public static final SoundType POLISHED_TUFF = REGISTRIES.soundType(
+        ModSoundEvents.POLISHED_TUFF_BREAK,
+        ModSoundEvents.POLISHED_TUFF_STEP,
+        ModSoundEvents.POLISHED_TUFF_PLACE,
+        ModSoundEvents.POLISHED_TUFF_HIT,
+        ModSoundEvents.POLISHED_TUFF_FALL
+    );
+    public static final SoundType TUFF_BRICKS = REGISTRIES.soundType(
+        ModSoundEvents.TUFF_BRICKS_BREAK,
+        ModSoundEvents.TUFF_BRICKS_STEP,
+        ModSoundEvents.TUFF_BRICKS_PLACE,
+        ModSoundEvents.TUFF_BRICKS_HIT,
+        ModSoundEvents.TUFF_BRICKS_FALL
+    );
     public static final SoundType CREAKING_HEART = REGISTRIES.soundType(
         ModSoundEvents.CREAKING_HEART_BREAK,
         ModSoundEvents.CREAKING_HEART_STEP,

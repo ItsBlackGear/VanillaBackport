@@ -5,6 +5,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.RotatedPillarBlock;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
@@ -14,6 +15,40 @@ import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 
 public class SharedBlockProperties {
+    
+    // Miscellaneous
+    
+    public static final Properties COPPER_BULB = Properties.of()
+        .mapColor(Blocks.COPPER_BLOCK.defaultMapColor())
+        .strength(3.0F, 6.0F)
+        .sound(ModSoundTypes.COPPER_BULB)
+        .requiresCorrectToolForDrops()
+        .isRedstoneConductor(SharedBlockProperties::never);
+    
+    public static final Properties COPPER_GRATE = Properties.of()
+        .strength(3.0F, 6.0F)
+        .sound(ModSoundTypes.COPPER_GRATE)
+        .mapColor(MapColor.COLOR_ORANGE)
+        .noOcclusion()
+        .requiresCorrectToolForDrops()
+        .isValidSpawn(SharedBlockProperties::never)
+        .isRedstoneConductor(SharedBlockProperties::never)
+        .isSuffocating(SharedBlockProperties::never)
+        .isViewBlocking(SharedBlockProperties::never);
+    
+    public static final Properties COPPER_DOOR = Properties.of()
+        .mapColor(Blocks.COPPER_BLOCK.defaultMapColor())
+        .strength(3.0F, 6.0F)
+        .noOcclusion()
+        .requiresCorrectToolForDrops()
+        .pushReaction(PushReaction.DESTROY);
+    
+    public static final Properties COPPER_TRAPDOOR = Properties.of()
+        .mapColor(Blocks.COPPER_BLOCK.defaultMapColor())
+        .strength(3.0F, 6.0F)
+        .requiresCorrectToolForDrops()
+        .noOcclusion()
+        .isValidSpawn(SharedBlockProperties::never);
     
     // The Garden Awakens
     

@@ -21,8 +21,54 @@ public class ModelGenerator extends VanillaModelGenerator {
     public void generateBlockStateModels(VanillaBlockModels gen) {
         BlockFamilies.getAllFamilies()
             .filter(BlockFamily::shouldGenerateModel)
-            .forEach(family -> gen.family(family.getBaseBlock()).generateFor(family));
+            .forEach(family -> gen.familyBuilder(family.getBaseBlock()).generateFor(family));
 
+        // Miscellaneous
+        gen.createCopperBulb(ModBlocks.COPPER_BULB.get());
+        gen.createCopperBulb(ModBlocks.EXPOSED_COPPER_BULB.get());
+        gen.createCopperBulb(ModBlocks.WEATHERED_COPPER_BULB.get());
+        gen.createCopperBulb(ModBlocks.OXIDIZED_COPPER_BULB.get());
+        gen.copyCopperBulbModel(ModBlocks.COPPER_BULB.get(), ModBlocks.WAXED_COPPER_BULB.get());
+        gen.copyCopperBulbModel(ModBlocks.EXPOSED_COPPER_BULB.get(), ModBlocks.WAXED_EXPOSED_COPPER_BULB.get());
+        gen.copyCopperBulbModel(ModBlocks.WEATHERED_COPPER_BULB.get(), ModBlocks.WAXED_WEATHERED_COPPER_BULB.get());
+        gen.copyCopperBulbModel(ModBlocks.OXIDIZED_COPPER_BULB.get(), ModBlocks.WAXED_OXIDIZED_COPPER_BULB.get());
+        
+        gen.createTrivialCube(ModBlocks.CHISELED_COPPER.get());
+        gen.createTrivialCube(ModBlocks.EXPOSED_CHISELED_COPPER.get());
+        gen.createTrivialCube(ModBlocks.WEATHERED_CHISELED_COPPER.get());
+        gen.createTrivialCube(ModBlocks.OXIDIZED_CHISELED_COPPER.get());
+        gen.copyModel(ModBlocks.CHISELED_COPPER.get(), ModBlocks.WAXED_CHISELED_COPPER.get());
+        gen.copyModel(ModBlocks.EXPOSED_CHISELED_COPPER.get(), ModBlocks.WAXED_EXPOSED_CHISELED_COPPER.get());
+        gen.copyModel(ModBlocks.WEATHERED_CHISELED_COPPER.get(), ModBlocks.WAXED_WEATHERED_CHISELED_COPPER.get());
+        gen.copyModel(ModBlocks.OXIDIZED_CHISELED_COPPER.get(), ModBlocks.WAXED_OXIDIZED_CHISELED_COPPER.get());
+        
+        gen.createTrivialCube(ModBlocks.COPPER_GRATE.get());
+        gen.createTrivialCube(ModBlocks.EXPOSED_COPPER_GRATE.get());
+        gen.createTrivialCube(ModBlocks.WEATHERED_COPPER_GRATE.get());
+        gen.createTrivialCube(ModBlocks.OXIDIZED_COPPER_GRATE.get());
+        gen.copyModel(ModBlocks.COPPER_GRATE.get(), ModBlocks.WAXED_COPPER_GRATE.get());
+        gen.copyModel(ModBlocks.EXPOSED_COPPER_GRATE.get(), ModBlocks.WAXED_EXPOSED_COPPER_GRATE.get());
+        gen.copyModel(ModBlocks.WEATHERED_COPPER_GRATE.get(), ModBlocks.WAXED_WEATHERED_COPPER_GRATE.get());
+        gen.copyModel(ModBlocks.OXIDIZED_COPPER_GRATE.get(), ModBlocks.WAXED_OXIDIZED_COPPER_GRATE.get());
+        
+        gen.createDoor(ModBlocks.COPPER_DOOR.get());
+        gen.createDoor(ModBlocks.EXPOSED_COPPER_DOOR.get());
+        gen.createDoor(ModBlocks.WEATHERED_COPPER_DOOR.get());
+        gen.createDoor(ModBlocks.OXIDIZED_COPPER_DOOR.get());
+        gen.copyDoorModel(ModBlocks.COPPER_DOOR.get(), ModBlocks.WAXED_COPPER_DOOR.get());
+        gen.copyDoorModel(ModBlocks.EXPOSED_COPPER_DOOR.get(), ModBlocks.WAXED_EXPOSED_COPPER_DOOR.get());
+        gen.copyDoorModel(ModBlocks.WEATHERED_COPPER_DOOR.get(), ModBlocks.WAXED_WEATHERED_COPPER_DOOR.get());
+        gen.copyDoorModel(ModBlocks.OXIDIZED_COPPER_DOOR.get(), ModBlocks.WAXED_OXIDIZED_COPPER_DOOR.get());
+        
+        gen.createTrapdoor(ModBlocks.COPPER_TRAPDOOR.get());
+        gen.createTrapdoor(ModBlocks.EXPOSED_COPPER_TRAPDOOR.get());
+        gen.createTrapdoor(ModBlocks.WEATHERED_COPPER_TRAPDOOR.get());
+        gen.createTrapdoor(ModBlocks.OXIDIZED_COPPER_TRAPDOOR.get());
+        gen.copyTrapdoorModel(ModBlocks.COPPER_TRAPDOOR.get(), ModBlocks.WAXED_COPPER_TRAPDOOR.get());
+        gen.copyTrapdoorModel(ModBlocks.EXPOSED_COPPER_TRAPDOOR.get(), ModBlocks.WAXED_EXPOSED_COPPER_TRAPDOOR.get());
+        gen.copyTrapdoorModel(ModBlocks.WEATHERED_COPPER_TRAPDOOR.get(), ModBlocks.WAXED_WEATHERED_COPPER_TRAPDOOR.get());
+        gen.copyTrapdoorModel(ModBlocks.OXIDIZED_COPPER_TRAPDOOR.get(), ModBlocks.WAXED_OXIDIZED_COPPER_TRAPDOOR.get());
+        
         // The Garden Awakens
         gen.createHangingSign(ModBlocks.STRIPPED_PALE_OAK_LOG.get(), ModBlocks.PALE_OAK_HANGING_SIGN.getFirst().get(), ModBlocks.PALE_OAK_HANGING_SIGN.getSecond().get());
         gen.createTrivialCube(ModBlocks.PALE_MOSS_BLOCK.get());

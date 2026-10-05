@@ -8,7 +8,6 @@ import com.blackgear.vanillabackport.core.data.tags.ModStructureTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider;
 import net.minecraft.advancements.critereon.LocationPredicate;
-import net.minecraft.core.HolderLookup;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -34,11 +33,10 @@ import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 
 public class ChestLootGenerator extends SimpleFabricLootTableProvider {
-    public ChestLootGenerator(FabricDataOutput output, CompletableFuture<HolderLookup.Provider> lookup) {
+    public ChestLootGenerator(FabricDataOutput output) {
         super(output, LootContextParamSets.CHEST);
     }
     
@@ -101,12 +99,6 @@ public class ChestLootGenerator extends SimpleFabricLootTableProvider {
                         .setRolls(ConstantValue.exactly(2))
                         .add(LootItem.lootTableItem(Items.BOW).setWeight(1).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1))))
                         .add(LootItem.lootTableItem(Items.BUCKET).setWeight(1).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1))))
-                        .add(LootItem.lootTableItem(ModItems.COPPER_AXE.get()).setWeight(1).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1))))
-                        .add(LootItem.lootTableItem(ModItems.COPPER_BOOTS.get()).setWeight(1).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1))))
-                        .add(LootItem.lootTableItem(ModItems.COPPER_CHESTPLATE.get()).setWeight(1).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1))))
-                        .add(LootItem.lootTableItem(ModItems.COPPER_LEGGINGS.get()).setWeight(1).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1))))
-                        .add(LootItem.lootTableItem(ModItems.COPPER_SPEAR.get()).setWeight(1).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1))))
-                        .add(LootItem.lootTableItem(ModItems.COPPER_SWORD.get()).setWeight(1).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1))))
                         .add(LootItem.lootTableItem(Items.SPYGLASS).setWeight(1).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1))))
                         .add(LootItem.lootTableItem(Items.SHEARS).setWeight(1).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1))))
                 )
@@ -224,7 +216,6 @@ public class ChestLootGenerator extends SimpleFabricLootTableProvider {
                         .add(LootItem.lootTableItem(Items.IRON_AXE).setWeight(1).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1))))
                         .add(LootItem.lootTableItem(Items.IRON_BOOTS).setWeight(1).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1))))
                         .add(LootItem.lootTableItem(Items.IRON_LEGGINGS).setWeight(1).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1))))
-                        .add(LootItem.lootTableItem(ModItems.IRON_SPEAR.get()).setWeight(1).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1))))
                 )
                 .withPool(
                     LootPool.lootPool()

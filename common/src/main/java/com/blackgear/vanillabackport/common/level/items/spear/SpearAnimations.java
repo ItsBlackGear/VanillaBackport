@@ -37,7 +37,6 @@ public class SpearAnimations {
             arm.xRot -= 0.9599311F;
         }
 
-        arm.yRot = Mth.DEG_TO_RAD * Mth.clamp(Mth.RAD_TO_DEG * arm.yRot, -60.0F, 60.0F);
         arm.xRot = Mth.DEG_TO_RAD * Mth.clamp(Mth.RAD_TO_DEG * arm.xRot, -120.0F, 30.0F);
         if (entity.getTicksUsingItem() > 0.0F && (!entity.isUsingItem() || entity.getUsedItemHand() == (holdingArm == HumanoidArm.RIGHT ? InteractionHand.MAIN_HAND : InteractionHand.OFF_HAND))) {
             KineticWeapon kineticWeapon = KineticWeapon.get(item);
@@ -182,18 +181,7 @@ public class SpearAnimations {
             float swayScaleSlow = Mth.sin(time * 19.0F * Mth.DEG_TO_RAD) * swayIntensity;
             float swayScaleFast = Mth.sin(time * 30.0F * Mth.DEG_TO_RAD) * swayIntensity;
 
-            return new UseParams(
-                raiseProgress,
-                raiseProgressStart,
-                raiseProgressMiddle,
-                raiseProgressEnd,
-                swayProgress,
-                lowerProgress,
-                raiseBackProgress,
-                swayIntensity,
-                swayScaleSlow,
-                swayScaleFast
-            );
+            return new UseParams(raiseProgress, raiseProgressStart, raiseProgressMiddle, raiseProgressEnd, swayProgress, lowerProgress, raiseBackProgress, swayIntensity, swayScaleSlow, swayScaleFast);
         }
     }
 }

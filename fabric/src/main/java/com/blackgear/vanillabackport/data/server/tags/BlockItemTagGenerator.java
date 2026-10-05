@@ -78,7 +78,10 @@ public abstract class BlockItemTagGenerator {
                 ModBlocks.CINNABAR_BRICK_SLAB.get(),
                 ModBlocks.SULFUR_SLAB.get(),
                 ModBlocks.POLISHED_SULFUR_SLAB.get(),
-                ModBlocks.SULFUR_BRICK_SLAB.get()
+                ModBlocks.SULFUR_BRICK_SLAB.get(),
+                ModBlocks.TUFF_SLAB.get(),
+                ModBlocks.POLISHED_TUFF_SLAB.get(),
+                ModBlocks.TUFF_BRICK_SLAB.get()
             )
             .addTag(ModBlockTags.WOOL_SLABS);
 
@@ -90,7 +93,10 @@ public abstract class BlockItemTagGenerator {
                 ModBlocks.CINNABAR_BRICK_WALL.get(),
                 ModBlocks.SULFUR_WALL.get(),
                 ModBlocks.POLISHED_SULFUR_WALL.get(),
-                ModBlocks.SULFUR_BRICK_WALL.get()
+                ModBlocks.SULFUR_BRICK_WALL.get(),
+                ModBlocks.TUFF_WALL.get(),
+                ModBlocks.POLISHED_TUFF_WALL.get(),
+                ModBlocks.TUFF_BRICK_WALL.get()
             );
 
         this.tag(BlockTags.STAIRS, ItemTags.STAIRS)
@@ -101,7 +107,10 @@ public abstract class BlockItemTagGenerator {
                 ModBlocks.CINNABAR_BRICK_STAIRS.get(),
                 ModBlocks.SULFUR_STAIRS.get(),
                 ModBlocks.POLISHED_SULFUR_STAIRS.get(),
-                ModBlocks.SULFUR_BRICK_STAIRS.get()
+                ModBlocks.SULFUR_BRICK_STAIRS.get(),
+                ModBlocks.TUFF_STAIRS.get(),
+                ModBlocks.POLISHED_TUFF_STAIRS.get(),
+                ModBlocks.TUFF_BRICK_STAIRS.get()
             )
             .addTag(ModBlockTags.WOOL_STAIRS);
 
@@ -131,6 +140,27 @@ public abstract class BlockItemTagGenerator {
         this.tag(BlockTags.CEILING_HANGING_SIGNS, ItemTags.HANGING_SIGNS)
             .add(ModBlocks.PALE_OAK_HANGING_SIGN.getFirst().get())
             .add(ModBlocks.POPLAR_HANGING_SIGN.getFirst().get());
+        
+        this.tag(BlockTags.DOORS, ItemTags.DOORS).add(
+            ModBlocks.COPPER_DOOR.get(),
+            ModBlocks.EXPOSED_COPPER_DOOR.get(),
+            ModBlocks.WEATHERED_COPPER_DOOR.get(),
+            ModBlocks.OXIDIZED_COPPER_DOOR.get(),
+            ModBlocks.WAXED_COPPER_DOOR.get(),
+            ModBlocks.WAXED_EXPOSED_COPPER_DOOR.get(),
+            ModBlocks.WAXED_WEATHERED_COPPER_DOOR.get(),
+            ModBlocks.WAXED_OXIDIZED_COPPER_DOOR.get());
+        
+        this.tag(BlockTags.TRAPDOORS, ItemTags.TRAPDOORS).add(
+            ModBlocks.COPPER_TRAPDOOR.get(),
+            ModBlocks.EXPOSED_COPPER_TRAPDOOR.get(),
+            ModBlocks.WEATHERED_COPPER_TRAPDOOR.get(),
+            ModBlocks.OXIDIZED_COPPER_TRAPDOOR.get(),
+            ModBlocks.WAXED_COPPER_TRAPDOOR.get(),
+            ModBlocks.WAXED_EXPOSED_COPPER_TRAPDOOR.get(),
+            ModBlocks.WAXED_WEATHERED_COPPER_TRAPDOOR.get(),
+            ModBlocks.WAXED_OXIDIZED_COPPER_TRAPDOOR.get());
+        
         
         this.tag(ModBlockTags.COPPER, ModItemTags.COPPER) //TODO: check for conventional tag
             .add(Blocks.COPPER_BLOCK)
