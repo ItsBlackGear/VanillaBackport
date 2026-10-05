@@ -177,6 +177,12 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
         this.getOrCreateTagBuilder(ModItemTags.DISABLES_WAYPOINT_TRACKING)
             .add(Items.CARVED_PUMPKIN)
             .forceAddTag(ItemTags.SKULLS);
+        
+        this.getOrCreateTagBuilder(ModItemTags.MUSHROOMS).add(
+                Items.BROWN_MUSHROOM,
+                Items.RED_MUSHROOM,
+                ModBlocks.SHELF_MUSHROOM.get().asItem()
+            ).addOptionalTag(ConventionalItemTags.MUSHROOMS);
     }
 
     private void handleArchetypes() {
@@ -313,10 +319,10 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
             .add(Items.NETHERITE_BLOCK, Items.ANCIENT_DEBRIS)
             // Copper Blocks
             .add(Items.COPPER_BLOCK, Items.EXPOSED_COPPER, Items.WEATHERED_COPPER, Items.OXIDIZED_COPPER, Items.WAXED_COPPER_BLOCK, Items.WAXED_EXPOSED_COPPER, Items.WAXED_WEATHERED_COPPER, Items.WAXED_OXIDIZED_COPPER)
-//            .add(Items.COPPER_BULB)
+            .add(Items.COPPER_BULB, Items.EXPOSED_COPPER_BULB, Items.WEATHERED_COPPER_BULB, Items.OXIDIZED_COPPER_BULB, Items.WAXED_COPPER_BULB, Items.WAXED_EXPOSED_COPPER_BULB, Items.WAXED_WEATHERED_COPPER_BULB, Items.WAXED_OXIDIZED_COPPER_BULB)
             // Cut Copper Blocks
             .add(Items.CUT_COPPER, Items.EXPOSED_CUT_COPPER, Items.WEATHERED_CUT_COPPER, Items.OXIDIZED_CUT_COPPER, Items.WAXED_CUT_COPPER, Items.WAXED_EXPOSED_CUT_COPPER, Items.WAXED_WEATHERED_CUT_COPPER, Items.WAXED_OXIDIZED_CUT_COPPER)
-//            .add(Items.CHISELED_COPPER);
+            .add(Items.CHISELED_COPPER, Items.EXPOSED_CHISELED_COPPER, Items.WEATHERED_CHISELED_COPPER, Items.OXIDIZED_CHISELED_COPPER, Items.WAXED_CHISELED_COPPER, Items.WAXED_EXPOSED_CHISELED_COPPER, Items.WAXED_WEATHERED_CHISELED_COPPER, Items.WAXED_OXIDIZED_CHISELED_COPPER)
             // Metal Ores
             .forceAddTag(ItemTags.GOLD_ORES)
             .forceAddTag(ItemTags.IRON_ORES)

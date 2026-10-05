@@ -19,7 +19,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
-@SuppressWarnings("removal")
 public abstract class VanillaRecipeProvider implements DataProvider {
     private final PackOutput.PathProvider recipePathProvider;
     private final PackOutput.PathProvider advancementPathProvider;
@@ -52,7 +51,7 @@ public abstract class VanillaRecipeProvider implements DataProvider {
                 }
             }
 
-            @Override
+            @Override @SuppressWarnings("removal")
             public Advancement.Builder advancement() {
                 return Advancement.Builder.recipeAdvancement().parent(RecipeBuilder.ROOT_RECIPE_ADVANCEMENT);
             }

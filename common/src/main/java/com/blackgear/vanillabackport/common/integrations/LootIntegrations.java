@@ -1,11 +1,11 @@
 package com.blackgear.vanillabackport.common.integrations;
 
 import com.blackgear.platform.common.data.LootModifier;
-import com.blackgear.platform.core.events.ServerLifecycleEvents;
 import com.blackgear.vanillabackport.common.registries.worldgen.ModBiomes;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
 import com.blackgear.vanillabackport.common.registries.items.ModItems;
 import com.blackgear.vanillabackport.core.VanillaBackport;
+import com.blackgear.vanillabackport.core.data.ModBuiltInLootTables;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.registries.Registries;
@@ -19,7 +19,10 @@ import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.EmptyLootItem;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.functions.EnchantRandomlyFunction;
+import net.minecraft.world.level.storage.loot.functions.EnchantWithLevelsFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
+import net.minecraft.world.level.storage.loot.functions.SetItemDamageFunction;
 import net.minecraft.world.level.storage.loot.predicates.DamageSourceCondition;
 import net.minecraft.world.level.storage.loot.predicates.LocationCheck;
 import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
@@ -69,8 +72,7 @@ public class LootIntegrations implements LootModifier.LootTableModifier {
         if (key.equals(BuiltInLootTables.PIGLIN_BARTERING) && VanillaBackport.COMMON_CONFIG.hasDriedGhasts.get()) {
             context.addToPool(LootItem.lootTableItem(ModBlocks.DRIED_GHAST.get())
                 .setWeight(10)
-                .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F)))
-                .build());
+                .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F))));
         }
 
         if (key.equals(EntityType.ZOMBIE.getDefaultLootTable()) && VanillaBackport.COMMON_CONFIG.hasLavaChickenMusicDisc.get()) {
@@ -88,8 +90,7 @@ public class LootIntegrations implements LootModifier.LootTableModifier {
         if (key.equals(BuiltInLootTables.WOODLAND_MANSION) && VanillaBackport.COMMON_CONFIG.hasResinLoot.get()) {
             context.addToPool(1, LootItem.lootTableItem(ModBlocks.RESIN_CLUMP.get())
                 .setWeight(50)
-                .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 4.0F)))
-                .build());
+                .apply(SetItemCountFunction.setCount(UniformGenerator.between(2.0F, 4.0F))));
         }
 
         if (CONTAIN_BUNDLE.contains(key) && VanillaBackport.COMMON_CONFIG.hasBundleLoot.get()) {
@@ -106,52 +107,48 @@ public class LootIntegrations implements LootModifier.LootTableModifier {
                 .add(EmptyLootItem.emptyItem().setWeight(1)));
         }
         
-        ServerLifecycleEvents.STARTING.register(server -> {
-           var registries = server.registryAccess();
-            if (key.equals(BuiltInLootTables.ABANDONED_MINESHAFT) && VanillaBackport.COMMON_CONFIG.hasBounceMusicDisc.get()) {
-                var biomes = registries.lookupOrThrow(Registries.BIOME);
-                context.addToPool(2, LootItem.lootTableItem(ModItems.MUSIC_DISC_BOUNCE.get())
-                    .when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(HolderSet.direct(biomes.getOrThrow(ModBiomes.SULFUR_CAVES)))))
-                    .setWeight(10)
-                    .build());
-            }
-        });
+        if (key.equals(BuiltInLootTables.ABANDONED_MINESHAFT) && VanillaBackport.COMMON_CONFIG.hasBounceMusicDisc.get()) {
+            var biomes = context.registries().lookupOrThrow(Registries.BIOME);
+            context.addToPool(2, LootItem.lootTableItem(ModItems.MUSIC_DISC_BOUNCE.get())
+                .when(LocationCheck.checkLocation(LocationPredicate.Builder.location().setBiomes(HolderSet.direct(biomes.getOrThrow(ModBiomes.SULFUR_CAVES)))))
+                .setWeight(10));
+        }
         
         // GENERATE COPPER HORSE ARMOR
         if (VanillaBackport.COMMON_CONFIG.hasCopperHorseArmorLoot.get()) {
             if (key.equals(BuiltInLootTables.SIMPLE_DUNGEON)) {
-                context.addToPool(LootItem.lootTableItem(ModItems.COPPER_HORSE_ARMOR.get()).setWeight(15).build());
+                context.addToPool(LootItem.lootTableItem(ModItems.COPPER_HORSE_ARMOR.get()).setWeight(15));
             }
             
             if (key.equals(BuiltInLootTables.VILLAGE_WEAPONSMITH)) {
-                context.addToPool(LootItem.lootTableItem(ModItems.COPPER_HORSE_ARMOR.get()).build());
+                context.addToPool(LootItem.lootTableItem(ModItems.COPPER_HORSE_ARMOR.get()));
             }
             
             if (key.equals(BuiltInLootTables.END_CITY_TREASURE)) {
-                context.addToPool(LootItem.lootTableItem(ModItems.COPPER_HORSE_ARMOR.get()).build());
+                context.addToPool(LootItem.lootTableItem(ModItems.COPPER_HORSE_ARMOR.get()));
             }
             
             if (key.equals(BuiltInLootTables.NETHER_BRIDGE)) {
-                context.addToPool(LootItem.lootTableItem(ModItems.COPPER_HORSE_ARMOR.get()).setWeight(5).build());
+                context.addToPool(LootItem.lootTableItem(ModItems.COPPER_HORSE_ARMOR.get()).setWeight(5));
             }
             
             if (key.equals(BuiltInLootTables.STRONGHOLD_CORRIDOR)) {
-                context.addToPool(LootItem.lootTableItem(ModItems.COPPER_HORSE_ARMOR.get()).build());
+                context.addToPool(LootItem.lootTableItem(ModItems.COPPER_HORSE_ARMOR.get()));
             }
             
             if (key.equals(BuiltInLootTables.JUNGLE_TEMPLE)) {
-                context.addToPool(LootItem.lootTableItem(ModItems.COPPER_HORSE_ARMOR.get()).build());
+                context.addToPool(LootItem.lootTableItem(ModItems.COPPER_HORSE_ARMOR.get()));
             }
             
             if (key.equals(BuiltInLootTables.DESERT_PYRAMID)) {
-                context.addToPool(LootItem.lootTableItem(ModItems.COPPER_HORSE_ARMOR.get()).setWeight(15).build());
+                context.addToPool(LootItem.lootTableItem(ModItems.COPPER_HORSE_ARMOR.get()).setWeight(15));
             }
         }
         
         if (CONTAIN_NAUTILUS_ARMOR.contains(key) && VanillaBackport.COMMON_CONFIG.hasNautilusArmorLoot.get()) {
             context.addPool(LootPool.lootPool()
                 .setRolls(ConstantValue.exactly(1.0F))
-                .add(EmptyLootItem.emptyItem().setQuality(148))
+                .add(EmptyLootItem.emptyItem().setWeight(148))
                 .add(LootItem.lootTableItem(ModItems.COPPER_NAUTILUS_ARMOR.get())
                     .setWeight(20)
                     .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F))))
@@ -164,6 +161,70 @@ public class LootIntegrations implements LootModifier.LootTableModifier {
                 .add(LootItem.lootTableItem(ModItems.DIAMOND_NAUTILUS_ARMOR.get())
                     .setWeight(2)
                     .apply(SetItemCountFunction.setCount(ConstantValue.exactly(1.0F)))));
+        }
+        
+        if (VanillaBackport.COMMON_CONFIG.hasCopperToolSet.get()) {
+            if (key.equals(ModBuiltInLootTables.ABANDONED_CAMP_COMMON_CHEST)) {
+                context.addToPool(1,
+                    LootItem.lootTableItem(ModItems.COPPER_SPEAR.get()).setWeight(1).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1))),
+                    LootItem.lootTableItem(ModItems.COPPER_AXE.get()).setWeight(1).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1))),
+                    LootItem.lootTableItem(ModItems.COPPER_BOOTS.get()).setWeight(1).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1))),
+                    LootItem.lootTableItem(ModItems.COPPER_CHESTPLATE.get()).setWeight(1).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1))),
+                    LootItem.lootTableItem(ModItems.COPPER_LEGGINGS.get()).setWeight(1).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1))),
+                    LootItem.lootTableItem(ModItems.COPPER_SWORD.get()).setWeight(1).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1)))
+                );
+            }
+        }
+        
+        if (VanillaBackport.COMMON_CONFIG.hasSpears.get()) {
+            if (key.equals(BuiltInLootTables.BURIED_TREASURE)) {
+                context.addToPool(3, LootItem.lootTableItem(ModItems.IRON_SPEAR.get()));
+            }
+            
+            if (key.equals(BuiltInLootTables.UNDERWATER_RUIN_BIG) || key.equals(BuiltInLootTables.UNDERWATER_RUIN_SMALL)) {
+                context.addToPool(
+                    LootItem.lootTableItem(ModItems.IRON_SPEAR.get())
+                        .setWeight(2)
+                );
+            }
+            
+            if (key.equals(BuiltInLootTables.VILLAGE_WEAPONSMITH)) {
+                context.addToPool(LootItem.lootTableItem(ModItems.IRON_SPEAR.get()).setWeight(5));
+                
+                if (VanillaBackport.COMMON_CONFIG.hasCopperToolSet.get()) {
+                    context.addToPool(LootItem.lootTableItem(ModItems.COPPER_SPEAR.get()).setWeight(7));
+                }
+            }
+            
+            if (key.equals(BuiltInLootTables.END_CITY_TREASURE)) {
+                context.addToPool(
+                    LootItem.lootTableItem(ModItems.DIAMOND_SPEAR.get())
+                        .setWeight(3)
+                        .apply(EnchantWithLevelsFunction.enchantWithLevels(context.registries(), UniformGenerator.between(20, 39)))
+                );
+            }
+            
+            if (key.equals(BuiltInLootTables.BASTION_TREASURE)) {
+                context.addToPool(
+                    LootItem.lootTableItem(ModItems.DIAMOND_SPEAR.get())
+                        .setWeight(6)
+                        .apply(SetItemDamageFunction.setDamage(UniformGenerator.between(0.8F, 1.0F)))
+                        .apply(EnchantRandomlyFunction.randomApplicableEnchantment(context.registries())),
+                    
+                    LootItem.lootTableItem(ModItems.DIAMOND_SPEAR.get())
+                        .setWeight(6)
+                );
+            }
+            
+            if (VanillaBackport.COMMON_CONFIG.hasCopperToolSet.get()) {
+                if (key.equals(ModBuiltInLootTables.ABANDONED_CAMP_COMMON_CHEST)) {
+                    context.addToPool(1, LootItem.lootTableItem(ModItems.COPPER_SPEAR.get()).setWeight(1).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1))));
+                }
+            }
+            
+            if (key.equals(ModBuiltInLootTables.ABANDONED_CAMP_SECRET_CHEST)) {
+                context.addToPool(2, LootItem.lootTableItem(ModItems.IRON_SPEAR.get()).setWeight(1).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1))));
+            }
         }
     }
 }

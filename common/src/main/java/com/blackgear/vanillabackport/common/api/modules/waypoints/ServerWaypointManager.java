@@ -22,6 +22,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class ServerWaypointManager implements WaypointManager<WaypointTransmitter> {
     private static final AttributeModifier WAYPOINT_TRANSMIT_RANGE_CROUCH_MODIFIER = new AttributeModifier(ResourceLocation.withDefaultNamespace("waypoint_transmit_range_crouch"), -1.0, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
+    private static final AttributeModifier WAYPOINT_TRANSMIT_RANGE_HIDE_MODIFIER = new AttributeModifier(ResourceLocation.withDefaultNamespace("waypoint_transmit_range_hide"), -1.0, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
     private static final Map<ResourceKey<Level>, ServerWaypointManager> MANAGERS = new ConcurrentHashMap<>();
     private final Set<WaypointTransmitter> waypoints = new HashSet<>();
     private final Set<ServerPlayer> players = new HashSet<>();

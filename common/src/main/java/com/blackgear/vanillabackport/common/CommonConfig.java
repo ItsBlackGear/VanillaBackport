@@ -49,7 +49,9 @@ public class CommonConfig {
     public final ConfigBuilder.ConfigValue<Integer> golemWeatheringTickFrom;
     public final ConfigBuilder.ConfigValue<Integer> golemWeatheringTickTo;
     public final ConfigBuilder.ConfigValue<Integer> golemItemCarryAmount;
-
+    public final ConfigBuilder.ConfigValue<Boolean> hasCopperNuggets;
+    public final ConfigBuilder.ConfigValue<Boolean> hasCopperToolSet;
+    
     // Mounts of Mayhem
     public final ConfigBuilder.ConfigValue<Boolean> hasParchedSkeletons;
     public final ConfigBuilder.ConfigValue<Boolean> hasCamelHusks;
@@ -57,7 +59,7 @@ public class CommonConfig {
     public final ConfigBuilder.ConfigValue<Boolean> hasZombieHorses;
     public final ConfigBuilder.ConfigValue<Double> zombieNautilusSpawnChance;
     public final ConfigBuilder.ConfigValue<Boolean> hasNautilusArmorLoot;
-    public final ConfigBuilder.ConfigValue<Boolean> canMonstersSpawnWithSpears;
+    public final ConfigBuilder.ConfigValue<Boolean> hasSpears;
     public final ConfigBuilder.ConfigValue<Boolean> canMountsFloatWhileRidden;
     
     // Chaos Cubed
@@ -160,6 +162,10 @@ public class CommonConfig {
                 .defineInRange("golem_weathering_tick_to", 552000, 0, Integer.MAX_VALUE);
             this.golemItemCarryAmount = builder.comment("maximum number of items a Copper Golem can carry")
                 .defineInRange("golem_item_carry_amount", 16, 1, Integer.MAX_VALUE);
+            this.hasCopperNuggets = builder.comment("allow Copper Nuggets to be obtainable via crafting")
+                .define("has_copper_nuggets", true);
+            this.hasCopperToolSet = builder.comment("allow Copper Armor, Weapons and Tools to be obtainable")
+                .define("has_copper_toolset", true);
         builder.pop();
 
         builder.push("Mounts of Mayhem");
@@ -175,8 +181,8 @@ public class CommonConfig {
                 .defineInRange("zombie_nautilus_spawn_chance", 0.5, 0.0, 1.0);
             this.hasNautilusArmorLoot = builder.comment("allow Nautilus Armor to generate in loot chests")
                 .define("has_nautilus_armor_loot", true);
-            this.canMonstersSpawnWithSpears = builder.comment("allow Zombies, Husks, Piglins and Zombified Piglins to spawn holding spears")
-                .define("can_monsters_spawn_with_spears", true);
+            this.hasSpears = builder.comment("allow Spears to be obtainable and allow monsters to spawn holding them")
+                .define("has_spears", true);
             this.canMountsFloatWhileRidden = builder.comment("allow mounts to float while ridden")
                 .define("can_mounts_float_while_ridden", true);
         builder.pop();
