@@ -5,6 +5,7 @@ import com.blackgear.vanillabackport.common.api.extensions.entity.modifiers.Came
 import com.blackgear.vanillabackport.common.api.extensions.entity.mounts.ControllableMob;
 import com.blackgear.vanillabackport.core.data.tags.ModItemTags;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.BlockTags;
@@ -13,6 +14,7 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.AgeableMob;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.animal.Animal;
 import net.minecraft.world.entity.animal.camel.Camel;
@@ -137,6 +139,20 @@ public class CamelHusk extends Camel implements ControllableMob, CamelSoundModif
         
         public HuskGroupData(Zombie.ZombieGroupData data) {
             super(data.isBaby, data.canSpawnJockey);
+        }
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+
+        // NBT Carryover Fix: Equipment (1.21.5+)
+        ItemStack itemStack = this.inventory.getItem(0);
+
+        if(!itemStack.isEmpty()) {
+            CompoundTag equipmentTag = new CompoundTag();
+            equipmentTag.put("saddle", itemStack.save(this.registryAccess()));
+            compound.put("equipment", equipmentTag);
         }
     }
 }
