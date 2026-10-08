@@ -5,6 +5,7 @@ import com.blackgear.vanillabackport.common.api.extensions.entity.modifiers.Came
 import com.blackgear.vanillabackport.common.api.extensions.entity.mounts.ControllableMob;
 import com.blackgear.vanillabackport.core.data.tags.ModItemTags;
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.InteractionHand;
@@ -144,6 +145,20 @@ public class CamelHusk extends Camel implements ControllableMob, CamelSoundModif
         
         public HuskGroupData(Zombie.ZombieGroupData data) {
             super(data.isBaby, data.canSpawnJockey);
+        }
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+
+        // NBT Carryover Fix: Equipment (1.21.5+)
+        ItemStack itemStack = this.inventory.getItem(0);
+
+        if(!itemStack.isEmpty()) {
+            CompoundTag equipmentTag = new CompoundTag();
+            equipmentTag.put("saddle", itemStack.save(new CompoundTag()));
+            compound.put("equipment", equipmentTag);
         }
     }
 }
