@@ -1,0 +1,6 @@
+{
+  "parent": "vanillabackport:block/template_redstone_torch_wall",
+  "textures": {
+    "torch": "vanillabackport:block/redstone_torch"
+  }
+}

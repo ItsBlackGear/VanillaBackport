@@ -6,7 +6,8 @@ public class ClientConfig {
     // Bundles of Bravery
     public final ConfigBuilder.ConfigValue<Boolean> endlessBundleUi;
     public final ConfigBuilder.ConfigValue<Boolean> hasModernBundleModels;
-    
+    public final ConfigBuilder.ConfigValue<Boolean> hasModernRedstoneTorchModels;
+
     // Spring to Life
     public final ConfigBuilder.ConfigValue<Boolean> hasFallingLeaves;
     public final ConfigBuilder.ConfigValue<Double> fallingLeavesFrequency;
@@ -26,9 +27,11 @@ public class ClientConfig {
     public final ConfigBuilder.ConfigValue<Boolean> enableModernDyeTextures;
     public final ConfigBuilder.ConfigValue<Boolean> endFlashSkyVisuals;
     public final ConfigBuilder.ConfigValue<Boolean> endFlashTerrainVisuals;
-    
+
     // Wilderness Bound
     public final ConfigBuilder.ConfigValue<Boolean> explorerMapRedesign;
+    public final ConfigBuilder.ConfigValue<Boolean> hasModernHayBaleTexture;
+
 
     public ClientConfig(ConfigBuilder builder) {
         builder.push("Bundles of Bravery");
@@ -36,6 +39,8 @@ public class ClientConfig {
                 .define("endless_bundle_ui", false);
             this.hasModernBundleModels = builder.comment("enable modern bundle models")
                 .define("has_modern_bundle_models", true);
+            this.hasModernRedstoneTorchModels = builder.comment("enable modern redstone torch models (also effects repeaters and comparators)")
+                .define("has_modern_redstone_torch_models", true);
         builder.pop();
         
         builder.push("Spring to Life");
@@ -74,10 +79,12 @@ public class ClientConfig {
             this.endFlashTerrainVisuals = builder.comment("enable End Flash terrain effects")
                 .define("end_flash_terrain_visuals", true);
         builder.pop();
-        
+
         builder.push("Wilderness Bound");
         this.explorerMapRedesign = builder.comment("enable the explorer map redesigns")
             .define("explorer_map_redesign", true);
+        this.hasModernHayBaleTexture = builder.comment("enable modern hay bale texture that is aligned with the straw bed")
+            .define("has_modern_hay_bale_texture", true);
         builder.pop();
     }
 }
