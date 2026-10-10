@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "vanillabackport:block/redstone_torch_off"
+    },
+    "lit=true": {
+      "model": "vanillabackport:block/redstone_torch"
+    }
+  }
+}

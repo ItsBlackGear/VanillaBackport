@@ -1,5 +1,6 @@
 package com.blackgear.vanillabackport.client.integrations.rendering;
 
+import com.blackgear.vanillabackport.client.level.renderer.block.BackportedBlockRenderer;
 import com.blackgear.vanillabackport.client.level.renderer.block_entity.CopperChestRenderer;
 import com.blackgear.vanillabackport.client.level.renderer.block_entity.CopperGolemStatueRenderer;
 import com.blackgear.vanillabackport.client.level.renderer.block_entity.ShelfRenderer;
@@ -8,11 +9,18 @@ import com.blackgear.vanillabackport.common.level.blocks.CopperChestBlock;
 import com.blackgear.vanillabackport.common.level.blocks.CopperGolemStatueBlock;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlockEntities;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
+import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.DyeItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+
+import java.util.Set;
 
 import static com.blackgear.platform.client.GameRendering.*;
 
@@ -30,6 +38,18 @@ public class ItemLikeRendering {
             if (block instanceof CopperChestBlock chest) event.builtin(new CopperChestItemRenderer(chest), chest);
             if (block instanceof CopperGolemStatueBlock statue) event.builtin(new CopperGolemStatueItemRenderer(statue), statue);
         });
+
+        Set<Item> hayBlocks = Set.of(Items.HAY_BLOCK);
+        event.simple(
+            new BackportedItemRenderer(VanillaBackport.CLIENT_CONFIG.hasModernHayBaleTexture, hayBlocks),
+            hayBlocks
+        );
+
+        Set<Item> redstoneTorches = Set.of(Items.REDSTONE_TORCH);
+        event.simple(
+            new BackportedItemRenderer(VanillaBackport.CLIENT_CONFIG.hasModernRedstoneTorchModels, redstoneTorches),
+            redstoneTorches
+        );
     }
     
     public static void blockEntityRendering(BlockEntityRendererEvent event) {
@@ -37,7 +57,24 @@ public class ItemLikeRendering {
         event.register(ModBlockEntities.COPPER_GOLEM_STATUE.get(), CopperGolemStatueRenderer::new);
         event.register(ModBlockEntities.SHELF.get(), ShelfRenderer::new);
     }
-    
+
+    public static void blockRendering(BlockRendererEvent event) {
+        Set<Block> redstoneTorchBlocks = Set.of(
+            Blocks.REDSTONE_TORCH, Blocks.REDSTONE_WALL_TORCH,
+            Blocks.REPEATER, Blocks.COMPARATOR
+        );
+        event.registerRenderer(
+            new BackportedBlockRenderer(VanillaBackport.CLIENT_CONFIG.hasModernRedstoneTorchModels, redstoneTorchBlocks),
+            redstoneTorchBlocks
+        );
+
+        Set<Block> hayBlocks = Set.of(Blocks.HAY_BLOCK);
+        event.registerRenderer(
+            new BackportedBlockRenderer(VanillaBackport.CLIENT_CONFIG.hasModernHayBaleTexture, hayBlocks),
+            hayBlocks
+        );
+    }
+
     public static void renderTypes(BlockRendererEvent event) {
         event.register(
             RenderType.cutoutMipped(),
