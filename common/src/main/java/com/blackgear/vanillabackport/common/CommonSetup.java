@@ -11,6 +11,7 @@ import com.blackgear.platform.common.worldgen.placement.BiomePlacement;
 import com.blackgear.platform.core.ParallelDispatch;
 import com.blackgear.platform.core.events.ResourceReloadManager;
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
+import com.blackgear.vanillabackport.common.api.SpawnEquipmentRegistry;
 import com.blackgear.vanillabackport.common.commands.WaypointCommand;
 import com.blackgear.vanillabackport.common.integrations.BlockIntegrations;
 import com.blackgear.vanillabackport.common.integrations.LootIntegrations;
@@ -38,7 +39,9 @@ import com.blackgear.vanillabackport.common.level.entities.mob.monster.sulfur_cu
 import com.blackgear.vanillabackport.common.level.recipes.VanillaDynamicRecipes;
 import com.blackgear.vanillabackport.common.registries.entities.ModEntityTypes;
 import com.blackgear.vanillabackport.common.integrations.worldgen.WorldGeneration;
+import com.blackgear.vanillabackport.common.registries.items.ModItems;
 import com.blackgear.vanillabackport.core.VanillaBackport;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.animal.Parrot;
 
 public class CommonSetup {
@@ -56,7 +59,6 @@ public class CommonSetup {
         });
         
         DynamicRecipeManager.register(new VanillaDynamicRecipes(), VanillaBackport.MOD_ID);
-        
         MobIntegration.registerIntegrations(MobIntegrations::bootstrap);
         CommandRegistrar.EVENT.register((dispatcher, context, selection) -> WaypointCommand.register(dispatcher, context));
     }
@@ -71,8 +73,15 @@ public class CommonSetup {
             Parrot.MOB_SOUND_MAP.put(ModEntityTypes.PARCHED.get(), ModSoundEvents.PARROT_IMITATE_PARCHED.get());
             Parrot.MOB_SOUND_MAP.put(ModEntityTypes.CAMEL_HUSK.get(), ModSoundEvents.PARROT_IMITATE_CAMEL_HUSK.get());
             Parrot.MOB_SOUND_MAP.put(ModEntityTypes.ZOMBIE_NAUTILUS.get(), ModSoundEvents.PARROT_IMITATE_ZOMBIE_NAUTILUS.get());
+            
+            if (VanillaBackport.COMMON_CONFIG.hasCopperToolSet.get()) {
+                SpawnEquipmentRegistry.register(EquipmentSlot.HEAD, 1, 0.4F, ModItems.COPPER_HELMET);
+                SpawnEquipmentRegistry.register(EquipmentSlot.CHEST, 1, 0.4F, ModItems.COPPER_CHESTPLATE);
+                SpawnEquipmentRegistry.register(EquipmentSlot.LEGS, 1, 0.4F, ModItems.COPPER_LEGGINGS);
+                SpawnEquipmentRegistry.register(EquipmentSlot.FEET, 1, 0.4F, ModItems.COPPER_BOOTS);
+            }
         });
-
+        
         LootModifier.modify(LootIntegrations.INSTANCE);
     }
 }

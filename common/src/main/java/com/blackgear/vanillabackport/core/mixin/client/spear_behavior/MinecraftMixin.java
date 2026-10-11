@@ -44,17 +44,18 @@ public abstract class MinecraftMixin {
     )
     private void vb$startAttack(CallbackInfoReturnable<Boolean> cir) {
         if (this.player == null || this.level == null || this.gameMode == null) return;
-        
         ItemStack stack = this.player.getItemInHand(InteractionHand.MAIN_HAND);
-        if (((PlayerSpearHandler) this.player).vb$cannotAttackWithItem(stack, 0)) {
-            cir.setReturnValue(false);
-            return;
-        }
-        
         PiercingWeapon weapon = PiercingWeapon.get(stack);
+        
         if (weapon != null) {
+            if (((PlayerSpearHandler) this.player).vb$cannotAttackWithItem(stack, 0)) {
+                cir.setReturnValue(false);
+                return;
+            }
+            
             ((ServerSpearHandler) this.gameMode).piercingAttack(weapon);
             this.player.swing(InteractionHand.MAIN_HAND);
+            
             cir.setReturnValue(true);
         }
     }

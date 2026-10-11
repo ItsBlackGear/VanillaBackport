@@ -29,6 +29,7 @@ import org.joml.Vector2i;
 
 import java.util.*;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 public class BundledTabSelector {
     private static final ResourceLocation SELECTOR_BAR = VanillaBackport.resource("textures/gui/bundled_tabs/interface.png");
@@ -127,7 +128,13 @@ public class BundledTabSelector {
     private boolean hasSelectedBundle() {
         return this.bundles.stream().anyMatch(BundledTabs::isSelected);
     }
-
+    
+    private List<BundledTabs> getActiveBundles() {
+        return this.bundles.stream()
+            .filter(tab -> !tab.isEmpty())
+            .collect(Collectors.toList());
+    }
+    
     private void injectWidgets(CreativeModeInventoryScreen screen, Consumer<AbstractWidget> widgets) {
         this.bundles.forEach(bundle -> {
             Tab tab = new Tab(this.guiLeft - 23, this.guiTop + 7, bundle, button -> {
@@ -160,7 +167,7 @@ public class BundledTabSelector {
     }
 
     private int getMaxScroll() {
-        return Math.max(0, this.bundles.size() - VISIBLE_CATEGORIES);
+        return Math.max(0, this.getActiveBundles().size() - VISIBLE_CATEGORIES);
     }
 
     private void updateItems(CreativeModeInventoryScreen screen) {
@@ -189,9 +196,9 @@ public class BundledTabSelector {
     private void updateWidgets() {
         if (this.scrollUpButton == null || this.scrollDownButton == null) return;
         this.bundles.forEach(bundle -> bundle.setVisible(false));
-
-        for (int i = this.scroll; i < this.scroll + VISIBLE_CATEGORIES && i < this.bundles.size(); i++) {
-            BundledTabs bundle = this.bundles.get(i);
+        
+        for (int i = this.scroll; i < this.scroll + VISIBLE_CATEGORIES && i < this.getActiveBundles().size(); i++) {
+            BundledTabs bundle = this.getActiveBundles().get(i);
             bundle.setY(this.guiTop + 18 * (i - this.scroll) + 18);
             bundle.setVisible(true);
         }

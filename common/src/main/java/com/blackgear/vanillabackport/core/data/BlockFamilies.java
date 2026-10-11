@@ -1,4 +1,4 @@
-package com.blackgear.vanillabackport.data.client;
+package com.blackgear.vanillabackport.core.data;
 
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
 import com.google.common.collect.Maps;

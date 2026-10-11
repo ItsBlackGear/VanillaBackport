@@ -2,6 +2,7 @@ package com.blackgear.vanillabackport.core.mixin.common.waypoints;
 
 import com.blackgear.vanillabackport.common.api.modules.waypoints.ServerWaypointManager;
 import com.blackgear.vanillabackport.common.api.modules.waypoints.WaypointTransmitter;
+import com.blackgear.vanillabackport.common.api.modules.waypoints.WaypointUtils;
 import com.blackgear.vanillabackport.common.registries.entities.ModAttributes;
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import net.minecraft.core.Holder;
@@ -86,6 +87,12 @@ public abstract class LivingEntityMixin extends Entity implements WaypointTransm
         } else {
             this.locatorBarIcon = new Icon();
         }
+    }
+    
+    @Inject(method = "tick", at = @At("TAIL"))
+    private void onLivingEntityTick(CallbackInfo ci) {
+        LivingEntity entity = (LivingEntity) (Object) this;
+        WaypointUtils.onEntityTick(entity);
     }
     
     @Inject(method = "remove", at = @At("TAIL"))

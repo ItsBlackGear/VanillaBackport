@@ -6,6 +6,7 @@ import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
 import com.blackgear.vanillabackport.common.registries.enchantment.ModEnchantments;
 import com.blackgear.vanillabackport.common.registries.items.ModItems;
 import com.blackgear.vanillabackport.common.registries.items.ModPaintingVariants;
+import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.NbtOps;
@@ -217,19 +218,24 @@ public class ModBundledTabs {
                 
                 output.accept(ModItems.COPPER_GOLEM_SPAWN_EGG.get());
                 
-                output.accept(ModItems.COPPER_SWORD.get());
-                output.accept(ModItems.COPPER_AXE.get());
-                output.accept(ModItems.COPPER_PICKAXE.get());
-                output.accept(ModItems.COPPER_SHOVEL.get());
-                output.accept(ModItems.COPPER_HOE.get());
+                if (VanillaBackport.COMMON_CONFIG.hasCopperToolSet.get()) {
+                    output.accept(ModItems.COPPER_SWORD.get());
+                    output.accept(ModItems.COPPER_AXE.get());
+                    output.accept(ModItems.COPPER_PICKAXE.get());
+                    output.accept(ModItems.COPPER_SHOVEL.get());
+                    output.accept(ModItems.COPPER_HOE.get());
+                    
+                    output.accept(ModItems.COPPER_HELMET.get());
+                    output.accept(ModItems.COPPER_CHESTPLATE.get());
+                    output.accept(ModItems.COPPER_LEGGINGS.get());
+                    output.accept(ModItems.COPPER_BOOTS.get());
+                    
+                    output.accept(ModItems.COPPER_HORSE_ARMOR.get());
+                }
                 
-                output.accept(ModItems.COPPER_HELMET.get());
-                output.accept(ModItems.COPPER_CHESTPLATE.get());
-                output.accept(ModItems.COPPER_LEGGINGS.get());
-                output.accept(ModItems.COPPER_BOOTS.get());
-                
-                output.accept(ModItems.COPPER_HORSE_ARMOR.get());
-                output.accept(ModItems.COPPER_NUGGET.get());
+                if (VanillaBackport.COMMON_CONFIG.hasCopperNuggets.get()) {
+                    output.accept(ModItems.COPPER_NUGGET.get());
+                }
                 
                 output.accept(ModBlocks.COPPER_TORCH.getFirst().get());
                 ModBlocks.COPPER_LANTERN.asList().forEach(block -> output.accept(block.get()));
@@ -252,13 +258,19 @@ public class ModBundledTabs {
                 
                 output.accept(ModItems.NETHERITE_HORSE_ARMOR.get());
                 
-                output.accept(ModItems.WOODEN_SPEAR.get());
-                output.accept(ModItems.STONE_SPEAR.get());
-                output.accept(ModItems.COPPER_SPEAR.get());
-                output.accept(ModItems.IRON_SPEAR.get());
-                output.accept(ModItems.GOLDEN_SPEAR.get());
-                output.accept(ModItems.DIAMOND_SPEAR.get());
-                output.accept(ModItems.NETHERITE_SPEAR.get());
+                if (VanillaBackport.COMMON_CONFIG.hasSpears.get()) {
+                    output.accept(ModItems.WOODEN_SPEAR.get());
+                    output.accept(ModItems.STONE_SPEAR.get());
+                    
+                    if (VanillaBackport.COMMON_CONFIG.hasCopperToolSet.get()) {
+                        output.accept(ModItems.COPPER_SPEAR.get());
+                    }
+                    
+                    output.accept(ModItems.IRON_SPEAR.get());
+                    output.accept(ModItems.GOLDEN_SPEAR.get());
+                    output.accept(ModItems.DIAMOND_SPEAR.get());
+                    output.accept(ModItems.NETHERITE_SPEAR.get());
+                }
                 
                 output.accept(ModItems.CAMEL_HUSK_SPAWN_EGG.get());
                 output.accept(ModItems.NAUTILUS_SPAWN_EGG.get());

@@ -34,6 +34,8 @@ modId = "vanillabackport"
 
 [[mixins]]
     config = "vanillabackport.mixins.json"
+[[mixins]]
+    config = "vanillabackport-neoforge.mixins.json"
 
 ["badoptimizations:cache_hooks"]
     common = "com.blackgear.vanillabackport.client.api.modules.end_flashes.BadOptimizationsCommonHook"

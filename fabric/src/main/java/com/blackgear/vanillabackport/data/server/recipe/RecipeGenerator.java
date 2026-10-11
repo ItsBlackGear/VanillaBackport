@@ -4,7 +4,7 @@ import com.blackgear.vanillabackport.common.api.modules.bundle_ui.BundleColoring
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
 import com.blackgear.vanillabackport.common.registries.items.ModItems;
 import com.blackgear.vanillabackport.core.data.tags.ModItemTags;
-import com.blackgear.vanillabackport.data.client.BlockFamilies;
+import com.blackgear.vanillabackport.core.data.BlockFamilies;
 import com.google.common.collect.ImmutableMap;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.core.HolderLookup;
@@ -189,6 +189,21 @@ public class RecipeGenerator extends VanillaRecipeProvider {
             .unlockedBy("has_copper_ingot", has(Items.COPPER_INGOT))
             .save(output);
         
+        waxRecipes(output, ModBlocks.COPPER_CHEST.get(), ModBlocks.WAXED_COPPER_CHEST.get());
+        waxRecipes(output, ModBlocks.EXPOSED_COPPER_CHEST.get(), ModBlocks.WAXED_EXPOSED_COPPER_CHEST.get());
+        waxRecipes(output, ModBlocks.WEATHERED_COPPER_CHEST.get(), ModBlocks.WAXED_WEATHERED_COPPER_CHEST.get());
+        waxRecipes(output, ModBlocks.OXIDIZED_COPPER_CHEST.get(), ModBlocks.WAXED_OXIDIZED_COPPER_CHEST.get());
+        
+        waxRecipes(output, ModBlocks.COPPER_GOLEM_STATUE.get(), ModBlocks.WAXED_COPPER_GOLEM_STATUE.get());
+        waxRecipes(output, ModBlocks.EXPOSED_COPPER_GOLEM_STATUE.get(), ModBlocks.WAXED_EXPOSED_COPPER_GOLEM_STATUE.get());
+        waxRecipes(output, ModBlocks.WEATHERED_COPPER_GOLEM_STATUE.get(), ModBlocks.WAXED_WEATHERED_COPPER_GOLEM_STATUE.get());
+        waxRecipes(output, ModBlocks.OXIDIZED_COPPER_GOLEM_STATUE.get(), ModBlocks.WAXED_OXIDIZED_COPPER_GOLEM_STATUE.get());
+        
+        waxRecipes(output, Blocks.LIGHTNING_ROD, ModBlocks.WAXED_LIGHTNING_ROD.get());
+        waxRecipes(output, ModBlocks.EXPOSED_LIGHTNING_ROD.get(), ModBlocks.WAXED_EXPOSED_LIGHTNING_ROD.get());
+        waxRecipes(output, ModBlocks.WEATHERED_LIGHTNING_ROD.get(), ModBlocks.WAXED_WEATHERED_LIGHTNING_ROD.get());
+        waxRecipes(output, ModBlocks.OXIDIZED_LIGHTNING_ROD.get(), ModBlocks.WAXED_OXIDIZED_LIGHTNING_ROD.get());
+        
         // Mounts of Mayhem
         
         netheriteSmithing(output, ModItems.DIAMOND_SPEAR.get(), RecipeCategory.COMBAT, ModItems.NETHERITE_SPEAR.get());
@@ -321,6 +336,15 @@ public class RecipeGenerator extends VanillaRecipeProvider {
             .unlockedBy(getHasName(woolSlab), has(woolSlab))
             .pattern("###")
             .save(output);
+    }
+    
+    public static void waxRecipes(RecipeOutput output, Block unwaxed, Block waxed) {
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, waxed)
+            .requires(unwaxed)
+            .requires(Items.HONEYCOMB)
+            .group(getItemName(waxed))
+            .unlockedBy(getHasName(unwaxed), has(unwaxed))
+            .save(output, getConversionRecipeName(waxed, Items.HONEYCOMB));
     }
 
     @FunctionalInterface

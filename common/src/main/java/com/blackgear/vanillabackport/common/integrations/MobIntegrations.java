@@ -2,6 +2,7 @@ package com.blackgear.vanillabackport.common.integrations;
 
 import com.blackgear.platform.common.integration.MobIntegration.Event;
 import com.blackgear.platform.common.integration.v2.spawn_placement.SpawnPlacementStrategy;
+import com.blackgear.vanillabackport.common.api.SpawnEquipmentRegistry;
 import com.blackgear.vanillabackport.common.integrations.interactions.GhastHarnessInteraction;
 import com.blackgear.vanillabackport.common.integrations.interactions.LeashInteraction;
 import com.blackgear.vanillabackport.common.level.entities.ai.goal.OfferCopperGolemFlowerGoal;
@@ -14,6 +15,8 @@ import com.blackgear.vanillabackport.common.level.entities.mob.monster.creaking.
 import com.blackgear.vanillabackport.common.level.entities.mob.monster.skeleton.Parched;
 import com.blackgear.vanillabackport.common.level.entities.mob.monster.sulfur_cube.SulfurCube;
 import com.blackgear.vanillabackport.common.registries.entities.ModEntityTypes;
+import com.blackgear.vanillabackport.common.registries.items.ModItems;
+import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.world.entity.animal.IronGolem;

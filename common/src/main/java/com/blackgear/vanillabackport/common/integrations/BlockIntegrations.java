@@ -106,6 +106,14 @@ public class BlockIntegrations {
         event.registerCompostableItem(ModBlocks.CACTUS_FLOWER.get(), 0.3F);
         event.registerCompostableItem(ModBlocks.SHORT_DRY_GRASS.get(), 0.3F);
         event.registerCompostableItem(ModBlocks.TALL_DRY_GRASS.get(), 0.3F);
+        
+        // Wilderness Bound
+        event.registerCompostableItem(ModBlocks.RED_SHRUB.get(), 0.3F);
+        event.registerCompostableItem(ModBlocks.RED_POPLAR_LEAVES.get(), 0.3F);
+        event.registerCompostableItem(ModBlocks.ORANGE_POPLAR_LEAVES.get(), 0.3F);
+        event.registerCompostableItem(ModBlocks.YELLOW_POPLAR_LEAVES.get(), 0.3F);
+        event.registerCompostableItem(ModBlocks.POPLAR_SAPLING.get(), 0.3F);
+        event.registerCompostableItem(ModBlocks.SHELF_MUSHROOM.get(), 0.65F);
     }
     
     private static void registerStrippables(BlockIntegration.Event event) {
@@ -124,6 +132,7 @@ public class BlockIntegrations {
         event.registerWaxableBlock(ModBlocks.WEATHERED_COPPER_CHEST.get(), ModBlocks.WAXED_WEATHERED_COPPER_CHEST.get());
         event.registerWaxableBlock(ModBlocks.OXIDIZED_COPPER_CHEST.get(), ModBlocks.WAXED_OXIDIZED_COPPER_CHEST.get());
         
+        event.registerWaxableBlock(ModBlocks.COPPER_GOLEM_STATUE.get(), ModBlocks.WAXED_COPPER_GOLEM_STATUE.get());
         event.registerWaxableBlock(ModBlocks.EXPOSED_COPPER_GOLEM_STATUE.get(), ModBlocks.WAXED_EXPOSED_COPPER_GOLEM_STATUE.get());
         event.registerWaxableBlock(ModBlocks.WEATHERED_COPPER_GOLEM_STATUE.get(), ModBlocks.WAXED_WEATHERED_COPPER_GOLEM_STATUE.get());
         event.registerWaxableBlock(ModBlocks.OXIDIZED_COPPER_GOLEM_STATUE.get(), ModBlocks.WAXED_OXIDIZED_COPPER_GOLEM_STATUE.get());

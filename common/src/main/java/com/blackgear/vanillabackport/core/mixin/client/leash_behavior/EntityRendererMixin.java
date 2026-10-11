@@ -3,6 +3,8 @@ package com.blackgear.vanillabackport.core.mixin.client.leash_behavior;
 import com.blackgear.vanillabackport.common.api.modules.leash_behavior.LeashFeatureRenderer;
 import com.blackgear.vanillabackport.common.api.modules.leash_behavior.LeashableCallback;
 import com.blackgear.vanillabackport.core.ModChecker;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.culling.Frustum;
@@ -22,9 +24,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(EntityRenderer.class)
 public class EntityRendererMixin<T extends Entity> {
-    @Unique private LeashFeatureRenderer<T> leashRenderer;
-
     @Shadow @Final protected EntityRenderDispatcher entityRenderDispatcher;
+    @Unique private LeashFeatureRenderer<T> leashRenderer;
 
     @Inject(method = "<init>", at = @At("TAIL"))
     private void vb$init(EntityRendererProvider.Context context, CallbackInfo ci) {
@@ -33,19 +34,28 @@ public class EntityRendererMixin<T extends Entity> {
 
     @Inject(method = "render", at = @At("HEAD"))
     private void renderAdditional(T entity, float entityYaw, float partialTick, PoseStack poseStack, MultiBufferSource buffer, int packedLight, CallbackInfo ci) {
-        if (!ModChecker.SABLE)
-            this.leashRenderer.render(entity, partialTick, poseStack, buffer);
+        if (!ModChecker.SABLE) this.leashRenderer.render(entity, partialTick, poseStack, buffer);
     }
 
     @Inject(method = "renderLeash", at = @At("HEAD"), cancellable = true)
     private <E extends Entity & Leashable> void vb$cancelVanillaLeash(E entity, float partialTick, PoseStack poseStack, MultiBufferSource buffer, Entity leashHolder, CallbackInfo ci) {
-        if (!ModChecker.SABLE && ((LeashableCallback) entity).vb$supportsQuadLeash())
-            ci.cancel();
+        if (!ModChecker.SABLE && ((LeashableCallback) entity).vb$supportsQuadLeash()) ci.cancel();
+    }
+    
+    @WrapOperation(
+        method = "render",
+        at = @At(
+            value = "INVOKE",
+            target = "Lnet/minecraft/client/renderer/entity/EntityRenderer;renderLeash(Lnet/minecraft/world/entity/Entity;FLcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;Lnet/minecraft/world/entity/Entity;)V"
+        )
+    )
+    private void vb$wrapVanillaLeashRender(EntityRenderer<T> instance, T entity, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, Entity leashHolder, Operation<Void> original) {
+        if (!ModChecker.SABLE && ((LeashableCallback) entity).vb$supportsQuadLeash()) return;
+        original.call(instance, entity, partialTick, poseStack, bufferSource, leashHolder);
     }
 
     @Inject(method = "shouldRender", at = @At("TAIL"), cancellable = true)
     private void vb$shouldRender(T entity, Frustum camera, double camX, double camY, double camZ, CallbackInfoReturnable<Boolean> cir) {
-        if (!ModChecker.SABLE)
-            cir.setReturnValue(this.leashRenderer.shouldRender(entity, camera, cir.getReturnValue()));
+        if (!ModChecker.SABLE) cir.setReturnValue(this.leashRenderer.shouldRender(entity, camera, cir.getReturnValue()));
     }
 }

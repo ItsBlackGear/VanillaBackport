@@ -4,6 +4,7 @@ import com.blackgear.platform.common.v2.creative_tabs.CreativeTabIntegrations.Ev
 import com.blackgear.platform.common.v2.creative_tabs.VanillaTabs;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
 import com.blackgear.vanillabackport.common.registries.items.ModItems;
+import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.world.item.Items;
 
 import java.util.function.Supplier;
@@ -159,24 +160,31 @@ public class VanillaTabIntegrations {
             output.after(Items.CUT_COPPER_SLAB).add(
                 ModBlocks.COPPER_BARS.unaffected().get(),
                 ModBlocks.COPPER_CHAIN.unaffected().get());
+            
             output.after(Items.WEATHERED_CUT_COPPER_SLAB).add(
                 ModBlocks.COPPER_BARS.weathered().get(),
                 ModBlocks.COPPER_CHAIN.weathered().get());
+            
             output.after(Items.EXPOSED_CUT_COPPER_SLAB).add(
                 ModBlocks.COPPER_BARS.exposed().get(),
                 ModBlocks.COPPER_CHAIN.exposed().get());
+            
             output.after(Items.OXIDIZED_CUT_COPPER_SLAB).add(
                 ModBlocks.COPPER_BARS.oxidized().get(),
                 ModBlocks.COPPER_CHAIN.oxidized().get());
+            
             output.after(Items.WAXED_CUT_COPPER_SLAB).add(
                 ModBlocks.COPPER_BARS.waxed().get(),
                 ModBlocks.COPPER_CHAIN.waxed().get());
+            
             output.after(Items.WAXED_WEATHERED_CUT_COPPER_SLAB).add(
                 ModBlocks.COPPER_BARS.waxedWeathered().get(),
                 ModBlocks.COPPER_CHAIN.waxedWeathered().get());
+            
             output.after(Items.WAXED_EXPOSED_CUT_COPPER_SLAB).add(
                 ModBlocks.COPPER_BARS.waxedExposed().get(),
                 ModBlocks.COPPER_CHAIN.waxedExposed().get());
+            
             output.after(Items.WAXED_OXIDIZED_CUT_COPPER_SLAB).add(
                 ModBlocks.COPPER_BARS.waxedOxidized().get(),
                 ModBlocks.COPPER_CHAIN.waxedOxidized().get());
@@ -231,28 +239,32 @@ public class VanillaTabIntegrations {
             output.after(Items.CHISELED_BOOKSHELF).add(ModBlocks.OAK_SHELF.get());
         });
         
-        event.register(VanillaTabs.TOOLS_AND_UTILITIES, (flags, output, operator) -> {
-            output.after(Items.STONE_HOE)
-                .add(ModItems.COPPER_SHOVEL.get())
-                .add(ModItems.COPPER_PICKAXE.get())
-                .add(ModItems.COPPER_AXE.get())
-                .add(ModItems.COPPER_HOE.get());
-        });
+        if (VanillaBackport.COMMON_CONFIG.hasCopperToolSet.get()) {
+            event.register(VanillaTabs.TOOLS_AND_UTILITIES, (flags, output, operator) -> {
+                output.after(Items.STONE_HOE)
+                    .add(ModItems.COPPER_SHOVEL.get())
+                    .add(ModItems.COPPER_PICKAXE.get())
+                    .add(ModItems.COPPER_AXE.get())
+                    .add(ModItems.COPPER_HOE.get());
+            });
         
-        event.register(VanillaTabs.COMBAT, (flags, output, operator) -> {
-            output.after(Items.STONE_SWORD).add(ModItems.COPPER_SWORD.get());
-            output.after(Items.STONE_AXE).add(ModItems.COPPER_AXE.get());
-            output.after(Items.LEATHER_BOOTS).add(
-                ModItems.COPPER_HELMET.get(),
-                ModItems.COPPER_CHESTPLATE.get(),
-                ModItems.COPPER_LEGGINGS.get(),
-                ModItems.COPPER_BOOTS.get());
-            output.after(Items.LEATHER_HORSE_ARMOR).add(ModItems.COPPER_HORSE_ARMOR.get());
-        });
+            event.register(VanillaTabs.COMBAT, (flags, output, operator) -> {
+                output.after(Items.STONE_SWORD).add(ModItems.COPPER_SWORD.get());
+                output.after(Items.STONE_AXE).add(ModItems.COPPER_AXE.get());
+                output.after(Items.LEATHER_BOOTS).add(
+                    ModItems.COPPER_HELMET.get(),
+                    ModItems.COPPER_CHESTPLATE.get(),
+                    ModItems.COPPER_LEGGINGS.get(),
+                    ModItems.COPPER_BOOTS.get());
+                output.after(Items.LEATHER_HORSE_ARMOR).add(ModItems.COPPER_HORSE_ARMOR.get());
+            });
+        }
         
-        event.register(VanillaTabs.INGREDIENTS, (flags, output, operator) -> {
-            output.before(Items.IRON_NUGGET).add(ModItems.COPPER_NUGGET.get());
-        });
+        if (VanillaBackport.COMMON_CONFIG.hasCopperNuggets.get()) {
+            event.register(VanillaTabs.INGREDIENTS, (flags, output, operator) -> {
+                output.before(Items.IRON_NUGGET).add(ModItems.COPPER_NUGGET.get());
+            });
+        }
         
         event.register(VanillaTabs.SPAWN_EGGS, (flags, output, operator) -> {
             output.after(Items.COD_SPAWN_EGG).add(ModItems.COPPER_GOLEM_SPAWN_EGG.get());
@@ -261,21 +273,27 @@ public class VanillaTabIntegrations {
     
     private static void registerMountsOfMayhem(Event event) {
         event.register(VanillaTabs.COMBAT, (flags, output, operator) -> {
-            output.before(Items.WOODEN_AXE).add(
-                ModItems.WOODEN_SPEAR.get(),
-                ModItems.STONE_SPEAR.get(),
-                ModItems.COPPER_SPEAR.get(),
-                ModItems.IRON_SPEAR.get(),
-                ModItems.GOLDEN_SPEAR.get(),
-                ModItems.DIAMOND_SPEAR.get(),
-                ModItems.NETHERITE_SPEAR.get());
+            if (VanillaBackport.COMMON_CONFIG.hasSpears.get()) {
+                output.before(Items.WOODEN_AXE).add(
+                    ModItems.WOODEN_SPEAR.get(),
+                    ModItems.STONE_SPEAR.get(),
+                    ModItems.COPPER_SPEAR.get(),
+                    ModItems.IRON_SPEAR.get(),
+                    ModItems.GOLDEN_SPEAR.get(),
+                    ModItems.DIAMOND_SPEAR.get(),
+                    ModItems.NETHERITE_SPEAR.get());
+            }
+            
             output.after(Items.DIAMOND_HORSE_ARMOR).add(ModItems.NETHERITE_HORSE_ARMOR.get());
             output.after(Items.WOLF_ARMOR).add(
-                ModItems.COPPER_NAUTILUS_ARMOR.get(),
                 ModItems.IRON_NAUTILUS_ARMOR.get(),
                 ModItems.GOLDEN_NAUTILUS_ARMOR.get(),
                 ModItems.DIAMOND_NAUTILUS_ARMOR.get(),
                 ModItems.NETHERITE_NAUTILUS_ARMOR.get());
+                
+            if (VanillaBackport.COMMON_CONFIG.hasCopperToolSet.get()) {
+                output.before(ModItems.IRON_NAUTILUS_ARMOR.get()).add(ModItems.COPPER_NAUTILUS_ARMOR.get());
+            }
         });
         
         event.register(VanillaTabs.SPAWN_EGGS, (flags, output, operator) -> {
@@ -289,33 +307,33 @@ public class VanillaTabIntegrations {
     private static void registerChaosCubed(Event event) {
         event.register(VanillaTabs.BUILDING_BLOCKS, (flags, output, operator) -> {
             output.after(Items.CUT_RED_SANDSTONE_SLAB).add(
-                    ModBlocks.CINNABAR.get(),
-                    ModBlocks.CINNABAR_STAIRS.get(),
-                    ModBlocks.CINNABAR_SLAB.get(),
-                    ModBlocks.CINNABAR_WALL.get(),
-                    ModBlocks.CHISELED_CINNABAR.get(),
-                    ModBlocks.POLISHED_CINNABAR.get(),
-                    ModBlocks.POLISHED_CINNABAR_STAIRS.get(),
-                    ModBlocks.POLISHED_CINNABAR_SLAB.get(),
-                    ModBlocks.POLISHED_CINNABAR_WALL.get(),
-                    ModBlocks.CINNABAR_BRICKS.get(),
-                    ModBlocks.CINNABAR_BRICK_STAIRS.get(),
-                    ModBlocks.CINNABAR_BRICK_SLAB.get(),
-                    ModBlocks.CINNABAR_BRICK_WALL.get())
-                .add(
-                    ModBlocks.SULFUR.get(),
-                    ModBlocks.SULFUR_STAIRS.get(),
-                    ModBlocks.SULFUR_SLAB.get(),
-                    ModBlocks.SULFUR_WALL.get(),
-                    ModBlocks.CHISELED_SULFUR.get(),
-                    ModBlocks.POLISHED_SULFUR.get(),
-                    ModBlocks.POLISHED_SULFUR_STAIRS.get(),
-                    ModBlocks.POLISHED_SULFUR_SLAB.get(),
-                    ModBlocks.POLISHED_SULFUR_WALL.get(),
-                    ModBlocks.SULFUR_BRICKS.get(),
-                    ModBlocks.SULFUR_BRICK_STAIRS.get(),
-                    ModBlocks.SULFUR_BRICK_SLAB.get(),
-                    ModBlocks.SULFUR_BRICK_WALL.get());
+                ModBlocks.CINNABAR.get(),
+                ModBlocks.CINNABAR_STAIRS.get(),
+                ModBlocks.CINNABAR_SLAB.get(),
+                ModBlocks.CINNABAR_WALL.get(),
+                ModBlocks.CHISELED_CINNABAR.get(),
+                ModBlocks.POLISHED_CINNABAR.get(),
+                ModBlocks.POLISHED_CINNABAR_STAIRS.get(),
+                ModBlocks.POLISHED_CINNABAR_SLAB.get(),
+                ModBlocks.POLISHED_CINNABAR_WALL.get(),
+                ModBlocks.CINNABAR_BRICKS.get(),
+                ModBlocks.CINNABAR_BRICK_STAIRS.get(),
+                ModBlocks.CINNABAR_BRICK_SLAB.get(),
+                ModBlocks.CINNABAR_BRICK_WALL.get()
+            ).add(
+                ModBlocks.SULFUR.get(),
+                ModBlocks.SULFUR_STAIRS.get(),
+                ModBlocks.SULFUR_SLAB.get(),
+                ModBlocks.SULFUR_WALL.get(),
+                ModBlocks.CHISELED_SULFUR.get(),
+                ModBlocks.POLISHED_SULFUR.get(),
+                ModBlocks.POLISHED_SULFUR_STAIRS.get(),
+                ModBlocks.POLISHED_SULFUR_SLAB.get(),
+                ModBlocks.POLISHED_SULFUR_WALL.get(),
+                ModBlocks.SULFUR_BRICKS.get(),
+                ModBlocks.SULFUR_BRICK_STAIRS.get(),
+                ModBlocks.SULFUR_BRICK_SLAB.get(),
+                ModBlocks.SULFUR_BRICK_WALL.get());
         });
         
         event.register(VanillaTabs.NATURAL_BLOCKS, (flags, output, operator) -> {
@@ -356,39 +374,39 @@ public class VanillaTabIntegrations {
         
         event.register(VanillaTabs.COLORED_BLOCKS, (flags, output, operator) -> {
             output.before(Items.WHITE_CARPET).add(
-                    ModBlocks.WHITE_WOOL_STAIRS.get(),
-                    ModBlocks.LIGHT_GRAY_WOOL_STAIRS.get(),
-                    ModBlocks.GRAY_WOOL_STAIRS.get(),
-                    ModBlocks.BLACK_WOOL_STAIRS.get(),
-                    ModBlocks.BROWN_WOOL_STAIRS.get(),
-                    ModBlocks.RED_WOOL_STAIRS.get(),
-                    ModBlocks.ORANGE_WOOL_STAIRS.get(),
-                    ModBlocks.YELLOW_WOOL_STAIRS.get(),
-                    ModBlocks.LIME_WOOL_STAIRS.get(),
-                    ModBlocks.GREEN_WOOL_STAIRS.get(),
-                    ModBlocks.CYAN_WOOL_STAIRS.get(),
-                    ModBlocks.LIGHT_BLUE_WOOL_STAIRS.get(),
-                    ModBlocks.BLUE_WOOL_STAIRS.get(),
-                    ModBlocks.PURPLE_WOOL_STAIRS.get(),
-                    ModBlocks.MAGENTA_WOOL_STAIRS.get(),
-                    ModBlocks.PINK_WOOL_STAIRS.get())
-                .add(
-                    ModBlocks.WHITE_WOOL_SLAB.get(),
-                    ModBlocks.LIGHT_GRAY_WOOL_SLAB.get(),
-                    ModBlocks.GRAY_WOOL_SLAB.get(),
-                    ModBlocks.BLACK_WOOL_SLAB.get(),
-                    ModBlocks.BROWN_WOOL_SLAB.get(),
-                    ModBlocks.RED_WOOL_SLAB.get(),
-                    ModBlocks.ORANGE_WOOL_SLAB.get(),
-                    ModBlocks.YELLOW_WOOL_SLAB.get(),
-                    ModBlocks.LIME_WOOL_SLAB.get(),
-                    ModBlocks.GREEN_WOOL_SLAB.get(),
-                    ModBlocks.CYAN_WOOL_SLAB.get(),
-                    ModBlocks.LIGHT_BLUE_WOOL_SLAB.get(),
-                    ModBlocks.BLUE_WOOL_SLAB.get(),
-                    ModBlocks.PURPLE_WOOL_SLAB.get(),
-                    ModBlocks.MAGENTA_WOOL_SLAB.get(),
-                    ModBlocks.PINK_WOOL_SLAB.get());
+                ModBlocks.WHITE_WOOL_STAIRS.get(),
+                ModBlocks.LIGHT_GRAY_WOOL_STAIRS.get(),
+                ModBlocks.GRAY_WOOL_STAIRS.get(),
+                ModBlocks.BLACK_WOOL_STAIRS.get(),
+                ModBlocks.BROWN_WOOL_STAIRS.get(),
+                ModBlocks.RED_WOOL_STAIRS.get(),
+                ModBlocks.ORANGE_WOOL_STAIRS.get(),
+                ModBlocks.YELLOW_WOOL_STAIRS.get(),
+                ModBlocks.LIME_WOOL_STAIRS.get(),
+                ModBlocks.GREEN_WOOL_STAIRS.get(),
+                ModBlocks.CYAN_WOOL_STAIRS.get(),
+                ModBlocks.LIGHT_BLUE_WOOL_STAIRS.get(),
+                ModBlocks.BLUE_WOOL_STAIRS.get(),
+                ModBlocks.PURPLE_WOOL_STAIRS.get(),
+                ModBlocks.MAGENTA_WOOL_STAIRS.get(),
+                ModBlocks.PINK_WOOL_STAIRS.get()
+            ).add(
+                ModBlocks.WHITE_WOOL_SLAB.get(),
+                ModBlocks.LIGHT_GRAY_WOOL_SLAB.get(),
+                ModBlocks.GRAY_WOOL_SLAB.get(),
+                ModBlocks.BLACK_WOOL_SLAB.get(),
+                ModBlocks.BROWN_WOOL_SLAB.get(),
+                ModBlocks.RED_WOOL_SLAB.get(),
+                ModBlocks.ORANGE_WOOL_SLAB.get(),
+                ModBlocks.YELLOW_WOOL_SLAB.get(),
+                ModBlocks.LIME_WOOL_SLAB.get(),
+                ModBlocks.GREEN_WOOL_SLAB.get(),
+                ModBlocks.CYAN_WOOL_SLAB.get(),
+                ModBlocks.LIGHT_BLUE_WOOL_SLAB.get(),
+                ModBlocks.BLUE_WOOL_SLAB.get(),
+                ModBlocks.PURPLE_WOOL_SLAB.get(),
+                ModBlocks.MAGENTA_WOOL_SLAB.get(),
+                ModBlocks.PINK_WOOL_SLAB.get());
 
             output.before(Items.WHITE_CONCRETE_POWDER).add(
                 ModBlocks.WHITE_CONCRETE_STAIRS.get(),

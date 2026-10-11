@@ -7,6 +7,7 @@ import it.unimi.dsi.fastutil.longs.LongOpenHashSet;
 import it.unimi.dsi.fastutil.longs.LongSet;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.GlobalPos;
 import net.minecraft.core.Vec3i;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.StreamDecoder;
@@ -31,6 +32,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import static net.minecraft.util.FastColor.ARGB32.*;
@@ -66,6 +68,33 @@ public class Utilities {
         
         public static float cube(float x) {
             return x * x * x;
+        }
+    }
+    
+    public static class HashUtils {
+        public static int position(GlobalPos pos) {
+            int rawHash = Objects.hash(pos.dimension().location(), pos.pos());
+            return avalanche(rawHash);
+        }
+        
+        public static int avalanche(int value) {
+            value ^= value >>> 16;
+            value *= 0x85ebca6b;
+            value ^= value >>> 13;
+            value *= 0xc2b2ae35;
+            value ^= value >>> 16;
+            return value;
+        }
+        
+        public static float toFloat(long value) {
+            long h = toLong(value);
+            return (h & 0xFFFFFFL) / (float) 0x1000000L;
+        }
+        
+        public static long toLong(long z) {
+            z = (z ^ (z >>> 30)) * 0xBF58476D1CE4E5B9L;
+            z = (z ^ (z >>> 27)) * 0x94D049BB133111EBL;
+            return z ^ (z >>> 31);
         }
     }
     

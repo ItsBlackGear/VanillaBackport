@@ -4,6 +4,7 @@ import com.blackgear.vanillabackport.common.api.modules.waypoints.*;
 import com.blackgear.vanillabackport.common.api.modules.waypoints.Waypoint.Icon;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.blackgear.vanillabackport.core.util.Utilities.ColorUtils;
+import com.blackgear.vanillabackport.core.util.Utilities.HashUtils;
 import com.mojang.datafixers.util.Either;
 import io.netty.buffer.Unpooled;
 import net.fabricmc.api.EnvType;
@@ -92,7 +93,7 @@ public class ItemWaypointProvider implements WaypointProvider {
     private static TrackedWaypoint createLodestoneWaypoint(Either<UUID, String> id, GlobalPos pos) {
         Icon icon = new Icon();
         icon.style = WaypointStyleAssets.LODESTONE;
-        icon.color = Optional.of(ColorUtils.setBrightness(ARGB32.color(255, WaypointUtils.positionHash(pos)), 0.9F));
+        icon.color = Optional.of(ColorUtils.setBrightness(ARGB32.color(255, HashUtils.position(pos)), 0.9F));
         return new TrackedWaypoint.Vec3iWaypoint(id, icon, positionBuf(pos.pos()));
     }
 

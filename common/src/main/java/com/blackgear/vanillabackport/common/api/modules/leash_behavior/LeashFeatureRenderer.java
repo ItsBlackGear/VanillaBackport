@@ -19,6 +19,7 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Matrix4f;
+import org.joml.Vector3f;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,6 +79,13 @@ public class LeashFeatureRenderer<T extends Entity> {
         float dxOff = dz * offsetFactor;
         float dzOff = dx * offsetFactor;
         stack.pushPose();
+        
+        Vector3f scale = new Vector3f();
+        stack.last().pose().getScale(scale);
+        if (scale.x() > 0.001F && scale.y() > 0.001F && scale.z() > 0.001F) {
+            stack.scale(1.0F / scale.x(), 1.0F / scale.y(), 1.0F / scale.z());
+        }
+        
         stack.translate(state.offset.x, state.offset.y, state.offset.z);
         VertexConsumer builder = buffer.getBuffer(RenderType.leash());
         Matrix4f matrices = stack.last().pose();

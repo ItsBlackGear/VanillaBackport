@@ -3,16 +3,10 @@ package com.blackgear.vanillabackport.common.api.modules.waypoints;
 import com.blackgear.platform.common.v2.entity.EntityAttributeEvents;
 import com.blackgear.vanillabackport.common.api.modules.waypoints.WaypointTransmitter.Connection;
 import com.blackgear.vanillabackport.common.registries.ModGameRules;
-import com.blackgear.vanillabackport.common.registries.entities.ModAttributes;
-import com.blackgear.vanillabackport.core.data.tags.ModItemTags;
 import com.google.common.collect.*;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.ai.attributes.AttributeInstance;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.level.Level;
 
 import java.util.HashSet;
@@ -21,8 +15,6 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class ServerWaypointManager implements WaypointManager<WaypointTransmitter> {
-    private static final AttributeModifier WAYPOINT_TRANSMIT_RANGE_CROUCH_MODIFIER = new AttributeModifier(ResourceLocation.withDefaultNamespace("waypoint_transmit_range_crouch"), -1.0, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
-    private static final AttributeModifier WAYPOINT_TRANSMIT_RANGE_HIDE_MODIFIER = new AttributeModifier(ResourceLocation.withDefaultNamespace("waypoint_transmit_range_hide"), -1.0, AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL);
     private static final Map<ResourceKey<Level>, ServerWaypointManager> MANAGERS = new ConcurrentHashMap<>();
     private final Set<WaypointTransmitter> waypoints = new HashSet<>();
     private final Set<ServerPlayer> players = new HashSet<>();
@@ -33,39 +25,8 @@ public class ServerWaypointManager implements WaypointManager<WaypointTransmitte
     }
     
     public static void bootstrap() {
-        EntityAttributeEvents.ON_LIVING_ATTRIBUTE_UPDATE.register((entity, attribute) -> {
-            if (entity.level() instanceof ServerLevel level) {
-                ServerWaypointManager manager = ServerWaypointManager.get(level);
-                
-                if (entity instanceof ServerPlayer player && attribute.is(ModAttributes.WAYPOINT_RECEIVE_RANGE)) {
-                    if (entity.getAttributes().getValue(attribute) > 0.0) {
-                        manager.addPlayer(player);
-                    } else {
-                        manager.removePlayer(player);
-                    }
-                }
-                
-                if (attribute.is(ModAttributes.WAYPOINT_TRANSMIT_RANGE)) {
-                    if (entity.getAttributes().getValue(attribute) > 0.0) {
-                        manager.trackWaypoint(WaypointTransmitter.of(entity));
-                    } else {
-                        manager.untrackWaypoint(WaypointTransmitter.of(entity));
-                    }
-                }
-            }
-        });
-        EntityAttributeEvents.UPDATE_PLAYER_ATTRIBUTE.register(player -> {
-            AttributeInstance attribute = player.getAttribute(ModAttributes.WAYPOINT_TRANSMIT_RANGE);
-            if (attribute != null) {
-                if (player.getItemBySlot(EquipmentSlot.HEAD).is(ModItemTags.DISABLES_WAYPOINT_TRACKING)) {
-                    attribute.addOrUpdateTransientModifier(WAYPOINT_TRANSMIT_RANGE_CROUCH_MODIFIER);
-                } else if (player.isCrouching()) {
-                    attribute.addOrUpdateTransientModifier(WAYPOINT_TRANSMIT_RANGE_CROUCH_MODIFIER);
-                } else {
-                    attribute.removeModifier(WAYPOINT_TRANSMIT_RANGE_CROUCH_MODIFIER);
-                }
-            }
-        });
+        EntityAttributeEvents.ON_LIVING_ATTRIBUTE_UPDATE.register(WaypointUtils::onEntityAttributeUpdate);
+        EntityAttributeEvents.UPDATE_PLAYER_ATTRIBUTE.register(WaypointUtils::onPlayerAttributeUpdate);
     }
     
     public static void clearAll() {

@@ -1,0 +1,15 @@
+{
+  "required": true,
+  "package": "com.blackgear.vanillabackport.core.neoforge.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "minVersion": "0.8",
+  "client": [
+  ],
+  "mixins": [
+    "HolderReferenceMixin",
+    "MappedRegistryMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
