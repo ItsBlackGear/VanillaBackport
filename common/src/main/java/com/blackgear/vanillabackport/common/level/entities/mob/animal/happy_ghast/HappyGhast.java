@@ -558,6 +558,15 @@ public class HappyGhast extends Animal implements PlayerRideable, LeashableCallb
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
         compound.putInt("still_timeout", this.serverStillTimeout);
+
+        // NBT Carryover Fix: Equipment (1.21.5+)
+        ItemStack itemStack = this.getItemBySlot(EquipmentSlot.CHEST);
+
+        if(!itemStack.isEmpty()) {
+            CompoundTag equipmentTag = new CompoundTag();
+            equipmentTag.put("body", itemStack.save(this.registryAccess()));
+            compound.put("equipment", equipmentTag);
+        }
     }
 
     @Override

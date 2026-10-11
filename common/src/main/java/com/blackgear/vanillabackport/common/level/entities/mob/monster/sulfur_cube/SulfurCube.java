@@ -733,6 +733,15 @@ public class SulfurCube extends AbstractCubeMob implements Bucketable, Shearable
         compound.putInt("pickup_timer", this.pickupTimer);
         compound.putBoolean("from_bucket", this.fromBucket());
         compound.putInt("fuse", this.getFuse());
+
+        // NBT Carryover Fix: Equipment (1.21.5+)
+        ItemStack itemStack = this.getItemBySlot(EquipmentSlot.CHEST);
+
+        if(!itemStack.isEmpty()) {
+            CompoundTag equipmentTag = new CompoundTag();
+            equipmentTag.put("body", itemStack.save(this.registryAccess()));
+            compound.put("equipment", equipmentTag);
+        }
     }
 
     @Override
