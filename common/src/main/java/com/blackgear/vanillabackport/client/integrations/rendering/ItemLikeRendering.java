@@ -50,6 +50,15 @@ public class ItemLikeRendering {
             new BackportedItemRenderer(VanillaBackport.CLIENT_CONFIG.hasModernRedstoneTorchModels, redstoneTorches),
             redstoneTorches
         );
+
+        Set<Item> bannerPatterns = Set.of(
+          Items.CREEPER_BANNER_PATTERN, Items.FLOW_BANNER_PATTERN, Items.FLOWER_BANNER_PATTERN, Items.GLOBE_BANNER_PATTERN,
+          Items.GUSTER_BANNER_PATTERN, Items.MOJANG_BANNER_PATTERN, Items.PIGLIN_BANNER_PATTERN, Items.SKULL_BANNER_PATTERN
+        );
+        event.simple(
+            new BackportedItemRenderer(VanillaBackport.CLIENT_CONFIG.hasModernBannerPatternTextures, bannerPatterns),
+            bannerPatterns
+        );
     }
     
     public static void blockEntityRendering(BlockEntityRendererEvent event) {
