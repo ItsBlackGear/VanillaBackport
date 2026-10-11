@@ -1,7 +1,7 @@
 package com.blackgear.vanillabackport.client.level.model.entity.nautilus;
 
 import com.blackgear.vanillabackport.client.level.animation.NautilusAnimation;
-import com.blackgear.vanillabackport.common.level.entity.mob.animal.nautilus.AbstractNautilus;
+import com.blackgear.vanillabackport.common.level.entities.mob.animal.nautilus.AbstractNautilus;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.HierarchicalModel;

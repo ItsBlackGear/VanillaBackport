@@ -1,5 +1,11 @@
 package com.blackgear.vanillabackport.client.integrations.rendering;
 
+import com.blackgear.platform.client.event.rendering.LivingEntityRendererCallback.LayerAppender;
+import com.blackgear.vanillabackport.client.api.modules.mob_variants.RenderConditions;
+import com.blackgear.vanillabackport.client.api.modules.mob_variants.SpecialMobRenderer;
+import com.blackgear.vanillabackport.client.level.layer.SheepWoolUndercoatLayer;
+import com.blackgear.vanillabackport.client.level.layer.UndeadHorseArmorLayer;
+import com.blackgear.vanillabackport.client.level.layer.WolfArmorLayer;
 import com.blackgear.vanillabackport.client.level.model.entity.ArmadilloModel;
 import com.blackgear.vanillabackport.client.level.model.entity.BatModel;
 import com.blackgear.vanillabackport.client.level.model.entity.CopperGolemModel;
@@ -16,7 +22,7 @@ import com.blackgear.vanillabackport.client.level.model.entity.sulfur_cube.Small
 import com.blackgear.vanillabackport.client.level.model.entity.sulfur_cube.SulfurCubeModel;
 import com.blackgear.vanillabackport.client.level.model.entity.wolf.WolfArmorModel;
 import com.blackgear.vanillabackport.client.level.model.object.CushionModel;
-import com.blackgear.vanillabackport.client.level.renderer.entity.PaleOakBoatRenderer;
+import com.blackgear.vanillabackport.client.level.renderer.entity.CustomBoatRenderer;
 import com.blackgear.vanillabackport.client.level.renderer.entity.mob.*;
 import com.blackgear.vanillabackport.client.level.renderer.object.CushionRenderer;
 import com.blackgear.vanillabackport.client.registries.ModModelLayers;
@@ -26,6 +32,9 @@ import net.fabricmc.api.Environment;
 import net.minecraft.client.model.*;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
+import net.minecraft.client.renderer.entity.*;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 
 import static com.blackgear.platform.client.GameRendering.*;
 
@@ -41,22 +50,17 @@ public class EntityRendering {
         event.register(ModModelLayers.WOLF_ARMOR, () -> LayerDefinition.create(WolfArmorModel.createMeshDefinition(new CubeDeformation(0.2F)), 64, 32));
         
         event.register(ModModelLayers.CREAKING, CreakingModel::createBodyLayer);
-        event.register(ModModelLayers.PALE_OAK_BOAT, BoatModel::createBodyModel);
-        event.register(ModModelLayers.PALE_OAK_CHEST_BOAT, ChestBoatModel::createBodyModel);
-        
-        event.register(ModModelLayers.HAPPY_GHAST, () -> HappyGhastModel.createBodyLayer(CubeDeformation.NONE));
-        event.register(ModModelLayers.HAPPY_GHAST_HARNESS, HappyGhastHarnessModel::createHarnessLayer);
-        event.register(ModModelLayers.HAPPY_GHAST_ROPES, () -> HappyGhastModel.createBodyLayer(new CubeDeformation(0.2F)));
+        event.register(ModModelLayers.CUSTOM_BOAT, BoatModel::createBodyModel);
+        event.register(ModModelLayers.CUSTOM_CHEST_BOAT, ChestBoatModel::createBodyModel);
         
         event.register(ModModelLayers.COLD_PIG, ColdPigModel::createBodyLayer);
         event.register(ModModelLayers.COLD_CHICKEN, ColdChickenModel::createBodyLayer);
         event.register(ModModelLayers.COLD_COW, ColdCowModel::createBodyLayer);
         event.register(ModModelLayers.WARM_COW, WarmCowModel::createBodyLayer);
         
-        event.register(ModModelLayers.SULFUR_CUBE, SulfurCubeModel::createOuterBodyLayer);
-        event.register(ModModelLayers.SULFUR_CUBE_INNER, SulfurCubeModel::createInnerBodyLayer);
-        event.register(ModModelLayers.SULFUR_CUBE_SMALL, SmallSulfurCubeModel::createOuterBodyLayer);
-        event.register(ModModelLayers.SULFUR_CUBE_SMALL_INNER, SmallSulfurCubeModel::createInnerBodyLayer);
+        event.register(ModModelLayers.HAPPY_GHAST, () -> HappyGhastModel.createBodyLayer(CubeDeformation.NONE));
+        event.register(ModModelLayers.HAPPY_GHAST_HARNESS, HappyGhastHarnessModel::createHarnessLayer);
+        event.register(ModModelLayers.HAPPY_GHAST_ROPES, () -> HappyGhastModel.createBodyLayer(new CubeDeformation(0.2F)));
         
         event.register(ModModelLayers.COPPER_GOLEM, CopperGolemModel::createBodyLayer);
         event.register(ModModelLayers.COPPER_GOLEM_RUNNING, CopperGolemModel::createRunningPoseBodyLayer);
@@ -68,23 +72,29 @@ public class EntityRendering {
         event.register(ModModelLayers.PARCHED_INNER_ARMOR, () -> innerArmorDefinition);
         event.register(ModModelLayers.CAMEL_HUSK, CamelModel::createBodyLayer);
         event.register(ModModelLayers.UNDEAD_HORSE_ARMOR, () -> LayerDefinition.create(HorseModel.createBodyMesh(new CubeDeformation(0.1F)), 64, 64));
-        
-        event.register(ModModelLayers.CUSHION, CushionModel::createBodyLayer);
         event.register(ModModelLayers.NAUTILUS, NautilusModel::createBodyLayer);
         event.register(ModModelLayers.NAUTILUS_BABY, NautilusModel::createBabyBodyLayer);
         event.register(ModModelLayers.NAUTILUS_SADDLE, NautilusModel::createSaddleLayer);
         event.register(ModModelLayers.NAUTILUS_ARMOR, NautilusModel::createBodyArmorLayer);
         event.register(ModModelLayers.ZOMBIE_NAUTILUS, NautilusModel::createBodyLayer);
         event.register(ModModelLayers.ZOMBIE_NAUTILUS_CORAL, ZombieNautilusCoralModel::createBodyLayer);
+        
+        event.register(ModModelLayers.SULFUR_CUBE, SulfurCubeModel::createOuterBodyLayer);
+        event.register(ModModelLayers.SULFUR_CUBE_INNER, SulfurCubeModel::createInnerBodyLayer);
+        event.register(ModModelLayers.SULFUR_CUBE_SMALL, SmallSulfurCubeModel::createOuterBodyLayer);
+        event.register(ModModelLayers.SULFUR_CUBE_SMALL_INNER, SmallSulfurCubeModel::createInnerBodyLayer);
+        
+        event.register(ModModelLayers.CUSHION, CushionModel::createBodyLayer);
     }
     
     public static void renderers(EntityRendererEvent event) {
         event.register(ModEntityTypes.ARMADILLO.get(), ArmadilloRenderer::new);
+        
         event.register(ModEntityTypes.CREAKING.get(), CreakingRenderer::new);
+        event.register(ModEntityTypes.CUSTOM_BOAT.get(), context -> new CustomBoatRenderer(context, false));
+        event.register(ModEntityTypes.CUSTOM_CHEST_BOAT.get(), context -> new CustomBoatRenderer(context, true));
+        
         event.register(ModEntityTypes.HAPPY_GHAST.get(), HappyGhastRenderer::new);
-        event.register(ModEntityTypes.PALE_OAK_BOAT.get(), context -> new PaleOakBoatRenderer(context, false));
-        event.register(ModEntityTypes.PALE_OAK_CHEST_BOAT.get(), context -> new PaleOakBoatRenderer(context, true));
-        event.register(ModEntityTypes.SULFUR_CUBE.get(), SulfurCubeRenderer::new);
         
         event.register(ModEntityTypes.COPPER_GOLEM.get(), CopperGolemRenderer::new);
         event.register(ModEntityTypes.PARCHED.get(), ParchedRenderer::new);
@@ -93,5 +103,13 @@ public class EntityRendering {
         event.register(ModEntityTypes.CUSHION.get(), CushionRenderer::new);
         event.register(ModEntityTypes.NAUTILUS.get(), NautilusRenderer::new);
         event.register(ModEntityTypes.ZOMBIE_NAUTILUS.get(), ZombieNautilusRenderer::new);
+        
+        event.register(ModEntityTypes.SULFUR_CUBE.get(), SulfurCubeRenderer::new);
+    }
+    
+    public static void renderLayers(EntityType<? extends LivingEntity> entity, LivingEntityRenderer<?, ?> renderer, LayerAppender appender, EntityRendererProvider.Context context) {
+        SpecialMobRenderer.append(renderer, WolfRenderer.class, r -> new WolfArmorLayer(r, context.getModelSet()), appender::addLayer);
+        SpecialMobRenderer.append(renderer, SheepRenderer.class, RenderConditions.SHEEP_UNDERCOAT, r -> new SheepWoolUndercoatLayer(r, context.getModelSet()), appender::addLayer);
+        SpecialMobRenderer.append(renderer, UndeadHorseRenderer.class, r -> new UndeadHorseArmorLayer(r, context.getModelSet()), appender::addLayer);
     }
 }

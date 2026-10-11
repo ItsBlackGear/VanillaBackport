@@ -13,7 +13,28 @@ import java.util.stream.Stream;
 
 public class BlockFamilies {
     private static final Map<Block, BlockFamily> MAP = Maps.newHashMap();
-
+    
+    public static final BlockFamily TUFF = familyBuilder(Blocks.TUFF)
+        .wall(ModBlocks.TUFF_WALL.get())
+        .stairs(ModBlocks.TUFF_STAIRS.get())
+        .slab(ModBlocks.TUFF_SLAB.get())
+        .chiseled(ModBlocks.CHISELED_TUFF.get())
+        .polished(ModBlocks.POLISHED_TUFF.get())
+        .getFamily();
+    
+    public static final BlockFamily POLISHED_TUFF = familyBuilder(ModBlocks.POLISHED_TUFF.get())
+        .wall(ModBlocks.POLISHED_TUFF_WALL.get())
+        .stairs(ModBlocks.POLISHED_TUFF_STAIRS.get())
+        .slab(ModBlocks.POLISHED_TUFF_SLAB.get())
+        .getFamily();
+    
+    public static final BlockFamily TUFF_BRICKS = familyBuilder(ModBlocks.TUFF_BRICKS.get())
+        .wall(ModBlocks.TUFF_BRICK_WALL.get())
+        .stairs(ModBlocks.TUFF_BRICK_STAIRS.get())
+        .slab(ModBlocks.TUFF_BRICK_SLAB.get())
+        .chiseled(ModBlocks.CHISELED_TUFF_BRICKS.get())
+        .getFamily();
+    
     public static final BlockFamily PALE_OAK_PLANKS = familyBuilder(ModBlocks.PALE_OAK_PLANKS.get())
         .button(ModBlocks.PALE_OAK_BUTTON.get())
         .fence(ModBlocks.PALE_OAK_FENCE.get())
@@ -73,6 +94,20 @@ public class BlockFamilies {
         .wall(ModBlocks.CINNABAR_BRICK_WALL.get())
         .stairs(ModBlocks.CINNABAR_BRICK_STAIRS.get())
         .slab(ModBlocks.CINNABAR_BRICK_SLAB.get())
+        .getFamily();
+    
+    public static final BlockFamily POPLAR_PLANKS = familyBuilder(ModBlocks.POPLAR_PLANKS.get())
+        .button(ModBlocks.POPLAR_BUTTON.get())
+        .fence(ModBlocks.POPLAR_FENCE.get())
+        .fenceGate(ModBlocks.POPLAR_FENCE_GATE.get())
+        .pressurePlate(ModBlocks.POPLAR_PRESSURE_PLATE.get())
+        .sign(ModBlocks.POPLAR_SIGN.getFirst().get(), ModBlocks.POPLAR_SIGN.getSecond().get())
+        .slab(ModBlocks.POPLAR_SLAB.get())
+        .stairs(ModBlocks.POPLAR_STAIRS.get())
+        .door(ModBlocks.POPLAR_DOOR.get())
+        .trapdoor(ModBlocks.POPLAR_TRAPDOOR.get())
+        .recipeGroupPrefix("wooden")
+        .recipeUnlockedBy("has_planks")
         .getFamily();
     
     public static final BlockFamily BLACK_WOOL = familyBuilder(Blocks.BLACK_WOOL)
@@ -154,7 +189,87 @@ public class BlockFamilies {
         .stairs(ModBlocks.WHITE_WOOL_STAIRS.get())
         .slab(ModBlocks.WHITE_WOOL_SLAB.get())
         .getFamily();
-    
+
+    public static final BlockFamily BLACK_CONCRETE = familyBuilder(Blocks.BLACK_CONCRETE)
+        .slab(ModBlocks.BLACK_CONCRETE_SLAB.get())
+        .stairs(ModBlocks.BLACK_CONCRETE_STAIRS.get())
+        .getFamily();
+
+    public static final BlockFamily BLUE_CONCRETE = familyBuilder(Blocks.BLUE_CONCRETE)
+        .slab(ModBlocks.BLUE_CONCRETE_SLAB.get())
+        .stairs(ModBlocks.BLUE_CONCRETE_STAIRS.get())
+        .getFamily();
+
+    public static final BlockFamily BROWN_CONCRETE = familyBuilder(Blocks.BROWN_CONCRETE)
+        .slab(ModBlocks.BROWN_CONCRETE_SLAB.get())
+        .stairs(ModBlocks.BROWN_CONCRETE_STAIRS.get())
+        .getFamily();
+
+    public static final BlockFamily CYAN_CONCRETE = familyBuilder(Blocks.CYAN_CONCRETE)
+        .slab(ModBlocks.CYAN_CONCRETE_SLAB.get())
+        .stairs(ModBlocks.CYAN_CONCRETE_STAIRS.get())
+        .getFamily();
+
+    public static final BlockFamily GRAY_CONCRETE = familyBuilder(Blocks.GRAY_CONCRETE)
+        .slab(ModBlocks.GRAY_CONCRETE_SLAB.get())
+        .stairs(ModBlocks.GRAY_CONCRETE_STAIRS.get())
+        .getFamily();
+
+    public static final BlockFamily GREEN_CONCRETE = familyBuilder(Blocks.GREEN_CONCRETE)
+        .slab(ModBlocks.GREEN_CONCRETE_SLAB.get())
+        .stairs(ModBlocks.GREEN_CONCRETE_STAIRS.get())
+        .getFamily();
+
+    public static final BlockFamily LIGHT_BLUE_CONCRETE = familyBuilder(Blocks.LIGHT_BLUE_CONCRETE)
+        .slab(ModBlocks.LIGHT_BLUE_CONCRETE_SLAB.get())
+        .stairs(ModBlocks.LIGHT_BLUE_CONCRETE_STAIRS.get())
+        .getFamily();
+
+    public static final BlockFamily LIGHT_GRAY_CONCRETE = familyBuilder(Blocks.LIGHT_GRAY_CONCRETE)
+        .slab(ModBlocks.LIGHT_GRAY_CONCRETE_SLAB.get())
+        .stairs(ModBlocks.LIGHT_GRAY_CONCRETE_STAIRS.get())
+        .getFamily();
+
+    public static final BlockFamily LIME_CONCRETE = familyBuilder(Blocks.LIME_CONCRETE)
+        .slab(ModBlocks.LIME_CONCRETE_SLAB.get())
+        .stairs(ModBlocks.LIME_CONCRETE_STAIRS.get())
+        .getFamily();
+
+    public static final BlockFamily MAGENTA_CONCRETE = familyBuilder(Blocks.MAGENTA_CONCRETE)
+        .slab(ModBlocks.MAGENTA_CONCRETE_SLAB.get())
+        .stairs(ModBlocks.MAGENTA_CONCRETE_STAIRS.get())
+        .getFamily();
+
+    public static final BlockFamily ORANGE_CONCRETE = familyBuilder(Blocks.ORANGE_CONCRETE)
+        .slab(ModBlocks.ORANGE_CONCRETE_SLAB.get())
+        .stairs(ModBlocks.ORANGE_CONCRETE_STAIRS.get())
+        .getFamily();
+
+    public static final BlockFamily PINK_CONCRETE = familyBuilder(Blocks.PINK_CONCRETE)
+        .slab(ModBlocks.PINK_CONCRETE_SLAB.get())
+        .stairs(ModBlocks.PINK_CONCRETE_STAIRS.get())
+        .getFamily();
+
+    public static final BlockFamily PURPLE_CONCRETE = familyBuilder(Blocks.PURPLE_CONCRETE)
+        .slab(ModBlocks.PURPLE_CONCRETE_SLAB.get())
+        .stairs(ModBlocks.PURPLE_CONCRETE_STAIRS.get())
+        .getFamily();
+
+    public static final BlockFamily RED_CONCRETE = familyBuilder(Blocks.RED_CONCRETE)
+        .slab(ModBlocks.RED_CONCRETE_SLAB.get())
+        .stairs(ModBlocks.RED_CONCRETE_STAIRS.get())
+        .getFamily();
+
+    public static final BlockFamily YELLOW_CONCRETE = familyBuilder(Blocks.YELLOW_CONCRETE)
+        .slab(ModBlocks.YELLOW_CONCRETE_SLAB.get())
+        .stairs(ModBlocks.YELLOW_CONCRETE_STAIRS.get())
+        .getFamily();
+
+    public static final BlockFamily WHITE_CONCRETE = familyBuilder(Blocks.WHITE_CONCRETE)
+        .slab(ModBlocks.WHITE_CONCRETE_SLAB.get())
+        .stairs(ModBlocks.WHITE_CONCRETE_STAIRS.get())
+        .getFamily();
+
     private static BlockFamily.Builder familyBuilder(Block block) {
         BlockFamily.Builder builder = new BlockFamily.Builder(block);
         BlockFamily family = MAP.put(block, builder.getFamily());

@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:weighted_random_selector",
+  "config": {
+    "features": [
+      {
+        "data": "minecraft:red_poplar",
+        "weight": 200
+      },
+      {
+        "data": "minecraft:orange_poplar",
+        "weight": 240
+      },
+      {
+        "data": "minecraft:yellow_poplar",
+        "weight": 90
+      },
+      {
+        "data": "minecraft:spruce_checked",
+        "weight": 27
+      }
+    ]
+  }
+}

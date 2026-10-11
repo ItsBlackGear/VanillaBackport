@@ -1,21 +1,49 @@
-The MIT License (MIT)
+VANILLA BACKPORT LICENSE
+Version 1.0, October 2026
 
-Copyright (c) 2025 
+Copyright (c) 2026 ItsBlackGear. All Rights Reserved.
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+Minecraft is a trademark of Mojang Studios. Vanilla Backport is not affiliated
+with, endorsed by, or supported by Mojang Studios or Microsoft.
 
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
+This project contains code, implementations, adaptations, and other material
+derived from or based upon Minecraft. All rights to Minecraft, its source code,
+assets, trademarks, and other intellectual property remain with Mojang Studios
+and Microsoft and are subject to their applicable terms and policies.
+
+Permissions are hereby granted below to any person obtaining a copy of this
+software and/or its associated files:
+
+Usage - You may use this software for private and public use.
+You may integrate this software with your code, provided that it is obtained
+from an Official Source as a soft or hard dependency.
+
+Copying - You may copy this software for private use or to contribute to
+this software.
+
+Modification - You may modify this software for private use or to contribute
+to this software.
+
+Publishing - You may not publicly publish copies or modified versions of this
+software.
+
+Distribution - You may not re-host, mirror, or redistribute this software
+through unofficial sources.
+
+Sublicensing - You may not sublicense this software.
+
+Selling - You may not sell this software.
+
+Modpacks - You may include unmodified official releases of this software in
+private and public Minecraft modpacks.
+
+Official Sources means distribution channels operated or explicitly authorized
+by the Copyright Holder.
 
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

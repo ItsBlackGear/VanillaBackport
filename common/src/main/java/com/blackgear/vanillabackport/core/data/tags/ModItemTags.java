@@ -32,9 +32,11 @@ public class ModItemTags {
     public static final TagKey<Item> SULFUR_CUBE_ARCHETYPE_HOT = TAGS.register("sulfur_cube_archetype/hot");
     
     public static final TagKey<Item> SULFUR_CUBE_SWALLOWABLE = TAGS.register("sulfur_cube_swallowable");
+    public static final TagKey<Item> DISABLES_WAYPOINT_TRACKING = TAGS.register("disables_waypoint_tracking");
     
     public static final TagKey<Item> COPPER = TAGS.register("copper");
     public static final TagKey<Item> COPPER_GOLEM_STATUES = TAGS.register("copper_golem_statues");
+    public static final TagKey<Item> COPPER_CHESTS = TAGS.register("copper_chests");
     public static final TagKey<Item> SHEARABLE_FROM_COPPER_GOLEM = TAGS.register("shearable_from_copper_golem");
     
     public static final TagKey<Item> BARS = TAGS.register("bars");
@@ -44,6 +46,7 @@ public class ModItemTags {
     public static final TagKey<Item> WOODEN_SHELVES = TAGS.register("wooden_shelves");
     
     public static final TagKey<Item> SPEARS = TAGS.register("spears");
+    public static final TagKey<Item> LUNGE_ENCHANTABLE = TAGS.register("lunge_enchantable");
     public static final TagKey<Item> CAMEL_HUSK_FOOD = TAGS.register("camel_husk_food");
     public static final TagKey<Item> ZOMBIE_HORSE_FOOD = TAGS.register("zombie_horse_food");
     
@@ -51,7 +54,12 @@ public class ModItemTags {
     public static final TagKey<Item> NAUTILUS_FOOD = TAGS.register("nautilus_food");
     public static final TagKey<Item> NAUTILUS_TAMING_ITEMS = TAGS.register("nautilus_taming_items");
     
+    public static final TagKey<Item> MUSHROOMS = TAGS.register("mushrooms");
+    public static final TagKey<Item> POPLAR_LOGS = TAGS.register("poplar_logs");
     public static final TagKey<Item> CUSHIONS = TAGS.register("cushions");
     public static final TagKey<Item> WOOL_STAIRS = TAGS.register("wool_stairs");
     public static final TagKey<Item> WOOL_SLABS = TAGS.register("wool_slabs");
+
+    public static final TagKey<Item> CONCRETE_STAIRS = TAGS.register("concrete_stairs");
+    public static final TagKey<Item> CONCRETE_SLABS = TAGS.register("concrete_slabs");
 }

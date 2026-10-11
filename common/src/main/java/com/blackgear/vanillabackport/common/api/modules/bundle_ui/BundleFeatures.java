@@ -49,7 +49,7 @@ public final class BundleFeatures {
     }
 
     public static boolean onBundleUpdate() {
-        return VanillaBackport.COMMON_CONFIG.hasUpdatedBundles.get();
+        return VanillaBackport.COMMON_CONFIG.hasModernBundles.get();
     }
 
     public static boolean canItemBeInBundle(ItemStack stack) {
@@ -253,6 +253,10 @@ public final class BundleFeatures {
 
     public static int getItemsToShow(List<?> items) {
         int contents = items.size();
+        if (VanillaBackport.CLIENT_CONFIG.endlessBundleUi.get()) {
+            return contents;
+        }
+
         int maxDisplay = contents > 12 ? 11 : 12;
         int remainder = contents % 4;
         int padding = remainder == 0 ? 0 : 4 - remainder;

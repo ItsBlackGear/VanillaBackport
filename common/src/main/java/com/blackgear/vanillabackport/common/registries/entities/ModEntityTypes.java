@@ -1,18 +1,18 @@
 package com.blackgear.vanillabackport.common.registries.entities;
 
 import com.blackgear.platform.core.helper.EntityRegistry;
-import com.blackgear.vanillabackport.common.level.entity.boat.PaleOakBoat;
-import com.blackgear.vanillabackport.common.level.entity.boat.PaleOakChestBoat;
-import com.blackgear.vanillabackport.common.level.entity.decoration.Cushion;
-import com.blackgear.vanillabackport.common.level.entity.mob.animal.armadillo.Armadillo;
-import com.blackgear.vanillabackport.common.level.entity.mob.animal.camel.CamelHusk;
-import com.blackgear.vanillabackport.common.level.entity.mob.animal.golem.copper_golem.CopperGolem;
-import com.blackgear.vanillabackport.common.level.entity.mob.animal.nautilus.Nautilus;
-import com.blackgear.vanillabackport.common.level.entity.mob.animal.nautilus.ZombieNautilus;
-import com.blackgear.vanillabackport.common.level.entity.mob.monster.creaking.Creaking;
-import com.blackgear.vanillabackport.common.level.entity.mob.animal.happy_ghast.HappyGhast;
-import com.blackgear.vanillabackport.common.level.entity.mob.monster.skeleton.Parched;
-import com.blackgear.vanillabackport.common.level.entity.mob.monster.sulfur_cube.SulfurCube;
+import com.blackgear.vanillabackport.common.level.entities.boat.CustomBoat;
+import com.blackgear.vanillabackport.common.level.entities.boat.CustomChestBoat;
+import com.blackgear.vanillabackport.common.level.entities.decoration.Cushion;
+import com.blackgear.vanillabackport.common.level.entities.mob.animal.armadillo.Armadillo;
+import com.blackgear.vanillabackport.common.level.entities.mob.animal.camel.CamelHusk;
+import com.blackgear.vanillabackport.common.level.entities.mob.animal.golem.copper_golem.CopperGolem;
+import com.blackgear.vanillabackport.common.level.entities.mob.animal.nautilus.Nautilus;
+import com.blackgear.vanillabackport.common.level.entities.mob.animal.nautilus.ZombieNautilus;
+import com.blackgear.vanillabackport.common.level.entities.mob.monster.creaking.Creaking;
+import com.blackgear.vanillabackport.common.level.entities.mob.animal.happy_ghast.HappyGhast;
+import com.blackgear.vanillabackport.common.level.entities.mob.monster.skeleton.Parched;
+import com.blackgear.vanillabackport.common.level.entities.mob.monster.sulfur_cube.SulfurCube;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -36,12 +36,12 @@ public class ModEntityTypes {
             .sized(0.9F, 2.7F)
             .clientTrackingRange(8));
     
-    public static final Supplier<EntityType<PaleOakBoat>> PALE_OAK_BOAT = REGISTRIES.entity("pale_oak_boat",
-        EntityType.Builder.<PaleOakBoat>of(PaleOakBoat::new, MobCategory.MISC)
+    public static final Supplier<EntityType<CustomBoat>> CUSTOM_BOAT = REGISTRIES.entity("custom_boat",
+        EntityType.Builder.<CustomBoat>of(CustomBoat::new, MobCategory.MISC)
             .sized(1.375F, 0.5625F)
             .clientTrackingRange(10));
-    public static final Supplier<EntityType<PaleOakChestBoat>> PALE_OAK_CHEST_BOAT = REGISTRIES.entity("pale_oak_chest_boat",
-        EntityType.Builder.<PaleOakChestBoat>of(PaleOakChestBoat::new, MobCategory.MISC)
+    public static final Supplier<EntityType<CustomChestBoat>> CUSTOM_CHEST_BOAT = REGISTRIES.entity("pale_oak_chest_boat",
+        EntityType.Builder.<CustomChestBoat>of(CustomChestBoat::new, MobCategory.MISC)
             .sized(1.375F, 0.5625F)
             .clientTrackingRange(10));
     

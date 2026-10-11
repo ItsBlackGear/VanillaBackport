@@ -3,7 +3,7 @@ package com.blackgear.vanillabackport.client.level.renderer.entity.mob;
 import com.blackgear.vanillabackport.client.level.layer.LivingEntityEmissiveLayer;
 import com.blackgear.vanillabackport.client.level.model.entity.CreakingModel;
 import com.blackgear.vanillabackport.client.registries.ModModelLayers;
-import com.blackgear.vanillabackport.common.level.entity.mob.monster.creaking.Creaking;
+import com.blackgear.vanillabackport.common.level.entities.mob.monster.creaking.Creaking;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.renderer.RenderType;
@@ -17,7 +17,7 @@ public class CreakingRenderer<T extends Creaking> extends MobRenderer<T, Creakin
     private static final ResourceLocation EYES_TEXTURE_LOCATION = new ResourceLocation("textures/entity/creaking/creaking_eyes.png");
 
     public CreakingRenderer(EntityRendererProvider.Context context) {
-        super(context, new CreakingModel<>(context.bakeLayer(ModModelLayers.CREAKING)), 0.7F);
+        super(context, new CreakingModel<>(context.bakeLayer(ModModelLayers.CREAKING)), 0.6F);
         this.addLayer(new LivingEntityEmissiveLayer<>(
             this,
             creaking -> EYES_TEXTURE_LOCATION,

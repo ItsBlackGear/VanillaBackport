@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.common.integrations.dispenser;
 
-import com.blackgear.vanillabackport.common.level.entity.mob.animal.armadillo.Armadillo;
+import com.blackgear.vanillabackport.common.level.entities.mob.animal.armadillo.Armadillo;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.BlockSource;
 import net.minecraft.core.dispenser.OptionalDispenseItemBehavior;

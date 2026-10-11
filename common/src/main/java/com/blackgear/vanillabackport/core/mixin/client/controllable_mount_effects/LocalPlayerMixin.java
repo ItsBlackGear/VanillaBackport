@@ -2,8 +2,8 @@ package com.blackgear.vanillabackport.core.mixin.client.controllable_mount_effec
 
 import com.blackgear.vanillabackport.client.level.sound.RidingEntitySoundInstance;
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
-import com.blackgear.vanillabackport.common.level.entity.mob.animal.happy_ghast.HappyGhast;
-import com.blackgear.vanillabackport.common.level.entity.mob.animal.nautilus.AbstractNautilus;
+import com.blackgear.vanillabackport.common.level.entities.mob.animal.happy_ghast.HappyGhast;
+import com.blackgear.vanillabackport.common.level.entities.mob.animal.nautilus.AbstractNautilus;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;

@@ -1,9 +1,9 @@
 package com.blackgear.vanillabackport.common.registries.entities;
 
 import com.blackgear.platform.core.helper.DataSerializerRegistry;
-import com.blackgear.vanillabackport.common.level.entity.mob.animal.armadillo.ArmadilloState;
-import com.blackgear.vanillabackport.common.level.entity.mob.animal.golem.copper_golem.CopperGolemState;
-import com.blackgear.vanillabackport.common.level.entity.mob.animal.golem.copper_golem.WeatheredState;
+import com.blackgear.vanillabackport.common.level.entities.mob.animal.armadillo.ArmadilloState;
+import com.blackgear.vanillabackport.common.level.entities.mob.animal.golem.copper_golem.CopperGolemState;
+import com.blackgear.vanillabackport.common.level.entities.mob.animal.golem.copper_golem.WeatheredState;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.network.syncher.EntityDataSerializer;
 import net.minecraft.world.item.DyeColor;

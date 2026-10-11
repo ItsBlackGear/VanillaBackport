@@ -1,10 +1,7 @@
 package com.blackgear.vanillabackport.common.registries.worldgen;
 
 import com.blackgear.platform.core.CoreRegistry;
-import com.blackgear.vanillabackport.common.level.worldgen.tree_decorators.AttachedToLogsDecorator;
-import com.blackgear.vanillabackport.common.level.worldgen.tree_decorators.CreakingHeartDecorator;
-import com.blackgear.vanillabackport.common.level.worldgen.tree_decorators.PaleMossDecorator;
-import com.blackgear.vanillabackport.common.level.worldgen.tree_decorators.PlaceOnGroundDecorator;
+import com.blackgear.vanillabackport.common.level.worldgen.tree.decorators.*;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.blackgear.vanillabackport.core.mixin.common.access.TreeDecoratorTypeAccessor;
 import com.mojang.serialization.Codec;
@@ -21,6 +18,7 @@ public class ModTreeDecorators {
     public static final Supplier<TreeDecoratorType<CreakingHeartDecorator>> CREAKING_HEART = register("creaking_heart", CreakingHeartDecorator.CODEC);
     public static final Supplier<TreeDecoratorType<AttachedToLogsDecorator>> ATTACHED_TO_LOGS = register("attached_to_logs", AttachedToLogsDecorator.CODEC);
     public static final Supplier<TreeDecoratorType<PlaceOnGroundDecorator>> PLACE_ON_GROUND = register("place_on_ground", PlaceOnGroundDecorator.CODEC);
+    public static final Supplier<TreeDecoratorType<ShelfMushroomDecorator>> SHELF_MUSHROOM = register("shelf_mushroom", ShelfMushroomDecorator.CODEC);
 
     private static <P extends TreeDecorator> Supplier<TreeDecoratorType<P>> register(String name, Codec<P> codec) {
         return REGISTRIES.register(name, () -> TreeDecoratorTypeAccessor.createTreeDecorator(codec));

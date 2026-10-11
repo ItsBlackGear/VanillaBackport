@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "minecraft:pale_oak_log"
+    "minecraft:pale_oak_log",
+    "minecraft:poplar_log"
   ]
 }

@@ -10,14 +10,19 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Block.class)
 public class BlockMixin implements BlockExtension {
-    @Inject(
-        method = "animateTick(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/util/RandomSource;)V",
-        at = @At("HEAD")
-    )
+    @Inject(method = "animateTick", at = @At("HEAD"))
     public void vb$onAnimateTick(BlockState state, Level level, BlockPos pos, RandomSource random, CallbackInfo ci) {
-        this.vb$AnimateTick(state, level, pos, random);
+        this.vb$animateTick(state, level, pos, random);
+    }
+    
+    @Inject(method = "isRandomlyTicking", at = @At("HEAD"), cancellable = true)
+    private void vb$isRandomlyTicking(BlockState state, CallbackInfoReturnable<Boolean> cir) {
+        if (BlockExtension.of(this).vb$isRandomlyTicking(state)) {
+            cir.setReturnValue(true);
+        }
     }
 }

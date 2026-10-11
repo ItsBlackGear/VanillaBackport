@@ -48,14 +48,13 @@ public class NowPlayingToast implements Toast, ToastModifier {
         float r = ((musicNoteColor >> 16) & 0xFF) / 255.0F;
         float g = ((musicNoteColor >> 8) & 0xFF) / 255.0F;
         float b = (musicNoteColor & 0xFF) / 255.0F;
-        RenderSystem.setShaderColor(r, g, b, 1.0F);
+        graphics.setColor(r, g, b, 1.0F);
         
         int frameIndex = (musicNoteColorTick / 2) % 8;
         int offset = frameIndex * 16;
         
         graphics.blit(MUSIC_NOTES_SPRITE, 7, 7, 0, 0, offset, 16, 16, 16, 128);
-        
-        RenderSystem.setShaderColor(1.0F, 1.0F, 1.0F, 1.0F);
+        graphics.setColor(1.0F, 1.0F, 1.0F, 1.0F);
         RenderSystem.disableBlend();
         
         graphics.drawString(font, getNowPlayingString(currentSong), 30, 15 - 9 / 2, TEXT_COLOR | 0xFF000000, false);

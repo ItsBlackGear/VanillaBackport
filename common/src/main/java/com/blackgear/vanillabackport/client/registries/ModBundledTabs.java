@@ -1,18 +1,23 @@
 package com.blackgear.vanillabackport.client.registries;
 
 import com.blackgear.vanillabackport.client.api.bundled_tabs.BundledTabs;
-import com.blackgear.vanillabackport.common.level.block.CopperGolemStatueBlock;
+import com.blackgear.vanillabackport.common.level.blocks.CopperGolemStatueBlock;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
+import com.blackgear.vanillabackport.common.registries.items.ModEnchantments;
 import com.blackgear.vanillabackport.common.registries.items.ModItems;
 import com.blackgear.vanillabackport.common.registries.items.ModPaintingVariants;
+import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.decoration.Painting;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.enchantment.EnchantmentInstance;
+import net.minecraft.world.level.block.Blocks;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 public class ModBundledTabs {
     private static final List<BundledTabs> FILTERS = new ArrayList<>();
@@ -265,9 +270,19 @@ public class ModBundledTabs {
                 output.accept(ModItems.NAUTILUS_SPAWN_EGG.get());
                 output.accept(ModItems.PARCHED_SPAWN_EGG.get());
                 output.accept(ModItems.ZOMBIE_NAUTILUS_SPAWN_EGG.get());
+                
+                provider.lookup(Registries.ENCHANTMENT).ifPresent(enchantments -> {
+                    enchantments.listElements()
+                        .map(Holder::value)
+                        .filter(enchantment -> enchantment == ModEnchantments.LUNGE.get())
+                        .flatMap(enchantment -> IntStream.rangeClosed(enchantment.getMinLevel(), enchantment.getMaxLevel())
+                            .mapToObj(level -> EnchantedBookItem.createForEnchantment(new EnchantmentInstance(enchantment, level))))
+                        .forEach(output::accept);
+                });
             })
             .build()
     );
+    
     
     public static final BundledTabs CHAOS_CUBED = register(
         BundledTabs.builder()
@@ -309,61 +324,178 @@ public class ModBundledTabs {
             .build()
     );
     
+    public static final BundledTabs WILDERNESS_BOUND = register(
+        BundledTabs.builder()
+            .title(Component.translatable("bundled_tab.wilderness_bound.title"))
+            .icon(new ItemStack(Blocks.CAMPFIRE))
+            .displayItems((provider, output) -> {
+                output.accept(ModBlocks.POPLAR_LOG.get());
+                output.accept(ModBlocks.STRIPPED_POPLAR_LOG.get());
+                output.accept(ModBlocks.POPLAR_WOOD.get());
+                output.accept(ModBlocks.STRIPPED_POPLAR_WOOD.get());
+                output.accept(ModBlocks.POPLAR_PLANKS.get());
+                output.accept(ModBlocks.POPLAR_STAIRS.get());
+                output.accept(ModBlocks.POPLAR_SLAB.get());
+                output.accept(ModBlocks.POPLAR_SIGN.getFirst().get());
+                output.accept(ModBlocks.POPLAR_HANGING_SIGN.getFirst().get());
+                output.accept(ModBlocks.POPLAR_BUTTON.get());
+                output.accept(ModBlocks.POPLAR_PRESSURE_PLATE.get());
+                output.accept(ModBlocks.POPLAR_DOOR.get());
+                output.accept(ModBlocks.POPLAR_FENCE.get());
+                output.accept(ModBlocks.POPLAR_FENCE_GATE.get());
+                output.accept(ModBlocks.POPLAR_TRAPDOOR.get());
+                output.accept(ModBlocks.POPLAR_SHELF.get());
+                output.accept(ModItems.POPLAR_BOAT.get());
+                output.accept(ModItems.POPLAR_CHEST_BOAT.get());
+                output.accept(ModBlocks.RED_POPLAR_LEAVES.get());
+                output.accept(ModBlocks.ORANGE_POPLAR_LEAVES.get());
+                output.accept(ModBlocks.YELLOW_POPLAR_LEAVES.get());
+                output.accept(ModBlocks.POPLAR_SAPLING.get());
+                output.accept(ModBlocks.RED_SHRUB.get());
+                output.accept(ModBlocks.SHELF_MUSHROOM.get());
+                output.accept(ModBlocks.WHITE_WOOL_STAIRS.get());
+                output.accept(ModBlocks.WHITE_WOOL_SLAB.get());
+                output.accept(ModBlocks.WHITE_CONCRETE_STAIRS.get());
+                output.accept(ModBlocks.WHITE_CONCRETE_SLAB.get());
+                output.accept(ModItems.WHITE_CUSHION.get());
+                output.accept(ModBlocks.LIGHT_GRAY_WOOL_STAIRS.get());
+                output.accept(ModBlocks.LIGHT_GRAY_WOOL_SLAB.get());
+                output.accept(ModBlocks.LIGHT_GRAY_CONCRETE_STAIRS.get());
+                output.accept(ModBlocks.LIGHT_GRAY_CONCRETE_SLAB.get());
+                output.accept(ModItems.LIGHT_GRAY_CUSHION.get());
+                output.accept(ModBlocks.GRAY_WOOL_STAIRS.get());
+                output.accept(ModBlocks.GRAY_WOOL_SLAB.get());
+                output.accept(ModBlocks.GRAY_CONCRETE_STAIRS.get());
+                output.accept(ModBlocks.GRAY_CONCRETE_SLAB.get());
+                output.accept(ModItems.GRAY_CUSHION.get());
+                output.accept(ModBlocks.BLACK_WOOL_STAIRS.get());
+                output.accept(ModBlocks.BLACK_WOOL_SLAB.get());
+                output.accept(ModBlocks.BLACK_CONCRETE_STAIRS.get());
+                output.accept(ModBlocks.BLACK_CONCRETE_SLAB.get());
+                output.accept(ModItems.BLACK_CUSHION.get());
+                output.accept(ModBlocks.BROWN_WOOL_STAIRS.get());
+                output.accept(ModBlocks.BROWN_WOOL_SLAB.get());
+                output.accept(ModBlocks.BROWN_CONCRETE_STAIRS.get());
+                output.accept(ModBlocks.BROWN_CONCRETE_SLAB.get());
+                output.accept(ModItems.BROWN_CUSHION.get());
+                output.accept(ModBlocks.RED_WOOL_STAIRS.get());
+                output.accept(ModBlocks.RED_WOOL_SLAB.get());
+                output.accept(ModBlocks.RED_CONCRETE_STAIRS.get());
+                output.accept(ModBlocks.RED_CONCRETE_SLAB.get());
+                output.accept(ModItems.RED_CUSHION.get());
+                output.accept(ModBlocks.ORANGE_WOOL_STAIRS.get());
+                output.accept(ModBlocks.ORANGE_WOOL_SLAB.get());
+                output.accept(ModBlocks.ORANGE_CONCRETE_STAIRS.get());
+                output.accept(ModBlocks.ORANGE_CONCRETE_SLAB.get());
+                output.accept(ModItems.ORANGE_CUSHION.get());
+                output.accept(ModBlocks.YELLOW_WOOL_STAIRS.get());
+                output.accept(ModBlocks.YELLOW_WOOL_SLAB.get());
+                output.accept(ModBlocks.YELLOW_CONCRETE_STAIRS.get());
+                output.accept(ModBlocks.YELLOW_CONCRETE_SLAB.get());
+                output.accept(ModItems.YELLOW_CUSHION.get());
+                output.accept(ModBlocks.LIME_WOOL_STAIRS.get());
+                output.accept(ModBlocks.LIME_WOOL_SLAB.get());
+                output.accept(ModBlocks.LIME_CONCRETE_STAIRS.get());
+                output.accept(ModBlocks.LIME_CONCRETE_SLAB.get());
+                output.accept(ModItems.LIME_CUSHION.get());
+                output.accept(ModBlocks.GREEN_WOOL_STAIRS.get());
+                output.accept(ModBlocks.GREEN_WOOL_SLAB.get());
+                output.accept(ModBlocks.GREEN_CONCRETE_STAIRS.get());
+                output.accept(ModBlocks.GREEN_CONCRETE_SLAB.get());
+                output.accept(ModItems.GREEN_CUSHION.get());
+                output.accept(ModBlocks.CYAN_WOOL_STAIRS.get());
+                output.accept(ModBlocks.CYAN_WOOL_SLAB.get());
+                output.accept(ModBlocks.CYAN_CONCRETE_STAIRS.get());
+                output.accept(ModBlocks.CYAN_CONCRETE_SLAB.get());
+                output.accept(ModItems.CYAN_CUSHION.get());
+                output.accept(ModBlocks.LIGHT_BLUE_WOOL_STAIRS.get());
+                output.accept(ModBlocks.LIGHT_BLUE_WOOL_SLAB.get());
+                output.accept(ModBlocks.LIGHT_BLUE_CONCRETE_STAIRS.get());
+                output.accept(ModBlocks.LIGHT_BLUE_CONCRETE_SLAB.get());
+                output.accept(ModItems.LIGHT_BLUE_CUSHION.get());
+                output.accept(ModBlocks.BLUE_WOOL_STAIRS.get());
+                output.accept(ModBlocks.BLUE_WOOL_SLAB.get());
+                output.accept(ModBlocks.BLUE_CONCRETE_STAIRS.get());
+                output.accept(ModBlocks.BLUE_CONCRETE_SLAB.get());
+                output.accept(ModItems.BLUE_CUSHION.get());
+                output.accept(ModBlocks.PURPLE_WOOL_STAIRS.get());
+                output.accept(ModBlocks.PURPLE_WOOL_SLAB.get());
+                output.accept(ModBlocks.PURPLE_CONCRETE_STAIRS.get());
+                output.accept(ModBlocks.PURPLE_CONCRETE_SLAB.get());
+                output.accept(ModItems.PURPLE_CUSHION.get());
+                output.accept(ModBlocks.MAGENTA_WOOL_STAIRS.get());
+                output.accept(ModBlocks.MAGENTA_WOOL_SLAB.get());
+                output.accept(ModBlocks.MAGENTA_CONCRETE_STAIRS.get());
+                output.accept(ModBlocks.MAGENTA_CONCRETE_SLAB.get());
+                output.accept(ModItems.MAGENTA_CUSHION.get());
+                output.accept(ModBlocks.PINK_WOOL_STAIRS.get());
+                output.accept(ModBlocks.PINK_WOOL_SLAB.get());
+                output.accept(ModBlocks.PINK_CONCRETE_STAIRS.get());
+                output.accept(ModBlocks.PINK_CONCRETE_SLAB.get());
+                output.accept(ModItems.PINK_CUSHION.get());
+                output.accept(ModBlocks.STRAW_BED.get());
+            })
+            .build()
+    );
+    
     public static final BundledTabs MISCELLANEOUS = register(
         BundledTabs.builder()
             .title(Component.translatable("bundled_tab.miscellaneous.title"))
             .icon(new ItemStack(Items.NAME_TAG))
             .displayItems((provider, output) -> {
-                output.accept(ModBlocks.WHITE_WOOL_STAIRS.get());
-                output.accept(ModBlocks.ORANGE_WOOL_STAIRS.get());
-                output.accept(ModBlocks.MAGENTA_WOOL_STAIRS.get());
-                output.accept(ModBlocks.LIGHT_BLUE_WOOL_STAIRS.get());
-                output.accept(ModBlocks.YELLOW_WOOL_STAIRS.get());
-                output.accept(ModBlocks.LIME_WOOL_STAIRS.get());
-                output.accept(ModBlocks.PINK_WOOL_STAIRS.get());
-                output.accept(ModBlocks.GRAY_WOOL_STAIRS.get());
-                output.accept(ModBlocks.LIGHT_GRAY_WOOL_STAIRS.get());
-                output.accept(ModBlocks.CYAN_WOOL_STAIRS.get());
-                output.accept(ModBlocks.PURPLE_WOOL_STAIRS.get());
-                output.accept(ModBlocks.BLUE_WOOL_STAIRS.get());
-                output.accept(ModBlocks.BROWN_WOOL_STAIRS.get());
-                output.accept(ModBlocks.GREEN_WOOL_STAIRS.get());
-                output.accept(ModBlocks.RED_WOOL_STAIRS.get());
-                output.accept(ModBlocks.BLACK_WOOL_STAIRS.get());
-                
-                output.accept(ModBlocks.WHITE_WOOL_SLAB.get());
-                output.accept(ModBlocks.ORANGE_WOOL_SLAB.get());
-                output.accept(ModBlocks.MAGENTA_WOOL_SLAB.get());
-                output.accept(ModBlocks.LIGHT_BLUE_WOOL_SLAB.get());
-                output.accept(ModBlocks.YELLOW_WOOL_SLAB.get());
-                output.accept(ModBlocks.LIME_WOOL_SLAB.get());
-                output.accept(ModBlocks.PINK_WOOL_SLAB.get());
-                output.accept(ModBlocks.GRAY_WOOL_SLAB.get());
-                output.accept(ModBlocks.LIGHT_GRAY_WOOL_SLAB.get());
-                output.accept(ModBlocks.CYAN_WOOL_SLAB.get());
-                output.accept(ModBlocks.PURPLE_WOOL_SLAB.get());
-                output.accept(ModBlocks.BLUE_WOOL_SLAB.get());
-                output.accept(ModBlocks.BROWN_WOOL_SLAB.get());
-                output.accept(ModBlocks.GREEN_WOOL_SLAB.get());
-                output.accept(ModBlocks.RED_WOOL_SLAB.get());
-                output.accept(ModBlocks.BLACK_WOOL_SLAB.get());
-                
-                output.accept(ModItems.WHITE_CUSHION.get());
-                output.accept(ModItems.ORANGE_CUSHION.get());
-                output.accept(ModItems.MAGENTA_CUSHION.get());
-                output.accept(ModItems.LIGHT_BLUE_CUSHION.get());
-                output.accept(ModItems.YELLOW_CUSHION.get());
-                output.accept(ModItems.LIME_CUSHION.get());
-                output.accept(ModItems.PINK_CUSHION.get());
-                output.accept(ModItems.GRAY_CUSHION.get());
-                output.accept(ModItems.LIGHT_GRAY_CUSHION.get());
-                output.accept(ModItems.CYAN_CUSHION.get());
-                output.accept(ModItems.PURPLE_CUSHION.get());
-                output.accept(ModItems.BLUE_CUSHION.get());
-                output.accept(ModItems.BROWN_CUSHION.get());
-                output.accept(ModItems.GREEN_CUSHION.get());
-                output.accept(ModItems.RED_CUSHION.get());
-                output.accept(ModItems.BLACK_CUSHION.get());
+                output.accept(ModBlocks.COPPER_BULB.get());
+                output.accept(ModBlocks.EXPOSED_COPPER_BULB.get());
+                output.accept(ModBlocks.WEATHERED_COPPER_BULB.get());
+                output.accept(ModBlocks.OXIDIZED_COPPER_BULB.get());
+                output.accept(ModBlocks.WAXED_COPPER_BULB.get());
+                output.accept(ModBlocks.WAXED_EXPOSED_COPPER_BULB.get());
+                output.accept(ModBlocks.WAXED_WEATHERED_COPPER_BULB.get());
+                output.accept(ModBlocks.WAXED_OXIDIZED_COPPER_BULB.get());
+                output.accept(ModBlocks.CHISELED_COPPER.get());
+                output.accept(ModBlocks.EXPOSED_CHISELED_COPPER.get());
+                output.accept(ModBlocks.WEATHERED_CHISELED_COPPER.get());
+                output.accept(ModBlocks.OXIDIZED_CHISELED_COPPER.get());
+                output.accept(ModBlocks.WAXED_CHISELED_COPPER.get());
+                output.accept(ModBlocks.WAXED_EXPOSED_CHISELED_COPPER.get());
+                output.accept(ModBlocks.WAXED_WEATHERED_CHISELED_COPPER.get());
+                output.accept(ModBlocks.WAXED_OXIDIZED_CHISELED_COPPER.get());
+                output.accept(ModBlocks.COPPER_GRATE.get());
+                output.accept(ModBlocks.EXPOSED_COPPER_GRATE.get());
+                output.accept(ModBlocks.WEATHERED_COPPER_GRATE.get());
+                output.accept(ModBlocks.OXIDIZED_COPPER_GRATE.get());
+                output.accept(ModBlocks.WAXED_COPPER_GRATE.get());
+                output.accept(ModBlocks.WAXED_EXPOSED_COPPER_GRATE.get());
+                output.accept(ModBlocks.WAXED_WEATHERED_COPPER_GRATE.get());
+                output.accept(ModBlocks.WAXED_OXIDIZED_COPPER_GRATE.get());
+                output.accept(ModBlocks.COPPER_DOOR.get());
+                output.accept(ModBlocks.EXPOSED_COPPER_DOOR.get());
+                output.accept(ModBlocks.WEATHERED_COPPER_DOOR.get());
+                output.accept(ModBlocks.OXIDIZED_COPPER_DOOR.get());
+                output.accept(ModBlocks.WAXED_COPPER_DOOR.get());
+                output.accept(ModBlocks.WAXED_EXPOSED_COPPER_DOOR.get());
+                output.accept(ModBlocks.WAXED_WEATHERED_COPPER_DOOR.get());
+                output.accept(ModBlocks.WAXED_OXIDIZED_COPPER_DOOR.get());
+                output.accept(ModBlocks.COPPER_TRAPDOOR.get());
+                output.accept(ModBlocks.EXPOSED_COPPER_TRAPDOOR.get());
+                output.accept(ModBlocks.WEATHERED_COPPER_TRAPDOOR.get());
+                output.accept(ModBlocks.OXIDIZED_COPPER_TRAPDOOR.get());
+                output.accept(ModBlocks.WAXED_COPPER_TRAPDOOR.get());
+                output.accept(ModBlocks.WAXED_EXPOSED_COPPER_TRAPDOOR.get());
+                output.accept(ModBlocks.WAXED_WEATHERED_COPPER_TRAPDOOR.get());
+                output.accept(ModBlocks.WAXED_OXIDIZED_COPPER_TRAPDOOR.get());
+                output.accept(ModBlocks.TUFF_STAIRS.get());
+                output.accept(ModBlocks.TUFF_SLAB.get());
+                output.accept(ModBlocks.TUFF_WALL.get());
+                output.accept(ModBlocks.CHISELED_TUFF.get());
+                output.accept(ModBlocks.POLISHED_TUFF.get());
+                output.accept(ModBlocks.POLISHED_TUFF_STAIRS.get());
+                output.accept(ModBlocks.POLISHED_TUFF_SLAB.get());
+                output.accept(ModBlocks.POLISHED_TUFF_WALL.get());
+                output.accept(ModBlocks.TUFF_BRICKS.get());
+                output.accept(ModBlocks.TUFF_BRICK_STAIRS.get());
+                output.accept(ModBlocks.TUFF_BRICK_SLAB.get());
+                output.accept(ModBlocks.TUFF_BRICK_WALL.get());
+                output.accept(ModBlocks.CHISELED_TUFF_BRICKS.get());
             })
             .build()
     );

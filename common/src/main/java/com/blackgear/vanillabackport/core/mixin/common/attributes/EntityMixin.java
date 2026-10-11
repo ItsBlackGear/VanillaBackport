@@ -3,11 +3,10 @@ package com.blackgear.vanillabackport.core.mixin.common.attributes;
 import com.blackgear.vanillabackport.common.api.extensions.entity.movement.MotionAwareEntity;
 import com.blackgear.vanillabackport.common.api.extensions.entity.movement.TravelAwareEntity;
 import com.blackgear.vanillabackport.common.registries.entities.ModAttributes;
+import com.blackgear.vanillabackport.core.data.tags.ModBlockTags;
 import com.blackgear.vanillabackport.core.mixin.common.access.EntityAccessor;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.Entity;
@@ -15,6 +14,8 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MoverType;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
@@ -34,135 +35,146 @@ public abstract class EntityMixin implements MotionAwareEntity {
     @Shadow public boolean verticalCollision;
     @Shadow public boolean horizontalCollision;
     @Shadow public boolean verticalCollisionBelow;
+    @Shadow private Level level;
     
     @Unique private boolean vb$canBounce;
     @Unique private Vec3 vb$movement;
-    @Unique private Vec3 vb$velocity;
+    @Unique private Vec3 vb$velocityBeforeCollide;
     @Unique private boolean vb$xCollision;
     @Unique private boolean vb$zCollision;
     
-    @Inject(
-        method = "move",
-        at = @At("HEAD")
-    )
+    @Inject(method = "move", at = @At("HEAD"))
     private void vb$earlyCapture(MoverType type, Vec3 delta, CallbackInfo ci) {
-        this.vb$canBounce = vb$getOrDefault((Entity) (Object) this, ModAttributes.BOUNCINESS, 0.0) > 0.0;
-        if (this.vb$canBounce) {
-            this.vb$velocity = this.getDeltaMovement();
-            this.vb$movement = null;
-            this.vb$xCollision = false;
-            this.vb$zCollision = false;
-        }
+        Entity self = (Entity) (Object) this;
+        this.vb$canBounce = self instanceof LivingEntity && vb$getOrDefault(self, ModAttributes.BOUNCINESS, 0.0) > 0.0;
     }
     
     @WrapOperation(
         method = "move",
-        at = @At(
-            value = "INVOKE",
-            target = "Lnet/minecraft/world/entity/Entity;collide(Lnet/minecraft/world/phys/Vec3;)Lnet/minecraft/world/phys/Vec3;"
-        )
+        at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;collide(Lnet/minecraft/world/phys/Vec3;)Lnet/minecraft/world/phys/Vec3;")
     )
-    private Vec3 vb$captureOldMovement(Entity self, Vec3 movement, Operation<Vec3> original) {
-        Vec3 collide = original.call(self, movement);
-        if (this.vb$canBounce) {
-            this.vb$movement = collide;
-            this.vb$xCollision = Math.abs(collide.x) < Math.abs(movement.x) && !Mth.equal(movement.x, collide.x);
-            this.vb$zCollision = Math.abs(collide.z) < Math.abs(movement.z) && !Mth.equal(movement.z, collide.z);
+    private Vec3 vb$captureMovementAndVelocity(Entity self, Vec3 movement, Operation<Vec3> original) {
+        if (!this.vb$canBounce) {
+            return original.call(self, movement);
         }
         
+        this.vb$velocityBeforeCollide = this.getDeltaMovement();
+        Vec3 collide = original.call(self, movement);
+        
+        this.vb$movement = collide;
+        this.vb$xCollision = !Mth.equal(movement.x, collide.x);
+        this.vb$zCollision = !Mth.equal(movement.z, collide.z);
         return collide;
+    }
+    
+    @WrapOperation(
+        method = "move",
+        at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;setDeltaMovement(DDD)V")
+    )
+    private void vb$preventDefaultHorizontalReset(Entity instance, double x, double y, double z, Operation<Void> original) {
+        if (!this.vb$canBounce) {
+            original.call(instance, x, y, z);
+        }
     }
     
     @Inject(
         method = "move",
-        at = @At(
-            value = "INVOKE",
-            target = "Lnet/minecraft/world/entity/Entity;tryCheckInsideBlocks()V"
-        )
+        at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;tryCheckInsideBlocks()V")
     )
-    private void vb$RestituteMovementAfterCollisions(MoverType type, Vec3 delta, CallbackInfo ci) {
+    private void vb$restituteMovementAfterCollisions(MoverType type, Vec3 delta, CallbackInfo ci) {
+        if (!this.vb$canBounce || this.vb$movement == null || (!this.verticalCollision && !this.horizontalCollision)) {
+            return;
+        }
+        
         Entity self = (Entity) (Object) this;
+        BlockState effectState = this.level.getBlockState(self.getOnPosLegacy());
         
-        if (!this.vb$canBounce || this.vb$movement == null) return;
-        if (!this.verticalCollision && !this.horizontalCollision) return;
+        boolean suppressEntity = self instanceof LivingEntity living && living.isSuppressingBounce();
+        boolean suppressBlock = effectState.is(ModBlockTags.SUPPRESSES_BOUNCE);
         
-        boolean suppress = self instanceof LivingEntity living && living.isSuppressingBounce();
-        double restitution = suppress ? 0.0 : vb$getOrDefault(self, ModAttributes.BOUNCINESS, 0.0);
-        Vec3 currentMovement = this.vb$velocity != null ? this.vb$velocity : this.getDeltaMovement();
-        Vec3 movementAfterBounce = currentMovement;
+        if (suppressEntity || suppressBlock) return;
         
+        double restitution = vb$getOrDefault(self, ModAttributes.BOUNCINESS, 0.0);
+        if (restitution <= 0.0) return;
+        
+        Vec3 currentMovement = this.vb$velocityBeforeCollide != null ? this.vb$velocityBeforeCollide : this.getDeltaMovement();
+        double newX = currentMovement.x;
+        double newY = currentMovement.y;
+        double newZ = currentMovement.z;
+        boolean bounced = false;
+        
+        // Rebote Horizontal (Ejes X / Z)
         if (this.vb$xCollision) {
-            movementAfterBounce = movementAfterBounce.with(Direction.Axis.X, -currentMovement.x * restitution);
+            newX = -currentMovement.x * restitution;
+            bounced = true;
         }
         if (this.vb$zCollision) {
-            movementAfterBounce = movementAfterBounce.with(Direction.Axis.Z, -currentMovement.z * restitution);
+            newZ = -currentMovement.z * restitution;
+            bounced = true;
         }
         
-        boolean bounced = restitution > 0.0 && (this.vb$xCollision || this.vb$zCollision);
-        
+        // Rebote Vertical (Eje Y)
         if (this.verticalCollision) {
-            if (this.verticalCollisionBelow) {
-                restitution = (!(-currentMovement.y < this.getEffectiveGravity()) && !suppress)
-                    ? restitution
-                    : 0.0;
-            }
+            boolean validImpact = !this.verticalCollisionBelow || (-currentMovement.y > this.getEffectiveGravity());
             
-            double gravityCompensation = 0.0;
-            double effectiveDrag = 1.0;
-            if (restitution > 0.0) {
+            if (validImpact) {
                 double portionWithMovement = currentMovement.y != 0.0 ? this.vb$movement.y / currentMovement.y : 0.0;
-                gravityCompensation = portionWithMovement * this.getEffectiveGravity();
-                effectiveDrag = Mth.lerp(portionWithMovement, 1.0, vb$getAirDrag(self));
+                double gravityCompensation = portionWithMovement * this.getEffectiveGravity();
+                double effectiveDrag = Mth.lerp(portionWithMovement, 1.0, vb$getAirDrag(self));
+                
+                newY = (gravityCompensation - currentMovement.y) * effectiveDrag * restitution;
                 bounced = true;
             }
-            
-            movementAfterBounce = movementAfterBounce.with(Direction.Axis.Y, (gravityCompensation - currentMovement.y) * effectiveDrag * restitution);
         }
         
         if (bounced) {
+            this.setDeltaMovement(new Vec3(newX, newY, newZ));
             this.gameEvent(GameEvent.HIT_GROUND);
         }
-        
-        this.setDeltaMovement(movementAfterBounce);
     }
+    
+    @Inject(method = "move", at = @At("RETURN"))
+    private void vb$cleanup(MoverType type, Vec3 delta, CallbackInfo ci) {
+        this.vb$movement = null;
+        this.vb$velocityBeforeCollide = null;
+    }
+    
+    // --- MÉTODOS AUXILIARES OPTIMIZADOS ---
     
     @Unique
     private static double vb$getAirDrag(Entity entity) {
-        if (entity instanceof LivingEntity living) {
-            float airDragModifier = (float) vb$getOrDefault(living, ModAttributes.AIR_DRAG_MODIFIER, 1.0);
-            if (!(entity instanceof TravelAwareEntity airborne) || !airborne.omnidirectionalAirMover()) {
-                return computeModifiedFriction(0.98F, airDragModifier);
-            } else {
-                BlockPos posBelow = ((EntityAccessor) living).callGetBlockPosBelowThatAffectsMyMovement();
-                float friction = living.onGround()
-                    ? computeModifiedFriction(living.level().getBlockState(posBelow).getBlock().getFriction(), (float) vb$getOrDefault(living, ModAttributes.FRICTION_MODIFIER, 1.0))
-                    : 1.0F;
-                float airDrag = computeModifiedFriction(0.91F, airDragModifier);
-                return friction * airDrag;
-            }
+        if (!(entity instanceof LivingEntity living)) return 0.98;
+        
+        float airDragModifier = (float) vb$getOrDefault(living, ModAttributes.AIR_DRAG_MODIFIER, 1.0);
+        if (!(entity instanceof TravelAwareEntity airborne) || !airborne.omnidirectionalAirMover()) {
+            return vb$computeFriction(0.98F, airDragModifier);
         }
         
-        return 0.98;
+        float friction = living.onGround()
+            ? vb$computeFriction(living.level().getBlockState(((EntityAccessor) living).callGetBlockPosBelowThatAffectsMyMovement()).getBlock().getFriction(), (float) vb$getOrDefault(living, ModAttributes.FRICTION_MODIFIER, 1.0))
+            : 1.0F;
+        
+        return friction * vb$computeFriction(0.91F, airDragModifier);
     }
     
     @Unique
-    private static float computeModifiedFriction(float friction, float modifier) {
+    private static float vb$computeFriction(float friction, float modifier) {
         return Mth.clamp(1.0F - (1.0F - friction) * modifier, 0.0F, 1.0F);
     }
     
     @Unique
     private static double vb$getOrDefault(Entity entity, Attribute attribute, double fallback) {
         if (!(entity instanceof LivingEntity living)) return fallback;
-        
         AttributeInstance instance = living.getAttribute(attribute);
         return instance != null ? instance.getValue() : fallback;
     }
     
     @Unique
     protected double getEffectiveGravity() {
-        if ((Entity) (Object) this instanceof LivingEntity living) {
-            boolean isFalling = this.getDeltaMovement().y <= 0.0;
-            return isFalling && living.hasEffect(MobEffects.SLOW_FALLING) ? Math.min(this.getGravity(), 0.01) : this.getGravity();
+        if ((Entity) (Object) this instanceof LivingEntity living && this.getDeltaMovement().y <= 0.0) {
+            if (living.hasEffect(MobEffects.SLOW_FALLING)) {
+                return Math.min(this.getGravity(), 0.01);
+            }
         }
         
         return this.getGravity();

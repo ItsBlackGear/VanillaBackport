@@ -1,8 +1,8 @@
 package com.blackgear.vanillabackport.core.mixin.common.controllable_mounts;
 
 import com.blackgear.vanillabackport.common.api.extensions.access.entity.MobBehaviorAccess;
-import com.blackgear.vanillabackport.common.level.entity.mob.animal.camel.CamelHusk;
-import com.blackgear.vanillabackport.common.level.entity.mob.monster.skeleton.Parched;
+import com.blackgear.vanillabackport.common.level.entities.mob.animal.camel.CamelHusk;
+import com.blackgear.vanillabackport.common.level.entities.mob.monster.skeleton.Parched;
 import com.blackgear.vanillabackport.common.registries.entities.ModEntityTypes;
 import com.blackgear.vanillabackport.common.registries.items.ModItems;
 import com.blackgear.vanillabackport.core.VanillaBackport;

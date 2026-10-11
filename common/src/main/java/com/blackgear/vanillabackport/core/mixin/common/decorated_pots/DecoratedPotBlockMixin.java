@@ -3,7 +3,7 @@ package com.blackgear.vanillabackport.core.mixin.common.decorated_pots;
 import com.blackgear.vanillabackport.client.registries.ModParticles;
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
 import com.blackgear.vanillabackport.common.api.extensions.block.entity.DecoratedPot;
-import com.blackgear.vanillabackport.common.level.block_entity.decorated_pot.WobbleStyle;
+import com.blackgear.vanillabackport.common.level.block_entities.decorated_pot.WobbleStyle;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;

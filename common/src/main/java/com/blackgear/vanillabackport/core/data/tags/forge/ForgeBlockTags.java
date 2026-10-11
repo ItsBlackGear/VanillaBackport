@@ -110,6 +110,7 @@ public class ForgeBlockTags {
     public static final TagKey<Block> STORAGE_BLOCKS_RAW_GOLD = TAGS.register("storage_blocks/raw_gold");
     public static final TagKey<Block> STORAGE_BLOCKS_RAW_IRON = TAGS.register("storage_blocks/raw_iron");
     public static final TagKey<Block> STORAGE_BLOCKS_REDSTONE = TAGS.register("storage_blocks/redstone");
+    public static final TagKey<Block> STORAGE_BLOCKS_RESIN = TAGS.register("storage_blocks/resin");
     public static final TagKey<Block> NEEDS_WOOD_TOOL = TAGS.register("needs_wood_tool");
     public static final TagKey<Block> NEEDS_GOLD_TOOL = TAGS.register("needs_gold_tool");
     public static final TagKey<Block> NEEDS_NETHERITE_TOOL = TAGS.register("needs_netherite_tool");
@@ -134,5 +135,22 @@ public class ForgeBlockTags {
     public static final TagKey<Block> MOVEMENT_RESTRICTED = TAGS.register("movement_restricted");
 
     public static final TagKey<Block> STRIPPED_LOGS = TAGS.register("stripped_logs");
-    public static final TagKey<Block> STRIPPED_WOOD = TAGS.register("stripped_wood");
+    public static final TagKey<Block> STRIPPED_WOODS = TAGS.register("stripped_wood");
+
+    public static final TagKey<Block> DYED_BLACK = TAGS.register("dyed/black");
+    public static final TagKey<Block> DYED_BLUE = TAGS.register("dyed/blue");
+    public static final TagKey<Block> DYED_BROWN = TAGS.register("dyed/brown");
+    public static final TagKey<Block> DYED_CYAN = TAGS.register("dyed/cyan");
+    public static final TagKey<Block> DYED_GRAY = TAGS.register("dyed/gray");
+    public static final TagKey<Block> DYED_GREEN = TAGS.register("dyed/green");
+    public static final TagKey<Block> DYED_LIGHT_BLUE = TAGS.register("dyed/light_blue");
+    public static final TagKey<Block> DYED_LIGHT_GRAY = TAGS.register("dyed/light_gray");
+    public static final TagKey<Block> DYED_LIME = TAGS.register("dyed/lime");
+    public static final TagKey<Block> DYED_MAGENTA = TAGS.register("dyed/magenta");
+    public static final TagKey<Block> DYED_ORANGE = TAGS.register("dyed/orange");
+    public static final TagKey<Block> DYED_PINK = TAGS.register("dyed/pink");
+    public static final TagKey<Block> DYED_PURPLE = TAGS.register("dyed/purple");
+    public static final TagKey<Block> DYED_RED = TAGS.register("dyed/red");
+    public static final TagKey<Block> DYED_WHITE = TAGS.register("dyed/white");
+    public static final TagKey<Block> DYED_YELLOW = TAGS.register("dyed/yellow");
 }

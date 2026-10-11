@@ -21,6 +21,7 @@
     "minecraft:windswept_forest",
     "minecraft:windswept_gravelly_hills",
     "minecraft:stony_peaks",
+    "minecraft:dappled_forest",
     "#minecraft:is_end",
     {
       "id": "#forge:is_cold",

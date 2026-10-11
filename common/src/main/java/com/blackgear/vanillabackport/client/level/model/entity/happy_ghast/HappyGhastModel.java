@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.client.level.model.entity.happy_ghast;
 
-import com.blackgear.vanillabackport.common.level.entity.mob.animal.happy_ghast.HappyGhast;
+import com.blackgear.vanillabackport.common.level.entities.mob.animal.happy_ghast.HappyGhast;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.HierarchicalModel;

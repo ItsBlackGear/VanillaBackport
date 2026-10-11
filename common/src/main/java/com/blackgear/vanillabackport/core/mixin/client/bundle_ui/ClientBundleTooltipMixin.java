@@ -36,7 +36,7 @@ public class ClientBundleTooltipMixin implements ClientTooltipComponent {
     
     @Override
     public int getWidth(Font font) {
-        return this.vb$handler.getWidth(font);
+        return this.vb$handler.getWidth();
     }
     
     @Inject(method = "renderImage", at = @At("HEAD"), cancellable = true)

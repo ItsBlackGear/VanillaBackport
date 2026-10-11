@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "minecraft:pale_oak_trapdoor"
+    "minecraft:pale_oak_trapdoor",
+    "minecraft:poplar_trapdoor"
   ]
 }

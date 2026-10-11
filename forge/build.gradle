@@ -52,6 +52,8 @@ dependencies {
         annotationProcessor "io.github.llamalad7:mixinextras-common:0.5.0"
     }
 
+    modCompileOnly("maven.modrinth:zeta:1.20.1-1.0-31")
+    modCompileOnly("maven.modrinth:quark:1.20.1-4.0-462")
     modCompileOnly("curse.maven:mouse-tweaks-60089:5338457")
     modCompileOnly("curse.maven:jei-238222:7253590")
     modCompileOnly("curse.maven:just-enough-resources-jer-240630:5057220")

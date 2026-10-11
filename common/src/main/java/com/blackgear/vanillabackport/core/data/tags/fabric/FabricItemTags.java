@@ -120,6 +120,7 @@ public class FabricItemTags {
     public static final TagKey<Item> NUGGETS = TAGS.register("nuggets");
     public static final TagKey<Item> NUGGETS_GOLD = TAGS.register("nuggets/gold");
     public static final TagKey<Item> NUGGETS_IRON = TAGS.register("nuggets/iron");
+    public static final TagKey<Item> NUGGETS_COPPER = TAGS.register("nuggets/copper");
     public static final TagKey<Item> OBSIDIAN = TAGS.register("obsidian");
     public static final TagKey<Item> ORE_BEARING_GROUND_DEEPSLATE = TAGS.register("ore_bearing_ground/deepslate");
     public static final TagKey<Item> ORE_BEARING_GROUND_NETHERRACK = TAGS.register("ore_bearing_ground/netherrack");
@@ -177,6 +178,7 @@ public class FabricItemTags {
     public static final TagKey<Item> STORAGE_BLOCKS_RAW_GOLD = TAGS.register("storage_blocks/raw_gold");
     public static final TagKey<Item> STORAGE_BLOCKS_RAW_IRON = TAGS.register("storage_blocks/raw_iron");
     public static final TagKey<Item> STORAGE_BLOCKS_REDSTONE = TAGS.register("storage_blocks/redstone");
+    public static final TagKey<Item> STORAGE_BLOCKS_RESIN = TAGS.register("storage_blocks/resin");
     public static final TagKey<Item> STRING = TAGS.register("string");
     public static final TagKey<Item> TOOLS = TAGS.register("tools");
     public static final TagKey<Item> TOOLS_SHIELDS = TAGS.register("tools/shields");
@@ -273,7 +275,7 @@ public class FabricItemTags {
     public static final TagKey<Item> DYED_YELLOW = TAGS.register("dyed/yellow");
 
     public static final TagKey<Item> STRIPPED_LOGS = TAGS.register("stripped_logs");
-    public static final TagKey<Item> STRIPPED_WOOD = TAGS.register("stripped_wood");
+    public static final TagKey<Item> STRIPPED_WOODS = TAGS.register("stripped_woods");
 
     public static final TagKey<Item> GLAZED_TERRACOTTA = TAGS.register("glazed_terracotta");
     public static final TagKey<Item> CONCRETE = TAGS.register("concrete");

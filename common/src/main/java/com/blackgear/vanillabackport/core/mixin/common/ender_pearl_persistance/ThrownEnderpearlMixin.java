@@ -23,7 +23,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.UUID;
@@ -64,17 +63,13 @@ public abstract class ThrownEnderpearlMixin extends ThrowableItemProjectile impl
     @Override
     public Entity getOwner() {
         Entity vanillaOwner = super.getOwner();
-        if (vanillaOwner != null) {
-            return vanillaOwner;
-        }
+        if (vanillaOwner != null) return vanillaOwner;
         
         UUID ownerUUID = ((ProjectileAccessor) this).getOwnerUUID();
         if (ownerUUID != null && this.level() instanceof ServerLevel serverLevel) {
             for (ServerLevel world : serverLevel.getServer().getAllLevels()) {
                 Entity crossDimensionOwner = world.getEntity(ownerUUID);
-                if (crossDimensionOwner != null) {
-                    return crossDimensionOwner;
-                }
+                if (crossDimensionOwner != null) return crossDimensionOwner;
             }
             
             return serverLevel.getServer().getPlayerList().getPlayer(ownerUUID);
@@ -83,7 +78,7 @@ public abstract class ThrownEnderpearlMixin extends ThrowableItemProjectile impl
     }
 
     @Inject(method = "tick", at = @At("HEAD"), cancellable = true)
-    private void vb$checkForMissingPlayerAndCapture(CallbackInfo ci) {
+    private void vb$checkForMissingPlayerOnTick(CallbackInfo ci) {
         if (this.level() instanceof ServerLevel serverLevel) {
             UUID ownerUUID = ((ProjectileAccessor) this).getOwnerUUID();
             
@@ -134,29 +129,29 @@ public abstract class ThrownEnderpearlMixin extends ThrowableItemProjectile impl
         }
     }
     
-    @Redirect(
+    @WrapOperation(
         method = "onHit",
         at = @At(
             value = "INVOKE",
             target = "Lnet/minecraft/server/level/ServerPlayer;level()Lnet/minecraft/world/level/Level;"
         )
     )
-    private Level vb$bypassLevelCheck(ServerPlayer player) {
+    private Level vb$bypassLevelCheck(ServerPlayer player, Operation<Level> original) {
         return this.level();
     }
     
-    @Redirect(
+    @WrapOperation(
         method = "onHit",
         at = @At(
             value = "INVOKE",
             target = "Lnet/minecraft/world/entity/Entity;teleportTo(DDD)V"
         )
     )
-    private void vb$redirectTeleportTo(Entity entity, double x, double y, double z) {
+    private void vb$redirectTeleportTo(Entity entity, double x, double y, double z, Operation<Void> original) {
         if (entity instanceof ServerPlayer player && player.level() != this.level()) {
             player.teleportTo((ServerLevel) this.level(), x, y, z, player.getYRot(), player.getXRot());
         } else {
-            entity.teleportTo(x, y, z);
+            original.call(entity, x, y, z);
         }
     }
     

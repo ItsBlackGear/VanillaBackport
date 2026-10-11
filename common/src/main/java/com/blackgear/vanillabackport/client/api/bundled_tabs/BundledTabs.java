@@ -49,10 +49,6 @@ public class BundledTabs {
         return Collections.unmodifiableList(this.displayItems);
     }
 
-    public boolean contains(ItemStack stack) {
-        return this.displayItems.contains(stack);
-    }
-
     public void select() {
         this.selected = true;
     }
@@ -86,7 +82,9 @@ public class BundledTabs {
             }
             @Override
             public void accept(ItemStack stack) {
-                displayItems.add(stack);
+                if (stack != null && !stack.isEmpty()) {
+                    displayItems.add(stack.copyWithCount(1));
+                }
             }
         });
         this.populated = true;

@@ -82,7 +82,8 @@ public class SpringToLifeFeatureManager extends FeatureManager {
                 .add(() -> this.addVegetation(SpringToLifePlacements.PATCH_LEAF_LITTER));
 
             this.getOrCreateBiomeBuilder(ModBiomeTags.SPAWNS_LEAF_LITTER)
-                .add(() -> this.addVegetation(SpringToLifePlacements.LEAF_LITTER));
+                .add(() -> this.addVegetation(SpringToLifePlacements.LEAF_LITTER_THICK))
+                .add(() -> this.addVegetation(SpringToLifePlacements.LEAF_LITTER_SPARSE));
         });
 
         this.addIf(VanillaBackport.COMMON_CONFIG.hasCactusFlowers.get(), (context, writer) -> {

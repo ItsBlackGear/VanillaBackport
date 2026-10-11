@@ -4,7 +4,7 @@ import com.blackgear.vanillabackport.client.level.layer.SulfurCubeInnerLayer;
 import com.blackgear.vanillabackport.client.level.layer.SulfurCubeOuterLayer;
 import com.blackgear.vanillabackport.client.level.model.entity.sulfur_cube.SulfurCubeModel;
 import com.blackgear.vanillabackport.client.registries.ModModelLayers;
-import com.blackgear.vanillabackport.common.level.entity.mob.monster.sulfur_cube.SulfurCube;
+import com.blackgear.vanillabackport.common.level.entities.mob.monster.sulfur_cube.SulfurCube;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

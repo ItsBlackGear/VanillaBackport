@@ -11,7 +11,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.List;
@@ -21,7 +20,7 @@ import java.util.Map;
 public abstract class SoundEngineMixin implements MusicTickAccess {
     @Shadow private boolean loaded;
     @Shadow @Final private Map<SoundInstance, ChannelAccess.ChannelHandle> instanceToChannel;
-    @Shadow protected abstract float getVolume(SoundSource soundSource);
+    @Shadow protected abstract float calculateVolume(SoundInstance sound);
     
     @Unique private boolean vb$isReallyPaused = false;
     
@@ -44,22 +43,20 @@ public abstract class SoundEngineMixin implements MusicTickAccess {
     }
     
     @Inject(method = "resume", at = @At("HEAD"))
-    private void onResume(CallbackInfo ci) {
+    private void vb$onResume(CallbackInfo ci) {
         if (this.vb$isReallyPaused) {
             this.vb$isReallyPaused = false;
             
             for (Map.Entry<SoundInstance, ChannelAccess.ChannelHandle> entry : this.instanceToChannel.entrySet()) {
                 SoundInstance sound = entry.getKey();
                 if (sound.getSource() != SoundSource.MUSIC) {
-                    float volume = this.getVolume(sound.getSource());
-                    entry.getValue().execute(channel -> channel.setVolume(volume));
+                    float volume = this.calculateVolume(sound);
+                    entry.getValue().execute(channel -> {
+                        channel.setVolume(volume);
+                        channel.unpause();
+                    });
                 }
             }
         }
-    }
-    
-    @ModifyVariable(method = "tick", at = @At("HEAD"), argsOnly = true)
-    private boolean vb$bypassPauseEngine(boolean isGamePaused) {
-        return false;
     }
 }

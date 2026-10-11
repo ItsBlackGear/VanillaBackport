@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.common.level.inventory;
 
-import com.blackgear.vanillabackport.common.level.entity.mob.animal.nautilus.AbstractNautilus;
+import com.blackgear.vanillabackport.common.level.entities.mob.animal.nautilus.AbstractNautilus;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;

@@ -12,13 +12,12 @@ import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.phys.Vec3;
 
 public class TrailParticleOption extends TrailParticleOptionsBase {
-    public static final Codec<TrailParticleOption> CODEC = RecordCodecBuilder.create(instance ->
-        instance.group(
-            Vec3.CODEC.fieldOf("target").forGetter(option -> option.target),
-            AdditionalCodecs.RGB_COLOR_CODEC.fieldOf("color").forGetter(option -> option.color),
-            ExtraCodecs.POSITIVE_INT.fieldOf("duration").forGetter(option -> option.duration)
-        ).apply(instance, TrailParticleOption::new)
-    );
+    public static final Codec<TrailParticleOption> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+        Vec3.CODEC.fieldOf("target").forGetter(option -> option.target),
+        AdditionalCodecs.RGB_COLOR_CODEC.fieldOf("color").forGetter(option -> option.color),
+        ExtraCodecs.POSITIVE_INT.fieldOf("duration").forGetter(option -> option.duration)
+    ).apply(instance, TrailParticleOption::new));
+    
     public static final Deserializer<TrailParticleOption> DESERIALIZER = new Deserializer<>() {
         @Override
         public TrailParticleOption fromCommand(ParticleType<TrailParticleOption> particleType, StringReader reader) throws CommandSyntaxException {

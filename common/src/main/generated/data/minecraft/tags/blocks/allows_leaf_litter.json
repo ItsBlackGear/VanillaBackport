@@ -3,6 +3,9 @@
   "values": [
     "minecraft:oak_leaves",
     "minecraft:birch_leaves",
-    "minecraft:dark_oak_leaves"
+    "minecraft:dark_oak_leaves",
+    "minecraft:red_poplar_leaves",
+    "minecraft:orange_poplar_leaves",
+    "minecraft:yellow_poplar_leaves"
   ]
 }

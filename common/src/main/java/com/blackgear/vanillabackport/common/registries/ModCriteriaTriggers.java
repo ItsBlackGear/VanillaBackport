@@ -1,11 +1,13 @@
 package com.blackgear.vanillabackport.common.registries;
 
-import com.blackgear.vanillabackport.common.api.criterion.PlayerShearedEquipmentTrigger;
+import com.blackgear.vanillabackport.common.triggers.PlayerShearedEquipmentTrigger;
+import com.blackgear.vanillabackport.common.triggers.SpearMobsTrigger;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.advancements.CriterionTrigger;
 
 public class ModCriteriaTriggers {
     public static final PlayerShearedEquipmentTrigger PLAYER_SHEARED_EQUIPMENT = register(new PlayerShearedEquipmentTrigger());
+    public static final SpearMobsTrigger SPEAR_MOBS_TRIGGER = register(new SpearMobsTrigger());
 
     public static void bootstrap() {}
 

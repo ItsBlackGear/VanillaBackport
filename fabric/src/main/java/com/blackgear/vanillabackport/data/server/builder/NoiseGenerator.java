@@ -18,6 +18,7 @@ public class NoiseGenerator extends FabricDynamicRegistryProvider {
     @Override
     protected void configure(HolderLookup.Provider provider, Entries entries) {
         this.add(provider, entries, ModNoises.SULFUR_CAVE_GRADIENT);
+        this.add(provider, entries, ModNoises.SMALL_PATCH);
     }
 
     private void add(HolderLookup.Provider provider, Entries entries, ResourceKey<NoiseParameters> key) {

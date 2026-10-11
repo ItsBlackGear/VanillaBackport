@@ -9,6 +9,7 @@ import net.minecraftforge.client.event.ModelEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @Mod.EventBusSubscriber(modid = VanillaBackport.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
@@ -19,33 +20,33 @@ public class EmissiveModelHandler {
         "firefly_bush"
     };
 
-    private static final String EMISSIVE_SUFFIX = "_emissive";
-
+    private static ResourceLocation emissiveModel(String blockName) {
+        return new ResourceLocation("block/" + blockName + "_emissive");
+    }
+    
     @SubscribeEvent
     public static void onModelBake(ModelEvent.ModifyBakingResult event) {
         Map<ResourceLocation, BakedModel> modelRegistry = event.getModels();
-
+        Map<ResourceLocation, BakedModel> replacements = new HashMap<>();
+        
         for (String blockName : EMISSIVE_BLOCKS) {
             ModelResourceLocation blockModelLocation = new ModelResourceLocation(new ResourceLocation(blockName), "");
+            BakedModel defaultModel = modelRegistry.get(blockModelLocation);
 
-            BakedModel baseModel = modelRegistry.get(blockModelLocation);
-            if (baseModel == null) continue;
+            if (defaultModel == null) continue;
 
-            ResourceLocation emissiveModelLocation = new ResourceLocation("block/" + blockName + EMISSIVE_SUFFIX);
-
+            ResourceLocation emissiveModelLocation = emissiveModel(blockName);
             BakedModel emissiveModel = modelRegistry.get(emissiveModelLocation);
+
             if (emissiveModel == null) continue;
-
-            BakedModel wrappedModel = new EmissiveModelWrapper(baseModel, emissiveModel);
-            modelRegistry.put(blockModelLocation, wrappedModel);
+            replacements.put(blockModelLocation, new EmissiveModelWrapper(defaultModel, emissiveModel));
         }
+        
+        modelRegistry.putAll(replacements);
     }
-
+    
     @SubscribeEvent
     public static void onRegisterAdditionalModels(ModelEvent.RegisterAdditional event) {
-        for (String blockName : EMISSIVE_BLOCKS) {
-            ResourceLocation emissiveModelLocation = new ResourceLocation("block/" + blockName + EMISSIVE_SUFFIX);
-            event.register(emissiveModelLocation);
-        }
+        for (String blockName : EMISSIVE_BLOCKS) event.register(emissiveModel(blockName));
     }
 }

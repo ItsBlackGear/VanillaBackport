@@ -21,8 +21,54 @@ public class ModelGenerator extends VanillaModelGenerator {
     public void generateBlockStateModels(VanillaBlockModels gen) {
         BlockFamilies.getAllFamilies()
             .filter(BlockFamily::shouldGenerateModel)
-            .forEach(family -> gen.family(family.getBaseBlock()).generateFor(family));
+            .forEach(family -> gen.familyBuilder(family.getBaseBlock()).generateFor(family));
 
+        // Miscellaneous
+        gen.createCopperBulb(ModBlocks.COPPER_BULB.get());
+        gen.createCopperBulb(ModBlocks.EXPOSED_COPPER_BULB.get());
+        gen.createCopperBulb(ModBlocks.WEATHERED_COPPER_BULB.get());
+        gen.createCopperBulb(ModBlocks.OXIDIZED_COPPER_BULB.get());
+        gen.copyCopperBulbModel(ModBlocks.COPPER_BULB.get(), ModBlocks.WAXED_COPPER_BULB.get());
+        gen.copyCopperBulbModel(ModBlocks.EXPOSED_COPPER_BULB.get(), ModBlocks.WAXED_EXPOSED_COPPER_BULB.get());
+        gen.copyCopperBulbModel(ModBlocks.WEATHERED_COPPER_BULB.get(), ModBlocks.WAXED_WEATHERED_COPPER_BULB.get());
+        gen.copyCopperBulbModel(ModBlocks.OXIDIZED_COPPER_BULB.get(), ModBlocks.WAXED_OXIDIZED_COPPER_BULB.get());
+        
+        gen.createTrivialCube(ModBlocks.CHISELED_COPPER.get());
+        gen.createTrivialCube(ModBlocks.EXPOSED_CHISELED_COPPER.get());
+        gen.createTrivialCube(ModBlocks.WEATHERED_CHISELED_COPPER.get());
+        gen.createTrivialCube(ModBlocks.OXIDIZED_CHISELED_COPPER.get());
+        gen.copyModel(ModBlocks.CHISELED_COPPER.get(), ModBlocks.WAXED_CHISELED_COPPER.get());
+        gen.copyModel(ModBlocks.EXPOSED_CHISELED_COPPER.get(), ModBlocks.WAXED_EXPOSED_CHISELED_COPPER.get());
+        gen.copyModel(ModBlocks.WEATHERED_CHISELED_COPPER.get(), ModBlocks.WAXED_WEATHERED_CHISELED_COPPER.get());
+        gen.copyModel(ModBlocks.OXIDIZED_CHISELED_COPPER.get(), ModBlocks.WAXED_OXIDIZED_CHISELED_COPPER.get());
+        
+        gen.createTrivialCube(ModBlocks.COPPER_GRATE.get());
+        gen.createTrivialCube(ModBlocks.EXPOSED_COPPER_GRATE.get());
+        gen.createTrivialCube(ModBlocks.WEATHERED_COPPER_GRATE.get());
+        gen.createTrivialCube(ModBlocks.OXIDIZED_COPPER_GRATE.get());
+        gen.copyModel(ModBlocks.COPPER_GRATE.get(), ModBlocks.WAXED_COPPER_GRATE.get());
+        gen.copyModel(ModBlocks.EXPOSED_COPPER_GRATE.get(), ModBlocks.WAXED_EXPOSED_COPPER_GRATE.get());
+        gen.copyModel(ModBlocks.WEATHERED_COPPER_GRATE.get(), ModBlocks.WAXED_WEATHERED_COPPER_GRATE.get());
+        gen.copyModel(ModBlocks.OXIDIZED_COPPER_GRATE.get(), ModBlocks.WAXED_OXIDIZED_COPPER_GRATE.get());
+        
+        gen.createDoor(ModBlocks.COPPER_DOOR.get());
+        gen.createDoor(ModBlocks.EXPOSED_COPPER_DOOR.get());
+        gen.createDoor(ModBlocks.WEATHERED_COPPER_DOOR.get());
+        gen.createDoor(ModBlocks.OXIDIZED_COPPER_DOOR.get());
+        gen.copyDoorModel(ModBlocks.COPPER_DOOR.get(), ModBlocks.WAXED_COPPER_DOOR.get());
+        gen.copyDoorModel(ModBlocks.EXPOSED_COPPER_DOOR.get(), ModBlocks.WAXED_EXPOSED_COPPER_DOOR.get());
+        gen.copyDoorModel(ModBlocks.WEATHERED_COPPER_DOOR.get(), ModBlocks.WAXED_WEATHERED_COPPER_DOOR.get());
+        gen.copyDoorModel(ModBlocks.OXIDIZED_COPPER_DOOR.get(), ModBlocks.WAXED_OXIDIZED_COPPER_DOOR.get());
+        
+        gen.createTrapdoor(ModBlocks.COPPER_TRAPDOOR.get());
+        gen.createTrapdoor(ModBlocks.EXPOSED_COPPER_TRAPDOOR.get());
+        gen.createTrapdoor(ModBlocks.WEATHERED_COPPER_TRAPDOOR.get());
+        gen.createTrapdoor(ModBlocks.OXIDIZED_COPPER_TRAPDOOR.get());
+        gen.copyTrapdoorModel(ModBlocks.COPPER_TRAPDOOR.get(), ModBlocks.WAXED_COPPER_TRAPDOOR.get());
+        gen.copyTrapdoorModel(ModBlocks.EXPOSED_COPPER_TRAPDOOR.get(), ModBlocks.WAXED_EXPOSED_COPPER_TRAPDOOR.get());
+        gen.copyTrapdoorModel(ModBlocks.WEATHERED_COPPER_TRAPDOOR.get(), ModBlocks.WAXED_WEATHERED_COPPER_TRAPDOOR.get());
+        gen.copyTrapdoorModel(ModBlocks.OXIDIZED_COPPER_TRAPDOOR.get(), ModBlocks.WAXED_OXIDIZED_COPPER_TRAPDOOR.get());
+        
         // The Garden Awakens
         gen.createHangingSign(ModBlocks.STRIPPED_PALE_OAK_LOG.get(), ModBlocks.PALE_OAK_HANGING_SIGN.getFirst().get(), ModBlocks.PALE_OAK_HANGING_SIGN.getSecond().get());
         gen.createTrivialCube(ModBlocks.PALE_MOSS_BLOCK.get());
@@ -115,6 +161,23 @@ public class ModelGenerator extends VanillaModelGenerator {
         gen.createSpawnEgg(ModItems.CAMEL_HUSK_SPAWN_EGG.get());
         gen.createSpawnEgg(ModItems.NAUTILUS_SPAWN_EGG.get());
         gen.createSpawnEgg(ModItems.ZOMBIE_NAUTILUS_SPAWN_EGG.get());
+        
+        // Wilderness Bound
+        gen.createHangingSign(ModBlocks.STRIPPED_POPLAR_LOG.get(), ModBlocks.POPLAR_HANGING_SIGN.getFirst().get(), ModBlocks.POPLAR_HANGING_SIGN.getSecond().get());
+        gen.createTrivialBlock(ModBlocks.RED_POPLAR_LEAVES.get(), TexturedModel.LEAVES);
+        gen.createTrivialBlock(ModBlocks.ORANGE_POPLAR_LEAVES.get(), TexturedModel.LEAVES);
+        gen.createTrivialBlock(ModBlocks.YELLOW_POPLAR_LEAVES.get(), TexturedModel.LEAVES);
+        gen.woodProvider(ModBlocks.POPLAR_LOG.get())
+            .logWithHorizontal(ModBlocks.POPLAR_LOG.get())
+            .wood(ModBlocks.POPLAR_WOOD.get());
+        gen.woodProvider(ModBlocks.STRIPPED_POPLAR_LOG.get())
+            .logWithHorizontal(ModBlocks.STRIPPED_POPLAR_LOG.get())
+            .wood(ModBlocks.STRIPPED_POPLAR_WOOD.get());
+        gen.createPlant(ModBlocks.POPLAR_SAPLING.get(), ModBlocks.POTTED_POPLAR_SAPLING.get(), BlockModelGenerators.TintState.NOT_TINTED);
+        gen.createCrossBlockWithDefaultItem(ModBlocks.RED_SHRUB.get(), BlockModelGenerators.TintState.TINTED);
+        gen.createShelfMushroom();
+        gen.createShelf(ModBlocks.POPLAR_SHELF.get(), ModBlocks.STRIPPED_PALE_OAK_LOG.get());
+        gen.createStrawBed();
     }
 
     @Override
@@ -155,7 +218,6 @@ public class ModelGenerator extends VanillaModelGenerator {
         gen.createFlatItem(ModItems.BROWN_EGG.get());
 
         // Copper Age
-        
         gen.createFlatItem(ModItems.COPPER_NUGGET.get());
         gen.createHandheldItem(ModItems.COPPER_AXE.get());
         gen.createHandheldItem(ModItems.COPPER_HOE.get());
@@ -189,7 +251,9 @@ public class ModelGenerator extends VanillaModelGenerator {
         gen.createFlatItem(ModItems.SULFUR_CUBE_BUCKET.get());
         gen.createMusicDisc(ModItems.MUSIC_DISC_BOUNCE.get());
         
-        // Miscellaneous
+        // Wilderness Bound
+        gen.createFlatItem(ModItems.POPLAR_BOAT.get());
+        gen.createFlatItem(ModItems.POPLAR_CHEST_BOAT.get());
         gen.createFlatItem(ModItems.WHITE_CUSHION.get());
         gen.createFlatItem(ModItems.ORANGE_CUSHION.get());
         gen.createFlatItem(ModItems.MAGENTA_CUSHION.get());

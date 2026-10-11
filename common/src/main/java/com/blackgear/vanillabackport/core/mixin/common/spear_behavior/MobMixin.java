@@ -1,7 +1,7 @@
 package com.blackgear.vanillabackport.core.mixin.common.spear_behavior;
 
 import com.blackgear.vanillabackport.common.api.extensions.entity.spear.MobSpearHandler;
-import com.blackgear.vanillabackport.common.level.item.spear.AttackRange;
+import com.blackgear.vanillabackport.common.level.items.spear.AttackRange;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -21,36 +21,28 @@ public abstract class MobMixin extends LivingEntity implements MobSpearHandler {
         super(entityType, level);
     }
     
-    @Inject(
-        method = "doHurtTarget",
-        at = @At("TAIL")
-    )
+    @Inject(method = "doHurtTarget", at = @At("RETURN"))
     private void vb$doHurtTarget(Entity target, CallbackInfoReturnable<Boolean> cir) {
-        this.postPiercingAttack();
+        this.vb$postPiercingAttack();
     }
     
-    @Inject(
-        method = "isWithinMeleeAttackRange",
-        at = @At("HEAD"),
-        cancellable = true
-    )
+    @Inject(method = "isWithinMeleeAttackRange", at = @At("HEAD"), cancellable = true)
     private void vb$isWithinMeleeAttackRange(LivingEntity entity, CallbackInfoReturnable<Boolean> cir) {
         ItemStack activeItem = this.isUsingItem() ? this.getUseItem() : this.getMainHandItem();
-        
-        AttackRange range = AttackRange.getAttackRange(activeItem);
+        AttackRange range = AttackRange.get(activeItem);
         if (range == null) return;
         
         double maxRange = range.effectiveMaxRange(this);
         double minRange = range.effectiveMinRange(this);
         AABB hitbox = entity.getBoundingBox();
         
-        cir.setReturnValue(this.getAttackBoundingBox(maxRange).intersects(hitbox) && (minRange <= 0.0 || !this.getAttackBoundingBox(minRange).intersects(hitbox)));
+        cir.setReturnValue(this.vb$getAttackBoundingBox(maxRange).intersects(hitbox) && (minRange <= 0.0 || !this.vb$getAttackBoundingBox(minRange).intersects(hitbox)));
     }
     
     @Unique
-    protected AABB getAttackBoundingBox(double horizontalExpansion) {
+    protected AABB vb$getAttackBoundingBox(double horizontalExpansion) {
         Entity vehicle = this.getVehicle();
-        AABB aabb = this.getBoundingBox();
+        AABB aabb;
         if (vehicle != null) {
             AABB mountAabb = vehicle.getBoundingBox();
             AABB ownAabb = this.getBoundingBox();
@@ -62,6 +54,8 @@ public abstract class MobMixin extends LivingEntity implements MobSpearHandler {
                 ownAabb.maxY,
                 Math.max(ownAabb.maxZ, mountAabb.maxZ)
             );
+        } else {
+            aabb = this.getBoundingBox();
         }
         
         return aabb.inflate(horizontalExpansion, 0.0, horizontalExpansion);

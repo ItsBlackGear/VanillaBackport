@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "minecraft:pale_oak_chest_boat"
+    "minecraft:pale_oak_chest_boat",
+    "minecraft:poplar_chest_boat"
   ]
 }

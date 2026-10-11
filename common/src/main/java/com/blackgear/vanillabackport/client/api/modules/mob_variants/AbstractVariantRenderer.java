@@ -1,13 +1,13 @@
 package com.blackgear.vanillabackport.client.api.modules.mob_variants;
 
 import com.blackgear.platform.core.BuiltInCoreRegistry;
+import com.blackgear.platform.core.api.RegistryKey;
 import com.blackgear.vanillabackport.common.api.modules.mob_variant.VariantDataHolder;
 import com.blackgear.vanillabackport.common.api.modules.mob_variant.VariantUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.LivingEntity;
 
@@ -25,16 +25,16 @@ public abstract class AbstractVariantRenderer<T extends LivingEntity, M extends 
     protected abstract Map<E, M> bakeModels(EntityRendererProvider.Context context);
 
     protected Optional<V> getVariant(T entity) {
-        return VariantDataHolder.<V>getHolder(entity).getVariantData();
+        return VariantDataHolder.<V>getHolder(entity).flatMap(VariantDataHolder::getVariantData);
     }
 
     protected abstract E getModelType(V variant);
 
-    protected abstract ResourceLocation getTexture(V variant);
+    protected abstract ResourceLocation getTexture(T entity, V variant);
 
     protected abstract BuiltInCoreRegistry<V> getRegistry();
 
-    protected abstract ResourceKey<V> getDefaultVariant();
+    protected abstract RegistryKey<V> getDefaultVariant();
 
     private boolean isDefaultVariant(V variant) {
         return VariantUtils.matches(this.getRegistry(), variant, this.getDefaultVariant());
@@ -43,7 +43,7 @@ public abstract class AbstractVariantRenderer<T extends LivingEntity, M extends 
     @Override
     public Optional<ResourceLocation> getTexture(T entity) {
         Optional<V> variant = this.getVariant(entity);
-        return variant.filter(v -> !this.isDefaultVariant(v)).map(this::getTexture);
+        return variant.filter(v -> !this.isDefaultVariant(v)).map(v -> this.getTexture(entity, v));
     }
 
     @Override

@@ -20,6 +20,7 @@ public class ModBlockTags {
 
     public static final TagKey<Block> ALLOWS_LEAF_LITTER = TAGS.register("allows_leaf_litter");
     public static final TagKey<Block> SUPPORTS_CACTUS = TAGS.register("supports_cactus");
+    public static final TagKey<Block> SUPPORT_OVERRIDE_CACTUS_FLOWER = TAGS.register("support_override_cactus_flower");
 
     public static final TagKey<Block> SPAWN_FALLING_LEAVES = TAGS.register("spawn_falling_leaves");
     public static final TagKey<Block> SPAWN_FALLING_NEEDLES = TAGS.register("spawn_falling_needles");
@@ -32,10 +33,12 @@ public class ModBlockTags {
 
     public static final TagKey<Block> SPELEOTHEMS = TAGS.register("speleothems");
     public static final TagKey<Block> SULFUR_SPIKE_REPLACEABLE = TAGS.register("sulfur_spike_replaceable");
+    public static final TagKey<Block> SUPPRESSES_BOUNCE = TAGS.register("suppresses_bounce");
     
     public static final TagKey<Block> COPPER_GOLEM_STATUES = TAGS.register("copper_golem_statues");
     public static final TagKey<Block> COPPER_CHESTS = TAGS.register("copper_chests");
-    public static final TagKey<Block> COPPER_GOLEM_DESTINATION_TARGETS = TAGS.register("copper_golem_destination_targets");
+    public static final TagKey<Block> TRANSPORT_ITEM_SOURCE_BLOCKS = TAGS.register("transport_item_source_blocks");
+    public static final TagKey<Block> TRANSPORT_ITEM_DESTINATION_BLOCKS = TAGS.register("transport_item_destination_blocks");
     public static final TagKey<Block> COPPER = TAGS.register("copper");
     
     public static final TagKey<Block> BARS = TAGS.register("bars");
@@ -47,4 +50,11 @@ public class ModBlockTags {
     
     public static final TagKey<Block> WOOL_STAIRS = TAGS.register("wool_stairs");
     public static final TagKey<Block> WOOL_SLABS = TAGS.register("wool_slabs");
+    
+    public static final TagKey<Block> POPLAR_LOGS = TAGS.register("poplar_logs");
+    public static final TagKey<Block> REQUIRED_FOR_POPLAR_LEAF_AMBIENCE = TAGS.register("required_for_poplar_leaf_ambience");
+    public static final TagKey<Block> CUSHION_USES_COLLISION_SHAPE = TAGS.register("cushion_uses_collision_shape");
+
+    public static final TagKey<Block> CONCRETE_STAIRS = TAGS.register("concrete_stairs");
+    public static final TagKey<Block> CONCRETE_SLABS = TAGS.register("concrete_slabs");
 }

@@ -2,7 +2,8 @@ package com.blackgear.vanillabackport.core.mixin.common.spear_behavior;
 
 import com.blackgear.vanillabackport.common.api.extensions.entity.arms.PlayerActions;
 import com.blackgear.vanillabackport.common.api.extensions.entity.spear.PlayerSpearHandler;
-import com.blackgear.vanillabackport.common.level.item.spear.PiercingWeapon;
+import com.blackgear.vanillabackport.common.level.items.spear.PiercingWeapon;
+import net.minecraft.network.protocol.PacketUtils;
 import net.minecraft.network.protocol.game.ServerboundPlayerActionPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
@@ -21,20 +22,21 @@ public class ServerGamePacketListenerImplMixin {
 
     @Inject(method = "handlePlayerAction", at = @At("HEAD"), cancellable = true)
     private void vb$handlePlayerAction(ServerboundPlayerActionPacket packet, CallbackInfo ci) {
-        if (packet.getAction() != PlayerActions.STAB.get()) return;
-        
-        ci.cancel();
-        
-        this.player.server.execute(() -> {
+        if (packet.getAction() == PlayerActions.STAB.get()) {
+            ServerGamePacketListenerImpl self = (ServerGamePacketListenerImpl) (Object) this;
+            PacketUtils.ensureRunningOnSameThread(packet, self, this.player.serverLevel());
+
+            ci.cancel();
             this.player.resetLastActionTime();
-    
             if (!this.player.isSpectator()) {
                 ItemStack stack = this.player.getItemInHand(InteractionHand.MAIN_HAND);
-                PiercingWeapon weapon = PiercingWeapon.getPiercingWeapon(stack);
-                if (!((PlayerSpearHandler) this.player).cannotAttackWithItem(stack, 5) && weapon != null) {
-                    weapon.attack(this.player, EquipmentSlot.MAINHAND);
+                if (!((PlayerSpearHandler) this.player).vb$cannotAttackWithItem(stack, 5)) {
+                    PiercingWeapon weapon = PiercingWeapon.get(stack);
+                    if (weapon != null) {
+                        weapon.attack(this.player, EquipmentSlot.MAINHAND);
+                    }
                 }
             }
-        });
+        }
     }
 }

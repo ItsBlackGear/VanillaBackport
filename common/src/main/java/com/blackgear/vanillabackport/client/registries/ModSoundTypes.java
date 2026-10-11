@@ -7,7 +7,35 @@ import net.minecraft.world.level.block.SoundType;
 
 public class ModSoundTypes {
     public static final SoundRegistry REGISTRIES = SoundRegistry.create(VanillaBackport.NAMESPACE);
-
+    
+    public static final SoundType COPPER_BULB = REGISTRIES.soundType(
+        ModSoundEvents.COPPER_BULB_BREAK,
+        ModSoundEvents.COPPER_BULB_STEP,
+        ModSoundEvents.COPPER_BULB_PLACE,
+        ModSoundEvents.COPPER_BULB_HIT,
+        ModSoundEvents.COPPER_BULB_FALL
+    );
+    public static final SoundType COPPER_GRATE = REGISTRIES.soundType(
+        ModSoundEvents.COPPER_GRATE_BREAK,
+        ModSoundEvents.COPPER_GRATE_STEP,
+        ModSoundEvents.COPPER_GRATE_PLACE,
+        ModSoundEvents.COPPER_GRATE_HIT,
+        ModSoundEvents.COPPER_GRATE_FALL
+    );
+    public static final SoundType POLISHED_TUFF = REGISTRIES.soundType(
+        ModSoundEvents.POLISHED_TUFF_BREAK,
+        ModSoundEvents.POLISHED_TUFF_STEP,
+        ModSoundEvents.POLISHED_TUFF_PLACE,
+        ModSoundEvents.POLISHED_TUFF_HIT,
+        ModSoundEvents.POLISHED_TUFF_FALL
+    );
+    public static final SoundType TUFF_BRICKS = REGISTRIES.soundType(
+        ModSoundEvents.TUFF_BRICKS_BREAK,
+        ModSoundEvents.TUFF_BRICKS_STEP,
+        ModSoundEvents.TUFF_BRICKS_PLACE,
+        ModSoundEvents.TUFF_BRICKS_HIT,
+        ModSoundEvents.TUFF_BRICKS_FALL
+    );
     public static final SoundType CREAKING_HEART = REGISTRIES.soundType(
         ModSoundEvents.CREAKING_HEART_BREAK,
         ModSoundEvents.CREAKING_HEART_STEP,
@@ -84,5 +112,33 @@ public class ModSoundTypes {
         ModSoundEvents.SHELF_PLACE,
         ModSoundEvents.SHELF_HIT,
         ModSoundEvents.SHELF_FALL
+    );
+    public static final SoundType SHELF_MUSHROOM = REGISTRIES.soundType(
+        ModSoundEvents.SHELF_MUSHROOM_BREAK,
+        ModSoundEvents.SHELF_MUSHROOM_STEP,
+        ModSoundEvents.SHELF_MUSHROOM_PLACE,
+        () -> SoundEvents.EMPTY,
+        ModSoundEvents.SHELF_MUSHROOM_FALL
+    );
+    public static final SoundType POPLAR_LEAVES = REGISTRIES.soundType(
+        ModSoundEvents.POPLAR_LEAVES_BREAK,
+        ModSoundEvents.POPLAR_LEAVES_STEP,
+        ModSoundEvents.POPLAR_LEAVES_PLACE,
+        ModSoundEvents.POPLAR_LEAVES_HIT,
+        ModSoundEvents.POPLAR_LEAVES_FALL
+    );
+    public static final SoundType STRAW_BED = REGISTRIES.soundType(
+        ModSoundEvents.STRAW_BED_BREAK,
+        ModSoundEvents.STRAW_BED_STEP,
+        ModSoundEvents.STRAW_BED_PLACE,
+        ModSoundEvents.STRAW_BED_HIT,
+        ModSoundEvents.STRAW_BED_FALL
+    );
+    public static final SoundType RED_SHRUB = REGISTRIES.soundType(
+        ModSoundEvents.RED_SHRUB_BREAK,
+        () -> SoundEvents.EMPTY,
+        ModSoundEvents.RED_SHRUB_PLACE,
+        () -> SoundEvents.EMPTY,
+        () -> SoundEvents.EMPTY
     );
 }

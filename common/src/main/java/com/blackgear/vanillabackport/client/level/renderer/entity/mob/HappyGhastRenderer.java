@@ -1,12 +1,12 @@
 package com.blackgear.vanillabackport.client.level.renderer.entity.mob;
 
-import com.blackgear.vanillabackport.client.level.layer.GhastHarnessHandler;
+import com.blackgear.vanillabackport.client.level.layer.GhastEquipmentManager;
 import com.blackgear.vanillabackport.client.level.layer.RopesLayer;
 import com.blackgear.vanillabackport.client.level.layer.SimpleEquipmentLayer;
 import com.blackgear.vanillabackport.client.level.model.entity.happy_ghast.HappyGhastHarnessModel;
 import com.blackgear.vanillabackport.client.level.model.entity.happy_ghast.HappyGhastModel;
 import com.blackgear.vanillabackport.client.registries.ModModelLayers;
-import com.blackgear.vanillabackport.common.level.entity.mob.animal.happy_ghast.HappyGhast;
+import com.blackgear.vanillabackport.common.level.entities.mob.animal.happy_ghast.HappyGhast;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -14,6 +14,8 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
+
+import java.util.Optional;
 
 @Environment(EnvType.CLIENT)
 public class HappyGhastRenderer extends MobRenderer<HappyGhast, HappyGhastModel<HappyGhast>> {
@@ -23,10 +25,9 @@ public class HappyGhastRenderer extends MobRenderer<HappyGhast, HappyGhastModel<
 
     public HappyGhastRenderer(EntityRendererProvider.Context context) {
         super(context, new HappyGhastModel<>(context.bakeLayer(ModModelLayers.HAPPY_GHAST)), 1.5F);
-        this.addLayer(SimpleEquipmentLayer.of(
+        this.addLayer(new SimpleEquipmentLayer<>(
             this,
-            GhastHarnessHandler.HARNESS_EQUIPMENT,
-            EquipmentSlot.CHEST,
+            entity -> Optional.ofNullable(GhastEquipmentManager.getTexture(entity.getItemBySlot(EquipmentSlot.CHEST).getItem())),
             HappyGhast::isHarnessed,
             new HappyGhastHarnessModel<>(context.bakeLayer(ModModelLayers.HAPPY_GHAST_HARNESS)),
             null

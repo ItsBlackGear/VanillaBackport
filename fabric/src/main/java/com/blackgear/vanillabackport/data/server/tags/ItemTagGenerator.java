@@ -34,12 +34,14 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
         }.addTags();
         this.handleConventionalTags();
         this.handleArchetypes();
-
+        
         this.getOrCreateTagBuilder(ItemTags.BOATS)
-            .add(ModItems.PALE_OAK_BOAT.get());
+            .add(ModItems.PALE_OAK_BOAT.get())
+            .add(ModItems.POPLAR_BOAT.get());
 
         this.getOrCreateTagBuilder(ItemTags.CHEST_BOATS)
-            .add(ModItems.PALE_OAK_CHEST_BOAT.get());
+            .add(ModItems.PALE_OAK_CHEST_BOAT.get())
+            .add(ModItems.POPLAR_CHEST_BOAT.get());
 
         this.getOrCreateTagBuilder(ModItemTags.BUNDLES)
             .add(
@@ -175,6 +177,20 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
         this.getOrCreateTagBuilder(ModItemTags.NAUTILUS_FOOD)
             .forceAddTag(ItemTags.FISHES)
             .addTag(ModItemTags.NAUTILUS_BUCKET_FOOD);
+        
+        this.getOrCreateTagBuilder(ModItemTags.LUNGE_ENCHANTABLE)
+            .addTag(ModItemTags.SPEARS);
+        
+        this.getOrCreateTagBuilder(ModItemTags.DISABLES_WAYPOINT_TRACKING)
+            .add(Items.CARVED_PUMPKIN)
+            .add(Items.PLAYER_HEAD, Items.CREEPER_HEAD, Items.ZOMBIE_HEAD, Items.SKELETON_SKULL, Items.WITHER_SKELETON_SKULL, Items.DRAGON_HEAD, Items.PIGLIN_HEAD);
+        
+        this.getOrCreateTagBuilder(ModItemTags.MUSHROOMS).add(
+            Items.BROWN_MUSHROOM,
+            Items.RED_MUSHROOM,
+            ModBlocks.SHELF_MUSHROOM.get().asItem())
+        .addOptionalTag(ForgeItemTags.MUSHROOMS)
+        .addOptionalTag(FabricItemTags.MUSHROOMS);
     }
 
     private void handleArchetypes() {
@@ -199,7 +215,9 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
                 Items.CHISELED_RED_SANDSTONE,
                 Items.CHISELED_SANDSTONE,
                 Items.CHISELED_STONE_BRICKS,
-                ModBlocks.CHISELED_SULFUR.get().asItem()
+                ModBlocks.CHISELED_SULFUR.get().asItem(),
+                ModBlocks.CHISELED_TUFF.get().asItem(),
+                ModBlocks.CHISELED_TUFF_BRICKS.get().asItem()
             )
             .add(ModBlocks.CINNABAR.get().asItem(), ModBlocks.CINNABAR_BRICKS.get().asItem(), Items.COBBLED_DEEPSLATE, Items.COBBLESTONE)
             // Cracked Blocks
@@ -242,7 +260,8 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
                 Items.POLISHED_DEEPSLATE,
                 Items.POLISHED_DIORITE,
                 Items.POLISHED_GRANITE,
-                ModBlocks.POLISHED_SULFUR.get().asItem()
+                ModBlocks.POLISHED_SULFUR.get().asItem(),
+                ModBlocks.POLISHED_TUFF.get().asItem()
             )
             .add(
                 Items.PRISMARINE,
@@ -262,6 +281,7 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
                 ModBlocks.SULFUR.get().asItem(),
                 ModBlocks.SULFUR_BRICKS.get().asItem(),
                 Items.TUFF,
+                ModBlocks.TUFF_BRICKS.get().asItem(),
                 Items.WARPED_NYLIUM
             )
             .forceAddTag(FabricItemTags.CONCRETE)
@@ -309,10 +329,10 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
             .add(Items.NETHERITE_BLOCK, Items.ANCIENT_DEBRIS)
             // Copper Blocks
             .add(Items.COPPER_BLOCK, Items.EXPOSED_COPPER, Items.WEATHERED_COPPER, Items.OXIDIZED_COPPER, Items.WAXED_COPPER_BLOCK, Items.WAXED_EXPOSED_COPPER, Items.WAXED_WEATHERED_COPPER, Items.WAXED_OXIDIZED_COPPER)
-//            .add(Items.COPPER_BULB)
+            .add(ModBlocks.COPPER_BULB.get().asItem(), ModBlocks.EXPOSED_COPPER_BULB.get().asItem(), ModBlocks.WEATHERED_COPPER_BULB.get().asItem(), ModBlocks.OXIDIZED_COPPER_BULB.get().asItem(), ModBlocks.WAXED_COPPER_BULB.get().asItem(), ModBlocks.WAXED_EXPOSED_COPPER_BULB.get().asItem(), ModBlocks.WAXED_WEATHERED_COPPER_BULB.get().asItem(), ModBlocks.WAXED_OXIDIZED_COPPER_BULB.get().asItem())
             // Cut Copper Blocks
             .add(Items.CUT_COPPER, Items.EXPOSED_CUT_COPPER, Items.WEATHERED_CUT_COPPER, Items.OXIDIZED_CUT_COPPER, Items.WAXED_CUT_COPPER, Items.WAXED_EXPOSED_CUT_COPPER, Items.WAXED_WEATHERED_CUT_COPPER, Items.WAXED_OXIDIZED_CUT_COPPER)
-//            .add(Items.CHISELED_COPPER);
+            .add(ModBlocks.CHISELED_COPPER.get().asItem(), ModBlocks.EXPOSED_CHISELED_COPPER.get().asItem(), ModBlocks.WEATHERED_CHISELED_COPPER.get().asItem(), ModBlocks.OXIDIZED_CHISELED_COPPER.get().asItem(), ModBlocks.WAXED_CHISELED_COPPER.get().asItem(), ModBlocks.WAXED_EXPOSED_CHISELED_COPPER.get().asItem(), ModBlocks.WAXED_WEATHERED_CHISELED_COPPER.get().asItem(), ModBlocks.WAXED_OXIDIZED_CHISELED_COPPER.get().asItem())
             // Metal Ores
             .forceAddTag(ItemTags.GOLD_ORES)
             .forceAddTag(ItemTags.IRON_ORES)
@@ -359,85 +379,63 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
     private void handleConventionalTags() {
         this.getDualTagBuilder(ForgeItemTags.EGGS, FabricItemTags.EGGS)
             .addTag(ModItemTags.EGGS);
-        
-        this.getDualTagBuilder(ForgeItemTags.DYED, FabricItemTags.DYED)
-            .addTag(ModItemTags.HARNESSES)
-            .add(
-                ModItems.BLACK_BUNDLE.get(),
-                ModItems.BLUE_BUNDLE.get(),
-                ModItems.BROWN_BUNDLE.get(),
-                ModItems.CYAN_BUNDLE.get(),
-                ModItems.GRAY_BUNDLE.get(),
-                ModItems.GREEN_BUNDLE.get(),
-                ModItems.LIGHT_BLUE_BUNDLE.get(),
-                ModItems.LIGHT_GRAY_BUNDLE.get(),
-                ModItems.LIME_BUNDLE.get(),
-                ModItems.MAGENTA_BUNDLE.get(),
-                ModItems.ORANGE_BUNDLE.get(),
-                ModItems.PINK_BUNDLE.get(),
-                ModItems.PURPLE_BUNDLE.get(),
-                ModItems.RED_BUNDLE.get(),
-                ModItems.YELLOW_BUNDLE.get(),
-                ModItems.WHITE_BUNDLE.get()
-            )
-            .addTag(ModItemTags.CUSHIONS)
-            .addTag(ModItemTags.WOOL_STAIRS)
-            .addTag(ModItemTags.WOOL_SLABS);
 
         this.getDualTagBuilder(ForgeItemTags.DYED_BLACK, FabricItemTags.DYED_BLACK)
-            .add(ModItems.BLACK_BUNDLE.get(), ModItems.BLACK_HARNESS.get());
+            .add(ModItems.BLACK_BUNDLE.get(), ModItems.BLACK_HARNESS.get(), ModItems.BLACK_CUSHION.get());
 
         this.getDualTagBuilder(ForgeItemTags.DYED_BLUE, FabricItemTags.DYED_BLUE)
-            .add(ModItems.BLUE_BUNDLE.get(), ModItems.BLUE_HARNESS.get());
+            .add(ModItems.BLUE_BUNDLE.get(), ModItems.BLUE_HARNESS.get(), ModItems.BLUE_CUSHION.get());
 
         this.getDualTagBuilder(ForgeItemTags.DYED_BROWN, FabricItemTags.DYED_BROWN)
-            .add(ModItems.BROWN_BUNDLE.get(), ModItems.BROWN_HARNESS.get());
+            .add(ModItems.BROWN_BUNDLE.get(), ModItems.BROWN_HARNESS.get(), ModItems.BROWN_CUSHION.get());
 
         this.getDualTagBuilder(ForgeItemTags.DYED_CYAN, FabricItemTags.DYED_CYAN)
-            .add(ModItems.CYAN_BUNDLE.get(), ModItems.CYAN_HARNESS.get());
+            .add(ModItems.CYAN_BUNDLE.get(), ModItems.CYAN_HARNESS.get(), ModItems.CYAN_CUSHION.get());
 
         this.getDualTagBuilder(ForgeItemTags.DYED_GRAY, FabricItemTags.DYED_GRAY)
-            .add(ModItems.GRAY_BUNDLE.get(), ModItems.GRAY_HARNESS.get());
+            .add(ModItems.GRAY_BUNDLE.get(), ModItems.GRAY_HARNESS.get(), ModItems.GRAY_CUSHION.get());
 
         this.getDualTagBuilder(ForgeItemTags.DYED_GREEN, FabricItemTags.DYED_GREEN)
-            .add(ModItems.GREEN_BUNDLE.get(), ModItems.GREEN_HARNESS.get());
+            .add(ModItems.GREEN_BUNDLE.get(), ModItems.GREEN_HARNESS.get(), ModItems.GRAY_CUSHION.get());
 
         this.getDualTagBuilder(ForgeItemTags.DYED_LIGHT_BLUE, FabricItemTags.DYED_LIGHT_BLUE)
-            .add(ModItems.LIGHT_BLUE_BUNDLE.get(), ModItems.LIGHT_BLUE_HARNESS.get());
+            .add(ModItems.LIGHT_BLUE_BUNDLE.get(), ModItems.LIGHT_BLUE_HARNESS.get(), ModItems.LIGHT_BLUE_CUSHION.get());
 
         this.getDualTagBuilder(ForgeItemTags.DYED_LIGHT_GRAY, FabricItemTags.DYED_LIGHT_GRAY)
-            .add(ModItems.LIGHT_GRAY_BUNDLE.get(), ModItems.LIGHT_GRAY_HARNESS.get());
+            .add(ModItems.LIGHT_GRAY_BUNDLE.get(), ModItems.LIGHT_GRAY_HARNESS.get(), ModItems.LIGHT_GRAY_CUSHION.get());
 
         this.getDualTagBuilder(ForgeItemTags.DYED_LIME, FabricItemTags.DYED_LIME)
-            .add(ModItems.LIME_BUNDLE.get(), ModItems.LIME_HARNESS.get());
+            .add(ModItems.LIME_BUNDLE.get(), ModItems.LIME_HARNESS.get(), ModItems.LIME_CUSHION.get());
 
         this.getDualTagBuilder(ForgeItemTags.DYED_MAGENTA, FabricItemTags.DYED_MAGENTA)
-            .add(ModItems.MAGENTA_BUNDLE.get(), ModItems.MAGENTA_HARNESS.get());
+            .add(ModItems.MAGENTA_BUNDLE.get(), ModItems.MAGENTA_HARNESS.get(), ModItems.MAGENTA_CUSHION.get());
 
         this.getDualTagBuilder(ForgeItemTags.DYED_ORANGE, FabricItemTags.DYED_ORANGE)
-            .add(ModItems.ORANGE_BUNDLE.get(), ModItems.ORANGE_HARNESS.get());
+            .add(ModItems.ORANGE_BUNDLE.get(), ModItems.ORANGE_HARNESS.get(), ModItems.ORANGE_CUSHION.get());
 
         this.getDualTagBuilder(ForgeItemTags.DYED_PINK, FabricItemTags.DYED_PINK)
-            .add(ModItems.PINK_BUNDLE.get(), ModItems.PINK_HARNESS.get());
+            .add(ModItems.PINK_BUNDLE.get(), ModItems.PINK_HARNESS.get(), ModItems.PINK_CUSHION.get());
 
         this.getDualTagBuilder(ForgeItemTags.DYED_PURPLE, FabricItemTags.DYED_PURPLE)
-            .add(ModItems.PURPLE_BUNDLE.get(), ModItems.PURPLE_HARNESS.get());
+            .add(ModItems.PURPLE_BUNDLE.get(), ModItems.PURPLE_HARNESS.get(), ModItems.PURPLE_CUSHION.get());
 
         this.getDualTagBuilder(ForgeItemTags.DYED_RED, FabricItemTags.DYED_RED)
-            .add(ModItems.RED_BUNDLE.get(), ModItems.RED_HARNESS.get());
+            .add(ModItems.RED_BUNDLE.get(), ModItems.RED_HARNESS.get(), ModItems.RED_CUSHION.get());
 
         this.getDualTagBuilder(ForgeItemTags.DYED_YELLOW, FabricItemTags.DYED_YELLOW)
-            .add(ModItems.YELLOW_BUNDLE.get(), ModItems.YELLOW_HARNESS.get());
+            .add(ModItems.YELLOW_BUNDLE.get(), ModItems.YELLOW_HARNESS.get(), ModItems.YELLOW_CUSHION.get());
 
         this.getDualTagBuilder(ForgeItemTags.DYED_WHITE, FabricItemTags.DYED_WHITE)
-            .add(ModItems.WHITE_BUNDLE.get(), ModItems.WHITE_HARNESS.get());
+            .add(ModItems.WHITE_BUNDLE.get(), ModItems.WHITE_HARNESS.get(), ModItems.WHITE_CUSHION.get());
+
+      this.getDualTagBuilder(ForgeItemTags.NUGGETS, FabricItemTags.NUGGETS)
+            .add(ModItems.COPPER_NUGGET.get());
+      
+      this.getDualTagBuilder(ForgeItemTags.NUGGETS_COPPER, FabricItemTags.NUGGETS_COPPER)
+            .add(ModItems.COPPER_NUGGET.get());
 
         this.getDualTagBuilder(ForgeItemTags.MUSIC_DISCS, FabricItemTags.MUSIC_DISCS)
-            .add(
-                ModItems.MUSIC_DISC_TEARS.get(),
-                ModItems.MUSIC_DISC_LAVA_CHICKEN.get(),
-                ModItems.MUSIC_DISC_BOUNCE.get()
-            );
+            .add(ModItems.MUSIC_DISC_TEARS.get(), ModItems.MUSIC_DISC_LAVA_CHICKEN.get(), ModItems.MUSIC_DISC_BOUNCE.get());
 
         this.getDualTagBuilder(ForgeItemTags.GLAZED_TERRACOTTA, FabricItemTags.GLAZED_TERRACOTTA)
             .add(
@@ -500,10 +498,15 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
             );
 
         this.getOrCreateTagBuilder(CreateItemTags.MODDED_STRIPPED_WOOD)
-            .add(ModBlocks.STRIPPED_PALE_OAK_WOOD.get().asItem());
+            .add(ModBlocks.STRIPPED_PALE_OAK_WOOD.get().asItem())
+            .add(ModBlocks.STRIPPED_POPLAR_WOOD.get().asItem());
 
         this.getOrCreateTagBuilder(CreateItemTags.MODDED_STRIPPED_LOGS)
-            .add(ModBlocks.STRIPPED_PALE_OAK_LOG.get().asItem());
+            .add(ModBlocks.STRIPPED_PALE_OAK_LOG.get().asItem())
+            .add(ModBlocks.STRIPPED_POPLAR_LOG.get().asItem());
+        
+        this.getOrCreateTagBuilder(ModItemTags.SHEARABLE_FROM_COPPER_GOLEM)
+            .add(Items.POPPY);
         
         this.getDualTagBuilder(FabricItemTags.HORSE_ARMOR, ForgeItemTags.HORSE_ARMOR)
             .add(ModItems.COPPER_HORSE_ARMOR.get())

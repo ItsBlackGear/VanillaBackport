@@ -5,9 +5,11 @@ import com.blackgear.vanillabackport.common.integrations.dispenser.ArmadilloBrus
 import com.blackgear.vanillabackport.common.integrations.dispenser.BoatDispenseBehavior;
 import com.blackgear.vanillabackport.common.integrations.dispenser.EggVariantProjectileDispenseBehavior;
 import com.blackgear.vanillabackport.common.integrations.dispenser.SulfurCubeBucketDispenseBehavior;
-import com.blackgear.vanillabackport.common.level.entity.mob.animal.chicken.ChickenVariants;
+import com.blackgear.vanillabackport.common.level.entities.mob.animal.chicken.ChickenVariants;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
+import com.blackgear.vanillabackport.common.registries.entities.ModBoatTypes;
 import com.blackgear.vanillabackport.common.registries.items.ModItems;
+import com.blackgear.vanillabackport.core.data.tags.ModItemTags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
 
@@ -19,56 +21,9 @@ public class BlockIntegrations {
         event.registerFuelItem(ModBlocks.LEAF_LITTER.get(), 100);
         
         // Miscellaneous
-        event.registerFuelItem(ModBlocks.WHITE_WOOL_STAIRS.get(), 100);
-        event.registerFuelItem(ModBlocks.ORANGE_WOOL_STAIRS.get(), 100);
-        event.registerFuelItem(ModBlocks.MAGENTA_WOOL_STAIRS.get(), 100);
-        event.registerFuelItem(ModBlocks.LIGHT_BLUE_WOOL_STAIRS.get(), 100);
-        event.registerFuelItem(ModBlocks.YELLOW_WOOL_STAIRS.get(), 100);
-        event.registerFuelItem(ModBlocks.LIME_WOOL_STAIRS.get(), 100);
-        event.registerFuelItem(ModBlocks.PINK_WOOL_STAIRS.get(), 100);
-        event.registerFuelItem(ModBlocks.GRAY_WOOL_STAIRS.get(), 100);
-        event.registerFuelItem(ModBlocks.LIGHT_GRAY_WOOL_STAIRS.get(), 100);
-        event.registerFuelItem(ModBlocks.CYAN_WOOL_STAIRS.get(), 100);
-        event.registerFuelItem(ModBlocks.PURPLE_WOOL_STAIRS.get(), 100);
-        event.registerFuelItem(ModBlocks.BLUE_WOOL_STAIRS.get(), 100);
-        event.registerFuelItem(ModBlocks.BROWN_WOOL_STAIRS.get(), 100);
-        event.registerFuelItem(ModBlocks.GREEN_WOOL_STAIRS.get(), 100);
-        event.registerFuelItem(ModBlocks.RED_WOOL_STAIRS.get(), 100);
-        event.registerFuelItem(ModBlocks.BLACK_WOOL_STAIRS.get(), 100);
-        
-        event.registerFuelItem(ModBlocks.WHITE_WOOL_SLAB.get(), 100);
-        event.registerFuelItem(ModBlocks.ORANGE_WOOL_SLAB.get(), 100);
-        event.registerFuelItem(ModBlocks.MAGENTA_WOOL_SLAB.get(), 100);
-        event.registerFuelItem(ModBlocks.LIGHT_BLUE_WOOL_SLAB.get(), 100);
-        event.registerFuelItem(ModBlocks.YELLOW_WOOL_SLAB.get(), 100);
-        event.registerFuelItem(ModBlocks.LIME_WOOL_SLAB.get(), 100);
-        event.registerFuelItem(ModBlocks.PINK_WOOL_SLAB.get(), 100);
-        event.registerFuelItem(ModBlocks.GRAY_WOOL_SLAB.get(), 100);
-        event.registerFuelItem(ModBlocks.LIGHT_GRAY_WOOL_SLAB.get(), 100);
-        event.registerFuelItem(ModBlocks.CYAN_WOOL_SLAB.get(), 100);
-        event.registerFuelItem(ModBlocks.PURPLE_WOOL_SLAB.get(), 100);
-        event.registerFuelItem(ModBlocks.BLUE_WOOL_SLAB.get(), 100);
-        event.registerFuelItem(ModBlocks.BROWN_WOOL_SLAB.get(), 100);
-        event.registerFuelItem(ModBlocks.GREEN_WOOL_SLAB.get(), 100);
-        event.registerFuelItem(ModBlocks.RED_WOOL_SLAB.get(), 100);
-        event.registerFuelItem(ModBlocks.BLACK_WOOL_SLAB.get(), 100);
-        
-        event.registerFuelItem(ModItems.WHITE_CUSHION.get(), 200);
-        event.registerFuelItem(ModItems.ORANGE_CUSHION.get(), 200);
-        event.registerFuelItem(ModItems.MAGENTA_CUSHION.get(), 200);
-        event.registerFuelItem(ModItems.LIGHT_BLUE_CUSHION.get(), 200);
-        event.registerFuelItem(ModItems.YELLOW_CUSHION.get(), 200);
-        event.registerFuelItem(ModItems.LIME_CUSHION.get(), 200);
-        event.registerFuelItem(ModItems.PINK_CUSHION.get(), 200);
-        event.registerFuelItem(ModItems.GRAY_CUSHION.get(), 200);
-        event.registerFuelItem(ModItems.LIGHT_GRAY_CUSHION.get(), 200);
-        event.registerFuelItem(ModItems.CYAN_CUSHION.get(), 200);
-        event.registerFuelItem(ModItems.PURPLE_CUSHION.get(), 200);
-        event.registerFuelItem(ModItems.BLUE_CUSHION.get(), 200);
-        event.registerFuelItem(ModItems.BROWN_CUSHION.get(), 200);
-        event.registerFuelItem(ModItems.GREEN_CUSHION.get(), 200);
-        event.registerFuelItem(ModItems.RED_CUSHION.get(), 200);
-        event.registerFuelItem(ModItems.BLACK_CUSHION.get(), 200);
+        event.registerFuelItem(ModItemTags.WOOL_STAIRS, 100);
+        event.registerFuelItem(ModItemTags.WOOL_SLABS, 100);
+        event.registerFuelItem(ModItemTags.CUSHIONS, 200);
     }
     
     private static void registerFlammables(Event event) {
@@ -98,7 +53,9 @@ public class BlockIntegrations {
         event.registerFlammableBlock(ModBlocks.TALL_DRY_GRASS.get(), 60, 100);
         event.registerFlammableBlock(ModBlocks.LEAF_LITTER.get(), 60, 100);
         
-        // Miscellaneous
+        // Wilderness Bound
+        event.registerFlammableBlock(ModBlocks.STRAW_BED.get(), 30, 60);
+        
         event.registerFlammableBlock(ModBlocks.WHITE_WOOL_STAIRS.get(), 30, 60);
         event.registerFlammableBlock(ModBlocks.ORANGE_WOOL_STAIRS.get(), 30, 60);
         event.registerFlammableBlock(ModBlocks.MAGENTA_WOOL_STAIRS.get(), 30, 60);
@@ -140,7 +97,7 @@ public class BlockIntegrations {
         event.registerCompostableItem(ModBlocks.PALE_OAK_SAPLING.get(), 0.3F);
         event.registerCompostableItem(ModBlocks.PALE_MOSS_CARPET.get(), 0.3F);
         event.registerCompostableItem(ModBlocks.PALE_HANGING_MOSS.get(), 0.3F);
-        event.registerCompostableItem(ModBlocks.PALE_MOSS_BLOCK.get(), 0.3F);
+        event.registerCompostableItem(ModBlocks.PALE_MOSS_BLOCK.get(), 0.65F);
         event.registerCompostableItem(ModBlocks.OPEN_EYEBLOSSOM.get(), 0.65F);
         event.registerCompostableItem(ModBlocks.CLOSED_EYEBLOSSOM.get(), 0.65F);
         
@@ -158,9 +115,38 @@ public class BlockIntegrations {
         // The Garden Awakens
         event.registerStrippableBlock(ModBlocks.PALE_OAK_LOG.get(), ModBlocks.STRIPPED_PALE_OAK_LOG.get());
         event.registerStrippableBlock(ModBlocks.PALE_OAK_WOOD.get(), ModBlocks.STRIPPED_PALE_OAK_WOOD.get());
+        
+        // Wilderness Bound
+        event.registerStrippableBlock(ModBlocks.POPLAR_LOG.get(), ModBlocks.STRIPPED_POPLAR_LOG.get());
+        event.registerStrippableBlock(ModBlocks.POPLAR_WOOD.get(), ModBlocks.STRIPPED_POPLAR_WOOD.get());
     }
     
     private static void registerWaxables(Event event) {
+        event.registerWaxableBlock(ModBlocks.COPPER_BULB.get(), ModBlocks.WAXED_COPPER_BULB.get());
+        event.registerWaxableBlock(ModBlocks.EXPOSED_COPPER_BULB.get(), ModBlocks.WAXED_EXPOSED_COPPER_BULB.get());
+        event.registerWaxableBlock(ModBlocks.WEATHERED_COPPER_BULB.get(), ModBlocks.WAXED_WEATHERED_COPPER_BULB.get());
+        event.registerWaxableBlock(ModBlocks.OXIDIZED_COPPER_BULB.get(), ModBlocks.WAXED_OXIDIZED_COPPER_BULB.get());
+        
+        event.registerWaxableBlock(ModBlocks.CHISELED_COPPER.get(), ModBlocks.WAXED_CHISELED_COPPER.get());
+        event.registerWaxableBlock(ModBlocks.EXPOSED_CHISELED_COPPER.get(), ModBlocks.WAXED_EXPOSED_CHISELED_COPPER.get());
+        event.registerWaxableBlock(ModBlocks.WEATHERED_CHISELED_COPPER.get(), ModBlocks.WAXED_WEATHERED_CHISELED_COPPER.get());
+        event.registerWaxableBlock(ModBlocks.OXIDIZED_CHISELED_COPPER.get(), ModBlocks.WAXED_OXIDIZED_CHISELED_COPPER.get());
+        
+        event.registerWaxableBlock(ModBlocks.COPPER_GRATE.get(), ModBlocks.WAXED_COPPER_GRATE.get());
+        event.registerWaxableBlock(ModBlocks.EXPOSED_COPPER_GRATE.get(), ModBlocks.WAXED_EXPOSED_COPPER_GRATE.get());
+        event.registerWaxableBlock(ModBlocks.WEATHERED_COPPER_GRATE.get(), ModBlocks.WAXED_WEATHERED_COPPER_GRATE.get());
+        event.registerWaxableBlock(ModBlocks.OXIDIZED_COPPER_GRATE.get(), ModBlocks.WAXED_OXIDIZED_COPPER_GRATE.get());
+        
+        event.registerWaxableBlock(ModBlocks.COPPER_DOOR.get(), ModBlocks.WAXED_COPPER_DOOR.get());
+        event.registerWaxableBlock(ModBlocks.EXPOSED_COPPER_DOOR.get(), ModBlocks.WAXED_EXPOSED_COPPER_DOOR.get());
+        event.registerWaxableBlock(ModBlocks.WEATHERED_COPPER_DOOR.get(), ModBlocks.WAXED_WEATHERED_COPPER_DOOR.get());
+        event.registerWaxableBlock(ModBlocks.OXIDIZED_COPPER_DOOR.get(), ModBlocks.WAXED_OXIDIZED_COPPER_DOOR.get());
+        
+        event.registerWaxableBlock(ModBlocks.COPPER_TRAPDOOR.get(), ModBlocks.WAXED_COPPER_TRAPDOOR.get());
+        event.registerWaxableBlock(ModBlocks.EXPOSED_COPPER_TRAPDOOR.get(), ModBlocks.WAXED_EXPOSED_COPPER_TRAPDOOR.get());
+        event.registerWaxableBlock(ModBlocks.WEATHERED_COPPER_TRAPDOOR.get(), ModBlocks.WAXED_WEATHERED_COPPER_TRAPDOOR.get());
+        event.registerWaxableBlock(ModBlocks.OXIDIZED_COPPER_TRAPDOOR.get(), ModBlocks.WAXED_OXIDIZED_COPPER_TRAPDOOR.get());
+        
         event.registerWaxableBlock(ModBlocks.COPPER_CHEST.get(), ModBlocks.WAXED_COPPER_CHEST.get());
         event.registerWaxableBlock(ModBlocks.EXPOSED_COPPER_CHEST.get(), ModBlocks.WAXED_EXPOSED_COPPER_CHEST.get());
         event.registerWaxableBlock(ModBlocks.WEATHERED_COPPER_CHEST.get(), ModBlocks.WAXED_WEATHERED_COPPER_CHEST.get());
@@ -181,6 +167,26 @@ public class BlockIntegrations {
     }
     
     private static void registerOxidables(Event event) {
+        event.registerOxidableBlock(ModBlocks.COPPER_BULB.get(), ModBlocks.EXPOSED_COPPER_BULB.get());
+        event.registerOxidableBlock(ModBlocks.EXPOSED_COPPER_BULB.get(), ModBlocks.WEATHERED_COPPER_BULB.get());
+        event.registerOxidableBlock(ModBlocks.WEATHERED_COPPER_BULB.get(), ModBlocks.OXIDIZED_COPPER_BULB.get());
+        
+        event.registerOxidableBlock(ModBlocks.CHISELED_COPPER.get(), ModBlocks.EXPOSED_CHISELED_COPPER.get());
+        event.registerOxidableBlock(ModBlocks.EXPOSED_CHISELED_COPPER.get(), ModBlocks.WEATHERED_CHISELED_COPPER.get());
+        event.registerOxidableBlock(ModBlocks.WEATHERED_CHISELED_COPPER.get(), ModBlocks.OXIDIZED_CHISELED_COPPER.get());
+        
+        event.registerOxidableBlock(ModBlocks.COPPER_GRATE.get(), ModBlocks.EXPOSED_COPPER_GRATE.get());
+        event.registerOxidableBlock(ModBlocks.EXPOSED_COPPER_GRATE.get(), ModBlocks.WEATHERED_COPPER_GRATE.get());
+        event.registerOxidableBlock(ModBlocks.WEATHERED_COPPER_GRATE.get(), ModBlocks.OXIDIZED_COPPER_GRATE.get());
+        
+        event.registerOxidableBlock(ModBlocks.COPPER_DOOR.get(), ModBlocks.EXPOSED_COPPER_DOOR.get());
+        event.registerOxidableBlock(ModBlocks.EXPOSED_COPPER_DOOR.get(), ModBlocks.WEATHERED_COPPER_DOOR.get());
+        event.registerOxidableBlock(ModBlocks.WEATHERED_COPPER_DOOR.get(), ModBlocks.OXIDIZED_COPPER_DOOR.get());
+        
+        event.registerOxidableBlock(ModBlocks.COPPER_TRAPDOOR.get(), ModBlocks.EXPOSED_COPPER_TRAPDOOR.get());
+        event.registerOxidableBlock(ModBlocks.EXPOSED_COPPER_TRAPDOOR.get(), ModBlocks.WEATHERED_COPPER_TRAPDOOR.get());
+        event.registerOxidableBlock(ModBlocks.WEATHERED_COPPER_TRAPDOOR.get(), ModBlocks.OXIDIZED_COPPER_TRAPDOOR.get());
+        
         event.registerOxidableBlock(ModBlocks.COPPER_CHEST.get(), ModBlocks.EXPOSED_COPPER_CHEST.get());
         event.registerOxidableBlock(ModBlocks.EXPOSED_COPPER_CHEST.get(), ModBlocks.WEATHERED_COPPER_CHEST.get());
         event.registerOxidableBlock(ModBlocks.WEATHERED_COPPER_CHEST.get(), ModBlocks.OXIDIZED_COPPER_CHEST.get());
@@ -203,8 +209,8 @@ public class BlockIntegrations {
         event.registerDispenserBehavior(Items.BRUSH, new ArmadilloBrushDispenseBehavior());
         
         // The Garden Awakens
-        event.registerDispenserBehavior(ModItems.PALE_OAK_BOAT.get(), new BoatDispenseBehavior());
-        event.registerDispenserBehavior(ModItems.PALE_OAK_CHEST_BOAT.get(), new BoatDispenseBehavior(true));
+        event.registerDispenserBehavior(ModItems.PALE_OAK_BOAT.get(), new BoatDispenseBehavior(ModBoatTypes.PALE_OAK));
+        event.registerDispenserBehavior(ModItems.PALE_OAK_CHEST_BOAT.get(), new BoatDispenseBehavior(ModBoatTypes.PALE_OAK, true));
         
         // Spring to Life
         event.registerDispenserBehavior(ModItems.BLUE_EGG.get(), new EggVariantProjectileDispenseBehavior(ChickenVariants.COLD));
@@ -212,6 +218,10 @@ public class BlockIntegrations {
         
         // Chaos Cubed
         event.registerDispenserBehavior(ModItems.SULFUR_CUBE_BUCKET.get(), new SulfurCubeBucketDispenseBehavior());
+        
+        // Wilderness Bound
+        event.registerDispenserBehavior(ModItems.POPLAR_BOAT.get(), new BoatDispenseBehavior(ModBoatTypes.POPLAR));
+        event.registerDispenserBehavior(ModItems.POPLAR_CHEST_BOAT.get(), new BoatDispenseBehavior(ModBoatTypes.POPLAR, true));
     }
     
     public static void bootstrap(Event event) {

@@ -1,20 +1,23 @@
 package com.blackgear.vanillabackport.data.client.model.provider;
 
-import com.blackgear.vanillabackport.common.level.block.CreakingHeartBlock;
-import com.blackgear.vanillabackport.common.level.block.DriedGhastBlock;
-import com.blackgear.vanillabackport.common.level.block.HangingMossBlock;
-import com.blackgear.vanillabackport.common.level.block.MossyCarpetBlock;
-import com.blackgear.vanillabackport.common.level.block.states.CreakingHeartState;
-import com.blackgear.vanillabackport.common.level.block.states.SideChainPart;
+import com.blackgear.vanillabackport.common.level.blocks.CreakingHeartBlock;
+import com.blackgear.vanillabackport.common.level.blocks.DriedGhastBlock;
+import com.blackgear.vanillabackport.common.level.blocks.HangingMossBlock;
+import com.blackgear.vanillabackport.common.level.blocks.MossyCarpetBlock;
+import com.blackgear.vanillabackport.common.level.blocks.CreakingHeartState;
+import com.blackgear.vanillabackport.common.level.blocks.SideChainPart;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlockStateProperties;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
 import com.blackgear.vanillabackport.data.client.model.ModModelTemplates;
 import com.blackgear.vanillabackport.data.client.model.ModTextureMappings;
 import com.blackgear.vanillabackport.data.client.model.ModTexturedModels;
+import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.Maps;
 import com.google.gson.JsonElement;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.Util;
 import net.minecraft.core.Direction;
+import net.minecraft.data.BlockFamily;
 import net.minecraft.data.models.BlockModelGenerators;
 import net.minecraft.data.models.blockstates.*;
 import net.minecraft.data.models.model.*;
@@ -27,12 +30,33 @@ import net.minecraft.world.level.block.state.properties.*;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
 public class VanillaBlockModels extends BlockModelGenerators {
+    private static final Map<Block, TexturedModel> TEXTURED_MODELS = ImmutableMap.<Block, TexturedModel>builder()
+        .put(ModBlocks.CHISELED_TUFF_BRICKS.get(), TexturedModel.COLUMN_WITH_WALL.get(ModBlocks.CHISELED_TUFF_BRICKS.get()))
+        .put(ModBlocks.CHISELED_TUFF.get(), TexturedModel.COLUMN_WITH_WALL.get(ModBlocks.CHISELED_TUFF.get()))
+        .build();
+    static final Map<BlockFamily.Variant, BiConsumer<BlockFamilyProvider, Block>> SHAPE_CONSUMERS = ImmutableMap.<BlockFamily.Variant, BiConsumer<BlockFamilyProvider, Block>>builder()
+        .put(BlockFamily.Variant.BUTTON, BlockFamilyProvider::button)
+        .put(BlockFamily.Variant.DOOR, BlockFamilyProvider::door)
+        .put(BlockFamily.Variant.CHISELED, BlockFamilyProvider::fullBlockVariant)
+        .put(BlockFamily.Variant.CRACKED, BlockFamilyProvider::fullBlockVariant)
+        .put(BlockFamily.Variant.CUSTOM_FENCE, BlockFamilyProvider::customFence)
+        .put(BlockFamily.Variant.FENCE, BlockFamilyProvider::fence)
+        .put(BlockFamily.Variant.CUSTOM_FENCE_GATE, BlockFamilyProvider::customFenceGate)
+        .put(BlockFamily.Variant.FENCE_GATE, BlockFamilyProvider::fenceGate)
+        .put(BlockFamily.Variant.SIGN, BlockFamilyProvider::sign)
+        .put(BlockFamily.Variant.SLAB, BlockFamilyProvider::slab)
+        .put(BlockFamily.Variant.STAIRS, BlockFamilyProvider::stairs)
+        .put(BlockFamily.Variant.PRESSURE_PLATE, BlockFamilyProvider::pressurePlate)
+        .put(BlockFamily.Variant.TRAPDOOR, BlockFamilyProvider::trapdoor)
+        .put(BlockFamily.Variant.WALL, BlockFamilyProvider::wall)
+        .build();
     private static final ResourceLocation TEMPLATE_SPAWN_EGG = ModelLocationUtils.decorateItemModelLocation("template_spawn_egg");
     private static final List<Pair<Direction, Function<ResourceLocation, Variant>>> MULTIFACE_GENERATOR = List.of(
         Pair.of(Direction.NORTH, path -> Variant.variant().with(VariantProperties.MODEL, path)),
@@ -60,6 +84,11 @@ public class VanillaBlockModels extends BlockModelGenerators {
 
     public VanillaBlockModels(Consumer<BlockStateGenerator> blockStateOutput, BiConsumer<ResourceLocation, Supplier<JsonElement>> modelOutput, Consumer<Item> skippedAutoModelsOutput) {
         super(blockStateOutput, modelOutput, skippedAutoModelsOutput);
+    }
+    
+    public BlockFamilyProvider familyBuilder(Block block) {
+        TexturedModel texturedModel = TEXTURED_MODELS.getOrDefault(block, TexturedModel.CUBE.get(block));
+        return new BlockFamilyProvider(texturedModel.getMapping()).fullBlock(block, texturedModel.getTemplate());
     }
 
     public void createSpawnEgg(ItemLike item) {
@@ -445,6 +474,54 @@ public class VanillaBlockModels extends BlockModelGenerators {
             );
     }
     
+    public void createCopperBulb(Block bulbBlock) {
+        ResourceLocation baseModel = ModelTemplates.CUBE_ALL.create(bulbBlock, TextureMapping.cube(bulbBlock), this.modelOutput);
+        ResourceLocation baseModelPowered = this.createSuffixedVariant(bulbBlock, "_powered", ModelTemplates.CUBE_ALL, TextureMapping::cube);
+        ResourceLocation litModel = this.createSuffixedVariant(bulbBlock, "_lit", ModelTemplates.CUBE_ALL, TextureMapping::cube);
+        ResourceLocation litModelPowered = this.createSuffixedVariant(bulbBlock, "_lit_powered", ModelTemplates.CUBE_ALL, TextureMapping::cube);
+        this.blockStateOutput.accept(this.createCopperBulb(bulbBlock, baseModel, litModel, baseModelPowered, litModelPowered));
+    }
+    
+    private BlockStateGenerator createCopperBulb(Block bulbBlock, ResourceLocation unlit, ResourceLocation unlitPowered, ResourceLocation lit, ResourceLocation litPowered) {
+        return MultiVariantGenerator.multiVariant(bulbBlock)
+            .with(PropertyDispatch.properties(BlockStateProperties.LIT, BlockStateProperties.POWERED)
+                .generate((emittingLight, powered) -> emittingLight
+                    ? Variant.variant().with(VariantProperties.MODEL, powered ? litPowered : unlitPowered)
+                    : Variant.variant().with(VariantProperties.MODEL, powered ? lit : unlit)
+                )
+            );
+    }
+    
+    public void copyCopperBulbModel(Block bulbBlock, Block sourceBlock) {
+        ResourceLocation baseModel = ModelLocationUtils.getModelLocation(bulbBlock);
+        ResourceLocation baseModelPowered = ModelLocationUtils.getModelLocation(bulbBlock, "_powered");
+        ResourceLocation litModel = ModelLocationUtils.getModelLocation(bulbBlock, "_lit");
+        ResourceLocation litModelPowered = ModelLocationUtils.getModelLocation(bulbBlock, "_lit_powered");
+        this.delegateItemModel(sourceBlock, ModelLocationUtils.getModelLocation(bulbBlock.asItem()));
+        this.blockStateOutput.accept(this.createCopperBulb(sourceBlock, baseModel, litModel, baseModelPowered, litModelPowered));
+    }
+    
+    public void copyDoorModel(Block doorBlock, Block sourceBlock) {
+        ResourceLocation doorBottomLeft = ModelLocationUtils.getModelLocation(doorBlock, ModelTemplates.DOOR_BOTTOM_LEFT.suffix.orElse(""));
+        ResourceLocation doorBottomLeftOpen = ModelLocationUtils.getModelLocation(doorBlock, ModelTemplates.DOOR_BOTTOM_LEFT_OPEN.suffix.orElse(""));
+        ResourceLocation doorBottomRight = ModelLocationUtils.getModelLocation(doorBlock, ModelTemplates.DOOR_BOTTOM_RIGHT.suffix.orElse(""));
+        ResourceLocation doorBottomRightOpen = ModelLocationUtils.getModelLocation(doorBlock, ModelTemplates.DOOR_BOTTOM_RIGHT_OPEN.suffix.orElse(""));
+        ResourceLocation doorTopLeft = ModelLocationUtils.getModelLocation(doorBlock, ModelTemplates.DOOR_TOP_LEFT.suffix.orElse(""));
+        ResourceLocation doorTopLeftOpen = ModelLocationUtils.getModelLocation(doorBlock, ModelTemplates.DOOR_TOP_LEFT_OPEN.suffix.orElse(""));
+        ResourceLocation doorTopRight = ModelLocationUtils.getModelLocation(doorBlock, ModelTemplates.DOOR_TOP_RIGHT.suffix.orElse(""));
+        ResourceLocation doorTopRightOpen = ModelLocationUtils.getModelLocation(doorBlock, ModelTemplates.DOOR_TOP_RIGHT_OPEN.suffix.orElse(""));
+        this.delegateItemModel(sourceBlock, ModelLocationUtils.getModelLocation(doorBlock.asItem()));
+        this.blockStateOutput.accept(createDoor(sourceBlock, doorBottomLeft, doorBottomLeftOpen, doorBottomRight, doorBottomRightOpen, doorTopLeft, doorTopLeftOpen, doorTopRight, doorTopRightOpen));
+    }
+    
+    public void copyTrapdoorModel(Block trapdoorBlock, Block sourceBlock) {
+        ResourceLocation top = ModelLocationUtils.getModelLocation(trapdoorBlock, ModelTemplates.TRAPDOOR_TOP.suffix.orElse(""));
+        ResourceLocation bottom = ModelLocationUtils.getModelLocation(trapdoorBlock, ModelTemplates.TRAPDOOR_BOTTOM.suffix.orElse(""));
+        ResourceLocation open = ModelLocationUtils.getModelLocation(trapdoorBlock, ModelTemplates.TRAPDOOR_OPEN.suffix.orElse(""));
+        this.delegateItemModel(sourceBlock, ModelLocationUtils.getModelLocation(trapdoorBlock.asItem()));
+        this.blockStateOutput.accept(createTrapdoor(sourceBlock, top, bottom, open));
+    }
+    
     public void createLightningRod(Block unwaxed, Block waxed) {
         if (unwaxed == null) {
             ResourceLocation on = ModelLocationUtils.getModelLocation(Blocks.LIGHTNING_ROD, "_on");
@@ -517,6 +594,212 @@ public class VanillaBlockModels extends BlockModelGenerators {
         } else {
             Condition.TerminalCondition powered = Condition.condition().term(BlockStateProperties.POWERED, isPowered);
             return sideChainPart != null ? Condition.and(facing, powered, Condition.condition().term(ModBlockStateProperties.SIDE_CHAIN_PART, sideChainPart)) : Condition.and(facing, powered);
+        }
+    }
+    
+    public void createShelfMushroom() {
+        ResourceLocation shelfMushroom = ModelLocationUtils.getModelLocation(ModBlocks.SHELF_MUSHROOM.get(), "_stage0");
+        this.delegateItemModel(ModBlocks.SHELF_MUSHROOM.get(), shelfMushroom);
+        this.blockStateOutput.accept(MultiVariantGenerator.multiVariant(ModBlocks.SHELF_MUSHROOM.get())
+            .with(PropertyDispatch.property(BlockStateProperties.AGE_1)
+                .select(0, Variant.variant().with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(ModBlocks.SHELF_MUSHROOM.get(), "_stage0")))
+                .select(1, Variant.variant().with(VariantProperties.MODEL, ModelLocationUtils.getModelLocation(ModBlocks.SHELF_MUSHROOM.get(), "_stage1"))))
+            .with(createHorizontalFacingDispatch())
+        );
+    }
+    
+    public void createStrawBed() {
+        Block strawBed = ModBlocks.STRAW_BED.get();
+        ResourceLocation head = ModelLocationUtils.getModelLocation(strawBed, "_head");
+        ResourceLocation foot = ModelLocationUtils.getModelLocation(strawBed, "_foot");
+        this.skipAutoItemBlock(strawBed);
+        this.blockStateOutput.accept(createStrawBed(strawBed, head, foot));
+    }
+    
+    private static MultiVariantGenerator createStrawBed(Block block, ResourceLocation headModelLocation, ResourceLocation footModelLocation) {
+        return MultiVariantGenerator.multiVariant(block)
+            .with(
+                PropertyDispatch.properties(BlockStateProperties.HORIZONTAL_FACING, BlockStateProperties.BED_PART)
+                    .select(Direction.NORTH, BedPart.HEAD, Variant.variant().with(VariantProperties.MODEL, headModelLocation).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180))
+                    .select(Direction.SOUTH, BedPart.HEAD, Variant.variant().with(VariantProperties.MODEL, headModelLocation))
+                    .select(Direction.EAST, BedPart.HEAD, Variant.variant().with(VariantProperties.MODEL, headModelLocation).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270))
+                    .select(Direction.WEST, BedPart.HEAD, Variant.variant().with(VariantProperties.MODEL, headModelLocation).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90))
+                    .select(Direction.NORTH, BedPart.FOOT, Variant.variant().with(VariantProperties.MODEL, footModelLocation).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180))
+                    .select(Direction.SOUTH, BedPart.FOOT, Variant.variant().with(VariantProperties.MODEL, footModelLocation))
+                    .select(Direction.EAST, BedPart.FOOT, Variant.variant().with(VariantProperties.MODEL, footModelLocation).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270))
+                    .select(Direction.WEST, BedPart.FOOT, Variant.variant().with(VariantProperties.MODEL, footModelLocation).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90))
+            );
+    }
+    
+    public class BlockFamilyProvider {
+        private final TextureMapping mapping;
+        private final Map<ModelTemplate, ResourceLocation> models = Maps.newHashMap();
+        @Nullable
+        private BlockFamily family;
+        @Nullable
+        private ResourceLocation fullBlock;
+        
+        public BlockFamilyProvider(TextureMapping mapping) {
+            this.mapping = mapping;
+        }
+        
+        public BlockFamilyProvider fullBlock(Block block, ModelTemplate modelTemplate) {
+            this.fullBlock = modelTemplate.create(block, this.mapping, VanillaBlockModels.this.modelOutput);
+            VanillaBlockModels.this.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(block, this.fullBlock));
+            return this;
+        }
+        
+        public BlockFamilyProvider fullBlockCopies(Block... blocks) {
+            if (this.fullBlock == null) {
+                throw new IllegalStateException("Full block not generated yet");
+            } else {
+                for (Block block : blocks) {
+                    VanillaBlockModels.this.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(block, this.fullBlock));
+                    VanillaBlockModels.this.delegateItemModel(block, this.fullBlock);
+                }
+                
+                return this;
+            }
+        }
+        
+        public BlockFamilyProvider button(Block buttonBlock) {
+            ResourceLocation resourceLocation = ModelTemplates.BUTTON.create(buttonBlock, this.mapping, VanillaBlockModels.this.modelOutput);
+            ResourceLocation resourceLocation2 = ModelTemplates.BUTTON_PRESSED.create(buttonBlock, this.mapping, VanillaBlockModels.this.modelOutput);
+            VanillaBlockModels.this.blockStateOutput.accept(BlockModelGenerators.createButton(buttonBlock, resourceLocation, resourceLocation2));
+            ResourceLocation resourceLocation3 = ModelTemplates.BUTTON_INVENTORY.create(buttonBlock, this.mapping, VanillaBlockModels.this.modelOutput);
+            VanillaBlockModels.this.delegateItemModel(buttonBlock, resourceLocation3);
+            return this;
+        }
+        
+        public BlockFamilyProvider wall(Block wallBlock) {
+            ResourceLocation resourceLocation = ModelTemplates.WALL_POST.create(wallBlock, this.mapping, VanillaBlockModels.this.modelOutput);
+            ResourceLocation resourceLocation2 = ModelTemplates.WALL_LOW_SIDE.create(wallBlock, this.mapping, VanillaBlockModels.this.modelOutput);
+            ResourceLocation resourceLocation3 = ModelTemplates.WALL_TALL_SIDE.create(wallBlock, this.mapping, VanillaBlockModels.this.modelOutput);
+            VanillaBlockModels.this.blockStateOutput.accept(BlockModelGenerators.createWall(wallBlock, resourceLocation, resourceLocation2, resourceLocation3));
+            ResourceLocation resourceLocation4 = ModelTemplates.WALL_INVENTORY.create(wallBlock, this.mapping, VanillaBlockModels.this.modelOutput);
+            VanillaBlockModels.this.delegateItemModel(wallBlock, resourceLocation4);
+            return this;
+        }
+        
+        public BlockFamilyProvider customFence(Block fenceBlock) {
+            TextureMapping textureMapping = TextureMapping.customParticle(fenceBlock);
+            ResourceLocation resourceLocation = ModelTemplates.CUSTOM_FENCE_POST.create(fenceBlock, textureMapping, VanillaBlockModels.this.modelOutput);
+            ResourceLocation resourceLocation2 = ModelTemplates.CUSTOM_FENCE_SIDE_NORTH.create(fenceBlock, textureMapping, VanillaBlockModels.this.modelOutput);
+            ResourceLocation resourceLocation3 = ModelTemplates.CUSTOM_FENCE_SIDE_EAST.create(fenceBlock, textureMapping, VanillaBlockModels.this.modelOutput);
+            ResourceLocation resourceLocation4 = ModelTemplates.CUSTOM_FENCE_SIDE_SOUTH.create(fenceBlock, textureMapping, VanillaBlockModels.this.modelOutput);
+            ResourceLocation resourceLocation5 = ModelTemplates.CUSTOM_FENCE_SIDE_WEST.create(fenceBlock, textureMapping, VanillaBlockModels.this.modelOutput);
+            VanillaBlockModels.this.blockStateOutput
+                .accept(BlockModelGenerators.createCustomFence(fenceBlock, resourceLocation, resourceLocation2, resourceLocation3, resourceLocation4, resourceLocation5));
+            ResourceLocation resourceLocation6 = ModelTemplates.CUSTOM_FENCE_INVENTORY.create(fenceBlock, textureMapping, VanillaBlockModels.this.modelOutput);
+            VanillaBlockModels.this.delegateItemModel(fenceBlock, resourceLocation6);
+            return this;
+        }
+        
+        public BlockFamilyProvider fence(Block fenceBlock) {
+            ResourceLocation resourceLocation = ModelTemplates.FENCE_POST.create(fenceBlock, this.mapping, VanillaBlockModels.this.modelOutput);
+            ResourceLocation resourceLocation2 = ModelTemplates.FENCE_SIDE.create(fenceBlock, this.mapping, VanillaBlockModels.this.modelOutput);
+            VanillaBlockModels.this.blockStateOutput.accept(BlockModelGenerators.createFence(fenceBlock, resourceLocation, resourceLocation2));
+            ResourceLocation resourceLocation3 = ModelTemplates.FENCE_INVENTORY.create(fenceBlock, this.mapping, VanillaBlockModels.this.modelOutput);
+            VanillaBlockModels.this.delegateItemModel(fenceBlock, resourceLocation3);
+            return this;
+        }
+        
+        public BlockFamilyProvider customFenceGate(Block customFenceGateBlock) {
+            TextureMapping textureMapping = TextureMapping.customParticle(customFenceGateBlock);
+            ResourceLocation resourceLocation = ModelTemplates.CUSTOM_FENCE_GATE_OPEN
+                .create(customFenceGateBlock, textureMapping, VanillaBlockModels.this.modelOutput);
+            ResourceLocation resourceLocation2 = ModelTemplates.CUSTOM_FENCE_GATE_CLOSED
+                .create(customFenceGateBlock, textureMapping, VanillaBlockModels.this.modelOutput);
+            ResourceLocation resourceLocation3 = ModelTemplates.CUSTOM_FENCE_GATE_WALL_OPEN
+                .create(customFenceGateBlock, textureMapping, VanillaBlockModels.this.modelOutput);
+            ResourceLocation resourceLocation4 = ModelTemplates.CUSTOM_FENCE_GATE_WALL_CLOSED
+                .create(customFenceGateBlock, textureMapping, VanillaBlockModels.this.modelOutput);
+            VanillaBlockModels.this.blockStateOutput
+                .accept(BlockModelGenerators.createFenceGate(customFenceGateBlock, resourceLocation, resourceLocation2, resourceLocation3, resourceLocation4, false));
+            return this;
+        }
+        
+        public BlockFamilyProvider fenceGate(Block fenceGateBlock) {
+            ResourceLocation resourceLocation = ModelTemplates.FENCE_GATE_OPEN.create(fenceGateBlock, this.mapping, VanillaBlockModels.this.modelOutput);
+            ResourceLocation resourceLocation2 = ModelTemplates.FENCE_GATE_CLOSED.create(fenceGateBlock, this.mapping, VanillaBlockModels.this.modelOutput);
+            ResourceLocation resourceLocation3 = ModelTemplates.FENCE_GATE_WALL_OPEN.create(fenceGateBlock, this.mapping, VanillaBlockModels.this.modelOutput);
+            ResourceLocation resourceLocation4 = ModelTemplates.FENCE_GATE_WALL_CLOSED.create(fenceGateBlock, this.mapping, VanillaBlockModels.this.modelOutput);
+            VanillaBlockModels.this.blockStateOutput
+                .accept(BlockModelGenerators.createFenceGate(fenceGateBlock, resourceLocation, resourceLocation2, resourceLocation3, resourceLocation4, true));
+            return this;
+        }
+        
+        public BlockFamilyProvider pressurePlate(Block pressurePlateBlock) {
+            ResourceLocation pressurePlateUp = ModelTemplates.PRESSURE_PLATE_UP.create(pressurePlateBlock, this.mapping, VanillaBlockModels.this.modelOutput);
+            ResourceLocation pressurePlateDown = ModelTemplates.PRESSURE_PLATE_DOWN.create(pressurePlateBlock, this.mapping, VanillaBlockModels.this.modelOutput);
+            VanillaBlockModels.this.blockStateOutput.accept(BlockModelGenerators.createPressurePlate(pressurePlateBlock, pressurePlateUp, pressurePlateDown));
+            return this;
+        }
+        
+        public BlockFamilyProvider sign(Block signBlock) {
+            if (this.family == null) {
+                throw new IllegalStateException("Family not defined");
+            } else {
+                Block block = this.family.getVariants().get(BlockFamily.Variant.WALL_SIGN);
+                ResourceLocation particle = ModelTemplates.PARTICLE_ONLY.create(signBlock, this.mapping, VanillaBlockModels.this.modelOutput);
+                VanillaBlockModels.this.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(signBlock, particle));
+                VanillaBlockModels.this.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(block, particle));
+                VanillaBlockModels.this.createSimpleFlatItemModel(signBlock.asItem());
+                VanillaBlockModels.this.skipAutoItemBlock(block);
+                return this;
+            }
+        }
+        
+        public BlockFamilyProvider slab(Block slabBlock) {
+            if (this.fullBlock == null) {
+                throw new IllegalStateException("Full block not generated yet");
+            } else {
+                ResourceLocation slabBottom = this.getOrCreateModel(ModelTemplates.SLAB_BOTTOM, slabBlock);
+                ResourceLocation slabTop = this.getOrCreateModel(ModelTemplates.SLAB_TOP, slabBlock);
+                VanillaBlockModels.this.blockStateOutput.accept(BlockModelGenerators.createSlab(slabBlock, slabBottom, slabTop, this.fullBlock));
+                VanillaBlockModels.this.delegateItemModel(slabBlock, slabBottom);
+                return this;
+            }
+        }
+        
+        public BlockFamilyProvider stairs(Block stairsBlock) {
+            ResourceLocation stairsInner = this.getOrCreateModel(ModelTemplates.STAIRS_INNER, stairsBlock);
+            ResourceLocation stairsStraight = this.getOrCreateModel(ModelTemplates.STAIRS_STRAIGHT, stairsBlock);
+            ResourceLocation stairsOuter = this.getOrCreateModel(ModelTemplates.STAIRS_OUTER, stairsBlock);
+            VanillaBlockModels.this.blockStateOutput.accept(BlockModelGenerators.createStairs(stairsBlock, stairsInner, stairsStraight, stairsOuter));
+            VanillaBlockModels.this.delegateItemModel(stairsBlock, stairsStraight);
+            return this;
+        }
+        
+        private BlockFamilyProvider fullBlockVariant(Block block) {
+            TexturedModel model = TEXTURED_MODELS.getOrDefault(block, TexturedModel.CUBE.get(block));
+            VanillaBlockModels.this.blockStateOutput.accept(BlockModelGenerators.createSimpleBlock(block, model.create(block, VanillaBlockModels.this.modelOutput)));
+            return this;
+        }
+        
+        private BlockFamilyProvider door(Block doorBlock) {
+            VanillaBlockModels.this.createDoor(doorBlock);
+            return this;
+        }
+        
+        private void trapdoor(Block trapdoorBlock) {
+            VanillaBlockModels.this.createOrientableTrapdoor(trapdoorBlock);
+        }
+        
+        private ResourceLocation getOrCreateModel(ModelTemplate modelTemplate, Block block) {
+            return this.models
+                .computeIfAbsent(modelTemplate, modelTemplatex -> modelTemplatex.create(block, this.mapping, VanillaBlockModels.this.modelOutput));
+        }
+        
+        public BlockFamilyProvider generateFor(BlockFamily family) {
+            this.family = family;
+            family.getVariants().forEach((variant, block) -> {
+                BiConsumer<BlockFamilyProvider, Block> consumer = SHAPE_CONSUMERS.get(variant);
+                if (consumer != null) {
+                    consumer.accept(this, block);
+                }
+            });
+            return this;
         }
     }
 }

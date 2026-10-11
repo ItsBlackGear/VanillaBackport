@@ -8,7 +8,24 @@ import net.minecraft.world.entity.ai.attributes.RangedAttribute;
 
 public class ModAttributes {
     public static final Registrar<Attribute> REGISTRIES = Registrar.create(Registries.ATTRIBUTE, VanillaBackport.NAMESPACE);
-
+    
+    public static final Attribute WAYPOINT_TRANSMIT_RANGE = REGISTRIES.register("waypoint_transmit_range",
+        new RangedAttribute(
+            "attribute.name.waypoint_transmit_range",
+            0.0,
+            0.0,
+            6.0E7
+        )
+    );
+    public static final Attribute WAYPOINT_RECEIVE_RANGE = REGISTRIES.register("waypoint_receive_range",
+        new RangedAttribute(
+            "attribute.name.waypoint_receive_range",
+            0.0,
+            0.0,
+            6.0E7
+        )
+    );
+    
     public static final Attribute AIR_DRAG_MODIFIER = REGISTRIES.register(
         "air_drag_modifier",
         new RangedAttribute(
