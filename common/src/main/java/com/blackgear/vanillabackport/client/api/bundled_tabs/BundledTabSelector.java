@@ -60,12 +60,16 @@ public class BundledTabSelector {
     }
 
     private CancellableResult onScroll(Minecraft client, Screen screen, double mouseX, double mouseY, double scrollX, double scrollY) {
+        if (!(screen instanceof CreativeModeInventoryScreen) || this.scrollUpButton == null || this.scrollDownButton == null) {
+            return CancellableResult.PASS;
+        }
+    
         CreativeModeTab tab = CreativeModeInventoryScreenAccessor.getSelectedTab();
         
         if (this.isValidTab(tab)) {
             if (mouseX >= this.guiLeft - 30 && mouseY >= this.guiTop + 2 && mouseX <= this.guiLeft && mouseY <= this.guiTop + 122) {
                 Vector2i scroll = this.scrollWheelHandler.onMouseScroll(scrollY);
-                int delta = scroll.y;
+                int delta = scroll.y == 0 ? -scroll.x : scroll.y;
                 
                 if (delta != 0) {
                     this.scroll = Mth.clamp(this.scroll - delta, 0, this.getMaxScroll());
@@ -93,10 +97,7 @@ public class BundledTabSelector {
             CreativeModeTab tab = CreativeModeInventoryScreenAccessor.getSelectedTab();
 
             if (this.isValidTab(tab)) {
-                graphics.pose().pushPose();
-                graphics.pose().translate(0.0, 0.0, 0.0);
                 graphics.blit(SELECTOR_BAR, this.guiLeft - 30, this.guiTop + 2, 0, 0, 30, 120);
-                graphics.pose().popPose();
             }
 
             if (this.lastTab != tab) {
@@ -114,6 +115,7 @@ public class BundledTabSelector {
         if (screen instanceof CreativeModeInventoryScreen) {
             this.scrollUpButton = null;
             this.scrollDownButton = null;
+            this.lastTab = null;
 
             this.bundles.forEach(bundle -> {
                 bundle.setContentTab(null);
@@ -145,6 +147,7 @@ public class BundledTabSelector {
             if (this.scroll > 0) this.scroll--;
             this.updateWidgets();
         });
+        
         this.scrollDownButton = new ScrollButton(this.guiLeft - 24, this.guiTop + 108, 52, button -> {
             if (this.scroll < this.getMaxScroll()) this.scroll++;
             this.updateWidgets();
@@ -161,23 +164,21 @@ public class BundledTabSelector {
     }
 
     private void updateItems(CreativeModeInventoryScreen screen) {
-        Set<ItemStack> seen = new HashSet<>();
         LinkedHashSet<ItemStack> display = new LinkedHashSet<>();
-        boolean hasSelection = this.hasSelectedBundle();
 
-        ModCreativeTabs.VANILLA_BACKPORT.get().getDisplayItems().forEach(stack -> {
-            if (!hasSelection) {
-                if (seen.add(stack)) display.add(stack.copy());
-            } else {
-                this.bundles.stream()
-                    .filter(BundledTabs::isSelected)
-                    .filter(bundle -> bundle.contains(stack))
-                    .findFirst()
-                    .ifPresent(bundle -> {
-                        if (seen.add(stack)) display.add(stack.copy());
-                    });
-            }
-        });
+        if (!this.hasSelectedBundle()) {
+            ModCreativeTabs.VANILLA_BACKPORT.get().getDisplayItems().forEach(stack -> display.add(stack.copy()));
+        } else {
+            this.bundles.stream()
+                .filter(BundledTabs::isSelected)
+                .forEach(bundle -> {
+                    for (ItemStack stack : bundle.getDisplayItems()) {
+                        if (!stack.isEmpty()) {
+                            display.add(stack.copy());
+                        }
+                    }
+                });
+        }
 
         NonNullList<ItemStack> items = screen.getMenu().items;
         items.clear();
@@ -186,6 +187,7 @@ public class BundledTabSelector {
     }
 
     private void updateWidgets() {
+        if (this.scrollUpButton == null || this.scrollDownButton == null) return;
         this.bundles.forEach(bundle -> bundle.setVisible(false));
 
         for (int i = this.scroll; i < this.scroll + VISIBLE_CATEGORIES && i < this.bundles.size(); i++) {
@@ -205,8 +207,8 @@ public class BundledTabSelector {
             this.updateWidgets();
             this.updateItems(screen);
         } else {
-            this.scrollUpButton.visible = false;
-            this.scrollDownButton.visible = false;
+            if (this.scrollUpButton != null) this.scrollUpButton.visible = false;
+            if (this.scrollDownButton != null) this.scrollDownButton.visible = false;
             this.bundles.forEach(bundle -> bundle.setVisible(false));
         }
     }

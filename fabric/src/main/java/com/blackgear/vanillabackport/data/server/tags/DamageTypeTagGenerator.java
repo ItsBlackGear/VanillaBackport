@@ -42,6 +42,7 @@ public class DamageTypeTagGenerator extends TagsProvider<DamageType> {
                 DamageTypes.PLAYER_EXPLOSION,
                 DamageTypes.STALAGMITE,
                 DamageTypes.STING,
+                DamageTypes.WIND_CHARGE,
                 ModDamageTypes.SULFUR_CUBE_HOT,
                 DamageTypes.SWEET_BERRY_BUSH,
                 DamageTypes.THROWN,

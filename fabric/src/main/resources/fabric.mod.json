@@ -29,7 +29,7 @@
       "com.blackgear.vanillabackport.core.fabric.VanillaBackportTerrablender"
     ],
     "jei_mod_plugin": [
-      "com.blackgear.vanillabackport.core.fabric.compat.VanillaBackportJeiPlugin"
+      "com.blackgear.vanillabackport.core.compat.VanillaBackportJeiPlugin"
     ]
   },
   "mixins": [

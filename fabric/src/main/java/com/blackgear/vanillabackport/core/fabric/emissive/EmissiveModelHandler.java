@@ -17,47 +17,30 @@ public class EmissiveModelHandler implements ClientModInitializer {
         "firefly_bush"
     };
 
-    private static final String EMISSIVE_SUFFIX = "_emissive";
-
     @Override
     public void onInitializeClient() {
         ModelLoadingPlugin.register(pluginContext -> {
             pluginContext.addModels(getEmissiveModelLocations());
-
             pluginContext.modifyModelAfterBake().register(ModelModifier.WRAP_PHASE, (model, context) -> {
                 ModelResourceLocation modelLocation = context.topLevelId();
 
                 if (modelLocation == null) return model;
+                if (!modelLocation.variant().isEmpty()) return model;
 
                 ResourceLocation id = modelLocation.id();
 
-                if (!modelLocation.variant().isEmpty()) {
-                    return model;
-                }
+                if (!id.getNamespace().equals(ResourceLocation.DEFAULT_NAMESPACE)) return model;
 
                 String path = id.getPath();
-                String namespace = id.getNamespace();
 
                 for (String blockName : EMISSIVE_BLOCKS) {
-                    boolean matches = false;
+                    if (!path.equals(blockName) && !path.equals("block/" + blockName)) continue;
 
-                    if (namespace.equals("minecraft")) {
-                        if (path.equals(blockName) || path.equals("block/" + blockName)) {
-                            matches = true;
-                        }
+                    ResourceLocation emissiveModelId = emissiveModel(blockName);
+                    BakedModel emissiveModel = context.baker().bake(emissiveModelId, context.settings());
 
-                        if (id.toString().contains("minecraft:" + blockName)) {
-                            matches = true;
-                        }
-                    }
-
-                    if (matches) {
-                        ResourceLocation emissiveModelId = ResourceLocation.withDefaultNamespace("block/" + blockName + EMISSIVE_SUFFIX);
-                        BakedModel emissiveModel = context.baker().bake(emissiveModelId, context.settings());
-
-                        if (emissiveModel != null) {
-                            return new EmissiveModelWrapper(model, emissiveModel);
-                        }
+                    if (emissiveModel != null) {
+                        return new EmissiveModelWrapper(model, emissiveModel);
                     }
                 }
 
@@ -66,12 +49,15 @@ public class EmissiveModelHandler implements ClientModInitializer {
         });
     }
 
+    private static ResourceLocation emissiveModel(String blockName) {
+        return ResourceLocation.withDefaultNamespace("block/" + blockName + "_emissive");
+    }
+
     private static ResourceLocation[] getEmissiveModelLocations() {
         ResourceLocation[] locations = new ResourceLocation[EMISSIVE_BLOCKS.length];
         for (int i = 0; i < EMISSIVE_BLOCKS.length; i++) {
-            locations[i] = ResourceLocation.withDefaultNamespace("block/" + EMISSIVE_BLOCKS[i] + EMISSIVE_SUFFIX);
+            locations[i] = emissiveModel(EMISSIVE_BLOCKS[i]);
         }
-
         return locations;
     }
 }

@@ -1,17 +1,18 @@
 package com.blackgear.vanillabackport.client.api.modules.mob_variants;
 
 import com.blackgear.platform.core.BuiltInCoreRegistry;
+import com.blackgear.platform.core.api.RegistryKey;
 import com.blackgear.vanillabackport.client.level.model.entity.cow.ColdCowModel;
 import com.blackgear.vanillabackport.client.level.model.entity.cow.WarmCowModel;
 import com.blackgear.vanillabackport.client.registries.ModModelLayers;
-import com.blackgear.vanillabackport.common.level.entity.mob.animal.cow.CowVariant;
-import com.blackgear.vanillabackport.common.level.entity.mob.animal.cow.CowVariants;
+import com.blackgear.vanillabackport.common.level.entities.mob.animal.cow.CowVariant;
+import com.blackgear.vanillabackport.common.level.entities.mob.animal.cow.CowVariants;
+import com.blackgear.vanillabackport.core.compat.ClientCompat;
 import com.google.common.collect.Maps;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.CowModel;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.animal.Cow;
 
@@ -22,32 +23,34 @@ public class CowVariantRenderer extends AbstractVariantRenderer<Cow, CowModel<Co
     public CowVariantRenderer(EntityRendererProvider.Context context) {
         super(context);
     }
-
-    public Map<CowVariant.ModelType, CowModel<Cow>> bakeModels(EntityRendererProvider.Context context) {
+    
+    @Override
+    protected Map<CowVariant.ModelType, CowModel<Cow>> bakeModels(EntityRendererProvider.Context context) {
         Map<CowVariant.ModelType, CowModel<Cow>> map = Maps.newEnumMap(CowVariant.ModelType.class);
         map.put(CowVariant.ModelType.NORMAL, null);
         map.put(CowVariant.ModelType.WARM, new WarmCowModel<>(context.bakeLayer(ModModelLayers.WARM_COW)));
         map.put(CowVariant.ModelType.COLD, new ColdCowModel<>(context.bakeLayer(ModModelLayers.COLD_COW)));
         return map;
     }
-
+    
     @Override
     protected CowVariant.ModelType getModelType(CowVariant variant) {
         return variant.modelAndTexture().model();
     }
-
+    
     @Override
-    protected ResourceLocation getTexture(CowVariant variant) {
+    protected ResourceLocation getTexture(Cow cow, CowVariant variant) {
+        if (ClientCompat.hasQuarkCowTexture(cow)) return null;
         return variant.modelAndTexture().asset().path();
     }
-
+    
     @Override
     protected BuiltInCoreRegistry<CowVariant> getRegistry() {
         return CowVariants.REGISTRIES;
     }
-
+    
     @Override
-    protected ResourceKey<CowVariant> getDefaultVariant() {
+    protected RegistryKey<CowVariant> getDefaultVariant() {
         return CowVariants.TEMPERATE;
     }
 }

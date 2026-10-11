@@ -2,11 +2,15 @@ package com.blackgear.vanillabackport.core.util;
 
 import com.google.common.collect.AbstractIterator;
 import com.google.common.collect.ImmutableList;
+import com.mojang.datafixers.util.Either;
 import it.unimi.dsi.fastutil.longs.LongOpenHashSet;
 import it.unimi.dsi.fastutil.longs.LongSet;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.codec.StreamDecoder;
+import net.minecraft.network.codec.StreamEncoder;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
@@ -82,6 +86,36 @@ public class Utilities {
             float cosine = Mth.cos(angleRadians);
             float sine = Mth.sin(angleRadians);
             return new Vec2(source.x * cosine - source.y * sine, source.y * cosine + source.x * sine);
+        }
+        
+        public static Vec3 applyLocalCoordinatesToRotation(Vec2 rotation, Vec3 direction) {
+            float yCos = Mth.cos((rotation.y + 90.0F) * Mth.DEG_TO_RAD);
+            float ySin = Mth.sin((rotation.y + 90.0F) * Mth.DEG_TO_RAD);
+            float xCos = Mth.cos(-rotation.x * Mth.DEG_TO_RAD);
+            float xSin = Mth.sin(-rotation.x * Mth.DEG_TO_RAD);
+            float xCosUp = Mth.cos((-rotation.x + 90.0F) * Mth.DEG_TO_RAD);
+            float xSinUp = Mth.sin((-rotation.x + 90.0F) * Mth.DEG_TO_RAD);
+            Vec3 forwards = new Vec3(yCos * xCos, xSin, ySin * xCos);
+            Vec3 up = new Vec3(yCos * xCosUp, xSinUp, ySin * xCosUp);
+            Vec3 left = forwards.cross(up).scale(-1.0);
+            double xa = forwards.x * direction.z + up.x * direction.y + left.x * direction.x;
+            double ya = forwards.y * direction.z + up.y * direction.y + left.y * direction.x;
+            double za = forwards.z * direction.z + up.z * direction.y + left.z * direction.x;
+            return new Vec3(xa, ya, za);
+        }
+        
+        public static Vec3 addLocalCoordinates(Vec3 source, Vec3 direction) {
+            return applyLocalCoordinatesToRotation(rotation(source), direction);
+        }
+        
+        public static Vec2 rotation(Vec3 source) {
+            float yaw = (float) Math.atan2(-source.x, source.z) * Mth.RAD_TO_DEG;
+            float pitch = (float) Math.asin(-source.y / Math.sqrt(source.x * source.x + source.y * source.y + source.z * source.z)) * Mth.RAD_TO_DEG;
+            return new Vec2(pitch, yaw);
+        }
+        
+        public static Vec3 rotateClockwise90(Vec3 source) {
+            return new Vec3(-source.z, source.y, source.x);
         }
     }
     
@@ -569,6 +603,86 @@ public class Utilities {
             );
         }
         
+        public static int setBrightness(int color, float brightness) {
+            int red = red(color);
+            int green = green(color);
+            int blue = blue(color);
+            int alpha = alpha(color);
+            int rgbMax = Math.max(Math.max(red, green), blue);
+            int rgbMin = Math.min(Math.min(red, green), blue);
+            float rgbConstantRange = rgbMax - rgbMin;
+            float saturation;
+            if (rgbMax != 0) {
+                saturation = rgbConstantRange / rgbMax;
+            } else {
+                saturation = 0.0F;
+            }
+            
+            float hue;
+            if (saturation == 0.0F) {
+                hue = 0.0F;
+            } else {
+                float constantRed = (rgbMax - red) / rgbConstantRange;
+                float constantGreen = (rgbMax - green) / rgbConstantRange;
+                float constantBlue = (rgbMax - blue) / rgbConstantRange;
+                if (red == rgbMax) {
+                    hue = constantBlue - constantGreen;
+                } else if (green == rgbMax) {
+                    hue = 2.0F + constantRed - constantBlue;
+                } else {
+                    hue = 4.0F + constantGreen - constantRed;
+                }
+                
+                hue /= 6.0F;
+                if (hue < 0.0F) {
+                    hue++;
+                }
+            }
+            
+            if (saturation == 0.0F) {
+                red = green = blue = Math.round(brightness * 255.0F);
+            } else {
+                float colorWheelSegment = (hue - (float)Math.floor(hue)) * 6.0F;
+                float colorWheelOffset = colorWheelSegment - (float)Math.floor(colorWheelSegment);
+                float primaryColor = brightness * (1.0F - saturation);
+                float secondaryColor = brightness * (1.0F - saturation * colorWheelOffset);
+                float tertiaryColor = brightness * (1.0F - saturation * (1.0F - colorWheelOffset));
+                switch ((int)colorWheelSegment) {
+                    case 0:
+                        red = Math.round(brightness * 255.0F);
+                        green = Math.round(tertiaryColor * 255.0F);
+                        blue = Math.round(primaryColor * 255.0F);
+                        break;
+                    case 1:
+                        red = Math.round(secondaryColor * 255.0F);
+                        green = Math.round(brightness * 255.0F);
+                        blue = Math.round(primaryColor * 255.0F);
+                        break;
+                    case 2:
+                        red = Math.round(primaryColor * 255.0F);
+                        green = Math.round(brightness * 255.0F);
+                        blue = Math.round(tertiaryColor * 255.0F);
+                        break;
+                    case 3:
+                        red = Math.round(primaryColor * 255.0F);
+                        green = Math.round(secondaryColor * 255.0F);
+                        blue = Math.round(brightness * 255.0F);
+                        break;
+                    case 4:
+                        red = Math.round(tertiaryColor * 255.0F);
+                        green = Math.round(primaryColor * 255.0F);
+                        blue = Math.round(brightness * 255.0F);
+                        break;
+                    case 5:
+                        red = Math.round(brightness * 255.0F);
+                        green = Math.round(primaryColor * 255.0F);
+                        blue = Math.round(secondaryColor * 255.0F);
+                }
+            }
+            
+            return color(alpha, red, green, blue);
+        }
+        
         public static DyeColor getMixedColor(ServerLevel level, DyeColor colorA, DyeColor colorB) {
             CraftingInput container = makeCraftColorInput(colorA, colorB);
             return level.getRecipeManager()
@@ -586,6 +700,22 @@ public class Utilities {
                 new ItemStack(DyeItem.byColor(colorA)),
                 new ItemStack(DyeItem.byColor(colorB))
             ));
+        }
+    }
+    
+    public static class BufferUtils {
+        public static <L, R> void writeEither(FriendlyByteBuf buf, Either<L, R> value, StreamEncoder<? super FriendlyByteBuf, L> leftWriter, StreamEncoder<? super FriendlyByteBuf, R> rightWriter) {
+            value.ifLeft(l -> {
+                buf.writeBoolean(true);
+                leftWriter.encode(buf, l);
+            }).ifRight(r -> {
+                buf.writeBoolean(false);
+                rightWriter.encode(buf, r);
+            });
+        }
+        
+        public static <L, R> Either<L, R> readEither(FriendlyByteBuf buf, StreamDecoder<? super FriendlyByteBuf, L> leftReader, StreamDecoder<? super FriendlyByteBuf, R> rightReader) {
+            return buf.readBoolean() ? Either.left(leftReader.decode(buf)) : Either.right(rightReader.decode(buf));
         }
     }
 }

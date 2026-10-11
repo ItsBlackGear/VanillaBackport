@@ -4,12 +4,12 @@ import com.blackgear.platform.core.helper.BlockRegistry;
 import com.blackgear.vanillabackport.client.registries.ModParticles;
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
 import com.blackgear.vanillabackport.client.registries.ModSoundTypes;
-import com.blackgear.vanillabackport.common.level.block.*;
-import com.blackgear.vanillabackport.common.level.block.properties.SharedBlockProperties;
-import com.blackgear.vanillabackport.common.level.item.CushionItem;
+import com.blackgear.vanillabackport.common.level.blocks.*;
+import com.blackgear.vanillabackport.common.level.blocks.properties.SharedBlockProperties;
+import com.blackgear.vanillabackport.common.level.sounds.AmbientLeavesBlockSoundPlayer;
 import com.blackgear.vanillabackport.common.registries.worldgen.ModTreeGrowers;
 import com.blackgear.vanillabackport.core.VanillaBackport;
-import com.blackgear.vanillabackport.core.registries.experimental.handlers.VanillaBlockRegistry;
+import com.blackgear.vanillabackport.core.data.tags.ModBlockTags;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.SimpleParticleType;
@@ -27,8 +27,7 @@ import java.util.function.Supplier;
 
 public class ModBlocks {
     public static final BlockRegistry REGISTRIES = BlockRegistry.create(VanillaBackport.NAMESPACE);
-    public static final VanillaBlockRegistry HOLDERS = VanillaBlockRegistry.create();
-
+    
     // The Garden Awakens
     
     public static final Supplier<Block> CREAKING_HEART = REGISTRIES.register("creaking_heart",
@@ -143,10 +142,11 @@ public class ModBlocks {
             .mapColor(MapColor.COLOR_LIGHT_GRAY)
             .strength(0.1F)
             .sound(SoundType.MOSS)
-            .pushReaction(PushReaction.DESTROY));
+            .pushReaction(PushReaction.DESTROY)
+            .noOcclusion());
     
     public static final Supplier<Block> PALE_OAK_LEAVES = REGISTRIES.register("pale_oak_leaves",
-        properties -> new ParticleLeavesBlock(50, ModParticles.PALE_OAK_LEAVES, properties),
+        properties -> new ParticleLeavesBlock(0.02F, ModParticles.PALE_OAK_LEAVES, properties),
         Properties.of()
             .mapColor(MapColor.TERRACOTTA_GREEN)
             .strength(0.2F)
@@ -161,7 +161,7 @@ public class ModBlocks {
             .isRedstoneConductor(REGISTRIES::never));
     
     public static final Supplier<Block> PALE_OAK_SAPLING = REGISTRIES.register("pale_oak_sapling",
-        properties -> new SaplingBlock(ModTreeGrowers.PALE_OAK_TREE, properties),
+        properties -> new SaplingBlock(ModTreeGrowers.PALE_OAK.get(), properties),
         Properties.of()
             .mapColor(MapColor.COLOR_LIGHT_GRAY)
             .noCollission()
@@ -184,7 +184,7 @@ public class ModBlocks {
             .pushReaction(PushReaction.DESTROY)
             .randomTicks());
     public static final Supplier<Block> POTTED_CLOSED_EYEBLOSSOM = REGISTRIES.registerNoItem("potted_closed_eyeblossom",
-        properties -> new EyeblossomFlowerPotBlock(CLOSED_EYEBLOSSOM.get(), properties),
+        properties -> new EyeblossomPotBlock(CLOSED_EYEBLOSSOM.get(), properties),
         SharedBlockProperties.flowerPotProperties().randomTicks());
     
     public static final Supplier<Block> OPEN_EYEBLOSSOM = REGISTRIES.register("open_eyeblossom",
@@ -198,7 +198,7 @@ public class ModBlocks {
             .pushReaction(PushReaction.DESTROY)
             .randomTicks());
     public static final Supplier<Block> POTTED_OPEN_EYEBLOSSOM = REGISTRIES.registerNoItem("potted_open_eyeblossom",
-        properties -> new EyeblossomFlowerPotBlock(OPEN_EYEBLOSSOM.get(), properties),
+        properties -> new EyeblossomPotBlock(OPEN_EYEBLOSSOM.get(), properties),
         SharedBlockProperties.flowerPotProperties().randomTicks());
     
     public static final Supplier<Block> RESIN_BLOCK = REGISTRIES.register("resin_block",
@@ -240,7 +240,6 @@ public class ModBlocks {
             .noCollission()
             .sound(SoundType.PINK_PETALS)
             .pushReaction(PushReaction.DESTROY));
-    
     public static final Supplier<Block> BUSH = REGISTRIES.register("bush",
         ActualBushBlock::new,
         Properties.of()
@@ -502,7 +501,7 @@ public class ModBlocks {
             .forceSolidOn()
             .requiresCorrectToolForDrops()
             .strength(5.0F, 6.0F)
-            .sound(SoundType.COPPER)
+            .sound(SoundType.CHAIN)
             .noOcclusion());
     
     // Chaos Cubed
@@ -553,7 +552,146 @@ public class ModBlocks {
                 .isRedstoneConductor(REGISTRIES::never)
                 .noOcclusion()));
     
-    // Miscellaneous
+    // Wilderness Bound
+    
+    public static final Supplier<Block> POPLAR_LOG = REGISTRIES.register("poplar_log",
+        RotatedPillarBlock::new,
+        SharedBlockProperties.logProperties(MapColor.COLOR_LIGHT_GRAY, MapColor.PODZOL, SoundType.WOOD));
+    public static final Supplier<Block> STRIPPED_POPLAR_LOG = REGISTRIES.register("stripped_poplar_log",
+        RotatedPillarBlock::new,
+        SharedBlockProperties.logProperties(MapColor.COLOR_LIGHT_GRAY, MapColor.COLOR_LIGHT_GRAY, SoundType.WOOD));
+    public static final Supplier<Block> POPLAR_WOOD = REGISTRIES.register("poplar_wood",
+        RotatedPillarBlock::new,
+        Properties.of()
+            .mapColor(MapColor.PODZOL)
+            .instrument(NoteBlockInstrument.BASS)
+            .strength(2.0F)
+            .sound(SoundType.WOOD)
+            .ignitedByLava());
+    public static final Supplier<Block> STRIPPED_POPLAR_WOOD = REGISTRIES.register("stripped_poplar_wood",
+        RotatedPillarBlock::new,
+        Properties.of()
+            .mapColor(MapColor.COLOR_LIGHT_GRAY)
+            .instrument(NoteBlockInstrument.BASS)
+            .strength(2.0F)
+            .sound(SoundType.WOOD)
+            .ignitedByLava());
+    
+    public static final Supplier<Block> POPLAR_PLANKS = REGISTRIES.register("poplar_planks", SharedBlockProperties.POPLAR);
+    public static final Supplier<Block> POPLAR_SLAB = REGISTRIES.register("poplar_slab", SlabBlock::new, SharedBlockProperties.POPLAR);
+    public static final Supplier<Block> POPLAR_STAIRS = REGISTRIES.register("poplar_stairs", () -> new StairBlock(POPLAR_PLANKS.get().defaultBlockState(), SharedBlockProperties.POPLAR));
+    
+    public static final Pair<Supplier<Block>, Supplier<Block>> POPLAR_SIGN = sign("poplar",
+        ModWoodTypes.POPLAR,
+        MapColor.COLOR_LIGHT_GRAY);
+    public static final Pair<Supplier<Block>, Supplier<Block>> POPLAR_HANGING_SIGN = hangingSign("poplar",
+        ModWoodTypes.POPLAR,
+        MapColor.COLOR_LIGHT_GRAY);
+    public static final Supplier<Block> POPLAR_BUTTON = REGISTRIES.register("poplar_button",
+        properties -> new ButtonBlock(ModBlockSetTypes.POPLAR, 30, properties),
+        SharedBlockProperties.buttonProperties());
+    public static final Supplier<Block> POPLAR_PRESSURE_PLATE = REGISTRIES.register("poplar_pressure_plate",
+        properties -> new PressurePlateBlock(ModBlockSetTypes.POPLAR, properties),
+        Properties.of()
+            .mapColor(MapColor.COLOR_LIGHT_GRAY)
+            .forceSolidOn()
+            .instrument(NoteBlockInstrument.BASS)
+            .noCollission()
+            .strength(0.5F)
+            .ignitedByLava()
+            .pushReaction(PushReaction.DESTROY));
+    public static final Supplier<Block> POPLAR_DOOR = REGISTRIES.register("poplar_door",
+        properties -> new DoorBlock(ModBlockSetTypes.POPLAR, properties),
+        Properties.of()
+            .mapColor(MapColor.COLOR_LIGHT_GRAY)
+            .instrument(NoteBlockInstrument.BASS)
+            .strength(3.0F)
+            .noOcclusion()
+            .ignitedByLava()
+            .pushReaction(PushReaction.DESTROY));
+    public static final Supplier<Block> POPLAR_FENCE = REGISTRIES.register("poplar_fence",
+        FenceBlock::new,
+        Properties.of()
+            .mapColor(MapColor.COLOR_LIGHT_GRAY)
+            .instrument(NoteBlockInstrument.BASS)
+            .strength(2.0F, 3.0F)
+            .sound(SoundType.WOOD)
+            .ignitedByLava());
+    public static final Supplier<Block> POPLAR_FENCE_GATE = REGISTRIES.register("poplar_fence_gate",
+        properties -> new FenceGateBlock(ModWoodTypes.POPLAR, properties),
+        Properties.of()
+            .mapColor(MapColor.COLOR_LIGHT_GRAY)
+            .forceSolidOn()
+            .instrument(NoteBlockInstrument.BASS)
+            .strength(2.0F, 3.0F)
+            .ignitedByLava());
+    public static final Supplier<Block> POPLAR_TRAPDOOR = REGISTRIES.register("poplar_trapdoor",
+        properties -> new TrapDoorBlock(ModBlockSetTypes.POPLAR, properties),
+        Properties.of()
+            .mapColor(MapColor.COLOR_LIGHT_GRAY)
+            .instrument(NoteBlockInstrument.BASS)
+            .strength(3.0F)
+            .noOcclusion()
+            .isValidSpawn(REGISTRIES::never)
+            .ignitedByLava());
+    
+    public static final Supplier<Block> POPLAR_SHELF = REGISTRIES.register("poplar_shelf",
+        ShelfBlock::new,
+        SharedBlockProperties.SHELF.mapColor(MapColor.COLOR_LIGHT_GRAY));
+    
+    public static final Supplier<Block> RED_POPLAR_LEAVES = REGISTRIES.register("red_poplar_leaves",
+        properties -> new AtmosphericLeavesBlock(0.01F, ModParticles.RED_POPLAR_LEAVES, properties, AmbientLeavesBlockSoundPlayer.of(ModSoundEvents.POPLAR_LEAVES_AMBIENT, ModBlockTags.REQUIRED_FOR_POPLAR_LEAF_AMBIENCE)),
+        SharedBlockProperties.leavesProperties(ModSoundTypes.POPLAR_LEAVES).mapColor(MapColor.COLOR_RED));
+    public static final Supplier<Block> ORANGE_POPLAR_LEAVES = REGISTRIES.register("orange_poplar_leaves",
+        properties -> new AtmosphericLeavesBlock(0.01F, ModParticles.ORANGE_POPLAR_LEAVES, properties, AmbientLeavesBlockSoundPlayer.of(ModSoundEvents.POPLAR_LEAVES_AMBIENT, ModBlockTags.REQUIRED_FOR_POPLAR_LEAF_AMBIENCE)),
+        SharedBlockProperties.leavesProperties(ModSoundTypes.POPLAR_LEAVES).mapColor(MapColor.COLOR_ORANGE));
+    public static final Supplier<Block> YELLOW_POPLAR_LEAVES = REGISTRIES.register("yellow_poplar_leaves",
+        properties -> new AtmosphericLeavesBlock(0.01F, ModParticles.YELLOW_POPLAR_LEAVES, properties, AmbientLeavesBlockSoundPlayer.of(ModSoundEvents.POPLAR_LEAVES_AMBIENT, ModBlockTags.REQUIRED_FOR_POPLAR_LEAF_AMBIENCE)),
+        SharedBlockProperties.leavesProperties(ModSoundTypes.POPLAR_LEAVES).mapColor(MapColor.COLOR_YELLOW));
+    
+    public static final Supplier<Block> POPLAR_SAPLING = REGISTRIES.register("poplar_sapling",
+        properties -> new SaplingBlock(ModTreeGrowers.POPLAR.get(), properties),
+        Properties.of()
+            .mapColor(MapColor.METAL)
+            .noCollission()
+            .randomTicks()
+            .instabreak()
+            .sound(SoundType.GRASS)
+            .pushReaction(PushReaction.DESTROY));
+    public static final Supplier<Block> POTTED_POPLAR_SAPLING = REGISTRIES.registerNoItem("potted_poplar_sapling",
+        properties -> new FlowerPotBlock(POPLAR_SAPLING.get(), properties),
+        SharedBlockProperties.flowerPotProperties());
+    
+    public static final Supplier<Block> RED_SHRUB = REGISTRIES.register("red_shrub",
+        ActualBushBlock::new,
+        Properties.of()
+            .mapColor(MapColor.CRIMSON_NYLIUM)
+            .replaceable()
+            .noCollission()
+            .instabreak()
+            .sound(ModSoundTypes.RED_SHRUB)
+            .ignitedByLava()
+            .pushReaction(PushReaction.DESTROY));
+    public static final Supplier<Block> SHELF_MUSHROOM = REGISTRIES.register("shelf_mushroom",
+        ShelfMushroomBlock::new,
+        Properties.of()
+            .mapColor(MapColor.TERRACOTTA_YELLOW)
+            .sound(ModSoundTypes.SHELF_MUSHROOM)
+            .noOcclusion()
+            .pushReaction(PushReaction.DESTROY));
+    
+    public static final Supplier<Block> STRAW_BED = REGISTRIES.register("straw_bed",
+        StrawBedBlock::new,
+        Properties.of()
+            .mapColor(MapColor.COLOR_YELLOW)
+            .sound(ModSoundTypes.STRAW_BED)
+            .strength(0.2F)
+            .noOcclusion()
+            .ignitedByLava()
+            .pushReaction(PushReaction.DESTROY),
+        BlockItem::new,
+        new Item.Properties().stacksTo(16)
+    );
     
     public static final Supplier<Block> WHITE_WOOL_STAIRS = REGISTRIES.register("white_wool_stairs",
         properties -> new StairBlock(Blocks.WHITE_WOOL.defaultBlockState(), properties),
@@ -636,6 +774,88 @@ public class ModBlocks {
         SlabBlock::new, Properties.ofFullCopy(Blocks.RED_WOOL));
     public static final Supplier<Block> BLACK_WOOL_SLAB = REGISTRIES.register("black_wool_slab",
         SlabBlock::new, Properties.ofFullCopy(Blocks.BLACK_WOOL));
+
+    public static final Supplier<Block> BLACK_CONCRETE_STAIRS = REGISTRIES.register("black_concrete_stairs",
+        properties -> new StairBlock(Blocks.BLACK_CONCRETE.defaultBlockState(), properties),
+        Properties.ofFullCopy(Blocks.BLACK_CONCRETE));
+    public static final Supplier<Block> BLUE_CONCRETE_STAIRS = REGISTRIES.register("blue_concrete_stairs",
+        properties -> new StairBlock(Blocks.BLUE_CONCRETE.defaultBlockState(), properties),
+        Properties.ofFullCopy(Blocks.BLUE_CONCRETE));
+    public static final Supplier<Block> BROWN_CONCRETE_STAIRS = REGISTRIES.register("brown_concrete_stairs",
+        properties -> new StairBlock(Blocks.BROWN_CONCRETE.defaultBlockState(), properties),
+        Properties.ofFullCopy(Blocks.BROWN_CONCRETE));
+    public static final Supplier<Block> CYAN_CONCRETE_STAIRS = REGISTRIES.register("cyan_concrete_stairs",
+        properties -> new StairBlock(Blocks.CYAN_CONCRETE.defaultBlockState(), properties),
+        Properties.ofFullCopy(Blocks.CYAN_CONCRETE));
+    public static final Supplier<Block> GRAY_CONCRETE_STAIRS = REGISTRIES.register("gray_concrete_stairs",
+        properties -> new StairBlock(Blocks.GRAY_CONCRETE.defaultBlockState(), properties),
+        Properties.ofFullCopy(Blocks.GRAY_CONCRETE));
+    public static final Supplier<Block> GREEN_CONCRETE_STAIRS = REGISTRIES.register("green_concrete_stairs",
+        properties -> new StairBlock(Blocks.GREEN_CONCRETE.defaultBlockState(), properties),
+        Properties.ofFullCopy(Blocks.GREEN_CONCRETE));
+    public static final Supplier<Block> LIGHT_BLUE_CONCRETE_STAIRS = REGISTRIES.register("light_blue_concrete_stairs",
+        properties -> new StairBlock(Blocks.LIGHT_BLUE_CONCRETE.defaultBlockState(), properties),
+        Properties.ofFullCopy(Blocks.LIGHT_BLUE_CONCRETE));
+    public static final Supplier<Block> LIGHT_GRAY_CONCRETE_STAIRS = REGISTRIES.register("light_gray_concrete_stairs",
+        properties -> new StairBlock(Blocks.LIGHT_GRAY_CONCRETE.defaultBlockState(), properties),
+        Properties.ofFullCopy(Blocks.LIGHT_GRAY_CONCRETE));
+    public static final Supplier<Block> LIME_CONCRETE_STAIRS = REGISTRIES.register("lime_concrete_stairs",
+        properties -> new StairBlock(Blocks.LIME_CONCRETE.defaultBlockState(), properties),
+        Properties.ofFullCopy(Blocks.LIME_CONCRETE));
+    public static final Supplier<Block> MAGENTA_CONCRETE_STAIRS = REGISTRIES.register("magenta_concrete_stairs",
+        properties -> new StairBlock(Blocks.MAGENTA_CONCRETE.defaultBlockState(), properties),
+        Properties.ofFullCopy(Blocks.MAGENTA_CONCRETE));
+    public static final Supplier<Block> ORANGE_CONCRETE_STAIRS = REGISTRIES.register("orange_concrete_stairs",
+        properties -> new StairBlock(Blocks.ORANGE_CONCRETE.defaultBlockState(), properties),
+        Properties.ofFullCopy(Blocks.ORANGE_CONCRETE));
+    public static final Supplier<Block> PINK_CONCRETE_STAIRS = REGISTRIES.register("pink_concrete_stairs",
+        properties -> new StairBlock(Blocks.PINK_CONCRETE.defaultBlockState(), properties),
+        Properties.ofFullCopy(Blocks.PINK_CONCRETE));
+    public static final Supplier<Block> PURPLE_CONCRETE_STAIRS = REGISTRIES.register("purple_concrete_stairs",
+        properties -> new StairBlock(Blocks.PURPLE_CONCRETE.defaultBlockState(), properties),
+        Properties.ofFullCopy(Blocks.PURPLE_CONCRETE));
+    public static final Supplier<Block> RED_CONCRETE_STAIRS = REGISTRIES.register("red_concrete_stairs",
+        properties -> new StairBlock(Blocks.RED_CONCRETE.defaultBlockState(), properties),
+        Properties.ofFullCopy(Blocks.RED_CONCRETE));
+    public static final Supplier<Block> YELLOW_CONCRETE_STAIRS = REGISTRIES.register("yellow_concrete_stairs",
+        properties -> new StairBlock(Blocks.YELLOW_CONCRETE.defaultBlockState(), properties),
+        Properties.ofFullCopy(Blocks.YELLOW_CONCRETE));
+    public static final Supplier<Block> WHITE_CONCRETE_STAIRS = REGISTRIES.register("white_concrete_stairs",
+        properties -> new StairBlock(Blocks.WHITE_CONCRETE.defaultBlockState(), properties),
+        Properties.ofFullCopy(Blocks.WHITE_CONCRETE));
+
+    public static final Supplier<Block> BLACK_CONCRETE_SLAB = REGISTRIES.register("black_concrete_slab",
+        SlabBlock::new, Properties.ofFullCopy(Blocks.BLACK_CONCRETE));
+    public static final Supplier<Block> BLUE_CONCRETE_SLAB = REGISTRIES.register("blue_concrete_slab",
+        SlabBlock::new, Properties.ofFullCopy(Blocks.BLUE_CONCRETE));
+    public static final Supplier<Block> BROWN_CONCRETE_SLAB = REGISTRIES.register("brown_concrete_slab",
+        SlabBlock::new, Properties.ofFullCopy(Blocks.BROWN_CONCRETE));
+    public static final Supplier<Block> CYAN_CONCRETE_SLAB = REGISTRIES.register("cyan_concrete_slab",
+        SlabBlock::new, Properties.ofFullCopy(Blocks.CYAN_CONCRETE));
+    public static final Supplier<Block> GRAY_CONCRETE_SLAB = REGISTRIES.register("gray_concrete_slab",
+        SlabBlock::new, Properties.ofFullCopy(Blocks.GRAY_CONCRETE));
+    public static final Supplier<Block> GREEN_CONCRETE_SLAB = REGISTRIES.register("green_concrete_slab",
+        SlabBlock::new, Properties.ofFullCopy(Blocks.GREEN_CONCRETE));
+    public static final Supplier<Block> LIGHT_BLUE_CONCRETE_SLAB = REGISTRIES.register("light_blue_concrete_slab",
+        SlabBlock::new, Properties.ofFullCopy(Blocks.LIGHT_BLUE_CONCRETE));
+    public static final Supplier<Block> LIGHT_GRAY_CONCRETE_SLAB = REGISTRIES.register("light_gray_concrete_slab",
+        SlabBlock::new, Properties.ofFullCopy(Blocks.LIGHT_GRAY_CONCRETE));
+    public static final Supplier<Block> LIME_CONCRETE_SLAB = REGISTRIES.register("lime_concrete_slab",
+        SlabBlock::new, Properties.ofFullCopy(Blocks.LIME_CONCRETE));
+    public static final Supplier<Block> MAGENTA_CONCRETE_SLAB = REGISTRIES.register("magenta_concrete_slab",
+        SlabBlock::new, Properties.ofFullCopy(Blocks.MAGENTA_CONCRETE));
+    public static final Supplier<Block> ORANGE_CONCRETE_SLAB = REGISTRIES.register("orange_concrete_slab",
+        SlabBlock::new, Properties.ofFullCopy(Blocks.ORANGE_CONCRETE));
+    public static final Supplier<Block> PINK_CONCRETE_SLAB = REGISTRIES.register("pink_concrete_slab",
+        SlabBlock::new, Properties.ofFullCopy(Blocks.PINK_CONCRETE));
+    public static final Supplier<Block> PURPLE_CONCRETE_SLAB = REGISTRIES.register("purple_concrete_slab",
+        SlabBlock::new, Properties.ofFullCopy(Blocks.PURPLE_CONCRETE));
+    public static final Supplier<Block> RED_CONCRETE_SLAB = REGISTRIES.register("red_concrete_slab",
+        SlabBlock::new, Properties.ofFullCopy(Blocks.RED_CONCRETE));
+    public static final Supplier<Block> YELLOW_CONCRETE_SLAB = REGISTRIES.register("yellow_concrete_slab",
+        SlabBlock::new, Properties.ofFullCopy(Blocks.YELLOW_CONCRETE));
+    public static final Supplier<Block> WHITE_CONCRETE_SLAB = REGISTRIES.register("white_concrete_slab",
+        SlabBlock::new, Properties.ofFullCopy(Blocks.WHITE_CONCRETE));
     
     // Helper
     

@@ -32,44 +32,28 @@ public class MusicFadeManager {
         this.minecraft = Minecraft.getInstance();
     }
 
-    public static boolean isFeatureEnabled() {
-        return true;
-    }
-
-    public boolean onTick(@Nullable SoundInstance currentMusic) {
-        if (!isFeatureEnabled()) return false;
+    public boolean tickFade(@Nullable SoundInstance currentMusic) {
         if (currentMusic == null) return false;
 
-        float targetVolume = this.getBackgroundMusicVolume();
-        return this.currentGain != targetVolume && this.fadePlaying(targetVolume, currentMusic);
+        float targetVolume = this.getTargetVolume();
+        if (this.currentGain == targetVolume) return false;
+
+        return this.fadePlaying(targetVolume, currentMusic);
     }
 
-    public boolean preventPlayingInPaleGarden() {
-        if (!isFeatureEnabled()) return false;
-        if (this.minecraft.player == null) return false;
+    public boolean isSilentBiome() {
+        LocalPlayer player = this.minecraft.player;
+        if (player == null) return false;
 
-        Holder<Biome> biome = this.minecraft.player.level().getBiome(this.minecraft.player.blockPosition());
+        Holder<Biome> biome = player.level().getBiome(player.blockPosition());
         return biome.is(ModBiomes.PALE_GARDEN);
     }
 
-    public void updateVolume(@Nullable SoundInstance currentMusic) {
-        if (!isFeatureEnabled()) return;
-        if (currentMusic != null) {
-            SoundEngine engine = ((SoundManagerAccessor) this.minecraft.getSoundManager()).getSoundEngine();
-            this.setVolume(engine, currentMusic, this.getBackgroundMusicVolume());
-        }
-    }
-
     public void onStartPlaying() {
-        if (!isFeatureEnabled()) return;
-        this.currentGain = this.getBackgroundMusicVolume();
+        this.currentGain = this.getTargetVolume();
     }
 
     private boolean fadePlaying(float targetVolume, SoundInstance currentMusic) {
-        if (this.currentGain == targetVolume) {
-            return true;
-        }
-
         this.updateCurrentGain(targetVolume);
 
         if (this.currentGain <= VOLUME_THRESHOLD) {
@@ -104,12 +88,8 @@ public class MusicFadeManager {
         }
     }
 
-    private float getBackgroundMusicVolume() {
-        LocalPlayer player = this.minecraft.player;
-        if (player == null) return 1.0F;
-
-        Holder<Biome> biome = player.level().getBiome(player.blockPosition());
-        return biome.is(ModBiomes.PALE_GARDEN) ? 0.0F : 1.0F;
+    private float getTargetVolume() {
+        return this.isSilentBiome() ? 0.0F : 1.0F;
     }
 
     private void setVolume(SoundEngine engine, SoundInstance instance, float volume) {

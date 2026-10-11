@@ -120,6 +120,7 @@ public class ConventionalItemTags {
     public static final TagKey<Item> NUGGETS = TAGS.register("nuggets");
     public static final TagKey<Item> NUGGETS_GOLD = TAGS.register("nuggets/gold");
     public static final TagKey<Item> NUGGETS_IRON = TAGS.register("nuggets/iron");
+    public static final TagKey<Item> NUGGETS_COPPER = TAGS.register("nuggets/copper");
     public static final TagKey<Item> OBSIDIAN = TAGS.register("obsidian");
     public static final TagKey<Item> ORE_BEARING_GROUND_DEEPSLATE = TAGS.register("ore_bearing_ground/deepslate");
     public static final TagKey<Item> ORE_BEARING_GROUND_NETHERRACK = TAGS.register("ore_bearing_ground/netherrack");
@@ -177,6 +178,7 @@ public class ConventionalItemTags {
     public static final TagKey<Item> STORAGE_BLOCKS_RAW_GOLD = TAGS.register("storage_blocks/raw_gold");
     public static final TagKey<Item> STORAGE_BLOCKS_RAW_IRON = TAGS.register("storage_blocks/raw_iron");
     public static final TagKey<Item> STORAGE_BLOCKS_REDSTONE = TAGS.register("storage_blocks/redstone");
+    public static final TagKey<Item> STORAGE_BLOCKS_RESIN = TAGS.register("storage_blocks/resin");
     public static final TagKey<Item> STRING = TAGS.register("string");
     public static final TagKey<Item> TOOLS = TAGS.register("tools");
     public static final TagKey<Item> TOOLS_SHIELDS = TAGS.register("tools/shields");
@@ -254,7 +256,6 @@ public class ConventionalItemTags {
     public static final TagKey<Item> MUSIC_DISCS = TAGS.register("music_discs");
     public static final TagKey<Item> HORSE_ARMOR = TAGS.register("horse_armor");
 
-    public static final TagKey<Item> DYED = TAGS.register("dyed");
     public static final TagKey<Item> DYED_BLACK = TAGS.register("dyed/black");
     public static final TagKey<Item> DYED_BLUE = TAGS.register("dyed/blue");
     public static final TagKey<Item> DYED_BROWN = TAGS.register("dyed/brown");

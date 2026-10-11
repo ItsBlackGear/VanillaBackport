@@ -95,6 +95,14 @@ public class FallingLeavesParticle extends TextureSheetParticle {
             return new FallingLeavesParticle(level, x, y, z, this.sprites, 0.07F, 10.0F, true, false, 2.0F, 0.021F);
         }
     }
+    
+    @Environment(EnvType.CLIENT)
+    public record PoplarProvider(SpriteSet sprites) implements ParticleProvider<SimpleParticleType> {
+        @Override
+        public Particle createParticle(SimpleParticleType type, ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
+            return new FallingLeavesParticle(level, x, y, z, this.sprites, 0.07F, 10.0F, true, false, 2.0F, 0.021F);
+        }
+    }
 
     @Environment(EnvType.CLIENT)
     public record TintedLeavesProvider(SpriteSet sprites) implements ParticleProvider<ColorParticleOption> {

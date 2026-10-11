@@ -25,7 +25,18 @@ public class ScrollWheelHandler {
 
     public static int getNextScrollWheelSelection(double delta, int index, int max) {
         int direction = (int) Math.signum(delta);
-        index -= direction;
+
+        /*
+        When scrolling backwards as the first selection it should not subtract from the index
+        because it is already the correct value: -1
+
+        Initial Scroll when: index = 1
+        Backwards Scroll when: direction -1
+         */
+        if (!(index == -1 && direction == 1)) {
+            index -= direction;
+        }
+
         return (index % max + max) % max;
     }
 }

@@ -85,4 +85,32 @@ public class ModSoundTypes {
         ModSoundEvents.SHELF_HIT,
         ModSoundEvents.SHELF_FALL
     );
+    public static final SoundType SHELF_MUSHROOM = REGISTRIES.soundType(
+        ModSoundEvents.SHELF_MUSHROOM_BREAK,
+        ModSoundEvents.SHELF_MUSHROOM_STEP,
+        ModSoundEvents.SHELF_MUSHROOM_PLACE,
+        () -> SoundEvents.EMPTY,
+        ModSoundEvents.SHELF_MUSHROOM_FALL
+    );
+    public static final SoundType POPLAR_LEAVES = REGISTRIES.soundType(
+        ModSoundEvents.POPLAR_LEAVES_BREAK,
+        ModSoundEvents.POPLAR_LEAVES_STEP,
+        ModSoundEvents.POPLAR_LEAVES_PLACE,
+        ModSoundEvents.POPLAR_LEAVES_HIT,
+        ModSoundEvents.POPLAR_LEAVES_FALL
+    );
+    public static final SoundType STRAW_BED = REGISTRIES.soundType(
+        ModSoundEvents.STRAW_BED_BREAK,
+        ModSoundEvents.STRAW_BED_STEP,
+        ModSoundEvents.STRAW_BED_PLACE,
+        ModSoundEvents.STRAW_BED_HIT,
+        ModSoundEvents.STRAW_BED_FALL
+    );
+    public static final SoundType RED_SHRUB = REGISTRIES.soundType(
+        ModSoundEvents.RED_SHRUB_BREAK,
+        () -> SoundEvents.EMPTY,
+        ModSoundEvents.RED_SHRUB_PLACE,
+        () -> SoundEvents.EMPTY,
+        () -> SoundEvents.EMPTY
+    );
 }

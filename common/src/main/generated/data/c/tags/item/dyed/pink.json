@@ -1,6 +1,11 @@
 {
   "values": [
+    "minecraft:pink_wool_stairs",
+    "minecraft:pink_wool_slab",
+    "minecraft:pink_concrete_stairs",
+    "minecraft:pink_concrete_slab",
     "minecraft:pink_bundle",
-    "minecraft:pink_harness"
+    "minecraft:pink_harness",
+    "minecraft:pink_cushion"
   ]
 }

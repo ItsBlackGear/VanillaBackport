@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.core.neoforge.emissive;
 
-import com.blackgear.vanillabackport.client.api.modules.emissive_models.EmissiveQuad;
+import com.blackgear.vanillabackport.client.api.modules.models.EmissiveQuad;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.ItemOverrides;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
@@ -37,9 +37,10 @@ public class EmissiveModelWrapper implements BakedModel {
 
     @Override
     public @NotNull List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, @NotNull RandomSource rand, @NotNull ModelData extraData, @Nullable net.minecraft.client.renderer.RenderType renderType) {
-        List<BakedQuad> quads = new ArrayList<>(baseModel.getQuads(state, side, rand, extraData, renderType));
-
-        List<BakedQuad> emissiveQuads = emissiveModel.getQuads(state, side, rand, extraData, renderType);
+        long seed = rand.nextLong();
+        List<BakedQuad> quads = new ArrayList<>(baseModel.getQuads(state, side, RandomSource.create(seed), extraData, renderType));
+        List<BakedQuad> emissiveQuads = emissiveModel.getQuads(state, side, RandomSource.create(seed), extraData, renderType);
+        
         for (BakedQuad quad : emissiveQuads) {
             quads.add(new EmissiveQuad(quad));
         }

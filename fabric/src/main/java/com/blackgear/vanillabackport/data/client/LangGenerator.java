@@ -72,8 +72,8 @@ public class LangGenerator extends FabricLanguageProvider {
 
         // Entities
         builder.add(ModEntityTypes.CREAKING.get(), "Creaking");
-        builder.add(ModEntityTypes.PALE_OAK_BOAT.get(), "Pale Oak Boat");
-        builder.add(ModEntityTypes.PALE_OAK_CHEST_BOAT.get(), "Pale Oak Boat with Chest");
+        builder.add(ModEntityTypes.CUSTOM_BOAT.get(), "Boat");
+        builder.add(ModEntityTypes.CUSTOM_CHEST_BOAT.get(), "Boat with Chest");
 
         // Trims
         builder.add("trim_material.minecraft.resin", "Resin Material");
@@ -160,6 +160,19 @@ public class LangGenerator extends FabricLanguageProvider {
         builder.add("subtitles.entity.happy_ghast.harness_goggles_up", "Happy Ghast stops");
         builder.add("subtitles.entity.happy_ghast.unequip", "Harness unequips");
         builder.add("subtitles.entity.happy_ghast.equip", "Harness equips");
+        
+        builder.add("attribute.name.waypoint_receive_range", "Waypoint Receive Range");
+        builder.add("attribute.name.waypoint_transmit_range", "Waypoint Transmit Range");
+        
+        builder.add("argument.waypoint.invalid", "Selected entity is not a waypoint");
+        builder.add("commands.waypoint.list.empty", "No waypoints in %s");
+        builder.add("commands.waypoint.list.success", "%s waypoint(s) in %s: %s");
+        builder.add("commands.waypoint.modify.color", "Waypoint color is now %s");
+        builder.add("commands.waypoint.modify.color.reset", "Reset waypoint color");
+        builder.add("commands.waypoint.modify.style", "Waypoint style changed");
+        
+        builder.add("gamerule.locatorBar", "Enable player Locator Bar");
+        builder.add("gamerule.locatorBar.description", "When enabled, a bar is shown on the screen to indicate the direction of players.");
 
         // Spring to Life
         builder.add(ModBlocks.BUSH.get(), "Bush");
@@ -362,6 +375,12 @@ public class LangGenerator extends FabricLanguageProvider {
         
         builder.add(ModMobEffects.BREATH_OF_THE_NAUTILUS.value(), "Breath of the Nautilus");
         
+        builder.add("enchantment.minecraft.lunge", "Lunge");
+        builder.add("enchantment.minecraft.lunge.desc", "The user lunges forward when using the spear");
+        
+        builder.add("advancements.adventure.spear_many_mobs.title", "Mob Kabob");
+        builder.add("advancements.adventure.spear_many_mobs.description", "Hit five mobs in the same Charge attack using the Spear");
+        
         builder.add("subtitles.entity.camel_husk.ambient", "Camel Husk grumphs");
         builder.add("subtitles.entity.camel_husk.dash", "Camel Husk yeets");
         builder.add("subtitles.entity.camel_husk.dash_ready", "Camel Husk recovers");
@@ -520,6 +539,34 @@ public class LangGenerator extends FabricLanguageProvider {
 
         // Misc
         builder.add(ModEntityTypes.CUSHION.get(), "Cushion");
+        builder.add("biome.minecraft.dappled_forest", "Dappled Forest");
+        
+        builder.add(ModBlocks.POPLAR_LOG.get(), "Poplar Log");
+        builder.add(ModBlocks.STRIPPED_POPLAR_LOG.get(), "Stripped Poplar Log");
+        builder.add(ModBlocks.POPLAR_WOOD.get(), "Poplar Wood");
+        builder.add(ModBlocks.STRIPPED_POPLAR_WOOD.get(), "Stripped Poplar Wood");
+        builder.add(ModBlocks.POPLAR_PLANKS.get(), "Poplar Planks");
+        builder.add(ModBlocks.POPLAR_STAIRS.get(), "Poplar Stairs");
+        builder.add(ModBlocks.POPLAR_SLAB.get(), "Poplar Slab");
+        builder.add(ModBlocks.POPLAR_SIGN.getFirst().get(), "Poplar Sign");
+        builder.add(ModBlocks.POPLAR_HANGING_SIGN.getFirst().get(), "Poplar Hanging Sign");
+        builder.add(ModBlocks.POPLAR_BUTTON.get(), "Poplar Button");
+        builder.add(ModBlocks.POPLAR_PRESSURE_PLATE.get(), "Poplar Pressure Plate");
+        builder.add(ModBlocks.POPLAR_DOOR.get(), "Poplar Door");
+        builder.add(ModBlocks.POPLAR_FENCE.get(), "Poplar Fence");
+        builder.add(ModBlocks.POPLAR_FENCE_GATE.get(), "Poplar Fence Gate");
+        builder.add(ModBlocks.POPLAR_TRAPDOOR.get(), "Poplar Trapdoor");
+        builder.add(ModBlocks.POPLAR_SHELF.get(), "Poplar Shelf");
+        builder.add(ModItems.POPLAR_BOAT.get(), "Poplar Boat");
+        builder.add(ModItems.POPLAR_CHEST_BOAT.get(), "Poplar Chest Boat");
+        builder.add(ModBlocks.RED_POPLAR_LEAVES.get(), "Red Poplar Leaves");
+        builder.add(ModBlocks.ORANGE_POPLAR_LEAVES.get(), "Orange Poplar Leaves");
+        builder.add(ModBlocks.YELLOW_POPLAR_LEAVES.get(), "Yellow Poplar Leaves");
+        builder.add(ModBlocks.POPLAR_SAPLING.get(), "Poplar Sapling");
+        builder.add(ModBlocks.POTTED_POPLAR_SAPLING.get(), "Potted Poplar Sapling");
+        builder.add(ModBlocks.RED_SHRUB.get(), "Red Shrub");
+        builder.add(ModBlocks.SHELF_MUSHROOM.get(), "Shelf Mushroom");
+        builder.add(ModBlocks.STRAW_BED.get(), "Straw Bed");
         
         builder.add(ModBlocks.BLACK_WOOL_STAIRS.get(), "Black Wool Stairs");
         builder.add(ModBlocks.WHITE_WOOL_STAIRS.get(), "White Wool Stairs");
@@ -554,6 +601,40 @@ public class LangGenerator extends FabricLanguageProvider {
         builder.add(ModBlocks.LIME_WOOL_SLAB.get(), "Lime Wool Slab");
         builder.add(ModBlocks.BROWN_WOOL_SLAB.get(), "Brown Wool Slab");
         builder.add(ModBlocks.ORANGE_WOOL_SLAB.get(), "Orange Wool Slab");
+
+        builder.add(ModBlocks.BLACK_CONCRETE_STAIRS.get(), "Black Concrete Stairs");
+        builder.add(ModBlocks.WHITE_CONCRETE_STAIRS.get(), "White Concrete Stairs");
+        builder.add(ModBlocks.GRAY_CONCRETE_STAIRS.get(), "Gray Concrete Stairs");
+        builder.add(ModBlocks.LIGHT_GRAY_CONCRETE_STAIRS.get(), "Light Gray Concrete Stairs");
+        builder.add(ModBlocks.LIGHT_BLUE_CONCRETE_STAIRS.get(), "Light Blue Concrete Stairs");
+        builder.add(ModBlocks.BLUE_CONCRETE_STAIRS.get(), "Blue Concrete Stairs");
+        builder.add(ModBlocks.CYAN_CONCRETE_STAIRS.get(), "Cyan Concrete Stairs");
+        builder.add(ModBlocks.YELLOW_CONCRETE_STAIRS.get(), "Yellow Concrete Stairs");
+        builder.add(ModBlocks.RED_CONCRETE_STAIRS.get(), "Red Concrete Stairs");
+        builder.add(ModBlocks.PURPLE_CONCRETE_STAIRS.get(), "Purple Concrete Stairs");
+        builder.add(ModBlocks.MAGENTA_CONCRETE_STAIRS.get(), "Magenta Concrete Stairs");
+        builder.add(ModBlocks.PINK_CONCRETE_STAIRS.get(), "Pink Concrete Stairs");
+        builder.add(ModBlocks.GREEN_CONCRETE_STAIRS.get(), "Green Concrete Stairs");
+        builder.add(ModBlocks.LIME_CONCRETE_STAIRS.get(), "Lime Concrete Stairs");
+        builder.add(ModBlocks.BROWN_CONCRETE_STAIRS.get(), "Brown Concrete Stairs");
+        builder.add(ModBlocks.ORANGE_CONCRETE_STAIRS.get(), "Orange Concrete Stairs");
+
+        builder.add(ModBlocks.BLACK_CONCRETE_SLAB.get(), "Black Concrete Slab");
+        builder.add(ModBlocks.WHITE_CONCRETE_SLAB.get(), "White Concrete Slab");
+        builder.add(ModBlocks.GRAY_CONCRETE_SLAB.get(), "Gray Concrete Slab");
+        builder.add(ModBlocks.LIGHT_GRAY_CONCRETE_SLAB.get(), "Light Gray Concrete Slab");
+        builder.add(ModBlocks.LIGHT_BLUE_CONCRETE_SLAB.get(), "Light Blue Concrete Slab");
+        builder.add(ModBlocks.BLUE_CONCRETE_SLAB.get(), "Blue Concrete Slab");
+        builder.add(ModBlocks.CYAN_CONCRETE_SLAB.get(), "Cyan Concrete Slab");
+        builder.add(ModBlocks.YELLOW_CONCRETE_SLAB.get(), "Yellow Concrete Slab");
+        builder.add(ModBlocks.RED_CONCRETE_SLAB.get(), "Red Concrete Slab");
+        builder.add(ModBlocks.PURPLE_CONCRETE_SLAB.get(), "Purple Concrete Slab");
+        builder.add(ModBlocks.MAGENTA_CONCRETE_SLAB.get(), "Magenta Concrete Slab");
+        builder.add(ModBlocks.PINK_CONCRETE_SLAB.get(), "Pink Concrete Slab");
+        builder.add(ModBlocks.GREEN_CONCRETE_SLAB.get(), "Green Concrete Slab");
+        builder.add(ModBlocks.LIME_CONCRETE_SLAB.get(), "Lime Concrete Slab");
+        builder.add(ModBlocks.BROWN_CONCRETE_SLAB.get(), "Brown Concrete Slab");
+        builder.add(ModBlocks.ORANGE_CONCRETE_SLAB.get(), "Orange Concrete Slab");
         
         builder.add(ModItems.BLACK_CUSHION.get(), "Black Cushion");
         builder.add(ModItems.WHITE_CUSHION.get(), "White Cushion");
@@ -577,6 +658,27 @@ public class LangGenerator extends FabricLanguageProvider {
         builder.add("subtitles.entity.cushion.place", "Cushion placed");
         builder.add("subtitles.entity.cushion.sit", "Sits on Cushion");
         
+        builder.add("subtitles.block.straw_bed.break_leave", "Straw Bed breaks");
+        builder.add("subtitles.block.poplar_leaves.ambient", "Leaves rustling");
+        builder.add("subtitles.block.shelf_mushroom.bounce", "Something bounces on a Shelf Mushroom");
+        
+        builder.add("filled_map.bamboo_camp_map", "Bamboo Camp Map");
+        builder.add("filled_map.bamboo_jungle_abandoned_camp", "Bamboo Jungle Abandoned Camp Map");
+        builder.add("filled_map.birch_forest_abandoned_camp", "Birch Forest Abandoned Camp Map");
+        builder.add("filled_map.birch_forest_camp_map", "Birch Forest Camp Map");
+        builder.add("filled_map.cherry_grove_abandoned_camp", "Cherry Grove Abandoned Camp Map");
+        builder.add("filled_map.cherry_grove_camp_map", "Cherry Grove Camp Map");
+        builder.add("filled_map.dappled_forest_abandoned_camp", "Dappled Forest Abandoned Camp Map");
+        builder.add("filled_map.dappled_forest_camp_map", "Dappled Forest Camp Map");
+        builder.add("filled_map.flower_forest_abandoned_camp", "Flower Forest Abandoned Camp Map");
+        builder.add("filled_map.flower_forest_camp_map", "Flower Forest Camp Map");
+        builder.add("filled_map.pale_garden_abandoned_camp", "Pale Garden Abandoned Camp Map");
+        builder.add("filled_map.pale_garden_camp_map", "Pale Garden Camp Map");
+        builder.add("filled_map.swamp_abandoned_camp", "Swamp Abandoned Camp Map");
+        builder.add("filled_map.swamp_camp_map", "Swamp Camp Map");
+        builder.add("filled_map.windswept_forest_abandoned_camp", "Windswept Forest Abandoned Camp Map");
+        builder.add("filled_map.windswept_forest_camp_map", "Windswept Forest Camp Map");
+        
         // Bundled Tabs
         builder.add("bundled_tab.bundles_of_bravery.title", "Bundles of Bravery");
         builder.add("bundled_tab.the_garden_awakens.title", "The Garden Awakens");
@@ -586,6 +688,7 @@ public class LangGenerator extends FabricLanguageProvider {
         builder.add("bundled_tab.copper_age.title", "Copper Age");
         builder.add("bundled_tab.mounts_of_mayhem.title", "Mounts of Mayhem");
         builder.add("bundled_tab.chaos_cubed.title", "Chaos Cubed");
+        builder.add("bundled_tab.wilderness_bound.title", "Wilderness Bound");
         builder.add("bundled_tab.miscellaneous.title", "Miscellaneous");
         
         // Options

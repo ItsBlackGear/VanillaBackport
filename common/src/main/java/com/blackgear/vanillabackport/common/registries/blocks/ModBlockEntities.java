@@ -2,7 +2,7 @@ package com.blackgear.vanillabackport.common.registries.blocks;
 
 import com.blackgear.platform.core.helper.BlockEntityRegistry;
 import com.blackgear.platform.core.helper.BlockEntityTypeBuilder;
-import com.blackgear.vanillabackport.common.level.block_entity.*;
+import com.blackgear.vanillabackport.common.level.block_entities.*;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 
@@ -58,6 +58,7 @@ public class ModBlockEntities {
             ModBlocks.MANGROVE_SHELF,
             ModBlocks.OAK_SHELF,
             ModBlocks.PALE_OAK_SHELF,
+            ModBlocks.POPLAR_SHELF,
             ModBlocks.SPRUCE_SHELF,
             ModBlocks.WARPED_SHELF));
     

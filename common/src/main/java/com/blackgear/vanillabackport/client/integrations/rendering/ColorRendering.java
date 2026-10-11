@@ -13,27 +13,18 @@ import static com.blackgear.platform.client.GameRendering.*;
 @Environment(EnvType.CLIENT)
 public class ColorRendering {
     public static void blockColors(BlockColorEvent event) {
-        event.register(
-            (state, level, pos, tint) -> level != null && pos != null
+        event.register((state, level, pos, tint) -> level != null && pos != null
                 ? LeafColors.getAverageDryFoliageColor(pos)
                 : DryFoliageColor.FOLIAGE_DRY_DEFAULT,
-            ModBlocks.LEAF_LITTER.get()
-        );
-        event.register(
-            (state, level, pos, tint) -> level != null && pos != null
+            ModBlocks.LEAF_LITTER.get());
+        event.register((state, level, pos, tint) -> level != null && pos != null
                 ? BiomeColors.getAverageGrassColor(level, pos)
                 : GrassColor.getDefaultColor(),
-            ModBlocks.BUSH.get()
-        );
-        event.register((state, level, pos, tint) -> {
-                if (tint != 0) {
-                    return level != null && pos != null ? BiomeColors.getAverageGrassColor(level, pos) : GrassColor.getDefaultColor();
-                } else {
-                    return -1;
-                }
-            },
-            ModBlocks.WILDFLOWERS.get()
-        );
+            ModBlocks.BUSH.get());
+        event.register((state, level, pos, tint) -> tint != 0
+                ? level != null && pos != null ? BiomeColors.getAverageGrassColor(level, pos) : GrassColor.getDefaultColor()
+                : -1,
+            ModBlocks.WILDFLOWERS.get());
     }
     
     public static void itemColors(ItemColorEvent event) {

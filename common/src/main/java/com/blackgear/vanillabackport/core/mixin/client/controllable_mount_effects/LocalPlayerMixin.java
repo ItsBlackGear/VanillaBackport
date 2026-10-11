@@ -2,8 +2,8 @@ package com.blackgear.vanillabackport.core.mixin.client.controllable_mount_effec
 
 import com.blackgear.vanillabackport.client.level.sound.RidingEntitySoundInstance;
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
-import com.blackgear.vanillabackport.common.level.entity.mob.animal.happy_ghast.HappyGhast;
-import com.blackgear.vanillabackport.common.level.entity.mob.animal.nautilus.AbstractNautilus;
+import com.blackgear.vanillabackport.common.level.entities.mob.animal.happy_ghast.HappyGhast;
+import com.blackgear.vanillabackport.common.level.entities.mob.animal.nautilus.AbstractNautilus;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -25,11 +25,7 @@ public abstract class LocalPlayerMixin extends AbstractClientPlayer {
         super(clientLevel, gameProfile);
     }
 
-    @Inject(
-        method = "startRiding",
-        at = @At("HEAD"),
-        cancellable = true
-    )
+    @Inject(method = "startRiding", at = @At("HEAD"), cancellable = true)
     private void onStartRiding(Entity vehicle, boolean force, CallbackInfoReturnable<Boolean> cir) {
         if (super.startRiding(vehicle, force)) {
             if (vehicle instanceof HappyGhast ghast) {

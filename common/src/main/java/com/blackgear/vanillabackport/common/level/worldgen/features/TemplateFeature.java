@@ -13,6 +13,7 @@ import net.minecraft.world.level.block.Rotation;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.FeaturePlaceContext;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
+import net.minecraft.world.level.levelgen.structure.templatesystem.StructureProcessor;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager;
 
@@ -34,6 +35,13 @@ public class TemplateFeature extends Feature<TemplateFeatureConfiguration> {
         Vec3i offsetZ = this.getRotatedOffset(rotation, Direction.Axis.Z, template);
         BlockPos pos = context.origin().offset(offsetX).offset(offsetZ);
         StructurePlaceSettings settings = new StructurePlaceSettings().setRotation(rotation).setRandom(random);
+        
+        if (config.processors().isPresent()) {
+            for (StructureProcessor processor : config.processors().get().value().list()) {
+                settings.addProcessor(processor);
+            }
+        }
+        
         return template.placeInWorld(level, pos, pos, settings, random, 3);
     }
     

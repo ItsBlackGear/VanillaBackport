@@ -1,25 +1,25 @@
 package com.blackgear.vanillabackport.core.mixin.common.spear_behavior;
 
 import com.blackgear.vanillabackport.common.api.extensions.entity.spear.MobSpearHandler;
+import com.blackgear.vanillabackport.common.api.extensions.entity.spear.SpearSwingTracker;
 import com.blackgear.vanillabackport.common.level.components.AttackRange;
 import com.blackgear.vanillabackport.common.level.components.KineticWeapon;
-import com.blackgear.vanillabackport.common.level.item.spear.SpearItem;
-import com.blackgear.vanillabackport.common.registries.items.ModDataComponents;
+import com.blackgear.vanillabackport.common.level.components.SwingAnimation;
+import com.blackgear.vanillabackport.common.registries.enchantment.EnchantmentUtils;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import it.unimi.dsi.fastutil.objects.Object2LongMap;
 import it.unimi.dsi.fastutil.objects.Object2LongOpenHashMap;
-import net.minecraft.core.Holder;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.stats.Stats;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.effect.MobEffect;
-import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.Level;
@@ -35,9 +35,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.function.Predicate;
 
 @Mixin(LivingEntity.class)
-public abstract class LivingEntityMixin extends Entity implements MobSpearHandler {
-    @Shadow public abstract boolean isUsingItem();
-    @Shadow public abstract int getTicksUsingItem();
+public abstract class LivingEntityMixin extends Entity implements MobSpearHandler, SpearSwingTracker {
     @Shadow public abstract ItemStack getItemBySlot(EquipmentSlot slot);
     @Shadow public abstract void setLastHurtMob(Entity entity);
     @Shadow public abstract ItemStack getItemInHand(InteractionHand hand);
@@ -46,26 +44,29 @@ public abstract class LivingEntityMixin extends Entity implements MobSpearHandle
     
     @Shadow protected abstract float getKnockback(Entity attacker, DamageSource damageSource);
     
-    @Shadow
-    public InteractionHand swingingArm;
-    
-    @Shadow
-    public abstract boolean hasEffect(Holder<MobEffect> effect);
-    
-    @Shadow
-    @Nullable
-    public abstract MobEffectInstance getEffect(Holder<MobEffect> effect);
+    @Shadow public InteractionHand swingingArm;
     
     @Unique @Nullable protected Object2LongMap<Entity> recentKineticEnemies;
     @Unique private long lastKineticHitFeedbackTime = -2147483648L;
+    @Unique private boolean vb$isAttackSwing = true;
     
     public LivingEntityMixin(EntityType<?> entityType, Level level) {
         super(entityType, level);
     }
     
     @Override
-    public AttackRange getAttackRangeWith(ItemStack weapon) {
-        AttackRange attackRange = weapon.get(ModDataComponents.ATTACK_RANGE.get());
+    public void vb$setAttackSwing(boolean isAttack) {
+        this.vb$isAttackSwing = isAttack;
+    }
+    
+    @Override
+    public boolean vb$isAttackSwing() {
+        return this.vb$isAttackSwing;
+    }
+    
+    @Override
+    public AttackRange vb$getAttackRangeWith(ItemStack weapon) {
+        AttackRange attackRange = AttackRange.get(weapon);
         return attackRange != null ? attackRange : AttackRange.defaultFor((LivingEntity)(Object)this);
     }
     
@@ -77,8 +78,8 @@ public abstract class LivingEntityMixin extends Entity implements MobSpearHandle
             shift = At.Shift.AFTER
         )
     )
-    private void vb$startUsingItem(InteractionHand interactionHand, CallbackInfo ci) {
-        if (this.useItem.has(ModDataComponents.KINETIC_WEAPON.get())) {
+    private void vb$startUsingItem(InteractionHand hand, CallbackInfo ci) {
+        if (KineticWeapon.get(this.useItem) != null) {
             this.recentKineticEnemies = new Object2LongOpenHashMap<>();
         }
     }
@@ -100,13 +101,14 @@ public abstract class LivingEntityMixin extends Entity implements MobSpearHandle
             args = "intValue=6"
         ))
     private int vb$getCurrentSwingDuration(int original) {
+        if (!this.vb$isAttackSwing()) return original;
         InteractionHand hand = this.swingingArm != null ? this.swingingArm : InteractionHand.MAIN_HAND;
         ItemStack heldItem = this.getItemInHand(hand);
-        return SpearItem.getSwingAnimation(heldItem).duration();
+        return SwingAnimation.get(heldItem).duration();
     }
     
     @Override
-    public boolean wasRecentlyStabbed(Entity target, int allowedTime) {
+    public boolean vb$wasRecentlyStabbed(Entity target, int allowedTime) {
         if (this.recentKineticEnemies == null) {
             return false;
         } else if (this.recentKineticEnemies.containsKey(target)) {
@@ -117,18 +119,18 @@ public abstract class LivingEntityMixin extends Entity implements MobSpearHandle
     }
     
     @Override
-    public void rememberStabbedEntity(Entity target) {
+    public void vb$rememberStabbedEntity(Entity target) {
         if (this.recentKineticEnemies != null)
-            this.recentKineticEnemies.putIfAbsent(target, this.level().getGameTime());
+            this.recentKineticEnemies.put(target, this.level().getGameTime());
     }
     
     @Override
-    public int stabbedEntities(Predicate<Entity> filter) {
+    public int vb$stabbedEntities(Predicate<Entity> filter) {
         return this.recentKineticEnemies == null ? 0 : (int) this.recentKineticEnemies.keySet().stream().filter(filter).count();
     }
     
     @Override
-    public boolean stabAttack(EquipmentSlot weaponSlot, Entity target, float baseDamage, boolean dealsDamage, boolean dealsKnockback, boolean dismounts) {
+    public boolean vb$stabAttack(EquipmentSlot weaponSlot, Entity target, float baseDamage, boolean dealsDamage, boolean dealsKnockback, boolean dismounts) {
         LivingEntity self = (LivingEntity)(Object)this;
         
         if (!(this.level() instanceof ServerLevel server)) return false;
@@ -141,8 +143,8 @@ public abstract class LivingEntityMixin extends Entity implements MobSpearHandle
         boolean affected = dealsKnockback | dealtDamage;
         
         if (dealsKnockback) {
-            this.causeExtraKnockback(target, 0.4F, oldMovement);
-            this.causeExtraKnockback(target, this.getKnockback(target, damageSource), oldMovement);
+            this.vb$causeExtraKnockback(target, 0.4F, oldMovement);
+            this.vb$causeExtraKnockback(target, this.getKnockback(target, damageSource), oldMovement);
         }
         
         if (dismounts && target.isPassenger()) {
@@ -150,8 +152,11 @@ public abstract class LivingEntityMixin extends Entity implements MobSpearHandle
             target.stopRiding();
         }
         
-        if (target instanceof LivingEntity living && self instanceof Player player) {
-            weapon.hurtEnemy(living, player);
+        if (target instanceof LivingEntity living) {
+            Item usedItem = weapon.getItem();
+            if (usedItem.hurtEnemy(weapon, living, self) && self instanceof Player player) {
+                player.awardStat(Stats.ITEM_USED.get(usedItem));
+            }
         }
         
         if (dealtDamage) {
@@ -167,7 +172,7 @@ public abstract class LivingEntityMixin extends Entity implements MobSpearHandle
     }
     
     @Override
-    public void causeExtraKnockback(Entity target, float knockback, Vec3 oldMovement) {
+    public void vb$causeExtraKnockback(Entity target, float knockback, Vec3 oldMovement) {
         if (knockback > 0.0F && target instanceof LivingEntity living) {
             living.knockback(knockback, Mth.sin(this.getYRot() * Mth.DEG_TO_RAD), -Mth.cos(this.getYRot() * Mth.DEG_TO_RAD));
             this.setDeltaMovement(this.getDeltaMovement().multiply(0.6, 1.0, 0.6));
@@ -175,24 +180,22 @@ public abstract class LivingEntityMixin extends Entity implements MobSpearHandle
     }
     
     @Override
-    public void postPiercingAttack() {
+    public void vb$postPiercingAttack() {
         if (this.level() instanceof ServerLevel level) {
-//            EnchantmentUtils.doPostPiercingAttackEffects(level, (LivingEntity)(Object)this); TODO
+            EnchantmentUtils.doPostPiercingAttackEffects(level, (LivingEntity)(Object)this);
         }
     }
     
-    @Inject(method = "handleEntityEvent", at = @At("HEAD"))
+    @Inject(method = "handleEntityEvent", at = @At("HEAD"), cancellable = true)
     private void vb$handleEntityEvent(byte id, CallbackInfo ci) {
-        if (id == 2) this.onKineticHit();
+        if (id == 2) {
+            this.onKineticHit();
+            ci.cancel();
+        }
     }
     
     @Override
-    public float getTicksUsingItem(float partial) {
-        return !this.isUsingItem() ? 0.0F : this.getTicksUsingItem() + partial;
-    }
-    
-    @Override
-    public float getTicksSinceLastKineticHitFeedback(float partial) {
+    public float vb$getTicksSinceLastKineticHitFeedback(float partial) {
         return this.lastKineticHitFeedbackTime < 0L
             ? 0.0F
             : (float) (this.level().getGameTime() - this.lastKineticHitFeedbackTime) + partial;
@@ -202,7 +205,7 @@ public abstract class LivingEntityMixin extends Entity implements MobSpearHandle
     private void onKineticHit() {
         if (this.level().getGameTime() - this.lastKineticHitFeedbackTime > 10L) {
             this.lastKineticHitFeedbackTime = this.level().getGameTime();
-            KineticWeapon kineticWeapon = this.useItem.get(ModDataComponents.KINETIC_WEAPON.get());
+            KineticWeapon kineticWeapon = KineticWeapon.get(this.useItem);
             if (kineticWeapon != null) {
                 kineticWeapon.makeLocalHitSound(this);
             }

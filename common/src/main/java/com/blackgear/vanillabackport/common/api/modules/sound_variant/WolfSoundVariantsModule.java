@@ -5,29 +5,29 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.animal.Wolf;
 
 public class WolfSoundVariantsModule {
-    public static <T extends Wolf & WolfSoundVariantHolder> SoundEvent getAmbientSound(T wolf) {
+    public static <T extends Wolf & SoundVariantHolder<WolfSoundVariant>> SoundEvent getAmbientSound(T wolf) {
         if (!VanillaBackport.COMMON_CONFIG.hasWolfSoundVariants.get()) return null;
 
         if (wolf.isAngry()) {
-            return wolf.getSoundVariant().growlSound().value();
+            return wolf.vb$getSoundVariant().growlSound().value();
         } else if (wolf.getRandom().nextInt(3) == 0) {
             return wolf.isTame() && wolf.getHealth() < 20.0F
-                ? wolf.getSoundVariant().whineSound().value()
-                : wolf.getSoundVariant().pantSound().value();
+                ? wolf.vb$getSoundVariant().whineSound().value()
+                : wolf.vb$getSoundVariant().pantSound().value();
         } else {
-            return wolf.getSoundVariant().ambientSound().value();
+            return wolf.vb$getSoundVariant().ambientSound().value();
         }
     }
 
-    public static <T extends Wolf & WolfSoundVariantHolder> SoundEvent getHurtSound(T wolf) {
+    public static <T extends Wolf & SoundVariantHolder<WolfSoundVariant>> SoundEvent getHurtSound(T wolf) {
         if (!VanillaBackport.COMMON_CONFIG.hasWolfSoundVariants.get()) return null;
 
-        return wolf.getSoundVariant().hurtSound().value();
+        return wolf.vb$getSoundVariant().hurtSound().value();
     }
 
-    public static <T extends Wolf & WolfSoundVariantHolder> SoundEvent getDeathSound(T wolf) {
+    public static <T extends Wolf & SoundVariantHolder<WolfSoundVariant>> SoundEvent getDeathSound(T wolf) {
         if (!VanillaBackport.COMMON_CONFIG.hasWolfSoundVariants.get()) return null;
 
-        return wolf.getSoundVariant().deathSound().value();
+        return wolf.vb$getSoundVariant().deathSound().value();
     }
 }

@@ -1,8 +1,9 @@
 package com.blackgear.vanillabackport.data.server.loot;
 
-import com.blackgear.vanillabackport.common.level.block.CopperGolemStatueBlock;
-import com.blackgear.vanillabackport.common.level.block.LeafLitterBlock;
-import com.blackgear.vanillabackport.common.level.block.MossyCarpetBlock;
+import com.blackgear.vanillabackport.common.level.blocks.CopperGolemStatueBlock;
+import com.blackgear.vanillabackport.common.level.blocks.MossyCarpetBlock;
+import com.blackgear.vanillabackport.common.level.blocks.SegmentableBlock;
+import com.blackgear.vanillabackport.common.level.blocks.ShelfMushroomBlock;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider;
@@ -14,8 +15,10 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.level.block.BedBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.MultifaceBlock;
+import net.minecraft.world.level.block.state.properties.BedPart;
 import net.minecraft.world.level.storage.loot.IntRange;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
@@ -94,7 +97,7 @@ public class BlockLootGenerator extends FabricBlockLootTableProvider {
         this.dropSelf(ModBlocks.FIREFLY_BUSH.get());
         this.add(ModBlocks.BUSH.get(), this::createShearsOrSilkTouchOnlyDrop);
         this.add(ModBlocks.WILDFLOWERS.get(), this.createPetalsDrops(ModBlocks.WILDFLOWERS.get()));
-        this.add(ModBlocks.LEAF_LITTER.get(), this.createLeafLitterDrops(ModBlocks.LEAF_LITTER.get()));
+        this.add(ModBlocks.LEAF_LITTER.get(), this.createSegmentedBlockDrops(ModBlocks.LEAF_LITTER.get()));
         this.dropSelf(ModBlocks.CACTUS_FLOWER.get());
         this.add(ModBlocks.SHORT_DRY_GRASS.get(), this::createShearsOrSilkTouchOnlyDrop);
         this.add(ModBlocks.TALL_DRY_GRASS.get(), this::createShearsOrSilkTouchOnlyDrop);
@@ -163,12 +166,65 @@ public class BlockLootGenerator extends FabricBlockLootTableProvider {
         this.add(ModBlocks.WAXED_WEATHERED_COPPER_GOLEM_STATUE.get(), this::createCopperGolemStatueBlock);
         this.add(ModBlocks.WAXED_OXIDIZED_COPPER_GOLEM_STATUE.get(), this::createCopperGolemStatueBlock);
         
+        this.dropSelf(ModBlocks.EXPOSED_LIGHTNING_ROD.get());
+        this.dropSelf(ModBlocks.WEATHERED_LIGHTNING_ROD.get());
+        this.dropSelf(ModBlocks.OXIDIZED_LIGHTNING_ROD.get());
+        
+        this.dropSelf(ModBlocks.WAXED_LIGHTNING_ROD.get());
+        this.dropSelf(ModBlocks.WAXED_EXPOSED_LIGHTNING_ROD.get());
+        this.dropSelf(ModBlocks.WAXED_WEATHERED_LIGHTNING_ROD.get());
+        this.dropSelf(ModBlocks.WAXED_OXIDIZED_LIGHTNING_ROD.get());
+        
         this.dropSelf(ModBlocks.COPPER_TORCH.getFirst().get());
         ModBlocks.COPPER_LANTERN.forEach(holder -> this.add(holder.get(), this::createSingleItemTable));
         ModBlocks.COPPER_BARS.forEach(holder -> this.dropSelf(holder.get()));
         ModBlocks.COPPER_CHAIN.forEach(holder -> this.dropSelf(holder.get()));
         
-        // Miscellaneous
+        // Wilderness bound
+        
+        this.dropSelf(ModBlocks.POPLAR_PLANKS.get());
+        this.dropSelf(ModBlocks.POPLAR_SAPLING.get());
+        this.dropSelf(ModBlocks.POPLAR_LOG.get());
+        this.dropSelf(ModBlocks.STRIPPED_POPLAR_LOG.get());
+        this.dropSelf(ModBlocks.POPLAR_WOOD.get());
+        this.dropSelf(ModBlocks.STRIPPED_POPLAR_WOOD.get());
+        this.dropSelf(ModBlocks.POPLAR_SIGN.getFirst().get());
+        this.dropSelf(ModBlocks.POPLAR_HANGING_SIGN.getFirst().get());
+        this.dropSelf(ModBlocks.POPLAR_PRESSURE_PLATE.get());
+        this.dropSelf(ModBlocks.POPLAR_TRAPDOOR.get());
+        this.dropSelf(ModBlocks.POPLAR_BUTTON.get());
+        this.dropSelf(ModBlocks.POPLAR_STAIRS.get());
+        this.dropSelf(ModBlocks.POPLAR_FENCE_GATE.get());
+        this.dropSelf(ModBlocks.POPLAR_FENCE.get());
+        this.dropSelf(ModBlocks.POPLAR_SHELF.get());
+        this.add(ModBlocks.POPLAR_SLAB.get(), this::createSlabItemTable);
+        this.add(ModBlocks.POPLAR_DOOR.get(), this::createDoorTable);
+        this.add(ModBlocks.RED_POPLAR_LEAVES.get(), block -> this.createLeavesDrops(block, ModBlocks.POPLAR_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
+        this.add(ModBlocks.ORANGE_POPLAR_LEAVES.get(), block -> this.createLeavesDrops(block, ModBlocks.POPLAR_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
+        this.add(ModBlocks.YELLOW_POPLAR_LEAVES.get(), block -> this.createLeavesDrops(block, ModBlocks.POPLAR_SAPLING.get(), NORMAL_LEAVES_SAPLING_CHANCES));
+        
+        this.dropPottedContents(ModBlocks.POTTED_POPLAR_SAPLING.get());
+        this.dropSelf(ModBlocks.RED_SHRUB.get());
+        this.add(ModBlocks.SHELF_MUSHROOM.get(),
+            block -> LootTable.lootTable()
+                .withPool(
+                    LootPool.lootPool()
+                        .setRolls(ConstantValue.exactly(1))
+                        .add(
+                            this.applyExplosionDecay(
+                                block,
+                                LootItem.lootTableItem(ModBlocks.SHELF_MUSHROOM.get())
+                                    .apply(
+                                        SetItemCountFunction.setCount(ConstantValue.exactly(2))
+                                            .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block).setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(ShelfMushroomBlock.AGE, 1)))
+                                    )
+                            )
+                        )
+                )
+        );
+        
+        this.add(ModBlocks.STRAW_BED.get(), block -> this.createSinglePropConditionTable(block, BedBlock.PART, BedPart.HEAD));
+        
         this.dropSelf(ModBlocks.WHITE_WOOL_STAIRS.get());
         this.dropSelf(ModBlocks.ORANGE_WOOL_STAIRS.get());
         this.dropSelf(ModBlocks.MAGENTA_WOOL_STAIRS.get());
@@ -202,6 +258,40 @@ public class BlockLootGenerator extends FabricBlockLootTableProvider {
         this.dropSelf(ModBlocks.GREEN_WOOL_SLAB.get());
         this.dropSelf(ModBlocks.RED_WOOL_SLAB.get());
         this.dropSelf(ModBlocks.BLACK_WOOL_SLAB.get());
+
+        this.dropSelf(ModBlocks.WHITE_CONCRETE_STAIRS.get());
+        this.dropSelf(ModBlocks.ORANGE_CONCRETE_STAIRS.get());
+        this.dropSelf(ModBlocks.MAGENTA_CONCRETE_STAIRS.get());
+        this.dropSelf(ModBlocks.LIGHT_BLUE_CONCRETE_STAIRS.get());
+        this.dropSelf(ModBlocks.YELLOW_CONCRETE_STAIRS.get());
+        this.dropSelf(ModBlocks.LIME_CONCRETE_STAIRS.get());
+        this.dropSelf(ModBlocks.PINK_CONCRETE_STAIRS.get());
+        this.dropSelf(ModBlocks.GRAY_CONCRETE_STAIRS.get());
+        this.dropSelf(ModBlocks.LIGHT_GRAY_CONCRETE_STAIRS.get());
+        this.dropSelf(ModBlocks.CYAN_CONCRETE_STAIRS.get());
+        this.dropSelf(ModBlocks.PURPLE_CONCRETE_STAIRS.get());
+        this.dropSelf(ModBlocks.BLUE_CONCRETE_STAIRS.get());
+        this.dropSelf(ModBlocks.BROWN_CONCRETE_STAIRS.get());
+        this.dropSelf(ModBlocks.GREEN_CONCRETE_STAIRS.get());
+        this.dropSelf(ModBlocks.RED_CONCRETE_STAIRS.get());
+        this.dropSelf(ModBlocks.BLACK_CONCRETE_STAIRS.get());
+
+        this.dropSelf(ModBlocks.WHITE_CONCRETE_SLAB.get());
+        this.dropSelf(ModBlocks.ORANGE_CONCRETE_SLAB.get());
+        this.dropSelf(ModBlocks.MAGENTA_CONCRETE_SLAB.get());
+        this.dropSelf(ModBlocks.LIGHT_BLUE_CONCRETE_SLAB.get());
+        this.dropSelf(ModBlocks.YELLOW_CONCRETE_SLAB.get());
+        this.dropSelf(ModBlocks.LIME_CONCRETE_SLAB.get());
+        this.dropSelf(ModBlocks.PINK_CONCRETE_SLAB.get());
+        this.dropSelf(ModBlocks.GRAY_CONCRETE_SLAB.get());
+        this.dropSelf(ModBlocks.LIGHT_GRAY_CONCRETE_SLAB.get());
+        this.dropSelf(ModBlocks.CYAN_CONCRETE_SLAB.get());
+        this.dropSelf(ModBlocks.PURPLE_CONCRETE_SLAB.get());
+        this.dropSelf(ModBlocks.BLUE_CONCRETE_SLAB.get());
+        this.dropSelf(ModBlocks.BROWN_CONCRETE_SLAB.get());
+        this.dropSelf(ModBlocks.GREEN_CONCRETE_SLAB.get());
+        this.dropSelf(ModBlocks.RED_CONCRETE_SLAB.get());
+        this.dropSelf(ModBlocks.BLACK_CONCRETE_SLAB.get());
     }
 
     protected LootTable.Builder createMultifaceBlockDrops(Block block) {
@@ -248,16 +338,18 @@ public class BlockLootGenerator extends FabricBlockLootTableProvider {
             .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F)).when(this.hasShearsOrSilkTouch()).add(LootItem.lootTableItem(itemLike)));
     }
 
-    public LootTable.Builder createLeafLitterDrops(Block petalBlock) {
-        return LootTable.lootTable()
-            .withPool(LootPool.lootPool()
+    public LootTable.Builder createSegmentedBlockDrops(Block block) {
+        return block instanceof SegmentableBlock segmentable
+            ? LootTable.lootTable().withPool(LootPool.lootPool()
                 .setRolls(ConstantValue.exactly(1.0F))
-                .add(this.applyExplosionDecay(petalBlock,
-                    LootItem.lootTableItem(petalBlock)
+                .add(this.applyExplosionDecay(block,
+                    LootItem.lootTableItem(block)
                         .apply(IntStream.rangeClosed(1, 4).boxed().toList(),
                             value -> SetItemCountFunction.setCount(ConstantValue.exactly((float) value))
-                                .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(petalBlock)
-                                    .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(LeafLitterBlock.AMOUNT, value)))))));
+                                .when(LootItemBlockStatePropertyCondition.hasBlockStateProperties(block)
+                                    .setProperties(StatePropertiesPredicate.Builder.properties().hasProperty(segmentable.getSegmentAmountProperty(), value)))))))
+            : noDrop();
+            
     }
     
     public LootTable.Builder createCopperGolemStatueBlock(Block block) {

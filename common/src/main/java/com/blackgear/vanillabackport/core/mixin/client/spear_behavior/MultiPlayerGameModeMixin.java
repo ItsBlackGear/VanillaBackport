@@ -24,8 +24,8 @@ public abstract class MultiPlayerGameModeMixin implements ServerSpearHandler {
     public void piercingAttack(PiercingWeapon piercingWeapon) {
         this.ensureHasSentCarriedItem();
         this.connection.send(new ServerboundPlayerActionPacket(PlayerActions.STAB.get(), BlockPos.ZERO, Direction.DOWN));
-        ((MobSpearHandler) this.minecraft.player).onAttack();
-        ((MobSpearHandler) this.minecraft.player).postPiercingAttack();
+        ((MobSpearHandler) this.minecraft.player).vb$onAttack();
+        ((MobSpearHandler) this.minecraft.player).vb$postPiercingAttack();
         piercingWeapon.makeSound(this.minecraft.player);
     }
 }

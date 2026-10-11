@@ -1,6 +1,7 @@
 package com.blackgear.vanillabackport.core.util;
 
 import com.blackgear.vanillabackport.common.api.modules.leash_behavior.LeashPhysics;
+import com.google.common.collect.ImmutableMap;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceKey;
@@ -15,6 +16,7 @@ import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.ai.util.GoalUtils;
 import net.minecraft.world.entity.ai.util.RandomPos;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.SignalGetter;
 import net.minecraft.world.level.biome.Biome;
@@ -26,7 +28,9 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -58,6 +62,10 @@ public class WorldUtilities {
             }
             
             return best;
+        }
+        
+        public static Function<BlockState, VoxelShape> getShapeForEachState(Block block, Function<BlockState, VoxelShape> calculator) {
+            return block.getStateDefinition().getPossibleStates().stream().collect(ImmutableMap.toImmutableMap(Function.identity(), calculator))::get;
         }
     }
     
@@ -116,6 +124,34 @@ public class WorldUtilities {
             mob.setSpeed(0.0F);
             mob.setDeltaMovement(0.0, 0.0, 0.0);
             LeashPhysics.resetAngularMomentum(mob);
+        }
+        
+        public static boolean isLookingAtMe(LivingEntity user, LivingEntity target, double coneSize, boolean adjustForDistance, boolean seeThroughTransparentBlocks, double... gazeHeights) {
+            Vec3 look = target.getViewVector(1.0F).normalize();
+            
+            for (double gazeHeight : gazeHeights) {
+                Vec3 dir = new Vec3(user.getX() - target.getX(), gazeHeight - target.getEyeY(), user.getZ() - target.getZ());
+                double dist = dir.length();
+                dir = dir.normalize();
+                double dot = look.dot(dir);
+                
+                double lookThreshold = 1.0 - coneSize / (adjustForDistance ? dist : 1.0);
+                if (dot > lookThreshold && hasLineOfSight(target, user, seeThroughTransparentBlocks ? ClipContext.Block.VISUAL : ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, gazeHeight)) {
+                    return true;
+                }
+            }
+            
+            return false;
+        }
+        
+        public static boolean hasLineOfSight(LivingEntity user, Entity target, ClipContext.Block blockCollidingContext, ClipContext.Fluid fluidCollidingContext, double eyeHeight) {
+            if (target.level() != user.level()) {
+                return false;
+            } else {
+                Vec3 from = new Vec3(user.getX(), user.getEyeY(), user.getZ());
+                Vec3 to = new Vec3(target.getX(), eyeHeight, target.getZ());
+                return to.distanceTo(from) <= 128.0 && user.level().clip(new ClipContext(from, to, blockCollidingContext, fluidCollidingContext, user)).getType() == HitResult.Type.MISS;
+            }
         }
     }
     
@@ -215,8 +251,8 @@ public class WorldUtilities {
         }
     }
     
-    public static class SkyUtils {
-        public static boolean isMoonVisible(Level level) {
+    public static class EnvironmentUtils {
+        public static boolean isNaturalNight(Level level) {
             if (!level.dimensionType().natural()) {
                 return false;
             } else {

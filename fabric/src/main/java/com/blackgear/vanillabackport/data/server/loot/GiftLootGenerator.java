@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.data.server.loot;
 
-import com.blackgear.vanillabackport.common.level.entity.mob.animal.chicken.ChickenVariants;
+import com.blackgear.vanillabackport.common.level.entities.mob.animal.chicken.ChickenVariants;
 import com.blackgear.vanillabackport.common.registries.items.ModItems;
 import com.blackgear.vanillabackport.core.data.ModBuiltInLootTables;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;

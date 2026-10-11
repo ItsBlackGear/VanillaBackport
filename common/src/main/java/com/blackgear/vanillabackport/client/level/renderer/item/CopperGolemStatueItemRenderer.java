@@ -1,8 +1,8 @@
 package com.blackgear.vanillabackport.client.level.renderer.item;
 
 import com.blackgear.platform.client.v2.render.BuiltinItemRendererRegistry;
-import com.blackgear.vanillabackport.common.level.block.CopperGolemStatueBlock;
-import com.blackgear.vanillabackport.common.level.block_entity.CopperGolemStatueBlockEntity;
+import com.blackgear.vanillabackport.common.level.blocks.CopperGolemStatueBlock;
+import com.blackgear.vanillabackport.common.level.block_entities.CopperGolemStatueBlockEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 import net.fabricmc.api.EnvType;

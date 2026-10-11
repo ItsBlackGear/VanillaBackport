@@ -1,17 +1,15 @@
 package com.blackgear.vanillabackport.core.mixin.common.mob_variants;
 
-import com.blackgear.vanillabackport.common.api.extensions.access.entity.EntityDataHolder;
 import com.blackgear.vanillabackport.common.api.extensions.access.entity.MobBehaviorAccess;
 import com.blackgear.vanillabackport.common.api.modules.mob_variant.VariantDataHolder;
 import com.blackgear.vanillabackport.common.api.modules.mob_variant.VariantUtils;
 import com.blackgear.vanillabackport.common.api.modules.mob_variant.spawn.SpawnContext;
-import com.blackgear.vanillabackport.common.level.entity.mob.animal.cat.CatDataVariant;
-import com.blackgear.vanillabackport.common.level.entity.mob.animal.cat.CatDataVariants;
+import com.blackgear.vanillabackport.common.level.entities.mob.animal.cat.CatDataVariant;
+import com.blackgear.vanillabackport.common.level.entities.mob.animal.cat.CatDataVariants;
+import com.blackgear.vanillabackport.common.registries.entities.ModSyncedEntityData;
 import com.blackgear.vanillabackport.core.util.Utilities.ColorUtils;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.*;
@@ -22,54 +20,46 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Optional;
 
 @Mixin(Cat.class)
-public abstract class CatMixin extends TamableAnimal implements VariantDataHolder<CatDataVariant>, EntityDataHolder, MobBehaviorAccess {
-    @Unique private static final EntityDataAccessor<String> DATA_VARIANT_ID = SynchedEntityData.defineId(Cat.class, EntityDataSerializers.STRING);
-
-    @Shadow public abstract DyeColor getCollarColor();
-
+public abstract class CatMixin extends TamableAnimal implements VariantDataHolder<CatDataVariant>, MobBehaviorAccess {
     @Shadow @Final private static EntityDataAccessor<Integer> DATA_COLLAR_COLOR;
+    @Shadow public abstract DyeColor getCollarColor();
 
     protected CatMixin(EntityType<? extends TamableAnimal> entityType, Level level) {
         super(entityType, level);
     }
 
     @Override
-    public void vb$defineSynchedData(SynchedEntityData.Builder builder) {
-        builder.define(DATA_VARIANT_ID, "minecraft:tabby");
-    }
-
-    @Override
     public void setVariantData(CatDataVariant variant) {
-        this.entityData.set(DATA_VARIANT_ID, VariantUtils.getID(CatDataVariants.REGISTRIES, variant));
+        VariantUtils.setVariant(this, variant, CatDataVariants.REGISTRIES, ModSyncedEntityData.CAT_VARIANTS);
     }
 
     @Override
     public Optional<CatDataVariant> getVariantData() {
-        return VariantUtils.getOrDefault(CatDataVariants.REGISTRIES, this.entityData.get(DATA_VARIANT_ID));
+        return Optional.ofNullable(VariantUtils.getVariant(this, CatDataVariants.REGISTRIES, ModSyncedEntityData.CAT_VARIANTS));
     }
-
-    @Override
-    public void vb$addAdditionalSaveData(CompoundTag tag) {
+    
+    @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
+    public void vb$addAdditionalSaveData(CompoundTag tag, CallbackInfo ci) {
         VariantUtils.addVariantSaveData(this, tag, CatDataVariants.REGISTRIES);
     }
     
-    @Override
-    public void vb$readAdditionalSaveData(CompoundTag tag) {
+    @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
+    public void vb$readAdditionalSaveData(CompoundTag tag, CallbackInfo ci) {
         VariantUtils.readVariantSaveData(this, tag, CatDataVariants.REGISTRIES);
     }
 
     @Override
-    public void vb$finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, SpawnGroupData spawnData) {
-        VariantUtils.selectVariantToSpawn(SpawnContext.create(level, this.blockPosition()), CatDataVariants.REGISTRIES)
-            .ifPresent(this::setVariantData);
+    public SpawnGroupData vb$finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, SpawnGroupData spawnData) {
+        VariantUtils.selectVariantToSpawn(SpawnContext.create(level, this.blockPosition()), CatDataVariants.REGISTRIES).ifPresent(this::setVariantData);
+        return spawnData;
     }
 
     @Inject(
@@ -84,7 +74,7 @@ public abstract class CatMixin extends TamableAnimal implements VariantDataHolde
                 DyeColor motherColor = mate.getCollarColor();
                 child.getEntityData().set(DATA_COLLAR_COLOR, ColorUtils.getMixedColor(level, fatherColor, motherColor).getId());
             }
-
+            
             VariantDataHolder.trySetOffspringVariant(child, this, mate);
         }
     }

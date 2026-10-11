@@ -6,8 +6,8 @@ import net.minecraft.resources.ResourceLocation;
 public class ModModelLayers {
     // The Garden Awakens
     public static final ModelLayerLocation CREAKING = register("creaking");
-    public static final ModelLayerLocation PALE_OAK_BOAT = register("pale_oak_boat");
-    public static final ModelLayerLocation PALE_OAK_CHEST_BOAT = register("pale_oak_chest_boat");
+    public static final ModelLayerLocation CUSTOM_BOAT = register("custom_boat");
+    public static final ModelLayerLocation CUSTOM_CHEST_BOAT = register("custom_chest_boat");
 
     // Spring to Life
     public static final ModelLayerLocation COLD_PIG = register("cold_pig");

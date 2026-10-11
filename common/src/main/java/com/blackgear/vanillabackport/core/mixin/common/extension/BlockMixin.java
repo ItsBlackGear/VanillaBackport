@@ -12,12 +12,9 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(Block.class)
-public class BlockMixin implements BlockExtension {
-    @Inject(
-        method = "animateTick(Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/world/level/Level;Lnet/minecraft/core/BlockPos;Lnet/minecraft/util/RandomSource;)V",
-        at = @At("HEAD")
-    )
+public class BlockMixin {
+    @Inject(method = "animateTick", at = @At("HEAD"))
     public void vb$onAnimateTick(BlockState state, Level level, BlockPos pos, RandomSource random, CallbackInfo ci) {
-        this.vb$AnimateTick(state, level, pos, random);
+        BlockExtension.of(this).vb$animateTick(state, level, pos, random);
     }
 }

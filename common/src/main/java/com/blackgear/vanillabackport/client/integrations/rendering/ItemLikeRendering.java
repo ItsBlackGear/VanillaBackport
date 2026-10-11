@@ -1,64 +1,55 @@
 package com.blackgear.vanillabackport.client.integrations.rendering;
 
-import com.blackgear.platform.client.GameRendering;
-import com.blackgear.platform.client.v2.render.BuiltinItemRendererRegistry;
-import com.blackgear.platform.client.v2.render.DynamicItemRenderer;
-import com.blackgear.platform.client.v2.render.ItemRendererRegistry;
+import com.blackgear.vanillabackport.client.level.renderer.block.BackportedBlockRenderer;
 import com.blackgear.vanillabackport.client.level.renderer.block_entity.CopperChestRenderer;
 import com.blackgear.vanillabackport.client.level.renderer.block_entity.CopperGolemStatueRenderer;
 import com.blackgear.vanillabackport.client.level.renderer.block_entity.ShelfRenderer;
-import com.blackgear.vanillabackport.client.level.renderer.item.BundleRenderer;
-import com.blackgear.vanillabackport.client.level.renderer.item.CopperChestItemRenderer;
-import com.blackgear.vanillabackport.client.level.renderer.item.CopperGolemStatueItemRenderer;
-import com.blackgear.vanillabackport.client.level.renderer.item.SpawnEggRenderer;
-import com.blackgear.vanillabackport.common.level.block.CopperChestBlock;
-import com.blackgear.vanillabackport.common.level.block.CopperGolemStatueBlock;
+import com.blackgear.vanillabackport.client.level.renderer.item.*;
+import com.blackgear.vanillabackport.common.level.blocks.CopperChestBlock;
+import com.blackgear.vanillabackport.common.level.blocks.CopperGolemStatueBlock;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlockEntities;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
-import com.blackgear.vanillabackport.common.registries.items.ModItems;
+import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.DyeItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.level.ItemLike;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 
-import java.util.function.Supplier;
+import java.util.Set;
 
 import static com.blackgear.platform.client.GameRendering.*;
 
 @Environment(EnvType.CLIENT)
 public class ItemLikeRendering {
-    public static void specialRendering(SpecialModelEvent event) {
-        for (ItemLike item : BundleRenderer.BUNDLES) {
-            ItemRendererRegistry.INSTANCE.get().register(item, BundleRenderer.INSTANCE);
-        }
+    public static void itemLikeRendering(ItemLikeRenderingEvent event) {
+        event.simple(BundleRenderer.INSTANCE, BundleRenderer.BUNDLES);
+        event.dynamic(SpawnEggRenderer.INSTANCE, SpawnEggRenderer.SPAWN_EGGS);
+        event.simple(SpearRenderer.INSTANCE, SpearRenderer.SPEARS);
+        event.dynamic(StrawBedItemRenderer.INSTANCE, ModBlocks.STRAW_BED.get());
         
-        for (ItemLike item : SpawnEggRenderer.SPAWN_EGGS) {
-            DynamicItemRenderer.INSTANCE.get().register(item, SpawnEggRenderer.INSTANCE);
-        }
+        BuiltInRegistries.ITEM.stream().filter(item -> item instanceof DyeItem).forEach(item -> event.dynamic(DyePaletteRenderer.INSTANCE, item));
         
-        for (Block block : BuiltInRegistries.BLOCK) {
-            if (block instanceof CopperChestBlock chest) {
-                BuiltinItemRendererRegistry.getInstance().register(block, new CopperChestItemRenderer(chest));
-            }
-            
-            if (block instanceof CopperGolemStatueBlock statue) {
-                BuiltinItemRendererRegistry.getInstance().register(block, new CopperGolemStatueItemRenderer(statue));
-            }
-        }
-    }
-    
-    public static void handHeldModelRendering(GameRendering.HandHeldModelEvent event) {
-        fetchModel(event, ModItems.WOODEN_SPEAR, "wooden");
-        fetchModel(event, ModItems.STONE_SPEAR, "stone");
-        fetchModel(event, ModItems.COPPER_SPEAR, "copper");
-        fetchModel(event, ModItems.IRON_SPEAR, "iron");
-        fetchModel(event, ModItems.GOLDEN_SPEAR, "golden");
-        fetchModel(event, ModItems.DIAMOND_SPEAR, "diamond");
-        fetchModel(event, ModItems.NETHERITE_SPEAR, "netherite");
+        BuiltInRegistries.BLOCK.forEach(block -> {
+            if (block instanceof CopperChestBlock chest) event.builtin(new CopperChestItemRenderer(chest), chest);
+            if (block instanceof CopperGolemStatueBlock statue) event.builtin(new CopperGolemStatueItemRenderer(statue), statue);
+        });
+
+        Set<Item> hayBlocks = Set.of(Items.HAY_BLOCK);
+        event.simple(
+            new BackportedItemRenderer(VanillaBackport.CLIENT_CONFIG.hasModernHayBaleTexture, hayBlocks),
+            hayBlocks
+        );
+
+        Set<Item> redstoneTorches = Set.of(Items.REDSTONE_TORCH);
+        event.simple(
+            new BackportedItemRenderer(VanillaBackport.CLIENT_CONFIG.hasModernRedstoneTorchModels, redstoneTorches),
+            redstoneTorches
+        );
     }
     
     public static void blockEntityRendering(BlockEntityRendererEvent event) {
@@ -66,11 +57,31 @@ public class ItemLikeRendering {
         event.register(ModBlockEntities.COPPER_GOLEM_STATUE.get(), CopperGolemStatueRenderer::new);
         event.register(ModBlockEntities.SHELF.get(), ShelfRenderer::new);
     }
-    
+
+    public static void blockRendering(BlockRendererEvent event) {
+        Set<Block> redstoneTorchBlocks = Set.of(
+            Blocks.REDSTONE_TORCH, Blocks.REDSTONE_WALL_TORCH,
+            Blocks.REPEATER, Blocks.COMPARATOR
+        );
+        event.registerRenderer(
+            new BackportedBlockRenderer(VanillaBackport.CLIENT_CONFIG.hasModernRedstoneTorchModels, redstoneTorchBlocks),
+            redstoneTorchBlocks
+        );
+
+        Set<Block> hayBlocks = Set.of(Blocks.HAY_BLOCK);
+        event.registerRenderer(
+            new BackportedBlockRenderer(VanillaBackport.CLIENT_CONFIG.hasModernHayBaleTexture, hayBlocks),
+            hayBlocks
+        );
+    }
+
     public static void renderTypes(BlockRendererEvent event) {
         event.register(
             RenderType.cutoutMipped(),
-            ModBlocks.PALE_OAK_LEAVES.get()
+            ModBlocks.PALE_OAK_LEAVES.get(),
+            ModBlocks.RED_POPLAR_LEAVES.get(),
+            ModBlocks.ORANGE_POPLAR_LEAVES.get(),
+            ModBlocks.YELLOW_POPLAR_LEAVES.get()
         );
         event.register(
             RenderType.cutout(),
@@ -94,15 +105,17 @@ public class ItemLikeRendering {
             ModBlocks.PALE_OAK_TRAPDOOR.get(),
             ModBlocks.SULFUR_SPIKE.get(),
             ModBlocks.COPPER_TORCH.getFirst().get(),
-            ModBlocks.COPPER_TORCH.getSecond().get()
+            ModBlocks.COPPER_TORCH.getSecond().get(),
+            ModBlocks.POPLAR_DOOR.get(),
+            ModBlocks.POPLAR_TRAPDOOR.get(),
+            ModBlocks.POPLAR_SAPLING.get(),
+            ModBlocks.POTTED_POPLAR_SAPLING.get(),
+            ModBlocks.RED_SHRUB.get(),
+            ModBlocks.STRAW_BED.get()
         );
         
         ModBlocks.COPPER_LANTERN.forEach(holder -> event.register(RenderType.cutout(), holder.get()));
         ModBlocks.COPPER_BARS.forEach(holder -> event.register(RenderType.cutout(), holder.get()));
         ModBlocks.COPPER_CHAIN.forEach(holder -> event.register(RenderType.cutout(), holder.get()));
-    }
-    
-    private static void fetchModel(GameRendering.HandHeldModelEvent event, Supplier<Item> item, String material) {
-        event.register(item.get(), ResourceLocation.withDefaultNamespace(material + "_spear"), ResourceLocation.withDefaultNamespace(material + "_spear_in_hand"));
     }
 }

@@ -2,6 +2,7 @@ package com.blackgear.vanillabackport.core;
 
 import com.blackgear.platform.core.Environment;
 import com.blackgear.platform.core.ModInstance;
+import com.blackgear.platform.core.events.ServerLifecycleEvents;
 import com.blackgear.platform.core.networking.Networking;
 import com.blackgear.platform.core.util.config.ConfigLoader;
 import com.blackgear.platform.core.util.config.ModConfig;
@@ -14,19 +15,23 @@ import com.blackgear.vanillabackport.client.registries.ModSoundTypes;
 import com.blackgear.vanillabackport.common.CommonConfig;
 import com.blackgear.vanillabackport.common.CommonSetup;
 import com.blackgear.vanillabackport.common.api.modules.mob_variant.spawn.SpawnConditions;
+import com.blackgear.vanillabackport.common.api.modules.waypoints.ServerWaypointManager;
 import com.blackgear.vanillabackport.common.integrations.compat.everycompat.EveryCompatHandler;
 import com.blackgear.vanillabackport.common.registries.*;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlockEntities;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
 import com.blackgear.vanillabackport.common.registries.blocks.ModPoiTypes;
+import com.blackgear.vanillabackport.common.registries.enchantment.ModEnchantmentEntityEffect;
+import com.blackgear.vanillabackport.common.registries.enchantment.ModEnchantmentLocationBasedEffect;
 import com.blackgear.vanillabackport.common.registries.entities.*;
+import com.blackgear.vanillabackport.common.registries.entities.ModAttributes;
 import com.blackgear.vanillabackport.common.registries.items.ModArmorMaterials;
 import com.blackgear.vanillabackport.common.registries.items.ModDataComponents;
+import com.blackgear.vanillabackport.common.registries.enchantment.ModEnchantmentEffectComponents;
 import com.blackgear.vanillabackport.common.registries.items.ModItems;
 import com.blackgear.vanillabackport.common.registries.worldgen.*;
 import com.blackgear.vanillabackport.core.data.tags.*;
-import com.blackgear.vanillabackport.core.network.ClientboundNautilusScreenOpenPacket;
-import com.blackgear.vanillabackport.core.network.ServerboundSelectBundleItemPacket;
+import com.blackgear.vanillabackport.core.network.*;
 import com.mojang.logging.LogUtils;
 import net.minecraft.resources.ResourceLocation;
 import org.slf4j.Logger;
@@ -55,27 +60,32 @@ public final class VanillaBackport {
     public static void bootstrap() {
         INSTANCE.bootstrap();
         ConfigLoader.bootstrap();
-
+        
+        ModEnchantmentEntityEffect.REGISTRIES.register();
+        ModEnchantmentLocationBasedEffect.REGISTRIES.register();
+        
         ModBlockTags.TAGS.register();
         ModItemTags.TAGS.register();
         ModBiomeTags.TAGS.register();
         ModEntityTypeTags.TAGS.register();
         ModDamageTypeTags.TAGS.register();
+        ModStructureTags.TAGS.register();
 
         ModValueProviders.REGISTRIES.register();
         ModMaterialRules.REGISTRIES.registrar();
         ModMaterialConditions.REGISTRIES.registrar();
+        ModArgumentTypes.REGISTRIES.register();
 
         ModAttributes.REGISTRIES.register();
         ModMobEffects.REGISTRIES.register();
         ModArmorMaterials.REGISTRIES.register();
         ModDataComponents.REGISTRIES.register();
+        ModEnchantmentEffectComponents.REGISTRIES.register();
+        ModEntitySubPredicates.REGISTRIES.register();
         ModParticles.REGISTRIES.register();
 
         ModBlocks.REGISTRIES.register();
-        ModBlocks.HOLDERS.register();
         ModItems.REGISTRIES.register();
-        ModItems.HOLDERS.register();
         ModBlockEntities.REGISTRIES.register();
         
         ModPoiTypes.REGISTRIES.register();
@@ -87,14 +97,22 @@ public final class VanillaBackport {
         ModSoundEvents.REGISTRIES.register();
         ModSoundTypes.REGISTRIES.register();
 
+        ModCriteriaTriggers.REGISTRIES.register();
         ModRecipeSerializers.REGISTRIES.register();
         ModCreativeTabs.TABS.register();
         SpawnConditions.REGISTRIES.register();
 
         ModFeatures.REGISTRIES.register();
         ModTreeDecorators.REGISTRIES.register();
+        ModTrunkPlacers.REGISTRIES.register();
+        ModFoliagePlacers.REGISTRIES.register();
+        
+        ModMapDecorationTypes.REGISTRIES.register();
         
         ModEntityDataSerializers.SERIALIZERS.register();
+        ModSyncedEntityData.init();
+        
+        ModGameRules.bootstrap();
         
         Networking.register(registrar -> {
             registrar.registerToServer(
@@ -108,9 +126,29 @@ public final class VanillaBackport {
                 ClientboundNautilusScreenOpenPacket.STREAM_CODEC,
                 ClientboundNautilusScreenOpenPacket::handler
             );
+            
+            registrar.registerToClient(
+                ClientboundTrackedWaypointPacket.TYPE,
+                ClientboundTrackedWaypointPacket.STREAM_CODEC,
+                ClientboundTrackedWaypointPacket::handler
+            );
+            
+            registrar.registerToClient(
+                ClientboundUpdateSpearSwingPacket.TYPE,
+                ClientboundUpdateSpearSwingPacket.STREAM_CODEC,
+                ClientboundUpdateSpearSwingPacket::handler
+            );
+            
+            registrar.registerToServer(
+                ServerboundUpdateSpearSwingPacket.TYPE,
+                ServerboundUpdateSpearSwingPacket.STREAM_CODEC,
+                ServerboundUpdateSpearSwingPacket::handler
+            );
         });
         
         if (ModChecker.EVERY_COMPAT) EveryCompatHandler.bootstrap();
+        ServerWaypointManager.bootstrap();
+        ServerLifecycleEvents.STOPPING.register(server -> ServerWaypointManager.clearAll());
     }
 
     public static ResourceLocation resource(String path) {

@@ -27,11 +27,13 @@ public class BiomeTagGenerator extends FabricTagProvider<Biome> {
         this.addBiomeConventionalTags(provider);
 
         this.getOrCreateTagBuilder(BiomeTags.IS_FOREST)
-            .add(ModBiomes.PALE_GARDEN);
+            .add(ModBiomes.PALE_GARDEN)
+            .add(ModBiomes.DAPPLED_FOREST);
 
         this.getOrCreateTagBuilder(BiomeTags.IS_OVERWORLD)
             .add(ModBiomes.PALE_GARDEN)
-            .add(ModBiomes.SULFUR_CAVES);
+            .add(ModBiomes.SULFUR_CAVES)
+            .add(ModBiomes.DAPPLED_FOREST);
 
         this.getOrCreateTagBuilder(BiomeTags.HAS_WOODLAND_MANSION)
             .add(ModBiomes.PALE_GARDEN);
@@ -39,7 +41,7 @@ public class BiomeTagGenerator extends FabricTagProvider<Biome> {
         this.getOrCreateTagBuilder(BiomeTags.STRONGHOLD_BIASED_TO)
             .add(ModBiomes.PALE_GARDEN)
             .add(ModBiomes.SULFUR_CAVES);
-
+        
         this.getOrCreateTagBuilder(ModBiomeTags.SPAWNS_COLD_VARIANT_FARM_ANIMALS)
             .add(Biomes.SNOWY_PLAINS)
             .add(Biomes.ICE_SPIKES)
@@ -61,6 +63,7 @@ public class BiomeTagGenerator extends FabricTagProvider<Biome> {
             .add(Biomes.WINDSWEPT_FOREST)
             .add(Biomes.WINDSWEPT_GRAVELLY_HILLS)
             .add(Biomes.STONY_PEAKS)
+            .add(ModBiomes.DAPPLED_FOREST)
             .forceAddTag(BiomeTags.IS_END)
             .addOptionalTag(ForgeBiomeTags.IS_COLD)
             .addOptionalTag(ForgeBiomeTags.IS_SNOWY)
@@ -192,7 +195,8 @@ public class BiomeTagGenerator extends FabricTagProvider<Biome> {
                 Biomes.FOREST,
                 Biomes.DARK_FOREST,
                 Biomes.WOODED_BADLANDS
-            );
+            )
+            .add(ModBiomes.DAPPLED_FOREST);
 
         this.getOrCreateTagBuilder(ModBiomeTags.HAS_DARK_LEAF_LITTER)
             .add(
@@ -203,6 +207,9 @@ public class BiomeTagGenerator extends FabricTagProvider<Biome> {
 
         this.getOrCreateTagBuilder(ModBiomeTags.HAS_PALE_LEAF_LITTER)
             .add(ModBiomes.PALE_GARDEN);
+
+        this.getOrCreateTagBuilder(ModBiomeTags.HAS_RED_LEAF_LITTER)
+            .add(ModBiomes.DAPPLED_FOREST);
     }
 
     protected void addStructureTags(HolderLookup.Provider provider) {
@@ -215,6 +222,25 @@ public class BiomeTagGenerator extends FabricTagProvider<Biome> {
 
         this.getOrCreateTagBuilder(BiomeTags.HAS_RUINED_PORTAL_STANDARD)
             .add(ModBiomes.SULFUR_CAVES);
+        
+        this.getOrCreateTagBuilder(ModBiomeTags.HAS_ABANDONED_CAMP_BAMBOO_JUNGLE).add(Biomes.BAMBOO_JUNGLE);
+        this.getOrCreateTagBuilder(ModBiomeTags.HAS_ABANDONED_CAMP_BIRCH_FOREST).add(Biomes.BIRCH_FOREST);
+        this.getOrCreateTagBuilder(ModBiomeTags.HAS_ABANDONED_CAMP_CHERRY_GROVE).add(Biomes.CHERRY_GROVE);
+        this.getOrCreateTagBuilder(ModBiomeTags.HAS_ABANDONED_CAMP_DAPPLED_FOREST).add(ModBiomes.DAPPLED_FOREST);
+        this.getOrCreateTagBuilder(ModBiomeTags.HAS_ABANDONED_CAMP_FLOWER_FOREST).add(Biomes.FLOWER_FOREST);
+        this.getOrCreateTagBuilder(ModBiomeTags.HAS_ABANDONED_CAMP_FOREST).add(Biomes.FOREST);
+        this.getOrCreateTagBuilder(ModBiomeTags.HAS_ABANDONED_CAMP_MEADOW).add(Biomes.MEADOW);
+        this.getOrCreateTagBuilder(ModBiomeTags.HAS_ABANDONED_CAMP_OLD_GROWTH_BIRCH_FOREST).add(Biomes.OLD_GROWTH_BIRCH_FOREST);
+        this.getOrCreateTagBuilder(ModBiomeTags.HAS_ABANDONED_CAMP_OLD_GROWTH_PINE_TAIGA).add(Biomes.OLD_GROWTH_PINE_TAIGA);
+        this.getOrCreateTagBuilder(ModBiomeTags.HAS_ABANDONED_CAMP_OLD_GROWTH_SPRUCE_TAIGA).add(Biomes.OLD_GROWTH_SPRUCE_TAIGA);
+        this.getOrCreateTagBuilder(ModBiomeTags.HAS_ABANDONED_CAMP_PALE_GARDEN).add(ModBiomes.PALE_GARDEN);
+        this.getOrCreateTagBuilder(ModBiomeTags.HAS_ABANDONED_CAMP_SAVANNA).add(Biomes.SAVANNA);
+        this.getOrCreateTagBuilder(ModBiomeTags.HAS_ABANDONED_CAMP_SNOWY_TAIGA).add(Biomes.SNOWY_TAIGA);
+        this.getOrCreateTagBuilder(ModBiomeTags.HAS_ABANDONED_CAMP_SPARSE_JUNGLE).add(Biomes.SPARSE_JUNGLE);
+        this.getOrCreateTagBuilder(ModBiomeTags.HAS_ABANDONED_CAMP_SWAMP).add(Biomes.SWAMP);
+        this.getOrCreateTagBuilder(ModBiomeTags.HAS_ABANDONED_CAMP_TAIGA).add(Biomes.TAIGA);
+        this.getOrCreateTagBuilder(ModBiomeTags.HAS_ABANDONED_CAMP_WINDSWEPT_FOREST).add(Biomes.WINDSWEPT_FOREST);
+        this.getOrCreateTagBuilder(ModBiomeTags.HAS_ABANDONED_CAMP_WOODED_BADLANDS).add(Biomes.WOODED_BADLANDS);
     }
 
     protected void addBiomeConventionalTags(HolderLookup.Provider provider) {

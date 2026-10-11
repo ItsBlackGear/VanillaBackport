@@ -1,6 +1,7 @@
 package com.blackgear.vanillabackport.core.mixin.common.bundle_ui;
 
 import com.blackgear.vanillabackport.common.api.modules.bundle_ui.ModernBundle;
+import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.world.item.component.BundleContents;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -25,6 +26,10 @@ public abstract class BundleContentsMixin implements ModernBundle {
     @Override
     public int getNumberOfItemsToShow() {
         int contents = this.size();
+        if (VanillaBackport.CLIENT_CONFIG.endlessBundleUi.get()) {
+            return contents;
+        }
+
         int maxDisplay = contents > 12 ? 11 : 12;
         int remainder = contents % 4;
         int padding = remainder == 0 ? 0 : 4 - remainder;

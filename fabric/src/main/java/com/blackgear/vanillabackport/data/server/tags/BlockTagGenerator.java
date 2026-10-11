@@ -2,6 +2,7 @@ package com.blackgear.vanillabackport.data.server.tags;
 
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
 import com.blackgear.vanillabackport.core.data.tags.ModBlockTags;
+import com.blackgear.vanillabackport.core.data.tags.loader.ConventionalBlockTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.core.HolderLookup;
@@ -29,7 +30,8 @@ public class BlockTagGenerator extends FabricTagProvider.BlockTagProvider {
         }.addTags();
 
         this.getOrCreateTagBuilder(BlockTags.OVERWORLD_NATURAL_LOGS)
-            .add(ModBlocks.PALE_OAK_LOG.get());
+            .add(ModBlocks.PALE_OAK_LOG.get())
+            .add(ModBlocks.POPLAR_LOG.get());
 
         this.getOrCreateTagBuilder(BlockTags.ENDERMAN_HOLDABLE)
             .add(ModBlocks.CACTUS_FLOWER.get());
@@ -38,14 +40,17 @@ public class BlockTagGenerator extends FabricTagProvider.BlockTagProvider {
             .add(
                 ModBlocks.POTTED_OPEN_EYEBLOSSOM.get(),
                 ModBlocks.POTTED_CLOSED_EYEBLOSSOM.get(),
-                ModBlocks.POTTED_PALE_OAK_SAPLING.get()
+                ModBlocks.POTTED_PALE_OAK_SAPLING.get(),
+                ModBlocks.POTTED_POPLAR_SAPLING.get()
             );
 
         this.getOrCreateTagBuilder(BlockTags.WALL_SIGNS)
-            .add(ModBlocks.PALE_OAK_SIGN.getSecond().get());
+            .add(ModBlocks.PALE_OAK_SIGN.getSecond().get())
+            .add(ModBlocks.POPLAR_SIGN.getSecond().get());
 
         this.getOrCreateTagBuilder(BlockTags.WALL_HANGING_SIGNS)
-            .add(ModBlocks.PALE_OAK_HANGING_SIGN.getSecond().get());
+            .add(ModBlocks.PALE_OAK_HANGING_SIGN.getSecond().get())
+            .add(ModBlocks.POPLAR_HANGING_SIGN.getSecond().get());
 
         this.getOrCreateTagBuilder(BlockTags.WALL_POST_OVERRIDE)
             .add(ModBlocks.CACTUS_FLOWER.get())
@@ -65,7 +70,11 @@ public class BlockTagGenerator extends FabricTagProvider.BlockTagProvider {
             .add(
                 ModBlocks.PALE_OAK_LEAVES.get(),
                 ModBlocks.PALE_MOSS_BLOCK.get(),
-                ModBlocks.PALE_MOSS_CARPET.get()
+                ModBlocks.PALE_MOSS_CARPET.get(),
+                ModBlocks.RED_POPLAR_LEAVES.get(),
+                ModBlocks.ORANGE_POPLAR_LEAVES.get(),
+                ModBlocks.YELLOW_POPLAR_LEAVES.get(),
+                ModBlocks.STRAW_BED.get()
             );
 
         this.getOrCreateTagBuilder(BlockTags.MINEABLE_WITH_PICKAXE)
@@ -109,7 +118,9 @@ public class BlockTagGenerator extends FabricTagProvider.BlockTagProvider {
             .addTag(ModBlockTags.LIGHTNING_RODS)
             .addTag(ModBlockTags.LANTERNS)
             .addTag(ModBlockTags.CHAINS)
-            .addTag(ModBlockTags.BARS);
+            .addTag(ModBlockTags.BARS)
+            .addTag(ModBlockTags.CONCRETE_SLABS)
+            .addTag(ModBlockTags.CONCRETE_STAIRS);
         
         this.getOrCreateTagBuilder(BlockTags.NEEDS_STONE_TOOL)
             .addTag(ModBlockTags.COPPER_CHESTS)
@@ -122,8 +133,13 @@ public class BlockTagGenerator extends FabricTagProvider.BlockTagProvider {
                 ModBlocks.FIREFLY_BUSH.get(),
                 ModBlocks.LEAF_LITTER.get(),
                 ModBlocks.SHORT_DRY_GRASS.get(),
-                ModBlocks.TALL_DRY_GRASS.get()
+                ModBlocks.TALL_DRY_GRASS.get(),
+                ModBlocks.RED_SHRUB.get(),
+                ModBlocks.SHELF_MUSHROOM.get()
             );
+        
+        this.getOrCreateTagBuilder(ModBlockTags.REQUIRED_FOR_POPLAR_LEAF_AMBIENCE)
+            .forceAddTag(BlockTags.OVERWORLD_NATURAL_LOGS);
 
         this.getOrCreateTagBuilder(BlockTags.SNIFFER_DIGGABLE_BLOCK)
             .add(ModBlocks.PALE_MOSS_BLOCK.get());
@@ -167,10 +183,14 @@ public class BlockTagGenerator extends FabricTagProvider.BlockTagProvider {
                 Blocks.OAK_LEAVES,
                 Blocks.BIRCH_LEAVES,
                 Blocks.DARK_OAK_LEAVES
-            );
+            )
+            .add(ModBlocks.RED_POPLAR_LEAVES.get(), ModBlocks.ORANGE_POPLAR_LEAVES.get(), ModBlocks.YELLOW_POPLAR_LEAVES.get());
 
         this.getOrCreateTagBuilder(ModBlockTags.SUPPORTS_CACTUS)
             .forceAddTag(BlockTags.SAND);
+
+        this.getOrCreateTagBuilder(ModBlockTags.SUPPORT_OVERRIDE_CACTUS_FLOWER)
+            .add(Blocks.CACTUS, Blocks.FARMLAND);
 
         this.getOrCreateTagBuilder(ModBlockTags.CREAKING_HEART_HOLDERS)
             .forceAddTag(ModBlockTags.PALE_OAK_LOGS);
@@ -208,27 +228,37 @@ public class BlockTagGenerator extends FabricTagProvider.BlockTagProvider {
                 ModBlocks.SULFUR.get(),
                 ModBlocks.CINNABAR.get()
             );
+
+        this.getOrCreateTagBuilder(ModBlockTags.SUPPRESSES_BOUNCE)
+            .add(Blocks.HONEY_BLOCK);
+        
+        this.getOrCreateTagBuilder(ModBlockTags.COPPER_CHESTS).add(
+            ModBlocks.COPPER_CHEST.get(),
+            ModBlocks.EXPOSED_COPPER_CHEST.get(),
+            ModBlocks.WEATHERED_COPPER_CHEST.get(),
+            ModBlocks.OXIDIZED_COPPER_CHEST.get(),
+            ModBlocks.WAXED_COPPER_CHEST.get(),
+            ModBlocks.WAXED_EXPOSED_COPPER_CHEST.get(),
+            ModBlocks.WAXED_WEATHERED_COPPER_CHEST.get(),
+            ModBlocks.WAXED_OXIDIZED_COPPER_CHEST.get()
+        );
         
         this.getOrCreateTagBuilder(ModBlockTags.INCORRECT_FOR_COPPER_TOOL)
             .forceAddTag(BlockTags.NEEDS_DIAMOND_TOOL)
             .forceAddTag(BlockTags.NEEDS_IRON_TOOL);
         
-        this.getOrCreateTagBuilder(ModBlockTags.COPPER_CHESTS)
-            .add(
-                ModBlocks.COPPER_CHEST.get(),
-                ModBlocks.EXPOSED_COPPER_CHEST.get(),
-                ModBlocks.WEATHERED_COPPER_CHEST.get(),
-                ModBlocks.OXIDIZED_COPPER_CHEST.get(),
-                ModBlocks.WAXED_COPPER_CHEST.get(),
-                ModBlocks.WAXED_EXPOSED_COPPER_CHEST.get(),
-                ModBlocks.WAXED_WEATHERED_COPPER_CHEST.get(),
-                ModBlocks.WAXED_OXIDIZED_COPPER_CHEST.get()
-            );
+        this.getOrCreateTagBuilder(ModBlockTags.TRANSPORT_ITEM_SOURCE_BLOCKS)
+            .forceAddTag(ModBlockTags.COPPER_CHESTS);
         
-        this.getOrCreateTagBuilder(ModBlockTags.COPPER_GOLEM_DESTINATION_TARGETS)
+        this.getOrCreateTagBuilder(ModBlockTags.TRANSPORT_ITEM_DESTINATION_BLOCKS)
             .add(Blocks.CHEST)
             .add(Blocks.TRAPPED_CHEST)
-            .add(Blocks.BARREL);
+            .forceAddTag(ConventionalBlockTags.CHESTS);
+
+        this.getOrCreateTagBuilder(ModBlockTags.CUSHION_USES_COLLISION_SHAPE)
+            .forceAddTag(BlockTags.CAULDRONS)
+            .add(Blocks.HOPPER)
+            .add(Blocks.COMPOSTER);
     }
 
     protected DualTagHolder getDualTagBuilder(TagKey<Block> forge, TagKey<Block> fabric) {

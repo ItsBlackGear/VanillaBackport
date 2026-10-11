@@ -51,7 +51,7 @@ public abstract class VanillaRecipeProvider implements DataProvider {
                 }
             }
 
-            @Override
+            @Override @SuppressWarnings("removal")
             public Advancement.Builder advancement() {
                 return Advancement.Builder.recipeAdvancement().parent(RecipeBuilder.ROOT_RECIPE_ADVANCEMENT);
             }

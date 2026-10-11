@@ -1,7 +1,7 @@
 package com.blackgear.vanillabackport.core.mixin.common.worldgen.pale_garden;
 
-import com.blackgear.vanillabackport.common.level.block.EyeblossomBlock;
-import com.blackgear.vanillabackport.common.level.block.MossyCarpetBlock;
+import com.blackgear.vanillabackport.common.level.blocks.EyeblossomBlock;
+import com.blackgear.vanillabackport.common.level.blocks.MossyCarpetBlock;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Block;

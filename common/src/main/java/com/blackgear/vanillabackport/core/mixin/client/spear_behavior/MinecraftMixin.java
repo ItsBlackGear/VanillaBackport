@@ -1,10 +1,14 @@
 package com.blackgear.vanillabackport.core.mixin.client.spear_behavior;
 
+import com.blackgear.platform.core.networking.PayloadDistributor;
 import com.blackgear.vanillabackport.common.api.extensions.entity.spear.PlayerSpearHandler;
 import com.blackgear.vanillabackport.common.api.extensions.entity.spear.ServerSpearHandler;
+import com.blackgear.vanillabackport.common.api.extensions.entity.spear.SpearSwingTracker;
 import com.blackgear.vanillabackport.common.level.components.AttackRange;
 import com.blackgear.vanillabackport.common.level.components.PiercingWeapon;
-import com.blackgear.vanillabackport.common.registries.items.ModDataComponents;
+import com.blackgear.vanillabackport.core.network.ServerboundUpdateSpearSwingPacket;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.multiplayer.MultiPlayerGameMode;
@@ -13,19 +17,17 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.GameType;
 import net.minecraft.world.phys.HitResult;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Minecraft.class)
-public class MinecraftMixin {
+public abstract class MinecraftMixin {
     @Shadow @Nullable public MultiPlayerGameMode gameMode;
     @Shadow @Nullable public HitResult hitResult;
     @Shadow @Nullable public LocalPlayer player;
@@ -36,7 +38,7 @@ public class MinecraftMixin {
         method = "startAttack",
         at = @At(
             value = "INVOKE",
-            target = "Lnet/minecraft/client/player/LocalPlayer;getItemInHand(Lnet/minecraft/world/InteractionHand;)Lnet/minecraft/world/item/ItemStack;"
+            target = "Lnet/minecraft/world/item/ItemStack;isItemEnabled(Lnet/minecraft/world/flag/FeatureFlagSet;)Z"
         ),
         cancellable = true
     )
@@ -44,61 +46,66 @@ public class MinecraftMixin {
         if (this.player == null || this.level == null || this.gameMode == null) return;
         
         ItemStack stack = this.player.getItemInHand(InteractionHand.MAIN_HAND);
-        if (!stack.isItemEnabled(this.level.enabledFeatures())) {
-            return;
-        }
-        
-        if (((PlayerSpearHandler) this.player).cannotAttackWithItem(stack, 0)) {
+        if (((PlayerSpearHandler) this.player).vb$cannotAttackWithItem(stack, 0)) {
             cir.setReturnValue(false);
             return;
         }
         
-        PiercingWeapon weapon = stack.get(ModDataComponents.PIERCING_WEAPON.get());
-        if (weapon != null && this.gameMode.getPlayerMode() != GameType.SPECTATOR) {
+        PiercingWeapon weapon = PiercingWeapon.get(stack);
+        if (weapon != null) {
             ((ServerSpearHandler) this.gameMode).piercingAttack(weapon);
             this.player.swing(InteractionHand.MAIN_HAND);
             cir.setReturnValue(true);
         }
     }
     
-    @Redirect(
+    @WrapOperation(
         method = "startAttack",
         at = @At(
             value = "INVOKE",
             target = "Lnet/minecraft/client/multiplayer/MultiPlayerGameMode;attack(Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/entity/Entity;)V"
         )
     )
-    private void vb$attackWithRange(MultiPlayerGameMode instance, Player player, Entity target) {
-        if (this.player == null || this.hitResult == null) return;
-        
-        ItemStack stack = this.player.getItemInHand(InteractionHand.MAIN_HAND);
-        AttackRange range = stack.get(ModDataComponents.ATTACK_RANGE.get());
-        
-        if (range == null || range.isInRange(this.player, this.hitResult.getLocation())) {
-            instance.attack(player, target);
+    private void vb$applyAttackRange(MultiPlayerGameMode instance, Player player, Entity target, Operation<Void> original) {
+        if (this.player != null && this.hitResult != null) {
+            ItemStack stack = this.player.getItemInHand(InteractionHand.MAIN_HAND);
+            AttackRange range = AttackRange.get(stack);
+            
+            if (range == null || range.isInRange(this.player, this.hitResult.getLocation())) {
+                original.call(instance, player, target);
+            }
+        } else {
+            original.call(instance, player, target);
         }
-    }
-    
-    @Redirect(
-        method = "startAttack",
-        at = @At(
-            value = "INVOKE",
-            target = "Lnet/minecraft/client/player/LocalPlayer;swing(Lnet/minecraft/world/InteractionHand;)V"
-        )
-    )
-    private void vb$swing(LocalPlayer player, InteractionHand hand) {
-        if (!player.isSpectator()) player.swing(hand);
     }
     
     @Inject(method = "continueAttack", at = @At("HEAD"), cancellable = true)
     private void vb$continueAttack(boolean down, CallbackInfo ci) {
-        if (this.player == null) return;
+        if (!down) {
+            this.missTime = 0;
+        }
         
-        ItemStack stack = this.player.getItemInHand(InteractionHand.MAIN_HAND);
-        
-        if (stack.has(ModDataComponents.PIERCING_WEAPON.get())) {
-            if (!down) this.missTime = 0;
-            ci.cancel();
+        if (this.player != null) {
+            ItemStack stack = this.player.getItemInHand(InteractionHand.MAIN_HAND);
+            if (PiercingWeapon.get(stack) != null) {
+                ci.cancel();
+            }
+        }
+    }
+    
+    @Inject(method = "startAttack", at = @At("HEAD"))
+    private void vb$onStartAttack(CallbackInfoReturnable<Boolean> cir) {
+        if (this.player != null) {
+            ((SpearSwingTracker) this.player).vb$setAttackSwing(true);
+            PayloadDistributor.sendToServer(new ServerboundUpdateSpearSwingPacket(true));
+        }
+    }
+    
+    @Inject(method = "startUseItem", at = @At("HEAD"))
+    private void vb$onStartUseItem(CallbackInfo ci) {
+        if (this.player != null) {
+            ((SpearSwingTracker) this.player).vb$setAttackSwing(false);
+            PayloadDistributor.sendToServer(new ServerboundUpdateSpearSwingPacket(false));
         }
     }
 }
