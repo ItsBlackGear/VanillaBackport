@@ -4,7 +4,7 @@ import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
 import com.blackgear.vanillabackport.common.registries.items.ModItems;
 import com.blackgear.vanillabackport.common.registries.ModRecipeSerializers;
 import com.blackgear.vanillabackport.core.data.tags.ModItemTags;
-import com.blackgear.vanillabackport.data.client.BlockFamilies;
+import com.blackgear.vanillabackport.core.data.BlockFamilies;
 import com.google.common.collect.ImmutableMap;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.data.BlockFamily;
@@ -45,69 +45,6 @@ public class RecipeGenerator extends VanillaRecipeProvider {
             .filter(family -> family.shouldGenerateRecipe(FeatureFlagSet.of(FeatureFlags.VANILLA)))
             .forEach(family -> generateRecipes(output, family));
 
-        // Miscellaneous
-        copperBulb(output, ModBlocks.COPPER_BULB.get(), Blocks.COPPER_BLOCK);
-        copperBulb(output, ModBlocks.EXPOSED_COPPER_BULB.get(), Blocks.EXPOSED_COPPER);
-        copperBulb(output, ModBlocks.WEATHERED_COPPER_BULB.get(), Blocks.WEATHERED_COPPER);
-        copperBulb(output, ModBlocks.OXIDIZED_COPPER_BULB.get(), Blocks.OXIDIZED_COPPER);
-        copperBulb(output, ModBlocks.WAXED_COPPER_BULB.get(), Blocks.WAXED_COPPER_BLOCK);
-        copperBulb(output, ModBlocks.WAXED_EXPOSED_COPPER_BULB.get(), Blocks.WAXED_EXPOSED_COPPER);
-        copperBulb(output, ModBlocks.WAXED_WEATHERED_COPPER_BULB.get(), Blocks.WAXED_WEATHERED_COPPER);
-        copperBulb(output, ModBlocks.WAXED_OXIDIZED_COPPER_BULB.get(), Blocks.WAXED_OXIDIZED_COPPER);
-        
-        chiseled(output, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CHISELED_COPPER.get(), Blocks.CUT_COPPER_SLAB);
-        chiseled(output, RecipeCategory.BUILDING_BLOCKS, ModBlocks.WEATHERED_CHISELED_COPPER.get(), Blocks.WEATHERED_CUT_COPPER_SLAB);
-        chiseled(output, RecipeCategory.BUILDING_BLOCKS, ModBlocks.EXPOSED_CHISELED_COPPER.get(), Blocks.EXPOSED_CUT_COPPER_SLAB);
-        chiseled(output, RecipeCategory.BUILDING_BLOCKS, ModBlocks.OXIDIZED_CHISELED_COPPER.get(), Blocks.OXIDIZED_CUT_COPPER_SLAB);
-        
-        chiseled(output, RecipeCategory.BUILDING_BLOCKS, ModBlocks.WAXED_CHISELED_COPPER.get(), Blocks.WAXED_CUT_COPPER_SLAB);
-        chiseled(output, RecipeCategory.BUILDING_BLOCKS, ModBlocks.WAXED_WEATHERED_CHISELED_COPPER.get(), Blocks.WAXED_WEATHERED_CUT_COPPER_SLAB);
-        chiseled(output, RecipeCategory.BUILDING_BLOCKS, ModBlocks.WAXED_EXPOSED_CHISELED_COPPER.get(), Blocks.WAXED_EXPOSED_CUT_COPPER_SLAB);
-        chiseled(output, RecipeCategory.BUILDING_BLOCKS, ModBlocks.WAXED_OXIDIZED_CHISELED_COPPER.get(), Blocks.WAXED_OXIDIZED_CUT_COPPER_SLAB);
-        
-        stonecutterResultFromBase(output, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CHISELED_COPPER.get(), Blocks.COPPER_BLOCK, 4);
-        stonecutterResultFromBase(output, RecipeCategory.BUILDING_BLOCKS, ModBlocks.EXPOSED_CHISELED_COPPER.get(), Blocks.EXPOSED_COPPER, 4);
-        stonecutterResultFromBase(output, RecipeCategory.BUILDING_BLOCKS, ModBlocks.WEATHERED_CHISELED_COPPER.get(), Blocks.WEATHERED_COPPER, 4);
-        stonecutterResultFromBase(output, RecipeCategory.BUILDING_BLOCKS, ModBlocks.OXIDIZED_CHISELED_COPPER.get(), Blocks.OXIDIZED_COPPER, 4);
-        stonecutterResultFromBase(output, RecipeCategory.BUILDING_BLOCKS, ModBlocks.WAXED_CHISELED_COPPER.get(), Blocks.WAXED_COPPER_BLOCK, 4);
-        stonecutterResultFromBase(output, RecipeCategory.BUILDING_BLOCKS, ModBlocks.WAXED_EXPOSED_CHISELED_COPPER.get(), Blocks.WAXED_EXPOSED_COPPER, 4);
-        stonecutterResultFromBase(output, RecipeCategory.BUILDING_BLOCKS, ModBlocks.WAXED_WEATHERED_CHISELED_COPPER.get(), Blocks.WAXED_WEATHERED_COPPER, 4);
-        stonecutterResultFromBase(output, RecipeCategory.BUILDING_BLOCKS, ModBlocks.WAXED_OXIDIZED_CHISELED_COPPER.get(), Blocks.WAXED_OXIDIZED_COPPER, 4);
-        
-        stonecutterResultFromBase(output, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CHISELED_COPPER.get(), Blocks.CUT_COPPER, 1);
-        stonecutterResultFromBase(output, RecipeCategory.BUILDING_BLOCKS, ModBlocks.EXPOSED_CHISELED_COPPER.get(), Blocks.EXPOSED_CUT_COPPER, 1);
-        stonecutterResultFromBase(output, RecipeCategory.BUILDING_BLOCKS, ModBlocks.WEATHERED_CHISELED_COPPER.get(), Blocks.WEATHERED_CUT_COPPER, 1);
-        stonecutterResultFromBase(output, RecipeCategory.BUILDING_BLOCKS, ModBlocks.OXIDIZED_CHISELED_COPPER.get(), Blocks.OXIDIZED_CUT_COPPER, 1);
-        stonecutterResultFromBase(output, RecipeCategory.BUILDING_BLOCKS, ModBlocks.WAXED_CHISELED_COPPER.get(), Blocks.WAXED_CUT_COPPER, 1);
-        stonecutterResultFromBase(output, RecipeCategory.BUILDING_BLOCKS, ModBlocks.WAXED_EXPOSED_CHISELED_COPPER.get(), Blocks.WAXED_EXPOSED_CUT_COPPER, 1);
-        stonecutterResultFromBase(output, RecipeCategory.BUILDING_BLOCKS, ModBlocks.WAXED_WEATHERED_CHISELED_COPPER.get(), Blocks.WAXED_WEATHERED_CUT_COPPER, 1);
-        stonecutterResultFromBase(output, RecipeCategory.BUILDING_BLOCKS, ModBlocks.WAXED_OXIDIZED_CHISELED_COPPER.get(), Blocks.WAXED_OXIDIZED_CUT_COPPER, 1);
-        
-        stonecutterResultFromBase(output, RecipeCategory.BUILDING_BLOCKS, ModBlocks.COPPER_GRATE.get(), Blocks.COPPER_BLOCK, 4);
-        stonecutterResultFromBase(output, RecipeCategory.BUILDING_BLOCKS, ModBlocks.EXPOSED_COPPER_GRATE.get(), Blocks.EXPOSED_COPPER, 4);
-        stonecutterResultFromBase(output, RecipeCategory.BUILDING_BLOCKS, ModBlocks.WEATHERED_COPPER_GRATE.get(), Blocks.WEATHERED_COPPER, 4);
-        stonecutterResultFromBase(output, RecipeCategory.BUILDING_BLOCKS, ModBlocks.OXIDIZED_COPPER_GRATE.get(), Blocks.OXIDIZED_COPPER, 4);
-        stonecutterResultFromBase(output, RecipeCategory.BUILDING_BLOCKS, ModBlocks.WAXED_COPPER_GRATE.get(), Blocks.WAXED_COPPER_BLOCK, 4);
-        stonecutterResultFromBase(output, RecipeCategory.BUILDING_BLOCKS, ModBlocks.WAXED_EXPOSED_COPPER_GRATE.get(), Blocks.WAXED_EXPOSED_COPPER, 4);
-        stonecutterResultFromBase(output, RecipeCategory.BUILDING_BLOCKS, ModBlocks.WAXED_WEATHERED_COPPER_GRATE.get(), Blocks.WAXED_WEATHERED_COPPER, 4);
-        stonecutterResultFromBase(output, RecipeCategory.BUILDING_BLOCKS, ModBlocks.WAXED_OXIDIZED_COPPER_GRATE.get(), Blocks.WAXED_OXIDIZED_COPPER, 4);
-        
-        doorBuilder(ModBlocks.COPPER_DOOR.get(), Ingredient.of(Items.COPPER_INGOT))
-            .unlockedBy(getHasName(Items.COPPER_INGOT), has(Items.COPPER_INGOT))
-            .save(output);
-        twoByTwoPacker(output, RecipeCategory.REDSTONE, ModBlocks.COPPER_TRAPDOOR.get(), Items.COPPER_INGOT);
-        
-        this.generateStonecutterRecipes(output, BlockFamilies.TUFF, FeatureFlagSet.of(FeatureFlags.VANILLA));
-        this.generateStonecutterRecipes(output, BlockFamilies.POLISHED_TUFF, FeatureFlagSet.of(FeatureFlags.VANILLA));
-        this.generateStonecutterRecipes(output, BlockFamilies.TUFF_BRICKS, FeatureFlagSet.of(FeatureFlags.VANILLA));
-        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.TUFF_BRICKS.get(), 4)
-            .define('S', ModBlocks.POLISHED_TUFF.get())
-            .pattern("SS")
-            .pattern("SS")
-            .unlockedBy("has_polished_tuff", has(ModBlocks.POLISHED_TUFF.get()))
-            .save(output);
-        stonecutterResultFromBase(output, RecipeCategory.BUILDING_BLOCKS, ModBlocks.TUFF_BRICKS.get(), ModBlocks.POLISHED_TUFF.get(), 1);
-        
         // The Garden Awakens
         
         planksFromLog(output, ModBlocks.PALE_OAK_PLANKS.get(), ModItemTags.PALE_OAK_LOGS, 4);
@@ -262,6 +199,21 @@ public class RecipeGenerator extends VanillaRecipeProvider {
             .unlockedBy("has_copper_ingot", has(Items.COPPER_INGOT))
             .save(output);
         
+        waxRecipes(output, ModBlocks.COPPER_CHEST.get(), ModBlocks.WAXED_COPPER_CHEST.get());
+        waxRecipes(output, ModBlocks.EXPOSED_COPPER_CHEST.get(), ModBlocks.WAXED_EXPOSED_COPPER_CHEST.get());
+        waxRecipes(output, ModBlocks.WEATHERED_COPPER_CHEST.get(), ModBlocks.WAXED_WEATHERED_COPPER_CHEST.get());
+        waxRecipes(output, ModBlocks.OXIDIZED_COPPER_CHEST.get(), ModBlocks.WAXED_OXIDIZED_COPPER_CHEST.get());
+        
+        waxRecipes(output, ModBlocks.COPPER_GOLEM_STATUE.get(), ModBlocks.WAXED_COPPER_GOLEM_STATUE.get());
+        waxRecipes(output, ModBlocks.EXPOSED_COPPER_GOLEM_STATUE.get(), ModBlocks.WAXED_EXPOSED_COPPER_GOLEM_STATUE.get());
+        waxRecipes(output, ModBlocks.WEATHERED_COPPER_GOLEM_STATUE.get(), ModBlocks.WAXED_WEATHERED_COPPER_GOLEM_STATUE.get());
+        waxRecipes(output, ModBlocks.OXIDIZED_COPPER_GOLEM_STATUE.get(), ModBlocks.WAXED_OXIDIZED_COPPER_GOLEM_STATUE.get());
+        
+        waxRecipes(output, Blocks.LIGHTNING_ROD, ModBlocks.WAXED_LIGHTNING_ROD.get());
+        waxRecipes(output, ModBlocks.EXPOSED_LIGHTNING_ROD.get(), ModBlocks.WAXED_EXPOSED_LIGHTNING_ROD.get());
+        waxRecipes(output, ModBlocks.WEATHERED_LIGHTNING_ROD.get(), ModBlocks.WAXED_WEATHERED_LIGHTNING_ROD.get());
+        waxRecipes(output, ModBlocks.OXIDIZED_LIGHTNING_ROD.get(), ModBlocks.WAXED_OXIDIZED_LIGHTNING_ROD.get());
+        
         // Mounts of Mayhem
         
         netheriteSmithing(output, ModItems.DIAMOND_SPEAR.get(), RecipeCategory.COMBAT, ModItems.NETHERITE_SPEAR.get());
@@ -395,22 +347,19 @@ public class RecipeGenerator extends VanillaRecipeProvider {
             .pattern("###")
             .save(output);
     }
-
+    
+    public static void waxRecipes(Consumer<FinishedRecipe> output, Block unwaxed, Block waxed) {
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, waxed)
+            .requires(unwaxed)
+            .requires(Items.HONEYCOMB)
+            .group(getItemName(waxed))
+            .unlockedBy(getHasName(unwaxed), has(unwaxed))
+            .save(output, getConversionRecipeName(waxed, Items.HONEYCOMB));
+    }
+    
     @FunctionalInterface
     private interface FamilyStonecutterRecipeProvider {
         void create(Consumer<FinishedRecipe> exporter, ItemLike result, ItemLike base);
-    }
-    
-    protected static void copperBulb(Consumer<FinishedRecipe> output, Block bulbBlock, Block material) {
-        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, bulbBlock, 4)
-            .define('C', material)
-            .define('R', Items.REDSTONE)
-            .define('B', Items.BLAZE_ROD)
-            .pattern(" C ")
-            .pattern("CBC")
-            .pattern(" R ")
-            .unlockedBy(getHasName(material), has(material))
-            .save(output);
     }
 
     @Override

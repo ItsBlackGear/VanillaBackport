@@ -19,7 +19,7 @@ public class ModelGenerator extends VanillaModelGenerator {
 
     @Override
     public void generateBlockStateModels(VanillaBlockModels gen) {
-        BlockFamilies.getAllFamilies()
+        com.blackgear.vanillabackport.core.data.BlockFamilies.getAllFamilies()
             .filter(BlockFamily::shouldGenerateModel)
             .forEach(family -> gen.familyBuilder(family.getBaseBlock()).generateFor(family));
 

@@ -1,8 +1,13 @@
 package com.blackgear.vanillabackport.common;
 
 import com.blackgear.platform.core.util.config.ConfigBuilder;
+import com.blackgear.vanillabackport.common.level.recipes.RecipeStrategy;
 
 public class CommonConfig {
+    // Tricky Trials
+    public final ConfigBuilder.ConfigValue<Boolean> hasTuffBlocks;
+    public final ConfigBuilder.ConfigValue<Boolean> hasCopperBlockSet;
+    
     // Armored Paws
     public final ConfigBuilder.ConfigValue<Boolean> hasArmadillos;
     public final ConfigBuilder.ConfigValue<Boolean> hasWolfVariants;
@@ -12,6 +17,8 @@ public class CommonConfig {
     public final ConfigBuilder.ConfigValue<Boolean> hasModernBundles;
     public final ConfigBuilder.ConfigValue<Boolean> hasBundleLoot;
     public final ConfigBuilder.ConfigValue<Boolean> hasDyeableBundleRecipe;
+    public final ConfigBuilder.ConfigValue<Boolean> invertBundleControls;
+    public final ConfigBuilder.ConfigValue<RecipeStrategy> bundleRecipe;
 
     // The Garden Awakens
     public final ConfigBuilder.ConfigValue<Boolean> hasResin;
@@ -22,6 +29,8 @@ public class CommonConfig {
     public final ConfigBuilder.ConfigValue<Integer> creakingParticleColor;
     public final ConfigBuilder.ConfigValue<Integer> creakingParticleReverseColor;
     public final ConfigBuilder.ConfigValue<Boolean> doCreakingHeartsWorkOnDay;
+    public final ConfigBuilder.ConfigValue<RecipeStrategy> leadRecipe;
+    public final ConfigBuilder.ConfigValue<RecipeStrategy> saddleRecipe;
 
     // Spring to Life
     public final ConfigBuilder.ConfigValue<Boolean> hasBushes;
@@ -38,6 +47,7 @@ public class CommonConfig {
     public final ConfigBuilder.ConfigValue<Boolean> hasLodestoneLoot;
     public final ConfigBuilder.ConfigValue<Double> mobVariantSpawnChance;
     public final ConfigBuilder.ConfigValue<Double> cactusFlowerSpawnChance;
+    public final ConfigBuilder.ConfigValue<RecipeStrategy> lodestoneRecipe;
 
     // Chase the Skies
     public final ConfigBuilder.ConfigValue<Boolean> hasDriedGhasts;
@@ -81,13 +91,20 @@ public class CommonConfig {
     public final ConfigBuilder.ConfigValue<Boolean> hasDappledForest;
 
     public CommonConfig(ConfigBuilder builder) {
+        builder.push("Tricky Trials");
+            this.hasTuffBlocks = builder.comment("allow the Tuff block variants to be obtained")
+                .define("tuff_blocks", true);
+            this.hasCopperBlockSet = builder.comment("allow the Copper block-set and its variants to be obtained")
+                .define("copper_blockset", true);
+        builder.pop();
+        
         builder.push("Armored Paws");
-        this.hasArmadillos = builder.comment("allow armadillos to generate in the overworld")
-            .define("armadillo", true);
-        this.hasWolfVariants = builder.comment("allow variants for wolves to generate")
-            .define("wolf_variants", true);
-        this.updatedWolfSpawns = builder.comment("adds wolves to more biomes for natural spawning")
-            .define("updated_wolf_spawns", true);
+            this.hasArmadillos = builder.comment("allow armadillos to generate in the overworld")
+                .define("armadillo", true);
+            this.hasWolfVariants = builder.comment("allow variants for wolves to generate")
+                .define("wolf_variants", true);
+            this.updatedWolfSpawns = builder.comment("adds wolves to more biomes for natural spawning")
+                .define("updated_wolf_spawns", true);
         builder.pop();
 
         builder.push("Bundles of Bravery");
@@ -97,6 +114,10 @@ public class CommonConfig {
                 .define("bundle_loot", true);
             this.hasDyeableBundleRecipe = builder.comment("allow bundles to be dyed")
                 .define("has_dyeable_bundle_recipe", true);
+            this.invertBundleControls = builder.comment("invert the bundle click controls")
+                .define("inverted_bundle_controls", false);
+            this.bundleRecipe = builder.comment("apply the modern recipe for bundles")
+                .defineEnum("bundle_recipe", RecipeStrategy.APPEND);
         builder.pop();
 
         builder.push("The Garden Awakens");
@@ -116,6 +137,10 @@ public class CommonConfig {
                 .define("creaking_particle_reverse_color", 16545810);
             this.doCreakingHeartsWorkOnDay = builder.comment("allow Creaking Hearts to spawn Creakings during the day")
                 .define("do_creaking_hearts_work_on_day", false);
+            this.leadRecipe = builder.comment("apply the modern recipe for leads")
+                .defineEnum("lead_recipe", RecipeStrategy.APPEND);
+            this.saddleRecipe = builder.comment("apply the modern recipe for saddles")
+                .defineEnum("saddle_recipe", RecipeStrategy.APPEND);
         builder.pop();
 
         builder.push("Spring to Life");
@@ -147,6 +172,8 @@ public class CommonConfig {
                 .defineInRange("mob_variants_spawn_chance", 1.0, 0.0, 1.0);
             this.cactusFlowerSpawnChance = builder.comment("chance for a cactus to generate with a Cactus Flower")
                 .defineInRange("cactus_flower_spawn_chance", 0.25, 0.0, 1.0);
+            this.lodestoneRecipe = builder.comment("apply the modern recipe for lodestones")
+                .defineEnum("lodestone_recipe", RecipeStrategy.APPEND);
         builder.pop();
 
         builder.push("Chase the Skies");

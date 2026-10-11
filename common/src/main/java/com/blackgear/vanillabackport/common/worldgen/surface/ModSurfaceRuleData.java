@@ -4,11 +4,15 @@ import com.blackgear.vanillabackport.common.registries.worldgen.ModBiomes;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
 import com.blackgear.vanillabackport.common.registries.worldgen.ModNoises;
 import com.blackgear.vanillabackport.common.level.worldgen.surface.SpatialNoiseThresholdConditionSource;
+import com.google.common.collect.ImmutableList;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.levelgen.SurfaceRules;
+import net.minecraft.world.level.levelgen.VerticalAnchor;
 import net.minecraft.world.level.levelgen.synth.NormalNoise;
+
+import java.util.List;
 
 public class ModSurfaceRuleData {
     public static SurfaceRules.RuleSource makeRules() {
@@ -25,6 +29,7 @@ public class ModSurfaceRuleData {
             SurfaceRules.ifTrue(
                 SurfaceRules.isBiome(ModBiomes.SULFUR_CAVES),
                 SurfaceRules.sequence(
+                    bedrock(),
                     SurfaceRules.ifTrue(noiseCondition3d(ModNoises.SULFUR_CAVE_GRADIENT, -0.4F, -0.1F), cinnabar),
                     SurfaceRules.ifTrue(noiseCondition3d(ModNoises.SULFUR_CAVE_GRADIENT, 0.0F, 0.4F), sulfur),
                     SurfaceRules.ifTrue(noiseCondition3d(ModNoises.SULFUR_CAVE_GRADIENT, 0.4F), cinnabar),
@@ -42,7 +47,20 @@ public class ModSurfaceRuleData {
         return noiseCondition3d(noise, minRange, Double.MAX_VALUE);
     }
 
-    private static SurfaceRules.RuleSource makeStateRule(final Block block) {
+    private static SurfaceRules.RuleSource makeStateRule(Block block) {
         return SurfaceRules.state(block.defaultBlockState());
+    }
+    
+    private static SurfaceRules.RuleSource bedrock() {
+        SurfaceRules.RuleSource bedrock = SurfaceRules.state(Blocks.BEDROCK.defaultBlockState());
+        SurfaceRules.ConditionSource bedrockCondition = SurfaceRules.verticalGradient("bedrock", VerticalAnchor.bottom(), VerticalAnchor.aboveBottom(5));
+        return SurfaceRules.ifTrue(bedrockCondition, bedrock);
+    }
+    
+    public static SurfaceRules.RuleSource merge(SurfaceRules.RuleSource original, List<SurfaceRules.RuleSource> rules) {
+        ImmutableList.Builder<SurfaceRules.RuleSource> builder = ImmutableList.builder();
+        builder.addAll(rules);
+        builder.add(original);
+        return SurfaceRules.sequence(builder.build().toArray(SurfaceRules.RuleSource[]::new));
     }
 }

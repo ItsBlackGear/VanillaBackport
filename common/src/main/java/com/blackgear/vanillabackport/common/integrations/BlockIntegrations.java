@@ -152,6 +152,7 @@ public class BlockIntegrations {
         event.registerWaxableBlock(ModBlocks.WEATHERED_COPPER_CHEST.get(), ModBlocks.WAXED_WEATHERED_COPPER_CHEST.get());
         event.registerWaxableBlock(ModBlocks.OXIDIZED_COPPER_CHEST.get(), ModBlocks.WAXED_OXIDIZED_COPPER_CHEST.get());
         
+        event.registerWaxableBlock(ModBlocks.COPPER_GOLEM_STATUE.get(), ModBlocks.WAXED_COPPER_GOLEM_STATUE.get());
         event.registerWaxableBlock(ModBlocks.EXPOSED_COPPER_GOLEM_STATUE.get(), ModBlocks.WAXED_EXPOSED_COPPER_GOLEM_STATUE.get());
         event.registerWaxableBlock(ModBlocks.WEATHERED_COPPER_GOLEM_STATUE.get(), ModBlocks.WAXED_WEATHERED_COPPER_GOLEM_STATUE.get());
         event.registerWaxableBlock(ModBlocks.OXIDIZED_COPPER_GOLEM_STATUE.get(), ModBlocks.WAXED_OXIDIZED_COPPER_GOLEM_STATUE.get());

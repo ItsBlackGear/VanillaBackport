@@ -9,7 +9,8 @@
   ],
   "mixins": [
     "CollisionContextMixin",
-    "MappedRegistryMixin"
+    "registries.HolderReferenceMixin",
+    "registries.MappedRegistryMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -6,7 +6,9 @@
   "client": [],
   "mixins": [
     "common.blocks.entities.DecoratedPotBlockEntityMixin",
-    "common.registries.BlockCallbacksMixin"
+    "common.registries.BlockCallbacksMixin",
+    "common.registries.HolderReferenceMixin",
+    "common.registries.MappedRegistryMixin"
   ],
   "injectors": {
     "defaultRequire": 1

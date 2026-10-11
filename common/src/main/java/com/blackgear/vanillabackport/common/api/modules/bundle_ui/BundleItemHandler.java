@@ -1,6 +1,7 @@
 package com.blackgear.vanillabackport.common.api.modules.bundle_ui;
 
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
+import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.blackgear.vanillabackport.core.util.Utilities.ColorUtils;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.entity.Entity;
@@ -22,7 +23,9 @@ public final class BundleItemHandler {
         ItemStack itemInSlot = slot.getItem();
         boolean handled = false;
         
-        if (action == ClickAction.PRIMARY && !itemInSlot.isEmpty()) {
+        ClickAction insertAction = VanillaBackport.COMMON_CONFIG.invertBundleControls.get() ? ClickAction.SECONDARY : ClickAction.PRIMARY;
+        
+        if (action == insertAction && !itemInSlot.isEmpty()) {
             if (BundleFeatures.tryTransfer(stack, slot, player) > 0) {
                 insertSound.accept(player);
             } else {
@@ -48,13 +51,15 @@ public final class BundleItemHandler {
     }
 
     public static boolean overrideOtherStackedOnMe(ItemStack stack, ItemStack other, Slot slot, ClickAction action, Player player, SlotAccess slotAccess, Consumer<Entity> insertSound, Consumer<Entity> removeSound) {
+        ClickAction insertAction = VanillaBackport.COMMON_CONFIG.invertBundleControls.get() ? ClickAction.SECONDARY : ClickAction.PRIMARY;
+        
         if (action == ClickAction.PRIMARY && other.isEmpty()) {
             BundleFeatures.toggleSelectedItem(stack, -1);
             return false;
         }
 
         boolean handled = false;
-        if (action == ClickAction.PRIMARY && !other.isEmpty()) {
+        if (action == insertAction && !other.isEmpty()) {
             if (slot.allowModification(player) && BundleFeatures.tryInsert(stack, other) > 0) {
                 insertSound.accept(player);
             } else {

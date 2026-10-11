@@ -43,12 +43,11 @@ public interface Leashable {
         new Vec3(0.5, 0.5, -0.5),
         new Vec3(0.5, 0.5, 0.5)
     );
-
+    
     default boolean vb$isLeashed() {
-        if (this instanceof Mob mob) return mob.isLeashed();
-        return false;
+        return this.vb$getLeashHolder() != null;
     }
-
+    
     default boolean vb$canHaveALeashAttachedTo(Entity target) {
         if (this == target) {
             return false;
@@ -56,23 +55,32 @@ public interface Leashable {
             return this.vb$leashDistanceTo(target) <= this.vb$leashSnapDistance() && this.vb$canBeLeashed(target);
         }
     }
-
-    default void vb$setLeashedTo(Entity entity, boolean sendAttachPacket) {
-        if (this instanceof Mob mob) mob.setLeashedTo(entity, sendAttachPacket);
-    }
-
+    
     default double vb$leashDistanceTo(Entity entity) {
         return entity.getBoundingBox().getCenter().distanceTo(((Entity) this).getBoundingBox().getCenter());
     }
-
+    
     default boolean vb$canBeLeashed(Entity entity) {
-        if (this instanceof Mob mob) return mob.canBeLeashed(entity instanceof Player player ? player : null);
+        if (this instanceof Mob mob) {
+            // FIX CRÍTICO: Si el portador es un jugador, usamos la lógica original (Vanilla/Mods).
+            if (entity instanceof Player player) {
+                return mob.canBeLeashed(player);
+            }
+            // Si es un bote, otro mob, etc., forzamos el true para no enviar "null"
+            // a mods que no lo soportan (como Alex's Caves).
+            return true;
+        }
+        // Botes y otras entidades personalizadas siempre aceptan cuerdas en tu sistema
         return true;
     }
-
-    default void vb$dropLeash(boolean broadcast, boolean dropItem) {
-        if (this instanceof Mob mob) mob.dropLeash(broadcast, dropItem);
+    
+    default void vb$setLeashedTo(Entity entity, boolean sendAttachPacket) { /* NO-OP */ }
+    
+    default Entity vb$getLeashHolder() {
+        return null;
     }
+    
+    default void vb$dropLeash(boolean broadcast, boolean dropItem) { /* NO-OP */ }
 
     default void vb$dropLeash() {
         this.vb$dropLeash(true, true);
@@ -268,11 +276,6 @@ public interface Leashable {
             new Vec3(leftRightScaled, heightScaled, -frontBackScaled + frontOffsetScaled),
             new Vec3(leftRightScaled, heightScaled, frontBackScaled + frontOffsetScaled)
         };
-    }
-
-    default Entity vb$getLeashHolder() {
-        if (this instanceof Mob mob) return mob.getLeashHolder();
-        return null;
     }
 
     static List<Leashable> vb$leashableLeashedTo(Entity entity) {

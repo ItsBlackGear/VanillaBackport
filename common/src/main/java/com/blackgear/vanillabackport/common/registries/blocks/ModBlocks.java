@@ -125,55 +125,55 @@ public class ModBlocks {
         SharedBlockProperties.COPPER_GRATE);
     
     public static final Supplier<Block> COPPER_DOOR = REGISTRIES.register("copper_door",
-        properties -> new WeatheringCopperDoorBlock(WeatherState.UNAFFECTED, properties, ModBlockSetTypes.COPPER),
+        properties -> new WeatheringCopperDoorBlock(WeatherState.UNAFFECTED, properties, ModBlockSetTypes.COPPER.get()),
         SharedBlockProperties.COPPER_DOOR);
     public static final Supplier<Block> EXPOSED_COPPER_DOOR = REGISTRIES.register("exposed_copper_door",
-        properties -> new WeatheringCopperDoorBlock(WeatherState.EXPOSED, properties, ModBlockSetTypes.COPPER),
+        properties -> new WeatheringCopperDoorBlock(WeatherState.EXPOSED, properties, ModBlockSetTypes.COPPER.get()),
         SharedBlockProperties.COPPER_DOOR.mapColor(Blocks.EXPOSED_COPPER.defaultMapColor()));
     public static final Supplier<Block> OXIDIZED_COPPER_DOOR = REGISTRIES.register("oxidized_copper_door",
-        properties -> new WeatheringCopperDoorBlock(WeatherState.OXIDIZED, properties, ModBlockSetTypes.COPPER),
+        properties -> new WeatheringCopperDoorBlock(WeatherState.OXIDIZED, properties, ModBlockSetTypes.COPPER.get()),
         SharedBlockProperties.COPPER_DOOR.mapColor(Blocks.OXIDIZED_COPPER.defaultMapColor()));
     public static final Supplier<Block> WEATHERED_COPPER_DOOR = REGISTRIES.register("weathered_copper_door",
-        properties -> new WeatheringCopperDoorBlock(WeatherState.WEATHERED, properties, ModBlockSetTypes.COPPER),
+        properties -> new WeatheringCopperDoorBlock(WeatherState.WEATHERED, properties, ModBlockSetTypes.COPPER.get()),
         SharedBlockProperties.COPPER_DOOR.mapColor(Blocks.WEATHERED_COPPER.defaultMapColor()));
     
     public static final Supplier<Block> WAXED_COPPER_DOOR = REGISTRIES.register("waxed_copper_door",
-        properties -> new DoorBlock(properties, ModBlockSetTypes.COPPER),
+        properties -> new DoorBlock(properties, ModBlockSetTypes.COPPER.get()),
         SharedBlockProperties.COPPER_DOOR);
     public static final Supplier<Block> WAXED_EXPOSED_COPPER_DOOR = REGISTRIES.register("waxed_exposed_copper_door",
-        properties -> new DoorBlock(properties, ModBlockSetTypes.COPPER),
+        properties -> new DoorBlock(properties, ModBlockSetTypes.COPPER.get()),
         SharedBlockProperties.COPPER_DOOR.mapColor(Blocks.EXPOSED_COPPER.defaultMapColor()));
     public static final Supplier<Block> WAXED_OXIDIZED_COPPER_DOOR = REGISTRIES.register("waxed_oxidized_copper_door",
-        properties -> new DoorBlock(properties, ModBlockSetTypes.COPPER),
+        properties -> new DoorBlock(properties, ModBlockSetTypes.COPPER.get()),
         SharedBlockProperties.COPPER_DOOR.mapColor(Blocks.OXIDIZED_COPPER.defaultMapColor()));
     public static final Supplier<Block> WAXED_WEATHERED_COPPER_DOOR = REGISTRIES.register("waxed_weathered_copper_door",
-        properties -> new DoorBlock(properties, ModBlockSetTypes.COPPER),
+        properties -> new DoorBlock(properties, ModBlockSetTypes.COPPER.get()),
         SharedBlockProperties.COPPER_DOOR.mapColor(Blocks.WEATHERED_COPPER.defaultMapColor()));
     
     public static final Supplier<Block> COPPER_TRAPDOOR = REGISTRIES.register("copper_trapdoor",
-        properties -> new WeatheringCopperTrapDoorBlock(WeatherState.UNAFFECTED, properties, ModBlockSetTypes.COPPER),
+        properties -> new WeatheringCopperTrapDoorBlock(WeatherState.UNAFFECTED, properties, ModBlockSetTypes.COPPER.get()),
         SharedBlockProperties.COPPER_TRAPDOOR);
     public static final Supplier<Block> EXPOSED_COPPER_TRAPDOOR = REGISTRIES.register("exposed_copper_trapdoor",
-        properties -> new WeatheringCopperTrapDoorBlock(WeatherState.EXPOSED, properties, ModBlockSetTypes.COPPER),
+        properties -> new WeatheringCopperTrapDoorBlock(WeatherState.EXPOSED, properties, ModBlockSetTypes.COPPER.get()),
         SharedBlockProperties.COPPER_TRAPDOOR.mapColor(Blocks.EXPOSED_COPPER.defaultMapColor()));
     public static final Supplier<Block> OXIDIZED_COPPER_TRAPDOOR = REGISTRIES.register("oxidized_copper_trapdoor",
-        properties -> new WeatheringCopperTrapDoorBlock(WeatherState.OXIDIZED, properties, ModBlockSetTypes.COPPER),
+        properties -> new WeatheringCopperTrapDoorBlock(WeatherState.OXIDIZED, properties, ModBlockSetTypes.COPPER.get()),
         SharedBlockProperties.COPPER_TRAPDOOR.mapColor(Blocks.OXIDIZED_COPPER.defaultMapColor()));
     public static final Supplier<Block> WEATHERED_COPPER_TRAPDOOR = REGISTRIES.register("weathered_copper_trapdoor",
-        properties -> new WeatheringCopperTrapDoorBlock(WeatherState.WEATHERED, properties, ModBlockSetTypes.COPPER),
+        properties -> new WeatheringCopperTrapDoorBlock(WeatherState.WEATHERED, properties, ModBlockSetTypes.COPPER.get()),
         SharedBlockProperties.COPPER_TRAPDOOR.mapColor(Blocks.WEATHERED_COPPER.defaultMapColor()));
     
     public static final Supplier<Block> WAXED_COPPER_TRAPDOOR = REGISTRIES.register("waxed_copper_trapdoor",
-        properties -> new TrapDoorBlock(properties, ModBlockSetTypes.COPPER),
+        properties -> new TrapDoorBlock(properties, ModBlockSetTypes.COPPER.get()),
         SharedBlockProperties.COPPER_TRAPDOOR);
     public static final Supplier<Block> WAXED_EXPOSED_COPPER_TRAPDOOR = REGISTRIES.register("waxed_exposed_copper_trapdoor",
-        properties -> new TrapDoorBlock(properties, ModBlockSetTypes.COPPER),
+        properties -> new TrapDoorBlock(properties, ModBlockSetTypes.COPPER.get()),
         SharedBlockProperties.COPPER_TRAPDOOR.mapColor(Blocks.EXPOSED_COPPER.defaultMapColor()));
     public static final Supplier<Block> WAXED_OXIDIZED_COPPER_TRAPDOOR = REGISTRIES.register("waxed_oxidized_copper_trapdoor",
-        properties -> new TrapDoorBlock(properties, ModBlockSetTypes.COPPER),
+        properties -> new TrapDoorBlock(properties, ModBlockSetTypes.COPPER.get()),
         SharedBlockProperties.COPPER_TRAPDOOR.mapColor(Blocks.OXIDIZED_COPPER.defaultMapColor()));
     public static final Supplier<Block> WAXED_WEATHERED_COPPER_TRAPDOOR = REGISTRIES.register("waxed_weathered_copper_trapdoor",
-        properties -> new TrapDoorBlock(properties, ModBlockSetTypes.COPPER),
+        properties -> new TrapDoorBlock(properties, ModBlockSetTypes.COPPER.get()),
         SharedBlockProperties.COPPER_TRAPDOOR.mapColor(Blocks.WEATHERED_COPPER.defaultMapColor()));
     
     public static final Supplier<Block> TUFF_SLAB = REGISTRIES.register("tuff_slab", SlabBlock::new, Properties.copy(Blocks.TUFF));
@@ -238,10 +238,10 @@ public class ModBlocks {
         ModWoodTypes.PALE_OAK,
         MapColor.QUARTZ);
     public static final Supplier<Block> PALE_OAK_BUTTON = REGISTRIES.register("pale_oak_button",
-        properties -> new ButtonBlock(properties, ModBlockSetTypes.PALE_OAK, 30, true),
+        properties -> new ButtonBlock(properties, ModBlockSetTypes.PALE_OAK.get(), 30, true),
         SharedBlockProperties.buttonProperties());
     public static final Supplier<Block> PALE_OAK_PRESSURE_PLATE = REGISTRIES.register("pale_oak_pressure_plate",
-        properties -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, properties, ModBlockSetTypes.PALE_OAK),
+        properties -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, properties, ModBlockSetTypes.PALE_OAK.get()),
         Properties.of()
             .mapColor(MapColor.QUARTZ)
             .forceSolidOn()
@@ -251,7 +251,7 @@ public class ModBlocks {
             .ignitedByLava()
             .pushReaction(PushReaction.DESTROY));
     public static final Supplier<Block> PALE_OAK_DOOR = REGISTRIES.register("pale_oak_door",
-        properties -> new DoorBlock(properties, ModBlockSetTypes.PALE_OAK),
+        properties -> new DoorBlock(properties, ModBlockSetTypes.PALE_OAK.get()),
         Properties.of()
             .mapColor(MapColor.QUARTZ)
             .instrument(NoteBlockInstrument.BASS)
@@ -276,7 +276,7 @@ public class ModBlocks {
             .strength(2.0F, 3.0F)
             .ignitedByLava());
     public static final Supplier<Block> PALE_OAK_TRAPDOOR = REGISTRIES.register("pale_oak_trapdoor",
-        properties -> new TrapDoorBlock(properties, ModBlockSetTypes.PALE_OAK),
+        properties -> new TrapDoorBlock(properties, ModBlockSetTypes.PALE_OAK.get()),
         Properties.of()
             .mapColor(MapColor.QUARTZ)
             .instrument(NoteBlockInstrument.BASS)
@@ -754,10 +754,10 @@ public class ModBlocks {
         ModWoodTypes.POPLAR,
         MapColor.COLOR_LIGHT_GRAY);
     public static final Supplier<Block> POPLAR_BUTTON = REGISTRIES.register("poplar_button",
-        properties -> new ButtonBlock(properties, ModBlockSetTypes.POPLAR, 30, true),
+        properties -> new ButtonBlock(properties, ModBlockSetTypes.POPLAR.get(), 30, true),
         SharedBlockProperties.buttonProperties());
     public static final Supplier<Block> POPLAR_PRESSURE_PLATE = REGISTRIES.register("poplar_pressure_plate",
-        properties -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, properties, ModBlockSetTypes.POPLAR),
+        properties -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING, properties, ModBlockSetTypes.POPLAR.get()),
         Properties.of()
             .mapColor(MapColor.COLOR_LIGHT_GRAY)
             .forceSolidOn()
@@ -767,7 +767,7 @@ public class ModBlocks {
             .ignitedByLava()
             .pushReaction(PushReaction.DESTROY));
     public static final Supplier<Block> POPLAR_DOOR = REGISTRIES.register("poplar_door",
-        properties -> new DoorBlock(properties, ModBlockSetTypes.POPLAR),
+        properties -> new DoorBlock(properties, ModBlockSetTypes.POPLAR.get()),
         Properties.of()
             .mapColor(MapColor.COLOR_LIGHT_GRAY)
             .instrument(NoteBlockInstrument.BASS)
@@ -792,7 +792,7 @@ public class ModBlocks {
             .strength(2.0F, 3.0F)
             .ignitedByLava());
     public static final Supplier<Block> POPLAR_TRAPDOOR = REGISTRIES.register("poplar_trapdoor",
-        properties -> new TrapDoorBlock(properties, ModBlockSetTypes.POPLAR),
+        properties -> new TrapDoorBlock(properties, ModBlockSetTypes.POPLAR.get()),
         Properties.of()
             .mapColor(MapColor.COLOR_LIGHT_GRAY)
             .instrument(NoteBlockInstrument.BASS)

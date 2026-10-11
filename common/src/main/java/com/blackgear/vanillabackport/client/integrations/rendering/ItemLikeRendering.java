@@ -9,6 +9,7 @@ import com.blackgear.vanillabackport.common.level.blocks.CopperChestBlock;
 import com.blackgear.vanillabackport.common.level.blocks.CopperGolemStatueBlock;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlockEntities;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
+import com.blackgear.vanillabackport.core.ModChecker;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -53,9 +54,11 @@ public class ItemLikeRendering {
     }
     
     public static void blockEntityRendering(BlockEntityRendererEvent event) {
-        event.register(ModBlockEntities.COPPER_CHEST.get(), CopperChestRenderer::new);
-        event.register(ModBlockEntities.COPPER_GOLEM_STATUE.get(), CopperGolemStatueRenderer::new);
-        event.register(ModBlockEntities.SHELF.get(), ShelfRenderer::new);
+        if (!ModChecker.COPPER_AGE_BACKPORT) {
+            event.register(ModBlockEntities.COPPER_CHEST.get(), CopperChestRenderer::new);
+            event.register(ModBlockEntities.COPPER_GOLEM_STATUE.get(), CopperGolemStatueRenderer::new);
+            event.register(ModBlockEntities.SHELF.get(), ShelfRenderer::new);
+        }
     }
 
     public static void blockRendering(BlockRendererEvent event) {

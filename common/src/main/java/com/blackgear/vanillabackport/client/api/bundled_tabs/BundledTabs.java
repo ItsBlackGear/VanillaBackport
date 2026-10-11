@@ -48,7 +48,11 @@ public class BundledTabs {
     public List<ItemStack> getDisplayItems() {
         return Collections.unmodifiableList(this.displayItems);
     }
-
+    
+    public boolean isEmpty() {
+        return this.displayItems.isEmpty();
+    }
+    
     public void select() {
         this.selected = true;
     }
@@ -80,6 +84,7 @@ public class BundledTabs {
             public void accept(ItemLike item) {
                 displayItems.add(new ItemStack(item));
             }
+            
             @Override
             public void accept(ItemStack stack) {
                 if (stack != null && !stack.isEmpty()) {

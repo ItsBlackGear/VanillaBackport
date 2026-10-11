@@ -4,6 +4,7 @@ import com.blackgear.platform.common.v2.creative_tabs.CreativeTabIntegrations.Ev
 import com.blackgear.platform.common.v2.creative_tabs.VanillaTabs;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
 import com.blackgear.vanillabackport.common.registries.items.ModItems;
+import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
 
@@ -32,120 +33,126 @@ public class VanillaTabIntegrations {
     }
     
     private static void registerMiscellaneous(Event event) {
-        event.register(VanillaTabs.BUILDING_BLOCKS, (flags, output, operator) -> {
-            output.after(Items.REINFORCED_DEEPSLATE).add(
-                Blocks.TUFF,
-                ModBlocks.TUFF_STAIRS.get(),
-                ModBlocks.TUFF_SLAB.get(),
-                ModBlocks.TUFF_WALL.get()
-            ).add(
-                ModBlocks.CHISELED_TUFF.get()
-            ).add(
-                ModBlocks.POLISHED_TUFF.get(),
-                ModBlocks.POLISHED_TUFF_STAIRS.get(),
-                ModBlocks.POLISHED_TUFF_SLAB.get(),
-                ModBlocks.POLISHED_TUFF_WALL.get()
-            ).add(
-                ModBlocks.TUFF_BRICKS.get(),
-                ModBlocks.TUFF_BRICK_STAIRS.get(),
-                ModBlocks.TUFF_BRICK_SLAB.get(),
-                ModBlocks.TUFF_BRICK_WALL.get()
-            ).add(
-                ModBlocks.CHISELED_TUFF_BRICKS.get()
-            );
-            
-            output.after(Items.COPPER_BLOCK).add(
-                ModBlocks.CHISELED_COPPER.get(),
-                ModBlocks.COPPER_GRATE.get());
-            
-            output.after(Items.CUT_COPPER_SLAB).add(
-                ModBlocks.COPPER_DOOR.get(),
-                ModBlocks.COPPER_TRAPDOOR.get(),
-                ModBlocks.COPPER_BULB.get());
-            
-            output.after(Items.EXPOSED_COPPER).add(
-                ModBlocks.EXPOSED_CHISELED_COPPER.get(),
-                ModBlocks.EXPOSED_COPPER_GRATE.get());
-            
-            output.after(Items.EXPOSED_CUT_COPPER_SLAB).add(
-                ModBlocks.EXPOSED_COPPER_DOOR.get(),
-                ModBlocks.EXPOSED_COPPER_TRAPDOOR.get(),
-                ModBlocks.EXPOSED_COPPER_BULB.get());
-            
-            output.after(Items.WEATHERED_COPPER).add(
-                ModBlocks.WEATHERED_CHISELED_COPPER.get(),
-                ModBlocks.WEATHERED_COPPER_GRATE.get());
-            
-            output.after(Items.WEATHERED_CUT_COPPER_SLAB).add(
-                ModBlocks.WEATHERED_COPPER_DOOR.get(),
-                ModBlocks.WEATHERED_COPPER_TRAPDOOR.get(),
-                ModBlocks.WEATHERED_COPPER_BULB.get());
-            
-            output.after(Items.OXIDIZED_COPPER).add(
-                ModBlocks.OXIDIZED_CHISELED_COPPER.get(),
-                ModBlocks.OXIDIZED_COPPER_GRATE.get());
-            
-            output.after(Items.OXIDIZED_CUT_COPPER_SLAB).add(
-                ModBlocks.OXIDIZED_COPPER_DOOR.get(),
-                ModBlocks.OXIDIZED_COPPER_TRAPDOOR.get(),
-                ModBlocks.OXIDIZED_COPPER_BULB.get());
-            
-            output.after(Items.WAXED_COPPER_BLOCK).add(
-                ModBlocks.WAXED_CHISELED_COPPER.get(),
-                ModBlocks.WAXED_COPPER_GRATE.get());
-            
-            output.after(Items.WAXED_CUT_COPPER_SLAB).add(
-                ModBlocks.WAXED_COPPER_DOOR.get(),
-                ModBlocks.WAXED_COPPER_TRAPDOOR.get(),
-                ModBlocks.WAXED_COPPER_BULB.get());
-            
-            output.after(Items.WAXED_WEATHERED_COPPER).add(
-                ModBlocks.WAXED_WEATHERED_CHISELED_COPPER.get(),
-                ModBlocks.WAXED_WEATHERED_COPPER_GRATE.get());
-            
-            output.after(Items.WAXED_WEATHERED_CUT_COPPER_SLAB).add(
-                ModBlocks.WAXED_WEATHERED_COPPER_DOOR.get(),
-                ModBlocks.WAXED_WEATHERED_COPPER_TRAPDOOR.get(),
-                ModBlocks.WAXED_WEATHERED_COPPER_BULB.get());
-            
-            output.after(Items.WAXED_EXPOSED_COPPER).add(
-                ModBlocks.WAXED_EXPOSED_CHISELED_COPPER.get(),
-                ModBlocks.WAXED_EXPOSED_COPPER_GRATE.get());
-            
-            output.after(Items.WAXED_EXPOSED_CUT_COPPER_SLAB).add(
-                ModBlocks.WAXED_EXPOSED_COPPER_DOOR.get(),
-                ModBlocks.WAXED_EXPOSED_COPPER_TRAPDOOR.get(),
-                ModBlocks.WAXED_EXPOSED_COPPER_BULB.get());
-            
-            output.after(Items.WAXED_OXIDIZED_COPPER).add(
-                ModBlocks.WAXED_OXIDIZED_CHISELED_COPPER.get(),
-                ModBlocks.WAXED_OXIDIZED_COPPER_GRATE.get());
-            
-            output.after(Items.WAXED_OXIDIZED_CUT_COPPER_SLAB).add(
-                ModBlocks.WAXED_OXIDIZED_COPPER_DOOR.get(),
-                ModBlocks.WAXED_OXIDIZED_COPPER_TRAPDOOR.get(),
-                ModBlocks.WAXED_OXIDIZED_COPPER_BULB.get());
-        });
+        if (VanillaBackport.COMMON_CONFIG.hasTuffBlocks.get()) {
+            event.register(VanillaTabs.BUILDING_BLOCKS, (flags, output, operator) -> {
+                output.after(Items.REINFORCED_DEEPSLATE).add(
+                    Blocks.TUFF,
+                    ModBlocks.TUFF_STAIRS.get(),
+                    ModBlocks.TUFF_SLAB.get(),
+                    ModBlocks.TUFF_WALL.get()
+                ).add(
+                    ModBlocks.CHISELED_TUFF.get()
+                ).add(
+                    ModBlocks.POLISHED_TUFF.get(),
+                    ModBlocks.POLISHED_TUFF_STAIRS.get(),
+                    ModBlocks.POLISHED_TUFF_SLAB.get(),
+                    ModBlocks.POLISHED_TUFF_WALL.get()
+                ).add(
+                    ModBlocks.TUFF_BRICKS.get(),
+                    ModBlocks.TUFF_BRICK_STAIRS.get(),
+                    ModBlocks.TUFF_BRICK_SLAB.get(),
+                    ModBlocks.TUFF_BRICK_WALL.get()
+                ).add(
+                    ModBlocks.CHISELED_TUFF_BRICKS.get()
+                );
+            });
+        }
         
-        event.register(VanillaTabs.FUNCTIONAL_BLOCKS, (flags, output, operator) -> {
-            output.after(Items.REDSTONE_LAMP).add(
-                ModBlocks.COPPER_BULB.get(),
-                ModBlocks.EXPOSED_COPPER_BULB.get(),
-                ModBlocks.WEATHERED_COPPER_BULB.get(),
-                ModBlocks.OXIDIZED_COPPER_BULB.get(),
-                ModBlocks.WAXED_COPPER_BULB.get(),
-                ModBlocks.WAXED_EXPOSED_COPPER_BULB.get(),
-                ModBlocks.WAXED_WEATHERED_COPPER_BULB.get(),
-                ModBlocks.WAXED_OXIDIZED_COPPER_BULB.get());
-        });
-        
-        event.register(VanillaTabs.REDSTONE_BLOCKS, (flags, output, operator) -> {
-            output.after(Items.TARGET).add(
-                ModBlocks.WAXED_COPPER_BULB.get(),
-                ModBlocks.WAXED_EXPOSED_COPPER_BULB.get(),
-                ModBlocks.WAXED_WEATHERED_COPPER_BULB.get(),
-                ModBlocks.WAXED_OXIDIZED_COPPER_BULB.get());
-        });
+        if (VanillaBackport.COMMON_CONFIG.hasCopperBlockSet.get()) {
+            event.register(VanillaTabs.BUILDING_BLOCKS, (flags, output, operator) -> {
+                output.after(Items.COPPER_BLOCK).add(
+                    ModBlocks.CHISELED_COPPER.get(),
+                    ModBlocks.COPPER_GRATE.get());
+                
+                output.after(Items.CUT_COPPER_SLAB).add(
+                    ModBlocks.COPPER_DOOR.get(),
+                    ModBlocks.COPPER_TRAPDOOR.get(),
+                    ModBlocks.COPPER_BULB.get());
+                
+                output.after(Items.EXPOSED_COPPER).add(
+                    ModBlocks.EXPOSED_CHISELED_COPPER.get(),
+                    ModBlocks.EXPOSED_COPPER_GRATE.get());
+                
+                output.after(Items.EXPOSED_CUT_COPPER_SLAB).add(
+                    ModBlocks.EXPOSED_COPPER_DOOR.get(),
+                    ModBlocks.EXPOSED_COPPER_TRAPDOOR.get(),
+                    ModBlocks.EXPOSED_COPPER_BULB.get());
+                
+                output.after(Items.WEATHERED_COPPER).add(
+                    ModBlocks.WEATHERED_CHISELED_COPPER.get(),
+                    ModBlocks.WEATHERED_COPPER_GRATE.get());
+                
+                output.after(Items.WEATHERED_CUT_COPPER_SLAB).add(
+                    ModBlocks.WEATHERED_COPPER_DOOR.get(),
+                    ModBlocks.WEATHERED_COPPER_TRAPDOOR.get(),
+                    ModBlocks.WEATHERED_COPPER_BULB.get());
+                
+                output.after(Items.OXIDIZED_COPPER).add(
+                    ModBlocks.OXIDIZED_CHISELED_COPPER.get(),
+                    ModBlocks.OXIDIZED_COPPER_GRATE.get());
+                
+                output.after(Items.OXIDIZED_CUT_COPPER_SLAB).add(
+                    ModBlocks.OXIDIZED_COPPER_DOOR.get(),
+                    ModBlocks.OXIDIZED_COPPER_TRAPDOOR.get(),
+                    ModBlocks.OXIDIZED_COPPER_BULB.get());
+                
+                output.after(Items.WAXED_COPPER_BLOCK).add(
+                    ModBlocks.WAXED_CHISELED_COPPER.get(),
+                    ModBlocks.WAXED_COPPER_GRATE.get());
+                
+                output.after(Items.WAXED_CUT_COPPER_SLAB).add(
+                    ModBlocks.WAXED_COPPER_DOOR.get(),
+                    ModBlocks.WAXED_COPPER_TRAPDOOR.get(),
+                    ModBlocks.WAXED_COPPER_BULB.get());
+                
+                output.after(Items.WAXED_WEATHERED_COPPER).add(
+                    ModBlocks.WAXED_WEATHERED_CHISELED_COPPER.get(),
+                    ModBlocks.WAXED_WEATHERED_COPPER_GRATE.get());
+                
+                output.after(Items.WAXED_WEATHERED_CUT_COPPER_SLAB).add(
+                    ModBlocks.WAXED_WEATHERED_COPPER_DOOR.get(),
+                    ModBlocks.WAXED_WEATHERED_COPPER_TRAPDOOR.get(),
+                    ModBlocks.WAXED_WEATHERED_COPPER_BULB.get());
+                
+                output.after(Items.WAXED_EXPOSED_COPPER).add(
+                    ModBlocks.WAXED_EXPOSED_CHISELED_COPPER.get(),
+                    ModBlocks.WAXED_EXPOSED_COPPER_GRATE.get());
+                
+                output.after(Items.WAXED_EXPOSED_CUT_COPPER_SLAB).add(
+                    ModBlocks.WAXED_EXPOSED_COPPER_DOOR.get(),
+                    ModBlocks.WAXED_EXPOSED_COPPER_TRAPDOOR.get(),
+                    ModBlocks.WAXED_EXPOSED_COPPER_BULB.get());
+                
+                output.after(Items.WAXED_OXIDIZED_COPPER).add(
+                    ModBlocks.WAXED_OXIDIZED_CHISELED_COPPER.get(),
+                    ModBlocks.WAXED_OXIDIZED_COPPER_GRATE.get());
+                
+                output.after(Items.WAXED_OXIDIZED_CUT_COPPER_SLAB).add(
+                    ModBlocks.WAXED_OXIDIZED_COPPER_DOOR.get(),
+                    ModBlocks.WAXED_OXIDIZED_COPPER_TRAPDOOR.get(),
+                    ModBlocks.WAXED_OXIDIZED_COPPER_BULB.get());
+            });
+            
+            event.register(VanillaTabs.FUNCTIONAL_BLOCKS, (flags, output, operator) -> {
+                output.after(Items.REDSTONE_LAMP).add(
+                    ModBlocks.COPPER_BULB.get(),
+                    ModBlocks.EXPOSED_COPPER_BULB.get(),
+                    ModBlocks.WEATHERED_COPPER_BULB.get(),
+                    ModBlocks.OXIDIZED_COPPER_BULB.get(),
+                    ModBlocks.WAXED_COPPER_BULB.get(),
+                    ModBlocks.WAXED_EXPOSED_COPPER_BULB.get(),
+                    ModBlocks.WAXED_WEATHERED_COPPER_BULB.get(),
+                    ModBlocks.WAXED_OXIDIZED_COPPER_BULB.get());
+            });
+            
+            event.register(VanillaTabs.REDSTONE_BLOCKS, (flags, output, operator) -> {
+                output.after(Items.TARGET).add(
+                    ModBlocks.WAXED_COPPER_BULB.get(),
+                    ModBlocks.WAXED_EXPOSED_COPPER_BULB.get(),
+                    ModBlocks.WAXED_WEATHERED_COPPER_BULB.get(),
+                    ModBlocks.WAXED_OXIDIZED_COPPER_BULB.get());
+            });
+        }
     }
     
     private static void registerArmoredPaws(Event event) {
@@ -379,28 +386,32 @@ public class VanillaTabIntegrations {
             output.after(Items.CHISELED_BOOKSHELF).add(ModBlocks.OAK_SHELF.get());
         });
         
-        event.register(VanillaTabs.TOOLS_AND_UTILITIES, (flags, output, operator) -> {
-            output.after(Items.STONE_HOE)
-                .add(ModItems.COPPER_SHOVEL.get())
-                .add(ModItems.COPPER_PICKAXE.get())
-                .add(ModItems.COPPER_AXE.get())
-                .add(ModItems.COPPER_HOE.get());
-        });
+        if (VanillaBackport.COMMON_CONFIG.hasCopperToolSet.get()) {
+            event.register(VanillaTabs.TOOLS_AND_UTILITIES, (flags, output, operator) -> {
+                output.after(Items.STONE_HOE)
+                    .add(ModItems.COPPER_SHOVEL.get())
+                    .add(ModItems.COPPER_PICKAXE.get())
+                    .add(ModItems.COPPER_AXE.get())
+                    .add(ModItems.COPPER_HOE.get());
+            });
         
-        event.register(VanillaTabs.COMBAT, (flags, output, operator) -> {
-            output.after(Items.STONE_SWORD).add(ModItems.COPPER_SWORD.get());
-            output.after(Items.STONE_AXE).add(ModItems.COPPER_AXE.get());
-            output.after(Items.LEATHER_BOOTS).add(
-                ModItems.COPPER_HELMET.get(),
-                ModItems.COPPER_CHESTPLATE.get(),
-                ModItems.COPPER_LEGGINGS.get(),
-                ModItems.COPPER_BOOTS.get());
-            output.after(Items.LEATHER_HORSE_ARMOR).add(ModItems.COPPER_HORSE_ARMOR.get());
-        });
+            event.register(VanillaTabs.COMBAT, (flags, output, operator) -> {
+                output.after(Items.STONE_SWORD).add(ModItems.COPPER_SWORD.get());
+                output.after(Items.STONE_AXE).add(ModItems.COPPER_AXE.get());
+                output.after(Items.LEATHER_BOOTS).add(
+                    ModItems.COPPER_HELMET.get(),
+                    ModItems.COPPER_CHESTPLATE.get(),
+                    ModItems.COPPER_LEGGINGS.get(),
+                    ModItems.COPPER_BOOTS.get());
+                output.after(Items.LEATHER_HORSE_ARMOR).add(ModItems.COPPER_HORSE_ARMOR.get());
+            });
+        }
         
-        event.register(VanillaTabs.INGREDIENTS, (flags, output, operator) -> {
-            output.before(Items.IRON_NUGGET).add(ModItems.COPPER_NUGGET.get());
-        });
+        if (VanillaBackport.COMMON_CONFIG.hasCopperNuggets.get()) {
+            event.register(VanillaTabs.INGREDIENTS, (flags, output, operator) -> {
+                output.before(Items.IRON_NUGGET).add(ModItems.COPPER_NUGGET.get());
+            });
+        }
         
         event.register(VanillaTabs.SPAWN_EGGS, (flags, output, operator) -> {
             output.after(Items.COD_SPAWN_EGG).add(ModItems.COPPER_GOLEM_SPAWN_EGG.get());
@@ -409,21 +420,27 @@ public class VanillaTabIntegrations {
     
     private static void registerMountsOfMayhem(Event event) {
         event.register(VanillaTabs.COMBAT, (flags, output, operator) -> {
-            output.before(Items.WOODEN_AXE).add(
-                ModItems.WOODEN_SPEAR.get(),
-                ModItems.STONE_SPEAR.get(),
-                ModItems.COPPER_SPEAR.get(),
-                ModItems.IRON_SPEAR.get(),
-                ModItems.GOLDEN_SPEAR.get(),
-                ModItems.DIAMOND_SPEAR.get(),
-                ModItems.NETHERITE_SPEAR.get());
+            if (VanillaBackport.COMMON_CONFIG.hasSpears.get()) {
+                output.before(Items.WOODEN_AXE).add(
+                    ModItems.WOODEN_SPEAR.get(),
+                    ModItems.STONE_SPEAR.get(),
+                    ModItems.COPPER_SPEAR.get(),
+                    ModItems.IRON_SPEAR.get(),
+                    ModItems.GOLDEN_SPEAR.get(),
+                    ModItems.DIAMOND_SPEAR.get(),
+                    ModItems.NETHERITE_SPEAR.get());
+            }
+            
             output.after(Items.DIAMOND_HORSE_ARMOR).add(ModItems.NETHERITE_HORSE_ARMOR.get());
             output.after(ModItems.WOLF_ARMOR.get()).add(
-                ModItems.COPPER_NAUTILUS_ARMOR.get(),
                 ModItems.IRON_NAUTILUS_ARMOR.get(),
                 ModItems.GOLDEN_NAUTILUS_ARMOR.get(),
                 ModItems.DIAMOND_NAUTILUS_ARMOR.get(),
                 ModItems.NETHERITE_NAUTILUS_ARMOR.get());
+            
+            if (VanillaBackport.COMMON_CONFIG.hasCopperToolSet.get()) {
+                output.before(ModItems.IRON_NAUTILUS_ARMOR.get()).add(ModItems.COPPER_NAUTILUS_ARMOR.get());
+            }
         });
         
         event.register(VanillaTabs.SPAWN_EGGS, (flags, output, operator) -> {
@@ -449,8 +466,8 @@ public class VanillaTabIntegrations {
                 ModBlocks.CINNABAR_BRICKS.get(),
                 ModBlocks.CINNABAR_BRICK_STAIRS.get(),
                 ModBlocks.CINNABAR_BRICK_SLAB.get(),
-                ModBlocks.CINNABAR_BRICK_WALL.get())
-                .add(
+                ModBlocks.CINNABAR_BRICK_WALL.get()
+            ).add(
                 ModBlocks.SULFUR.get(),
                 ModBlocks.SULFUR_STAIRS.get(),
                 ModBlocks.SULFUR_SLAB.get(),
