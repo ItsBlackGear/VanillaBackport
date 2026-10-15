@@ -10,6 +10,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -96,16 +97,32 @@ public abstract class AbstractNautilus extends TamableAnimal implements Containe
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
+
+        ItemStack saddle = this.inventory.getItem(0);
+        ItemStack nautilusArmor = this.getBodyArmorItem();
+        boolean saddleExists = !saddle.isEmpty();
+        boolean nautilusArmorExists = !nautilusArmor.isEmpty();
+        CompoundTag equipmentTag = new CompoundTag();
+
         if (this.getOwnerUUID() != null) {
             compound.putUUID("Owner", this.getOwnerUUID());
         }
         
-        if (!this.inventory.getItem(0).isEmpty()) {
-            compound.put("SaddleItem", this.inventory.getItem(0).save(this.registryAccess()));
+        if (saddleExists) {
+            Tag saddleTag = saddle.save(this.registryAccess());
+            compound.put("SaddleItem", saddleTag);
+            equipmentTag.put("saddle", saddleTag);
         }
         
-        if (!this.inventory.getItem(1).isEmpty()) {
-            compound.put("ArmorItem", this.inventory.getItem(1).save(this.registryAccess()));
+        if (nautilusArmorExists) {
+            Tag nautilusArmorTag = nautilusArmor.save(this.registryAccess());
+            compound.put("ArmorItem", nautilusArmorTag);
+            equipmentTag.put("body", nautilusArmorTag);
+        }
+
+        // NBT Carryover Fix: Equipment (1.21.5+)
+        if(saddleExists || nautilusArmorExists) {
+            compound.put("equipment", equipmentTag);
         }
     }
     
