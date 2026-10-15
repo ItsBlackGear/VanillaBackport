@@ -5,12 +5,13 @@ import com.blackgear.platform.core.util.config.ConfigBuilder;
 public class ClientConfig {
     // Bats and Pots
     public final ConfigBuilder.ConfigValue<Boolean> hasUpdatedBatModel;
-    
+
     // Bundles of Bravery
     public final ConfigBuilder.ConfigValue<Boolean> endlessBundleUi;
     public final ConfigBuilder.ConfigValue<Boolean> hasModernBundleModels;
     public final ConfigBuilder.ConfigValue<Boolean> hasModernRedstoneTorchModels;
-    
+    public final ConfigBuilder.ConfigValue<Boolean> hasModernBannerPatternTextures;
+
     // Spring to Life
     public final ConfigBuilder.ConfigValue<Boolean> hasFallingLeaves;
     public final ConfigBuilder.ConfigValue<Double> fallingLeavesFrequency;
@@ -33,13 +34,13 @@ public class ClientConfig {
 
     // Wilderness Bound
     public final ConfigBuilder.ConfigValue<Boolean> hasModernHayBaleTexture;
-    
+
     public ClientConfig(ConfigBuilder builder) {
         builder.push("Bats and Pots");
             this.hasUpdatedBatModel = builder.comment("Use the updated bat model for bats")
                 .define("updated_bat_model", true);
         builder.pop();
-        
+
         builder.push("Bundles of Bravery");
             this.endlessBundleUi = builder.comment("allow access to all items in a Bundle instead of only the first 12")
                 .define("endless_bundle_ui", false);
@@ -47,6 +48,8 @@ public class ClientConfig {
                 .define("has_modern_bundle_models", true);
             this.hasModernRedstoneTorchModels = builder.comment("enable modern redstone torch models (also effects repeaters and comparators)")
                 .define("has_modern_redstone_torch_models", true);
+            this.hasModernBannerPatternTextures = builder.comment("enable modern banner pattern textures")
+            .define("has_modern_banner_pattern_textures", true);
         builder.pop();
         
         builder.push("Spring to Life");
