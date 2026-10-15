@@ -7,6 +7,7 @@ public class ClientConfig {
     public final ConfigBuilder.ConfigValue<Boolean> endlessBundleUi;
     public final ConfigBuilder.ConfigValue<Boolean> hasModernBundleModels;
     public final ConfigBuilder.ConfigValue<Boolean> hasModernRedstoneTorchModels;
+    public final ConfigBuilder.ConfigValue<Boolean> hasModernBannerPatternTextures;
 
     // Spring to Life
     public final ConfigBuilder.ConfigValue<Boolean> hasFallingLeaves;
@@ -41,6 +42,8 @@ public class ClientConfig {
                 .define("has_modern_bundle_models", true);
             this.hasModernRedstoneTorchModels = builder.comment("enable modern redstone torch models (also effects repeaters and comparators)")
                 .define("has_modern_redstone_torch_models", true);
+            this.hasModernBannerPatternTextures = builder.comment("enable modern banner pattern textures")
+            .define("has_modern_banner_pattern_textures", true);
         builder.pop();
         
         builder.push("Spring to Life");
