@@ -15,6 +15,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.world.item.BannerPatternItem;
 import net.minecraft.world.item.DyeItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -52,14 +53,7 @@ public class ItemLikeRendering {
             redstoneTorches
         );
 
-        Set<Item> bannerPatterns = Set.of(
-          Items.CREEPER_BANNER_PATTERN, Items.FLOWER_BANNER_PATTERN, Items.GLOBE_BANNER_PATTERN,
-          Items.MOJANG_BANNER_PATTERN, Items.PIGLIN_BANNER_PATTERN, Items.SKULL_BANNER_PATTERN
-        );
-        event.simple(
-            new BackportedItemRenderer(VanillaBackport.CLIENT_CONFIG.hasModernBannerPatternTextures, bannerPatterns),
-            bannerPatterns
-        );
+        BuiltInRegistries.ITEM.stream().filter(item -> item instanceof BannerPatternItem).forEach(item -> event.simple(BannerPatternRenderer.INSTANCE, item));
     }
     
     public static void blockEntityRendering(BlockEntityRendererEvent event) {
