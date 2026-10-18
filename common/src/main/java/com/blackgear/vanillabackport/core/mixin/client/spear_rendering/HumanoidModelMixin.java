@@ -65,6 +65,7 @@ public abstract class HumanoidModelMixin<T extends LivingEntity> extends Ageable
         if (entity instanceof SpearSwingTracker tracker && !tracker.vb$isAttackSwing()) return;
         
         InteractionHand hand = entity.swingingArm;
+        if (hand == null) return;
         ItemStack heldItem = entity.getItemInHand(hand);
         
         SwingAnimation animation = SwingAnimation.get(heldItem);

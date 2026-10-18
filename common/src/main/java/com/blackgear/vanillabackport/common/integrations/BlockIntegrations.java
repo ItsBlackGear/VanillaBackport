@@ -6,6 +6,8 @@ import com.blackgear.vanillabackport.common.integrations.dispenser.SulfurCubeBuc
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
 import com.blackgear.vanillabackport.common.registries.entities.ModBoatTypes;
 import com.blackgear.vanillabackport.common.registries.items.ModItems;
+import com.blackgear.vanillabackport.core.ModChecker;
+import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.blackgear.vanillabackport.core.data.tags.ModItemTags;
 import net.minecraft.core.dispenser.ProjectileDispenseBehavior;
 import net.minecraft.world.level.block.Blocks;
@@ -137,10 +139,12 @@ public class BlockIntegrations {
         event.registerWaxableBlock(ModBlocks.WEATHERED_COPPER_GOLEM_STATUE.get(), ModBlocks.WAXED_WEATHERED_COPPER_GOLEM_STATUE.get());
         event.registerWaxableBlock(ModBlocks.OXIDIZED_COPPER_GOLEM_STATUE.get(), ModBlocks.WAXED_OXIDIZED_COPPER_GOLEM_STATUE.get());
         
-        event.registerWaxableBlock(Blocks.LIGHTNING_ROD, ModBlocks.WAXED_LIGHTNING_ROD.get());
-        event.registerWaxableBlock(ModBlocks.EXPOSED_LIGHTNING_ROD.get(), ModBlocks.WAXED_EXPOSED_LIGHTNING_ROD.get());
-        event.registerWaxableBlock(ModBlocks.WEATHERED_LIGHTNING_ROD.get(), ModBlocks.WAXED_WEATHERED_LIGHTNING_ROD.get());
-        event.registerWaxableBlock(ModBlocks.OXIDIZED_LIGHTNING_ROD.get(), ModBlocks.WAXED_OXIDIZED_LIGHTNING_ROD.get());
+        if (VanillaBackport.COMMON_CONFIG.hasWeatheringLightningRods.get() || !ModChecker.CAVERNS_AND_CHASMS) {
+            event.registerWaxableBlock(Blocks.LIGHTNING_ROD, ModBlocks.WAXED_LIGHTNING_ROD.get());
+            event.registerWaxableBlock(ModBlocks.EXPOSED_LIGHTNING_ROD.get(), ModBlocks.WAXED_EXPOSED_LIGHTNING_ROD.get());
+            event.registerWaxableBlock(ModBlocks.WEATHERED_LIGHTNING_ROD.get(), ModBlocks.WAXED_WEATHERED_LIGHTNING_ROD.get());
+            event.registerWaxableBlock(ModBlocks.OXIDIZED_LIGHTNING_ROD.get(), ModBlocks.WAXED_OXIDIZED_LIGHTNING_ROD.get());
+        }
         
         ModBlocks.COPPER_LANTERN.waxedMapping().forEach((from, to) -> event.registerWaxableBlock(from.get(), to.get()));
         ModBlocks.COPPER_BARS.waxedMapping().forEach((from, to) -> event.registerWaxableBlock(from.get(), to.get()));
@@ -156,9 +160,11 @@ public class BlockIntegrations {
         event.registerOxidableBlock(ModBlocks.EXPOSED_COPPER_GOLEM_STATUE.get(), ModBlocks.WEATHERED_COPPER_GOLEM_STATUE.get());
         event.registerOxidableBlock(ModBlocks.WEATHERED_COPPER_GOLEM_STATUE.get(), ModBlocks.OXIDIZED_COPPER_GOLEM_STATUE.get());
         
-        event.registerOxidableBlock(Blocks.LIGHTNING_ROD, ModBlocks.EXPOSED_LIGHTNING_ROD.get());
-        event.registerOxidableBlock(ModBlocks.EXPOSED_LIGHTNING_ROD.get(), ModBlocks.WEATHERED_LIGHTNING_ROD.get());
-        event.registerOxidableBlock(ModBlocks.WEATHERED_LIGHTNING_ROD.get(), ModBlocks.OXIDIZED_LIGHTNING_ROD.get());
+        if (VanillaBackport.COMMON_CONFIG.hasWeatheringLightningRods.get() || !ModChecker.CAVERNS_AND_CHASMS) {
+            event.registerOxidableBlock(Blocks.LIGHTNING_ROD, ModBlocks.EXPOSED_LIGHTNING_ROD.get());
+            event.registerOxidableBlock(ModBlocks.EXPOSED_LIGHTNING_ROD.get(), ModBlocks.WEATHERED_LIGHTNING_ROD.get());
+            event.registerOxidableBlock(ModBlocks.WEATHERED_LIGHTNING_ROD.get(), ModBlocks.OXIDIZED_LIGHTNING_ROD.get());
+        }
         
         ModBlocks.COPPER_LANTERN.weatheringMapping().forEach((from, to) -> event.registerOxidableBlock(from.get(), to.get()));
         ModBlocks.COPPER_BARS.weatheringMapping().forEach((from, to) -> event.registerOxidableBlock(from.get(), to.get()));

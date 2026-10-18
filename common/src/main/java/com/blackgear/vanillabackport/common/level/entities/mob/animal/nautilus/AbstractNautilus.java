@@ -5,6 +5,7 @@ import com.blackgear.vanillabackport.common.api.extensions.entity.mounts.Control
 import com.blackgear.vanillabackport.common.api.extensions.entity.mounts.MountInventoryHandler;
 import com.blackgear.vanillabackport.common.level.items.NautilusArmorItem;
 import com.blackgear.vanillabackport.common.registries.entities.ModMobEffects;
+import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.blackgear.vanillabackport.core.data.tags.ModItemTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
@@ -545,6 +546,7 @@ public abstract class AbstractNautilus extends TamableAnimal implements Containe
     
     @Override
     public void openCustomInventoryScreen(Player player) {
+        if (!VanillaBackport.COMMON_CONFIG.hasNautilus.get()) return;
         if (!this.level().isClientSide() && (!this.isVehicle() || this.hasPassenger(player)) && this.isTame()) {
             if (player instanceof ServerPlayer sp && sp instanceof MountInventoryHandler mounts) {
                 mounts.openNautilusInventory(this, this.inventory);

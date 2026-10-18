@@ -1,8 +1,8 @@
 package com.blackgear.vanillabackport.client.integrations.rendering;
 
 import com.blackgear.platform.client.event.rendering.LivingEntityRendererCallback;
-import com.blackgear.vanillabackport.client.api.modules.mob_variants.RenderConditions;
-import com.blackgear.vanillabackport.client.api.modules.mob_variants.SpecialMobRenderer;
+import com.blackgear.vanillabackport.client.api.modules.mob_rendering.RenderConditions;
+import com.blackgear.vanillabackport.client.api.modules.mob_rendering.SpecialMobRenderer;
 import com.blackgear.vanillabackport.client.level.layer.SheepWoolUndercoatLayer;
 import com.blackgear.vanillabackport.client.level.layer.UndeadHorseArmorLayer;
 import com.blackgear.vanillabackport.client.level.model.entity.CopperGolemModel;

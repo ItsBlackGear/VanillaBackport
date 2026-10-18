@@ -33,6 +33,6 @@ public class PigVariants {
 
     private static RegistryKey<PigVariant> register(String key, PigVariant.ModelType type, String assetId, SpawnPrioritySelectors selectors) {
         ResourceLocation path = ResourceLocation.withDefaultNamespace("entity/pig/" + assetId);
-        return REGISTRIES.register(key, new PigVariant(new ModelAndTexture<>(type, path), selectors));
+        return REGISTRIES.registerKey(key, new PigVariant(new ModelAndTexture<>(type, path), selectors));
     }
 }

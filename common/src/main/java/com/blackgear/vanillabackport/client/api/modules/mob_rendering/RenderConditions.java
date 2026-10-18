@@ -1,4 +1,4 @@
-package com.blackgear.vanillabackport.client.api.modules.mob_variants;
+package com.blackgear.vanillabackport.client.api.modules.mob_rendering;
 
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.fabricmc.api.EnvType;
@@ -9,6 +9,7 @@ public interface RenderConditions {
     RenderConditions DEFAULT = () -> true;
     RenderConditions FARM_ANIMALS = VanillaBackport.COMMON_CONFIG.hasFarmAnimalVariants::get;
     RenderConditions SHEEP_UNDERCOAT = VanillaBackport.CLIENT_CONFIG.useSheepWoolUndercoat::get;
+    RenderConditions ZOMBIE_HORSE = VanillaBackport.CLIENT_CONFIG.hasZombieHorseRetexture::get;
 
     boolean apply();
 }

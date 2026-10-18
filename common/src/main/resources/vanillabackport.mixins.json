@@ -167,6 +167,7 @@
     "common.worldgen.sulfur_caves.LakeFeatureMixin",
     "common.worldgen.sulfur_caves.NoiseBasedChunkGeneratorMixin",
     "common.worldgen.sulfur_caves.SurfaceContextMixin",
+    "common.zombie_horses.AbstractHorseMixin",
     "common.zombie_horses.EntityTypeMixin",
     "common.zombie_horses.ZombieHorseMixin",
     "compat.jer.BiomeHelperMixin",

@@ -21,6 +21,6 @@ public class FrogDataVariants {
 
     private static RegistryKey<FrogDataVariant> register(String key, SpawnPrioritySelectors selectors) {
         ResourceLocation texture = ResourceLocation.withDefaultNamespace("entity/frog/" + key + "_frog");
-        return REGISTRIES.register(key, new FrogDataVariant(new ClientAsset(texture), selectors));
+        return REGISTRIES.registerKey(key, new FrogDataVariant(new ClientAsset(texture), selectors));
     }
 }

@@ -33,6 +33,6 @@ public class CowVariants {
 
     private static RegistryKey<CowVariant> register(String key, CowVariant.ModelType type, String assetId, SpawnPrioritySelectors selectors) {
         ResourceLocation path = ResourceLocation.withDefaultNamespace("entity/cow/" + assetId);
-        return REGISTRIES.register(key, new CowVariant(new ModelAndTexture<>(type, path), selectors));
+        return REGISTRIES.registerKey(key, new CowVariant(new ModelAndTexture<>(type, path), selectors));
     }
 }

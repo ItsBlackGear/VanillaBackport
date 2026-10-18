@@ -5,9 +5,7 @@
   "compatibilityLevel": "JAVA_21",
   "minVersion": "0.8",
   "mixins": [
-    "MappedRegistryMixin",
-    "registry.HolderReferenceMixin",
-    "registry.MappedRegistryMixin"
+    "MappedRegistryMixin"
   ],
   "injectors": {
     "defaultRequire": 1

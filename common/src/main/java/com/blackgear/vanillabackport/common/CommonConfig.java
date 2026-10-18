@@ -45,6 +45,7 @@ public class CommonConfig {
     public final ConfigBuilder.ConfigValue<Boolean> leashDropConnections;
     public final ConfigBuilder.ConfigValue<Boolean> hasTearsMusicDisc;
     public final ConfigBuilder.ConfigValue<Double> happyGhastSpeedModifier;
+    public final ConfigBuilder.ConfigValue<Boolean> hasModernLeashes;
 
     // Hot as Lava
     public final ConfigBuilder.ConfigValue<Boolean> hasLavaChickenMusicDisc;
@@ -57,6 +58,7 @@ public class CommonConfig {
     public final ConfigBuilder.ConfigValue<Integer> golemItemCarryAmount;
     public final ConfigBuilder.ConfigValue<Boolean> hasCopperNuggets;
     public final ConfigBuilder.ConfigValue<Boolean> hasCopperToolSet;
+    public final ConfigBuilder.ConfigValue<Boolean> hasWeatheringLightningRods;
     
     // Mounts of Mayhem
     public final ConfigBuilder.ConfigValue<Boolean> hasParchedSkeletons;
@@ -160,6 +162,8 @@ public class CommonConfig {
                 .define("tears_music_disc", true);
             this.happyGhastSpeedModifier = builder.comment("movement speed multiplier for ridden Happy Ghasts")
                 .define("happy_ghast_speed_modifier", 1.0);
+            this.hasModernLeashes = builder.comment("allow Leashes to have the modern physics and interactions")
+                .define("modern_leashes", true);
         builder.pop();
 
         builder.push("Hot as Lava");
@@ -182,6 +186,8 @@ public class CommonConfig {
                 .define("has_copper_nuggets", true);
             this.hasCopperToolSet = builder.comment("allow Copper Armor, Weapons and Tools to be obtainable")
                 .define("has_copper_toolset", true);
+            this.hasWeatheringLightningRods = builder.comment("allow Weathering Lightning Rods to be obtainable")
+                .define("has_weathering_lightning_rods", true);
         builder.pop();
 
         builder.push("Mounts of Mayhem");

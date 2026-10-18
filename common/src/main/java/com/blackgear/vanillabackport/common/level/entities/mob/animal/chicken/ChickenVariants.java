@@ -33,6 +33,6 @@ public class ChickenVariants {
     }
 
     private static RegistryKey<ChickenVariant> register(String key, ChickenVariant.ModelType type, ResourceLocation assetId, SpawnPrioritySelectors selectors) {
-        return REGISTRIES.register(key, new ChickenVariant(new ModelAndTexture<>(type, assetId), selectors));
+        return REGISTRIES.registerKey(key, new ChickenVariant(new ModelAndTexture<>(type, assetId), selectors));
     }
 }

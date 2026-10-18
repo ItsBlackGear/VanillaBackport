@@ -1,6 +1,7 @@
 package com.blackgear.vanillabackport.core.mixin.common.leash_behavior;
 
 import com.blackgear.vanillabackport.common.api.modules.leash_behavior.InterpolationHandler;
+import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.vehicle.Boat;
@@ -22,12 +23,14 @@ public abstract class BoatMixin extends Entity {
 
     @Inject(method = "lerpTo", at = @At("HEAD"), cancellable = true)
     private void vb$lerpTo(double x, double y, double z, float yRot, float xRot, int steps, CallbackInfo ci) {
+        if (!VanillaBackport.COMMON_CONFIG.hasModernLeashes.get()) return;
         this.interpolation.interpolateTo(new Vec3(x, y, z), yRot, xRot);
         ci.cancel();
     }
 
     @Inject(method = "tickLerp", at = @At("HEAD"), cancellable = true)
     private void vb$tickLerp(CallbackInfo ci) {
+        if (!VanillaBackport.COMMON_CONFIG.hasModernLeashes.get()) return;
         if (this.isControlledByLocalInstance()) {
             this.interpolation.cancel();
             this.syncPacketPositionCodec(this.getX(), this.getY(), this.getZ());

@@ -23,7 +23,7 @@ public class WolfDataVariants {
         ResourceLocation wild = ResourceLocation.withDefaultNamespace("entity/wolf/" + assetId);
         ResourceLocation tame = ResourceLocation.withDefaultNamespace("entity/wolf/" + assetId + "_tame");
         ResourceLocation angry = ResourceLocation.withDefaultNamespace("entity/wolf/" + assetId + "_angry");
-        return REGISTRIES.register(
+        return REGISTRIES.registerKey(
             key,
             new WolfDataVariant(
                 new WolfDataVariant.AssetInfo(new ClientAsset(wild), new ClientAsset(tame), new ClientAsset(angry)),

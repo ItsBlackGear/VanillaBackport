@@ -6,8 +6,6 @@
   "client": [
   ],
   "mixins": [
-    "HolderReferenceMixin",
-    "MappedRegistryMixin"
   ],
   "injectors": {
     "defaultRequire": 1

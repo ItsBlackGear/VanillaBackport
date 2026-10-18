@@ -4,6 +4,7 @@ import com.blackgear.vanillabackport.common.api.modules.leash_behavior.LeashData
 import com.blackgear.vanillabackport.common.api.modules.leash_behavior.LeashPhysics;
 import com.blackgear.vanillabackport.common.api.modules.leash_behavior.LeashableCallback;
 import com.blackgear.vanillabackport.core.ModChecker;
+import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
@@ -20,6 +21,7 @@ public interface LeashableTickMixin {
 
     @Inject(method = "tickLeash", at = @At("HEAD"), cancellable = true)
     private static <E extends Entity & Leashable> void vb$tickLeash(E entity, CallbackInfo ci) {
+        if (!VanillaBackport.COMMON_CONFIG.hasModernLeashes.get()) return;
         if (ModChecker.SABLE) return;
 
         Leashable.LeashData data = entity.getLeashData();

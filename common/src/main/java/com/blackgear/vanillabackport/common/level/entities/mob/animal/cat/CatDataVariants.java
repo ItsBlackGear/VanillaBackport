@@ -18,6 +18,6 @@ public class CatDataVariants {
 
     private static RegistryKey<CatDataVariant> register(String key, SpawnPrioritySelectors selectors) {
         ResourceLocation texture = ResourceLocation.withDefaultNamespace("entity/cat/" + key);
-        return REGISTRIES.register(key, new CatDataVariant(new ClientAsset(texture), selectors));
+        return REGISTRIES.registerKey(key, new CatDataVariant(new ClientAsset(texture), selectors));
     }
 }

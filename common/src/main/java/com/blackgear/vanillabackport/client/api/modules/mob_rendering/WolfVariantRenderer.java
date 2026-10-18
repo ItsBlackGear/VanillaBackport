@@ -1,4 +1,4 @@
-package com.blackgear.vanillabackport.client.api.modules.mob_variants;
+package com.blackgear.vanillabackport.client.api.modules.mob_rendering;
 
 import com.blackgear.vanillabackport.common.api.modules.mob_variant.VariantDataHolder;
 import com.blackgear.vanillabackport.common.level.entities.mob.animal.wolf.WolfDataVariant;

@@ -39,7 +39,7 @@ public class VanillaBackportJeiPlugin implements IModPlugin {
 
         Map<DyeColor, List<Item>> dyesByColor = getDyesByColor();
         List<Item> allBundles = getBundles();
-        
+
         List<RecipeHolder<CraftingRecipe>> extraRecipes = new ArrayList<>(DyeColor.values().length);
 
         for (DyeColor dyeColor : DyeColor.values()) {

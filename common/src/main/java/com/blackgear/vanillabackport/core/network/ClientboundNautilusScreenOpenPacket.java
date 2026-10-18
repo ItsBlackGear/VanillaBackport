@@ -7,8 +7,6 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Level;
 
 public record ClientboundNautilusScreenOpenPacket(int containerId, int size, int entityId) implements CustomPacketPayload {
     public static final Type<ClientboundNautilusScreenOpenPacket> TYPE = new Type<>(VanillaBackport.resource("nautilus_screen_open"));
@@ -30,13 +28,6 @@ public record ClientboundNautilusScreenOpenPacket(int containerId, int size, int
     }
 
     public static void handler(ClientboundNautilusScreenOpenPacket payload, PayloadContext context) {
-        context.enqueueWork(() -> {
-            Player player = context.player();
-            Level level = player.level();
-            
-            if (level.isClientSide()) {
-                ClientboundPayloadListener.handleNautilusScreenOpen(payload, player, level);
-            }
-        });
+        ClientboundPayloadListener.execute(() -> ClientboundPayloadListener.handleNautilusScreenOpen(payload, context.player()), context);
     }
 }

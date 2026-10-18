@@ -20,7 +20,6 @@ import net.minecraft.world.entity.animal.horse.ZombieHorse;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.AnimalArmorItem;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
@@ -40,17 +39,34 @@ public abstract class ZombieHorseMixin extends AbstractHorse implements Controll
         super(entityType, level);
     }
     
-    @Inject(method = "createAttributes", at = @At("RETURN"))
+    @Inject(method = "createAttributes", at = @At("RETURN"), cancellable = true)
     private static void vb$createAttributes(CallbackInfoReturnable<AttributeSupplier.Builder> cir) {
-        cir.getReturnValue()
-            .add(Attributes.MAX_HEALTH, 25.0)
-            .add(Attributes.MOVEMENT_SPEED, 0.225);
+        cir.setReturnValue(createBaseHorseAttributes().add(Attributes.MAX_HEALTH, 25.0));
     }
     
-    @Inject(method = "randomizeAttributes", at = @At("TAIL"))
+    @Inject(method = "randomizeAttributes", at = @At("HEAD"), cancellable = true)
     private void vb$randomizeAttributes(RandomSource random, CallbackInfo ci) {
-        this.getAttribute(Attributes.JUMP_STRENGTH).setBaseValue(generateZombieHorseJumpStrength(random::nextDouble));
-        this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(generateZombieHorseSpeed(random::nextDouble));
+        this.getAttribute(Attributes.JUMP_STRENGTH).setBaseValue(vb$generateZombieHorseJumpStrength(random::nextDouble));
+        this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(vb$generateZombieHorseSpeed(random::nextDouble));
+        ci.cancel();
+    }
+    
+    @Unique
+    private static double vb$generateZombieHorseJumpStrength(DoubleSupplier probabilityProvider) {
+        return 0.5
+            + probabilityProvider.getAsDouble() * 0.06666666666666667
+            + probabilityProvider.getAsDouble() * 0.06666666666666667
+            + probabilityProvider.getAsDouble() * 0.06666666666666667;
+    }
+    
+    @Unique
+    private static double vb$generateZombieHorseSpeed(DoubleSupplier probabilityProvider) {
+        return (9.0 + probabilityProvider.getAsDouble() + probabilityProvider.getAsDouble() + probabilityProvider.getAsDouble()) / 42.16;
+    }
+    
+    @Override
+    public boolean canFallInLove() {
+        return false;
     }
     
     @Override
@@ -76,41 +92,8 @@ public abstract class ZombieHorseMixin extends AbstractHorse implements Controll
     }
     
     @Override
-    public SpawnGroupData vb$finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, @Nullable SpawnGroupData data) {
-        if (reason == MobSpawnType.NATURAL) {
-            Zombie zombie = EntityType.ZOMBIE.create(this.level());
-            if (zombie != null) {
-                zombie.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), 0.0F);
-                zombie.finalizeSpawn(level, difficulty, reason, null);
-                zombie.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(ModItems.IRON_SPEAR.get()));
-                zombie.startRiding((ZombieHorse) (Object) this, false);
-            }
-        }
-        
-        return MobBehaviorAccess.super.vb$finalizeSpawn(level, difficulty, reason, data);
-    }
-    
-    @Unique
-    private static double generateZombieHorseJumpStrength(DoubleSupplier probabilityProvider) {
-        return 0.5
-            + probabilityProvider.getAsDouble() * 0.06666666666666667
-            + probabilityProvider.getAsDouble() * 0.06666666666666667
-            + probabilityProvider.getAsDouble() * 0.06666666666666667;
-    }
-    
-    @Unique
-    private static double generateZombieHorseSpeed(DoubleSupplier probabilityProvider) {
-        return (9.0 + probabilityProvider.getAsDouble() + probabilityProvider.getAsDouble() + probabilityProvider.getAsDouble()) / 42.16;
-    }
-    
-    @Override
-    public boolean isMobControlled() {
-        return this.getFirstPassenger() instanceof Mob;
-    }
-    
-    @Override
-    public float chargeSpeedModifier() {
-        return 1.4F;
+    public boolean canBeLeashed() {
+        return this.isTamed() || !this.isMobControlled();
     }
     
     @Override
@@ -124,8 +107,8 @@ public abstract class ZombieHorseMixin extends AbstractHorse implements Controll
     }
     
     @Override
-    public boolean canBeLeashed() {
-        return this.isTamed() || !this.isMobControlled();
+    public boolean isMobControlled() {
+        return this.getFirstPassenger() instanceof Mob;
     }
     
     @Override
@@ -150,33 +133,51 @@ public abstract class ZombieHorseMixin extends AbstractHorse implements Controll
     
     @Override
     public void containerChanged(Container container) {
-        ItemStack oldArmorItem = this.getBodyArmorItem();
+        ItemStack oldArmor = this.getBodyArmorItem();
         super.containerChanged(container);
-        ItemStack newArmorItem = this.getBodyArmorItem();
-        if (this.tickCount > 20 && this.isBodyArmorItem(newArmorItem) && oldArmorItem != newArmorItem) {
+        ItemStack newArmor = this.getBodyArmorItem();
+        if (this.tickCount > 20 && this.isBodyArmorItem(newArmor) && oldArmor != newArmor) {
             this.playSound(SoundEvents.HORSE_ARMOR, 0.5F, 1.0F);
         }
+    }
+    
+    @Override
+    public SpawnGroupData vb$finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, @Nullable SpawnGroupData data) {
+        if (reason == MobSpawnType.NATURAL) {
+            Zombie zombie = EntityType.ZOMBIE.create(this.level());
+            if (zombie != null) {
+                zombie.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), 0.0F);
+                zombie.finalizeSpawn(level, difficulty, reason, null);
+                zombie.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(ModItems.IRON_SPEAR.get()));
+                zombie.startRiding((ZombieHorse) (Object) this, false);
+            }
+        }
+        
+        return MobBehaviorAccess.super.vb$finalizeSpawn(level, difficulty, reason, data);
     }
     
     @Override
     public void aiStep() {
         super.aiStep();
         if (this.isAlive() && this.isSunBurnTick()) {
-            EquipmentSlot equipmentSlot = EquipmentSlot.BODY;
-            ItemStack itemStack = this.getItemBySlot(equipmentSlot);
-            if (!itemStack.isEmpty()) {
-                if (itemStack.isDamageableItem()) {
-                    Item item = itemStack.getItem();
-                    itemStack.setDamageValue(itemStack.getDamageValue() + this.random.nextInt(2));
-                    if (itemStack.getDamageValue() >= itemStack.getMaxDamage()) {
-                        this.onEquippedItemBroken(item, equipmentSlot);
-                        this.setItemSlot(equipmentSlot, ItemStack.EMPTY);
+            EquipmentSlot slot = EquipmentSlot.BODY;
+            ItemStack armor = this.getItemBySlot(slot);
+            if (!armor.isEmpty()) {
+                if (armor.isDamageableItem()) {
+                    armor.setDamageValue(armor.getDamageValue() + this.random.nextInt(2));
+                    if (armor.getDamageValue() >= armor.getMaxDamage()) {
+                        this.onEquippedItemBroken(armor.getItem(), slot);
+                        this.setItemSlot(slot, ItemStack.EMPTY);
                     }
                 }
-                
             } else {
                 this.igniteForSeconds(8.0F);
             }
         }
+    }
+    
+    @Override
+    public float chargeSpeedModifier() {
+        return 1.4F;
     }
 }

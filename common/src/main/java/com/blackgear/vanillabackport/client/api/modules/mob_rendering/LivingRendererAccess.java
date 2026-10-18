@@ -1,4 +1,4 @@
-package com.blackgear.vanillabackport.client.api.modules.mob_variants;
+package com.blackgear.vanillabackport.client.api.modules.mob_rendering;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.EntityModel;

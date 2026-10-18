@@ -1,7 +1,7 @@
 modLoader = "javafml"
 loaderVersion = "[4,)"
 issueTrackerURL = "https://github.com/ItsBlackGear/VanillaBackport/issues"
-license = "MIT"
+license = "https://github.com/ItsBlackGear/VanillaBackport/blob/1.20.1/LICENSE.txt"
 
 [[mods]]
 modId = "vanillabackport"
@@ -28,7 +28,7 @@ modId = "vanillabackport"
 [[dependencies.vanillabackport]]
     modId = "platform"
     type = "required"
-    versionRange = "[1.3.3,)"
+    versionRange = "[1.4,)"
     ordering = "NONE"
     side = "BOTH"
 
