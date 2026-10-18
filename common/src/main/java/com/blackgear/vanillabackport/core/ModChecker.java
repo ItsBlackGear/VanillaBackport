@@ -4,6 +4,7 @@ import com.blackgear.platform.core.Environment;
 
 public class ModChecker {
     public static final boolean COPPER_AGE_BACKPORT = Environment.hasModLoaded("copperagebackport");
+    public static final boolean CAVERNS_AND_CHASMS = Environment.hasModLoaded("caverns_and_chasms");
     public static final boolean QUARK = Environment.hasModLoaded("quark");
     public static final boolean BACKPORTED_WOLVES = Environment.hasModLoaded("backported_wolves");
     public static final boolean TINY_TAKEOVER = Environment.hasModLoaded("tiny_takeover_backport");

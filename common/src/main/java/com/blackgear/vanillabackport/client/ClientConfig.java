@@ -31,7 +31,10 @@ public class ClientConfig {
     public final ConfigBuilder.ConfigValue<Boolean> enableModernDyeTextures;
     public final ConfigBuilder.ConfigValue<Boolean> endFlashSkyVisuals;
     public final ConfigBuilder.ConfigValue<Boolean> endFlashTerrainVisuals;
-
+    
+    // Mounts of Mayhem
+    public final ConfigBuilder.ConfigValue<Boolean> hasZombieHorseRetexture;
+    
     // Wilderness Bound
     public final ConfigBuilder.ConfigValue<Boolean> hasModernHayBaleTexture;
 
@@ -88,10 +91,15 @@ public class ClientConfig {
             this.endFlashTerrainVisuals = builder.comment("enable End Flash terrain effects")
                 .define("end_flash_terrain_visuals", true);
         builder.pop();
+        
+        builder.push("Mounts of Mayhem");
+            this.hasZombieHorseRetexture = builder.comment("toggles the modern Zombie Horse texture")
+                .define("has_zombie_horse_retexture", true);
+        builder.pop();
 
         builder.push("Wilderness Bound");
-        this.hasModernHayBaleTexture = builder.comment("enable modern hay bale texture that is aligned with the straw bed")
-            .define("has_modern_hay_bale_texture", true);
+            this.hasModernHayBaleTexture = builder.comment("enable modern hay bale texture that is aligned with the straw bed")
+                .define("has_modern_hay_bale_texture", true);
         builder.pop();
     }
 }

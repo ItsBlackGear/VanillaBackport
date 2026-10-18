@@ -32,7 +32,7 @@ public class WolfVariants {
         ResourceLocation wild = new ResourceLocation("entity/wolf/" + assetId);
         ResourceLocation tame = new ResourceLocation("entity/wolf/" + assetId + "_tame");
         ResourceLocation angry = new ResourceLocation("entity/wolf/" + assetId + "_angry");
-        return REGISTRIES.register(
+        return REGISTRIES.registerKey(
             key,
             new WolfVariant(
                 new WolfVariant.AssetInfo(new ClientAsset(wild), new ClientAsset(tame), new ClientAsset(angry)),

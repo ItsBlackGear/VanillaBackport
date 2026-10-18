@@ -16,15 +16,20 @@ import com.blackgear.vanillabackport.common.level.entities.mob.monster.creaking.
 import com.blackgear.vanillabackport.common.level.entities.mob.monster.skeleton.Parched;
 import com.blackgear.vanillabackport.common.level.entities.mob.monster.sulfur_cube.SulfurCube;
 import com.blackgear.vanillabackport.common.registries.entities.ModEntityTypes;
+import com.blackgear.vanillabackport.core.data.tags.ModItemTags;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.TemptGoal;
 import net.minecraft.world.entity.animal.IronGolem;
 import net.minecraft.world.entity.animal.camel.Camel;
+import net.minecraft.world.entity.animal.horse.ZombieHorse;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.Spider;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.monster.ZombifiedPiglin;
+import net.minecraft.world.item.crafting.Ingredient;
 
 import static com.blackgear.platform.common.integration.MobIntegration.*;
 import static net.minecraft.world.entity.SpawnPlacements.*;
@@ -72,6 +77,9 @@ public class MobIntegrations {
         
         event.registerGoal(mob -> mob instanceof Zombie, 2, mob -> new SpearUseGoal<>((Monster) mob, 1.0, 1.0, 10.0F, 2.0F));
         event.registerGoal(mob -> mob instanceof ZombifiedPiglin, 1, mob -> new SpearUseGoal<>((Monster) mob, 1.0, 1.0, 10.0F, 2.0F));
+        
+        event.registerGoal(mob -> mob instanceof ZombieHorse, 0, FloatGoal::new);
+        event.registerGoal(mob -> mob instanceof ZombieHorse, 3, mob -> new TemptGoal((PathfinderMob) mob, 1.25, Ingredient.of(ModItemTags.ZOMBIE_HORSE_FOOD), false));
     }
     
     public static void bootstrap(Event event) {

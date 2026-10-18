@@ -174,7 +174,7 @@ public class SulfurCubeArchetypes {
         KnockbackModifiers knockbackModifiers,
         SoundSettings soundSettings
     ) {
-        return REGISTRIES.register(
+        return REGISTRIES.registerKey(
             name,
             key ->
             new SulfurCubeArchetype(

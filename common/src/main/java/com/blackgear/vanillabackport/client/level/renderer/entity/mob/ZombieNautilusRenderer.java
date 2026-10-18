@@ -1,7 +1,7 @@
 package com.blackgear.vanillabackport.client.level.renderer.entity.mob;
 
-import com.blackgear.vanillabackport.client.api.modules.mob_variants.SpecialMobRenderer;
-import com.blackgear.vanillabackport.client.api.modules.mob_variants.ZombieNautilusVariantRenderer;
+import com.blackgear.vanillabackport.client.api.modules.mob_rendering.SpecialMobRenderer;
+import com.blackgear.vanillabackport.client.api.modules.mob_rendering.ZombieNautilusVariantRenderer;
 import com.blackgear.vanillabackport.client.level.layer.SimpleEquipmentLayer;
 import com.blackgear.vanillabackport.client.level.model.entity.nautilus.NautilusModel;
 import com.blackgear.vanillabackport.client.registries.ModModelLayers;

@@ -1,5 +1,6 @@
 package com.blackgear.vanillabackport.core.mixin.client.leash_behavior;
 
+import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -21,6 +22,7 @@ public class MobRendererMixin<T extends Mob, M extends EntityModel<T>> {
         )
     )
     private void onRenderLeash(MobRenderer<T, M> instance, T entityLiving, float partialTicks, PoseStack poseStack, MultiBufferSource buffer, Entity leashHolder, Operation<Void> original) {
+        if (!VanillaBackport.COMMON_CONFIG.hasModernLeashes.get()) original.call(instance, entityLiving, partialTicks, poseStack, buffer, leashHolder);
         /* NO-OP */
     }
 }

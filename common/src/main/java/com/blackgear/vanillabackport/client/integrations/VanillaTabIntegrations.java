@@ -4,6 +4,7 @@ import com.blackgear.platform.common.v2.creative_tabs.CreativeTabIntegrations.Ev
 import com.blackgear.platform.common.v2.creative_tabs.VanillaTabs;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
 import com.blackgear.vanillabackport.common.registries.items.ModItems;
+import com.blackgear.vanillabackport.core.ModChecker;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Blocks;
@@ -341,14 +342,18 @@ public class VanillaTabIntegrations {
             output.after(Items.SOUL_TORCH).add(ModBlocks.COPPER_TORCH.getFirst().get());
             output.after(Items.SOUL_LANTERN).add(ModBlocks.COPPER_LANTERN.asList(), Supplier::get);
             output.after(Items.CHAIN).add(ModBlocks.COPPER_CHAIN.asList(), Supplier::get);
-            output.after(Items.LIGHTNING_ROD).add(
-                ModBlocks.WEATHERED_LIGHTNING_ROD.get(),
-                ModBlocks.EXPOSED_LIGHTNING_ROD.get(),
-                ModBlocks.OXIDIZED_LIGHTNING_ROD.get(),
-                ModBlocks.WAXED_LIGHTNING_ROD.get(),
-                ModBlocks.WAXED_WEATHERED_LIGHTNING_ROD.get(),
-                ModBlocks.WAXED_EXPOSED_LIGHTNING_ROD.get(),
-                ModBlocks.WAXED_OXIDIZED_LIGHTNING_ROD.get());
+            
+            if (VanillaBackport.COMMON_CONFIG.hasWeatheringLightningRods.get() || !ModChecker.CAVERNS_AND_CHASMS) {
+                output.after(Items.LIGHTNING_ROD).add(
+                    ModBlocks.WEATHERED_LIGHTNING_ROD.get(),
+                    ModBlocks.EXPOSED_LIGHTNING_ROD.get(),
+                    ModBlocks.OXIDIZED_LIGHTNING_ROD.get(),
+                    ModBlocks.WAXED_LIGHTNING_ROD.get(),
+                    ModBlocks.WAXED_WEATHERED_LIGHTNING_ROD.get(),
+                    ModBlocks.WAXED_EXPOSED_LIGHTNING_ROD.get(),
+                    ModBlocks.WAXED_OXIDIZED_LIGHTNING_ROD.get());
+            }
+            
             output.after(Items.CHISELED_BOOKSHELF).add(
                 ModBlocks.OAK_SHELF.get(),
                 ModBlocks.SPRUCE_SHELF.get(),

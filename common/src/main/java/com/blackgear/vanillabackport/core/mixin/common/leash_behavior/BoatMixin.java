@@ -2,6 +2,7 @@ package com.blackgear.vanillabackport.core.mixin.common.leash_behavior;
 
 import com.blackgear.vanillabackport.common.api.modules.leash_behavior.InterpolationHandler;
 import com.blackgear.vanillabackport.common.api.modules.leash_behavior.Leashable;
+import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
@@ -88,6 +89,7 @@ public abstract class BoatMixin extends Entity implements Leashable {
 
     @Inject(method = "tick", at = @At("TAIL"))
     private void vb$onTick(CallbackInfo ci) {
+        if (!VanillaBackport.COMMON_CONFIG.hasModernLeashes.get()) return;
         if (!this.level().isClientSide) {
             this.vb$tickLeash();
         }
@@ -95,6 +97,7 @@ public abstract class BoatMixin extends Entity implements Leashable {
 
     @Inject(method = "addAdditionalSaveData", at = @At("TAIL"))
     private void vb$addAdditionalSaveData(CompoundTag tag, CallbackInfo ci) {
+        if (!VanillaBackport.COMMON_CONFIG.hasModernLeashes.get()) return;
         if (this.vb$leashHolder != null) {
             CompoundTag data = new CompoundTag();
             if (this.vb$leashHolder instanceof LivingEntity) {
@@ -115,6 +118,7 @@ public abstract class BoatMixin extends Entity implements Leashable {
 
     @Inject(method = "readAdditionalSaveData", at = @At("TAIL"))
     private void vb$readAdditionalSaveData(CompoundTag tag, CallbackInfo ci) {
+        if (!VanillaBackport.COMMON_CONFIG.hasModernLeashes.get()) return;
         if (tag.contains("Leash", Tag.TAG_COMPOUND)) {
             this.vb$leashInfoTag = tag.getCompound("Leash");
         }
@@ -191,12 +195,14 @@ public abstract class BoatMixin extends Entity implements Leashable {
 
     @Inject(method = "lerpTo", at = @At("HEAD"), cancellable = true)
     private void vb$lerpTo(double x, double y, double z, float yRot, float xRot, int lerpSteps, boolean teleport, CallbackInfo ci) {
+        if (!VanillaBackport.COMMON_CONFIG.hasModernLeashes.get()) return;
         ci.cancel();
         this.interpolation.interpolateTo(new Vec3(x, y, z), yRot, xRot);
     }
 
     @Inject(method = "tickLerp", at = @At("HEAD"), cancellable = true)
     private void vb$tickLerp(CallbackInfo ci) {
+        if (!VanillaBackport.COMMON_CONFIG.hasModernLeashes.get()) return;
         ci.cancel();
 
         if (this.isControlledByLocalInstance()) {

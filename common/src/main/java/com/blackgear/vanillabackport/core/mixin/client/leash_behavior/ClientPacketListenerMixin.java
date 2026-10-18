@@ -1,6 +1,7 @@
 package com.blackgear.vanillabackport.core.mixin.client.leash_behavior;
 
 import com.blackgear.vanillabackport.common.api.modules.leash_behavior.Leashable;
+import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.multiplayer.ClientPacketListener;
 import net.minecraft.network.protocol.game.ClientboundSetEntityLinkPacket;
@@ -18,6 +19,7 @@ public class ClientPacketListenerMixin {
 
     @Inject(method = "handleEntityLinkPacket", at = @At("TAIL"))
     private void vb$onEntityLinkPacket(ClientboundSetEntityLinkPacket packet, CallbackInfo ci) {
+        if (!VanillaBackport.COMMON_CONFIG.hasModernLeashes.get()) return;
         Entity entity = this.level.getEntity(packet.getSourceId());
         if (entity instanceof Leashable leashable && entity instanceof Boat) {
             leashable.vb$setBoatDelayedLeashHolderId(packet.getDestId());

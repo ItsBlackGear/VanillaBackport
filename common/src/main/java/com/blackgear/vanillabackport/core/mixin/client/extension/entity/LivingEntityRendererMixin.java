@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.core.mixin.client.extension.entity;
 
-import com.blackgear.vanillabackport.client.api.modules.mob_variants.LivingRendererAccess;
+import com.blackgear.vanillabackport.client.api.modules.mob_rendering.LivingRendererAccess;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.renderer.MultiBufferSource;

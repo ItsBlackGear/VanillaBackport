@@ -1,4 +1,4 @@
-package com.blackgear.vanillabackport.core.fabric.mixin.registries;
+package com.blackgear.vanillabackport.core.mixin.common.registries;
 
 import com.mojang.serialization.Lifecycle;
 import net.minecraft.core.Holder;

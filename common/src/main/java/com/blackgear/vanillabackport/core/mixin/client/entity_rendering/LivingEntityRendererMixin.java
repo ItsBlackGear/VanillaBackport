@@ -1,7 +1,7 @@
 package com.blackgear.vanillabackport.core.mixin.client.entity_rendering;
 
 import com.blackgear.vanillabackport.client.api.modules.mob_rendering.DynamicMobRendererRegistry;
-import com.blackgear.vanillabackport.client.api.modules.mob_variants.SpecialMobRenderer;
+import com.blackgear.vanillabackport.client.api.modules.mob_rendering.SpecialMobRenderer;
 import com.blackgear.vanillabackport.core.compat.ClientCompat;
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;

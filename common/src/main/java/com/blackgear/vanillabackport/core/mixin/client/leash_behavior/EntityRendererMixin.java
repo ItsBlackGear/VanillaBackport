@@ -1,6 +1,7 @@
 package com.blackgear.vanillabackport.core.mixin.client.leash_behavior;
 
 import com.blackgear.vanillabackport.common.api.modules.leash_behavior.LeashFeatureRenderer;
+import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.culling.Frustum;
@@ -30,11 +31,13 @@ public abstract class EntityRendererMixin<T extends Entity> {
 
     @Inject(method = "render", at = @At("HEAD"))
     private void renderAdditional(T entity, float entityYaw, float partialTick, PoseStack poseStack, MultiBufferSource buffer, int packedLight, CallbackInfo ci) {
+        if (!VanillaBackport.COMMON_CONFIG.hasModernLeashes.get()) return;
         this.leashRenderer.render(entity, partialTick, poseStack, buffer);
     }
 
     @Inject(method = "shouldRender(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/client/renderer/culling/Frustum;DDD)Z", at = @At("TAIL"), cancellable = true)
     private void shouldRenderLeash(T entity, Frustum camera, double camX, double camY, double camZ, CallbackInfoReturnable<Boolean> cir) {
+        if (!VanillaBackport.COMMON_CONFIG.hasModernLeashes.get()) return;
         cir.setReturnValue(this.leashRenderer.shouldRender(entity, camera, cir.getReturnValue()));
     }
 }

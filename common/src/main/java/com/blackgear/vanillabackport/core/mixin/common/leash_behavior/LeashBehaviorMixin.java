@@ -1,6 +1,7 @@
 package com.blackgear.vanillabackport.core.mixin.common.leash_behavior;
 
 import com.blackgear.vanillabackport.common.api.modules.leash_behavior.Leashable;
+import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
@@ -27,7 +28,6 @@ public abstract class LeashBehaviorMixin extends LivingEntity implements Leashab
         this.vb$angularMomentum = angularMomentum;
     }
     
-    // Exponemos los métodos nativos de Mob a la interfaz Leashable
     @Override
     public Entity vb$getLeashHolder() {
         return ((Mob) (Object) this).getLeashHolder();
@@ -45,11 +45,9 @@ public abstract class LeashBehaviorMixin extends LivingEntity implements Leashab
     
     @Inject(method = "tickLeash", at = @At("HEAD"), cancellable = true)
     private void vb$onTickLeash(CallbackInfo ci) {
-        // Cancelamos la lógica de seguimiento lineal de vanilla
+        if (!VanillaBackport.COMMON_CONFIG.hasModernLeashes.get()) return;
         ci.cancel();
         
-        // MUY IMPORTANTE: Solo restauramos el NBT y soltamos si el holder muere.
-        // Simulamos la parte vital del tickLeash original sin mover al mob:
         Mob mob = (Mob) (Object) this;
         if (mob.leashInfoTag != null) {
             mob.restoreLeashFromSave();
@@ -60,7 +58,6 @@ public abstract class LeashBehaviorMixin extends LivingEntity implements Leashab
             }
         }
         
-        // Ejecutamos nuestra física elástica superior
         Leashable.vb$onTickLeash(this);
     }
 }

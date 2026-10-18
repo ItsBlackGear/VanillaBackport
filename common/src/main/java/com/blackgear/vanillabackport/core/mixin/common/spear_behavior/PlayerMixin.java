@@ -4,6 +4,10 @@ import com.blackgear.vanillabackport.common.api.extensions.entity.spear.PlayerSp
 import com.blackgear.vanillabackport.common.api.extensions.entity.spear.MobSpearHandler;
 import com.blackgear.vanillabackport.common.level.items.spear.SpearItem;
 import com.blackgear.vanillabackport.core.util.WorldUtilities.EntityUtils;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.sugar.Share;
+import com.llamalad7.mixinextras.sugar.ref.LocalBooleanRef;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.protocol.game.ClientboundSetEntityMotionPacket;
 import net.minecraft.resources.ResourceLocation;
@@ -46,25 +50,24 @@ public abstract class PlayerMixin extends LivingEntity implements PlayerSpearHan
         super(entityType, level);
     }
     
-    @Inject(method = "attack", at = @At("HEAD"), cancellable = true)
-    private void vb$handleSpecialInteractions(Entity target, CallbackInfo ci) {
-        Player player = (Player) (Object) this;
-        
-        if (target.isAttackable() && target.skipAttackInteraction(player)) {
-            ci.cancel();
-        }
-    }
-    
-    @Inject(method = "attack", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;resetAttackStrengthTicker()V"))
-    private void vb$onAttackBeforeReset(Entity target, CallbackInfo ci) {
+    @WrapOperation(method = "attack",
+        at = @At(
+            value = "INVOKE",
+            target = "Lnet/minecraft/world/entity/player/Player;resetAttackStrengthTicker()V"
+        ))
+    private void vb$beforeAttackReset(Player instance, Operation<Void> original, @Share("vb$attackProceeded") LocalBooleanRef proceeded) {
+        proceeded.set(true);
         this.vb$onAttack();
+        original.call(instance);
     }
     
     @Inject(method = "attack", at = @At("TAIL"))
-    private void vb$postPiercingAttackTail(Entity target, CallbackInfo ci) {
-        this.vb$postPiercingAttack();
+    private void vb$afterAttack(Entity target, CallbackInfo ci, @Share("vb$attackProceeded") LocalBooleanRef proceeded) {
+        if (proceeded.get()) {
+            this.vb$postPiercingAttack();
+        }
     }
-
+    
     @Override
     public boolean vb$cannotAttackWithItem(ItemStack stack, int tolerance) {
         float requiredStrength = stack.getItem() instanceof SpearItem spear ? spear.getMinimumAttackCharge() : 0.0F;

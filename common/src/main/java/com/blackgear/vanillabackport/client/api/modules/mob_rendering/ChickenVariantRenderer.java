@@ -1,4 +1,4 @@
-package com.blackgear.vanillabackport.client.api.modules.mob_variants;
+package com.blackgear.vanillabackport.client.api.modules.mob_rendering;
 
 import com.blackgear.platform.core.BuiltInCoreRegistry;
 import com.blackgear.platform.core.api.RegistryKey;

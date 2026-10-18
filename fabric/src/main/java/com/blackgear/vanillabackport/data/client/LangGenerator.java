@@ -76,6 +76,11 @@ public class LangGenerator extends FabricLanguageProvider {
         builder.add(ModBlocks.TUFF_BRICK_WALL.get(), "Tuff Brick Wall");
         builder.add(ModBlocks.CHISELED_TUFF_BRICKS.get(), "Chiseled Tuff Bricks");
         
+        builder.add("subtitles.block.copper_bulb.turn_off", "Copper Bulb turns off");
+        builder.add("subtitles.block.copper_bulb.turn_on", "Copper Bulb turns on");
+        builder.add("subtitles.block.copper_trapdoor.close", "Trapdoor closes");
+        builder.add("subtitles.block.copper_trapdoor.open", "Trapdoor opens");
+        
         // THE GARDEN AWAKENS
 
         // Biomes

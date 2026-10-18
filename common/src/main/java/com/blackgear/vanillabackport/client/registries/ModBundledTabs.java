@@ -6,6 +6,7 @@ import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
 import com.blackgear.vanillabackport.common.registries.items.ModEnchantments;
 import com.blackgear.vanillabackport.common.registries.items.ModItems;
 import com.blackgear.vanillabackport.common.registries.items.ModPaintingVariants;
+import com.blackgear.vanillabackport.core.ModChecker;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.Registries;
@@ -213,14 +214,16 @@ public class ModBundledTabs {
                 output.accept(ModBlocks.WAXED_WEATHERED_COPPER_GOLEM_STATUE.get());
                 output.accept(ModBlocks.WAXED_OXIDIZED_COPPER_GOLEM_STATUE.get());
                 
-                output.accept(ModBlocks.EXPOSED_LIGHTNING_ROD.get());
-                output.accept(ModBlocks.WEATHERED_LIGHTNING_ROD.get());
-                output.accept(ModBlocks.OXIDIZED_LIGHTNING_ROD.get());
-                output.accept(ModBlocks.WAXED_LIGHTNING_ROD.get());
-                
-                output.accept(ModBlocks.WAXED_EXPOSED_LIGHTNING_ROD.get());
-                output.accept(ModBlocks.WAXED_WEATHERED_LIGHTNING_ROD.get());
-                output.accept(ModBlocks.WAXED_OXIDIZED_LIGHTNING_ROD.get());
+                if (VanillaBackport.COMMON_CONFIG.hasWeatheringLightningRods.get() || !ModChecker.CAVERNS_AND_CHASMS) {
+                    output.accept(ModBlocks.EXPOSED_LIGHTNING_ROD.get());
+                    output.accept(ModBlocks.WEATHERED_LIGHTNING_ROD.get());
+                    output.accept(ModBlocks.OXIDIZED_LIGHTNING_ROD.get());
+                    
+                    output.accept(ModBlocks.WAXED_LIGHTNING_ROD.get());
+                    output.accept(ModBlocks.WAXED_EXPOSED_LIGHTNING_ROD.get());
+                    output.accept(ModBlocks.WAXED_WEATHERED_LIGHTNING_ROD.get());
+                    output.accept(ModBlocks.WAXED_OXIDIZED_LIGHTNING_ROD.get());
+                }
                 
                 output.accept(ModItems.COPPER_GOLEM_SPAWN_EGG.get());
                 

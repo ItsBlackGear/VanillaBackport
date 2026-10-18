@@ -154,15 +154,6 @@
   },
   "requirements": [
     [
-      "minecraft:rusty"
-    ],
-    [
-      "minecraft:chestnut"
-    ],
-    [
-      "minecraft:striped"
-    ],
-    [
       "minecraft:pale"
     ],
     [
@@ -179,6 +170,15 @@
     ],
     [
       "minecraft:ashen"
+    ],
+    [
+      "minecraft:rusty"
+    ],
+    [
+      "minecraft:chestnut"
+    ],
+    [
+      "minecraft:striped"
     ]
   ],
   "rewards": {

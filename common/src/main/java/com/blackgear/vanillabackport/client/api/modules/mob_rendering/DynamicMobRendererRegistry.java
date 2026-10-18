@@ -1,6 +1,5 @@
 package com.blackgear.vanillabackport.client.api.modules.mob_rendering;
 
-import com.blackgear.vanillabackport.client.api.modules.mob_variants.*;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.model.EntityModel;
@@ -23,6 +22,7 @@ public class DynamicMobRendererRegistry {
         register(CatRenderer.class, context -> new CatVariantRenderer());
         register(WolfRenderer.class, context -> new WolfVariantRenderer());
         register(BatRenderer.class, context -> SpecialMobRenderer.create(context, BatSpecialRenderer::new, RenderConditions.BATS));
+        register(UndeadHorseRenderer.class, context -> SpecialMobRenderer.create(context, ZombieHorseRenderer::new, RenderConditions.ZOMBIE_HORSE));
     }
     
     public static <R extends LivingEntityRenderer<T, M>, T extends LivingEntity, M extends EntityModel<T>> void register(Class<R> renderer, Function<EntityRendererProvider.Context, SpecialMobRenderer<T, M>> factory) {

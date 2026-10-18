@@ -8,9 +8,7 @@
     "HumanoidArmPoseMixin"
   ],
   "mixins": [
-    "CollisionContextMixin",
-    "registries.HolderReferenceMixin",
-    "registries.MappedRegistryMixin"
+    "CollisionContextMixin"
   ],
   "injectors": {
     "defaultRequire": 1

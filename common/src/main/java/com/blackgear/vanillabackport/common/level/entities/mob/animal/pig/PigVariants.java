@@ -39,6 +39,6 @@ public class PigVariants {
 
     private static RegistryKey<PigVariant> register(String key, PigVariant.ModelType type, String adultAssetId, SpawnPrioritySelectors selectors) {
         ResourceLocation adultTexture = new ResourceLocation("entity/pig/" + adultAssetId);
-        return REGISTRIES.register(key, new PigVariant(new ModelAndTexture<>(type, adultTexture), selectors));
+        return REGISTRIES.registerKey(key, new PigVariant(new ModelAndTexture<>(type, adultTexture), selectors));
     }
 }

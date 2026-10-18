@@ -1,4 +1,4 @@
-package com.blackgear.vanillabackport.client.api.modules.mob_variants;
+package com.blackgear.vanillabackport.client.api.modules.mob_rendering;
 
 import com.blackgear.vanillabackport.client.level.model.entity.BatModel;
 import com.blackgear.vanillabackport.client.registries.ModModelLayers;

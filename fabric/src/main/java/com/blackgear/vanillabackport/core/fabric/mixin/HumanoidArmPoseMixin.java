@@ -18,10 +18,7 @@ import java.util.List;
 
 @Mixin(HumanoidModel.ArmPose.class)
 public class HumanoidArmPoseMixin {
-    @Shadow
-    @Mutable
-    @Final
-    private static HumanoidModel.ArmPose[] $VALUES;
+    @Shadow @Mutable @Final private static HumanoidModel.ArmPose[] $VALUES;
     
     @Invoker("<init>")
     public static HumanoidModel.ArmPose create(String name, int ordinal, boolean twoHanded) {

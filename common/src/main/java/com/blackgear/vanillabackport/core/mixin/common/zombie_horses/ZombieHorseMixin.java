@@ -13,6 +13,7 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -48,25 +49,29 @@ public abstract class ZombieHorseMixin extends AbstractHorse implements Controll
         cir.setReturnValue(createBaseHorseAttributes().add(Attributes.MAX_HEALTH, 25.0));
     }
     
-    @Override
-    public void addAdditionalSaveData(CompoundTag compound) {
-        super.addAdditionalSaveData(compound);
-        if (!this.inventory.getItem(1).isEmpty()) {
-            compound.put("ArmorItem", this.inventory.getItem(1).save(new CompoundTag()));
-        }
+    @Inject(method = "randomizeAttributes", at = @At("HEAD"), cancellable = true)
+    private void vb$randomizeAttributes(RandomSource random, CallbackInfo ci) {
+        this.getAttribute(Attributes.JUMP_STRENGTH).setBaseValue(vb$generateZombieHorseJumpStrength(random::nextDouble));
+        this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(vb$generateZombieHorseSpeed(random::nextDouble));
+        ci.cancel();
+    }
+    
+    @Unique
+    private static double vb$generateZombieHorseJumpStrength(DoubleSupplier probabilityProvider) {
+        return 0.5
+            + probabilityProvider.getAsDouble() * 0.06666666666666667
+            + probabilityProvider.getAsDouble() * 0.06666666666666667
+            + probabilityProvider.getAsDouble() * 0.06666666666666667;
+    }
+    
+    @Unique
+    private static double vb$generateZombieHorseSpeed(DoubleSupplier probabilityProvider) {
+        return (9.0 + probabilityProvider.getAsDouble() + probabilityProvider.getAsDouble() + probabilityProvider.getAsDouble()) / 42.16;
     }
     
     @Override
-    public void readAdditionalSaveData(CompoundTag compound) {
-        super.readAdditionalSaveData(compound);
-        if (compound.contains("ArmorItem", 10)) {
-            ItemStack stack = ItemStack.of(compound.getCompound("ArmorItem"));
-            if (!stack.isEmpty() && this.isArmor(stack)) {
-                this.inventory.setItem(1, stack);
-            }
-        }
-        
-        this.updateContainerEquipment();
+    public boolean canFallInLove() {
+        return false;
     }
     
     @Override
@@ -92,6 +97,16 @@ public abstract class ZombieHorseMixin extends AbstractHorse implements Controll
     }
     
     @Override
+    public boolean canBeLeashed(Player player) {
+        return this.isTamed() || !this.isMobControlled();
+    }
+    
+    @Override
+    public boolean isFood(ItemStack stack) {
+        return stack.is(ModItemTags.ZOMBIE_HORSE_FOOD);
+    }
+    
+    @Override
     public boolean removeWhenFarAway(double distanceToClosestPlayer) {
         return true;
     }
@@ -99,25 +114,6 @@ public abstract class ZombieHorseMixin extends AbstractHorse implements Controll
     @Override
     public boolean isMobControlled() {
         return this.getFirstPassenger() instanceof Mob;
-    }
-    
-    @Inject(method = "randomizeAttributes", at = @At("TAIL"))
-    private void vb$randomizeAttributes(RandomSource random, CallbackInfo ci) {
-        this.getAttribute(Attributes.JUMP_STRENGTH).setBaseValue(generateZombieHorseJumpStrength(random::nextDouble));
-        this.getAttribute(Attributes.MOVEMENT_SPEED).setBaseValue(generateZombieHorseSpeed(random::nextDouble));
-    }
-    
-    @Unique
-    private static double generateZombieHorseJumpStrength(DoubleSupplier probabilityProvider) {
-        return 0.5
-            + probabilityProvider.getAsDouble() * 0.06666666666666667
-            + probabilityProvider.getAsDouble() * 0.06666666666666667
-            + probabilityProvider.getAsDouble() * 0.06666666666666667;
-    }
-    
-    @Unique
-    private static double generateZombieHorseSpeed(DoubleSupplier probabilityProvider) {
-        return (9.0D + probabilityProvider.getAsDouble() + probabilityProvider.getAsDouble() + probabilityProvider.getAsDouble()) / 42.16;
     }
     
     @Override
@@ -131,11 +127,32 @@ public abstract class ZombieHorseMixin extends AbstractHorse implements Controll
     }
     
     @Override
+    public void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+        if (!this.inventory.getItem(1).isEmpty()) {
+            compound.put("ArmorItem", this.inventory.getItem(1).save(new CompoundTag()));
+        }
+    }
+    
+    @Override
+    public void readAdditionalSaveData(CompoundTag compound) {
+        super.readAdditionalSaveData(compound);
+        if (compound.contains("ArmorItem", 10)) {
+            ItemStack stack = ItemStack.of(compound.getCompound("ArmorItem"));
+            if (!stack.isEmpty() && this.isArmor(stack)) {
+                this.inventory.setItem(1, stack);
+            }
+        }
+        
+        this.updateContainerEquipment();
+    }
+    
+    @Override
     public void containerChanged(Container container) {
-        ItemStack oldArmorItem = this.getArmor();
+        ItemStack oldArmor = this.vb$getArmor();
         super.containerChanged(container);
-        ItemStack newArmorItem = this.getArmor();
-        if (this.tickCount > 20 && this.isArmor(newArmorItem) && oldArmorItem != newArmorItem) {
+        ItemStack newArmor = this.vb$getArmor();
+        if (this.tickCount > 20 && this.isArmor(newArmor) && oldArmor != newArmor) {
             this.playSound(SoundEvents.HORSE_ARMOR, 0.5F, 1.0F);
         }
     }
@@ -144,34 +161,35 @@ public abstract class ZombieHorseMixin extends AbstractHorse implements Controll
     protected void updateContainerEquipment() {
         if (!this.level().isClientSide) {
             super.updateContainerEquipment();
-            this.setArmorEquipment(this.inventory.getItem(1));
+            this.vb$setArmorEquipment(this.inventory.getItem(1));
             this.setDropChance(EquipmentSlot.CHEST, 0.0F);
         }
     }
     
     @Unique
-    private void setArmorEquipment(ItemStack stack) {
-        this.setArmor(stack);
+    private void vb$setArmorEquipment(ItemStack stack) {
+        this.vb$setArmor(stack);
         if (!this.level().isClientSide) {
-            this.getAttribute(Attributes.ARMOR).removeModifier(ARMOR_MODIFIER_UUID);
+            AttributeInstance armor = this.getAttribute(Attributes.ARMOR);
+            armor.removeModifier(ARMOR_MODIFIER_UUID);
             if (this.isArmor(stack)) {
                 int protection = ((HorseArmorItem) stack.getItem()).getProtection();
                 if (protection != 0) {
-                    this.getAttribute(Attributes.ARMOR).addTransientModifier(new AttributeModifier(ARMOR_MODIFIER_UUID, "Horse armor bonus", protection, AttributeModifier.Operation.ADDITION));
+                    armor.addTransientModifier(new AttributeModifier(ARMOR_MODIFIER_UUID, "Horse armor bonus", protection, AttributeModifier.Operation.ADDITION));
                 }
             }
         }
     }
     
     @Unique
-    public ItemStack getArmor() {
-        return this.getItemBySlot(EquipmentSlot.CHEST);
+    private void vb$setArmor(ItemStack stack) {
+        this.setItemSlot(EquipmentSlot.CHEST, stack);
+        this.setDropChance(EquipmentSlot.CHEST, 0.0F);
     }
     
     @Unique
-    private void setArmor(ItemStack stack) {
-        this.setItemSlot(EquipmentSlot.CHEST, stack);
-        this.setDropChance(EquipmentSlot.CHEST, 0.0F);
+    public ItemStack vb$getArmor() {
+        return this.getItemBySlot(EquipmentSlot.CHEST);
     }
     
     @Override
@@ -200,27 +218,17 @@ public abstract class ZombieHorseMixin extends AbstractHorse implements Controll
     }
     
     @Override
-    public boolean canBeLeashed(Player player) {
-        return this.isTamed() || !this.isMobControlled();
-    }
-    
-    @Override
-    public boolean isFood(ItemStack stack) {
-        return stack.is(ModItemTags.ZOMBIE_HORSE_FOOD);
-    }
-    
-    @Override
     public void aiStep() {
         super.aiStep();
         if (this.isAlive() && this.isSunBurnTick()) {
-            EquipmentSlot equipmentSlot = EquipmentSlot.CHEST;
-            ItemStack itemStack = this.getItemBySlot(equipmentSlot);
-            if (!itemStack.isEmpty()) {
-                if (itemStack.isDamageableItem()) {
-                    itemStack.setDamageValue(itemStack.getDamageValue() + this.random.nextInt(2));
-                    if (itemStack.getDamageValue() >= itemStack.getMaxDamage()) {
-                        this.broadcastBreakEvent(equipmentSlot);
-                        this.setItemSlot(equipmentSlot, ItemStack.EMPTY);
+            EquipmentSlot slot = EquipmentSlot.CHEST;
+            ItemStack armor = this.getItemBySlot(slot);
+            if (!armor.isEmpty()) {
+                if (armor.isDamageableItem()) {
+                    armor.setDamageValue(armor.getDamageValue() + this.random.nextInt(2));
+                    if (armor.getDamageValue() >= armor.getMaxDamage()) {
+                        this.broadcastBreakEvent(slot);
+                        this.setItemSlot(slot, ItemStack.EMPTY);
                     }
                 }
             } else {

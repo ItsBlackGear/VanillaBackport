@@ -29,6 +29,6 @@ public class ZombieNautilusVariants {
 
     private static RegistryKey<ZombieNautilusVariant> register(String key, ZombieNautilusVariant.ModelType type, String identifier, SpawnPrioritySelectors selectors) {
         ResourceLocation texture = new ResourceLocation("entity/nautilus/" + identifier);
-        return REGISTRIES.register(key, new ZombieNautilusVariant(new ModelAndTexture<>(type, texture), selectors));
+        return REGISTRIES.registerKey(key, new ZombieNautilusVariant(new ModelAndTexture<>(type, texture), selectors));
     }
 }

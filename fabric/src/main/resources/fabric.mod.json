@@ -12,7 +12,7 @@
     "sources": "https://github.com/ItsBlackGear/VanillaBackport",
     "issues": "https://github.com/ItsBlackGear/VanillaBackport/issues"
   },
-  "license": "MIT",
+  "license": "https://github.com/ItsBlackGear/VanillaBackport/blob/1.20.1/LICENSE.txt",
   "icon": "icon.png",
   "environment": "*",
   "entrypoints": {
@@ -38,7 +38,7 @@
   ],
   "depends": {
     "fabricloader": ">=0.15.10",
-    "platform": ">=1.3.4",
+    "platform": ">=1.4",
     "minecraft": "~1.20.1",
     "java": ">=17",
     "fabric-api": "*"

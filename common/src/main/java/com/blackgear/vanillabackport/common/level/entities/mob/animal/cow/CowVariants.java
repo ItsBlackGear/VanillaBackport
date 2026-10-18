@@ -39,6 +39,6 @@ public class CowVariants {
 
     private static RegistryKey<CowVariant> register(String key, CowVariant.ModelType type, String adultAssetId, SpawnPrioritySelectors selectors) {
         ResourceLocation adultTexture = new ResourceLocation("entity/cow/" + adultAssetId);
-        return REGISTRIES.register(key, new CowVariant(new ModelAndTexture<>(type, adultTexture), selectors));
+        return REGISTRIES.registerKey(key, new CowVariant(new ModelAndTexture<>(type, adultTexture), selectors));
     }
 }
