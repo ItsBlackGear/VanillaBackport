@@ -109,11 +109,13 @@ public class LocatorBarRenderer {
     }
     
     private boolean willPrioritizeExperienceInfo() {
+        if (VanillaBackport.CLIENT_CONFIG.locatorDisplayInfoBar.get()) return false;
         return this.minecraft.player != null && ExperienceDisplay.of(this.minecraft.player).getExperienceDisplayStartTick() + 100 > this.minecraft.player.tickCount;
     }
     
     private boolean willPrioritizeJumpInfo() {
         if (this.minecraft.player == null) return false;
+        if (VanillaBackport.CLIENT_CONFIG.locatorDisplayInfoBar.get()) return false;
         return this.minecraft.player.getJumpRidingScale() > 0.0F
             || Optionull.mapOrDefault(this.minecraft.player.jumpableVehicle(), PlayerRideableJumping::getJumpCooldown, 0) > 0;
     }
