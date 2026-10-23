@@ -6,6 +6,7 @@ import com.blackgear.vanillabackport.common.level.items.WolfArmorItem;
 import com.blackgear.vanillabackport.common.registries.items.ModItems;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.tags.DamageTypeTags;
@@ -96,5 +97,25 @@ public abstract class WolfMixin extends TamableAnimal implements NeutralMob {
     private boolean hasArmor() {
         ItemStack stack = this.getItemBySlot(EquipmentSlot.CHEST);
         return !stack.isEmpty() && stack.is(ModItems.WOLF_ARMOR.get());
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag compound) {
+        super.addAdditionalSaveData(compound);
+
+        // NBT Carryover Fix: Equipment (1.20.5 - 1.21.4)
+        // -----
+        // NOTE: Using the "equipment" tag directly (introduced in 1.21.5) will
+        // NOT work b/c the DFU expects wolf armor to be converted from
+        // "body_armor_item", not "equipment"!
+        // -----
+        // NOTE: In newer versions (like 26.3), EquipmentSlot.CHEST isn't
+        // automatically cleaned up and becomes duplicate NBT that persists.
+        // The result will be = equipment {body: {}, chest: {}}
+        ItemStack itemStack = this.getItemBySlot(EquipmentSlot.CHEST);
+
+        if(!itemStack.isEmpty()) {
+            compound.put("body_armor_item", itemStack.save(new CompoundTag()));
+        }
     }
 }
