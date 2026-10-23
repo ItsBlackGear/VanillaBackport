@@ -242,23 +242,23 @@ public class BlockLootGenerator extends FabricBlockLootTableProvider {
         this.dropSelf(ModBlocks.RED_WOOL_STAIRS.get());
         this.dropSelf(ModBlocks.BLACK_WOOL_STAIRS.get());
         
-        this.dropSelf(ModBlocks.WHITE_WOOL_SLAB.get());
-        this.dropSelf(ModBlocks.ORANGE_WOOL_SLAB.get());
-        this.dropSelf(ModBlocks.MAGENTA_WOOL_SLAB.get());
-        this.dropSelf(ModBlocks.LIGHT_BLUE_WOOL_SLAB.get());
-        this.dropSelf(ModBlocks.YELLOW_WOOL_SLAB.get());
-        this.dropSelf(ModBlocks.LIME_WOOL_SLAB.get());
-        this.dropSelf(ModBlocks.PINK_WOOL_SLAB.get());
-        this.dropSelf(ModBlocks.GRAY_WOOL_SLAB.get());
-        this.dropSelf(ModBlocks.LIGHT_GRAY_WOOL_SLAB.get());
-        this.dropSelf(ModBlocks.CYAN_WOOL_SLAB.get());
-        this.dropSelf(ModBlocks.PURPLE_WOOL_SLAB.get());
-        this.dropSelf(ModBlocks.BLUE_WOOL_SLAB.get());
-        this.dropSelf(ModBlocks.BROWN_WOOL_SLAB.get());
-        this.dropSelf(ModBlocks.GREEN_WOOL_SLAB.get());
-        this.dropSelf(ModBlocks.RED_WOOL_SLAB.get());
-        this.dropSelf(ModBlocks.BLACK_WOOL_SLAB.get());
-
+        this.add(ModBlocks.WHITE_WOOL_SLAB.get(), this::createSlabItemTable);
+        this.add(ModBlocks.ORANGE_WOOL_SLAB.get(), this::createSlabItemTable);
+        this.add(ModBlocks.MAGENTA_WOOL_SLAB.get(), this::createSlabItemTable);
+        this.add(ModBlocks.LIGHT_BLUE_WOOL_SLAB.get(), this::createSlabItemTable);
+        this.add(ModBlocks.YELLOW_WOOL_SLAB.get(), this::createSlabItemTable);
+        this.add(ModBlocks.LIME_WOOL_SLAB.get(), this::createSlabItemTable);
+        this.add(ModBlocks.PINK_WOOL_SLAB.get(), this::createSlabItemTable);
+        this.add(ModBlocks.GRAY_WOOL_SLAB.get(), this::createSlabItemTable);
+        this.add(ModBlocks.LIGHT_GRAY_WOOL_SLAB.get(), this::createSlabItemTable);
+        this.add(ModBlocks.CYAN_WOOL_SLAB.get(), this::createSlabItemTable);
+        this.add(ModBlocks.PURPLE_WOOL_SLAB.get(), this::createSlabItemTable);
+        this.add(ModBlocks.BLUE_WOOL_SLAB.get(), this::createSlabItemTable);
+        this.add(ModBlocks.BROWN_WOOL_SLAB.get(), this::createSlabItemTable);
+        this.add(ModBlocks.GREEN_WOOL_SLAB.get(), this::createSlabItemTable);
+        this.add(ModBlocks.RED_WOOL_SLAB.get(), this::createSlabItemTable);
+        this.add(ModBlocks.BLACK_WOOL_SLAB.get(), this::createSlabItemTable);
+        
         this.dropSelf(ModBlocks.WHITE_CONCRETE_STAIRS.get());
         this.dropSelf(ModBlocks.ORANGE_CONCRETE_STAIRS.get());
         this.dropSelf(ModBlocks.MAGENTA_CONCRETE_STAIRS.get());
@@ -275,23 +275,23 @@ public class BlockLootGenerator extends FabricBlockLootTableProvider {
         this.dropSelf(ModBlocks.GREEN_CONCRETE_STAIRS.get());
         this.dropSelf(ModBlocks.RED_CONCRETE_STAIRS.get());
         this.dropSelf(ModBlocks.BLACK_CONCRETE_STAIRS.get());
-
-        this.dropSelf(ModBlocks.WHITE_CONCRETE_SLAB.get());
-        this.dropSelf(ModBlocks.ORANGE_CONCRETE_SLAB.get());
-        this.dropSelf(ModBlocks.MAGENTA_CONCRETE_SLAB.get());
-        this.dropSelf(ModBlocks.LIGHT_BLUE_CONCRETE_SLAB.get());
-        this.dropSelf(ModBlocks.YELLOW_CONCRETE_SLAB.get());
-        this.dropSelf(ModBlocks.LIME_CONCRETE_SLAB.get());
-        this.dropSelf(ModBlocks.PINK_CONCRETE_SLAB.get());
-        this.dropSelf(ModBlocks.GRAY_CONCRETE_SLAB.get());
-        this.dropSelf(ModBlocks.LIGHT_GRAY_CONCRETE_SLAB.get());
-        this.dropSelf(ModBlocks.CYAN_CONCRETE_SLAB.get());
-        this.dropSelf(ModBlocks.PURPLE_CONCRETE_SLAB.get());
-        this.dropSelf(ModBlocks.BLUE_CONCRETE_SLAB.get());
-        this.dropSelf(ModBlocks.BROWN_CONCRETE_SLAB.get());
-        this.dropSelf(ModBlocks.GREEN_CONCRETE_SLAB.get());
-        this.dropSelf(ModBlocks.RED_CONCRETE_SLAB.get());
-        this.dropSelf(ModBlocks.BLACK_CONCRETE_SLAB.get());
+        
+        this.add(ModBlocks.WHITE_CONCRETE_SLAB.get(), this::createSlabItemTable);
+        this.add(ModBlocks.ORANGE_CONCRETE_SLAB.get(), this::createSlabItemTable);
+        this.add(ModBlocks.MAGENTA_CONCRETE_SLAB.get(), this::createSlabItemTable);
+        this.add(ModBlocks.LIGHT_BLUE_CONCRETE_SLAB.get(), this::createSlabItemTable);
+        this.add(ModBlocks.YELLOW_CONCRETE_SLAB.get(), this::createSlabItemTable);
+        this.add(ModBlocks.LIME_CONCRETE_SLAB.get(), this::createSlabItemTable);
+        this.add(ModBlocks.PINK_CONCRETE_SLAB.get(), this::createSlabItemTable);
+        this.add(ModBlocks.GRAY_CONCRETE_SLAB.get(), this::createSlabItemTable);
+        this.add(ModBlocks.LIGHT_GRAY_CONCRETE_SLAB.get(), this::createSlabItemTable);
+        this.add(ModBlocks.CYAN_CONCRETE_SLAB.get(), this::createSlabItemTable);
+        this.add(ModBlocks.PURPLE_CONCRETE_SLAB.get(), this::createSlabItemTable);
+        this.add(ModBlocks.BLUE_CONCRETE_SLAB.get(), this::createSlabItemTable);
+        this.add(ModBlocks.BROWN_CONCRETE_SLAB.get(), this::createSlabItemTable);
+        this.add(ModBlocks.GREEN_CONCRETE_SLAB.get(), this::createSlabItemTable);
+        this.add(ModBlocks.RED_CONCRETE_SLAB.get(), this::createSlabItemTable);
+        this.add(ModBlocks.BLACK_CONCRETE_SLAB.get(), this::createSlabItemTable);
     }
 
     protected LootTable.Builder createMultifaceBlockDrops(Block block) {

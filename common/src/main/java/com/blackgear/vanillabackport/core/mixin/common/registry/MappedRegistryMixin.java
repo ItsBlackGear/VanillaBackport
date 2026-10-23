@@ -20,17 +20,17 @@ public abstract class MappedRegistryMixin<T> {
     @Shadow @Final private Map<ResourceLocation, Holder.Reference<T>> byLocation;
     @Shadow @Nullable private Map<T, Holder.Reference<T>> unregisteredIntrusiveHolders;
     
-    @Inject(method = "register", at = @At("HEAD"), cancellable = true)
-    private void vb$interceptDuplicates(ResourceKey<T> key, T value, RegistrationInfo registrationInfo, CallbackInfoReturnable<Holder.Reference<T>> cir) {
-        ResourceLocation location = key.location();
-        if ("minecraft".equals(location.getNamespace()) && this.byLocation.containsKey(location)) {
-            Holder.Reference<T> existingReference = this.byLocation.get(location);
-            
-            if (this.unregisteredIntrusiveHolders != null) {
-                this.unregisteredIntrusiveHolders.remove(value);
-            }
-            
-            cir.setReturnValue(existingReference);
-        }
-    }
+//    @Inject(method = "register", at = @At("HEAD"), cancellable = true)
+//    private void vb$interceptDuplicates(ResourceKey<T> key, T value, RegistrationInfo registrationInfo, CallbackInfoReturnable<Holder.Reference<T>> cir) {
+//        ResourceLocation location = key.location();
+//        if ("minecraft".equals(location.getNamespace()) && this.byLocation.containsKey(location)) {
+//            Holder.Reference<T> existingReference = this.byLocation.get(location);
+//
+//            if (this.unregisteredIntrusiveHolders != null) {
+//                this.unregisteredIntrusiveHolders.remove(value);
+//            }
+//
+//            cir.setReturnValue(existingReference);
+//        }
+//    }
 }

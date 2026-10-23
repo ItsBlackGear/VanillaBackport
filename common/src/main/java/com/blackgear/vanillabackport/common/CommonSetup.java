@@ -58,7 +58,6 @@ public class CommonSetup {
             event.register(VanillaBackport.resource("sulfur_cube_archetype"), SulfurCubeArchetypes.REGISTRIES, SulfurCubeArchetype.CODEC);
         });
         
-        DynamicRecipeManager.register(new VanillaDynamicRecipes(), VanillaBackport.MOD_ID);
         MobIntegration.registerIntegrations(MobIntegrations::bootstrap);
         CommandRegistrar.EVENT.register((dispatcher, context, selection) -> WaypointCommand.register(dispatcher, context));
     }
@@ -73,6 +72,8 @@ public class CommonSetup {
             Parrot.MOB_SOUND_MAP.put(ModEntityTypes.PARCHED.get(), ModSoundEvents.PARROT_IMITATE_PARCHED.get());
             Parrot.MOB_SOUND_MAP.put(ModEntityTypes.CAMEL_HUSK.get(), ModSoundEvents.PARROT_IMITATE_CAMEL_HUSK.get());
             Parrot.MOB_SOUND_MAP.put(ModEntityTypes.ZOMBIE_NAUTILUS.get(), ModSoundEvents.PARROT_IMITATE_ZOMBIE_NAUTILUS.get());
+            
+            DynamicRecipeManager.register(new VanillaDynamicRecipes(), VanillaBackport.MOD_ID);
             
             if (VanillaBackport.COMMON_CONFIG.hasCopperToolSet.get()) {
                 SpawnEquipmentRegistry.register(EquipmentSlot.HEAD, 1, 0.4F, ModItems.COPPER_HELMET);

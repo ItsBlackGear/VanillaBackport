@@ -5,6 +5,7 @@ import com.blackgear.vanillabackport.common.level.entities.mob.animal.camel.Came
 import com.blackgear.vanillabackport.common.level.entities.mob.monster.skeleton.Parched;
 import com.blackgear.vanillabackport.common.registries.entities.ModEntityTypes;
 import com.blackgear.vanillabackport.common.registries.items.ModItems;
+import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
@@ -14,7 +15,9 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.monster.Husk;
 import net.minecraft.world.entity.monster.Zombie;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import org.jetbrains.annotations.Nullable;
@@ -41,7 +44,8 @@ public class HuskMixin extends Zombie implements MobBehaviorAccess {
             if (level.noCollision(ModEntityTypes.CAMEL_HUSK.get().getSpawnAABB(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5))) {
                 huskData.triedToSpawnCamelHusk = true;
                 if (random.nextFloat() < 0.1F) {
-                    husk.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(ModItems.IRON_SPEAR.get()));
+                    Item heldItem = VanillaBackport.COMMON_CONFIG.hasSpears.get() ? ModItems.IRON_SPEAR.get() : Items.IRON_SWORD;
+                    this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(heldItem));
                     CamelHusk camel = ModEntityTypes.CAMEL_HUSK.get().create(husk.level());
                     if (camel != null) {
                         camel.setPos(husk.getX(), husk.getY(), husk.getZ());
