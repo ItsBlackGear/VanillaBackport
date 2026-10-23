@@ -285,15 +285,6 @@ public class ModBundledTabs {
                 output.accept(ModItems.NAUTILUS_SPAWN_EGG.get());
                 output.accept(ModItems.PARCHED_SPAWN_EGG.get());
                 output.accept(ModItems.ZOMBIE_NAUTILUS_SPAWN_EGG.get());
-                
-                provider.lookup(Registries.ENCHANTMENT).ifPresent(enchantments -> {
-                    enchantments.listElements()
-                        .map(Holder::value)
-                        .filter(enchantment -> enchantment == ModEnchantments.LUNGE.get())
-                        .flatMap(enchantment -> IntStream.rangeClosed(enchantment.getMinLevel(), enchantment.getMaxLevel())
-                            .mapToObj(level -> EnchantedBookItem.createForEnchantment(new EnchantmentInstance(enchantment, level))))
-                        .forEach(output::accept);
-                });
             })
             .build()
     );

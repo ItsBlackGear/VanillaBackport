@@ -16,7 +16,9 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.monster.Husk;
 import net.minecraft.world.entity.monster.Zombie;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import org.jetbrains.annotations.Nullable;
@@ -30,7 +32,6 @@ public class HuskMixin extends Zombie implements MobBehaviorAccess {
     
     @Override
     public @Nullable SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, @Nullable SpawnGroupData data, @Nullable CompoundTag dataTag) {
-        
         RandomSource random = level.getRandom();
         data = super.finalizeSpawn(level, difficulty, reason, data, dataTag);
         float difficultyModifier = difficulty.getSpecialMultiplier();
@@ -50,7 +51,8 @@ public class HuskMixin extends Zombie implements MobBehaviorAccess {
             if (level.noCollision(ModEntityTypes.CAMEL_HUSK.get().getAABB(pos.getX() + 0.5, pos.getY(), pos.getZ() + 0.5))) {
                 huskData.triedToSpawnCamelHusk = true;
                 if (random.nextFloat() < 0.1F) {
-                    this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(ModItems.IRON_SPEAR.get()));
+                    Item heldItem = VanillaBackport.COMMON_CONFIG.hasSpears.get() ? ModItems.IRON_SPEAR.get() : Items.IRON_SWORD;
+                    this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(heldItem));
                     CamelHusk camel = ModEntityTypes.CAMEL_HUSK.get().create(this.level());
                     if (camel != null) {
                         camel.setPos(this.getX(), this.getY(), this.getZ());

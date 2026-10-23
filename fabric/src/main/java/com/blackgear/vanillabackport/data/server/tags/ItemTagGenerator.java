@@ -191,6 +191,9 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
             ModBlocks.SHELF_MUSHROOM.get().asItem())
         .addOptionalTag(ForgeItemTags.MUSHROOMS)
         .addOptionalTag(FabricItemTags.MUSHROOMS);
+        
+        this.getOrCreateTagBuilder(ItemTags.CLUSTER_MAX_HARVESTABLES)
+            .add(ModItems.COPPER_PICKAXE.get());
     }
 
     private void handleArchetypes() {

@@ -10,6 +10,7 @@ import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.data.BlockFamily;
 import net.minecraft.data.recipes.*;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.item.Item;
@@ -235,10 +236,10 @@ public class RecipeGenerator extends VanillaRecipeProvider {
         List<Item> wool_slabs = List.of(ModBlocks.BLACK_WOOL_SLAB.get().asItem(), ModBlocks.BLUE_WOOL_SLAB.get().asItem(), ModBlocks.BROWN_WOOL_SLAB.get().asItem(), ModBlocks.CYAN_WOOL_SLAB.get().asItem(), ModBlocks.GRAY_WOOL_SLAB.get().asItem(), ModBlocks.GREEN_WOOL_SLAB.get().asItem(), ModBlocks.LIGHT_BLUE_WOOL_SLAB.get().asItem(), ModBlocks.LIGHT_GRAY_WOOL_SLAB.get().asItem(), ModBlocks.LIME_WOOL_SLAB.get().asItem(), ModBlocks.MAGENTA_WOOL_SLAB.get().asItem(), ModBlocks.ORANGE_WOOL_SLAB.get().asItem(), ModBlocks.PINK_WOOL_SLAB.get().asItem(), ModBlocks.PURPLE_WOOL_SLAB.get().asItem(), ModBlocks.RED_WOOL_SLAB.get().asItem(), ModBlocks.YELLOW_WOOL_SLAB.get().asItem(), ModBlocks.WHITE_WOOL_SLAB.get().asItem());
         List<Item> harness = List.of(ModItems.BLACK_HARNESS.get(), ModItems.BLUE_HARNESS.get(), ModItems.BROWN_HARNESS.get(), ModItems.CYAN_HARNESS.get(), ModItems.GRAY_HARNESS.get(), ModItems.GREEN_HARNESS.get(), ModItems.LIGHT_BLUE_HARNESS.get(), ModItems.LIGHT_GRAY_HARNESS.get(), ModItems.LIME_HARNESS.get(), ModItems.MAGENTA_HARNESS.get(), ModItems.ORANGE_HARNESS.get(), ModItems.PINK_HARNESS.get(), ModItems.PURPLE_HARNESS.get(), ModItems.RED_HARNESS.get(), ModItems.YELLOW_HARNESS.get(), ModItems.WHITE_HARNESS.get());
         List<Item> cushion = List.of(ModItems.BLACK_CUSHION.get(), ModItems.BLUE_CUSHION.get(), ModItems.BROWN_CUSHION.get(), ModItems.CYAN_CUSHION.get(), ModItems.GRAY_CUSHION.get(), ModItems.GREEN_CUSHION.get(), ModItems.LIGHT_BLUE_CUSHION.get(), ModItems.LIGHT_GRAY_CUSHION.get(), ModItems.LIME_CUSHION.get(), ModItems.MAGENTA_CUSHION.get(), ModItems.ORANGE_CUSHION.get(), ModItems.PINK_CUSHION.get(), ModItems.PURPLE_CUSHION.get(), ModItems.RED_CUSHION.get(), ModItems.YELLOW_CUSHION.get(), ModItems.WHITE_CUSHION.get());
-        colorBlockWithDye(output, dyes, wool_stairs, "wool_stairs");
-        colorBlockWithDye(output, dyes, wool_slabs, "wool_slabs");
-        colorBlockWithDye(output, dyes, harness, "harness_dye");
-        colorBlockWithDye(output, dyes, cushion, "cushion_dye");
+        colorBlockWithDye(output, dyes, wool_stairs, ModItemTags.WOOL_STAIRS, "wool_stairs");
+        colorBlockWithDye(output, dyes, wool_slabs, ModItemTags.WOOL_SLABS, "wool_slabs");
+        colorBlockWithDye(output, dyes, harness, ModItemTags.HARNESSES, "harness_dye");
+        colorBlockWithDye(output, dyes, cushion, ModItemTags.CUSHIONS, "cushion_dye");
         
         this.cushionRecipe(output, ModBlocks.WHITE_WOOL_SLAB.get().asItem(), ModItems.WHITE_CUSHION.get());
         this.cushionRecipe(output, ModBlocks.ORANGE_WOOL_SLAB.get().asItem(), ModItems.ORANGE_CUSHION.get());
@@ -355,6 +356,19 @@ public class RecipeGenerator extends VanillaRecipeProvider {
             .group(getItemName(waxed))
             .unlockedBy(getHasName(unwaxed), has(unwaxed))
             .save(output, getConversionRecipeName(waxed, Items.HONEYCOMB));
+    }
+    
+    protected static void colorBlockWithDye(Consumer<FinishedRecipe> output, List<Item> dyes, List<Item> dyeableItems, TagKey<Item> dyeable, String group) {
+        for (int i = 0; i < dyes.size(); i++) {
+            Item item = dyes.get(i);
+            Item item2 = dyeableItems.get(i);
+            ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, item2)
+                .requires(item)
+                .requires(Ingredient.of(dyeable))
+                .group(group)
+                .unlockedBy("has_needed_dye", has(item))
+                .save(output, "dye_" + getItemName(item2));
+        }
     }
     
     @FunctionalInterface

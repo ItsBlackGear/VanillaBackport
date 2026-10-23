@@ -57,6 +57,7 @@ dependencies {
     modCompileOnly("curse.maven:mouse-tweaks-60089:5338457")
     modCompileOnly("curse.maven:jei-238222:7253590")
     modCompileOnly("curse.maven:just-enough-resources-jer-240630:5057220")
+    modCompileOnly "maven.modrinth:apotheosis:7.4.8-forge"
 
     modCompileOnly "maven.modrinth:moonlight:1.20-2.16.34-forge"
     modCompileOnly "maven.modrinth:every-compat:1.20-2.9.24-forge"

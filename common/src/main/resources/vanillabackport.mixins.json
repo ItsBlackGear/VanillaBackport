@@ -144,7 +144,7 @@
     "common.monsters_on_peaceful.NaturalSpawnerMixin",
     "common.registries.HolderReferenceMixin",
     "common.registries.MappedRegistryMixin",
-    "common.registry.RegistrySetBuilderMixin",
+    "common.registries.RegistrySetBuilderMixin",
     "common.skeleton_attack_interval.AbstractSkeletonMixin",
     "common.spear_behavior.EnchantmentCategoryMixin",
     "common.spear_behavior.EnchantmentHelperMixin",

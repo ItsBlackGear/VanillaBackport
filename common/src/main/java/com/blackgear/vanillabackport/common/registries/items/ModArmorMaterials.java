@@ -18,13 +18,13 @@ public enum ModArmorMaterials implements ArmorMaterial {
         map.put(Type.LEGGINGS, 3);
         map.put(Type.CHESTPLATE, 4);
         map.put(Type.HELMET, 2);
-    }), 8, ModSoundEvents.ARMOR_EQUIP_COPPER.get(), 0.0F, 0.0F, () -> Ingredient.of(Items.COPPER_INGOT));
+    }), 8, ModSoundEvents.ARMOR_EQUIP_COPPER, 0.0F, 0.0F, () -> Ingredient.of(Items.COPPER_INGOT));
     
     private final String name;
     private final int durabilityMultiplier;
     private final EnumMap<Type, Integer> protectionAmounts;
     private final int enchantmentValue;
-    private final SoundEvent equipSound;
+    private final Supplier<SoundEvent> equipSound;
     private final float toughness;
     private final float knockbackResistance;
     private final LazyLoadedValue<Ingredient> repairIngredient;
@@ -41,7 +41,7 @@ public enum ModArmorMaterials implements ArmorMaterial {
         int durabilityMultiplier,
         EnumMap<Type, Integer> protectionAmounts,
         int enchantmentValue,
-        SoundEvent equipSound,
+        Supplier<SoundEvent> equipSound,
         float toughness,
         float knockbackResistance,
         Supplier<Ingredient> repairIngredient
@@ -73,7 +73,7 @@ public enum ModArmorMaterials implements ArmorMaterial {
     
     @Override
     public SoundEvent getEquipSound() {
-        return this.equipSound;
+        return this.equipSound.get();
     }
     
     @Override

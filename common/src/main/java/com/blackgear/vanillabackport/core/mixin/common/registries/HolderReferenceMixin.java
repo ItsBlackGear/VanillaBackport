@@ -12,8 +12,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class HolderReferenceMixin<T> {
     @Shadow @Nullable private T value;
 
-    @Inject(method = "bindValue", at = @At("HEAD"), cancellable = true)
-    private void vb$allowDuplicateBind(T value, CallbackInfo ci) {
-        if (this.value != null) ci.cancel();
-    }
+//    @Inject(method = "bindValue", at = @At("HEAD"), cancellable = true)
+//    private void vb$allowDuplicateBind(T value, CallbackInfo ci) {
+//        if (this.value != null) ci.cancel();
+//    }
 }
