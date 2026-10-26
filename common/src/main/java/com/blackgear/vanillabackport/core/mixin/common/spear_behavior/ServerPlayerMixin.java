@@ -2,6 +2,7 @@ package com.blackgear.vanillabackport.core.mixin.common.spear_behavior;
 
 import com.blackgear.vanillabackport.common.api.extensions.entity.spear.PlayerSpearHandler;
 import com.blackgear.vanillabackport.common.registries.items.ModDataComponents;
+import com.blackgear.vanillabackport.core.ModChecker;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
@@ -14,6 +15,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class ServerPlayerMixin {
     @Inject(method = "attack", at = @At("HEAD"), cancellable = true)
     private void vb$validateAttack(Entity target, CallbackInfo ci) {
+        if (ModChecker.BETTER_COMBAT) return;
         ServerPlayer player = (ServerPlayer)(Object) this;
         ItemStack stack = player.getMainHandItem();
         if (stack.has(ModDataComponents.PIERCING_WEAPON.get()) || ((PlayerSpearHandler) player).vb$cannotAttackWithItem(stack, 5)) {

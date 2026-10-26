@@ -6,6 +6,7 @@ import com.blackgear.vanillabackport.common.api.extensions.entity.spear.ServerSp
 import com.blackgear.vanillabackport.common.api.extensions.entity.spear.SpearSwingTracker;
 import com.blackgear.vanillabackport.common.level.components.AttackRange;
 import com.blackgear.vanillabackport.common.level.components.PiercingWeapon;
+import com.blackgear.vanillabackport.core.ModChecker;
 import com.blackgear.vanillabackport.core.network.ServerboundUpdateSpearSwingPacket;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
@@ -43,6 +44,7 @@ public abstract class MinecraftMixin {
         cancellable = true
     )
     private void vb$startAttack(CallbackInfoReturnable<Boolean> cir) {
+        if (ModChecker.BETTER_COMBAT) return;
         if (this.player == null || this.level == null || this.gameMode == null) return;
         ItemStack stack = this.player.getItemInHand(InteractionHand.MAIN_HAND);
         PiercingWeapon weapon = PiercingWeapon.get(stack);
@@ -68,6 +70,11 @@ public abstract class MinecraftMixin {
         )
     )
     private void vb$applyAttackRange(MultiPlayerGameMode instance, Player player, Entity target, Operation<Void> original) {
+        if (ModChecker.BETTER_COMBAT) {
+            original.call(instance, player, target);
+            return;
+        }
+        
         if (this.player != null && this.hitResult != null) {
             ItemStack stack = this.player.getItemInHand(InteractionHand.MAIN_HAND);
             AttackRange range = AttackRange.get(stack);
@@ -82,6 +89,8 @@ public abstract class MinecraftMixin {
     
     @Inject(method = "continueAttack", at = @At("HEAD"), cancellable = true)
     private void vb$continueAttack(boolean down, CallbackInfo ci) {
+        if (ModChecker.BETTER_COMBAT) return;
+        
         if (!down) {
             this.missTime = 0;
         }
@@ -96,6 +105,7 @@ public abstract class MinecraftMixin {
     
     @Inject(method = "startAttack", at = @At("HEAD"))
     private void vb$onStartAttack(CallbackInfoReturnable<Boolean> cir) {
+        if (ModChecker.BETTER_COMBAT) return;
         if (this.player != null) {
             ((SpearSwingTracker) this.player).vb$setAttackSwing(true);
             PayloadDistributor.sendToServer(new ServerboundUpdateSpearSwingPacket(true));
@@ -104,6 +114,7 @@ public abstract class MinecraftMixin {
     
     @Inject(method = "startUseItem", at = @At("HEAD"))
     private void vb$onStartUseItem(CallbackInfo ci) {
+        if (ModChecker.BETTER_COMBAT) return;
         if (this.player != null) {
             ((SpearSwingTracker) this.player).vb$setAttackSwing(false);
             PayloadDistributor.sendToServer(new ServerboundUpdateSpearSwingPacket(false));

@@ -51,6 +51,7 @@
     "client.spear_rendering.ZombieVillagerModelMixin",
     "client.waypoints.CameraMixin",
     "client.waypoints.GameRendererMixin",
+    "client.waypoints.GuiMixin",
     "client.waypoints.LocalPlayerMixin",
     "compat.backports.LayerDefinitionsMixin"
   ],

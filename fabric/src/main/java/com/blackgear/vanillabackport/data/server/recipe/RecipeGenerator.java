@@ -5,6 +5,7 @@ import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
 import com.blackgear.vanillabackport.common.registries.items.ModItems;
 import com.blackgear.vanillabackport.core.data.tags.ModItemTags;
 import com.blackgear.vanillabackport.core.data.BlockFamilies;
+import com.blackgear.vanillabackport.core.data.tags.loader.ConventionalItemTags;
 import com.google.common.collect.ImmutableMap;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.minecraft.core.HolderLookup;
@@ -160,15 +161,15 @@ public class RecipeGenerator extends VanillaRecipeProvider {
         shaped(RecipeCategory.DECORATIONS, ModBlocks.COPPER_TORCH.getFirst().get(), 4)
             .define('X', Ingredient.of(Items.COAL, Items.CHARCOAL))
             .define('#', Items.STICK)
-            .define('C', ModItems.COPPER_NUGGET.get())
+            .define('C', ConventionalItemTags.NUGGETS_COPPER)
             .pattern("C")
             .pattern("X")
             .pattern("#")
-            .unlockedBy("has_copper_nugget", has(ModItems.COPPER_NUGGET.get()))
+            .unlockedBy("has_copper_nugget", has(ConventionalItemTags.NUGGETS_COPPER))
             .save(output);
         shaped(RecipeCategory.DECORATIONS, ModBlocks.COPPER_LANTERN.unaffected().get())
             .define('#', ModBlocks.COPPER_TORCH.getFirst().get())
-            .define('X', ModItems.COPPER_NUGGET.get())
+            .define('X', ConventionalItemTags.NUGGETS_COPPER)
             .pattern("XXX")
             .pattern("X#X")
             .pattern("XXX")
@@ -182,11 +183,11 @@ public class RecipeGenerator extends VanillaRecipeProvider {
             .save(output);
         shaped(RecipeCategory.DECORATIONS, ModBlocks.COPPER_CHAIN.unaffected().get())
             .define('I', Items.COPPER_INGOT)
-            .define('N', ModItems.COPPER_NUGGET.get())
+            .define('N', ConventionalItemTags.NUGGETS_COPPER)
             .pattern("N")
             .pattern("I")
             .pattern("N")
-            .unlockedBy("has_copper_nugget", has(ModItems.COPPER_NUGGET.get()))
+            .unlockedBy("has_copper_nugget", has(ConventionalItemTags.NUGGETS_COPPER))
             .unlockedBy("has_copper_ingot", has(Items.COPPER_INGOT))
             .save(output);
         

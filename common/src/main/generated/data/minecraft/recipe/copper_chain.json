@@ -6,7 +6,7 @@
       "item": "minecraft:copper_ingot"
     },
     "N": {
-      "item": "minecraft:copper_nugget"
+      "tag": "c:nuggets/copper"
     }
   },
   "pattern": [

@@ -500,10 +500,6 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
         this.getOrCreateTagBuilder(ModItemTags.SHEARABLE_FROM_COPPER_GOLEM)
             .add(Items.POPPY);
         
-        this.getOrCreateTagBuilder(ConventionalItemTags.HORSE_ARMOR)
-            .add(ModItems.COPPER_HORSE_ARMOR.get())
-            .add(ModItems.NETHERITE_HORSE_ARMOR.get());
-        
         this.getOrCreateTagBuilder(ItemTags.DURABILITY_ENCHANTABLE)
             .addTag(ModItemTags.SPEARS);
         
@@ -518,6 +514,35 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
         
         this.getOrCreateTagBuilder(ModItemTags.LUNGE_ENCHANTABLE)
             .addTag(ModItemTags.SPEARS);
+        
+        this.getOrCreateTagBuilder(ConventionalItemTags.CHAINS)
+            .addTag(ModItemTags.CHAINS);
+        
+        this.getOrCreateTagBuilder(ConventionalItemTags.BRICKS)
+            .add(ModItems.RESIN_BRICK.get());
+        
+        this.getOrCreateTagBuilder(ConventionalItemTags.BRICKS_RESIN)
+            .add(ModItems.RESIN_BRICK.get());
+        
+        this.getOrCreateTagBuilder(ConventionalItemTags.CLUMPS)
+            .add(ModBlocks.RESIN_CLUMP.get().asItem());
+        
+        this.getOrCreateTagBuilder(ConventionalItemTags.CLUMPS_RESIN)
+            .add(ModBlocks.RESIN_CLUMP.get().asItem());
+        
+        this.getOrCreateTagBuilder(ConventionalItemTags.TOOLS)
+            .addTag(ModItemTags.SPEARS);
+        
+        this.getOrCreateTagBuilder(ConventionalItemTags.ARMORS_HORSE)
+            .add(ModItems.COPPER_HORSE_ARMOR.get())
+            .add(ModItems.NETHERITE_HORSE_ARMOR.get());
+        
+        this.getOrCreateTagBuilder(ConventionalItemTags.ARMORS_NAUTILUS)
+            .add(ModItems.COPPER_NAUTILUS_ARMOR.get())
+            .add(ModItems.IRON_NAUTILUS_ARMOR.get())
+            .add(ModItems.GOLDEN_NAUTILUS_ARMOR.get())
+            .add(ModItems.DIAMOND_NAUTILUS_ARMOR.get())
+            .add(ModItems.NETHERITE_NAUTILUS_ARMOR.get());
     }
 
     protected DualTagHolder getDualTagBuilder(TagKey<Item> forge, TagKey<Item> fabric) {

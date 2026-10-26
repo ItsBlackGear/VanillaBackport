@@ -6,7 +6,7 @@
       "item": "minecraft:stick"
     },
     "C": {
-      "item": "minecraft:copper_nugget"
+      "tag": "c:nuggets/copper"
     },
     "X": [
       {

@@ -1,5 +1,6 @@
 package com.blackgear.vanillabackport.client.integrations.rendering;
 
+import com.blackgear.vanillabackport.client.api.modules.block_rendering.DynamicBlockRenderingHandler;
 import com.blackgear.vanillabackport.client.level.renderer.block.BackportedBlockRenderer;
 import com.blackgear.vanillabackport.client.level.renderer.block_entity.CopperChestRenderer;
 import com.blackgear.vanillabackport.client.level.renderer.block_entity.CopperGolemStatueRenderer;
@@ -62,20 +63,19 @@ public class ItemLikeRendering {
     }
 
     public static void blockRendering(BlockRendererEvent event) {
-        Set<Block> redstoneTorchBlocks = Set.of(
-            Blocks.REDSTONE_TORCH, Blocks.REDSTONE_WALL_TORCH,
-            Blocks.REPEATER, Blocks.COMPARATOR
-        );
+        Set<Block> redstoneTorchBlocks = Set.of(Blocks.REDSTONE_TORCH, Blocks.REDSTONE_WALL_TORCH, Blocks.REPEATER, Blocks.COMPARATOR);
         event.registerRenderer(
             new BackportedBlockRenderer(VanillaBackport.CLIENT_CONFIG.hasModernRedstoneTorchModels, redstoneTorchBlocks),
             redstoneTorchBlocks
         );
-
+        DynamicBlockRenderingHandler.register(VanillaBackport.CLIENT_CONFIG.hasModernRedstoneTorchModels);
+        
         Set<Block> hayBlocks = Set.of(Blocks.HAY_BLOCK);
         event.registerRenderer(
             new BackportedBlockRenderer(VanillaBackport.CLIENT_CONFIG.hasModernHayBaleTexture, hayBlocks),
             hayBlocks
         );
+        DynamicBlockRenderingHandler.register(VanillaBackport.CLIENT_CONFIG.hasModernHayBaleTexture);
     }
 
     public static void renderTypes(BlockRendererEvent event) {

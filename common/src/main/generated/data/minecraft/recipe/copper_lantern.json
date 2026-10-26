@@ -6,7 +6,7 @@
       "item": "minecraft:copper_torch"
     },
     "X": {
-      "item": "minecraft:copper_nugget"
+      "tag": "c:nuggets/copper"
     }
   },
   "pattern": [

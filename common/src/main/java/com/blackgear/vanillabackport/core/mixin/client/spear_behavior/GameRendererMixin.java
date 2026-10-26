@@ -1,6 +1,7 @@
 package com.blackgear.vanillabackport.core.mixin.client.spear_behavior;
 
 import com.blackgear.vanillabackport.common.level.components.AttackRange;
+import com.blackgear.vanillabackport.core.ModChecker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.core.BlockPos;
@@ -30,6 +31,7 @@ public class GameRendererMixin {
     
     @Inject(method = "pick(F)V", at = @At("HEAD"), cancellable = true)
     private void vb$onPick(float partialTicks, CallbackInfo ci) {
+        if (ModChecker.BETTER_COMBAT) return;
         Entity cameraEntity = this.minecraft.getCameraEntity();
         if (cameraEntity != null && this.minecraft.level != null && this.minecraft.player != null) {
             ItemStack activeStack = this.minecraft.player.getMainHandItem();

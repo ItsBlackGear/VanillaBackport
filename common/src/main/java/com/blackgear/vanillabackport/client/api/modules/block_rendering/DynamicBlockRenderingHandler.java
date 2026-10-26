@@ -1,14 +1,11 @@
 package com.blackgear.vanillabackport.client.api.modules.block_rendering;
 
 import com.blackgear.platform.core.util.config.ConfigBuilder;
-import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * The DynamicBlockRenderingHandler checks every two seconds if a config value that determines
@@ -18,14 +15,15 @@ import java.util.Set;
 @Environment(EnvType.CLIENT)
 public class DynamicBlockRenderingHandler {
   public static final DynamicBlockRenderingHandler INSTANCE = new DynamicBlockRenderingHandler();
-  public static final Set<ConfigBuilder.ConfigValue<?>> WATCHED_CONFIG_VALUES = Set.of(
-      VanillaBackport.CLIENT_CONFIG.hasModernRedstoneTorchModels,
-      VanillaBackport.CLIENT_CONFIG.hasModernHayBaleTexture
-  );
-
+  public static final List<ConfigBuilder.ConfigValue<?>> WATCHED_CONFIG_VALUES = new ArrayList<>();
+  
   public int ticksUntilNextCheck = 0;
   public Map<ConfigBuilder.ConfigValue<?>, Object> lastConfigValues = new HashMap<>();
-
+  
+  public static void register(ConfigBuilder.ConfigValue<?> value) {
+    WATCHED_CONFIG_VALUES.add(value);
+  }
+  
   public void tick() {
     if (ticksUntilNextCheck > 0) {
       ticksUntilNextCheck--;

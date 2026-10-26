@@ -8,7 +8,6 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.ExtraCodecs;
 import net.minecraft.world.item.ItemStack;
-import org.jetbrains.annotations.NotNull;
 
 public record SwingAnimation(SwingAnimationType type, int duration) {
     public static final SwingAnimation DEFAULT = new SwingAnimation(SwingAnimationType.WHACK, 6);
@@ -31,31 +30,6 @@ public record SwingAnimation(SwingAnimationType type, int duration) {
         if (component == null) return SwingAnimation.DEFAULT;
         if (component instanceof SwingAnimation animation) return animation;
         
-        return parseForeign(component);
-    }
-    
-    @Deprecated(forRemoval = true)
-    @SuppressWarnings("DeprecatedIsStillUsed")
-    private static @NotNull SwingAnimation parseForeign(Object component) {
-        try {
-            Class<?> clazz = component.getClass();
-            int duration = (int) clazz.getMethod("duration").invoke(component);
-            Object rawType = clazz.getMethod("type").invoke(component);
-            SwingAnimationType mappedType = SwingAnimationType.WHACK;
-            
-            if (rawType != null) {
-                String typeName = rawType.toString().toLowerCase();
-                for (SwingAnimationType type : SwingAnimationType.values()) {
-                    if (type.getSerializedName().equalsIgnoreCase(typeName) || type.name().equalsIgnoreCase(typeName)) {
-                        mappedType = type;
-                        break;
-                    }
-                }
-            }
-            
-            return new SwingAnimation(mappedType, duration);
-        } catch (Exception e) {
-            return SwingAnimation.DEFAULT;
-        }
+        return DEFAULT;
     }
 }

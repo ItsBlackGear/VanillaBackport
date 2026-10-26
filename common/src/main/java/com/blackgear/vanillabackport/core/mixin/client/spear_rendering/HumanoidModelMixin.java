@@ -5,6 +5,7 @@ import com.blackgear.vanillabackport.common.api.extensions.entity.spear.SpearSwi
 import com.blackgear.vanillabackport.common.level.components.SwingAnimation;
 import com.blackgear.vanillabackport.common.level.components.SwingAnimationType;
 import com.blackgear.vanillabackport.common.level.items.spear.SpearAnimations;
+import com.blackgear.vanillabackport.core.ModChecker;
 import net.minecraft.client.model.AgeableListModel;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.client.model.geom.ModelPart;
@@ -61,6 +62,7 @@ public abstract class HumanoidModelMixin<T extends LivingEntity> extends Ageable
     
     @Inject(method = "setupAttackAnimation", at = @At("HEAD"), cancellable = true)
     private void vb$attackAnimation(T entity, float ageInTicks, CallbackInfo ci) {
+        if (ModChecker.BETTER_COMBAT) return;
         if (this.attackTime <= 0.0F) return;
         if (entity instanceof SpearSwingTracker tracker && !tracker.vb$isAttackSwing()) return;
         

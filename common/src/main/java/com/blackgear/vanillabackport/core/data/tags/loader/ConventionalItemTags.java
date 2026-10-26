@@ -12,10 +12,15 @@ public class ConventionalItemTags {
     public static final TagKey<Item> BARRELS_WOODEN = TAGS.register("barrels/wooden");
     public static final TagKey<Item> BONES = TAGS.register("bones");
     public static final TagKey<Item> BOOKSHELVES = TAGS.register("bookshelves");
+    public static final TagKey<Item> BRICKS = TAGS.register("bricks");
+    public static final TagKey<Item> BRICKS_RESIN = TAGS.register("bricks/resin");
+    public static final TagKey<Item> CHAINS = TAGS.register("chains");
     public static final TagKey<Item> CHESTS = TAGS.register("chests");
     public static final TagKey<Item> CHESTS_ENDER = TAGS.register("chests/ender");
     public static final TagKey<Item> CHESTS_TRAPPED = TAGS.register("chests/trapped");
     public static final TagKey<Item> CHESTS_WOODEN = TAGS.register("chests/wooden");
+    public static final TagKey<Item> CLUMPS = TAGS.register("clumps");
+    public static final TagKey<Item> CLUMPS_RESIN = TAGS.register("clumps/resin");
     public static final TagKey<Item> COBBLESTONE = TAGS.register("cobblestone");
     public static final TagKey<Item> COBBLESTONE_NORMAL = TAGS.register("cobblestone/normal");
     public static final TagKey<Item> COBBLESTONE_INFESTED = TAGS.register("cobblestone/infested");
@@ -191,6 +196,8 @@ public class ConventionalItemTags {
     public static final TagKey<Item> ARMORS_CHESTPLATES = TAGS.register("armors/chestplates");
     public static final TagKey<Item> ARMORS_LEGGINGS = TAGS.register("armors/leggings");
     public static final TagKey<Item> ARMORS_BOOTS = TAGS.register("armors/boots");
+    public static final TagKey<Item> ARMORS_HORSE = TAGS.register("armors/horse");
+    public static final TagKey<Item> ARMORS_NAUTILUS = TAGS.register("armors/nautilus");
 
     public static final TagKey<Item> SPEARS = TAGS.register("spears");
     public static final TagKey<Item> BOWS = TAGS.register("bows");
@@ -254,7 +261,6 @@ public class ConventionalItemTags {
     public static final TagKey<Item> YELLOW_DYES = TAGS.register("yellow_dyes");
 
     public static final TagKey<Item> MUSIC_DISCS = TAGS.register("music_discs");
-    public static final TagKey<Item> HORSE_ARMOR = TAGS.register("horse_armor");
 
     public static final TagKey<Item> DYED_BLACK = TAGS.register("dyed/black");
     public static final TagKey<Item> DYED_BLUE = TAGS.register("dyed/blue");

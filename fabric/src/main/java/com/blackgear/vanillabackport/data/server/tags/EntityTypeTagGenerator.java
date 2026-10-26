@@ -26,6 +26,9 @@ public class EntityTypeTagGenerator extends FabricTagProvider.EntityTypeTagProvi
             .add(ModEntityTypes.NAUTILUS.get())
             .add(ModEntityTypes.ZOMBIE_NAUTILUS.get());
         
+        this.getOrCreateTagBuilder(EntityTypeTags.CAN_BREATHE_UNDER_WATER)
+            .add(ModEntityTypes.COPPER_GOLEM.get());
+        
         this.getOrCreateTagBuilder(EntityTypeTags.NOT_SCARY_FOR_PUFFERFISH)
             .add(ModEntityTypes.NAUTILUS.get())
             .add(ModEntityTypes.ZOMBIE_NAUTILUS.get())

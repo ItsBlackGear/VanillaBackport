@@ -1,7 +1,6 @@
 package com.blackgear.vanillabackport.client.api.modules.waypoints;
 
-import com.blackgear.platform.client.event.screen.hud.HudElementRegistryImpl;
-import com.blackgear.platform.client.event.screen.hud.VanillaHudElements;
+import com.blackgear.platform.client.event.screen.HudRendering;
 import com.blackgear.vanillabackport.common.api.modules.waypoints.TrackedWaypoint;
 import com.blackgear.vanillabackport.common.api.modules.waypoints.TrackedWaypoint.*;
 import com.blackgear.vanillabackport.common.api.modules.waypoints.Waypoint.Icon;
@@ -10,7 +9,6 @@ import com.blackgear.vanillabackport.core.util.Utilities.ColorUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.Optionull;
-import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.PlayerFaceRenderer;
@@ -38,27 +36,21 @@ public class LocatorBarRenderer {
     private final Minecraft minecraft = Minecraft.getInstance();
     
     public static void bootstrap() {
-        HudElementRegistryImpl.attachElementBefore(
-            VanillaHudElements.EXPERIENCE_LEVEL,
-            ResourceLocation.withDefaultNamespace("locator_bar_background"),
-            LocatorBarRenderer.INSTANCE::renderBackground
-        );
-        
-        HudElementRegistryImpl.attachElementAfter(
-            VanillaHudElements.EXPERIENCE_LEVEL,
-            ResourceLocation.withDefaultNamespace("locator_bar_icons"),
-            LocatorBarRenderer.INSTANCE::renderWaypoints
-        );
+        HudRendering.RENDERING.register((minecraft, guiGraphics, v) -> {
+            LocatorBarRenderer renderer = LocatorBarRenderer.INSTANCE;
+            if (!renderer.shouldHideBackgroundForHud()) renderer.renderBackground(guiGraphics);
+        });
+        HudRendering.RENDERING.register((minecraft, guiGraphics, v) -> LocatorBarRenderer.INSTANCE.renderWaypoints(guiGraphics));
     }
     
-    public void renderBackground(GuiGraphics graphics, DeltaTracker tracker) {
+    public void renderBackground(GuiGraphics graphics) {
         if (this.shouldSkipRendering()) return;
         if (VanillaBackport.CLIENT_CONFIG.locatorDisplayInfoBar.get() && this.shouldHideBackgroundForHud()) return;
         
         graphics.blitSprite(LOCATOR_BAR_BACKGROUND, (this.minecraft.getWindow().getGuiScaledWidth() - 182) / 2, this.minecraft.getWindow().getGuiScaledHeight() - 24 - 5, 182, 5);
     }
     
-    public void renderWaypoints(GuiGraphics graphics, DeltaTracker tracker) {
+    public void renderWaypoints(GuiGraphics graphics) {
         if (this.shouldSkipRendering()) return;
         
         Entity cameraEntity = this.minecraft.cameraEntity;
