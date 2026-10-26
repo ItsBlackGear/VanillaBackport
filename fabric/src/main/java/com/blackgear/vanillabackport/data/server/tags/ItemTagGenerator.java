@@ -511,9 +511,34 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
         this.getOrCreateTagBuilder(ModItemTags.SHEARABLE_FROM_COPPER_GOLEM)
             .add(Items.POPPY);
         
-        this.getDualTagBuilder(FabricItemTags.HORSE_ARMOR, ForgeItemTags.HORSE_ARMOR)
+        this.getDualTagBuilder(FabricItemTags.CHAINS, ForgeItemTags.CHAINS)
+            .addTag(ModItemTags.CHAINS);
+        
+        this.getDualTagBuilder(FabricItemTags.BRICKS, ForgeItemTags.BRICKS)
+            .add(ModItems.RESIN_BRICK.get());
+        
+        this.getDualTagBuilder(FabricItemTags.BRICKS_RESIN, ForgeItemTags.BRICKS_RESIN)
+            .add(ModItems.RESIN_BRICK.get());
+        
+        this.getDualTagBuilder(FabricItemTags.CLUMPS, ForgeItemTags.CLUMPS)
+            .add(ModBlocks.RESIN_CLUMP.get().asItem());
+        
+        this.getDualTagBuilder(FabricItemTags.CLUMPS_RESIN, ForgeItemTags.CLUMPS_RESIN)
+            .add(ModBlocks.RESIN_CLUMP.get().asItem());
+        
+        this.getDualTagBuilder(FabricItemTags.TOOLS, ForgeItemTags.TOOLS)
+            .addTag(ModItemTags.SPEARS);
+        
+        this.getDualTagBuilder(FabricItemTags.ARMORS_HORSE, ForgeItemTags.ARMORS_HORSE)
             .add(ModItems.COPPER_HORSE_ARMOR.get())
             .add(ModItems.NETHERITE_HORSE_ARMOR.get());
+        
+        this.getDualTagBuilder(FabricItemTags.ARMORS_NAUTILUS, ForgeItemTags.ARMORS_NAUTILUS)
+            .add(ModItems.COPPER_NAUTILUS_ARMOR.get())
+            .add(ModItems.IRON_NAUTILUS_ARMOR.get())
+            .add(ModItems.GOLDEN_NAUTILUS_ARMOR.get())
+            .add(ModItems.DIAMOND_NAUTILUS_ARMOR.get())
+            .add(ModItems.NETHERITE_NAUTILUS_ARMOR.get());
     }
 
     protected DualTagHolder getDualTagBuilder(TagKey<Item> forge, TagKey<Item> fabric) {

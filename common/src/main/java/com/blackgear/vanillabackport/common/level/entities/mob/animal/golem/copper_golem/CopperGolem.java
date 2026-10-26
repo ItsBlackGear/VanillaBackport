@@ -92,6 +92,11 @@ public class CopperGolem extends AbstractGolem implements ContainerUser, Shearab
     }
     
     @Override
+    public boolean canBreatheUnderwater() {
+        return true;
+    }
+    
+    @Override
     public float getEyeHeight(Pose pose) {
         return 0.8125F;
     }

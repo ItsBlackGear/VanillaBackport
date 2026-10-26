@@ -5,9 +5,14 @@
     "#": {
       "item": "minecraft:stick"
     },
-    "C": {
-      "item": "minecraft:copper_nugget"
-    },
+    "C": [
+      {
+        "tag": "c:nuggets/copper"
+      },
+      {
+        "tag": "forge:nuggets/copper"
+      }
+    ],
     "X": [
       {
         "item": "minecraft:coal"

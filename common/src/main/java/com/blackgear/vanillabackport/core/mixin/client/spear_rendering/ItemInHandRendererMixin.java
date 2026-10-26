@@ -7,6 +7,7 @@ import com.blackgear.vanillabackport.common.api.extensions.entity.spear.SpearSwi
 import com.blackgear.vanillabackport.common.level.items.spear.SpearAnimations;
 import com.blackgear.vanillabackport.common.level.items.spear.SwingAnimation;
 import com.blackgear.vanillabackport.common.level.items.spear.SwingAnimationType;
+import com.blackgear.vanillabackport.core.ModChecker;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
@@ -59,17 +60,26 @@ public abstract class ItemInHandRendererMixin {
             shift = At.Shift.BEFORE
         )
     )
-    private void vb$spearStabCondition(
-        AbstractClientPlayer player, float partialTicks, float pitch, InteractionHand hand, float swingProgress,
-        ItemStack stack, float equippedProgress, PoseStack poseStack, MultiBufferSource buffer, int combinedLight,
+    private void vb$detectStabAnimation(
+        AbstractClientPlayer player,
+        float partialTicks,
+        float pitch,
+        InteractionHand hand,
+        float swingProgress,
+        ItemStack stack,
+        float equippedProgress,
+        PoseStack poseStack,
+        MultiBufferSource buffer,
+        int combinedLight,
         CallbackInfo ci
     ) {
+        if (ModChecker.BETTER_COMBAT) return;
+        
         SwingAnimation animation = SwingAnimation.get(stack);
-        if (animation != null && animation.type() == SwingAnimationType.STAB) {
-            this.vb$performStabAnimation = ((SpearSwingTracker) player).vb$isAttackSwing();
-        } else {
-            this.vb$performStabAnimation = false;
-        }
+        if (animation == null) return;
+        
+        boolean isAttack = ((SpearSwingTracker) player).vb$isAttackSwing();
+        this.vb$performStabAnimation = isAttack && animation.type() == SwingAnimationType.STAB;
     }
     
     @WrapOperation(
@@ -81,7 +91,7 @@ public abstract class ItemInHandRendererMixin {
         )
     )
     private void vb$spearSwingTranslation(PoseStack instance, float x, float y, float z, Operation<Void> original) {
-        if (!this.vb$performStabAnimation) {
+        if (ModChecker.BETTER_COMBAT || !this.vb$performStabAnimation) {
             original.call(instance, x, y, z);
         }
     }
@@ -101,6 +111,7 @@ public abstract class ItemInHandRendererMixin {
         CallbackInfo ci,
         @Local(ordinal = 1) int invert
     ) {
+        if (ModChecker.BETTER_COMBAT) return;
         if (this.vb$performStabAnimation) {
             SpearAnimations.firstPersonAttack(swingProgress, poseStack, invert);
         }
@@ -115,7 +126,7 @@ public abstract class ItemInHandRendererMixin {
         )
     )
     private void vb$spearAttackTransform(ItemInHandRenderer instance, PoseStack poseStack, HumanoidArm arm, float swingProgress, Operation<Void> original) {
-        if (!this.vb$performStabAnimation) {
+        if (ModChecker.BETTER_COMBAT || !this.vb$performStabAnimation) {
             original.call(instance, poseStack, arm, swingProgress);
         }
     }
@@ -142,6 +153,7 @@ public abstract class ItemInHandRendererMixin {
         int combinedLight,
         CallbackInfo ci
     ) {
+        if (ModChecker.BETTER_COMBAT) return;
         this.vb$performStabAnimation = false;
     }
     
@@ -153,6 +165,8 @@ public abstract class ItemInHandRendererMixin {
         )
     )
     private float vb$itemSwapScale(LocalPlayer player, float partialTicks, Operation<Float> original) {
+        if (ModChecker.BETTER_COMBAT) return original.call(player, partialTicks);
+        
         return ((PlayerSpearHandler) player).vb$getItemSwapScale(partialTicks);
     }
 }

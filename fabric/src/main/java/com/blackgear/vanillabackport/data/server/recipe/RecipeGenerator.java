@@ -5,8 +5,11 @@ import com.blackgear.vanillabackport.common.registries.items.ModItems;
 import com.blackgear.vanillabackport.common.registries.ModRecipeSerializers;
 import com.blackgear.vanillabackport.core.data.tags.ModItemTags;
 import com.blackgear.vanillabackport.core.data.BlockFamilies;
+import com.blackgear.vanillabackport.core.data.tags.fabric.FabricItemTags;
+import com.blackgear.vanillabackport.core.data.tags.forge.ForgeItemTags;
 import com.google.common.collect.ImmutableMap;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.data.BlockFamily;
 import net.minecraft.data.recipes.*;
 import net.minecraft.tags.ItemTags;
@@ -23,6 +26,7 @@ import net.minecraft.world.level.block.Blocks;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
+import java.util.stream.Stream;
 
 import static net.minecraft.data.recipes.RecipeProvider.*;
 
@@ -170,15 +174,15 @@ public class RecipeGenerator extends VanillaRecipeProvider {
         shaped(RecipeCategory.DECORATIONS, ModBlocks.COPPER_TORCH.getFirst().get(), 4)
             .define('X', Ingredient.of(Items.COAL, Items.CHARCOAL))
             .define('#', Items.STICK)
-            .define('C', ModItems.COPPER_NUGGET.get())
+            .define('C', Ingredient.fromValues(Stream.of(new Ingredient.TagValue(FabricItemTags.NUGGETS_COPPER), new Ingredient.TagValue(ForgeItemTags.NUGGETS_COPPER))))
             .pattern("C")
             .pattern("X")
             .pattern("#")
-            .unlockedBy("has_copper_nugget", has(ModItems.COPPER_NUGGET.get()))
+            .unlockedBy("has_copper_nugget", inventoryTrigger(ItemPredicate.Builder.item().of(FabricItemTags.NUGGETS_COPPER).build(), ItemPredicate.Builder.item().of(ForgeItemTags.NUGGETS_COPPER).build()))
             .save(output);
         shaped(RecipeCategory.DECORATIONS, ModBlocks.COPPER_LANTERN.unaffected().get())
             .define('#', ModBlocks.COPPER_TORCH.getFirst().get())
-            .define('X', ModItems.COPPER_NUGGET.get())
+            .define('X', Ingredient.fromValues(Stream.of(new Ingredient.TagValue(FabricItemTags.NUGGETS_COPPER), new Ingredient.TagValue(ForgeItemTags.NUGGETS_COPPER))))
             .pattern("XXX")
             .pattern("X#X")
             .pattern("XXX")
@@ -192,11 +196,11 @@ public class RecipeGenerator extends VanillaRecipeProvider {
             .save(output);
         shaped(RecipeCategory.DECORATIONS, ModBlocks.COPPER_CHAIN.unaffected().get())
             .define('I', Items.COPPER_INGOT)
-            .define('N', ModItems.COPPER_NUGGET.get())
+            .define('N', Ingredient.fromValues(Stream.of(new Ingredient.TagValue(FabricItemTags.NUGGETS_COPPER), new Ingredient.TagValue(ForgeItemTags.NUGGETS_COPPER))))
             .pattern("N")
             .pattern("I")
             .pattern("N")
-            .unlockedBy("has_copper_nugget", has(ModItems.COPPER_NUGGET.get()))
+            .unlockedBy("has_copper_nugget", inventoryTrigger(ItemPredicate.Builder.item().of(FabricItemTags.NUGGETS_COPPER).build(), ItemPredicate.Builder.item().of(ForgeItemTags.NUGGETS_COPPER).build()))
             .unlockedBy("has_copper_ingot", has(Items.COPPER_INGOT))
             .save(output);
         

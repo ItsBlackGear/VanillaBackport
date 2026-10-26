@@ -3,6 +3,7 @@ package com.blackgear.vanillabackport.core.mixin.common.spear_behavior;
 import com.blackgear.vanillabackport.common.api.extensions.entity.spear.PlayerSpearHandler;
 import com.blackgear.vanillabackport.common.api.extensions.entity.spear.MobSpearHandler;
 import com.blackgear.vanillabackport.common.level.items.spear.SpearItem;
+import com.blackgear.vanillabackport.core.ModChecker;
 import com.blackgear.vanillabackport.core.util.WorldUtilities.EntityUtils;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
@@ -56,6 +57,7 @@ public abstract class PlayerMixin extends LivingEntity implements PlayerSpearHan
             target = "Lnet/minecraft/world/entity/player/Player;resetAttackStrengthTicker()V"
         ))
     private void vb$beforeAttackReset(Player instance, Operation<Void> original, @Share("vb$attackProceeded") LocalBooleanRef proceeded) {
+        if (ModChecker.BETTER_COMBAT) return;
         proceeded.set(true);
         this.vb$onAttack();
         original.call(instance);
@@ -63,6 +65,7 @@ public abstract class PlayerMixin extends LivingEntity implements PlayerSpearHan
     
     @Inject(method = "attack", at = @At("TAIL"))
     private void vb$afterAttack(Entity target, CallbackInfo ci, @Share("vb$attackProceeded") LocalBooleanRef proceeded) {
+        if (ModChecker.BETTER_COMBAT) return;
         if (proceeded.get()) {
             this.vb$postPiercingAttack();
         }
@@ -77,6 +80,7 @@ public abstract class PlayerMixin extends LivingEntity implements PlayerSpearHan
 
     @Inject(method = "tick", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/player/Player;getMainHandItem()Lnet/minecraft/world/item/ItemStack;", shift = At.Shift.BEFORE))
     private void vb$onTick(CallbackInfo ci) {
+        if (ModChecker.BETTER_COMBAT) return;
         this.itemSwapTicker++;
     }
     
@@ -87,6 +91,7 @@ public abstract class PlayerMixin extends LivingEntity implements PlayerSpearHan
 
     @Inject(method = "resetAttackStrengthTicker", at = @At("TAIL"))
     private void vb$resetAttackStrengthTicker(CallbackInfo ci) {
+        if (ModChecker.BETTER_COMBAT) return;
         this.itemSwapTicker = 0;
     }
 

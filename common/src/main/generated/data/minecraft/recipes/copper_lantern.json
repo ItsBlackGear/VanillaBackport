@@ -5,9 +5,14 @@
     "#": {
       "item": "minecraft:copper_torch"
     },
-    "X": {
-      "item": "minecraft:copper_nugget"
-    }
+    "X": [
+      {
+        "tag": "c:nuggets/copper"
+      },
+      {
+        "tag": "forge:nuggets/copper"
+      }
+    ]
   },
   "pattern": [
     "XXX",

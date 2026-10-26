@@ -5,9 +5,10 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:copper_nugget"
-            ]
+            "tag": "c:nuggets/copper"
+          },
+          {
+            "tag": "forge:nuggets/copper"
           }
         ]
       },

@@ -1,6 +1,6 @@
 package com.blackgear.vanillabackport.client.level.renderer.block_entity;
 
-import com.blackgear.vanillabackport.client.level.renderer.item.ModelBoundingBoxManager;
+import com.blackgear.platform.client.v2.render.ModelBoundingBoxManager;
 import com.blackgear.vanillabackport.common.level.blocks.ShelfBlock;
 import com.blackgear.vanillabackport.common.level.block_entities.ShelfBlockEntity;
 import com.mojang.blaze3d.vertex.PoseStack;

@@ -6,6 +6,8 @@ import com.blackgear.vanillabackport.common.level.items.enchantment.EnchantmentU
 import com.blackgear.vanillabackport.common.level.items.spear.AttackRange;
 import com.blackgear.vanillabackport.common.level.items.spear.KineticWeapon;
 import com.blackgear.vanillabackport.common.level.items.spear.SwingAnimation;
+import com.blackgear.vanillabackport.common.level.items.spear.SwingAnimationType;
+import com.blackgear.vanillabackport.core.ModChecker;
 import com.blackgear.vanillabackport.core.util.WorldUtilities.EntityUtils;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import it.unimi.dsi.fastutil.objects.Object2LongMap;
@@ -96,10 +98,11 @@ public abstract class LivingEntityMixin extends Entity implements MobSpearHandle
             args = "intValue=6"
         ))
     private int vb$getCurrentSwingDuration(int original) {
+        if (ModChecker.BETTER_COMBAT) return original;
         if (!this.vb$isAttackSwing()) return original;
         ItemStack heldItem = this.getItemInHand(InteractionHand.MAIN_HAND);
         SwingAnimation animation = SwingAnimation.get(heldItem);
-        if (animation == null) return original;
+        if (animation == null || animation.type() != SwingAnimationType.STAB) return original;
         return animation.duration();
     }
     

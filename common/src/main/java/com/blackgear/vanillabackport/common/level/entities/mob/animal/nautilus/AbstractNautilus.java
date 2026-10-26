@@ -16,7 +16,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
-import net.minecraft.server.players.OldUsersConverter;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.FluidTags;
@@ -68,8 +67,6 @@ public abstract class AbstractNautilus extends TamableAnimal implements Containe
     protected SimpleContainer inventory;
     
     protected boolean isJumping;
-    @Nullable
-    private UUID owner;
     
     protected AbstractNautilus(EntityType<? extends AbstractNautilus> entityType, Level level) {
         super(entityType, level);
@@ -86,9 +83,6 @@ public abstract class AbstractNautilus extends TamableAnimal implements Containe
     @Override
     public void addAdditionalSaveData(CompoundTag compound) {
         super.addAdditionalSaveData(compound);
-        if (this.getOwnerUUID() != null) {
-            compound.putUUID("Owner", this.getOwnerUUID());
-        }
         
         if (!this.inventory.getItem(0).isEmpty()) {
             compound.put("SaddleItem", this.inventory.getItem(0).save(new CompoundTag()));
@@ -102,17 +96,6 @@ public abstract class AbstractNautilus extends TamableAnimal implements Containe
     @Override
     public void readAdditionalSaveData(CompoundTag compound) {
         super.readAdditionalSaveData(compound);
-        UUID uUID;
-        if (compound.hasUUID("Owner")) {
-            uUID = compound.getUUID("Owner");
-        } else {
-            String string = compound.getString("Owner");
-            uUID = OldUsersConverter.convertMobOwnerIfNecessary(this.getServer(), string);
-        }
-        
-        if (uUID != null) {
-            this.setOwnerUUID(uUID);
-        }
         
         if (compound.contains("SaddleItem", 10)) {
             ItemStack itemStack = ItemStack.of(compound.getCompound("SaddleItem"));
@@ -586,15 +569,6 @@ public abstract class AbstractNautilus extends TamableAnimal implements Containe
     @Override
     public boolean requiresCustomPersistence() {
         return super.requiresCustomPersistence() || this.isTame();
-    }
-    
-    @Override
-    public @Nullable UUID getOwnerUUID() {
-        return this.owner;
-    }
-    
-    public void setOwnerUUID(@Nullable UUID uuid) {
-        this.owner = uuid;
     }
     
     @Override
