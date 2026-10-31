@@ -37,10 +37,18 @@ public class LocatorBarRenderer {
     
     public static void bootstrap() {
         HudRendering.RENDERING.register((minecraft, guiGraphics, v) -> {
+            if (minecraft.options.hideGui) return;
             LocatorBarRenderer renderer = LocatorBarRenderer.INSTANCE;
             if (!renderer.shouldHideBackgroundForHud()) renderer.renderBackground(guiGraphics);
         });
-        HudRendering.RENDERING.register((minecraft, guiGraphics, v) -> LocatorBarRenderer.INSTANCE.renderWaypoints(guiGraphics));
+        HudRendering.RENDERING.register((minecraft, guiGraphics, v) -> {
+            if (minecraft.options.hideGui) return;
+            // This event fires after the HUD layers at z = 0, so lift the icons above them
+            guiGraphics.pose().pushPose();
+            guiGraphics.pose().translate(0.0F, 0.0F, 3000.0F);
+            LocatorBarRenderer.INSTANCE.renderWaypoints(guiGraphics);
+            guiGraphics.pose().popPose();
+        });
     }
     
     public void renderBackground(GuiGraphics graphics) {
