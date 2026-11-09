@@ -14,7 +14,7 @@ import java.util.function.Supplier;
 public class VanillaTabIntegrations {
     public static void bootstrap(Event event) {
         registerBatsAndPots(event);
-        registerMiscellaneous(event);
+        registerTrickyTrials(event);
         registerArmoredPaws(event);
         registerBundlesOfBravery(event);
         registerTheGardenAwakens(event);
@@ -25,6 +25,7 @@ public class VanillaTabIntegrations {
         registerMountsOfMayhem(event);
         registerChaosCubed(event);
         registerWildernessBound(event);
+        registerMiscellaneous(event);
     }
     
     private static void registerBatsAndPots(Event event) {
@@ -33,7 +34,7 @@ public class VanillaTabIntegrations {
         });
     }
     
-    private static void registerMiscellaneous(Event event) {
+    private static void registerTrickyTrials(Event event) {
         if (VanillaBackport.COMMON_CONFIG.hasTuffBlocks.get()) {
             event.register(VanillaTabs.BUILDING_BLOCKS, (flags, output, operator) -> {
                 output.after(Items.REINFORCED_DEEPSLATE).add(
@@ -630,6 +631,58 @@ public class VanillaTabIntegrations {
         
         event.register(VanillaTabs.TOOLS_AND_UTILITIES, (flags, output, operator) -> {
             output.after(ModItems.PALE_OAK_CHEST_BOAT.get()).add(ModItems.POPLAR_BOAT.get(), ModItems.POPLAR_CHEST_BOAT.get());
+        });
+    }
+    
+    private static void registerMiscellaneous(Event event) {
+        event.register(VanillaTabs.BUILDING_BLOCKS, (flags, output, operator) -> {
+            output.after(ModBlocks.SULFUR_BRICK_WALL.get()).add(
+                Blocks.PACKED_ICE,
+                ModBlocks.PACKED_ICE_BRICKS.get(),
+                ModBlocks.PACKED_ICE_BRICK_STAIRS.get(),
+                ModBlocks.PACKED_ICE_BRICK_SLAB.get(),
+                ModBlocks.PACKED_ICE_BRICK_WALL.get(),
+                ModBlocks.CHISELED_PACKED_ICE.get(),
+                ModBlocks.SNOW_BRICKS.get(),
+                ModBlocks.SNOW_BRICK_STAIRS.get(),
+                ModBlocks.SNOW_BRICK_SLAB.get(),
+                ModBlocks.SNOW_BRICK_WALL.get()
+            ).add(
+                Blocks.CALCITE,
+                ModBlocks.CALCITE_PILLAR.get(),
+                ModBlocks.CALCITE_STAIRS.get(),
+                ModBlocks.CALCITE_SLAB.get(),
+                ModBlocks.CALCITE_WALL.get(),
+                ModBlocks.POLISHED_CALCITE.get(),
+                ModBlocks.POLISHED_CALCITE_STAIRS.get(),
+                ModBlocks.POLISHED_CALCITE_SLAB.get(),
+                ModBlocks.POLISHED_CALCITE_WALL.get(),
+                ModBlocks.POLISHED_CALCITE_BRICKS.get(),
+                ModBlocks.POLISHED_CALCITE_BRICK_STAIRS.get(),
+                ModBlocks.POLISHED_CALCITE_BRICK_SLAB.get(),
+                ModBlocks.POLISHED_CALCITE_BRICK_WALL.get());
+        });
+        
+        event.register(VanillaTabs.NATURAL_BLOCKS, (flags, output, operator) -> {
+            output.after(Items.BLUE_ICE).add(
+                ModBlocks.BRITTLE_ICE.get(),
+                ModBlocks.ICICLE.get(),
+                ModBlocks.ICE_CRYSTAL.get());
+        });
+        
+        event.register(VanillaTabs.TOOLS_AND_UTILITIES, (flags, output, operator) -> {
+            output.after(ModItems.MUSIC_DISC_BOUNCE.get()).add(
+                ModItems.MUSIC_DISC_FLURRY.get());
+        });
+        
+        event.register(VanillaTabs.INGREDIENTS, (flags, output, operator) -> {
+            output.after(Items.SNOWBALL).add(
+                ModItems.ICE_BALL.get());
+        });
+        
+        event.register(VanillaTabs.SPAWN_EGGS, (flags, output, operator) -> {
+            output.after(Items.DROWNED_SPAWN_EGG).add(
+                ModItems.FROSTBITE_SPAWN_EGG.get());
         });
     }
 }

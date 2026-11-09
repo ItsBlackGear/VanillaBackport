@@ -21,6 +21,7 @@ import net.minecraft.core.Vec3i;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.entity.EntityType;
@@ -84,6 +85,27 @@ public class AdvancementGenerator extends FabricAdvancementProvider {
             )
             .addCriterion("spear_many_mobs", SpearMobsTrigger.TriggerInstance.spearMobs(5))
             .save(consumer, "adventure/spear_many_mobs");
+        
+        Advancement.Builder.advancement()
+            .parent(killAMob)
+            .display(
+                ModItems.ICE_BALL.get(),
+                Component.translatable("advancements.adventure.what_goes_around_comes_around.title"),
+                Component.translatable("advancements.adventure.what_goes_around_comes_around.description"),
+                null,
+                FrameType.TASK,
+                true,
+                true,
+                false
+            )
+            .addCriterion("kill_frostbite_with_iceball", KilledTrigger.TriggerInstance.playerKilledEntity(
+                EntityPredicate.Builder.entity()
+                    .of(ModEntityTypes.FROSTBITE.get()),
+                DamageSourcePredicate.Builder.damageType()
+                    .tag(TagPredicate.is(DamageTypeTags.IS_PROJECTILE))
+                    .direct(EntityPredicate.Builder.entity().of(ModEntityTypes.ICE_BALL.get()))
+            ))
+            .save(consumer, "adventure/what_goes_around_comes_around");
 
         // Husbandry advancements
         Advancement husbandry = Advancement.Builder.advancement().build(new ResourceLocation("husbandry/root"));

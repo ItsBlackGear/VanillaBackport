@@ -25,4 +25,8 @@ public interface GraceTimeWeaponHolder {
     }
     
     default void resetCurrentImpulseContext() { /* NO-OP */ }
+    
+    default Vec3 getCurrentImpulseImpactPos() {
+        return Vec3.ZERO;
+    }
 }

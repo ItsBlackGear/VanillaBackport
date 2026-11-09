@@ -10,7 +10,7 @@ import java.util.function.Supplier;
 public class ModSoundEvents {
     public static final SoundRegistry REGISTRIES = SoundRegistry.create(VanillaBackport.NAMESPACE);
 
-    // Miscellaneous
+    // Tricky Trials
     public static final Supplier<SoundEvent> COPPER_BULB_BREAK = REGISTRIES.register("block.copper_bulb.break");
     public static final Supplier<SoundEvent> COPPER_BULB_STEP = REGISTRIES.register("block.copper_bulb.step");
     public static final Supplier<SoundEvent> COPPER_BULB_PLACE = REGISTRIES.register("block.copper_bulb.place");
@@ -37,6 +37,29 @@ public class ModSoundEvents {
     public static final Supplier<SoundEvent> POLISHED_TUFF_HIT = REGISTRIES.register("block.polished_tuff.hit");
     public static final Supplier<SoundEvent> POLISHED_TUFF_PLACE = REGISTRIES.register("block.polished_tuff.place");
     public static final Supplier<SoundEvent> POLISHED_TUFF_STEP = REGISTRIES.register("block.polished_tuff.step");
+    
+    public static final Supplier<SoundEvent> BREEZE_CHARGE = REGISTRIES.register("entity.breeze.charge");
+    public static final Supplier<SoundEvent> BREEZE_DEFLECT = REGISTRIES.register("entity.breeze.deflect");
+    public static final Supplier<SoundEvent> BREEZE_INHALE = REGISTRIES.register("entity.breeze.inhale");
+    public static final Supplier<SoundEvent> BREEZE_IDLE_GROUND = REGISTRIES.register("entity.breeze.idle_ground");
+    public static final Supplier<SoundEvent> BREEZE_IDLE_AIR = REGISTRIES.register("entity.breeze.idle_air");
+    public static final Supplier<SoundEvent> BREEZE_SHOOT = REGISTRIES.register("entity.breeze.shoot");
+    public static final Supplier<SoundEvent> BREEZE_JUMP = REGISTRIES.register("entity.breeze.jump");
+    public static final Supplier<SoundEvent> BREEZE_LAND = REGISTRIES.register("entity.breeze.land");
+    public static final Supplier<SoundEvent> BREEZE_SLIDE = REGISTRIES.register("entity.breeze.slide");
+    public static final Supplier<SoundEvent> BREEZE_DEATH = REGISTRIES.register("entity.breeze.death");
+    public static final Supplier<SoundEvent> BREEZE_HURT = REGISTRIES.register("entity.breeze.hurt");
+    public static final Supplier<SoundEvent> BREEZE_WHIRL = REGISTRIES.register("entity.breeze.whirl");
+    public static final Holder<SoundEvent> BREEZE_WIND_CHARGE_BURST = REGISTRIES.holder("entity.breeze.wind_burst");
+    
+    public static final Supplier<SoundEvent> PARROT_IMITATE_BREEZE = REGISTRIES.register("entity.parrot.imitate.breeze");
+    
+    public static final Holder<SoundEvent> WIND_CHARGE_BURST = REGISTRIES.holder("entity.wind_charge.wind_burst");
+    public static final Supplier<SoundEvent> WIND_CHARGE_THROW = REGISTRIES.register("entity.wind_charge.throw");
+    
+    public static final Supplier<SoundEvent> MACE_SMASH_AIR = REGISTRIES.register("item.mace.smash_air");
+    public static final Supplier<SoundEvent> MACE_SMASH_GROUND = REGISTRIES.register("item.mace.smash_ground");
+    public static final Supplier<SoundEvent> MACE_SMASH_GROUND_HEAVY = REGISTRIES.register("item.mace.smash_ground_heavy");
     
     // BLOCKS
     public static final Supplier<SoundEvent> EYEBLOSSOM_OPEN_LONG = REGISTRIES.soundEvent("block.eyeblossom.open_long");
@@ -393,12 +416,13 @@ public class ModSoundEvents {
     public static final Supplier<SoundEvent> WEATHER_END_FLASH = REGISTRIES.register("weather.end_flash");
     
     // BACKGROUND MUSIC
-    public static final Supplier<SoundEvent> MUSIC_BIOME_SULFUR_CAVES = REGISTRIES.soundEvent("music.overworld.sulfur_caves");
+    public static final Holder<SoundEvent> MUSIC_BIOME_SULFUR_CAVES = REGISTRIES.holder("music.overworld.sulfur_caves");
 
     // RECORDS
     public static final Supplier<SoundEvent> MUSIC_DISC_TEARS = REGISTRIES.soundEvent("music_disc.tears");
     public static final Supplier<SoundEvent> MUSIC_DISC_LAVA_CHICKEN = REGISTRIES.soundEvent("music_disc.lava_chicken");
     public static final Supplier<SoundEvent> MUSIC_DISC_BOUNCE = REGISTRIES.soundEvent("music_disc.bounce");
+    public static final Supplier<SoundEvent> MUSIC_DISC_FLURRY = REGISTRIES.soundEvent("music_disc.flurry");
     
     // Wilderness Bound
     
@@ -424,4 +448,65 @@ public class ModSoundEvents {
     
     public static final Supplier<SoundEvent> RED_SHRUB_BREAK = REGISTRIES.register("block.red_shrub.break");
     public static final Supplier<SoundEvent> RED_SHRUB_PLACE = REGISTRIES.register("block.red_shrub.place");
+    
+    // Miscellaneous
+    
+    public static final Supplier<SoundEvent> ICE_BREAK = REGISTRIES.register("block.ice.break");
+    public static final Supplier<SoundEvent> ICE_STEP = REGISTRIES.register("block.ice.step");
+    public static final Supplier<SoundEvent> ICE_PLACE = REGISTRIES.register("block.ice.place");
+    public static final Supplier<SoundEvent> ICE_HIT = REGISTRIES.register("block.ice.hit");
+    public static final Supplier<SoundEvent> ICE_FALL = REGISTRIES.register("block.ice.fall");
+    public static final Supplier<SoundEvent> ICE_BLOCK_AMBIENT = REGISTRIES.register("block.ice.ambient");
+    
+    public static final Supplier<SoundEvent> PACKED_ICE_BREAK = REGISTRIES.register("block.packed_ice.break");
+    public static final Supplier<SoundEvent> PACKED_ICE_STEP = REGISTRIES.register("block.packed_ice.step");
+    public static final Supplier<SoundEvent> PACKED_ICE_PLACE = REGISTRIES.register("block.packed_ice.place");
+    public static final Supplier<SoundEvent> PACKED_ICE_HIT = REGISTRIES.register("block.packed_ice.hit");
+    public static final Supplier<SoundEvent> PACKED_ICE_FALL = REGISTRIES.register("block.packed_ice.fall");
+    
+    public static final Supplier<SoundEvent> BLUE_ICE_BREAK = REGISTRIES.register("block.blue_ice.break");
+    public static final Supplier<SoundEvent> BLUE_ICE_STEP = REGISTRIES.register("block.blue_ice.step");
+    public static final Supplier<SoundEvent> BLUE_ICE_PLACE = REGISTRIES.register("block.blue_ice.place");
+    public static final Supplier<SoundEvent> BLUE_ICE_HIT = REGISTRIES.register("block.blue_ice.hit");
+    public static final Supplier<SoundEvent> BLUE_ICE_FALL = REGISTRIES.register("block.blue_ice.fall");
+    
+    public static final Supplier<SoundEvent> FROSTED_ICE_BREAK = REGISTRIES.register("block.frosted_ice.break");
+    public static final Supplier<SoundEvent> FROSTED_ICE_STEP = REGISTRIES.register("block.frosted_ice.step");
+    public static final Supplier<SoundEvent> FROSTED_ICE_PLACE = REGISTRIES.register("block.frosted_ice.place");
+    public static final Supplier<SoundEvent> FROSTED_ICE_HIT = REGISTRIES.register("block.frosted_ice.hit");
+    public static final Supplier<SoundEvent> FROSTED_ICE_FALL = REGISTRIES.register("block.frosted_ice.fall");
+    
+    public static final Supplier<SoundEvent> BRITTLE_ICE_BREAK = REGISTRIES.register("block.brittle_ice.break");
+    public static final Supplier<SoundEvent> BRITTLE_ICE_STEP = REGISTRIES.register("block.brittle_ice.step");
+    public static final Supplier<SoundEvent> BRITTLE_ICE_PLACE = REGISTRIES.register("block.brittle_ice.place");
+    public static final Supplier<SoundEvent> BRITTLE_ICE_HIT = REGISTRIES.register("block.brittle_ice.hit");
+    public static final Supplier<SoundEvent> BRITTLE_ICE_FALL = REGISTRIES.register("block.brittle_ice.fall");
+    public static final Supplier<SoundEvent> BRITTLE_ICE_CRACK = REGISTRIES.register("block.brittle_ice.crack");
+    
+    public static final Supplier<SoundEvent> ICICLE_LAND = REGISTRIES.register("block.icicle.land");
+    public static final Supplier<SoundEvent> ICICLE_BREAK = REGISTRIES.register("block.icicle.break");
+    public static final Supplier<SoundEvent> ICICLE_STEP = REGISTRIES.register("block.icicle.step");
+    public static final Supplier<SoundEvent> ICICLE_PLACE = REGISTRIES.register("block.icicle.place");
+    public static final Supplier<SoundEvent> ICICLE_HIT = REGISTRIES.register("block.icicle.hit");
+    public static final Supplier<SoundEvent> ICICLE_FALL = REGISTRIES.register("block.icicle.fall");
+    
+    public static final Supplier<SoundEvent> ICE_CRYSTAL_BREAK = REGISTRIES.register("block.ice_crystal.break");
+    public static final Supplier<SoundEvent> ICE_CRYSTAL_STEP = REGISTRIES.register("block.ice_crystal.step");
+    public static final Supplier<SoundEvent> ICE_CRYSTAL_PLACE = REGISTRIES.register("block.ice_crystal.place");
+    public static final Supplier<SoundEvent> ICE_CRYSTAL_HIT = REGISTRIES.register("block.ice_crystal.hit");
+    public static final Supplier<SoundEvent> ICE_CRYSTAL_FALL = REGISTRIES.register("block.ice_crystal.fall");
+    public static final Supplier<SoundEvent> ICE_CRYSTAL_AMBIENT = REGISTRIES.register("block.ice_crystal.ambient");
+    
+    public static final Supplier<SoundEvent> FROSTBITE_AMBIENT = REGISTRIES.register("entity.frostbite.ambient");
+    public static final Supplier<SoundEvent> FROSTBITE_HURT = REGISTRIES.register("entity.frostbite.hurt");
+    public static final Supplier<SoundEvent> FROSTBITE_DEATH = REGISTRIES.register("entity.frostbite.death");
+    public static final Supplier<SoundEvent> FROSTBITE_STEP = REGISTRIES.register("entity.frostbite.step");
+    
+    public static final Supplier<SoundEvent> ICE_BALL_THROW = REGISTRIES.register("entity.ice_ball.throw");
+    public static final Supplier<SoundEvent> ICE_BALL_BREAK = REGISTRIES.register("entity.ice_ball.break");
+    
+    public static final Supplier<SoundEvent> FROSTBITE_CONVERTED_TO_ZOMBIE = REGISTRIES.register("entity.frostbite.converted_to_zombie");
+    public static final Supplier<SoundEvent> ZOMBIE_CONVERTED_TO_FROSTBITE = REGISTRIES.register("entity.zombie.converted_to_frostbite");
+    
+    public static final Supplier<SoundEvent> APPLY_EFFECT_FREEZING = REGISTRIES.register("event.mob_effect.freezing");
 }

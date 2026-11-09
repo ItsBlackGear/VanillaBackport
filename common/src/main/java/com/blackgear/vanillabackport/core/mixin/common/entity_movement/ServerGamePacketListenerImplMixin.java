@@ -1,5 +1,6 @@
 package com.blackgear.vanillabackport.core.mixin.common.entity_movement;
 
+import com.blackgear.vanillabackport.common.api.extensions.entity.GraceTimeWeaponHolder;
 import com.blackgear.vanillabackport.common.api.extensions.entity.movement.MotionAwareEntity;
 import com.blackgear.vanillabackport.core.network.ServerboundClientTickEndPacket;
 import net.minecraft.network.protocol.game.ServerboundMovePlayerPacket;
@@ -36,6 +37,13 @@ public abstract class ServerGamePacketListenerImplMixin {
             this.vb$playerStartX = this.player.getX();
             this.vb$playerStartY = this.player.getY();
             this.vb$playerStartZ = this.player.getZ();
+        }
+    }
+    
+    @Inject(method = "handleMovePlayer", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/level/ServerPlayer;checkMovementStatistics(DDD)V", shift = At.Shift.BEFORE))
+    private void vb$uhTest(ServerboundMovePlayerPacket packet, CallbackInfo ci) {
+        if (packet.isOnGround() || (this.player.getDeltaMovement().y() < Mth.EPSILON && (this.player.isInLava() || this.player.isInWaterOrBubble())) || this.player.isSpectator() || this.player.isFallFlying() || this.player.isAutoSpinAttack()) {
+            GraceTimeWeaponHolder.of(this.player).tryResetCurrentImpulseContext();
         }
     }
     

@@ -15,6 +15,7 @@ import com.blackgear.vanillabackport.common.level.entities.mob.animal.nautilus.Z
 import com.blackgear.vanillabackport.common.level.entities.mob.monster.creaking.Creaking;
 import com.blackgear.vanillabackport.common.level.entities.mob.monster.skeleton.Parched;
 import com.blackgear.vanillabackport.common.level.entities.mob.monster.sulfur_cube.SulfurCube;
+import com.blackgear.vanillabackport.common.level.entities.mob.monster.zombie.Frostbite;
 import com.blackgear.vanillabackport.common.registries.entities.ModEntityTypes;
 import com.blackgear.vanillabackport.core.data.tags.ModItemTags;
 import net.minecraft.world.entity.EntityType;
@@ -30,6 +31,7 @@ import net.minecraft.world.entity.monster.Spider;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.monster.ZombifiedPiglin;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.levelgen.Heightmap;
 
 import static com.blackgear.platform.common.integration.MobIntegration.*;
 import static net.minecraft.world.entity.SpawnPlacements.*;
@@ -52,6 +54,7 @@ public class MobIntegrations {
         event.registerPlacement(ModEntityTypes.CAMEL_HUSK, Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, MobSpawns::checkSurfaceMonstersSpawnRules);
         event.registerPlacement(ModEntityTypes.NAUTILUS, Type.IN_WATER, Types.MOTION_BLOCKING_NO_LEAVES, AbstractNautilus::checkNautilusSpawnRules);
         event.registerPlacement(() -> EntityType.ZOMBIE_HORSE, Type.ON_GROUND, Types.MOTION_BLOCKING_NO_LEAVES, MobSpawns::checkMonsterSpawnRules, SpawnPlacementStrategy.REPLACE);
+        event.registerPlacement(ModEntityTypes.FROSTBITE, Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, MobSpawns::checkColdVariantSpawnRules);
     }
     
     private static void registerAttributes(Event event) {
@@ -64,6 +67,7 @@ public class MobIntegrations {
         event.registerAttributes(ModEntityTypes.CAMEL_HUSK, Camel::createAttributes);
         event.registerAttributes(ModEntityTypes.NAUTILUS, AbstractNautilus::createAttributes);
         event.registerAttributes(ModEntityTypes.ZOMBIE_NAUTILUS, ZombieNautilus::createAttributes);
+        event.registerAttributes(ModEntityTypes.FROSTBITE, Frostbite::createAttributes);
     }
     
     private static void registerGoals(Event event) {

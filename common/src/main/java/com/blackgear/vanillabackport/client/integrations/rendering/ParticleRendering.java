@@ -13,6 +13,12 @@ public class ParticleRendering {
     public static void factories(ParticleFactoryEvent event) {
         event.register(ModParticles.DUST_PLUME, DustPlumeParticle.Provider::new);
         
+        event.register(ModParticles.GUST, GustParticle.Provider::new);
+        event.register(ModParticles.SMALL_GUST, GustParticle.SmallProvider::new);
+        event.register(ModParticles.GUST_EMITTER_LARGE, new GustSeedParticle.Provider(3.0, 7, 0));
+        event.register(ModParticles.GUST_EMITTER_SMALL, new GustSeedParticle.Provider(1.0, 3, 2));
+        event.register(ModParticles.DUST_PILLAR, new DustPillarProvider());
+        
         event.register(ModParticles.PALE_OAK_LEAVES, FallingLeavesParticle.PaleOakProvider::new);
         event.register(ModParticles.TRAIL, TrailParticle.Provider::new);
         

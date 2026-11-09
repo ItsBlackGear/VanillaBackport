@@ -61,11 +61,13 @@ import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.FrostedIceBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
+import net.minecraft.world.phys.shapes.CollisionContext;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
@@ -140,23 +142,18 @@ public class SulfurCube extends AbstractCubeMob implements Bucketable, Shearable
         return this.entityData.get(FROM_BUCKET);
     }
 
-    @Override
-    public void setFromBucket(boolean fromBucket) {
-        this.entityData.set(FROM_BUCKET, fromBucket);
-    }
-
     public int getFuse() {
         return this.fuse;
     }
-
-    public void setFuse(int fuse) {
-        this.fuse = fuse;
-    }
-
+    
     public boolean isPrimed() {
         return this.getFuse() >= 0;
     }
-
+    
+    public void setFuse(int fuse) {
+        this.fuse = fuse;
+    }
+    
     @Override
     public void onSyncedDataUpdated(EntityDataAccessor<?> key) {
         if (MAX_FUSE.equals(key)) {
@@ -164,6 +161,11 @@ public class SulfurCube extends AbstractCubeMob implements Bucketable, Shearable
         }
 
         super.onSyncedDataUpdated(key);
+    }
+    
+    @Override
+    public void setFromBucket(boolean fromBucket) {
+        this.entityData.set(FROM_BUCKET, fromBucket);
     }
 
     @Override
@@ -388,7 +390,40 @@ public class SulfurCube extends AbstractCubeMob implements Bucketable, Shearable
             this.gameEvent(GameEvent.PRIME_FUSE);
         }
     }
-
+    
+    @Override
+    protected void onChangedBlock(BlockPos pos) {
+        super.onChangedBlock(pos);
+        if (this.level() instanceof ServerLevel level) {
+            ItemStack item = this.getItemBySlot(EquipmentSlot.CHEST);
+            List<SulfurCubeArchetype> currentArchetypes = this.matchingArchetypes(item);
+            
+            for (SulfurCubeArchetype archetype : currentArchetypes) {
+                if (archetype.items() == ModItemTags.SULFUR_CUBE_ARCHETYPE_COLD && this.onGround()) {
+                    BlockState state = Blocks.FROSTED_ICE.defaultBlockState();
+                    int radius = 3;
+                    BlockPos.MutableBlockPos mutable = new BlockPos.MutableBlockPos();
+                    
+                    for (BlockPos blockPos : BlockPos.betweenClosed(pos.offset(-radius, -1, -radius), pos.offset(radius, -1, radius))) {
+                        if (blockPos.closerToCenterThan(this.position(), radius)) {
+                            mutable.set(blockPos.getX(), blockPos.getY() + 1, blockPos.getZ());
+                            BlockState position = level.getBlockState(mutable);
+                            if (position.isAir()) {
+                                BlockState blockState3 = level.getBlockState(blockPos);
+                                if (blockState3 == FrostedIceBlock.meltsInto()
+                                    && state.canSurvive(level, blockPos)
+                                    && level.isUnobstructed(state, blockPos, CollisionContext.empty())) {
+                                    level.setBlockAndUpdate(blockPos, state);
+                                    level.scheduleTick(blockPos, Blocks.FROSTED_ICE, Mth.nextInt(this.getRandom(), 60, 120));
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
     @Override
     protected void customServerAiStep() {
         super.customServerAiStep();

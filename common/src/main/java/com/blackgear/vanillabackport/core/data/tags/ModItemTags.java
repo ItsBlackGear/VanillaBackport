@@ -30,7 +30,8 @@ public class ModItemTags {
     public static final TagKey<Item> SULFUR_CUBE_ARCHETYPE_STICKY = TAGS.register("sulfur_cube_archetype/sticky");
     public static final TagKey<Item> SULFUR_CUBE_ARCHETYPE_EXPLOSIVE = TAGS.register("sulfur_cube_archetype/explosive");
     public static final TagKey<Item> SULFUR_CUBE_ARCHETYPE_HOT = TAGS.register("sulfur_cube_archetype/hot");
-    
+    public static final TagKey<Item> SULFUR_CUBE_ARCHETYPE_COLD = TAGS.register("sulfur_cube_archetype/cold");
+
     public static final TagKey<Item> SULFUR_CUBE_SWALLOWABLE = TAGS.register("sulfur_cube_swallowable");
     public static final TagKey<Item> DISABLES_WAYPOINT_TRACKING = TAGS.register("disables_waypoint_tracking");
     
@@ -47,6 +48,7 @@ public class ModItemTags {
     
     public static final TagKey<Item> SPEARS = TAGS.register("spears");
     public static final TagKey<Item> LUNGE_ENCHANTABLE = TAGS.register("lunge_enchantable");
+    public static final TagKey<Item> MACE_ENCHANTABLE = TAGS.register("mace_enchantable");
     public static final TagKey<Item> CAMEL_HUSK_FOOD = TAGS.register("camel_husk_food");
     public static final TagKey<Item> ZOMBIE_HORSE_FOOD = TAGS.register("zombie_horse_food");
     

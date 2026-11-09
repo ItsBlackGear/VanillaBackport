@@ -91,6 +91,9 @@ public class CommonConfig {
     
     // Wilderness Bound
     public final ConfigBuilder.ConfigValue<Boolean> hasDappledForest;
+    
+    // Miscellaneous
+    public final ConfigBuilder.ConfigValue<Boolean> hasIceCaves;
 
     public CommonConfig(ConfigBuilder builder) {
         builder.push("Tricky Trials");
@@ -254,8 +257,13 @@ public class CommonConfig {
         builder.pop();
         
         builder.push("Wilderness Bound");
-        this.hasDappledForest = builder.comment("allow Dappled Forest biomes to generate")
-            .define("has_dappled_forest", true);
+            this.hasDappledForest = builder.comment("allow Dappled Forest biomes to generate")
+                .define("has_dappled_forest", true);
+        builder.pop();
+        
+        builder.push("Wilderness Bound");
+            this.hasIceCaves = builder.comment("allow Ice Cave biomes to generate")
+                .define("has_ice_caves", true);
         builder.pop();
     }
 }

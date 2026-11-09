@@ -35,7 +35,77 @@ public class ModBundledTabs {
             })
             .build()
     );
-
+    
+    public static final BundledTabs TRICKY_TRIALS = register(
+        BundledTabs.builder()
+            .title(Component.translatable("bundled_tab.tricky_trials.title"))
+            .icon(new ItemStack(ModItems.MACE.get()))
+            .displayItems((provider, output) -> {
+                if (VanillaBackport.COMMON_CONFIG.hasCopperBlockSet.get()) {
+                    output.accept(ModBlocks.COPPER_BULB.get());
+                    output.accept(ModBlocks.EXPOSED_COPPER_BULB.get());
+                    output.accept(ModBlocks.WEATHERED_COPPER_BULB.get());
+                    output.accept(ModBlocks.OXIDIZED_COPPER_BULB.get());
+                    output.accept(ModBlocks.WAXED_COPPER_BULB.get());
+                    output.accept(ModBlocks.WAXED_EXPOSED_COPPER_BULB.get());
+                    output.accept(ModBlocks.WAXED_WEATHERED_COPPER_BULB.get());
+                    output.accept(ModBlocks.WAXED_OXIDIZED_COPPER_BULB.get());
+                    output.accept(ModBlocks.CHISELED_COPPER.get());
+                    output.accept(ModBlocks.EXPOSED_CHISELED_COPPER.get());
+                    output.accept(ModBlocks.WEATHERED_CHISELED_COPPER.get());
+                    output.accept(ModBlocks.OXIDIZED_CHISELED_COPPER.get());
+                    output.accept(ModBlocks.WAXED_CHISELED_COPPER.get());
+                    output.accept(ModBlocks.WAXED_EXPOSED_CHISELED_COPPER.get());
+                    output.accept(ModBlocks.WAXED_WEATHERED_CHISELED_COPPER.get());
+                    output.accept(ModBlocks.WAXED_OXIDIZED_CHISELED_COPPER.get());
+                    output.accept(ModBlocks.COPPER_GRATE.get());
+                    output.accept(ModBlocks.EXPOSED_COPPER_GRATE.get());
+                    output.accept(ModBlocks.WEATHERED_COPPER_GRATE.get());
+                    output.accept(ModBlocks.OXIDIZED_COPPER_GRATE.get());
+                    output.accept(ModBlocks.WAXED_COPPER_GRATE.get());
+                    output.accept(ModBlocks.WAXED_EXPOSED_COPPER_GRATE.get());
+                    output.accept(ModBlocks.WAXED_WEATHERED_COPPER_GRATE.get());
+                    output.accept(ModBlocks.WAXED_OXIDIZED_COPPER_GRATE.get());
+                    output.accept(ModBlocks.COPPER_DOOR.get());
+                    output.accept(ModBlocks.EXPOSED_COPPER_DOOR.get());
+                    output.accept(ModBlocks.WEATHERED_COPPER_DOOR.get());
+                    output.accept(ModBlocks.OXIDIZED_COPPER_DOOR.get());
+                    output.accept(ModBlocks.WAXED_COPPER_DOOR.get());
+                    output.accept(ModBlocks.WAXED_EXPOSED_COPPER_DOOR.get());
+                    output.accept(ModBlocks.WAXED_WEATHERED_COPPER_DOOR.get());
+                    output.accept(ModBlocks.WAXED_OXIDIZED_COPPER_DOOR.get());
+                    output.accept(ModBlocks.COPPER_TRAPDOOR.get());
+                    output.accept(ModBlocks.EXPOSED_COPPER_TRAPDOOR.get());
+                    output.accept(ModBlocks.WEATHERED_COPPER_TRAPDOOR.get());
+                    output.accept(ModBlocks.OXIDIZED_COPPER_TRAPDOOR.get());
+                    output.accept(ModBlocks.WAXED_COPPER_TRAPDOOR.get());
+                    output.accept(ModBlocks.WAXED_EXPOSED_COPPER_TRAPDOOR.get());
+                    output.accept(ModBlocks.WAXED_WEATHERED_COPPER_TRAPDOOR.get());
+                    output.accept(ModBlocks.WAXED_OXIDIZED_COPPER_TRAPDOOR.get());
+                }
+                
+                if (VanillaBackport.COMMON_CONFIG.hasTuffBlocks.get()) {
+                    output.accept(ModBlocks.TUFF_STAIRS.get());
+                    output.accept(ModBlocks.TUFF_SLAB.get());
+                    output.accept(ModBlocks.TUFF_WALL.get());
+                    output.accept(ModBlocks.CHISELED_TUFF.get());
+                    output.accept(ModBlocks.POLISHED_TUFF.get());
+                    output.accept(ModBlocks.POLISHED_TUFF_STAIRS.get());
+                    output.accept(ModBlocks.POLISHED_TUFF_SLAB.get());
+                    output.accept(ModBlocks.POLISHED_TUFF_WALL.get());
+                    output.accept(ModBlocks.TUFF_BRICKS.get());
+                    output.accept(ModBlocks.TUFF_BRICK_STAIRS.get());
+                    output.accept(ModBlocks.TUFF_BRICK_SLAB.get());
+                    output.accept(ModBlocks.TUFF_BRICK_WALL.get());
+                    output.accept(ModBlocks.CHISELED_TUFF_BRICKS.get());
+                }
+                
+                output.accept(ModItems.WIND_CHARGE.get());
+                output.accept(ModItems.MACE.get());
+            })
+            .build()
+    );
+    
     public static final BundledTabs BUNDLES_OF_BRAVERY = register(
         BundledTabs.builder()
             .title(Component.translatable("bundled_tab.bundles_of_bravery.title"))
@@ -447,70 +517,40 @@ public class ModBundledTabs {
     public static final BundledTabs MISCELLANEOUS = register(
         BundledTabs.builder()
             .title(Component.translatable("bundled_tab.miscellaneous.title"))
-            .icon(new ItemStack(Items.NAME_TAG))
+            .icon(new ItemStack(ModItems.ICE_BALL.get()))
             .displayItems((provider, output) -> {
-                if (VanillaBackport.COMMON_CONFIG.hasCopperBlockSet.get()) {
-                    output.accept(ModBlocks.COPPER_BULB.get());
-                    output.accept(ModBlocks.EXPOSED_COPPER_BULB.get());
-                    output.accept(ModBlocks.WEATHERED_COPPER_BULB.get());
-                    output.accept(ModBlocks.OXIDIZED_COPPER_BULB.get());
-                    output.accept(ModBlocks.WAXED_COPPER_BULB.get());
-                    output.accept(ModBlocks.WAXED_EXPOSED_COPPER_BULB.get());
-                    output.accept(ModBlocks.WAXED_WEATHERED_COPPER_BULB.get());
-                    output.accept(ModBlocks.WAXED_OXIDIZED_COPPER_BULB.get());
-                    output.accept(ModBlocks.CHISELED_COPPER.get());
-                    output.accept(ModBlocks.EXPOSED_CHISELED_COPPER.get());
-                    output.accept(ModBlocks.WEATHERED_CHISELED_COPPER.get());
-                    output.accept(ModBlocks.OXIDIZED_CHISELED_COPPER.get());
-                    output.accept(ModBlocks.WAXED_CHISELED_COPPER.get());
-                    output.accept(ModBlocks.WAXED_EXPOSED_CHISELED_COPPER.get());
-                    output.accept(ModBlocks.WAXED_WEATHERED_CHISELED_COPPER.get());
-                    output.accept(ModBlocks.WAXED_OXIDIZED_CHISELED_COPPER.get());
-                    output.accept(ModBlocks.COPPER_GRATE.get());
-                    output.accept(ModBlocks.EXPOSED_COPPER_GRATE.get());
-                    output.accept(ModBlocks.WEATHERED_COPPER_GRATE.get());
-                    output.accept(ModBlocks.OXIDIZED_COPPER_GRATE.get());
-                    output.accept(ModBlocks.WAXED_COPPER_GRATE.get());
-                    output.accept(ModBlocks.WAXED_EXPOSED_COPPER_GRATE.get());
-                    output.accept(ModBlocks.WAXED_WEATHERED_COPPER_GRATE.get());
-                    output.accept(ModBlocks.WAXED_OXIDIZED_COPPER_GRATE.get());
-                    output.accept(ModBlocks.COPPER_DOOR.get());
-                    output.accept(ModBlocks.EXPOSED_COPPER_DOOR.get());
-                    output.accept(ModBlocks.WEATHERED_COPPER_DOOR.get());
-                    output.accept(ModBlocks.OXIDIZED_COPPER_DOOR.get());
-                    output.accept(ModBlocks.WAXED_COPPER_DOOR.get());
-                    output.accept(ModBlocks.WAXED_EXPOSED_COPPER_DOOR.get());
-                    output.accept(ModBlocks.WAXED_WEATHERED_COPPER_DOOR.get());
-                    output.accept(ModBlocks.WAXED_OXIDIZED_COPPER_DOOR.get());
-                    output.accept(ModBlocks.COPPER_TRAPDOOR.get());
-                    output.accept(ModBlocks.EXPOSED_COPPER_TRAPDOOR.get());
-                    output.accept(ModBlocks.WEATHERED_COPPER_TRAPDOOR.get());
-                    output.accept(ModBlocks.OXIDIZED_COPPER_TRAPDOOR.get());
-                    output.accept(ModBlocks.WAXED_COPPER_TRAPDOOR.get());
-                    output.accept(ModBlocks.WAXED_EXPOSED_COPPER_TRAPDOOR.get());
-                    output.accept(ModBlocks.WAXED_WEATHERED_COPPER_TRAPDOOR.get());
-                    output.accept(ModBlocks.WAXED_OXIDIZED_COPPER_TRAPDOOR.get());
-                }
-                
-                if (VanillaBackport.COMMON_CONFIG.hasTuffBlocks.get()) {
-                    output.accept(ModBlocks.TUFF_STAIRS.get());
-                    output.accept(ModBlocks.TUFF_SLAB.get());
-                    output.accept(ModBlocks.TUFF_WALL.get());
-                    output.accept(ModBlocks.CHISELED_TUFF.get());
-                    output.accept(ModBlocks.POLISHED_TUFF.get());
-                    output.accept(ModBlocks.POLISHED_TUFF_STAIRS.get());
-                    output.accept(ModBlocks.POLISHED_TUFF_SLAB.get());
-                    output.accept(ModBlocks.POLISHED_TUFF_WALL.get());
-                    output.accept(ModBlocks.TUFF_BRICKS.get());
-                    output.accept(ModBlocks.TUFF_BRICK_STAIRS.get());
-                    output.accept(ModBlocks.TUFF_BRICK_SLAB.get());
-                    output.accept(ModBlocks.TUFF_BRICK_WALL.get());
-                    output.accept(ModBlocks.CHISELED_TUFF_BRICKS.get());
-                }
+                output.accept(ModBlocks.BRITTLE_ICE.get());
+                output.accept(ModBlocks.ICICLE.get());
+                output.accept(ModBlocks.ICE_CRYSTAL.get());
+                output.accept(ModItems.ICE_BALL.get());
+                output.accept(ModBlocks.PACKED_ICE_BRICKS.get());
+                output.accept(ModBlocks.PACKED_ICE_BRICK_STAIRS.get());
+                output.accept(ModBlocks.PACKED_ICE_BRICK_SLAB.get());
+                output.accept(ModBlocks.PACKED_ICE_BRICK_WALL.get());
+                output.accept(ModBlocks.CHISELED_PACKED_ICE.get());
+                output.accept(ModBlocks.SNOW_BRICKS.get());
+                output.accept(ModBlocks.SNOW_BRICK_STAIRS.get());
+                output.accept(ModBlocks.SNOW_BRICK_SLAB.get());
+                output.accept(ModBlocks.SNOW_BRICK_WALL.get());
+                output.accept(ModBlocks.CALCITE_PILLAR.get());
+                output.accept(ModBlocks.CALCITE_STAIRS.get());
+                output.accept(ModBlocks.CALCITE_SLAB.get());
+                output.accept(ModBlocks.CALCITE_WALL.get());
+                output.accept(ModBlocks.POLISHED_CALCITE.get());
+                output.accept(ModBlocks.POLISHED_CALCITE_STAIRS.get());
+                output.accept(ModBlocks.POLISHED_CALCITE_SLAB.get());
+                output.accept(ModBlocks.POLISHED_CALCITE_WALL.get());
+                output.accept(ModBlocks.POLISHED_CALCITE_BRICKS.get());
+                output.accept(ModBlocks.POLISHED_CALCITE_BRICK_STAIRS.get());
+                output.accept(ModBlocks.POLISHED_CALCITE_BRICK_SLAB.get());
+                output.accept(ModBlocks.POLISHED_CALCITE_BRICK_WALL.get());
+                output.accept(ModBlocks.CHISELED_SOULSHALE.get());
+                output.accept(ModItems.FROSTBITE_SPAWN_EGG.get());
+                output.accept(ModItems.MUSIC_DISC_FLURRY.get());
             })
             .build()
     );
-
+    
     public static BundledTabs register(BundledTabs builder) {
         FILTERS.add(builder);
         return builder;

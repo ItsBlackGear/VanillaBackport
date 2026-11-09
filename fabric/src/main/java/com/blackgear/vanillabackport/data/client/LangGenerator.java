@@ -15,7 +15,38 @@ public class LangGenerator extends FabricLanguageProvider {
 
     @Override
     public void generateTranslations(TranslationBuilder builder) {
-        // Miscellaneous
+        // Armored Paws
+        builder.add(ModEntityTypes.ARMADILLO.get(), "Armadillo");
+        
+        builder.add(ModItems.WOLF_ARMOR.get(), "Wolf Armor");
+        builder.add(ModItems.ARMADILLO_SCUTE.get(), "Armadillo Scute");
+        builder.add(ModItems.ARMADILLO_SPAWN_EGG.get(), "Armadillo Spawn Egg");
+        
+        builder.add("subtitles.block.decorated_pot.insert","Decorated Pot fills");
+        builder.add("subtitles.block.decorated_pot.insert_fail","Decorated Pot wobbles");
+        
+        builder.add("subtitles.entity.armadillo.ambient", "Armadillo grunts");
+        builder.add("subtitles.entity.armadillo.brush", "Scute is brushed off");
+        builder.add("subtitles.entity.armadillo.death", "Armadillo dies");
+        builder.add("subtitles.entity.armadillo.eat", "Armadillo eats");
+        builder.add("subtitles.entity.armadillo.hurt", "Armadillo hurts");
+        builder.add("subtitles.entity.armadillo.hurt_reduced", "Armadillo shields itself");
+        builder.add("subtitles.entity.armadillo.land", "Armadillo lands");
+        builder.add("subtitles.entity.armadillo.peek", "Armadillo peeks");
+        builder.add("subtitles.entity.armadillo.roll", "Armadillo rolls up");
+        builder.add("subtitles.entity.armadillo.scute_drop", "Armadillo sheds scute");
+        builder.add("subtitles.entity.armadillo.unroll_finish", "Armadillo unrolls");
+        builder.add("subtitles.entity.armadillo.unroll_start", "Armadillo peeks");
+        
+        builder.add("subtitles.item.armor.equip_wolf", "Wolf Armor is fastened");
+        builder.add("subtitles.item.armor.unequip_wolf", "Wolf Armor snips away");
+        
+        builder.add("subtitles.item.wolf_armor.break", "Wolf Armor breaks");
+        builder.add("subtitles.item.wolf_armor.crack", "Wolf Armor cracks");
+        builder.add("subtitles.item.wolf_armor.damage", "Wolf Armor takes damage");
+        builder.add("subtitles.item.wolf_armor.repair", "Wolf Armor is repaired");
+        
+        // Tricky Trials
         
         builder.add(ModBlocks.COPPER_BULB.get(), "Copper Bulb");
         builder.add(ModBlocks.EXPOSED_COPPER_BULB.get(), "Exposed Copper Bulb");
@@ -76,10 +107,38 @@ public class LangGenerator extends FabricLanguageProvider {
         builder.add(ModBlocks.TUFF_BRICK_WALL.get(), "Tuff Brick Wall");
         builder.add(ModBlocks.CHISELED_TUFF_BRICKS.get(), "Chiseled Tuff Bricks");
         
+        builder.add(ModItems.WIND_CHARGE.get(), "Wind Charge");
+        builder.add(ModItems.MACE.get(), "Mace");
+        
+        builder.add(ModEntityTypes.WIND_CHARGE.get(), "Wind Charge");
+        
         builder.add("subtitles.block.copper_bulb.turn_off", "Copper Bulb turns off");
         builder.add("subtitles.block.copper_bulb.turn_on", "Copper Bulb turns on");
         builder.add("subtitles.block.copper_trapdoor.close", "Trapdoor closes");
         builder.add("subtitles.block.copper_trapdoor.open", "Trapdoor opens");
+        
+        builder.add("subtitles.item.mace.smash_air", "Mace smashes");
+        builder.add("subtitles.item.mace.smash_ground", "Mace smashes");
+        
+        builder.add("subtitles.entity.breeze.charge", "Breeze charges");
+        builder.add("subtitles.entity.breeze.death", "Breeze dies");
+        builder.add("subtitles.entity.breeze.deflect", "Breeze deflects");
+        builder.add("subtitles.entity.breeze.hurt", "Breeze hurts");
+        builder.add("subtitles.entity.breeze.idle_air", "Breeze flies");
+        builder.add("subtitles.entity.breeze.idle_ground", "Breeze whirs");
+        builder.add("subtitles.entity.breeze.inhale", "Breeze inhales");
+        builder.add("subtitles.entity.breeze.jump", "Breeze jumps");
+        builder.add("subtitles.entity.breeze.land", "Breeze lands");
+        builder.add("subtitles.entity.breeze.shoot", "Breeze shoots");
+        builder.add("subtitles.entity.breeze.slide", "Breeze slides");
+        builder.add("subtitles.entity.breeze.whirl", "Breeze whirls");
+        builder.add("subtitles.entity.breeze.wind_burst", "Wind Charge bursts");
+        builder.add("subtitles.entity.generic.wind_burst", "Wind Charge bursts");
+        builder.add("subtitles.entity.wind_charge.wind_burst", "Wind Charge bursts");
+        
+        builder.add("enchantment.minecraft.density", "Density");
+        builder.add("enchantment.minecraft.breach", "Breach");
+        builder.add("enchantment.minecraft.wind_burst", "Wind Burst");
         
         // THE GARDEN AWAKENS
 
@@ -282,37 +341,6 @@ public class LangGenerator extends FabricLanguageProvider {
         builder.add(ModItems.LIME_BUNDLE.get(), "Lime Bundle");
         builder.add(ModItems.BROWN_BUNDLE.get(), "Brown Bundle");
         builder.add(ModItems.ORANGE_BUNDLE.get(), "Orange Bundle");
-
-        // Armored Paws
-        builder.add(ModEntityTypes.ARMADILLO.get(), "Armadillo");
-
-        builder.add(ModItems.WOLF_ARMOR.get(), "Wolf Armor");
-        builder.add(ModItems.ARMADILLO_SCUTE.get(), "Armadillo Scute");
-        builder.add(ModItems.ARMADILLO_SPAWN_EGG.get(), "Armadillo Spawn Egg");
-
-        builder.add("subtitles.block.decorated_pot.insert","Decorated Pot fills");
-        builder.add("subtitles.block.decorated_pot.insert_fail","Decorated Pot wobbles");
-
-        builder.add("subtitles.entity.armadillo.ambient", "Armadillo grunts");
-        builder.add("subtitles.entity.armadillo.brush", "Scute is brushed off");
-        builder.add("subtitles.entity.armadillo.death", "Armadillo dies");
-        builder.add("subtitles.entity.armadillo.eat", "Armadillo eats");
-        builder.add("subtitles.entity.armadillo.hurt", "Armadillo hurts");
-        builder.add("subtitles.entity.armadillo.hurt_reduced", "Armadillo shields itself");
-        builder.add("subtitles.entity.armadillo.land", "Armadillo lands");
-        builder.add("subtitles.entity.armadillo.peek", "Armadillo peeks");
-        builder.add("subtitles.entity.armadillo.roll", "Armadillo rolls up");
-        builder.add("subtitles.entity.armadillo.scute_drop", "Armadillo sheds scute");
-        builder.add("subtitles.entity.armadillo.unroll_finish", "Armadillo unrolls");
-        builder.add("subtitles.entity.armadillo.unroll_start", "Armadillo peeks");
-
-        builder.add("subtitles.item.armor.equip_wolf", "Wolf Armor is fastened");
-        builder.add("subtitles.item.armor.unequip_wolf", "Wolf Armor snips away");
-
-        builder.add("subtitles.item.wolf_armor.break", "Wolf Armor breaks");
-        builder.add("subtitles.item.wolf_armor.crack", "Wolf Armor cracks");
-        builder.add("subtitles.item.wolf_armor.damage", "Wolf Armor takes damage");
-        builder.add("subtitles.item.wolf_armor.repair", "Wolf Armor is repaired");
 
         // Copper Age
         
@@ -631,7 +659,7 @@ public class LangGenerator extends FabricLanguageProvider {
         builder.add("advancements.husbandry.uh_oh.title", "Uh Oh");
         builder.add("advancements.husbandry.uh_oh.description", "Have a Sulfur Cube absorb a TNT block");
 
-        // Misc
+        // Wilderness Bound
         builder.add(ModEntityTypes.CUSHION.get(), "Cushion");
         builder.add("biome.minecraft.dappled_forest", "Dappled Forest");
         
@@ -773,8 +801,68 @@ public class LangGenerator extends FabricLanguageProvider {
         builder.add("filled_map.windswept_forest_abandoned_camp", "Windswept Forest Abandoned Camp Map");
         builder.add("filled_map.windswept_forest_camp_map", "Windswept Forest Camp Map");
         
+        // Miscellaneous
+        builder.add("biome.minecraft.ice_caves", "Ice Caves");
+        
+        builder.add(ModBlocks.BRITTLE_ICE.get(), "Brittle Ice");
+        builder.add(ModBlocks.ICE_CRYSTAL.get(), "Ice Crystal");
+        builder.add(ModBlocks.ICICLE.get(), "Icicle");
+        builder.add(ModBlocks.PACKED_ICE_BRICKS.get(), "Packed Ice Bricks");
+        builder.add(ModBlocks.PACKED_ICE_BRICK_STAIRS.get(), "Packed Ice Brick Stairs");
+        builder.add(ModBlocks.PACKED_ICE_BRICK_SLAB.get(), "Packed Ice Brick Slab");
+        builder.add(ModBlocks.PACKED_ICE_BRICK_WALL.get(), "Packed Ice Brick Wall");
+        builder.add(ModBlocks.CHISELED_PACKED_ICE.get(), "Chiseled Packed Ice");
+        builder.add(ModBlocks.SNOW_BRICKS.get(), "Snow Bricks");
+        builder.add(ModBlocks.SNOW_BRICK_STAIRS.get(), "Snow Brick Stairs");
+        builder.add(ModBlocks.SNOW_BRICK_SLAB.get(), "Snow Brick Slab");
+        builder.add(ModBlocks.SNOW_BRICK_WALL.get(), "Snow Brick Wall");
+        builder.add(ModBlocks.CALCITE_PILLAR.get(), "Calcite Pillar");
+        builder.add(ModBlocks.CALCITE_STAIRS.get(), "Calcite Stairs");
+        builder.add(ModBlocks.CALCITE_SLAB.get(), "Calcite Slab");
+        builder.add(ModBlocks.CALCITE_WALL.get(), "Calcite Wall");
+        builder.add(ModBlocks.POLISHED_CALCITE.get(), "Polished Calcite");
+        builder.add(ModBlocks.POLISHED_CALCITE_STAIRS.get(), "Polished Calcite Stairs");
+        builder.add(ModBlocks.POLISHED_CALCITE_SLAB.get(), "Polished Calcite Slabs");
+        builder.add(ModBlocks.POLISHED_CALCITE_WALL.get(), "Polished Calcite Wall");
+        builder.add(ModBlocks.POLISHED_CALCITE_BRICKS.get(), "Polished Calcite Bricks");
+        builder.add(ModBlocks.POLISHED_CALCITE_BRICK_STAIRS.get(), "Polished Calcite Brick Stairs");
+        builder.add(ModBlocks.POLISHED_CALCITE_BRICK_SLAB.get(), "Polished Calcite Brick Slab");
+        builder.add(ModBlocks.POLISHED_CALCITE_BRICK_WALL.get(), "Polished Calcite Brick Wall");
+        builder.add(ModBlocks.CHISELED_SOULSHALE.get(), "Chiseled Soulshale");
+        
+        builder.add(ModItems.ICE_BALL.get(), "Ice Ball");
+        builder.add(ModItems.FROSTBITE_SPAWN_EGG.get(), "Frostbite Spawn Egg");
+        
+        builder.add("item.minecraft.music_disc_flurry", "Music Disc");
+        builder.add("item.minecraft.music_disc_flurry.desc", "Hyper Potions - Flurry");
+        
+        builder.add(ModEntityTypes.ICE_BALL.get(), "Ice Ball");
+        builder.add(ModEntityTypes.FROSTBITE.get(), "Frostbite");
+        
+        builder.add(ModMobEffects.FREEZING, "Freezing");
+        builder.add("item.minecraft.potion.effect.freezing", "Potion of Freezing");
+        builder.add("item.minecraft.splash_potion.effect.freezing", "Splash Potion of Freezing");
+        builder.add("item.minecraft.lingering_potion.effect.freezing", "Lingering Potion of Freezing");
+        builder.add("item.minecraft.tipped_arrow.effect.freezing", "Arrow of Freezing");
+        
+        builder.add("subtitles.block.ice_crystal.ambient", "Icicle Crystal chimes");
+        builder.add("subtitles.block.ice.ambient", "Ice resonates");
+        builder.add("subtitles.block.icicle.land", "Icicle crashes down");
+        builder.add("subtitles.block.brittle_ice.crack", "Brittle Ice cracks");
+        
+        builder.add("subtitles.entity.frostbite.ambient", "Frostbite groans");
+        builder.add("subtitles.entity.frostbite.converted_to_zombie", "Frostbite converts to Zombie");
+        builder.add("subtitles.entity.frostbite.death", "Frostbite dies");
+        builder.add("subtitles.entity.frostbite.hurt", "Frostbite is hurt");
+        
+        builder.add("subtitles.entity.zombie.converted_to_frostbite", "Zombie converts to Frostbite");
+        
+        builder.add("advancements.adventure.what_goes_around_comes_around.title", "What Goes Around Comes Around");
+        builder.add("advancements.adventure.what_goes_around_comes_around.description", "Kill a Frostbite using an Ice Ball");
+        
         // Bundled Tabs
         builder.add("bundled_tab.armored_paws.title", "Armored Paws");
+        builder.add("bundled_tab.tricky_trials.title", "Tricky Trials");
         builder.add("bundled_tab.bundles_of_bravery.title", "Bundles of Bravery");
         builder.add("bundled_tab.the_garden_awakens.title", "The Garden Awakens");
         builder.add("bundled_tab.spring_to_life.title", "Spring to Life");

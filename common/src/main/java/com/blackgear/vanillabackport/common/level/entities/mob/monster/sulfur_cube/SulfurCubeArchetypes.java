@@ -125,7 +125,14 @@ public class SulfurCubeArchetypes {
         Optional.of(contactDamage(ModDamageTypes.SULFUR_CUBE_HOT, ConstantFloat.of(1.0F), false)),
         knockbackHitScale(0.4125F, 0.09F),
         soundSettings(ModSoundEvents.SULFUR_CUBE_HOT_HIT, ModSoundEvents.SULFUR_CUBE_HOT_PUSH, 0.2F,0.7F));
-
+    public static final RegistryKey<SulfurCubeArchetype> COLD = register("cold",
+        ModItemTags.SULFUR_CUBE_ARCHETYPE_COLD,
+        archetype(-0.5F, 0.1F, 0.05F, 0.01F),
+        true,
+        Optional.empty(),
+        Optional.empty(),
+        knockbackHitScale(0.6625F, 0.09F),
+        soundSettings(ModSoundEvents.SULFUR_CUBE_FAST_SLIDING_HIT, ModSoundEvents.SULFUR_CUBE_FAST_SLIDING_PUSH, 0.05F,1.0F));
     private static Function<RegistryKey<SulfurCubeArchetype>, AttributeEntry> add(Holder<Attribute> attribute, double amount) {
         return key -> AttributeEntry.add(attribute, amount, key);
     }

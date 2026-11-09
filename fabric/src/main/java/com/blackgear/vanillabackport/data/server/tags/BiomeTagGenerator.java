@@ -34,7 +34,8 @@ public class BiomeTagGenerator extends FabricTagProvider<Biome> {
         this.getOrCreateTagBuilder(BiomeTags.IS_OVERWORLD)
             .add(ModBiomes.PALE_GARDEN)
             .add(ModBiomes.SULFUR_CAVES)
-            .add(ModBiomes.DAPPLED_FOREST);
+            .add(ModBiomes.DAPPLED_FOREST)
+            .add(ModBiomes.ICE_CAVES);
 
         this.getOrCreateTagBuilder(BiomeTags.HAS_WOODLAND_MANSION)
             .add(ModBiomes.PALE_GARDEN);
@@ -42,7 +43,9 @@ public class BiomeTagGenerator extends FabricTagProvider<Biome> {
         this.getOrCreateTagBuilder(BiomeTags.STRONGHOLD_BIASED_TO)
             .add(ModBiomes.PALE_GARDEN)
             .add(ModBiomes.SULFUR_CAVES);
-        
+    }
+
+    protected void addEntityPlacementTags(HolderLookup.Provider provider) {
         this.getOrCreateTagBuilder(ModBiomeTags.SPAWNS_COLD_VARIANT_FARM_ANIMALS)
             .add(Biomes.SNOWY_PLAINS)
             .add(Biomes.ICE_SPIKES)
@@ -65,13 +68,14 @@ public class BiomeTagGenerator extends FabricTagProvider<Biome> {
             .add(Biomes.WINDSWEPT_GRAVELLY_HILLS)
             .add(Biomes.STONY_PEAKS)
             .add(ModBiomes.DAPPLED_FOREST)
+            .add(ModBiomes.ICE_CAVES)
             .forceAddTag(BiomeTags.IS_END)
             .addOptionalTag(ForgeBiomeTags.IS_COLD)
             .addOptionalTag(ForgeBiomeTags.IS_SNOWY)
             .addOptionalTag(FabricBiomeTags.CLIMATE_COLD)
             .addOptionalTag(FabricBiomeTags.SNOWY)
             .addOptionalTag(FabricBiomeTags.ICY);
-
+        
         this.getOrCreateTagBuilder(ModBiomeTags.SPAWNS_WARM_VARIANT_FARM_ANIMALS)
             .add(Biomes.DESERT)
             .add(Biomes.WARM_OCEAN)
@@ -84,9 +88,7 @@ public class BiomeTagGenerator extends FabricTagProvider<Biome> {
             .forceAddTag(BiomeTags.IS_BADLANDS)
             .addOptionalTag(ForgeBiomeTags.IS_HOT)
             .addOptionalTag(FabricBiomeTags.CLIMATE_HOT);
-    }
-
-    protected void addEntityPlacementTags(HolderLookup.Provider provider) {
+        
         this.getOrCreateTagBuilder(ModBiomeTags.SPAWNS_CAMELS)
             .addOptionalTag(FabricBiomeTags.DESERT)
             .addOptionalTag(ForgeBiomeTags.IS_DESERT);
@@ -111,6 +113,18 @@ public class BiomeTagGenerator extends FabricTagProvider<Biome> {
         
         this.getOrCreateTagBuilder(ModBiomeTags.SPAWNS_CORAL_VARIANT_ZOMBIE_NAUTILUS)
             .add(Biomes.WARM_OCEAN);
+        
+        this.getOrCreateTagBuilder(BiomeTags.SPAWNS_COLD_VARIANT_FROGS)
+            .add(ModBiomes.ICE_CAVES);
+        
+        this.getOrCreateTagBuilder(BiomeTags.SPAWNS_WHITE_RABBITS)
+            .add(ModBiomes.ICE_CAVES);
+        
+        this.getOrCreateTagBuilder(BiomeTags.SPAWNS_SNOW_FOXES)
+            .add(ModBiomes.ICE_CAVES);
+        
+        this.getOrCreateTagBuilder(ModBiomeTags.SPAWNS_COLD_VARIANTS_UNDERGROUND)
+            .add(ModBiomes.ICE_CAVES);
         
         this.getOrCreateTagBuilder(ModBiomeTags.SPAWNS_ARMADILLOS_FREQUENTLY)
             .forceAddTag(BiomeTags.IS_SAVANNA)
@@ -254,10 +268,12 @@ public class BiomeTagGenerator extends FabricTagProvider<Biome> {
 
     protected void addStructureTags(HolderLookup.Provider provider) {
         this.getOrCreateTagBuilder(BiomeTags.HAS_MINESHAFT)
-            .add(ModBiomes.SULFUR_CAVES);
+            .add(ModBiomes.SULFUR_CAVES)
+            .add(ModBiomes.ICE_CAVES);
 
         this.getOrCreateTagBuilder(BiomeTags.HAS_RUINED_PORTAL_STANDARD)
-            .add(ModBiomes.SULFUR_CAVES);
+            .add(ModBiomes.SULFUR_CAVES)
+            .add(ModBiomes.ICE_CAVES);
         
         this.getOrCreateTagBuilder(ModBiomeTags.HAS_ABANDONED_CAMP_BAMBOO_JUNGLE).add(Biomes.BAMBOO_JUNGLE);
         this.getOrCreateTagBuilder(ModBiomeTags.HAS_ABANDONED_CAMP_BIRCH_FOREST).add(Biomes.BIRCH_FOREST);
@@ -293,9 +309,11 @@ public class BiomeTagGenerator extends FabricTagProvider<Biome> {
             .add(ModBiomes.PALE_GARDEN);
 
         this.getOrCreateTagBuilder(ForgeBiomeTags.IS_CAVE)
-            .add(ModBiomes.SULFUR_CAVES);
+            .add(ModBiomes.SULFUR_CAVES)
+            .add(ModBiomes.ICE_CAVES);
 
         this.getOrCreateTagBuilder(FabricBiomeTags.CAVES)
-            .add(ModBiomes.SULFUR_CAVES);
+            .add(ModBiomes.SULFUR_CAVES)
+            .add(ModBiomes.ICE_CAVES);
     }
 }

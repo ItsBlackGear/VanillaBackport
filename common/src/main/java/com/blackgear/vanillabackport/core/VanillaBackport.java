@@ -25,6 +25,7 @@ import com.blackgear.vanillabackport.common.registries.entities.ModAttributes;
 import com.blackgear.vanillabackport.common.registries.items.ModEnchantments;
 import com.blackgear.vanillabackport.common.registries.items.ModItems;
 import com.blackgear.vanillabackport.common.registries.items.ModPaintingVariants;
+import com.blackgear.vanillabackport.common.registries.items.ModPotions;
 import com.blackgear.vanillabackport.common.registries.worldgen.*;
 import com.blackgear.vanillabackport.core.data.tags.*;
 import com.blackgear.vanillabackport.core.network.NetworkHandler;
@@ -75,6 +76,7 @@ public final class VanillaBackport {
         ModAttributes.REGISTRIES.registrar();
         ModMobEffects.REGISTRIES.registrar();
         ModParticles.REGISTRIES.register();
+        ModPotions.REGISTRIES.register();
 
         ModBlocks.REGISTRIES.register();
         ModItems.REGISTRIES.register();
@@ -98,6 +100,7 @@ public final class VanillaBackport {
         ModTreeDecorators.REGISTRIES.register();
         ModTrunkPlacers.REGISTRIES.register();
         ModFoliagePlacers.REGISTRIES.register();
+        ModRuleTestTypes.REGISTRY.register();
         
         ModBoatTypes.bootstrap();
         

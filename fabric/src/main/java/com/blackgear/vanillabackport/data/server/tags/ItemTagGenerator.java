@@ -68,7 +68,8 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
             .add(
                 ModItems.MUSIC_DISC_TEARS.get(),
                 ModItems.MUSIC_DISC_LAVA_CHICKEN.get(),
-                ModItems.MUSIC_DISC_BOUNCE.get()
+                ModItems.MUSIC_DISC_BOUNCE.get(),
+                ModItems.MUSIC_DISC_FLURRY.get()
             );
 
         this.getOrCreateTagBuilder(ItemTags.TRIM_MATERIALS)
@@ -181,6 +182,9 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
         this.getOrCreateTagBuilder(ModItemTags.LUNGE_ENCHANTABLE)
             .addTag(ModItemTags.SPEARS);
         
+        this.getOrCreateTagBuilder(ModItemTags.MACE_ENCHANTABLE)
+            .add(ModItems.MACE.get());
+        
         this.getOrCreateTagBuilder(ModItemTags.DISABLES_WAYPOINT_TRACKING)
             .add(Items.CARVED_PUMPKIN)
             .add(Items.PLAYER_HEAD, Items.CREEPER_HEAD, Items.ZOMBIE_HEAD, Items.SKELETON_SKULL, Items.WITHER_SKELETON_SKULL, Items.DRAGON_HEAD, Items.PIGLIN_HEAD);
@@ -197,18 +201,16 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
     }
 
     private void handleArchetypes() {
-        this.getOrCreateTagBuilder(ModItemTags.SULFUR_CUBE_FOOD)
-            .add(Items.SLIME_BALL);
+        this.getOrCreateTagBuilder(ModItemTags.SULFUR_CUBE_FOOD).add(Items.SLIME_BALL);
 
         this.getOrCreateTagBuilder(ModItemTags.SULFUR_CUBE_ARCHETYPE_BOUNCY)
             .forceAddTag(ItemTags.PLANKS)
+            .add(Items.BAMBOO_MOSAIC)
             .forceAddTag(ItemTags.LOGS)
-            .forceAddTag(ItemTags.BAMBOO_BLOCKS)
-            .add(Items.BAMBOO_MOSAIC);
+            .forceAddTag(ItemTags.BAMBOO_BLOCKS);
         
         this.getOrCreateTagBuilder(ModItemTags.SULFUR_CUBE_ARCHETYPE_SLOW_BOUNCY)
             .add(Items.AMETHYST_BLOCK, Items.ANDESITE, Items.BASALT, Items.BLACKSTONE, Items.BRICKS, Items.CALCITE)
-            // Chiseled Blocks
             .add(
                 ModBlocks.CHISELED_CINNABAR.get().asItem(),
                 Items.CHISELED_DEEPSLATE,
@@ -223,7 +225,6 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
                 ModBlocks.CHISELED_TUFF_BRICKS.get().asItem()
             )
             .add(ModBlocks.CINNABAR.get().asItem(), ModBlocks.CINNABAR_BRICKS.get().asItem(), Items.COBBLED_DEEPSLATE, Items.COBBLESTONE)
-            // Cracked Blocks
             .add(
                 Items.CRACKED_DEEPSLATE_BRICKS,
                 Items.CRACKED_DEEPSLATE_TILES,
@@ -296,66 +297,10 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
             .forceAddTag(ItemTags.EMERALD_ORES)
             .forceAddTag(ItemTags.TERRACOTTA)
             .forceAddTag(FabricItemTags.GLAZED_TERRACOTTA)
-            .forceAddTag(ForgeItemTags.GLAZED_TERRACOTTA);
+            .forceAddTag(ForgeItemTags.GLAZED_TERRACOTTA)
+            .add(Items.CALCITE, ModBlocks.CALCITE_PILLAR.get().asItem(), ModBlocks.POLISHED_CALCITE.get().asItem(), ModBlocks.POLISHED_CALCITE_BRICKS.get().asItem())
+            .add(ModBlocks.CHISELED_SOULSHALE.get().asItem());
         
-        this.getOrCreateTagBuilder(ModItemTags.SULFUR_CUBE_ARCHETYPE_FAST_FLAT)
-            // Coral Blocks
-            .add(Items.TUBE_CORAL_BLOCK, Items.BRAIN_CORAL_BLOCK, Items.BUBBLE_CORAL_BLOCK, Items.FIRE_CORAL_BLOCK, Items.HORN_CORAL_BLOCK)
-            // Dead Coral Blocks
-            .add(Items.DEAD_TUBE_CORAL_BLOCK, Items.DEAD_BRAIN_CORAL_BLOCK, Items.DEAD_BUBBLE_CORAL_BLOCK, Items.DEAD_FIRE_CORAL_BLOCK, Items.DEAD_HORN_CORAL_BLOCK)
-            // Sponge / Kelp
-            .add(Items.SPONGE, Items.WET_SPONGE, Items.DRIED_KELP_BLOCK)
-            // Moss
-            .add(Items.MOSS_BLOCK, ModBlocks.PALE_MOSS_BLOCK.get().asItem())
-            // Resin
-            .add(ModBlocks.RESIN_BLOCK.get().asItem(), ModBlocks.RESIN_BRICKS.get().asItem(), ModBlocks.CHISELED_RESIN_BRICKS.get().asItem())
-            // Farm Blocks
-            .add(Items.MELON, Items.HAY_BLOCK, Items.PUMPKIN, Items.CARVED_PUMPKIN, Items.JACK_O_LANTERN)
-            // Froglights
-            .add(Items.OCHRE_FROGLIGHT, Items.PEARLESCENT_FROGLIGHT, Items.VERDANT_FROGLIGHT);
-
-        this.getOrCreateTagBuilder(ModItemTags.SULFUR_CUBE_ARCHETYPE_FAST_SLIDING)
-            // Frosty Blocks
-            .add(Items.BLUE_ICE, Items.PACKED_ICE, Items.SNOW_BLOCK);
-
-        this.getOrCreateTagBuilder(ModItemTags.SULFUR_CUBE_ARCHETYPE_HIGH_RESISTANCE)
-            // Soul Blocks
-            .add(Items.SOUL_SAND, Items.SOUL_SOIL);
-
-        this.getOrCreateTagBuilder(ModItemTags.SULFUR_CUBE_ARCHETYPE_LIGHT)
-            .forceAddTag(ItemTags.WOOL);
-
-        this.getOrCreateTagBuilder(ModItemTags.SULFUR_CUBE_ARCHETYPE_SLOW_FLAT)
-            // Compacted Metal Blocks
-            .add(Items.IRON_BLOCK, Items.GOLD_BLOCK, Items.RAW_COPPER_BLOCK, Items.RAW_GOLD_BLOCK, Items.RAW_IRON_BLOCK)
-            // Netherite
-            .add(Items.NETHERITE_BLOCK, Items.ANCIENT_DEBRIS)
-            // Copper Blocks
-            .add(Items.COPPER_BLOCK, Items.EXPOSED_COPPER, Items.WEATHERED_COPPER, Items.OXIDIZED_COPPER, Items.WAXED_COPPER_BLOCK, Items.WAXED_EXPOSED_COPPER, Items.WAXED_WEATHERED_COPPER, Items.WAXED_OXIDIZED_COPPER)
-            .add(ModBlocks.COPPER_BULB.get().asItem(), ModBlocks.EXPOSED_COPPER_BULB.get().asItem(), ModBlocks.WEATHERED_COPPER_BULB.get().asItem(), ModBlocks.OXIDIZED_COPPER_BULB.get().asItem(), ModBlocks.WAXED_COPPER_BULB.get().asItem(), ModBlocks.WAXED_EXPOSED_COPPER_BULB.get().asItem(), ModBlocks.WAXED_WEATHERED_COPPER_BULB.get().asItem(), ModBlocks.WAXED_OXIDIZED_COPPER_BULB.get().asItem())
-            // Cut Copper Blocks
-            .add(Items.CUT_COPPER, Items.EXPOSED_CUT_COPPER, Items.WEATHERED_CUT_COPPER, Items.OXIDIZED_CUT_COPPER, Items.WAXED_CUT_COPPER, Items.WAXED_EXPOSED_CUT_COPPER, Items.WAXED_WEATHERED_CUT_COPPER, Items.WAXED_OXIDIZED_CUT_COPPER)
-            .add(ModBlocks.CHISELED_COPPER.get().asItem(), ModBlocks.EXPOSED_CHISELED_COPPER.get().asItem(), ModBlocks.WEATHERED_CHISELED_COPPER.get().asItem(), ModBlocks.OXIDIZED_CHISELED_COPPER.get().asItem(), ModBlocks.WAXED_CHISELED_COPPER.get().asItem(), ModBlocks.WAXED_EXPOSED_CHISELED_COPPER.get().asItem(), ModBlocks.WAXED_WEATHERED_CHISELED_COPPER.get().asItem(), ModBlocks.WAXED_OXIDIZED_CHISELED_COPPER.get().asItem())
-            // Metal Ores
-            .forceAddTag(ItemTags.GOLD_ORES)
-            .forceAddTag(ItemTags.IRON_ORES)
-            .forceAddTag(ItemTags.COPPER_ORES);
-
-        this.getOrCreateTagBuilder(ModItemTags.SULFUR_CUBE_ARCHETYPE_SLOW_SLIDING)
-            // Fun Guys
-            .add(Items.BROWN_MUSHROOM_BLOCK, Items.RED_MUSHROOM_BLOCK, Items.MUSHROOM_STEM, Items.MYCELIUM)
-            .add(Items.SHROOMLIGHT)
-            .forceAddTag(ItemTags.WART_BLOCKS);
-
-        this.getOrCreateTagBuilder(ModItemTags.SULFUR_CUBE_ARCHETYPE_STICKY)
-            .add(Items.HONEYCOMB_BLOCK);
-
-        this.getOrCreateTagBuilder(ModItemTags.SULFUR_CUBE_ARCHETYPE_EXPLOSIVE)
-            .add(Items.TNT);
-
-        this.getOrCreateTagBuilder(ModItemTags.SULFUR_CUBE_ARCHETYPE_HOT)
-            .add(Items.MAGMA_BLOCK);
-
         this.getOrCreateTagBuilder(ModItemTags.SULFUR_CUBE_ARCHETYPE_REGULAR)
             .forceAddTag(FabricItemTags.CONCRETE_POWDERS)
             .forceAddTag(ForgeItemTags.CONCRETE_POWDERS)
@@ -363,20 +308,78 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
             .add(Items.COAL_BLOCK)
             .add(Items.DIRT, Items.COARSE_DIRT, Items.ROOTED_DIRT, Items.PODZOL, Items.GRASS_BLOCK, Items.CLAY)
             .add(Items.BONE_BLOCK);
-
+        
+        this.getOrCreateTagBuilder(ModItemTags.SULFUR_CUBE_ARCHETYPE_SLOW_FLAT)
+            .add(Items.IRON_BLOCK, Items.GOLD_BLOCK, Items.RAW_COPPER_BLOCK, Items.RAW_GOLD_BLOCK, Items.RAW_IRON_BLOCK)
+            .forceAddTag(ItemTags.GOLD_ORES)
+            .forceAddTag(ItemTags.IRON_ORES)
+            .forceAddTag(ItemTags.COPPER_ORES)
+            .add(Items.NETHERITE_BLOCK, Items.ANCIENT_DEBRIS)
+            .add(Items.COPPER_BLOCK, Items.EXPOSED_COPPER, Items.WEATHERED_COPPER, Items.OXIDIZED_COPPER, Items.WAXED_COPPER_BLOCK, Items.WAXED_EXPOSED_COPPER, Items.WAXED_WEATHERED_COPPER, Items.WAXED_OXIDIZED_COPPER)
+            .add(ModBlocks.COPPER_BULB.get().asItem(), ModBlocks.EXPOSED_COPPER_BULB.get().asItem(), ModBlocks.WEATHERED_COPPER_BULB.get().asItem(), ModBlocks.OXIDIZED_COPPER_BULB.get().asItem(), ModBlocks.WAXED_COPPER_BULB.get().asItem(), ModBlocks.WAXED_EXPOSED_COPPER_BULB.get().asItem(), ModBlocks.WAXED_WEATHERED_COPPER_BULB.get().asItem(), ModBlocks.WAXED_OXIDIZED_COPPER_BULB.get().asItem())
+            .add(Items.CUT_COPPER, Items.EXPOSED_CUT_COPPER, Items.WEATHERED_CUT_COPPER, Items.OXIDIZED_CUT_COPPER, Items.WAXED_CUT_COPPER, Items.WAXED_EXPOSED_CUT_COPPER, Items.WAXED_WEATHERED_CUT_COPPER, Items.WAXED_OXIDIZED_CUT_COPPER)
+            .add(ModBlocks.CHISELED_COPPER.get().asItem(), ModBlocks.EXPOSED_CHISELED_COPPER.get().asItem(), ModBlocks.WEATHERED_CHISELED_COPPER.get().asItem(), ModBlocks.OXIDIZED_CHISELED_COPPER.get().asItem(), ModBlocks.WAXED_CHISELED_COPPER.get().asItem(), ModBlocks.WAXED_EXPOSED_CHISELED_COPPER.get().asItem(), ModBlocks.WAXED_WEATHERED_CHISELED_COPPER.get().asItem(), ModBlocks.WAXED_OXIDIZED_CHISELED_COPPER.get().asItem());
+        
+        this.getOrCreateTagBuilder(ModItemTags.SULFUR_CUBE_ARCHETYPE_FAST_FLAT)
+            .add(
+                Items.TUBE_CORAL_BLOCK,
+                Items.BRAIN_CORAL_BLOCK,
+                Items.BUBBLE_CORAL_BLOCK,
+                Items.FIRE_CORAL_BLOCK,
+                Items.HORN_CORAL_BLOCK
+            )
+            .add(
+                Items.DEAD_TUBE_CORAL_BLOCK,
+                Items.DEAD_BRAIN_CORAL_BLOCK,
+                Items.DEAD_BUBBLE_CORAL_BLOCK,
+                Items.DEAD_FIRE_CORAL_BLOCK,
+                Items.DEAD_HORN_CORAL_BLOCK
+            )
+            .add(Items.SPONGE, Items.WET_SPONGE, Items.DRIED_KELP_BLOCK)
+            .add(Items.MOSS_BLOCK, ModBlocks.PALE_MOSS_BLOCK.get().asItem())
+            .add(ModBlocks.RESIN_BLOCK.get().asItem(), ModBlocks.RESIN_BRICKS.get().asItem(), ModBlocks.CHISELED_RESIN_BRICKS.get().asItem())
+            .add(Items.MELON, Items.HAY_BLOCK, Items.PUMPKIN, Items.CARVED_PUMPKIN, Items.JACK_O_LANTERN)
+            .add(Items.OCHRE_FROGLIGHT, Items.PEARLESCENT_FROGLIGHT, Items.VERDANT_FROGLIGHT);
+        
+        this.getOrCreateTagBuilder(ModItemTags.SULFUR_CUBE_ARCHETYPE_LIGHT).forceAddTag(ItemTags.WOOL);
+        
+        this.getOrCreateTagBuilder(ModItemTags.SULFUR_CUBE_ARCHETYPE_FAST_SLIDING)
+            .add(Items.PACKED_ICE, ModBlocks.PACKED_ICE_BRICKS.get().asItem(), ModBlocks.CHISELED_PACKED_ICE.get().asItem(), Items.SNOW_BLOCK, ModBlocks.SNOW_BRICKS.get().asItem());
+        
+        this.getOrCreateTagBuilder(ModItemTags.SULFUR_CUBE_ARCHETYPE_SLOW_SLIDING)
+            .add(Items.BROWN_MUSHROOM_BLOCK, Items.RED_MUSHROOM_BLOCK, Items.MUSHROOM_STEM, Items.MYCELIUM)
+            .forceAddTag(ItemTags.WART_BLOCKS)
+            .add(Items.SHROOMLIGHT);
+        
+        this.getOrCreateTagBuilder(ModItemTags.SULFUR_CUBE_ARCHETYPE_STICKY)
+            .add(Items.HONEYCOMB_BLOCK);
+        
+        this.getOrCreateTagBuilder(ModItemTags.SULFUR_CUBE_ARCHETYPE_HIGH_RESISTANCE)
+            .add(Items.SOUL_SAND, Items.SOUL_SOIL);
+        
+        this.getOrCreateTagBuilder(ModItemTags.SULFUR_CUBE_ARCHETYPE_EXPLOSIVE)
+            .add(Items.TNT);
+        
+        this.getOrCreateTagBuilder(ModItemTags.SULFUR_CUBE_ARCHETYPE_HOT)
+            .add(Items.MAGMA_BLOCK);
+        
+        this.getOrCreateTagBuilder(ModItemTags.SULFUR_CUBE_ARCHETYPE_COLD)
+            .add(Items.BLUE_ICE);
+        
         this.getOrCreateTagBuilder(ModItemTags.SULFUR_CUBE_SWALLOWABLE)
-            .forceAddTag(ModItemTags.SULFUR_CUBE_ARCHETYPE_REGULAR)
             .forceAddTag(ModItemTags.SULFUR_CUBE_ARCHETYPE_BOUNCY)
-            .forceAddTag(ModItemTags.SULFUR_CUBE_ARCHETYPE_SLOW_BOUNCY)
+            .forceAddTag(ModItemTags.SULFUR_CUBE_ARCHETYPE_REGULAR)
             .forceAddTag(ModItemTags.SULFUR_CUBE_ARCHETYPE_SLOW_FLAT)
             .forceAddTag(ModItemTags.SULFUR_CUBE_ARCHETYPE_FAST_FLAT)
             .forceAddTag(ModItemTags.SULFUR_CUBE_ARCHETYPE_LIGHT)
             .forceAddTag(ModItemTags.SULFUR_CUBE_ARCHETYPE_FAST_SLIDING)
             .forceAddTag(ModItemTags.SULFUR_CUBE_ARCHETYPE_SLOW_SLIDING)
-            .forceAddTag(ModItemTags.SULFUR_CUBE_ARCHETYPE_HIGH_RESISTANCE)
             .forceAddTag(ModItemTags.SULFUR_CUBE_ARCHETYPE_STICKY)
+            .forceAddTag(ModItemTags.SULFUR_CUBE_ARCHETYPE_HIGH_RESISTANCE)
             .forceAddTag(ModItemTags.SULFUR_CUBE_ARCHETYPE_EXPLOSIVE)
-            .forceAddTag(ModItemTags.SULFUR_CUBE_ARCHETYPE_HOT);
+            .forceAddTag(ModItemTags.SULFUR_CUBE_ARCHETYPE_HOT)
+            .forceAddTag(ModItemTags.SULFUR_CUBE_ARCHETYPE_SLOW_BOUNCY)
+            .forceAddTag(ModItemTags.SULFUR_CUBE_ARCHETYPE_COLD);
     }
 
     private void handleConventionalTags() {
@@ -438,7 +441,7 @@ public class ItemTagGenerator extends FabricTagProvider.ItemTagProvider {
             .add(ModItems.COPPER_NUGGET.get());
 
         this.getDualTagBuilder(ForgeItemTags.MUSIC_DISCS, FabricItemTags.MUSIC_DISCS)
-            .add(ModItems.MUSIC_DISC_TEARS.get(), ModItems.MUSIC_DISC_LAVA_CHICKEN.get(), ModItems.MUSIC_DISC_BOUNCE.get());
+            .add(ModItems.MUSIC_DISC_TEARS.get(), ModItems.MUSIC_DISC_LAVA_CHICKEN.get(), ModItems.MUSIC_DISC_BOUNCE.get(), ModItems.MUSIC_DISC_FLURRY.get());
 
         this.getDualTagBuilder(ForgeItemTags.GLAZED_TERRACOTTA, FabricItemTags.GLAZED_TERRACOTTA)
             .add(

@@ -96,6 +96,11 @@
     "#minecraft:emerald_ores",
     "#minecraft:terracotta",
     "#c:glazed_terracotta",
-    "#forge:glazed_terracotta"
+    "#forge:glazed_terracotta",
+    "minecraft:calcite",
+    "minecraft:calcite_pillar",
+    "minecraft:polished_calcite",
+    "minecraft:polished_calcite_bricks",
+    "minecraft:chiseled_soulshale"
   ]
 }

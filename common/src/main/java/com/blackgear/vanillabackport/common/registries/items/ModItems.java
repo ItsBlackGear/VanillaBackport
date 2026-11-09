@@ -30,6 +30,16 @@ public class ModItems {
         () -> ItemRegistry.createSpawnEgg(ModEntityTypes.ARMADILLO, 11366765, 8538184, new Properties()));
     public static final Supplier<Item> WOLF_ARMOR = REGISTRIES.register("wolf_armor", WolfArmorItem::new, new Properties().durability(64));
     
+    // Tricky Trials
+    
+    public static final Supplier<Item> WIND_CHARGE = REGISTRIES.register("wind_charge", WindChargeItem::new);
+    public static final Supplier<Item> MACE = REGISTRIES.register("mace",
+        MaceItem::new,
+        new Properties()
+            .rarity(Rarity.EPIC)
+            .durability(500)
+    );
+    
     // Bundles of Bravery
     
     public static final Supplier<Item> WHITE_BUNDLE = REGISTRIES.register("white_bundle",
@@ -355,4 +365,19 @@ public class ModItems {
         properties -> new CushionItem(properties.stacksTo(16), DyeColor.RED));
     public static final Supplier<Item> BLACK_CUSHION = REGISTRIES.register("black_cushion",
         properties -> new CushionItem(properties.stacksTo(16), DyeColor.BLACK));
+    
+    // Miscellaneous
+    
+    public static final Supplier<Item> ICE_BALL = REGISTRIES.register("ice_ball",
+        IceBallItem::new,
+        new Properties().stacksTo(16));
+    
+    public static final Supplier<Item> FROSTBITE_SPAWN_EGG = REGISTRIES.register("frostbite_spawn_egg",
+        () -> ItemRegistry.createSpawnEgg(ModEntityTypes.FROSTBITE, 6250335, 16545810, new Properties()));
+    
+    public static final Supplier<Item> MUSIC_DISC_FLURRY = REGISTRIES.register("music_disc_flurry",
+        properties -> new RecordItem(7, ModSoundEvents.MUSIC_DISC_FLURRY.get(), properties, 154),
+        new Properties()
+            .stacksTo(1)
+            .rarity(Rarity.UNCOMMON));
 }

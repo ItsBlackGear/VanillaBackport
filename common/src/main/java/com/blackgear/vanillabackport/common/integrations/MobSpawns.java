@@ -1,5 +1,6 @@
 package com.blackgear.vanillabackport.common.integrations;
 
+import com.blackgear.vanillabackport.core.data.tags.ModBiomeTags;
 import com.blackgear.vanillabackport.core.data.tags.ModBlockTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.RandomSource;
@@ -10,6 +11,7 @@ import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.animal.camel.Camel;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.level.block.Blocks;
 
 public class MobSpawns {
     static boolean checkCamelSpawnRules(EntityType<? extends Camel> type, ServerLevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
@@ -22,5 +24,20 @@ public class MobSpawns {
     
     static boolean checkSurfaceMonstersSpawnRules(EntityType<? extends Mob> type, ServerLevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
         return checkMonsterSpawnRules(type, level, spawnType, pos, random) && (spawnType == MobSpawnType.SPAWNER || level.canSeeSky(pos));
+    }
+    
+    public static boolean checkColdVariantSpawnRules(EntityType<? extends Monster> type, ServerLevelAccessor level, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
+        boolean canSpawn = checkMonsterSpawnRules(type, level, spawnType, pos, random);
+        if (level.getBiome(pos).is(ModBiomeTags.SPAWNS_COLD_VARIANTS_UNDERGROUND)) {
+            return canSpawn;
+        } else {
+            BlockPos checkSkyPos = pos;
+            
+            do {
+                checkSkyPos = checkSkyPos.above();
+            } while (level.getBlockState(checkSkyPos).is(Blocks.POWDER_SNOW));
+            
+            return canSpawn && (spawnType == MobSpawnType.SPAWNER || level.canSeeSky(checkSkyPos.below()));
+        }
     }
 }

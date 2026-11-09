@@ -1,0 +1,14 @@
+{
+  "replace": false,
+  "values": [
+    {
+      "id": "#forge:chests/wooden",
+      "required": false
+    },
+    {
+      "id": "#c:chests/wooden",
+      "required": false
+    },
+    "#minecraft:copper_chests"
+  ]
+}

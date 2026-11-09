@@ -1,6 +1,7 @@
 package com.blackgear.vanillabackport.common.registries.entities;
 
 import com.blackgear.platform.core.api.registrar.Registrar;
+import com.blackgear.vanillabackport.common.level.effect.FreezingMobEffect;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.blackgear.vanillabackport.core.mixin.common.access.MobEffectAccessor;
 import net.minecraft.core.registries.Registries;
@@ -11,6 +12,8 @@ public class ModMobEffects {
     public static final Registrar<MobEffect> REGISTRIES = Registrar.create(Registries.MOB_EFFECT, VanillaBackport.NAMESPACE);
     
     public static final MobEffect BREATH_OF_THE_NAUTILUS = REGISTRIES.register("breath_of_the_nautilus",
-        MobEffectAccessor.createMobEffect(MobEffectCategory.BENEFICIAL, 65518)
-    );
+        MobEffectAccessor.createMobEffect(MobEffectCategory.BENEFICIAL, 65518));
+    
+    public static final MobEffect FREEZING = REGISTRIES.register("freezing",
+        new FreezingMobEffect(MobEffectCategory.HARMFUL, 10415854));
 }

@@ -1,18 +1,21 @@
 package com.blackgear.vanillabackport.common.level.items.enchantment;
 
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
+import com.blackgear.vanillabackport.common.api.extensions.enchantment.FallBasedEnchantment;
 import com.blackgear.vanillabackport.common.api.extensions.entity.GraceTimeWeaponHolder;
 import com.blackgear.vanillabackport.common.registries.items.ModEnchantments;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.GameType;
 import net.minecraft.world.phys.Vec3;
+import org.apache.commons.lang3.mutable.MutableFloat;
 
 import java.util.List;
 import java.util.function.Supplier;
@@ -53,5 +56,25 @@ public class EnchantmentUtils {
                 level.playSound(null, player.getX(), player.getY(), player.getZ(), LUNGE_SOUNDS.get(soundIndex).get(), player.getSoundSource(), 1.0F, 1.0F);
             }
         }
+    }
+    
+    public static float getFallBasedDamageBonus(ItemStack tool, Entity target) {
+        MutableFloat value = new MutableFloat();
+        EnchantmentHelper.runIterationOnItem((enchantment, level) -> {
+            if (enchantment instanceof FallBasedEnchantment helper) {
+                value.add(helper.getFallBasedDamageBonus(level, tool, target));
+            }
+        }, tool);
+        return value.floatValue();
+    }
+    
+    public static float getReducedArmorEffectiveness(ItemStack tool, Entity target) {
+        MutableFloat value = new MutableFloat();
+        EnchantmentHelper.runIterationOnItem((enchantment, level) -> {
+            if (enchantment instanceof FallBasedEnchantment helper) {
+                value.add(helper.getReduceArmorEffectivenessAmount(level, tool, target));
+            }
+        }, tool);
+        return value.floatValue();
     }
 }

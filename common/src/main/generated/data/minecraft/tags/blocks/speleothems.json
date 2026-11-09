@@ -2,6 +2,7 @@
   "replace": false,
   "values": [
     "minecraft:pointed_dripstone",
-    "minecraft:sulfur_spike"
+    "minecraft:sulfur_spike",
+    "minecraft:icicle"
   ]
 }

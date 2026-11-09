@@ -11,6 +11,11 @@
     "minecraft:tuff_stairs",
     "minecraft:polished_tuff_stairs",
     "minecraft:tuff_brick_stairs",
+    "minecraft:packed_ice_brick_stairs",
+    "minecraft:snow_brick_stairs",
+    "minecraft:calcite_stairs",
+    "minecraft:polished_calcite_stairs",
+    "minecraft:polished_calcite_brick_stairs",
     "#minecraft:wool_stairs"
   ]
 }

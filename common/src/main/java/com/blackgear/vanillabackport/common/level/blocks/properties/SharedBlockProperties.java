@@ -109,6 +109,23 @@ public class SharedBlockProperties {
         .sound(SoundType.WOOD)
         .ignitedByLava();
     
+    // Miscellaneous
+    
+    public static final Properties PACKED_ICE_BRICKS = Properties.of()
+        .mapColor(MapColor.ICE)
+        .instrument(NoteBlockInstrument.CHIME)
+        .requiresCorrectToolForDrops()
+        .friction(0.6F)
+        .strength(0.5F)
+        .sound(ModSoundTypes.PACKED_ICE);
+    
+    public static final Properties SNOW_BRICKS = Properties.of()
+        .mapColor(MapColor.SNOW)
+        .friction(0.6F)
+        .requiresCorrectToolForDrops()
+        .strength(0.6F)
+        .sound(SoundType.SNOW);
+    
     
     // Shared Properties
     

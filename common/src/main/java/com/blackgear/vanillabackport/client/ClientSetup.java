@@ -25,6 +25,7 @@ import com.blackgear.vanillabackport.client.integrations.rendering.EntityRenderi
 import com.blackgear.vanillabackport.client.integrations.rendering.ItemLikeRendering;
 import com.blackgear.vanillabackport.client.integrations.rendering.ParticleRendering;
 import com.blackgear.vanillabackport.client.level.layer.GhastEquipmentManager;
+import com.blackgear.vanillabackport.client.registries.ModShaders;
 import com.blackgear.vanillabackport.common.registries.blocks.ModWoodTypes;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.client.Minecraft;
@@ -33,8 +34,8 @@ import net.minecraft.resources.ResourceLocation;
 public class ClientSetup {
     public static void setup() {
         ResourcePackManager.registerBuiltResourcePack(VanillaBackport.resource("backported_ost"), VanillaBackport.MOD_ID, "Backported Ost");
-        ResourcePackManager.registerBuiltResourcePack(VanillaBackport.resource("freshly_animated"), VanillaBackport.MOD_ID, "Freshly Animated");
-        ResourcePackManager.registerBuiltResourcePack(VanillaBackport.resource("freshly_animated_legacy"), VanillaBackport.MOD_ID, "Freshly Animated Legacy");
+//        ResourcePackManager.registerBuiltResourcePack(VanillaBackport.resource("freshly_animated"), VanillaBackport.MOD_ID, "Freshly Animated");
+//        ResourcePackManager.registerBuiltResourcePack(VanillaBackport.resource("freshly_animated_legacy"), VanillaBackport.MOD_ID, "Freshly Animated Legacy");
 
         ResourceReloadManager.registerClient(event -> {
             event.register(new ResourceLocation("dry_foliage"), DryFoliageColorReloadListener.INSTANCE);
@@ -53,7 +54,7 @@ public class ClientSetup {
         GameRendering.registerItemColors(ColorRendering::itemColors);
         GameRendering.registerItemLikeRenderers(ItemLikeRendering::itemLikeRendering);
         GameRendering.registerBlockEntityRenderers(ItemLikeRendering::blockEntityRendering);
-        GameRendering.registerBlockRenderers(ItemLikeRendering::blockRendering);
+        GameRendering.registerCoreShaders(ModShaders::bootstrap);
         TickEvents.CLIENT_TICK_POST.register(() -> ClientWaypointManager.INSTANCE.tick(Minecraft.getInstance().player));
         TickEvents.CLIENT_TICK_POST.register(DynamicBlockRenderingHandler.INSTANCE::tick);
     }
@@ -69,6 +70,7 @@ public class ClientSetup {
         BundleMouseActions.bootstrap();
         
         GameRendering.registerBlockRenderers(ItemLikeRendering::renderTypes);
+        GameRendering.registerBlockRenderers(ItemLikeRendering::blockRendering);
         WoodTypeRegistry.registerWoodType(ModWoodTypes.PALE_OAK);
         CreativeTabIntegrations.register(VanillaTabIntegrations::bootstrap);
     }

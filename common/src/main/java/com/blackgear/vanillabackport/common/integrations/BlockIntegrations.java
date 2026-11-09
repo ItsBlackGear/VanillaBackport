@@ -1,17 +1,25 @@
 package com.blackgear.vanillabackport.common.integrations;
 
 import com.blackgear.platform.common.integration.BlockIntegration.Event;
+import com.blackgear.platform.common.integration.PotionBrewing;
 import com.blackgear.vanillabackport.common.integrations.dispenser.ArmadilloBrushDispenseBehavior;
 import com.blackgear.vanillabackport.common.integrations.dispenser.BoatDispenseBehavior;
 import com.blackgear.vanillabackport.common.integrations.dispenser.EggVariantProjectileDispenseBehavior;
 import com.blackgear.vanillabackport.common.integrations.dispenser.SulfurCubeBucketDispenseBehavior;
 import com.blackgear.vanillabackport.common.level.entities.mob.animal.chicken.ChickenVariants;
+import com.blackgear.vanillabackport.common.level.entities.projectile.IceBall;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
 import com.blackgear.vanillabackport.common.registries.entities.ModBoatTypes;
 import com.blackgear.vanillabackport.common.registries.items.ModItems;
+import com.blackgear.vanillabackport.common.registries.items.ModPotions;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.blackgear.vanillabackport.core.data.tags.ModItemTags;
+import net.minecraft.core.Position;
+import net.minecraft.core.dispenser.AbstractProjectileDispenseBehavior;
+import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 
 public class BlockIntegrations {
@@ -255,6 +263,19 @@ public class BlockIntegrations {
         // Wilderness Bound
         event.registerDispenserBehavior(ModItems.POPLAR_BOAT.get(), new BoatDispenseBehavior(ModBoatTypes.POPLAR));
         event.registerDispenserBehavior(ModItems.POPLAR_CHEST_BOAT.get(), new BoatDispenseBehavior(ModBoatTypes.POPLAR, true));
+        
+        // Miscellaneous
+        event.registerDispenserBehavior(ModItems.ICE_BALL.get(), new AbstractProjectileDispenseBehavior() {
+            @Override
+            protected Projectile getProjectile(Level level, Position position, ItemStack stack) {
+            return new IceBall(level, position.x(), position.y(), position.z());
+            }
+        });
+    }
+    
+    private static void registerPotionBrewing(PotionBrewing brewing) {
+        brewing.addStartMix(ModItems.ICE_BALL.get(), ModPotions.FREEZING.get());
+        brewing.addMix(ModPotions.FREEZING.get(), Items.REDSTONE, ModPotions.LONG_FREEZING.get());
     }
     
     public static void bootstrap(Event event) {
@@ -265,5 +286,6 @@ public class BlockIntegrations {
         registerWaxables(event);
         registerOxidables(event);
         registerDispensables(event);
+        event.registerPotionBrewing(BlockIntegrations::registerPotionBrewing);
     }
 }

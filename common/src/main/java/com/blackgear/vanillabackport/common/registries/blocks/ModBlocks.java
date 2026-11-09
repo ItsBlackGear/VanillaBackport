@@ -13,6 +13,7 @@ import com.blackgear.vanillabackport.core.data.tags.ModBlockTags;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.SimpleParticleType;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.WeatheringCopper.WeatherState;
@@ -702,7 +703,7 @@ public class ModBlocks {
 
     public static final Supplier<Block> POTENT_SULFUR = REGISTRIES.register("potent_sulfur", PotentSulfurBlock::new, SharedBlockProperties.SULFUR.sound(ModSoundTypes.POTENT_SULFUR));
     public static final Supplier<Block> SULFUR_SPIKE = REGISTRIES.register("sulfur_spike",
-        () -> new SpeleothemBlock(
+        () -> new SulfurSpikeBlock(
             SULFUR.get().defaultBlockState(),
             Properties.of()
                 .mapColor(MapColor.COLOR_YELLOW)
@@ -1022,6 +1023,76 @@ public class ModBlocks {
         SlabBlock::new, Properties.copy(Blocks.YELLOW_CONCRETE));
     public static final Supplier<Block> WHITE_CONCRETE_SLAB = REGISTRIES.register("white_concrete_slab",
         SlabBlock::new, Properties.copy(Blocks.WHITE_CONCRETE));
+    
+    // Miscellaneous
+    public static final Supplier<Block> BRITTLE_ICE = REGISTRIES.register("brittle_ice",
+        BrittleIceBlock::new,
+        Properties.of()
+            .mapColor(MapColor.ICE)
+            .friction(0.98F)
+            .strength(0.5F)
+            .sound(ModSoundTypes.BRITTLE_ICE)
+            .noOcclusion()
+            .instrument(NoteBlockInstrument.CHIME)
+            .isValidSpawn((state, level, pos, type) -> type == EntityType.POLAR_BEAR)
+            .isRedstoneConductor(REGISTRIES::never)
+            .pushReaction(PushReaction.DESTROY));
+    public static final Supplier<Block> ICICLE = REGISTRIES.register("icicle",
+        properties -> new IcicleBlock(Blocks.PACKED_ICE.defaultBlockState(), properties),
+        Properties.of()
+            .mapColor(MapColor.COLOR_LIGHT_BLUE)
+            .forceSolidOn()
+            .instrument(NoteBlockInstrument.CHIME)
+            .noOcclusion()
+            .sound(ModSoundTypes.ICICLE)
+            .randomTicks()
+            .strength(0.5F)
+            .dynamicShape()
+            .pushReaction(PushReaction.DESTROY)
+            .isRedstoneConductor(REGISTRIES::never));
+    public static final Supplier<Block> ICE_CRYSTAL = REGISTRIES.register("ice_crystal",
+        IceCrystalBlock::new,
+        Properties.of()
+            .mapColor(MapColor.ICE)
+            .sound(ModSoundTypes.ICE_CRYSTAL)
+            .instrument(NoteBlockInstrument.CHIME)
+            .strength(1.5F)
+            .lightLevel(state -> 4)
+            .pushReaction(PushReaction.DESTROY)
+            .isRedstoneConductor(REGISTRIES::never)
+            .noOcclusion());
+    
+    public static final Supplier<Block> PACKED_ICE_BRICKS = REGISTRIES.register("packed_ice_bricks", SharedBlockProperties.PACKED_ICE_BRICKS);
+    public static final Supplier<Block> PACKED_ICE_BRICK_SLAB = REGISTRIES.register("packed_ice_brick_slab", SlabBlock::new, SharedBlockProperties.PACKED_ICE_BRICKS);
+    public static final Supplier<Block> PACKED_ICE_BRICK_STAIRS = REGISTRIES.register("packed_ice_brick_stairs", () -> new StairBlock(PACKED_ICE_BRICKS.get().defaultBlockState(), SharedBlockProperties.PACKED_ICE_BRICKS));
+    public static final Supplier<Block> PACKED_ICE_BRICK_WALL = REGISTRIES.register("packed_ice_brick_wall", WallBlock::new, SharedBlockProperties.PACKED_ICE_BRICKS);
+    public static final Supplier<Block> CHISELED_PACKED_ICE = REGISTRIES.register("chiseled_packed_ice", SharedBlockProperties.PACKED_ICE_BRICKS);
+    
+    public static final Supplier<Block> SNOW_BRICKS = REGISTRIES.register("snow_bricks", SharedBlockProperties.SNOW_BRICKS);
+    public static final Supplier<Block> SNOW_BRICK_SLAB = REGISTRIES.register("snow_brick_slab", SlabBlock::new, SharedBlockProperties.SNOW_BRICKS);
+    public static final Supplier<Block> SNOW_BRICK_STAIRS = REGISTRIES.register("snow_brick_stairs", () -> new StairBlock(SNOW_BRICKS.get().defaultBlockState(), SharedBlockProperties.SNOW_BRICKS));
+    public static final Supplier<Block> SNOW_BRICK_WALL = REGISTRIES.register("snow_brick_wall", WallBlock::new, SharedBlockProperties.SNOW_BRICKS);
+    
+    public static final Supplier<Block> CALCITE_PILLAR = REGISTRIES.register("calcite_pillar", RotatedPillarBlock::new, Properties.copy(Blocks.CALCITE));
+    public static final Supplier<Block> CALCITE_SLAB = REGISTRIES.register("calcite_slab", SlabBlock::new, Properties.copy(Blocks.CALCITE));
+    public static final Supplier<Block> CALCITE_STAIRS = REGISTRIES.register("calcite_stairs", () -> new StairBlock(Blocks.CALCITE.defaultBlockState(), Properties.copy(Blocks.CALCITE)));
+    public static final Supplier<Block> CALCITE_WALL = REGISTRIES.register("calcite_wall", WallBlock::new, Properties.copy(Blocks.CALCITE));
+    
+    public static final Supplier<Block> POLISHED_CALCITE = REGISTRIES.register("polished_calcite", Properties.copy(Blocks.CALCITE));
+    public static final Supplier<Block> POLISHED_CALCITE_SLAB = REGISTRIES.register("polished_calcite_slab", SlabBlock::new, Properties.copy(Blocks.CALCITE));
+    public static final Supplier<Block> POLISHED_CALCITE_STAIRS = REGISTRIES.register("polished_calcite_stairs", () -> new StairBlock(POLISHED_CALCITE.get().defaultBlockState(), Properties.copy(Blocks.CALCITE)));
+    public static final Supplier<Block> POLISHED_CALCITE_WALL = REGISTRIES.register("polished_calcite_wall", WallBlock::new, Properties.copy(Blocks.CALCITE));
+    
+    public static final Supplier<Block> POLISHED_CALCITE_BRICKS = REGISTRIES.register("polished_calcite_bricks", Properties.copy(Blocks.CALCITE));
+    public static final Supplier<Block> POLISHED_CALCITE_BRICK_SLAB = REGISTRIES.register("polished_calcite_brick_slab", SlabBlock::new, Properties.copy(Blocks.CALCITE));
+    public static final Supplier<Block> POLISHED_CALCITE_BRICK_STAIRS = REGISTRIES.register("polished_calcite_brick_stairs", () -> new StairBlock(POLISHED_CALCITE_BRICKS.get().defaultBlockState(), Properties.copy(Blocks.CALCITE)));
+    public static final Supplier<Block> POLISHED_CALCITE_BRICK_WALL = REGISTRIES.register("polished_calcite_brick_wall", WallBlock::new, Properties.copy(Blocks.CALCITE));
+    
+    public static final Supplier<Block> CHISELED_SOULSHALE = REGISTRIES.register("chiseled_soulshale",
+        Properties.of()
+            .mapColor(MapColor.WARPED_STEM)
+            .strength(2.0F, 6.0F)
+            .sound(SoundType.POLISHED_DEEPSLATE));
     
     // Helper
     

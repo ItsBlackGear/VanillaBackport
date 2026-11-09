@@ -39,7 +39,7 @@ public record ClientboundNautilusScreenOpenPacket(int containerId, int size, int
         public PacketContext handle(ClientboundNautilusScreenOpenPacket packet) {
             return (player, level) -> {
                 if (level.isClientSide()) {
-                    ClientboundPacketListener.handleNautilusScreenOpen(packet, player, level);
+                    ClientboundPacketListener.INSTANCE.handleNautilusScreenOpen(packet, player, level);
                 }
             };
         }

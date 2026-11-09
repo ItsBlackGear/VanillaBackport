@@ -15,4 +15,7 @@ public class ModEntityTypeTags {
     public static final TagKey<EntityType<?>> ACCEPTS_IRON_GOLEM_GIFT = TAGS.register("accepts_iron_golem_gift");
     public static final TagKey<EntityType<?>> CAN_FLOAT_WHILE_RIDDEN = TAGS.register("can_float_while_ridden");
     public static final TagKey<EntityType<?>> NAUTILUS_HOSTILES = TAGS.register("nautilus_hostiles");
+    public static final TagKey<EntityType<?>> DOES_NOT_BREAK_BRITTLE_ICE = TAGS.register("does_not_break_brittle_ice");
+    public static final TagKey<EntityType<?>> ZOMBIES_THAT_CONVERT_ON_POWDER_SNOW = TAGS.register("zombies_that_convert_on_powder_snow");
+    public static final TagKey<EntityType<?>> IMMUNE_TO_FREEZING = TAGS.register("immune_to_freezing");
 }

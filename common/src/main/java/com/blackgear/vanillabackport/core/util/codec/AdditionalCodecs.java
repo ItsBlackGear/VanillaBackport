@@ -1,5 +1,6 @@
 package com.blackgear.vanillabackport.core.util.codec;
 
+import com.blackgear.vanillabackport.core.mixin.common.access.ExtraCodecsAccessor;
 import com.blackgear.vanillabackport.core.util.Utilities.*;
 import com.mojang.datafixers.util.Either;
 import com.mojang.serialization.Codec;
@@ -67,6 +68,10 @@ public class AdditionalCodecs {
                 ? DataResult.error(() -> "Value provider too low: " + minValue + " [" + value.getMinValue() + "-" + value.getMaxValue() + "]")
                 : DataResult.success(value)
         );
+    }
+    
+    public static Codec<Float> floatRange(float minInclusive, float maxInclusive) {
+        return ExtraCodecsAccessor.callFloatRangeMinExclusiveWithMessage(minInclusive, maxInclusive, value -> "Value must be within range [" + minInclusive + ";" + maxInclusive + "]: " + value);
     }
 
     interface BoundsFactory<T extends Number, R extends MinMaxBounds<T>> {

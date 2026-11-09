@@ -20,10 +20,7 @@ import net.minecraft.world.level.storage.loot.functions.EnchantRandomlyFunction;
 import net.minecraft.world.level.storage.loot.functions.EnchantWithLevelsFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.functions.SetItemDamageFunction;
-import net.minecraft.world.level.storage.loot.predicates.DamageSourceCondition;
-import net.minecraft.world.level.storage.loot.predicates.LocationCheck;
-import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
-import net.minecraft.world.level.storage.loot.predicates.LootItemKilledByPlayerCondition;
+import net.minecraft.world.level.storage.loot.predicates.*;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 
@@ -229,6 +226,20 @@ public class LootIntegrations implements LootModifier.LootTableModifier {
             if (path.equals(ModBuiltInLootTables.ABANDONED_CAMP_SECRET_CHEST)) {
                 context.addToPool(2, LootItem.lootTableItem(ModItems.IRON_SPEAR.get()).setWeight(1).apply(SetItemCountFunction.setCount(ConstantValue.exactly(1))));
             }
+        }
+        
+        // Miscellaneous
+        if (path.equals(BuiltInLootTables.IGLOO_CHEST)) {
+            context.addPool(
+                LootPool.lootPool()
+                    .setRolls(ConstantValue.exactly(1))
+                    .when(LootItemRandomChanceCondition.randomChance(0.3F))
+                    .add(LootItem.lootTableItem(ModItems.MUSIC_DISC_FLURRY.get()))
+            );
+        }
+        
+        if (path.equals(BuiltInLootTables.ANCIENT_CITY)) {
+            context.addToPool(LootItem.lootTableItem(ModBlocks.CHISELED_SOULSHALE.get()).setWeight(3));
         }
     }
 }

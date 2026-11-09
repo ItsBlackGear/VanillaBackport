@@ -9,6 +9,8 @@ import net.minecraft.world.level.block.Block;
 public class ModBlockTags {
     public static final TagRegistry<Block> TAGS = TagRegistry.create(Registries.BLOCK, VanillaBackport.NAMESPACE);
 
+    public static final TagKey<Block> BLOCKS_WIND_CHARGE_EXPLOSIONS = TAGS.register("blocks_wind_charge_explosions");
+    
     public static final TagKey<Block> PALE_OAK_LOGS = TAGS.register("pale_oak_logs");
     public static final TagKey<Block> CREAKING_HEART_HOLDERS = TAGS.register("creaking_heart_holders");
 
@@ -57,4 +59,12 @@ public class ModBlockTags {
 
     public static final TagKey<Block> CONCRETE_STAIRS = TAGS.register("concrete_stairs");
     public static final TagKey<Block> CONCRETE_SLABS = TAGS.register("concrete_slabs");
+    
+    public static final TagKey<Block> ICE_SPIKE_REPLACEABLE = TAGS.register("ice_spike_replaceable");
+    public static final TagKey<Block> LARGE_ICICLE_REPLACEABLE = TAGS.register("large_icicle_replaceable");
+    public static final TagKey<Block> MELTS_ICICLE_ABOVE = TAGS.register("melts_icicle_above");
+    public static final TagKey<Block> ICE_CAVE_ORE_REPLACEABLES = TAGS.register("ice_cave_ore_replaceables");
+    public static final TagKey<Block> ICE_CREVASSE_REPLACEABLES = TAGS.register("ice_crevasse_replaceables");
+    
+    public static final TagKey<Block> JUKEBOX_CONTAINERS = TAGS.register("jukebox_containers");
 }

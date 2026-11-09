@@ -89,6 +89,18 @@ public abstract class LivingEntityMixin extends Entity implements GraceTimeWeapo
         this.currentImpulseImpactPos = null;
     }
     
+    @Override
+    public Vec3 getCurrentImpulseImpactPos() {
+        return this.currentImpulseImpactPos;
+    }
+    
+    @Inject(method = "tick", at = @At("TAIL"))
+    private void vb$onTick(CallbackInfo ci) {
+        if (this.currentImpulseContextResetGraceTime > 0) {
+            this.currentImpulseContextResetGraceTime--;
+        }
+    }
+    
     @ModifyVariable(method = "causeFallDamage", at = @At("HEAD"), ordinal = 0, argsOnly = true)
     private float vb$causeFallDamage(float fallDistance) {
         if (this.isIgnoringFallDamageFromCurrentImpulse()) {

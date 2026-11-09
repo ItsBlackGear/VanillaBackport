@@ -5,12 +5,14 @@ import com.blackgear.platform.core.network.base.NetworkDirection;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 
 public class NetworkHandler {
-    public static final NetworkChannel DEFAULT_CHANNEL = new NetworkChannel(VanillaBackport.MOD_ID, 2, "network");
+    public static final NetworkChannel DEFAULT_CHANNEL = new NetworkChannel(VanillaBackport.MOD_ID, 3, "network");
 
     public static void bootstrap() {
         DEFAULT_CHANNEL.registerPacket(NetworkDirection.CLIENTBOUND, ClientboundNautilusScreenOpenPacket.ID, ClientboundNautilusScreenOpenPacket.HANDLER, ClientboundNautilusScreenOpenPacket.class);
         DEFAULT_CHANNEL.registerPacket(NetworkDirection.CLIENTBOUND, ClientboundTrackedWaypointPacket.ID, ClientboundTrackedWaypointPacket.HANDLER, ClientboundTrackedWaypointPacket.class);
         DEFAULT_CHANNEL.registerPacket(NetworkDirection.CLIENTBOUND, ClientboundUpdateSpearSwingPacket.ID, ClientboundUpdateSpearSwingPacket.HANDLER, ClientboundUpdateSpearSwingPacket.class);
+        DEFAULT_CHANNEL.registerPacket(NetworkDirection.CLIENTBOUND, ClientboundWindBurstPacket.ID, ClientboundWindBurstPacket.HANDLER, ClientboundWindBurstPacket.class);
+        DEFAULT_CHANNEL.registerPacket(NetworkDirection.CLIENTBOUND, ClientboundLevelEventsPacket.ID, ClientboundLevelEventsPacket.HANDLER, ClientboundLevelEventsPacket.class);
         
         DEFAULT_CHANNEL.registerPacket(NetworkDirection.SERVERBOUND, ServerboundSelectBundleItemPacket.ID, ServerboundSelectBundleItemPacket.HANDLER, ServerboundSelectBundleItemPacket.class);
         DEFAULT_CHANNEL.registerPacket(NetworkDirection.SERVERBOUND, ServerboundClientTickEndPacket.ID, ServerboundClientTickEndPacket.HANDLER, ServerboundClientTickEndPacket.class);

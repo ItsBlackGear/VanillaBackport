@@ -154,6 +154,12 @@
   },
   "requirements": [
     [
+      "minecraft:woods"
+    ],
+    [
+      "minecraft:black"
+    ],
+    [
       "minecraft:snowy"
     ],
     [
@@ -173,12 +179,6 @@
     ],
     [
       "minecraft:spotted"
-    ],
-    [
-      "minecraft:woods"
-    ],
-    [
-      "minecraft:black"
     ]
   ],
   "rewards": {

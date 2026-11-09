@@ -15,6 +15,7 @@ import com.blackgear.vanillabackport.client.level.model.entity.cow.ColdCowModel;
 import com.blackgear.vanillabackport.client.level.model.entity.cow.WarmCowModel;
 import com.blackgear.vanillabackport.client.level.model.entity.happy_ghast.HappyGhastHarnessModel;
 import com.blackgear.vanillabackport.client.level.model.entity.happy_ghast.HappyGhastModel;
+import com.blackgear.vanillabackport.client.level.model.entity.mob.FrostbiteRenderer;
 import com.blackgear.vanillabackport.client.level.model.entity.nautilus.NautilusModel;
 import com.blackgear.vanillabackport.client.level.model.entity.nautilus.ZombieNautilusCoralModel;
 import com.blackgear.vanillabackport.client.level.model.entity.pig.ColdPigModel;
@@ -22,7 +23,9 @@ import com.blackgear.vanillabackport.client.level.model.entity.sulfur_cube.Small
 import com.blackgear.vanillabackport.client.level.model.entity.sulfur_cube.SulfurCubeModel;
 import com.blackgear.vanillabackport.client.level.model.entity.wolf.WolfArmorModel;
 import com.blackgear.vanillabackport.client.level.model.object.CushionModel;
+import com.blackgear.vanillabackport.client.level.model.object.WindChargeModel;
 import com.blackgear.vanillabackport.client.level.renderer.entity.CustomBoatRenderer;
+import com.blackgear.vanillabackport.client.level.renderer.entity.WindChargeRenderer;
 import com.blackgear.vanillabackport.client.level.renderer.entity.mob.*;
 import com.blackgear.vanillabackport.client.level.renderer.object.CushionRenderer;
 import com.blackgear.vanillabackport.client.registries.ModModelLayers;
@@ -48,6 +51,8 @@ public class EntityRendering {
         
         event.register(ModModelLayers.ARMADILLO, ArmadilloModel::createBodyLayer);
         event.register(ModModelLayers.WOLF_ARMOR, () -> LayerDefinition.create(WolfArmorModel.createMeshDefinition(new CubeDeformation(0.2F)), 64, 32));
+        
+        event.register(ModModelLayers.WIND_CHARGE, WindChargeModel::createBodyLayer);
         
         event.register(ModModelLayers.CREAKING, CreakingModel::createBodyLayer);
         event.register(ModModelLayers.CUSTOM_BOAT, BoatModel::createBodyModel);
@@ -85,10 +90,17 @@ public class EntityRendering {
         event.register(ModModelLayers.SULFUR_CUBE_SMALL_INNER, SmallSulfurCubeModel::createInnerBodyLayer);
         
         event.register(ModModelLayers.CUSHION, CushionModel::createBodyLayer);
+        
+        event.register(ModModelLayers.FROSTBITE, () -> DrownedModel.createBodyLayer(CubeDeformation.NONE));
+        event.register(ModModelLayers.FROSTBITE_OUTER_LAYER, () -> DrownedModel.createBodyLayer(new CubeDeformation(0.25F)));
+        event.register(ModModelLayers.FROSTBITE_OUTER_ARMOR, () -> outerArmorDefinition);
+        event.register(ModModelLayers.FROSTBITE_INNER_ARMOR, () -> innerArmorDefinition);
     }
     
     public static void renderers(EntityRendererEvent event) {
         event.register(ModEntityTypes.ARMADILLO.get(), ArmadilloRenderer::new);
+        
+        event.register(ModEntityTypes.WIND_CHARGE.get(), WindChargeRenderer::new);
         
         event.register(ModEntityTypes.CREAKING.get(), CreakingRenderer::new);
         event.register(ModEntityTypes.CUSTOM_BOAT.get(), context -> new CustomBoatRenderer(context, false));
@@ -105,6 +117,9 @@ public class EntityRendering {
         event.register(ModEntityTypes.ZOMBIE_NAUTILUS.get(), ZombieNautilusRenderer::new);
         
         event.register(ModEntityTypes.SULFUR_CUBE.get(), SulfurCubeRenderer::new);
+        
+        event.register(ModEntityTypes.ICE_BALL.get(), ThrownItemRenderer::new);
+        event.register(ModEntityTypes.FROSTBITE.get(), FrostbiteRenderer::new);
     }
     
     public static void renderLayers(EntityType<? extends LivingEntity> entity, LivingEntityRenderer<?, ?> renderer, LayerAppender appender, EntityRendererProvider.Context context) {

@@ -272,6 +272,37 @@ public class BlockFamilies {
         .slab(ModBlocks.WHITE_CONCRETE_SLAB.get())
         .stairs(ModBlocks.WHITE_CONCRETE_STAIRS.get())
         .getFamily();
+    
+    public static final BlockFamily PACKED_ICE_BRICKS = familyBuilder(ModBlocks.PACKED_ICE_BRICKS.get())
+        .slab(ModBlocks.PACKED_ICE_BRICK_SLAB.get())
+        .stairs(ModBlocks.PACKED_ICE_BRICK_STAIRS.get())
+        .wall(ModBlocks.PACKED_ICE_BRICK_WALL.get())
+        .chiseled(ModBlocks.CHISELED_PACKED_ICE.get())
+        .getFamily();
+    
+    public static final BlockFamily SNOW_BRICKS = familyBuilder(ModBlocks.SNOW_BRICKS.get())
+        .slab(ModBlocks.SNOW_BRICK_SLAB.get())
+        .stairs(ModBlocks.SNOW_BRICK_STAIRS.get())
+        .wall(ModBlocks.SNOW_BRICK_WALL.get())
+        .getFamily();
+    
+    public static final BlockFamily CALCITE = familyBuilder(Blocks.CALCITE)
+        .slab(ModBlocks.CALCITE_SLAB.get())
+        .stairs(ModBlocks.CALCITE_STAIRS.get())
+        .wall(ModBlocks.CALCITE_WALL.get())
+        .polished(ModBlocks.POLISHED_CALCITE.get())
+        .getFamily();
+    
+    public static final BlockFamily POLISHED_CALCITE = familyBuilder(ModBlocks.POLISHED_CALCITE.get())
+        .stairs(ModBlocks.POLISHED_CALCITE_STAIRS.get())
+        .wall(ModBlocks.POLISHED_CALCITE_WALL.get())
+        .getFamily();
+    
+    public static final BlockFamily POLISHED_CALCITE_BRICKS = familyBuilder(ModBlocks.POLISHED_CALCITE_BRICKS.get())
+        .slab(ModBlocks.POLISHED_CALCITE_BRICK_SLAB.get())
+        .stairs(ModBlocks.POLISHED_CALCITE_BRICK_STAIRS.get())
+        .wall(ModBlocks.POLISHED_CALCITE_BRICK_WALL.get())
+        .getFamily();
 
     private static BlockFamily.Builder familyBuilder(Block block) {
         BlockFamily.Builder builder = new BlockFamily.Builder(block);

@@ -81,7 +81,12 @@ public abstract class BlockItemTagGenerator {
                 ModBlocks.SULFUR_BRICK_SLAB.get(),
                 ModBlocks.TUFF_SLAB.get(),
                 ModBlocks.POLISHED_TUFF_SLAB.get(),
-                ModBlocks.TUFF_BRICK_SLAB.get()
+                ModBlocks.TUFF_BRICK_SLAB.get(),
+                ModBlocks.PACKED_ICE_BRICK_SLAB.get(),
+                ModBlocks.SNOW_BRICK_SLAB.get(),
+                ModBlocks.CALCITE_SLAB.get(),
+                ModBlocks.POLISHED_CALCITE_SLAB.get(),
+                ModBlocks.POLISHED_CALCITE_BRICK_SLAB.get()
             )
             .addTag(ModBlockTags.WOOL_SLABS);
 
@@ -96,7 +101,12 @@ public abstract class BlockItemTagGenerator {
                 ModBlocks.SULFUR_BRICK_WALL.get(),
                 ModBlocks.TUFF_WALL.get(),
                 ModBlocks.POLISHED_TUFF_WALL.get(),
-                ModBlocks.TUFF_BRICK_WALL.get()
+                ModBlocks.TUFF_BRICK_WALL.get(),
+                ModBlocks.PACKED_ICE_BRICK_WALL.get(),
+                ModBlocks.SNOW_BRICK_WALL.get(),
+                ModBlocks.CALCITE_WALL.get(),
+                ModBlocks.POLISHED_CALCITE_WALL.get(),
+                ModBlocks.POLISHED_CALCITE_BRICK_WALL.get()
             );
 
         this.tag(BlockTags.STAIRS, ItemTags.STAIRS)
@@ -110,7 +120,12 @@ public abstract class BlockItemTagGenerator {
                 ModBlocks.SULFUR_BRICK_STAIRS.get(),
                 ModBlocks.TUFF_STAIRS.get(),
                 ModBlocks.POLISHED_TUFF_STAIRS.get(),
-                ModBlocks.TUFF_BRICK_STAIRS.get()
+                ModBlocks.TUFF_BRICK_STAIRS.get(),
+                ModBlocks.PACKED_ICE_BRICK_STAIRS.get(),
+                ModBlocks.SNOW_BRICK_STAIRS.get(),
+                ModBlocks.CALCITE_STAIRS.get(),
+                ModBlocks.POLISHED_CALCITE_STAIRS.get(),
+                ModBlocks.POLISHED_CALCITE_BRICK_STAIRS.get()
             )
             .addTag(ModBlockTags.WOOL_STAIRS);
 

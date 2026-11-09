@@ -4,15 +4,23 @@ import com.blackgear.vanillabackport.common.api.modules.leash_behavior.Leashable
 import com.blackgear.vanillabackport.core.mixin.common.access.AnimationStateAccessor;
 import com.blackgear.vanillabackport.core.mixin.common.access.MobAccessor;
 import com.google.common.collect.ImmutableMap;
+import com.mojang.datafixers.util.Pair;
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.Holder;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
 import net.minecraft.util.SpawnUtil;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.PanicGoal;
@@ -21,11 +29,12 @@ import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import net.minecraft.world.entity.ai.util.GoalUtils;
 import net.minecraft.world.entity.ai.util.RandomPos;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.item.PrimedTnt;
+import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraft.world.level.ClipContext;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.SignalGetter;
+import net.minecraft.world.level.*;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -345,6 +354,81 @@ public class WorldUtilities {
             }
             
             return false;
+        }
+    }
+    
+    public static class ExplosionUtils {
+        
+        /**
+         * Calcula el porcentaje de visibilidad del raycast hacia una entidad.
+         */
+        public static float getSeenPercent(Vec3 explosionVector, Entity entity) {
+            AABB aABB = entity.getBoundingBox();
+            double d = 1.0 / (((aABB.maxX - aABB.minX) * 2.0) + 1.0);
+            double e = 1.0 / (((aABB.maxY - aABB.minY) * 2.0) + 1.0);
+            double f = 1.0 / (((aABB.maxZ - aABB.minZ) * 2.0) + 1.0);
+            double g = (1.0 - (Math.floor(1.0 / d) * d)) / 2.0;
+            double h = (1.0 - (Math.floor(1.0 / f) * f)) / 2.0;
+            
+            if (d >= 0.0 && e >= 0.0 && f >= 0.0) {
+                int i = 0;
+                int j = 0;
+                for (double k = 0.0; k <= 1.0; k += d) {
+                    for (double l = 0.0; l <= 1.0; l += e) {
+                        for (double m = 0.0; m <= 1.0; m += f) {
+                            double n = Mth.lerp(k, aABB.minX, aABB.maxX);
+                            double o = Mth.lerp(l, aABB.minY, aABB.maxY);
+                            double p = Mth.lerp(m, aABB.minZ, aABB.maxZ);
+                            Vec3 vec3 = new Vec3(n + g, o, p + h);
+                            if (entity.level().clip(new ClipContext(vec3, explosionVector, ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, entity)).getType() == HitResult.Type.MISS) {
+                                i++;
+                            }
+                            j++;
+                        }
+                    }
+                }
+                return (float) i / j;
+            }
+            return 0.0f;
+        }
+        
+        /**
+         * Resuelve la entidad origen indirecta (dueño/lanzador) de la explosión.
+         */
+        @Nullable
+        public static LivingEntity getIndirectSourceEntity(@Nullable Entity source) {
+            if (source == null) {
+                return null;
+            }
+            if (source instanceof PrimedTnt primedTnt) {
+                return primedTnt.getOwner();
+            }
+            if (source instanceof LivingEntity livingEntity) {
+                return livingEntity;
+            }
+            if (source instanceof Projectile projectile && projectile.getOwner() instanceof LivingEntity livingOwner) {
+                return livingOwner;
+            }
+            return null;
+        }
+        
+        /**
+         * Agrupa o combina stacks de ítems tirados por bloques destruidos.
+         */
+        public static void addOrAppendStack(ObjectArrayList<Pair<ItemStack, BlockPos>> dropList, ItemStack stackToAppend, BlockPos pos) {
+            int size = dropList.size();
+            for (int i = 0; i < size; i++) {
+                Pair<ItemStack, BlockPos> pair = dropList.get(i);
+                ItemStack existingStack = pair.getFirst();
+                if (ItemEntity.areMergable(existingStack, stackToAppend)) {
+                    ItemStack merged = ItemEntity.merge(existingStack, stackToAppend, 16);
+                    dropList.set(i, Pair.of(merged, pair.getSecond()));
+                    if (stackToAppend.isEmpty()) {
+                        return;
+                    }
+                }
+            }
+            dropList.add(Pair.of(stackToAppend, pos));
         }
     }
     

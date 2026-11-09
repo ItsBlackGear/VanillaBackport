@@ -13,6 +13,7 @@ import com.blackgear.vanillabackport.common.value_providers.TrapezoidInt;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderSet;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -165,12 +166,12 @@ public class ChaosCubedFeatures {
                 BlockPredicate.ONLY_IN_AIR_PREDICATE
             ));
     public static final ResourceKey<ConfiguredFeature<?, ?>> SULFUR_SPIKE_CLUSTER = REGISTRIES.register("sulfur_spike_cluster",
-        ModFeatures.SPELEOTHEM_CLUSTER.get(),
-        (features, placements) ->
+        context -> new ConfiguredFeature<>(
+            ModFeatures.SPELEOTHEM_CLUSTER.get(),
             new SpeleothemClusterConfiguration(
                 ModBlocks.SULFUR.get().defaultBlockState(),
                 ModBlocks.SULFUR_SPIKE.get().defaultBlockState(),
-                ModBlockTags.SULFUR_SPIKE_REPLACEABLE,
+                context.lookup(Registries.BLOCK).getOrThrow(ModBlockTags.SULFUR_SPIKE_REPLACEABLE),
                 12,
                 UniformInt.of(1, 4),
                 UniformInt.of(2, 8),
@@ -182,10 +183,12 @@ public class ChaosCubedFeatures {
                 0.1F,
                 3,
                 8
-            ));
+            )
+        )
+    );
     public static final ResourceKey<ConfiguredFeature<?, ?>> SULFUR_SPIKE = REGISTRIES.register("sulfur_spike",
-        Feature.SIMPLE_RANDOM_SELECTOR,
-        (features, placements) ->
+        context -> new ConfiguredFeature<>(
+            Feature.SIMPLE_RANDOM_SELECTOR,
             new SimpleRandomFeatureConfiguration(
                 HolderSet.direct(
                     PlacementUtils.inlinePlaced(
@@ -193,7 +196,7 @@ public class ChaosCubedFeatures {
                         new SpeleothemConfiguration(
                             ModBlocks.SULFUR.get().defaultBlockState(),
                             ModBlocks.SULFUR_SPIKE.get().defaultBlockState(),
-                            ModBlockTags.SULFUR_SPIKE_REPLACEABLE,
+                            context.lookup(Registries.BLOCK).getOrThrow(ModBlockTags.SULFUR_SPIKE_REPLACEABLE),
                             0.2F,
                             0.7F,
                             0.5F,
@@ -207,7 +210,7 @@ public class ChaosCubedFeatures {
                         new SpeleothemConfiguration(
                             ModBlocks.SULFUR.get().defaultBlockState(),
                             ModBlocks.SULFUR_SPIKE.get().defaultBlockState(),
-                            ModBlockTags.SULFUR_SPIKE_REPLACEABLE,
+                            context.lookup(Registries.BLOCK).getOrThrow(ModBlockTags.SULFUR_SPIKE_REPLACEABLE),
                             0.2F,
                             0.7F,
                             0.5F,
@@ -217,5 +220,7 @@ public class ChaosCubedFeatures {
                         RandomOffsetPlacement.vertical(ConstantInt.of(-1))
                     )
                 )
-            ));
+            )
+        )
+    );
 }

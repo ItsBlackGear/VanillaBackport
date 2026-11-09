@@ -8,10 +8,9 @@ import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Either;
 import it.unimi.dsi.fastutil.longs.LongOpenHashSet;
 import it.unimi.dsi.fastutil.longs.LongSet;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
-import net.minecraft.core.GlobalPos;
-import net.minecraft.core.Vec3i;
+import net.minecraft.core.*;
+import net.minecraft.core.particles.ParticleOptions;
+import net.minecraft.core.particles.ParticleType;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
@@ -48,6 +47,14 @@ import java.util.function.Function;
 import static net.minecraft.util.FastColor.ARGB32.*;
 
 public class Utilities {
+    public static class Holders {
+        private static final HolderSet.Direct<?> EMPTY_HOLDER_SET = new HolderSet.Direct<>(List.of());
+        
+        public static <T> HolderSet<T> empty() {
+            return (HolderSet<T>) EMPTY_HOLDER_SET;
+        }
+    }
+    
     public static class MthUtils {
         public static final double EPSILON = 1.0E-7;
         
@@ -521,6 +528,35 @@ public class Utilities {
             }
         }
         
+        public static Iterable<BlockPos> horizontalRays(final BlockPos origin, final int distance) {
+            return horizontalRays(origin, 1, distance);
+        }
+        
+        public static Iterable<BlockPos> horizontalAtDistance(final BlockPos origin, final int distance) {
+            return horizontalRays(origin, distance, distance);
+        }
+        
+        private static Iterable<BlockPos> horizontalRays(final BlockPos origin, final int minDistance, final int maxDistance) {
+            Direction[] directions = Direction.Plane.HORIZONTAL.stream().toArray(Direction[]::new);
+            int rayLength = Math.max(maxDistance - minDistance + 1, 0);
+            int stepCount = directions.length * rayLength;
+            return () -> new AbstractIterator<>() {
+                private final BlockPos.MutableBlockPos cursor = new BlockPos.MutableBlockPos();
+                private int index;
+                
+                protected BlockPos computeNext() {
+                    if (this.index == stepCount) {
+                        return this.endOfData();
+                    } else {
+                        Direction direction = directions[this.index / rayLength];
+                        int distance = minDistance + this.index % rayLength;
+                        this.index++;
+                        return this.cursor.setWithOffset(origin, direction.getStepX() * distance, 0, direction.getStepZ() * distance);
+                    }
+                }
+            };
+        }
+        
         @FunctionalInterface
         public interface BlockStepVisitor {
             boolean visit(BlockPos pos, int iteration);
@@ -797,6 +833,10 @@ public class Utilities {
             ResourceKey<WaypointStyleAsset> style = ResourceKey.create(WaypointStyleAssets.ROOT_ID, buf.readResourceLocation());
             Optional<Integer> color = buf.readOptional(FriendlyByteBuf::readVarInt);
             return new Waypoint.Icon(style, color);
+        }
+        
+        public static <T extends ParticleOptions> T readParticle(FriendlyByteBuf buf, ParticleType<T> type) {
+            return type.getDeserializer().fromNetwork(type, buf);
         }
     }
 }

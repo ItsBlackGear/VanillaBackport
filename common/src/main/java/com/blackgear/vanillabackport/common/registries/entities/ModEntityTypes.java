@@ -13,6 +13,9 @@ import com.blackgear.vanillabackport.common.level.entities.mob.monster.creaking.
 import com.blackgear.vanillabackport.common.level.entities.mob.animal.happy_ghast.HappyGhast;
 import com.blackgear.vanillabackport.common.level.entities.mob.monster.skeleton.Parched;
 import com.blackgear.vanillabackport.common.level.entities.mob.monster.sulfur_cube.SulfurCube;
+import com.blackgear.vanillabackport.common.level.entities.mob.monster.zombie.Frostbite;
+import com.blackgear.vanillabackport.common.level.entities.projectile.IceBall;
+import com.blackgear.vanillabackport.common.level.entities.projectile.wind_charge.WindCharge;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -28,6 +31,14 @@ public class ModEntityTypes {
         EntityType.Builder.of(Armadillo::new, MobCategory.CREATURE)
             .sized(0.7F, 0.65F)
             .clientTrackingRange(10));
+    
+    // Tricky Trials
+    
+    public static final Supplier<EntityType<WindCharge>> WIND_CHARGE = REGISTRIES.entity("wind_charge",
+        EntityType.Builder.<WindCharge>of(WindCharge::new, MobCategory.MISC)
+            .sized(0.3125F, 0.3125F)
+            .clientTrackingRange(4)
+            .updateInterval(10));
     
     // The Garden Awakens
     
@@ -85,11 +96,24 @@ public class ModEntityTypes {
             .sized(0.49F, 0.49F)
             .clientTrackingRange(10));
     
-    // Miscellaneous
+    // Wilderness Bound
     
     public static final Supplier<EntityType<Cushion>> CUSHION = REGISTRIES.entity("cushion",
         EntityType.Builder.of(Cushion::new, MobCategory.MISC)
             .sized(1.0F, 0.25F)
             .clientTrackingRange(10)
             .updateInterval(Integer.MAX_VALUE));
+    
+    
+    // Miscellaneous
+    
+    public static final Supplier<EntityType<IceBall>> ICE_BALL = REGISTRIES.entity("ice_ball",
+        EntityType.Builder.<IceBall>of(IceBall::new, MobCategory.MISC)
+            .sized(0.25F, 0.25F)
+            .clientTrackingRange(4)
+            .updateInterval(10));
+    public static final Supplier<EntityType<Frostbite>> FROSTBITE = REGISTRIES.entity("frostbite",
+        EntityType.Builder.of(Frostbite::new, MobCategory.MONSTER)
+            .sized(0.6F, 1.95F)
+            .clientTrackingRange(8));
 }

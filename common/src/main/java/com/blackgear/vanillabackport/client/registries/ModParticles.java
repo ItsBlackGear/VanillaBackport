@@ -7,6 +7,7 @@ import com.blackgear.vanillabackport.client.level.particle.particleoptions.Geyse
 import com.blackgear.vanillabackport.client.level.particle.particleoptions.TrailParticleOption;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.SimpleParticleType;
@@ -20,7 +21,18 @@ import java.util.function.Supplier;
 
 public class ModParticles {
     public static final ParticleRegistry REGISTRIES = ParticleRegistry.create(VanillaBackport.NAMESPACE);
-
+    
+    public static final Supplier<SimpleParticleType> GUST = REGISTRIES.register("gust", true);
+    public static final Supplier<SimpleParticleType> SMALL_GUST = REGISTRIES.register("small_gust", false);
+    public static final Supplier<SimpleParticleType> GUST_EMITTER_LARGE = REGISTRIES.register("gust_emitter_large", true);
+    public static final Supplier<SimpleParticleType> GUST_EMITTER_SMALL = REGISTRIES.register("gust_emitter_small", true);
+    public static final Supplier<ParticleType<BlockParticleOption>> DUST_PILLAR = REGISTRIES.register(
+        "dust_pillar",
+        false,
+        BlockParticleOption.DESERIALIZER,
+        BlockParticleOption::codec
+    );
+    
     public static final Supplier<SimpleParticleType> PALE_OAK_LEAVES = REGISTRIES.register("pale_oak_leaves", false);
     public static final Supplier<ParticleType<TrailParticleOption>> TRAIL = REGISTRIES.register(
         "trail",

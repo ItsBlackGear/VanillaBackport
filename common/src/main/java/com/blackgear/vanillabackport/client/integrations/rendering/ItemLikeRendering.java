@@ -52,6 +52,12 @@ public class ItemLikeRendering {
             new BackportedItemRenderer(VanillaBackport.CLIENT_CONFIG.hasModernRedstoneTorchModels, redstoneTorches),
             redstoneTorches
         );
+        
+        Set<Item> jukeboxBlocks = Set.of(Items.JUKEBOX);
+        event.simple(
+            new BackportedItemRenderer(VanillaBackport.CLIENT_CONFIG.hasModernJukeboxTexture, jukeboxBlocks),
+            jukeboxBlocks
+        );
 
         BuiltInRegistries.ITEM.stream().filter(item -> item instanceof BannerPatternItem).forEach(item -> event.simple(BannerPatternRenderer.INSTANCE, item));
     }
@@ -76,18 +82,23 @@ public class ItemLikeRendering {
             hayBlocks
         );
         DynamicBlockRenderingHandler.register(VanillaBackport.CLIENT_CONFIG.hasModernHayBaleTexture);
+        
+        Set<Block> jukeboxBlocks = Set.of(Blocks.JUKEBOX);
+        event.registerRenderer(
+            new BackportedBlockRenderer(VanillaBackport.CLIENT_CONFIG.hasModernJukeboxTexture, jukeboxBlocks),
+            jukeboxBlocks
+        );
+        DynamicBlockRenderingHandler.register(VanillaBackport.CLIENT_CONFIG.hasModernJukeboxTexture);
     }
 
     public static void renderTypes(BlockRendererEvent event) {
-        event.register(
-            RenderType.cutoutMipped(),
+        event.register(RenderType.cutoutMipped(),
             ModBlocks.PALE_OAK_LEAVES.get(),
             ModBlocks.RED_POPLAR_LEAVES.get(),
             ModBlocks.ORANGE_POPLAR_LEAVES.get(),
             ModBlocks.YELLOW_POPLAR_LEAVES.get()
         );
-        event.register(
-            RenderType.cutout(),
+        event.register(RenderType.cutout(),
             ModBlocks.COPPER_GRATE.get(),
             ModBlocks.EXPOSED_COPPER_GRATE.get(),
             ModBlocks.WEATHERED_COPPER_GRATE.get(),
@@ -138,7 +149,12 @@ public class ItemLikeRendering {
             ModBlocks.POPLAR_SAPLING.get(),
             ModBlocks.POTTED_POPLAR_SAPLING.get(),
             ModBlocks.RED_SHRUB.get(),
-            ModBlocks.STRAW_BED.get()
+            ModBlocks.STRAW_BED.get(),
+            ModBlocks.ICE_CRYSTAL.get(),
+            ModBlocks.ICICLE.get()
+        );
+        event.register(RenderType.translucent(),
+            ModBlocks.BRITTLE_ICE.get()
         );
         
         ModBlocks.COPPER_LANTERN.forEach(holder -> event.register(RenderType.cutout(), holder.get()));

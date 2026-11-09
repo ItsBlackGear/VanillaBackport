@@ -1,9 +1,6 @@
 package com.blackgear.vanillabackport.data.server.builder;
 
-import com.blackgear.vanillabackport.common.worldgen.features.ChaosCubedFeatures;
-import com.blackgear.vanillabackport.common.worldgen.features.SpringToLifeFeatures;
-import com.blackgear.vanillabackport.common.worldgen.features.TheGardenAwakensFeatures;
-import com.blackgear.vanillabackport.common.worldgen.features.WildernessBoundFeatures;
+import com.blackgear.vanillabackport.common.worldgen.features.*;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricDynamicRegistryProvider;
 import net.minecraft.core.HolderLookup;
@@ -68,6 +65,31 @@ public class ConfiguredFeatureGenerator extends FabricDynamicRegistryProvider {
         this.add(provider, entries, WildernessBoundFeatures.RED_SHRUB);
         this.add(provider, entries, WildernessBoundFeatures.BROWN_MUSHROOM);
         this.add(provider, entries, WildernessBoundFeatures.TREES_DAPPLED_FOREST);
+        
+        // Miscellaneous
+        this.add(provider, entries, MiscellaneousFeatures.ICE_CAVE_ORE_COAL);
+        this.add(provider, entries, MiscellaneousFeatures.ICE_CAVE_ORE_COAL_BURIED);
+        this.add(provider, entries, MiscellaneousFeatures.ICE_CAVE_ORE_COPPER);
+        this.add(provider, entries, MiscellaneousFeatures.ICE_CAVE_ORE_DIAMOND_SMALL);
+        this.add(provider, entries, MiscellaneousFeatures.ICE_CAVE_ORE_DIAMOND_MEDIUM);
+        this.add(provider, entries, MiscellaneousFeatures.ICE_CAVE_ORE_DIAMOND_LARGE);
+        this.add(provider, entries, MiscellaneousFeatures.ICE_CAVE_ORE_DIAMOND_BURIED);
+        this.add(provider, entries, MiscellaneousFeatures.ICE_CAVE_ORE_IRON);
+        this.add(provider, entries, MiscellaneousFeatures.ICE_CAVE_ORE_IRON_SMALL);
+        this.add(provider, entries, MiscellaneousFeatures.ICE_CAVE_ORE_GOLD_BURIED);
+        this.add(provider, entries, MiscellaneousFeatures.ICE_CAVE_ORE_LAPIS);
+        this.add(provider, entries, MiscellaneousFeatures.ICE_CAVE_ORE_LAPIS_BURIED);
+        this.add(provider, entries, MiscellaneousFeatures.ICE_CAVE_ORE_REDSTONE);
+        
+        this.add(provider, entries, MiscellaneousFeatures.ICE_CAVE_ORE_GRAVEL);
+        this.add(provider, entries, MiscellaneousFeatures.ICE_CAVE_ORE_DIORITE);
+        this.add(provider, entries, MiscellaneousFeatures.ICE_CAVE_ORE_ANDESITE);
+        
+        this.add(provider, entries, MiscellaneousFeatures.LARGE_ICICLE);
+        this.add(provider, entries, MiscellaneousFeatures.SNOW_LAYERS);
+        this.add(provider, entries, MiscellaneousFeatures.ICE_CRYSTAL);
+        this.add(provider, entries, MiscellaneousFeatures.ICICLE_CLUSTER);
+        this.add(provider, entries, MiscellaneousFeatures.ICE_CREVASSE);
     }
 
     private void add(HolderLookup.Provider provider, Entries entries, ResourceKey<ConfiguredFeature<?, ?>> key) {

@@ -141,4 +141,53 @@ public class ModSoundTypes {
         () -> SoundEvents.EMPTY,
         () -> SoundEvents.EMPTY
     );
+    public static final SoundType ICE = REGISTRIES.soundType(
+        ModSoundEvents.ICE_BREAK,
+        ModSoundEvents.ICE_STEP,
+        ModSoundEvents.ICE_PLACE,
+        ModSoundEvents.ICE_HIT,
+        ModSoundEvents.ICE_FALL
+    );
+    public static final SoundType PACKED_ICE = REGISTRIES.soundType(
+        ModSoundEvents.PACKED_ICE_BREAK,
+        ModSoundEvents.PACKED_ICE_STEP,
+        ModSoundEvents.PACKED_ICE_PLACE,
+        ModSoundEvents.PACKED_ICE_HIT,
+        ModSoundEvents.PACKED_ICE_FALL
+    );
+    public static final SoundType BLUE_ICE = REGISTRIES.soundType(
+        ModSoundEvents.BLUE_ICE_BREAK,
+        ModSoundEvents.BLUE_ICE_STEP,
+        ModSoundEvents.BLUE_ICE_PLACE,
+        ModSoundEvents.BLUE_ICE_HIT,
+        ModSoundEvents.BLUE_ICE_FALL
+    );
+    public static final SoundType FROSTED_ICE = REGISTRIES.soundType(
+        ModSoundEvents.FROSTED_ICE_BREAK,
+        ModSoundEvents.FROSTED_ICE_STEP,
+        ModSoundEvents.FROSTED_ICE_PLACE,
+        ModSoundEvents.FROSTED_ICE_HIT,
+        ModSoundEvents.FROSTED_ICE_FALL
+    );
+    public static final SoundType BRITTLE_ICE = REGISTRIES.soundType(
+        ModSoundEvents.BRITTLE_ICE_BREAK,
+        ModSoundEvents.BRITTLE_ICE_STEP,
+        ModSoundEvents.BRITTLE_ICE_PLACE,
+        ModSoundEvents.BRITTLE_ICE_HIT,
+        ModSoundEvents.BRITTLE_ICE_FALL
+    );
+    public static final SoundType ICICLE = REGISTRIES.soundType(
+        ModSoundEvents.ICICLE_BREAK,
+        ModSoundEvents.ICICLE_STEP,
+        ModSoundEvents.ICICLE_PLACE,
+        ModSoundEvents.ICICLE_HIT,
+        ModSoundEvents.ICICLE_FALL
+    );
+    public static final SoundType ICE_CRYSTAL = REGISTRIES.soundType(
+        ModSoundEvents.ICE_CRYSTAL_BREAK,
+        ModSoundEvents.ICE_CRYSTAL_STEP,
+        ModSoundEvents.ICE_CRYSTAL_PLACE,
+        ModSoundEvents.ICE_CRYSTAL_HIT,
+        ModSoundEvents.ICE_CRYSTAL_FALL
+    );
 }

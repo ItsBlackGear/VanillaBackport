@@ -6,6 +6,9 @@
     "minecraft:raw_copper_block",
     "minecraft:raw_gold_block",
     "minecraft:raw_iron_block",
+    "#minecraft:gold_ores",
+    "#minecraft:iron_ores",
+    "#minecraft:copper_ores",
     "minecraft:netherite_block",
     "minecraft:ancient_debris",
     "minecraft:copper_block",
@@ -39,9 +42,6 @@
     "minecraft:waxed_chiseled_copper",
     "minecraft:waxed_exposed_chiseled_copper",
     "minecraft:waxed_weathered_chiseled_copper",
-    "minecraft:waxed_oxidized_chiseled_copper",
-    "#minecraft:gold_ores",
-    "#minecraft:iron_ores",
-    "#minecraft:copper_ores"
+    "minecraft:waxed_oxidized_chiseled_copper"
   ]
 }

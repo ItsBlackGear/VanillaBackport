@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
-    "minecraft:sulfur_caves"
+    "minecraft:sulfur_caves",
+    "minecraft:ice_caves"
   ]
 }

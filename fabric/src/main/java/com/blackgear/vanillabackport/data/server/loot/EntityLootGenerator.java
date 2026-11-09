@@ -1,6 +1,7 @@
 package com.blackgear.vanillabackport.data.server.loot;
 
 import com.blackgear.vanillabackport.common.registries.entities.ModEntityTypes;
+import com.blackgear.vanillabackport.common.registries.items.ModItems;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.SimpleFabricLootTableProvider;
 import net.minecraft.resources.ResourceLocation;
@@ -86,5 +87,19 @@ public class EntityLootGenerator extends SimpleFabricLootTableProvider {
                     .when(LootItemKilledByPlayerCondition.killedByPlayer()))
         );
         output.accept(ModEntityTypes.CUSHION.get().getDefaultLootTable(), LootTable.lootTable());
+        
+        output.accept(ModEntityTypes.FROSTBITE.get().getDefaultLootTable(),
+            LootTable.lootTable()
+                .withPool(LootPool.lootPool()
+                    .setRolls(ConstantValue.exactly(1))
+                    .add(LootItem.lootTableItem(Items.ROTTEN_FLESH)
+                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(0, 2)))
+                        .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F)))))
+                .withPool(LootPool.lootPool()
+                    .setRolls(ConstantValue.exactly(1))
+                    .add(LootItem.lootTableItem(ModItems.ICE_BALL.get())
+                        .apply(SetItemCountFunction.setCount(UniformGenerator.between(0, 3)))
+                        .apply(LootingEnchantFunction.lootingMultiplier(UniformGenerator.between(0.0F, 1.0F)))))
+        );
     }
 }

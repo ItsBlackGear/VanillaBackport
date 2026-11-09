@@ -1,5 +1,7 @@
 accessWidener   v2  named
 
+accessible method net/minecraft/core/HolderSet$Direct <init> (Ljava/util/List;)V
+
 accessible field net/minecraft/client/model/WolfModel head Lnet/minecraft/client/model/geom/ModelPart;
 accessible field net/minecraft/client/model/WolfModel realHead Lnet/minecraft/client/model/geom/ModelPart;
 accessible field net/minecraft/client/model/WolfModel body Lnet/minecraft/client/model/geom/ModelPart;
@@ -37,6 +39,9 @@ mutable field net/minecraft/world/entity/ai/control/MoveControl operation Lnet/m
 
 accessible class net/minecraft/client/renderer/FogRenderer$FogData
 accessible class net/minecraft/world/level/biome/Biome$ClimateSettings
+
+accessible method net/minecraft/world/item/enchantment/EnchantmentHelper runIterationOnItem (Lnet/minecraft/world/item/enchantment/EnchantmentHelper$EnchantmentVisitor;Lnet/minecraft/world/item/ItemStack;)V
+accessible class net/minecraft/world/item/enchantment/EnchantmentHelper$EnchantmentVisitor
 
 accessible class net/minecraft/world/item/crafting/Ingredient$TagValue
 accessible method net/minecraft/world/item/crafting/Ingredient$TagValue <init> (Lnet/minecraft/tags/TagKey;)V
@@ -84,3 +89,12 @@ accessible field net/minecraft/world/level/levelgen/SurfaceRules$Context randomS
 
 accessible class net/minecraft/core/registries/BuiltInRegistries$RegistryBootstrap
 accessible method net/minecraft/advancements/critereon/MinMaxBounds$Doubles <init> (Ljava/lang/Double;Ljava/lang/Double;)V
+
+accessible class net/minecraft/client/renderer/RenderStateShard$ShaderStateShard
+accessible class net/minecraft/client/renderer/RenderStateShard$TextureStateShard
+accessible class net/minecraft/client/renderer/RenderStateShard$OffsetTexturingStateShard
+accessible class net/minecraft/client/renderer/RenderType$CompositeState
+accessible field net/minecraft/client/renderer/RenderStateShard TRANSLUCENT_TRANSPARENCY Lnet/minecraft/client/renderer/RenderStateShard$TransparencyStateShard;
+accessible field net/minecraft/client/renderer/RenderStateShard LIGHTMAP Lnet/minecraft/client/renderer/RenderStateShard$LightmapStateShard;
+accessible field net/minecraft/client/renderer/RenderStateShard NO_CULL Lnet/minecraft/client/renderer/RenderStateShard$CullStateShard;
+accessible field net/minecraft/client/renderer/RenderStateShard NO_OVERLAY Lnet/minecraft/client/renderer/RenderStateShard$OverlayStateShard;
