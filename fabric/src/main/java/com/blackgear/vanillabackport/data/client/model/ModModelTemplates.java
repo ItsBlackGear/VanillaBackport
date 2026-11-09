@@ -45,6 +45,9 @@ public class ModModelTemplates {
     public static final ModelTemplate SHELF_CENTER = block("template_shelf_center", "_center", TextureSlot.ALL, TextureSlot.PARTICLE);
     public static final ModelTemplate SHELF_RIGHT = block("template_shelf_right", "_right", TextureSlot.ALL, TextureSlot.PARTICLE);
     
+    public static final ModelTemplate ICICLE = block("template_icicle", TextureSlot.CROSS);
+    public static final ModelTemplate ICICLE_BASE = block("template_icicle_base", TextureSlot.CROSS, TextureSlot.TOP, TextureSlot.SIDE);
+    
     private static ModelTemplate block(String name, TextureSlot... slots) {
         return new ModelTemplate(Optional.of(ResourceLocation.withDefaultNamespace("block/" + name)), Optional.empty(), slots);
     }

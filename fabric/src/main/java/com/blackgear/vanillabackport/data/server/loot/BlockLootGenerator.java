@@ -292,6 +292,39 @@ public class BlockLootGenerator extends FabricBlockLootTableProvider {
         this.add(ModBlocks.GREEN_CONCRETE_SLAB.get(), this::createSlabItemTable);
         this.add(ModBlocks.RED_CONCRETE_SLAB.get(), this::createSlabItemTable);
         this.add(ModBlocks.BLACK_CONCRETE_SLAB.get(), this::createSlabItemTable);
+        
+        // Miscellaneous
+        this.dropSelf(ModBlocks.ICICLE.get());
+        this.dropSelf(ModBlocks.ICE_CRYSTAL.get());
+        this.dropWhenSilkTouch(ModBlocks.BRITTLE_ICE.get());
+        
+        this.dropSelf(ModBlocks.PACKED_ICE_BRICKS.get());
+        this.add(ModBlocks.PACKED_ICE_BRICK_SLAB.get(), this::createSlabItemTable);
+        this.dropSelf(ModBlocks.PACKED_ICE_BRICK_STAIRS.get());
+        this.dropSelf(ModBlocks.PACKED_ICE_BRICK_WALL.get());
+        this.dropSelf(ModBlocks.CHISELED_PACKED_ICE.get());
+        
+        this.dropSelf(ModBlocks.SNOW_BRICKS.get());
+        this.add(ModBlocks.SNOW_BRICK_SLAB.get(), this::createSlabItemTable);
+        this.dropSelf(ModBlocks.SNOW_BRICK_STAIRS.get());
+        this.dropSelf(ModBlocks.SNOW_BRICK_WALL.get());
+        
+        this.dropSelf(ModBlocks.CALCITE_PILLAR.get());
+        this.add(ModBlocks.CALCITE_SLAB.get(), this::createSlabItemTable);
+        this.dropSelf(ModBlocks.CALCITE_STAIRS.get());
+        this.dropSelf(ModBlocks.CALCITE_WALL.get());
+        
+        this.dropSelf(ModBlocks.POLISHED_CALCITE.get());
+        this.add(ModBlocks.POLISHED_CALCITE_SLAB.get(), this::createSlabItemTable);
+        this.dropSelf(ModBlocks.POLISHED_CALCITE_STAIRS.get());
+        this.dropSelf(ModBlocks.POLISHED_CALCITE_WALL.get());
+        
+        this.dropSelf(ModBlocks.POLISHED_CALCITE_BRICKS.get());
+        this.add(ModBlocks.POLISHED_CALCITE_BRICK_SLAB.get(), this::createSlabItemTable);
+        this.dropSelf(ModBlocks.POLISHED_CALCITE_BRICK_STAIRS.get());
+        this.dropSelf(ModBlocks.POLISHED_CALCITE_BRICK_WALL.get());
+        
+        this.dropSelf(ModBlocks.CHISELED_SOULSHALE.get());
     }
 
     protected LootTable.Builder createMultifaceBlockDrops(Block block) {

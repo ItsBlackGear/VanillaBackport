@@ -13,6 +13,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.vehicle.Boat;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.DispenserBlock;
+import net.minecraft.world.level.block.LevelEvent;
 import net.minecraft.world.phys.Vec3;
 
 public class BoatDispenseBehavior extends DefaultDispenseItemBehavior {
@@ -57,6 +58,6 @@ public class BoatDispenseBehavior extends DefaultDispenseItemBehavior {
     }
 
     protected void playSound(BlockSource source) {
-        source.level().levelEvent(1000, source.pos(), 0);
+        source.level().levelEvent(LevelEvent.SOUND_DISPENSER_DISPENSE, source.pos(), 0);
     }
 }

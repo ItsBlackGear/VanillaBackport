@@ -48,9 +48,15 @@ public class ModModelLayers {
     public static final ModelLayerLocation SULFUR_CUBE_SMALL = register("sulfur_cube_small");
     public static final ModelLayerLocation SULFUR_CUBE_SMALL_INNER = register("sulfur_cube_small", "inner");
     
-    // MISC
+    // WILDERNESS BOUND
     public static final ModelLayerLocation CUSHION = register("cushion");
 
+    // MISCELLANEOUS
+    public static final ModelLayerLocation FROSTBITE = register("frostbite");
+    public static final ModelLayerLocation FROSTBITE_OUTER_LAYER = register("frostbite", "outer");
+    public static final ModelLayerLocation FROSTBITE_INNER_ARMOR = register("frostbite", "inner_armor");
+    public static final ModelLayerLocation FROSTBITE_OUTER_ARMOR = register("frostbite", "outer_armor");
+    
     private static ModelLayerLocation register(String name) {
         return register(name, "main");
     }

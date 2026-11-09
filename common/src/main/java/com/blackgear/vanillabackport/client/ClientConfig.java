@@ -34,7 +34,9 @@ public class ClientConfig {
 
     // Wilderness Bound
     public final ConfigBuilder.ConfigValue<Boolean> hasModernHayBaleTexture;
-
+    
+    // Miscellaneous
+    public final ConfigBuilder.ConfigValue<Boolean> hasModernJukeboxTexture;
 
     public ClientConfig(ConfigBuilder builder) {
         builder.push("Bundles of Bravery");
@@ -93,6 +95,11 @@ public class ClientConfig {
         builder.push("Wilderness Bound");
             this.hasModernHayBaleTexture = builder.comment("enable modern hay bale texture that is aligned with the straw bed")
                 .define("has_modern_hay_bale_texture", true);
+        builder.pop();
+
+        builder.push("Miscellaneous");
+            this.hasModernJukeboxTexture = builder.comment("enable modern jukebox texture")
+                .define("has_modern_jukebox_texture", true);
         builder.pop();
     }
 }

@@ -29,6 +29,10 @@ public class ModFeatures {
         () -> new SpeleothemFeature(SpeleothemConfiguration.CODEC));
     public static final Supplier<Feature<SpeleothemClusterConfiguration>> SPELEOTHEM_CLUSTER = REGISTRIES.register("speleothem_cluster",
         () -> new SpeleothemClusterFeature(SpeleothemClusterConfiguration.CODEC));
+    public static final Supplier<Feature<LargeSpeleothemConfiguration>> LARGE_SPELEOTHEM = REGISTRIES.register("large_speleothem",
+        () -> new LargeSpeleothemFeature(LargeSpeleothemConfiguration.CODEC));
     public static final Supplier<Feature<SulfurRootSystemConfiguration>> SULFUR_ROOT_SYSTEM = REGISTRIES.register("sulfur_root_system",
         () -> new SulfurRootSystemFeature(SulfurRootSystemConfiguration.CODEC));
+    public static final Supplier<Feature<CrevasseConfiguration>> CREVASSE = REGISTRIES.register("crevasse",
+        () -> new CrevasseFeature(CrevasseConfiguration.CODEC));
 }

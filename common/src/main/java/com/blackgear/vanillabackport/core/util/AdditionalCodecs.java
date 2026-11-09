@@ -1,5 +1,6 @@
 package com.blackgear.vanillabackport.core.util;
 
+import com.blackgear.vanillabackport.core.mixin.common.access.ExtraCodecsAccessor;
 import com.blackgear.vanillabackport.core.util.Utilities.ColorUtils;
 import com.blackgear.vanillabackport.core.util.Utilities.MthUtils;
 import com.mojang.datafixers.util.Either;
@@ -11,7 +12,6 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.util.ExtraCodecs;
-import net.minecraft.util.FastColor;
 import net.minecraft.util.FastColor.ARGB32;
 import net.minecraft.util.valueproviders.FloatProvider;
 import net.minecraft.world.phys.Vec3;
@@ -64,15 +64,7 @@ public class AdditionalCodecs {
     }
     
     public static Codec<Float> floatRange(float minInclusive, float maxInclusive) {
-        return floatRangeMinExclusiveWithMessage(minInclusive, maxInclusive, value -> "Value must be within range [" + minInclusive + ";" + maxInclusive + "]: " + value);
-    }
-    
-    private static Codec<Float> floatRangeMinExclusiveWithMessage(float minInclusive, float maxInclusive, Function<Float, String> error) {
-        return Codec.FLOAT.validate(
-            value -> value.compareTo(minInclusive) > 0 && value.compareTo(maxInclusive) <= 0
-                ? DataResult.success(value)
-                : DataResult.error(() -> error.apply(value))
-        );
+        return ExtraCodecsAccessor.callFloatRangeMinExclusiveWithMessage(minInclusive, maxInclusive, value -> "Value must be within range [" + minInclusive + ";" + maxInclusive + "]: " + value);
     }
     
     public static <B, C, T1, T2, T3, T4, T5, T6, T7, T8, T9> StreamCodec<B, C> composite(

@@ -4,7 +4,7 @@
     "minecraft:red_mushroom_block",
     "minecraft:mushroom_stem",
     "minecraft:mycelium",
-    "minecraft:shroomlight",
-    "#minecraft:wart_blocks"
+    "#minecraft:wart_blocks",
+    "minecraft:shroomlight"
   ]
 }

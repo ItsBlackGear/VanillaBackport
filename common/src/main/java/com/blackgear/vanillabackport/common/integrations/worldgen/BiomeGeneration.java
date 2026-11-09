@@ -46,6 +46,19 @@ public class BiomeGeneration {
         ModBiomes.SULFUR_CAVES
     );
     
+    public static final Pair<Climate.ParameterPoint, ResourceKey<Biome>> ICE_CAVES = Pair.of(
+        Climate.parameters(
+            Climate.Parameter.span(-1.0F, -0.8F),
+            Climate.Parameter.span(-1.0F, -0.7F),
+            Continentalness.span(Continentalness.DEEP_OCEAN, Continentalness.OCEAN),
+            Erosion.FULL_RANGE.parameter(),
+            Depth.UNDERGROUND.parameter(),
+            Climate.Parameter.span(0.5F, 1.1F),
+            0.0F
+        ),
+        ModBiomes.ICE_CAVES
+    );
+    
     public static void bootstrap(BiomePlacement.Event event) {
         if (VanillaBackport.COMMON_CONFIG.hasPaleGarden.get())
             PALE_GARDEN.forEach(event::add);
@@ -55,6 +68,9 @@ public class BiomeGeneration {
         
         if (VanillaBackport.COMMON_CONFIG.hasDappledForest.get())
             DAPPLED_FOREST.forEach(event::add);
+        
+        if (VanillaBackport.COMMON_CONFIG.hasIceCaves.get())
+            event.add(ICE_CAVES);
     }
     
     private static void addBiome(List<Pair<Climate.ParameterPoint, ResourceKey<Biome>>> parameters, ResourceKey<Biome> biome, Placement placement, Temperature temperature, Humidity humidity, Climate.Parameter continentalness, Climate.Parameter erosion) {

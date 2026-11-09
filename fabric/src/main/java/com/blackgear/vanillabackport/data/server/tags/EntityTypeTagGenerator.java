@@ -20,7 +20,8 @@ public class EntityTypeTagGenerator extends FabricTagProvider.EntityTypeTagProvi
     protected void addTags(HolderLookup.Provider provider) {
         this.getOrCreateTagBuilder(EntityTypeTags.ZOMBIES)
             .add(ModEntityTypes.CAMEL_HUSK.get())
-            .add(ModEntityTypes.ZOMBIE_NAUTILUS.get());
+            .add(ModEntityTypes.ZOMBIE_NAUTILUS.get())
+            .add(ModEntityTypes.FROSTBITE.get());
         
         this.getOrCreateTagBuilder(EntityTypeTags.AQUATIC)
             .add(ModEntityTypes.NAUTILUS.get())
@@ -94,5 +95,26 @@ public class EntityTypeTagGenerator extends FabricTagProvider.EntityTypeTagProvi
         
         this.getOrCreateTagBuilder(ModEntityTypeTags.NAUTILUS_HOSTILES)
             .add(EntityType.PUFFERFISH);
+        
+        this.getOrCreateTagBuilder(ModEntityTypeTags.DOES_NOT_BREAK_BRITTLE_ICE)
+            .add(ModEntityTypes.FROSTBITE.get(), EntityType.STRAY);
+        
+        this.getOrCreateTagBuilder(EntityTypeTags.POWDER_SNOW_WALKABLE_MOBS)
+            .add(ModEntityTypes.FROSTBITE.get());
+        
+        this.getOrCreateTagBuilder(ModEntityTypeTags.ZOMBIES_THAT_CONVERT_ON_POWDER_SNOW)
+            .add(EntityType.ZOMBIE, EntityType.DROWNED, EntityType.HUSK);
+        
+        this.getOrCreateTagBuilder(ModEntityTypeTags.IMMUNE_TO_FREEZING)
+            .add(
+                EntityType.STRAY,
+                EntityType.POLAR_BEAR,
+                EntityType.SNOW_GOLEM,
+                EntityType.WITHER,
+                ModEntityTypes.FROSTBITE.get(),
+                EntityType.ZOMBIE,
+                EntityType.DROWNED,
+                EntityType.HUSK
+            );
     }
 }

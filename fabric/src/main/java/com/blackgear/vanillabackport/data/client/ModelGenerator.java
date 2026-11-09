@@ -130,6 +130,16 @@ public class ModelGenerator extends VanillaModelGenerator {
         gen.createShelfMushroom();
         gen.createShelf(ModBlocks.POPLAR_SHELF.get(), ModBlocks.STRIPPED_PALE_OAK_LOG.get());
         gen.createStrawBed();
+        
+        // Miscellaneous
+        gen.createIcicle();
+        gen.createAmethystCluster(ModBlocks.ICE_CRYSTAL.get());
+        gen.createBrittleIce();
+        gen.createRotatedPillarWithHorizontalVariant(ModBlocks.CALCITE_PILLAR.get(), TexturedModel.COLUMN_ALT, TexturedModel.COLUMN_HORIZONTAL_ALT);
+        gen.createDoubleSlab(ModBlocks.POLISHED_CALCITE.get(), ModBlocks.POLISHED_CALCITE_SLAB.get());
+        gen.createTrivialCube(ModBlocks.CHISELED_SOULSHALE.get());
+        
+        gen.createSpawnEgg(ModItems.FROSTBITE_SPAWN_EGG.get());
     }
 
     @Override
@@ -218,5 +228,11 @@ public class ModelGenerator extends VanillaModelGenerator {
         gen.createFlatItem(ModItems.GREEN_CUSHION.get());
         gen.createFlatItem(ModItems.RED_CUSHION.get());
         gen.createFlatItem(ModItems.BLACK_CUSHION.get());
+        
+        // Miscellaneous
+        gen.createFlatItem(ModBlocks.ICICLE.get().asItem());
+        gen.createFlatItem(ModBlocks.ICE_CRYSTAL.get().asItem());
+        gen.createFlatItem(ModItems.ICE_BALL.get());
+        gen.createMusicDisc(ModItems.MUSIC_DISC_FLURRY.get());
     }
 }

@@ -80,6 +80,7 @@ public class SpearUseGoal<T extends Monster> extends Goal {
     public void tick() {
         if (this.state != null) {
             LivingEntity target = this.mob.getTarget();
+            if (target == null) return;
             double targetDistSqr = this.mob.distanceToSqr(target.getX(), target.getY(), target.getZ());
             Entity mount = this.mob.getRootVehicle();
             float speedModifier = 1.0F;

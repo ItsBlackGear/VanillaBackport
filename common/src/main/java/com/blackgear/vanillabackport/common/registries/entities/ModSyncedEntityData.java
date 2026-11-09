@@ -15,6 +15,7 @@ import com.blackgear.vanillabackport.common.level.entities.mob.animal.pig.PigVar
 import com.blackgear.vanillabackport.common.level.entities.mob.animal.pig.PigVariants;
 import com.blackgear.vanillabackport.common.level.entities.mob.animal.wolf.WolfDataVariant;
 import com.blackgear.vanillabackport.core.VanillaBackport;
+import net.minecraft.network.codec.ByteBufCodecs;
 
 public class ModSyncedEntityData {
     public static final SyncedDataKey<RegistryKey<CowVariant>> COW_VARIANTS = SyncedDataKey.create(
@@ -52,6 +53,12 @@ public class ModSyncedEntityData {
         VanillaBackport.resource("wolf_sound_variants"),
         RegistryKey.streamCodec(),
         () -> WolfSoundVariants.CLASSIC,
+        SyncMode.TRACKING_ONLY);
+    
+    public static final SyncedDataKey<Boolean> FROSTBITE_CONVERSION = SyncedDataKey.create(
+        VanillaBackport.resource("frostbite_conversion"),
+        ByteBufCodecs.BOOL,
+        () -> false,
         SyncMode.TRACKING_ONLY);
     
     public static void init() {}

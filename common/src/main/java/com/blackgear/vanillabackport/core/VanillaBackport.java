@@ -29,6 +29,7 @@ import com.blackgear.vanillabackport.common.registries.items.ModArmorMaterials;
 import com.blackgear.vanillabackport.common.registries.items.ModDataComponents;
 import com.blackgear.vanillabackport.common.registries.enchantment.ModEnchantmentEffectComponents;
 import com.blackgear.vanillabackport.common.registries.items.ModItems;
+import com.blackgear.vanillabackport.common.registries.items.ModPotions;
 import com.blackgear.vanillabackport.common.registries.worldgen.*;
 import com.blackgear.vanillabackport.core.data.tags.*;
 import com.blackgear.vanillabackport.core.network.*;
@@ -83,6 +84,7 @@ public final class VanillaBackport {
         ModEnchantmentEffectComponents.REGISTRIES.register();
         ModEntitySubPredicates.REGISTRIES.register();
         ModParticles.REGISTRIES.register();
+        ModPotions.REGISTRIES.register();
 
         ModBlocks.REGISTRIES.register();
         ModItems.REGISTRIES.register();
@@ -106,6 +108,7 @@ public final class VanillaBackport {
         ModTreeDecorators.REGISTRIES.register();
         ModTrunkPlacers.REGISTRIES.register();
         ModFoliagePlacers.REGISTRIES.register();
+        ModRuleTestTypes.REGISTRY.register();
         
         ModMapDecorationTypes.REGISTRIES.register();
         
@@ -143,6 +146,12 @@ public final class VanillaBackport {
                 ServerboundUpdateSpearSwingPacket.TYPE,
                 ServerboundUpdateSpearSwingPacket.STREAM_CODEC,
                 ServerboundUpdateSpearSwingPacket::handler
+            );
+            
+            registrar.registerToClient(
+                ClientboundLevelEventsPacket.TYPE,
+                ClientboundLevelEventsPacket.STREAM_CODEC,
+                ClientboundLevelEventsPacket::handler
             );
         });
         

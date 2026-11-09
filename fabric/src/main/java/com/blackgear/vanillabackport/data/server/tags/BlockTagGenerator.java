@@ -110,7 +110,27 @@ public class BlockTagGenerator extends FabricTagProvider.BlockTagProvider {
                 ModBlocks.SULFUR_BRICK_SLAB.get(),
                 ModBlocks.SULFUR_BRICK_STAIRS.get(),
                 ModBlocks.SULFUR_BRICK_WALL.get(),
-                ModBlocks.CHISELED_SULFUR.get()
+                ModBlocks.CHISELED_SULFUR.get(),
+                ModBlocks.PACKED_ICE_BRICKS.get(),
+                ModBlocks.PACKED_ICE_BRICK_SLAB.get(),
+                ModBlocks.PACKED_ICE_BRICK_STAIRS.get(),
+                ModBlocks.PACKED_ICE_BRICK_WALL.get(),
+                ModBlocks.CHISELED_PACKED_ICE.get(),
+                ModBlocks.ICE_CRYSTAL.get(),
+                ModBlocks.BRITTLE_ICE.get(),
+                ModBlocks.CALCITE_PILLAR.get(),
+                ModBlocks.CALCITE_SLAB.get(),
+                ModBlocks.CALCITE_STAIRS.get(),
+                ModBlocks.CALCITE_WALL.get(),
+                ModBlocks.POLISHED_CALCITE.get(),
+                ModBlocks.POLISHED_CALCITE_SLAB.get(),
+                ModBlocks.POLISHED_CALCITE_STAIRS.get(),
+                ModBlocks.POLISHED_CALCITE_WALL.get(),
+                ModBlocks.POLISHED_CALCITE_BRICKS.get(),
+                ModBlocks.POLISHED_CALCITE_BRICK_SLAB.get(),
+                ModBlocks.POLISHED_CALCITE_BRICK_STAIRS.get(),
+                ModBlocks.POLISHED_CALCITE_BRICK_WALL.get(),
+                ModBlocks.CHISELED_SOULSHALE.get()
             )
             .addTag(ModBlockTags.SPELEOTHEMS)
             .addTag(ModBlockTags.COPPER_CHESTS)
@@ -121,6 +141,14 @@ public class BlockTagGenerator extends FabricTagProvider.BlockTagProvider {
             .addTag(ModBlockTags.BARS)
             .addTag(ModBlockTags.CONCRETE_SLABS)
             .addTag(ModBlockTags.CONCRETE_STAIRS);
+        
+        this.getOrCreateTagBuilder(BlockTags.MINEABLE_WITH_SHOVEL)
+            .add(
+                ModBlocks.SNOW_BRICKS.get(),
+                ModBlocks.SNOW_BRICK_SLAB.get(),
+                ModBlocks.SNOW_BRICK_WALL.get(),
+                ModBlocks.SNOW_BRICK_STAIRS.get()
+            );
         
         this.getOrCreateTagBuilder(BlockTags.NEEDS_STONE_TOOL)
             .addTag(ModBlockTags.COPPER_CHESTS)
@@ -220,7 +248,8 @@ public class BlockTagGenerator extends FabricTagProvider.BlockTagProvider {
         this.getOrCreateTagBuilder(ModBlockTags.SPELEOTHEMS)
             .add(
                 Blocks.POINTED_DRIPSTONE,
-                ModBlocks.SULFUR_SPIKE.get()
+                ModBlocks.SULFUR_SPIKE.get(),
+                ModBlocks.ICICLE.get()
             );
 
         this.getOrCreateTagBuilder(ModBlockTags.SULFUR_SPIKE_REPLACEABLE)
@@ -259,6 +288,31 @@ public class BlockTagGenerator extends FabricTagProvider.BlockTagProvider {
             .forceAddTag(BlockTags.CAULDRONS)
             .add(Blocks.HOPPER)
             .add(Blocks.COMPOSTER);
+        
+        this.getOrCreateTagBuilder(ModBlockTags.ICE_SPIKE_REPLACEABLE)
+            .forceAddTag(BlockTags.DIRT)
+            .add(Blocks.SNOW_BLOCK, Blocks.ICE);
+        
+        this.getOrCreateTagBuilder(ModBlockTags.LARGE_ICICLE_REPLACEABLE)
+            .add(Blocks.CALCITE, Blocks.STONE, Blocks.DEEPSLATE, Blocks.PACKED_ICE);
+        
+        this.getOrCreateTagBuilder(ModBlockTags.MELTS_ICICLE_ABOVE)
+            .add(Blocks.MAGMA_BLOCK);
+        
+        this.getOrCreateTagBuilder(ModBlockTags.ICE_CAVE_ORE_REPLACEABLES)
+            .add(Blocks.CALCITE, Blocks.PACKED_ICE);
+        
+        this.getOrCreateTagBuilder(ModBlockTags.ICE_CREVASSE_REPLACEABLES)
+            .forceAddTag(BlockTags.STONE_ORE_REPLACEABLES)
+            .forceAddTag(BlockTags.DEEPSLATE_ORE_REPLACEABLES)
+            .forceAddTag(ModBlockTags.ICE_CAVE_ORE_REPLACEABLES);
+        
+        this.getOrCreateTagBuilder(BlockTags.ICE)
+            .add(ModBlocks.PACKED_ICE_BRICKS.get(), ModBlocks.CHISELED_PACKED_ICE.get(), ModBlocks.BRITTLE_ICE.get());
+        
+        this.getOrCreateTagBuilder(ModBlockTags.JUKEBOX_CONTAINERS)
+            .forceAddTag(ConventionalBlockTags.CHESTS_WOODEN)
+            .forceAddTag(ModBlockTags.COPPER_CHESTS);
     }
 
     protected DualTagHolder getDualTagBuilder(TagKey<Block> forge, TagKey<Block> fabric) {

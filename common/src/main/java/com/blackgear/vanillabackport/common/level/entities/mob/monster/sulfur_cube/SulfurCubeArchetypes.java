@@ -8,10 +8,15 @@ import com.blackgear.vanillabackport.common.registries.entities.ModAttributes;
 import com.blackgear.vanillabackport.common.registries.entities.ModDamageTypes;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import com.blackgear.vanillabackport.core.data.tags.ModItemTags;
+import net.minecraft.advancements.critereon.EntityFlagsPredicate;
+import net.minecraft.advancements.critereon.EntityPredicate.Builder;
+import net.minecraft.core.Direction;
 import net.minecraft.core.Holder;
+import net.minecraft.core.Vec3i;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.valueproviders.ConstantFloat;
 import net.minecraft.util.valueproviders.FloatProvider;
@@ -19,6 +24,19 @@ import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.enchantment.ConditionalEffect;
+import net.minecraft.world.item.enchantment.LevelBasedValue;
+import net.minecraft.world.item.enchantment.effects.EnchantmentLocationBasedEffect;
+import net.minecraft.world.item.enchantment.effects.ReplaceDisk;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.levelgen.blockpredicates.BlockPredicate;
+import net.minecraft.world.level.levelgen.feature.stateproviders.BlockStateProvider;
+import net.minecraft.world.level.material.Fluids;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.predicates.AllOfCondition;
+import net.minecraft.world.level.storage.loot.predicates.InvertedLootItemCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
 
 import java.util.List;
 import java.util.Optional;
@@ -125,6 +143,46 @@ public class SulfurCubeArchetypes {
         Optional.of(contactDamage(ModDamageTypes.SULFUR_CUBE_HOT, ConstantFloat.of(1.0F), false)),
         knockbackHitScale(0.4125F, 0.09F),
         soundSettings(ModSoundEvents.SULFUR_CUBE_HOT_HIT, ModSoundEvents.SULFUR_CUBE_HOT_PUSH, 0.2F,0.7F));
+    public static final RegistryKey<SulfurCubeArchetype> COLD = register("cold",
+        ModItemTags.SULFUR_CUBE_ARCHETYPE_COLD,
+        archetype(-0.5F, 0.1F, 0.05F, 0.01F),
+        true,
+        Optional.empty(),
+        Optional.empty(),
+        knockbackHitScale(0.6625F, 0.09F),
+        soundSettings(ModSoundEvents.SULFUR_CUBE_FAST_SLIDING_HIT, ModSoundEvents.SULFUR_CUBE_FAST_SLIDING_PUSH, 0.05F,1.0F),
+        List.of(
+            new ConditionalEffect<>(
+                new ReplaceDisk(
+                    LevelBasedValue.constant(3.0F),
+                    LevelBasedValue.constant(1.0F),
+                    new Vec3i(0, -1, 0),
+                    Optional.of(
+                        BlockPredicate.allOf(
+                            BlockPredicate.matchesTag(Direction.UP.getNormal(), BlockTags.AIR),
+                            BlockPredicate.matchesBlocks(Blocks.WATER),
+                            BlockPredicate.matchesFluids(Fluids.WATER),
+                            BlockPredicate.unobstructed()
+                        )
+                    ),
+                    BlockStateProvider.simple(Blocks.FROSTED_ICE),
+                    Optional.of(GameEvent.BLOCK_PLACE)
+                ),
+                Optional.of(
+                    AllOfCondition.allOf(
+                        LootItemEntityPropertyCondition.hasProperties(
+                            LootContext.EntityTarget.THIS,
+                            Builder.entity().flags(EntityFlagsPredicate.Builder.flags().setOnGround(true))
+                        ),
+                        InvertedLootItemCondition.invert(
+                            LootItemEntityPropertyCondition.hasProperties(LootContext.EntityTarget.THIS, Builder.entity().vehicle(Builder.entity()))
+                        )
+                    )
+                    .build()
+                )
+            )
+        )
+    );
 
     private static Function<RegistryKey<SulfurCubeArchetype>, AttributeEntry> add(Holder<Attribute> attribute, double amount) {
         return key -> AttributeEntry.add(attribute, amount, key);
@@ -169,7 +227,8 @@ public class SulfurCubeArchetypes {
         Optional<ExplosionData> maxFuse,
         Optional<ContactDamage> contactDamage,
         KnockbackModifiers knockbackModifiers,
-        SoundSettings soundSettings
+        SoundSettings soundSettings,
+        List<ConditionalEffect<EnchantmentLocationBasedEffect>> locationBasedEffects
     ) {
         return REGISTRIES.registerKey(
             name,
@@ -181,8 +240,32 @@ public class SulfurCubeArchetypes {
                 maxFuse,
                 contactDamage,
                 knockbackModifiers,
-                soundSettings
+                soundSettings,
+                locationBasedEffects
             )
+        );
+    }
+
+    private static RegistryKey<SulfurCubeArchetype> register(
+        String name,
+        TagKey<Item> blocks,
+        List<Function<RegistryKey<SulfurCubeArchetype>, AttributeEntry>> modifiers,
+        boolean floats,
+        Optional<ExplosionData> maxFuse,
+        Optional<ContactDamage> contactDamage,
+        KnockbackModifiers knockbackModifiers,
+        SoundSettings soundSettings
+    ) {
+        return register(
+            name,
+            blocks,
+            modifiers,
+            floats,
+            maxFuse,
+            contactDamage,
+            knockbackModifiers,
+            soundSettings,
+            List.of()
         );
     }
 }

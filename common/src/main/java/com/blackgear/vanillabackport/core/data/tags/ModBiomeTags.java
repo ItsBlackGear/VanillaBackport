@@ -65,4 +65,6 @@ public class ModBiomeTags {
     public static final TagKey<Biome> HAS_ABANDONED_CAMP_TAIGA = TAGS.register("has_structure/abandoned_camp_taiga");
     public static final TagKey<Biome> HAS_ABANDONED_CAMP_WINDSWEPT_FOREST = TAGS.register("has_structure/abandoned_camp_windswept_forest");
     public static final TagKey<Biome> HAS_ABANDONED_CAMP_WOODED_BADLANDS = TAGS.register("has_structure/abandoned_camp_wooded_badlands");
+    
+    public static final TagKey<Biome> SPAWNS_COLD_VARIANTS_UNDERGROUND = TAGS.register("spawns_cold_variants_underground");
 }

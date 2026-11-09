@@ -17,6 +17,7 @@ public class ModJukeboxSongs {
     public static final ResourceKey<JukeboxSong> TEARS = register("tears", ModSoundEvents.MUSIC_DISC_TEARS, 175, 10);
     public static final ResourceKey<JukeboxSong> LAVA_CHICKEN = register("lava_chicken", ModSoundEvents.MUSIC_DISC_LAVA_CHICKEN, 134, 9);
     public static final ResourceKey<JukeboxSong> BOUNCE = register("bounce", ModSoundEvents.MUSIC_DISC_BOUNCE, 234, 8);
+    public static final ResourceKey<JukeboxSong> FLURRY = register("flurry", ModSoundEvents.MUSIC_DISC_FLURRY, 154, 7);
 
     private static ResourceKey<JukeboxSong> register(String name, Holder<SoundEvent> soundEvent, int lengthInSeconds, int comparatorOutput) {
         return REGISTRIES.resource(

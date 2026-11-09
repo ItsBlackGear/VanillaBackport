@@ -20,11 +20,16 @@ public class ModSurfaceRuleData {
         SurfaceRules.RuleSource sulfur = makeStateRule(ModBlocks.SULFUR.get());
         SurfaceRules.RuleSource stone = makeStateRule(Blocks.STONE);
         SurfaceRules.RuleSource coarse_dirt = makeStateRule(Blocks.COARSE_DIRT);
+        SurfaceRules.RuleSource calcite = makeStateRule(Blocks.CALCITE);
+        SurfaceRules.RuleSource packed_ice = makeStateRule(Blocks.PACKED_ICE);
 
         return SurfaceRules.sequence(
             SurfaceRules.ifTrue(
                 SurfaceRules.isBiome(ModBiomes.DAPPLED_FOREST),
-                SurfaceRules.ifTrue(SurfaceRules.noiseCondition(ModNoises.SMALL_PATCH, 1.2F), coarse_dirt)
+                SurfaceRules.ifTrue(
+                    SurfaceRules.abovePreliminarySurface(),
+                    SurfaceRules.ifTrue(SurfaceRules.noiseCondition(ModNoises.SMALL_PATCH, 1.2F), coarse_dirt)
+                )
             ),
             SurfaceRules.ifTrue(
                 SurfaceRules.isBiome(ModBiomes.SULFUR_CAVES),
@@ -33,6 +38,18 @@ public class ModSurfaceRuleData {
                     SurfaceRules.ifTrue(noiseCondition3d(ModNoises.SULFUR_CAVE_GRADIENT, -0.4F, -0.1F), cinnabar),
                     SurfaceRules.ifTrue(noiseCondition3d(ModNoises.SULFUR_CAVE_GRADIENT, 0.0F, 0.4F), sulfur),
                     SurfaceRules.ifTrue(noiseCondition3d(ModNoises.SULFUR_CAVE_GRADIENT, 0.4F), cinnabar),
+                    SurfaceRules.ifTrue(SurfaceRules.abovePreliminarySurface(), stone)
+                )
+            ),
+            SurfaceRules.ifTrue(
+                SurfaceRules.isBiome(ModBiomes.ICE_CAVES),
+                SurfaceRules.sequence(
+                    bedrock(),
+                    SurfaceRules.ifTrue(noiseCondition3d(ModNoises.ICE_CAVE_GRADIENT, -0.6F, -0.5F), calcite),
+                    SurfaceRules.ifTrue(noiseCondition3d(ModNoises.ICE_CAVE_GRADIENT, -0.5F, 0.2F), packed_ice),
+                    SurfaceRules.ifTrue(noiseCondition3d(ModNoises.ICE_CAVE_GRADIENT, 0.2F, 0.3F), calcite),
+                    SurfaceRules.ifTrue(noiseCondition3d(ModNoises.ICE_CAVE_GRADIENT, 0.3F, 0.5F), packed_ice),
+                    SurfaceRules.ifTrue(noiseCondition3d(ModNoises.ICE_CAVE_GRADIENT, 0.5F, 0.7F), calcite),
                     SurfaceRules.ifTrue(SurfaceRules.abovePreliminarySurface(), stone)
                 )
             )

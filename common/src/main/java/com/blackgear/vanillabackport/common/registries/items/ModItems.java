@@ -3,11 +3,8 @@ package com.blackgear.vanillabackport.common.registries.items;
 import com.blackgear.platform.core.helper.ItemRegistry;
 import com.blackgear.vanillabackport.client.registries.ModSoundEvents;
 import com.blackgear.vanillabackport.common.level.entities.mob.animal.chicken.ChickenVariants;
-import com.blackgear.vanillabackport.common.level.items.CushionItem;
-import com.blackgear.vanillabackport.common.level.items.NautilusArmorItem;
-import com.blackgear.vanillabackport.common.level.items.CustomBoatItem;
+import com.blackgear.vanillabackport.common.level.items.*;
 import com.blackgear.vanillabackport.common.level.items.spear.SpearItem;
-import com.blackgear.vanillabackport.common.level.items.SulfurCubeBucketItem;
 import com.blackgear.vanillabackport.common.registries.entities.ModBoatTypes;
 import com.blackgear.vanillabackport.common.registries.entities.ModEntityTypes;
 import com.blackgear.vanillabackport.core.VanillaBackport;
@@ -395,4 +392,19 @@ public class ModItems {
         properties -> new CushionItem(properties.stacksTo(16), DyeColor.RED));
     public static final Supplier<Item> BLACK_CUSHION = REGISTRIES.register("black_cushion",
         properties -> new CushionItem(properties.stacksTo(16), DyeColor.BLACK));
+    
+    // Miscellaneous
+    
+    public static final Supplier<Item> ICE_BALL = REGISTRIES.register("ice_ball",
+        IceBallItem::new,
+        new Properties().stacksTo(16));
+    
+    public static final Supplier<Item> FROSTBITE_SPAWN_EGG = REGISTRIES.register("frostbite_spawn_egg",
+        () -> ItemRegistry.createSpawnEgg(ModEntityTypes.FROSTBITE, 6250335, 16545810, new Properties()));
+    
+    public static final Supplier<Item> MUSIC_DISC_FLURRY = REGISTRIES.register("music_disc_flurry",
+        new Properties()
+            .stacksTo(1)
+            .rarity(Rarity.UNCOMMON)
+            .jukeboxPlayable(ModJukeboxSongs.FLURRY));
 }

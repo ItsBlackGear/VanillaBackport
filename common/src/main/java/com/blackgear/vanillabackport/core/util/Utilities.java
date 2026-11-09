@@ -508,6 +508,35 @@ public class Utilities {
             }
         }
         
+        public static Iterable<BlockPos> horizontalRays(final BlockPos origin, final int distance) {
+            return horizontalRays(origin, 1, distance);
+        }
+        
+        public static Iterable<BlockPos> horizontalAtDistance(final BlockPos origin, final int distance) {
+            return horizontalRays(origin, distance, distance);
+        }
+        
+        private static Iterable<BlockPos> horizontalRays(final BlockPos origin, final int minDistance, final int maxDistance) {
+            Direction[] directions = Direction.Plane.HORIZONTAL.stream().toArray(Direction[]::new);
+            int rayLength = Math.max(maxDistance - minDistance + 1, 0);
+            int stepCount = directions.length * rayLength;
+            return () -> new AbstractIterator<>() {
+                private final BlockPos.MutableBlockPos cursor = new BlockPos.MutableBlockPos();
+                private int index;
+                
+                protected BlockPos computeNext() {
+                    if (this.index == stepCount) {
+                        return this.endOfData();
+                    } else {
+                        Direction direction = directions[this.index / rayLength];
+                        int distance = minDistance + this.index % rayLength;
+                        this.index++;
+                        return this.cursor.setWithOffset(origin, direction.getStepX() * distance, 0, direction.getStepZ() * distance);
+                    }
+                }
+            };
+        }
+        
         @FunctionalInterface
         public interface BlockStepVisitor {
             boolean visit(BlockPos pos, int iteration);

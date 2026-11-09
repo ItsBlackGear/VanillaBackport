@@ -76,6 +76,11 @@ public class EntityRendering {
         event.register(ModModelLayers.SULFUR_CUBE_SMALL_INNER, SmallSulfurCubeModel::createInnerBodyLayer);
         
         event.register(ModModelLayers.CUSHION, CushionModel::createBodyLayer);
+        
+        event.register(ModModelLayers.FROSTBITE, () -> DrownedModel.createBodyLayer(CubeDeformation.NONE));
+        event.register(ModModelLayers.FROSTBITE_OUTER_LAYER, () -> DrownedModel.createBodyLayer(new CubeDeformation(0.25F)));
+        event.register(ModModelLayers.FROSTBITE_OUTER_ARMOR, () -> outerArmorDefinition);
+        event.register(ModModelLayers.FROSTBITE_INNER_ARMOR, () -> innerArmorDefinition);
     }
     
     public static void renderers(EntityRendererEvent event) {
@@ -94,6 +99,9 @@ public class EntityRendering {
         event.register(ModEntityTypes.ZOMBIE_NAUTILUS.get(), ZombieNautilusRenderer::new);
         
         event.register(ModEntityTypes.SULFUR_CUBE.get(), SulfurCubeRenderer::new);
+        
+        event.register(ModEntityTypes.ICE_BALL.get(), ThrownItemRenderer::new);
+        event.register(ModEntityTypes.FROSTBITE.get(), FrostbiteRenderer::new);
     }
     
     public static void renderLayers(EntityType<? extends LivingEntity> entity, LivingEntityRenderer<?, ?> renderer, LivingEntityRendererCallback.LayerAppender appender, EntityRendererProvider.Context context) {

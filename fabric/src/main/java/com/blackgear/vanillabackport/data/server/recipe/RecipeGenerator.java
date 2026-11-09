@@ -112,18 +112,8 @@ public class RecipeGenerator extends VanillaRecipeProvider {
         this.generateStonecutterRecipes(output, BlockFamilies.CINNABAR, FeatureFlagSet.of(FeatureFlags.VANILLA));
         this.generateStonecutterRecipes(output, BlockFamilies.POLISHED_CINNABAR, FeatureFlagSet.of(FeatureFlags.VANILLA));
         this.generateStonecutterRecipes(output, BlockFamilies.CINNABAR_BRICKS, FeatureFlagSet.of(FeatureFlags.VANILLA));
-        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.SULFUR_BRICKS.get(), 4)
-            .define('S', ModBlocks.POLISHED_SULFUR.get())
-            .pattern("SS")
-            .pattern("SS")
-            .unlockedBy("has_polished_sulfur", has(ModBlocks.POLISHED_SULFUR.get()))
-            .save(output);
-        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.CINNABAR_BRICKS.get(), 4)
-            .define('S', ModBlocks.POLISHED_CINNABAR.get())
-            .pattern("SS")
-            .pattern("SS")
-            .unlockedBy("has_polished_cinnabar", has(ModBlocks.POLISHED_CINNABAR.get()))
-            .save(output);
+        bricksBuilder(output, RecipeCategory.BUILDING_BLOCKS, ModBlocks.SULFUR_BRICKS.get(), ModBlocks.POLISHED_SULFUR.get());
+        bricksBuilder(output, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CINNABAR_BRICKS.get(), ModBlocks.POLISHED_CINNABAR.get());
         stonecutterResultFromBase(output, RecipeCategory.BUILDING_BLOCKS, ModBlocks.SULFUR_BRICKS.get(), ModBlocks.POLISHED_SULFUR.get(), 1);
         stonecutterResultFromBase(output, RecipeCategory.BUILDING_BLOCKS, ModBlocks.CINNABAR_BRICKS.get(), ModBlocks.POLISHED_CINNABAR.get(), 1);
 
@@ -232,22 +222,22 @@ public class RecipeGenerator extends VanillaRecipeProvider {
         colorBlockWithDye(output, dyes, harness, ModItemTags.HARNESSES, "harness_dye");
         colorBlockWithDye(output, dyes, cushion, ModItemTags.CUSHIONS, "cushion_dye");
         
-        this.cushionRecipe(output, ModBlocks.WHITE_WOOL_SLAB.get().asItem(), ModItems.WHITE_CUSHION.get());
-        this.cushionRecipe(output, ModBlocks.ORANGE_WOOL_SLAB.get().asItem(), ModItems.ORANGE_CUSHION.get());
-        this.cushionRecipe(output, ModBlocks.MAGENTA_WOOL_SLAB.get().asItem(), ModItems.MAGENTA_CUSHION.get());
-        this.cushionRecipe(output, ModBlocks.LIGHT_BLUE_WOOL_SLAB.get().asItem(), ModItems.LIGHT_BLUE_CUSHION.get());
-        this.cushionRecipe(output, ModBlocks.YELLOW_WOOL_SLAB.get().asItem(), ModItems.YELLOW_CUSHION.get());
-        this.cushionRecipe(output, ModBlocks.LIME_WOOL_SLAB.get().asItem(), ModItems.LIME_CUSHION.get());
-        this.cushionRecipe(output, ModBlocks.PINK_WOOL_SLAB.get().asItem(), ModItems.PINK_CUSHION.get());
-        this.cushionRecipe(output, ModBlocks.GRAY_WOOL_SLAB.get().asItem(), ModItems.GRAY_CUSHION.get());
-        this.cushionRecipe(output, ModBlocks.LIGHT_GRAY_WOOL_SLAB.get().asItem(), ModItems.LIGHT_GRAY_CUSHION.get());
-        this.cushionRecipe(output, ModBlocks.CYAN_WOOL_SLAB.get().asItem(), ModItems.CYAN_CUSHION.get());
-        this.cushionRecipe(output, ModBlocks.PURPLE_WOOL_SLAB.get().asItem(), ModItems.PURPLE_CUSHION.get());
-        this.cushionRecipe(output, ModBlocks.BLUE_WOOL_SLAB.get().asItem(), ModItems.BLUE_CUSHION.get());
-        this.cushionRecipe(output, ModBlocks.BROWN_WOOL_SLAB.get().asItem(), ModItems.BROWN_CUSHION.get());
-        this.cushionRecipe(output, ModBlocks.GREEN_WOOL_SLAB.get().asItem(), ModItems.GREEN_CUSHION.get());
-        this.cushionRecipe(output, ModBlocks.RED_WOOL_SLAB.get().asItem(), ModItems.RED_CUSHION.get());
-        this.cushionRecipe(output, ModBlocks.BLACK_WOOL_SLAB.get().asItem(), ModItems.BLACK_CUSHION.get());
+        this.cushionRecipe(output, ModBlocks.WHITE_WOOL_SLAB.get(), ModItems.WHITE_CUSHION.get());
+        this.cushionRecipe(output, ModBlocks.ORANGE_WOOL_SLAB.get(), ModItems.ORANGE_CUSHION.get());
+        this.cushionRecipe(output, ModBlocks.MAGENTA_WOOL_SLAB.get(), ModItems.MAGENTA_CUSHION.get());
+        this.cushionRecipe(output, ModBlocks.LIGHT_BLUE_WOOL_SLAB.get(), ModItems.LIGHT_BLUE_CUSHION.get());
+        this.cushionRecipe(output, ModBlocks.YELLOW_WOOL_SLAB.get(), ModItems.YELLOW_CUSHION.get());
+        this.cushionRecipe(output, ModBlocks.LIME_WOOL_SLAB.get(), ModItems.LIME_CUSHION.get());
+        this.cushionRecipe(output, ModBlocks.PINK_WOOL_SLAB.get(), ModItems.PINK_CUSHION.get());
+        this.cushionRecipe(output, ModBlocks.GRAY_WOOL_SLAB.get(), ModItems.GRAY_CUSHION.get());
+        this.cushionRecipe(output, ModBlocks.LIGHT_GRAY_WOOL_SLAB.get(), ModItems.LIGHT_GRAY_CUSHION.get());
+        this.cushionRecipe(output, ModBlocks.CYAN_WOOL_SLAB.get(), ModItems.CYAN_CUSHION.get());
+        this.cushionRecipe(output, ModBlocks.PURPLE_WOOL_SLAB.get(), ModItems.PURPLE_CUSHION.get());
+        this.cushionRecipe(output, ModBlocks.BLUE_WOOL_SLAB.get(), ModItems.BLUE_CUSHION.get());
+        this.cushionRecipe(output, ModBlocks.BROWN_WOOL_SLAB.get(), ModItems.BROWN_CUSHION.get());
+        this.cushionRecipe(output, ModBlocks.GREEN_WOOL_SLAB.get(), ModItems.GREEN_CUSHION.get());
+        this.cushionRecipe(output, ModBlocks.RED_WOOL_SLAB.get(), ModItems.RED_CUSHION.get());
+        this.cushionRecipe(output, ModBlocks.BLACK_WOOL_SLAB.get(), ModItems.BLACK_CUSHION.get());
 
         List<BlockFamily> concrete_families = List.of(BlockFamilies.BLACK_CONCRETE, BlockFamilies.BLUE_CONCRETE,
             BlockFamilies.BROWN_CONCRETE, BlockFamilies.CYAN_CONCRETE, BlockFamilies.GRAY_CONCRETE,
@@ -263,8 +253,37 @@ public class RecipeGenerator extends VanillaRecipeProvider {
             .unlockedBy("has_hay_block", has(Items.HAY_BLOCK))
             .unlockedBy("has_straw_bed", has(ModBlocks.STRAW_BED.get()))
             .save(output);
+        
+        // Miscellaneous
+        this.generateStonecutterRecipes(output, BlockFamilies.PACKED_ICE_BRICKS, FeatureFlagSet.of(FeatureFlags.VANILLA));
+        bricksBuilder(output, RecipeCategory.BUILDING_BLOCKS, ModBlocks.PACKED_ICE_BRICKS.get(), Blocks.PACKED_ICE);
+        stonecutterResultFromBase(output, RecipeCategory.BUILDING_BLOCKS, ModBlocks.PACKED_ICE_BRICKS.get(), Blocks.PACKED_ICE, 1);
+        bricksBuilder(output, RecipeCategory.BUILDING_BLOCKS, ModBlocks.SNOW_BRICKS.get(), Blocks.SNOW_BLOCK);
+        
+        this.generateStonecutterRecipes(output, BlockFamilies.CALCITE, FeatureFlagSet.of(FeatureFlags.VANILLA));
+        this.generateStonecutterRecipes(output, BlockFamilies.POLISHED_CALCITE, FeatureFlagSet.of(FeatureFlags.VANILLA));
+        this.generateStonecutterRecipes(output, BlockFamilies.POLISHED_CALCITE_BRICKS, FeatureFlagSet.of(FeatureFlags.VANILLA));
+        bricksBuilder(output, RecipeCategory.BUILDING_BLOCKS, ModBlocks.POLISHED_CALCITE_BRICKS.get(), ModBlocks.POLISHED_CALCITE.get());
+        stonecutterResultFromBase(output, RecipeCategory.BUILDING_BLOCKS, ModBlocks.POLISHED_CALCITE_BRICKS.get(), ModBlocks.POLISHED_CALCITE.get(), 1);
+        
+        ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, ModBlocks.CALCITE_PILLAR.get(), 2)
+            .define('#', Blocks.CALCITE)
+            .pattern("#")
+            .pattern("#")
+            .unlockedBy("has_calcite", has(Blocks.CALCITE))
+            .unlockedBy("has_calcite_pillar", has(ModBlocks.CALCITE_PILLAR.get()))
+            .save(output);
     }
-
+    
+    private void bricksBuilder(RecipeOutput output, RecipeCategory category, ItemLike result, ItemLike base) {
+        shaped(category, result, 4)
+            .define('#', base)
+            .pattern("##")
+            .pattern("##")
+            .unlockedBy(getHasName(base), has(base))
+            .save(output);
+    }
+    
     public static ShapedRecipeBuilder shaped(RecipeCategory category, ItemLike entry) {
         return ShapedRecipeBuilder.shaped(category, entry);
     }
@@ -331,7 +350,7 @@ public class RecipeGenerator extends VanillaRecipeProvider {
             .save(output);
     }
     
-    public void cushionRecipe(RecipeOutput output, Item woolSlab, Item result) {
+    public void cushionRecipe(RecipeOutput output, ItemLike woolSlab, Item result) {
         shaped(RecipeCategory.DECORATIONS, result, 1)
             .define('#', woolSlab)
             .group("cushion")

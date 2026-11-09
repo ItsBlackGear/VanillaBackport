@@ -58,6 +58,7 @@ public class SpawnEggRenderer implements DynamicItemRenderer.Renderer {
         Items.EVOKER_SPAWN_EGG,
         Items.FOX_SPAWN_EGG,
         Items.FROG_SPAWN_EGG,
+        ModItems.FROSTBITE_SPAWN_EGG.get(),
         Items.GHAST_SPAWN_EGG,
         Items.GLOW_SQUID_SPAWN_EGG,
         Items.GOAT_SPAWN_EGG,

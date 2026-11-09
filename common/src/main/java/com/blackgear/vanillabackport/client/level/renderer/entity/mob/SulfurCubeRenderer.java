@@ -36,7 +36,7 @@ public class SulfurCubeRenderer extends MobRenderer<SulfurCube, SulfurCubeModel>
         pose.scale(0.999F, 0.999F, 0.999F);
         pose.translate(0.0F, 0.001F, 0.0F);
 
-        // apply size and squish
+        // apply pos and squish
         float size = (float) cube.getSize();
         float squish = cube.getContainedBlock().isEmpty() ? Mth.lerp(partialTicks, cube.oSquish, cube.squish) / (size * 0.5F + 1.0F) : 0.0F;
         float progress = 1.0F / (squish + 1.0F);

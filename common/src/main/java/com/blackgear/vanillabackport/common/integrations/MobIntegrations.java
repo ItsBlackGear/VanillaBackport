@@ -13,6 +13,7 @@ import com.blackgear.vanillabackport.common.level.entities.mob.animal.nautilus.Z
 import com.blackgear.vanillabackport.common.level.entities.mob.monster.creaking.Creaking;
 import com.blackgear.vanillabackport.common.level.entities.mob.monster.skeleton.Parched;
 import com.blackgear.vanillabackport.common.level.entities.mob.monster.sulfur_cube.SulfurCube;
+import com.blackgear.vanillabackport.common.level.entities.mob.monster.zombie.Frostbite;
 import com.blackgear.vanillabackport.common.registries.entities.ModEntityTypes;
 import com.blackgear.vanillabackport.core.data.tags.ModItemTags;
 import net.minecraft.world.entity.*;
@@ -42,6 +43,7 @@ public class MobIntegrations {
         event.registerPlacement(ModEntityTypes.CAMEL_HUSK, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, MobSpawns::checkSurfaceMonstersSpawnRules);
         event.registerPlacement(ModEntityTypes.NAUTILUS, SpawnPlacementTypes.IN_WATER, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, AbstractNautilus::checkNautilusSpawnRules);
         event.registerPlacement(() -> EntityType.ZOMBIE_HORSE, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, MobSpawns::checkMonsterSpawnRules, SpawnPlacementStrategy.REPLACE);
+        event.registerPlacement(ModEntityTypes.FROSTBITE, SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, MobSpawns::checkColdVariantSpawnRules);
     }
     
     private static void registerAttributes(Event event) {
@@ -53,6 +55,7 @@ public class MobIntegrations {
         event.registerAttributes(ModEntityTypes.CAMEL_HUSK, Camel::createAttributes);
         event.registerAttributes(ModEntityTypes.NAUTILUS, AbstractNautilus::createAttributes);
         event.registerAttributes(ModEntityTypes.ZOMBIE_NAUTILUS, ZombieNautilus::createAttributes);
+        event.registerAttributes(ModEntityTypes.FROSTBITE, Frostbite::createAttributes);
     }
     
     private static void registerGoals(Event event) {

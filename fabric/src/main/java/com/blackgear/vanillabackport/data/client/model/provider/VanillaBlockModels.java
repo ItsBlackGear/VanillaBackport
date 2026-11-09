@@ -345,6 +345,50 @@ public class VanillaBlockModels extends BlockModelGenerators {
         return Variant.variant().with(VariantProperties.MODEL, ModelTemplates.POINTED_DRIPSTONE.createWithSuffix(block, suffix, texture, this.modelOutput));
     }
     
+    public void createIcicle() {
+        Block block = ModBlocks.ICICLE.get();
+        PropertyDispatch.C3<Direction, DripstoneThickness, Boolean> generator = PropertyDispatch.properties(BlockStateProperties.VERTICAL_DIRECTION, BlockStateProperties.DRIPSTONE_THICKNESS, BlockStateProperties.ATTACHED);
+        ResourceLocation topTexture = TextureMapping.getBlockTexture(block, "_top");
+        ResourceLocation sideTexture = TextureMapping.getBlockTexture(block, "_side");
+        
+        for (DripstoneThickness speleothemThickness : DripstoneThickness.values()) {
+            String thicknessSuffix = "_" + Direction.DOWN.getSerializedName() + "_" + speleothemThickness.getSerializedName();
+            ResourceLocation thicknessTexture = TextureMapping.getBlockTexture(block, thicknessSuffix);
+            TextureMapping mapping = TextureMapping.cross(thicknessTexture);
+            TextureMapping baseMapping = new TextureMapping()
+                .put(TextureSlot.CROSS, thicknessTexture)
+                .put(TextureSlot.TOP, topTexture)
+                .put(TextureSlot.SIDE, sideTexture);
+            ResourceLocation icicleTemplate = ModModelTemplates.ICICLE.createWithSuffix(block, thicknessSuffix, mapping, this.modelOutput);
+            ResourceLocation icicleBaseTemplate = ModModelTemplates.ICICLE_BASE.createWithSuffix(block, thicknessSuffix + "_base", baseMapping, this.modelOutput);
+            generator.select(Direction.DOWN, speleothemThickness, false, Variant.variant().with(VariantProperties.MODEL, icicleTemplate));
+            generator.select(Direction.DOWN, speleothemThickness, true, Variant.variant().with(VariantProperties.MODEL, icicleBaseTemplate).with(VariantProperties.UV_LOCK, true));
+            generator.select(Direction.UP, speleothemThickness, false, Variant.variant().with(VariantProperties.MODEL, icicleTemplate).with(VariantProperties.X_ROT, VariantProperties.Rotation.R180).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R180));
+            generator.select(Direction.UP, speleothemThickness, true, Variant.variant().with(VariantProperties.MODEL, icicleBaseTemplate).with(VariantProperties.X_ROT, VariantProperties.Rotation.R180));
+        }
+        
+        this.blockStateOutput.accept(MultiVariantGenerator.multiVariant(block).with(generator));
+    }
+    
+    private void createCrackingIce(Block block) {
+        this.blockStateOutput
+            .accept(
+                MultiVariantGenerator.multiVariant(block)
+                    .with(
+                        PropertyDispatch.property(BlockStateProperties.AGE_3)
+                            .select(0, Variant.variant().with(VariantProperties.MODEL, this.createSuffixedVariant(block, "_0", ModelTemplates.CUBE_ALL, TextureMapping::cube)))
+                            .select(1, Variant.variant().with(VariantProperties.MODEL, this.createSuffixedVariant(block, "_1", ModelTemplates.CUBE_ALL, TextureMapping::cube)))
+                            .select(2, Variant.variant().with(VariantProperties.MODEL, this.createSuffixedVariant(block, "_2", ModelTemplates.CUBE_ALL, TextureMapping::cube)))
+                            .select(3, Variant.variant().with(VariantProperties.MODEL, this.createSuffixedVariant(block, "_3", ModelTemplates.CUBE_ALL, TextureMapping::cube)))
+                    )
+            );
+    }
+    
+    public void createBrittleIce() {
+        this.createCrackingIce(ModBlocks.BRITTLE_ICE.get());
+        this.delegateItemModel(ModBlocks.BRITTLE_ICE.get(), ModelLocationUtils.getModelLocation(ModBlocks.BRITTLE_ICE.get(), "_0"));
+    }
+    
     public void createChest(Block chest, Block particles) {
         BlockEntityModelGenerator generator = new BlockEntityModelGenerator(ModelLocationUtils.getModelLocation(chest), particles);
         generator.createWithoutBlockItem(chest);
@@ -552,5 +596,14 @@ public class VanillaBlockModels extends BlockModelGenerators {
                     .select(Direction.EAST, BedPart.FOOT, Variant.variant().with(VariantProperties.MODEL, footModelLocation).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R270))
                     .select(Direction.WEST, BedPart.FOOT, Variant.variant().with(VariantProperties.MODEL, footModelLocation).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90))
             );
+    }
+    
+    public void createDoubleSlab(Block block, Block slab) {
+        TextureMapping blockTextures = TextureMapping.cube(block);
+        TextureMapping slabTextures = TextureMapping.column(TextureMapping.getBlockTexture(slab, "_side"), blockTextures.get(TextureSlot.TOP));
+        ResourceLocation bottom = ModelTemplates.SLAB_BOTTOM.create(slab, slabTextures, this.modelOutput);
+        ResourceLocation top = ModelTemplates.SLAB_TOP.create(slab, slabTextures, this.modelOutput);
+        ResourceLocation doubleSlab = ModelTemplates.CUBE_COLUMN.createWithOverride(slab, "_double", slabTextures, this.modelOutput);
+        this.blockStateOutput.accept(createSlab(slab, bottom, top, doubleSlab));
     }
 }

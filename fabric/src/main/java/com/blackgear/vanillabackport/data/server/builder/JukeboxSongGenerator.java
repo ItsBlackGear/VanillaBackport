@@ -20,6 +20,7 @@ public class JukeboxSongGenerator extends FabricDynamicRegistryProvider {
         this.add(provider, entries, ModJukeboxSongs.TEARS);
         this.add(provider, entries, ModJukeboxSongs.LAVA_CHICKEN);
         this.add(provider, entries, ModJukeboxSongs.BOUNCE);
+        this.add(provider, entries, ModJukeboxSongs.FLURRY);
     }
 
     private void add(HolderLookup.Provider provider, Entries entries, ResourceKey<JukeboxSong> key) {

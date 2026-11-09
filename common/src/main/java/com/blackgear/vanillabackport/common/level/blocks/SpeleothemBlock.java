@@ -1,8 +1,11 @@
 package com.blackgear.vanillabackport.common.level.blocks;
 
 import com.blackgear.vanillabackport.core.data.tags.ModBlockTags;
+import com.blackgear.vanillabackport.core.network.handlers.LevelEvents;
+import com.blackgear.vanillabackport.core.util.BlockShaper;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
@@ -15,13 +18,11 @@ import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.Fallable;
-import net.minecraft.world.level.block.SimpleWaterloggedBlock;
+import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.*;
+import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.level.pathfinder.PathComputationType;
@@ -31,20 +32,22 @@ import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.BiPredicate;
 import java.util.function.Predicate;
 
-public class SpeleothemBlock extends Block implements Fallable, SimpleWaterloggedBlock {
+public abstract class SpeleothemBlock extends Block implements Fallable, SimpleWaterloggedBlock {
     public static final DirectionProperty TIP_DIRECTION = BlockStateProperties.VERTICAL_DIRECTION;
     public static final EnumProperty<DripstoneThickness> THICKNESS = BlockStateProperties.DRIPSTONE_THICKNESS;
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
-    private static final VoxelShape TIP_MERGE_SHAPE = Block.box(5.0, 0.0, 5.0, 11.0, 16.0, 11.0);
-    private static final VoxelShape TIP_SHAPE_UP = Block.box(5.0, 0.0, 5.0, 11.0, 11.0, 11.0);
-    private static final VoxelShape TIP_SHAPE_DOWN = Block.box(5.0, 5.0, 5.0, 11.0, 16.0, 11.0);
-    private static final VoxelShape FRUSTUM_SHAPE = Block.box(4.0, 0.0, 4.0, 12.0, 16.0, 12.0);
-    private static final VoxelShape MIDDLE_SHAPE = Block.box(3.0, 0.0, 3.0, 13.0, 16.0, 13.0);
-    private static final VoxelShape BASE_SHAPE = Block.box(2.0, 0.0, 2.0, 14.0, 16.0, 14.0);
+    private static final VoxelShape SHAPE_TIP_MERGE = BlockShaper.column(6.0, 0.0, 16.0);
+    private static final VoxelShape SHAPE_TIP_UP = BlockShaper.column(6.0, 0.0, 11.0);
+    private static final VoxelShape SHAPE_TIP_DOWN = BlockShaper.column(6.0, 5.0, 16.0);
+    private static final VoxelShape SHAPE_FRUSTUM = BlockShaper.column(8.0, 0.0, 16.0);
+    private static final VoxelShape SHAPE_MIDDLE = BlockShaper.column(10.0, 0.0, 16.0);
+    private static final VoxelShape SHAPE_BASE = BlockShaper.column(12.0, 0.0, 16.0);
     protected final BlockState blockToGrowOn;
 
     public SpeleothemBlock(BlockState blockToGrowOn, Properties properties) {
@@ -185,7 +188,7 @@ public class SpeleothemBlock extends Block implements Fallable, SimpleWaterlogge
         }
     }
 
-    private static void spawnFallingStalactite(BlockState state, ServerLevel level, BlockPos pos) {
+    protected static void spawnFallingStalactite(BlockState state, ServerLevel level, BlockPos pos) {
         BlockPos.MutableBlockPos fallPos = pos.mutable();
         BlockState fallState = state;
 
@@ -202,16 +205,16 @@ public class SpeleothemBlock extends Block implements Fallable, SimpleWaterlogge
             fallState = level.getBlockState(fallPos);
         }
     }
-
-    private static boolean isStalagmite(BlockState state) {
+    
+    protected static boolean isStalagmite(BlockState state) {
         return isSpeleothemWithDirection(state, Direction.UP);
     }
 
-    private static boolean isStalactite(BlockState state) {
+    protected static boolean isStalactite(BlockState state) {
         return isSpeleothemWithDirection(state, Direction.DOWN);
     }
 
-    private static boolean isTip(BlockState state, boolean merge) {
+    protected static boolean isTip(BlockState state, boolean merge) {
         if (!state.is(ModBlockTags.SPELEOTHEMS)) {
             return false;
         } else {
@@ -222,9 +225,13 @@ public class SpeleothemBlock extends Block implements Fallable, SimpleWaterlogge
 
     @Override
     public void onBrokenAfterFall(Level level, BlockPos pos, FallingBlockEntity fallingBlock) {
-        if (!fallingBlock.isSilent()) level.levelEvent(1045, pos, 0);
+        if (!fallingBlock.isSilent()) {
+            this.getStalactiteLandingSound().trigger(level, null, pos, 0);
+        }
     }
-
+    
+    protected abstract LevelEvents getStalactiteLandingSound();
+    
     @Override
     public DamageSource getFallDamageSource(Entity entity) {
         return entity.damageSources().fallingStalactite(entity);
@@ -238,11 +245,11 @@ public class SpeleothemBlock extends Block implements Fallable, SimpleWaterlogge
     @Override
     protected VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
         VoxelShape shape = switch (state.getValue(THICKNESS)) {
-            case TIP_MERGE -> TIP_MERGE_SHAPE;
-            case TIP -> state.getValue(TIP_DIRECTION) == Direction.DOWN ? TIP_SHAPE_DOWN : TIP_SHAPE_UP;
-            case FRUSTUM -> FRUSTUM_SHAPE;
-            case MIDDLE -> MIDDLE_SHAPE;
-            case BASE -> BASE_SHAPE;
+            case TIP_MERGE -> SHAPE_TIP_MERGE;
+            case TIP -> state.getValue(TIP_DIRECTION) == Direction.DOWN ? SHAPE_TIP_DOWN : SHAPE_TIP_UP;
+            case FRUSTUM -> SHAPE_FRUSTUM;
+            case MIDDLE -> SHAPE_MIDDLE;
+            case BASE -> SHAPE_BASE;
         };
         Vec3 offset = state.getOffset(level, pos);
         return shape.move(offset.x, 0.0, offset.z);
@@ -255,7 +262,7 @@ public class SpeleothemBlock extends Block implements Fallable, SimpleWaterlogge
 
     @Override
     protected float getMaxHorizontalOffset() {
-        return 0.125F;
+        return (float) SHAPE_BASE.min(Direction.Axis.X);
     }
 
     @Override
@@ -269,27 +276,39 @@ public class SpeleothemBlock extends Block implements Fallable, SimpleWaterlogge
             this.tryGrowStalactiteOrStalagmiteIfPossible(state, level, pos, random);
         }
     }
-
-    private static boolean isStalactiteStartPos(BlockState state, LevelReader level, BlockPos pos) {
-        return isStalactite(state) && !level.getBlockState(pos.above()).is(Blocks.POINTED_DRIPSTONE);
+    
+    protected static boolean isStalactiteStartPos(BlockState state, LevelReader level, BlockPos pos) {
+        return isStalactite(state) && !level.getBlockState(pos.above()).is(state.getBlock());
+    }
+    
+    protected static boolean isStalagmiteStartPos(BlockState state, LevelReader level, BlockPos pos) {
+        return isStalagmite(state) && !level.getBlockState(pos.below()).is(state.getBlock());
     }
 
     public void tryGrowStalactiteOrStalagmiteIfPossible(BlockState state, ServerLevel level, BlockPos pos, RandomSource random) {
         if (this.canGrow(level, pos)) {
-            BlockPos stalactiteTipPos = findTip(state, level, pos, 7, false);
+            BlockPos stalactiteTipPos = findTip(state, level, pos, this.getMaxGrowthLength(), false);
             if (stalactiteTipPos != null) {
                 BlockState stalactiteTipState = level.getBlockState(stalactiteTipPos);
                 if (isFreeHangingStalactite(stalactiteTipState) && this.canTipGrow(stalactiteTipState, level, stalactiteTipPos)) {
-                    if (random.nextBoolean()) {
+                    List<Direction> naturalGrowthDirections = this.getNaturalGrowthDirections();
+                    Direction growthDirection = naturalGrowthDirections.isEmpty()
+                        ? null
+                        : naturalGrowthDirections.get(random.nextInt(naturalGrowthDirections.size()));
+                    if (growthDirection == Direction.DOWN) {
                         this.grow(level, stalactiteTipPos, Direction.DOWN);
-                    } else {
+                    } else if (growthDirection == Direction.UP) {
                         this.growStalagmiteBelow(level, stalactiteTipPos);
                     }
                 }
             }
         }
     }
-
+    
+    protected List<Direction> getNaturalGrowthDirections() {
+        return new ArrayList<>(TIP_DIRECTION.getPossibleValues());
+    }
+    
     protected boolean canGrow(LevelReader level, BlockPos pos) {
         return level.getBlockState(pos.above()).is(this.blockToGrowOn.getBlock());
     }
@@ -356,11 +375,15 @@ public class SpeleothemBlock extends Block implements Fallable, SimpleWaterlogge
     private void grow(ServerLevel server, BlockPos pos, Direction direction) {
         BlockPos targetPos = pos.relative(direction);
         BlockState existingStateAtTargetPos = server.getBlockState(targetPos);
-        if (this.isUnmergedTipWithDirection(existingStateAtTargetPos, direction.getOpposite())) {
+        if (this.isUnmergedTipWithDirection(existingStateAtTargetPos, direction.getOpposite()) && this.shouldMergeTips()) {
             this.createMergedTips(existingStateAtTargetPos, server, targetPos);
         } else if (existingStateAtTargetPos.isAir() || existingStateAtTargetPos.is(Blocks.WATER)) {
             this.createSpeleothem(server, targetPos, direction, DripstoneThickness.TIP);
         }
+    }
+    
+    protected boolean shouldMergeTips() {
+        return true;
     }
 
     private void createSpeleothem(LevelAccessor level, BlockPos pos, Direction direction, DripstoneThickness thickness) {
@@ -418,5 +441,33 @@ public class SpeleothemBlock extends Block implements Fallable, SimpleWaterlogge
 
     public static boolean isFreeHangingStalactite(BlockState state) {
         return isStalactite(state) && state.getValue(THICKNESS) == DripstoneThickness.TIP && !state.getValue(WATERLOGGED);
+    }
+    
+    protected int getMaxGrowthLength() {
+        return 7;
+    }
+    
+    protected void spawnDripParticle(Level level, BlockPos stalactiteTipPos, BlockState stalactiteTipState, BlockPos posAbove, @Nullable Fluid fluidAbove) {
+        ParticleOptions dripParticle = this.getDripParticle(level, fluidAbove, posAbove);
+        if (dripParticle != null) {
+            Vec3 offset = stalactiteTipState.getOffset(level, stalactiteTipPos);
+            double x = stalactiteTipPos.getX() + 0.5 + offset.x;
+            double y = stalactiteTipPos.getY() + SHAPE_TIP_DOWN.min(Direction.Axis.Y) - 0.0625;
+            double z = stalactiteTipPos.getZ() + 0.5 + offset.z;
+            level.addParticle(dripParticle, x, y, z, 0.0, 0.0, 0.0);
+        }
+    }
+    
+    @Nullable
+    protected ParticleOptions getDripParticle(Level level, @Nullable Fluid fluidAbove, BlockPos posAbove) {
+        return null;
+    }
+    
+    protected void fallOnDamage(Level level, BlockState state, BlockPos pos, Entity entity, float fallDistance) {
+        if (state.getValue(TIP_DIRECTION) == Direction.UP && state.getValue(THICKNESS) == DripstoneThickness.TIP) {
+            entity.causeFallDamage(fallDistance + 2.5F, 2.0F, level.damageSources().stalagmite());
+        } else {
+            super.fallOn(level, state, pos, entity, fallDistance);
+        }
     }
 }

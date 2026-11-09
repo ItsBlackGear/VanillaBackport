@@ -43,7 +43,7 @@ public abstract class NaturalSpawnerMixin {
 //        CallbackInfoReturnable<Boolean> cir
 //    ) {
 //        if (category == MobCategory.MONSTER && level.getDifficulty() == Difficulty.PEACEFUL) {
-//            if (!data.type.is(ModEntityTypeTags.MONSTERS_THAT_SPAWN_ON_PEACEFUL)) {
+//            if (!data.event.is(ModEntityTypeTags.MONSTERS_THAT_SPAWN_ON_PEACEFUL)) {
 //                cir.setReturnValue(false);
 //            }
 //        }

@@ -58,11 +58,18 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUtils;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.item.enchantment.ConditionalEffect;
+import net.minecraft.world.item.enchantment.EnchantedItemInUse;
+import net.minecraft.world.item.enchantment.effects.EnchantmentLocationBasedEffect;
 import net.minecraft.world.level.*;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.FluidState;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.LootParams;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
@@ -88,7 +95,9 @@ public class SulfurCube extends AbstractCubeMob implements Bucketable, Shearable
 
     @Nullable private DamageSource pendingKnockbackSource = null;
     private float pendingKnockbackDamage = 0f;
-
+    
+    private final Set<EnchantmentLocationBasedEffect> activeLocationDependentEffects = new HashSet<>();
+    
     private static final ExplosionDamageCalculator USED_PORTAL_DAMAGE_CALCULATOR = new ExplosionDamageCalculator() {
         @Override
         public boolean shouldBlockExplode(Explosion explosion, BlockGetter reader, BlockPos pos, BlockState state, float power) {
@@ -134,23 +143,18 @@ public class SulfurCube extends AbstractCubeMob implements Bucketable, Shearable
         return this.entityData.get(FROM_BUCKET);
     }
 
-    @Override
-    public void setFromBucket(boolean fromBucket) {
-        this.entityData.set(FROM_BUCKET, fromBucket);
-    }
-
     public int getFuse() {
         return this.fuse;
     }
-
-    public void setFuse(int fuse) {
-        this.fuse = fuse;
-    }
-
+    
     public boolean isPrimed() {
         return this.getFuse() >= 0;
     }
-
+    
+    public void setFuse(int fuse) {
+        this.fuse = fuse;
+    }
+    
     @Override
     public void onSyncedDataUpdated(EntityDataAccessor<?> key) {
         if (MAX_FUSE.equals(key)) {
@@ -158,6 +162,11 @@ public class SulfurCube extends AbstractCubeMob implements Bucketable, Shearable
         }
 
         super.onSyncedDataUpdated(key);
+    }
+    
+    @Override
+    public void setFromBucket(boolean fromBucket) {
+        this.entityData.set(FROM_BUCKET, fromBucket);
     }
 
     @Override
@@ -270,6 +279,7 @@ public class SulfurCube extends AbstractCubeMob implements Bucketable, Shearable
                 if (!source.is(ModDamageTypeTags.NO_KNOCKBACK)) {
                     this.dealDefaultKnockback(source, damage, true);
                 }
+                
                 return true;
             }
         }
@@ -386,7 +396,30 @@ public class SulfurCube extends AbstractCubeMob implements Bucketable, Shearable
             this.gameEvent(GameEvent.PRIME_FUSE);
         }
     }
-
+    
+    @Override
+    protected void onChangedBlock(ServerLevel level, BlockPos pos) {
+        super.onChangedBlock(level, pos);
+        ItemStack item = this.getItemBySlot(EquipmentSlot.CHEST);
+        List<SulfurCubeArchetype> currentArchetypes = this.matchingArchetypes(item);
+        EnchantedItemInUse itemInUse = new EnchantedItemInUse(item, EquipmentSlot.CHEST, this);
+        
+        for (SulfurCubeArchetype archetype : currentArchetypes) {
+            for (ConditionalEffect<EnchantmentLocationBasedEffect> effect : archetype.locationBasedEffects()) {
+                boolean active = this.activeLocationDependentEffects.contains(effect.effect());
+                LootContext context = this.getContext(level, active);
+                if (effect.matches(context)) {
+                    effect.effect().onChangedBlock(level, 1, itemInUse, this, this.position(), false);
+                    if (!active) {
+                        this.activeLocationDependentEffects.add(effect.effect());
+                    }
+                } else if (active) {
+                    this.activeLocationDependentEffects.remove(effect.effect());
+                }
+            }
+        }
+    }
+    
     @Override
     protected void customServerAiStep() {
         super.customServerAiStep();
@@ -412,7 +445,10 @@ public class SulfurCube extends AbstractCubeMob implements Bucketable, Shearable
                 this.registerGoals();
             }
 
-            for (SulfurCubeArchetype archetype : this.matchingArchetypes(previous)) {
+            List<SulfurCubeArchetype> previousArchetypes = this.matchingArchetypes(previous);
+            List<SulfurCubeArchetype> currentArchetypes = this.matchingArchetypes(current);
+            
+            for (SulfurCubeArchetype archetype : previousArchetypes) {
                 for (AttributeEntry entry : archetype.attributeModifiers()) {
                     AttributeInstance attribute = this.getAttribute(entry.attribute());
                     if (attribute != null) {
@@ -427,7 +463,7 @@ public class SulfurCube extends AbstractCubeMob implements Bucketable, Shearable
             this.knockbackModifier = DEFAULT_KNOCKBACK_MODIFIERS;
             this.soundSettings = SulfurCubeArchetype.DEFAULT_SOUND_SETTINGS;
 
-            for (SulfurCubeArchetype archetype : this.matchingArchetypes(current)) {
+            for (SulfurCubeArchetype archetype : currentArchetypes) {
                 if (archetype.buoyant()) {
                     this.floatsInLiquids = true;
                 }
@@ -443,10 +479,36 @@ public class SulfurCube extends AbstractCubeMob implements Bucketable, Shearable
                 this.knockbackModifier = archetype.knockbackModifiers();
                 this.soundSettings = archetype.soundSettings();
 
-                for (AttributeEntry entry : archetype.attributeModifiers()) {
-                    AttributeInstance attribute = this.getAttribute(entry.attribute());
+                for (AttributeEntry modifier : archetype.attributeModifiers()) {
+                    AttributeInstance attribute = this.getAttribute(modifier.attribute());
                     if (attribute != null) {
-                        attribute.addOrUpdateTransientModifier(entry.modifier());
+                        attribute.addOrUpdateTransientModifier(modifier.modifier());
+                    }
+                }
+            }
+            
+            EnchantedItemInUse previousItemInUse = new EnchantedItemInUse(previous, EquipmentSlot.CHEST, this);
+            
+            for (EnchantmentLocationBasedEffect effect : this.activeLocationDependentEffects) {
+                effect.onDeactivated(previousItemInUse, this, this.position(), 1);
+            }
+            
+            this.activeLocationDependentEffects.clear();
+            EnchantedItemInUse currentItemInUse = new EnchantedItemInUse(current, EquipmentSlot.CHEST, this);
+            
+            if (this.level() instanceof ServerLevel level) {
+                List<ConditionalEffect<EnchantmentLocationBasedEffect>> newEffects = currentArchetypes.stream()
+                    .filter(archetype -> !previousArchetypes.contains(archetype))
+                    .flatMap(archetype -> archetype.locationBasedEffects().stream())
+                    .toList();
+                if (!newEffects.isEmpty()) {
+                    LootContext context = this.getContext(level, false);
+                    
+                    for (ConditionalEffect<EnchantmentLocationBasedEffect> effect : newEffects) {
+                        if (effect.matches(context)) {
+                            effect.effect().onChangedBlock(level, 1, currentItemInUse, this, this.position(), true);
+                            this.activeLocationDependentEffects.add(effect.effect());
+                        }
                     }
                 }
             }
@@ -454,7 +516,17 @@ public class SulfurCube extends AbstractCubeMob implements Bucketable, Shearable
 
         return super.collectEquipmentChanges();
     }
-
+    
+    private LootContext getContext(ServerLevel serverLevel, boolean active) {
+        LootParams params = new LootParams.Builder(serverLevel)
+            .withParameter(LootContextParams.THIS_ENTITY, this)
+            .withParameter(LootContextParams.ENCHANTMENT_LEVEL, 1)
+            .withParameter(LootContextParams.ORIGIN, this.position())
+            .withParameter(LootContextParams.ENCHANTMENT_ACTIVE, active)
+            .create(LootContextParamSets.ENCHANTED_LOCATION);
+        return new LootContext.Builder(params).create(Optional.empty());
+    }
+    
     @Override
     public float maxUpStep() {
         return this.hasBodyItem() ? 0.0F : super.maxUpStep();
@@ -660,13 +732,13 @@ public class SulfurCube extends AbstractCubeMob implements Bucketable, Shearable
     private static boolean isSwallowableItem(ItemStack stack) {
         return stack.is(ModItemTags.SULFUR_CUBE_SWALLOWABLE);
     }
-
+    
     @Override
     public boolean canHoldItem(ItemStack stack) {
         ItemStack heldItem = this.getItemBySlot(EquipmentSlot.CHEST);
         return heldItem.isEmpty() && isSwallowableItem(stack) && !this.isBaby();
     }
-
+    
     @Override
     protected void pickUpItem(ItemEntity item) {
         ItemStack itemStack = item.getItem();
@@ -885,7 +957,7 @@ public class SulfurCube extends AbstractCubeMob implements Bucketable, Shearable
     protected void setCubeMobHealth(int actualSize) {
         this.getAttribute(Attributes.MAX_HEALTH).setBaseValue(4 * actualSize);
     }
-
+    
     private class SulfurCubeLookControl extends LookControl {
         public SulfurCubeLookControl() {
             super(SulfurCube.this);

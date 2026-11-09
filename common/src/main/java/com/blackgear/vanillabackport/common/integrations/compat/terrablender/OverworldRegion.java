@@ -32,6 +32,9 @@ public class OverworldRegion extends Region {
         if (VanillaBackport.COMMON_CONFIG.hasDappledForest.get())
             BiomeGeneration.DAPPLED_FOREST.forEach(pair -> builder.add(pair.getFirst(), pair.getSecond()));
         
+        if (VanillaBackport.COMMON_CONFIG.hasIceCaves.get())
+            builder.add(BiomeGeneration.ICE_CAVES.getFirst(), BiomeGeneration.ICE_CAVES.getSecond());
+        
         builder.build().forEach(mapper);
     }
 }

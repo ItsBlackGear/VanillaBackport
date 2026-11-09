@@ -37,10 +37,19 @@ public class LocatorBarRenderer {
     
     public static void bootstrap() {
         HudRendering.RENDERING.register((minecraft, guiGraphics, v) -> {
-            LocatorBarRenderer renderer = LocatorBarRenderer.INSTANCE;
-            if (!renderer.shouldHideBackgroundForHud()) renderer.renderBackground(guiGraphics);
+            if (!minecraft.options.hideGui) {
+                LocatorBarRenderer renderer = LocatorBarRenderer.INSTANCE;
+                if (!renderer.shouldHideBackgroundForHud()) renderer.renderBackground(guiGraphics);
+            }
         });
-        HudRendering.RENDERING.register((minecraft, guiGraphics, v) -> LocatorBarRenderer.INSTANCE.renderWaypoints(guiGraphics));
+        HudRendering.RENDERING.register((minecraft, guiGraphics, v) -> {
+            if (!minecraft.options.hideGui) {
+                guiGraphics.pose().pushPose();
+                guiGraphics.pose().translate(0.0F, 0.0F, 200.0F);
+                LocatorBarRenderer.INSTANCE.renderWaypoints(guiGraphics);
+                guiGraphics.pose().popPose();
+            }
+        });
     }
     
     public void renderBackground(GuiGraphics graphics) {

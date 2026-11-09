@@ -212,6 +212,9 @@ public class BlockIntegrations {
         // Wilderness Bound
         event.registerDispenserBehavior(ModItems.POPLAR_BOAT.get(), new BoatDispenseBehavior(ModBoatTypes.POPLAR));
         event.registerDispenserBehavior(ModItems.POPLAR_CHEST_BOAT.get(), new BoatDispenseBehavior(ModBoatTypes.POPLAR, true));
+        
+        // Miscellaneous
+        event.registerDispenserBehavior(ModItems.ICE_BALL.get(), new ProjectileDispenseBehavior(ModItems.ICE_BALL.get()));
     }
     
     public static void bootstrap(BlockIntegration.Event event) {

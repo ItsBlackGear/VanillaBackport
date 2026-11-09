@@ -18,6 +18,9 @@ import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.enchantment.ConditionalEffect;
+import net.minecraft.world.item.enchantment.effects.EnchantmentLocationBasedEffect;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 
 import java.util.List;
 import java.util.Optional;
@@ -29,7 +32,8 @@ public record SulfurCubeArchetype(
     Optional<ExplosionData> explosion,
     Optional<ContactDamage> contactDamage,
     KnockbackModifiers knockbackModifiers,
-    SoundSettings soundSettings
+    SoundSettings soundSettings,
+    List<ConditionalEffect<EnchantmentLocationBasedEffect>> locationBasedEffects
 ) {
     public static final Codec<SulfurCubeArchetype> CODEC = RecordCodecBuilder.create(instance -> instance.group(
         TagKey.hashedCodec(Registries.ITEM).fieldOf("items").forGetter(SulfurCubeArchetype::items),
@@ -38,7 +42,10 @@ public record SulfurCubeArchetype(
         ExplosionData.CODEC.optionalFieldOf("explosion").forGetter(SulfurCubeArchetype::explosion),
         ContactDamage.CODEC.optionalFieldOf("contact_damage").forGetter(SulfurCubeArchetype::contactDamage),
         KnockbackModifiers.CODEC.fieldOf("knockback_modifiers").forGetter(SulfurCubeArchetype::knockbackModifiers),
-        SoundSettings.CODEC.fieldOf("sound_settings").forGetter(SulfurCubeArchetype::soundSettings)
+        SoundSettings.CODEC.fieldOf("sound_settings").forGetter(SulfurCubeArchetype::soundSettings),
+        ConditionalEffect.codec(EnchantmentLocationBasedEffect.CODEC, LootContextParamSets.ENCHANTED_LOCATION).listOf()
+            .optionalFieldOf("location_based_effects", List.of())
+            .forGetter(SulfurCubeArchetype::locationBasedEffects)
     ).apply(instance, SulfurCubeArchetype::new));
 
     public static final KnockbackModifiers DEFAULT_KNOCKBACK_MODIFIERS = new KnockbackModifiers(0.33F, 0.06F);

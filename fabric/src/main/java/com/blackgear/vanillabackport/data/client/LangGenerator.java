@@ -537,7 +537,7 @@ public class LangGenerator extends FabricLanguageProvider {
         builder.add("advancements.husbandry.uh_oh.title", "Uh Oh");
         builder.add("advancements.husbandry.uh_oh.description", "Have a Sulfur Cube absorb a TNT block");
 
-        // Misc
+        // Wilderness Bound
         builder.add(ModEntityTypes.CUSHION.get(), "Cushion");
         builder.add("biome.minecraft.dappled_forest", "Dappled Forest");
         
@@ -678,6 +678,67 @@ public class LangGenerator extends FabricLanguageProvider {
         builder.add("filled_map.swamp_camp_map", "Swamp Camp Map");
         builder.add("filled_map.windswept_forest_abandoned_camp", "Windswept Forest Abandoned Camp Map");
         builder.add("filled_map.windswept_forest_camp_map", "Windswept Forest Camp Map");
+        
+        // Miscellaneous
+        builder.add("biome.minecraft.ice_caves", "Ice Caves");
+        
+        builder.add(ModBlocks.BRITTLE_ICE.get(), "Brittle Ice");
+        builder.add(ModBlocks.ICE_CRYSTAL.get(), "Ice Crystal");
+        builder.add(ModBlocks.ICICLE.get(), "Icicle");
+        builder.add(ModBlocks.PACKED_ICE_BRICKS.get(), "Packed Ice Bricks");
+        builder.add(ModBlocks.PACKED_ICE_BRICK_STAIRS.get(), "Packed Ice Brick Stairs");
+        builder.add(ModBlocks.PACKED_ICE_BRICK_SLAB.get(), "Packed Ice Brick Slab");
+        builder.add(ModBlocks.PACKED_ICE_BRICK_WALL.get(), "Packed Ice Brick Wall");
+        builder.add(ModBlocks.CHISELED_PACKED_ICE.get(), "Chiseled Packed Ice");
+        builder.add(ModBlocks.SNOW_BRICKS.get(), "Snow Bricks");
+        builder.add(ModBlocks.SNOW_BRICK_STAIRS.get(), "Snow Brick Stairs");
+        builder.add(ModBlocks.SNOW_BRICK_SLAB.get(), "Snow Brick Slab");
+        builder.add(ModBlocks.SNOW_BRICK_WALL.get(), "Snow Brick Wall");
+        builder.add(ModBlocks.CALCITE_PILLAR.get(), "Calcite Pillar");
+        builder.add(ModBlocks.CALCITE_STAIRS.get(), "Calcite Stairs");
+        builder.add(ModBlocks.CALCITE_SLAB.get(), "Calcite Slab");
+        builder.add(ModBlocks.CALCITE_WALL.get(), "Calcite Wall");
+        builder.add(ModBlocks.POLISHED_CALCITE.get(), "Polished Calcite");
+        builder.add(ModBlocks.POLISHED_CALCITE_STAIRS.get(), "Polished Calcite Stairs");
+        builder.add(ModBlocks.POLISHED_CALCITE_SLAB.get(), "Polished Calcite Slabs");
+        builder.add(ModBlocks.POLISHED_CALCITE_WALL.get(), "Polished Calcite Wall");
+        builder.add(ModBlocks.POLISHED_CALCITE_BRICKS.get(), "Polished Calcite Bricks");
+        builder.add(ModBlocks.POLISHED_CALCITE_BRICK_STAIRS.get(), "Polished Calcite Brick Stairs");
+        builder.add(ModBlocks.POLISHED_CALCITE_BRICK_SLAB.get(), "Polished Calcite Brick Slab");
+        builder.add(ModBlocks.POLISHED_CALCITE_BRICK_WALL.get(), "Polished Calcite Brick Wall");
+        builder.add(ModBlocks.CHISELED_SOULSHALE.get(), "Chiseled Soulshale");
+        
+        builder.add(ModItems.ICE_BALL.get(), "Ice Ball");
+        builder.add(ModItems.FROSTBITE_SPAWN_EGG.get(), "Frostbite Spawn Egg");
+        
+        builder.add("item.minecraft.music_disc_flurry", "Music Disc");
+        builder.add("item.minecraft.music_disc_flurry.desc", "Hyper Potions - Flurry");
+        
+        builder.add("jukebox_song.minecraft.flurry", "Hyper Potions - Flurry");
+        
+        builder.add(ModEntityTypes.ICE_BALL.get(), "Ice Ball");
+        builder.add(ModEntityTypes.FROSTBITE.get(), "Frostbite");
+        
+        builder.add(ModMobEffects.FREEZING.value(), "Freezing");
+        builder.add("item.minecraft.potion.effect.freezing", "Potion of Freezing");
+        builder.add("item.minecraft.splash_potion.effect.freezing", "Splash Potion of Freezing");
+        builder.add("item.minecraft.lingering_potion.effect.freezing", "Lingering Potion of Freezing");
+        builder.add("item.minecraft.tipped_arrow.effect.freezing", "Arrow of Freezing");
+        
+        builder.add("subtitles.block.ice_crystal.ambient", "Icicle Crystal chimes");
+        builder.add("subtitles.block.ice.ambient", "Ice resonates");
+        builder.add("subtitles.block.icicle.land", "Icicle crashes down");
+        builder.add("subtitles.block.brittle_ice.crack", "Brittle Ice cracks");
+        
+        builder.add("subtitles.entity.frostbite.ambient", "Frostbite groans");
+        builder.add("subtitles.entity.frostbite.converted_to_zombie", "Frostbite converts to Zombie");
+        builder.add("subtitles.entity.frostbite.death", "Frostbite dies");
+        builder.add("subtitles.entity.frostbite.hurt", "Frostbite is hurt");
+        
+        builder.add("subtitles.entity.zombie.converted_to_frostbite", "Zombie converts to Frostbite");
+        
+        builder.add("advancements.adventure.what_goes_around_comes_around.title", "What Goes Around Comes Around");
+        builder.add("advancements.adventure.what_goes_around_comes_around.description", "Kill a Frostbite using an Ice Ball");
         
         // Bundled Tabs
         builder.add("bundled_tab.bundles_of_bravery.title", "Bundles of Bravery");

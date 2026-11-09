@@ -13,21 +13,21 @@ modId = "vanillabackport"
 
 [[dependencies.vanillabackport]]
     modId = "neoforge"
-    type = "required"
+    event = "required"
     versionRange = "[21.1,)"
     ordering = "NONE"
     side = "BOTH"
 
 [[dependencies.vanillabackport]]
     modId = "minecraft"
-    type = "required"
+    event = "required"
     versionRange = "[1.21.1,)"
     ordering = "NONE"
     side = "BOTH"
 
 [[dependencies.vanillabackport]]
     modId = "platform"
-    type = "required"
+    event = "required"
     versionRange = "[1.4,)"
     ordering = "NONE"
     side = "BOTH"

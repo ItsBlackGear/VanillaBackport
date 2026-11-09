@@ -3,7 +3,6 @@ package com.blackgear.vanillabackport.client.registries;
 import com.blackgear.vanillabackport.client.api.bundled_tabs.BundledTabs;
 import com.blackgear.vanillabackport.common.level.blocks.CopperGolemStatueBlock;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
-import com.blackgear.vanillabackport.common.registries.enchantment.ModEnchantments;
 import com.blackgear.vanillabackport.common.registries.items.ModItems;
 import com.blackgear.vanillabackport.common.registries.items.ModPaintingVariants;
 import com.blackgear.vanillabackport.core.ModChecker;
@@ -18,12 +17,10 @@ import net.minecraft.world.entity.decoration.Painting;
 import net.minecraft.world.item.*;
 import net.minecraft.world.item.component.BlockItemStateProperties;
 import net.minecraft.world.item.component.CustomData;
-import net.minecraft.world.item.enchantment.EnchantmentInstance;
 import net.minecraft.world.level.block.Blocks;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.IntStream;
 
 public class ModBundledTabs {
     private static final List<BundledTabs> FILTERS = new ArrayList<>();
@@ -433,6 +430,43 @@ public class ModBundledTabs {
                 output.accept(ModBlocks.PINK_CONCRETE_SLAB.get());
                 output.accept(ModItems.PINK_CUSHION.get());
                 output.accept(ModBlocks.STRAW_BED.get());
+            })
+            .build()
+    );
+    
+    public static final BundledTabs MISCELLANEOUS = register(
+        BundledTabs.builder()
+            .title(Component.translatable("bundled_tab.miscellaneous.title"))
+            .icon(new ItemStack(ModItems.ICE_BALL.get()))
+            .displayItems((provider, output) -> {
+                output.accept(ModBlocks.BRITTLE_ICE.get());
+                output.accept(ModBlocks.ICICLE.get());
+                output.accept(ModBlocks.ICE_CRYSTAL.get());
+                output.accept(ModItems.ICE_BALL.get());
+                output.accept(ModBlocks.PACKED_ICE_BRICKS.get());
+                output.accept(ModBlocks.PACKED_ICE_BRICK_STAIRS.get());
+                output.accept(ModBlocks.PACKED_ICE_BRICK_SLAB.get());
+                output.accept(ModBlocks.PACKED_ICE_BRICK_WALL.get());
+                output.accept(ModBlocks.CHISELED_PACKED_ICE.get());
+                output.accept(ModBlocks.SNOW_BRICKS.get());
+                output.accept(ModBlocks.SNOW_BRICK_STAIRS.get());
+                output.accept(ModBlocks.SNOW_BRICK_SLAB.get());
+                output.accept(ModBlocks.SNOW_BRICK_WALL.get());
+                output.accept(ModBlocks.CALCITE_PILLAR.get());
+                output.accept(ModBlocks.CALCITE_STAIRS.get());
+                output.accept(ModBlocks.CALCITE_SLAB.get());
+                output.accept(ModBlocks.CALCITE_WALL.get());
+                output.accept(ModBlocks.POLISHED_CALCITE.get());
+                output.accept(ModBlocks.POLISHED_CALCITE_STAIRS.get());
+                output.accept(ModBlocks.POLISHED_CALCITE_SLAB.get());
+                output.accept(ModBlocks.POLISHED_CALCITE_WALL.get());
+                output.accept(ModBlocks.POLISHED_CALCITE_BRICKS.get());
+                output.accept(ModBlocks.POLISHED_CALCITE_BRICK_STAIRS.get());
+                output.accept(ModBlocks.POLISHED_CALCITE_BRICK_SLAB.get());
+                output.accept(ModBlocks.POLISHED_CALCITE_BRICK_WALL.get());
+                output.accept(ModBlocks.CHISELED_SOULSHALE.get());
+                output.accept(ModItems.FROSTBITE_SPAWN_EGG.get());
+                output.accept(ModItems.MUSIC_DISC_FLURRY.get());
             })
             .build()
     );

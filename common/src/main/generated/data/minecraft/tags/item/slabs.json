@@ -7,6 +7,11 @@
     "minecraft:sulfur_slab",
     "minecraft:polished_sulfur_slab",
     "minecraft:sulfur_brick_slab",
+    "minecraft:packed_ice_brick_slab",
+    "minecraft:snow_brick_slab",
+    "minecraft:calcite_slab",
+    "minecraft:polished_calcite_slab",
+    "minecraft:polished_calcite_brick_slab",
     "#minecraft:wool_slabs"
   ]
 }

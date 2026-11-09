@@ -12,6 +12,8 @@ import com.blackgear.vanillabackport.common.level.entities.mob.monster.creaking.
 import com.blackgear.vanillabackport.common.level.entities.mob.animal.happy_ghast.HappyGhast;
 import com.blackgear.vanillabackport.common.level.entities.mob.monster.skeleton.Parched;
 import com.blackgear.vanillabackport.common.level.entities.mob.monster.sulfur_cube.SulfurCube;
+import com.blackgear.vanillabackport.common.level.entities.mob.monster.zombie.Frostbite;
+import com.blackgear.vanillabackport.common.level.entities.projectile.IceBall;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
@@ -92,11 +94,26 @@ public class ModEntityTypes {
             .spawnDimensionsScale(2.0F)
             .clientTrackingRange(10));
     
-    // Miscellaneous
+    // Wilderness Bound
     
     public static final Supplier<EntityType<Cushion>> CUSHION = REGISTRIES.entity("cushion",
         EntityType.Builder.of(Cushion::new, MobCategory.MISC)
             .sized(1.0F, 0.25F)
             .clientTrackingRange(10)
             .updateInterval(Integer.MAX_VALUE));
+    
+    // Miscellaneous
+    
+    public static final Supplier<EntityType<IceBall>> ICE_BALL = REGISTRIES.entity("ice_ball",
+        EntityType.Builder.<IceBall>of(IceBall::new, MobCategory.MISC)
+            .sized(0.25F, 0.25F)
+            .clientTrackingRange(4)
+            .updateInterval(10));
+    public static final Supplier<EntityType<Frostbite>> FROSTBITE = REGISTRIES.entity("frostbite",
+        EntityType.Builder.of(Frostbite::new, MobCategory.MONSTER)
+            .sized(0.6F, 1.95F)
+            .eyeHeight(1.74F)
+            .passengerAttachments(2.0125F)
+            .ridingOffset(-0.7F)
+            .clientTrackingRange(8));
 }
