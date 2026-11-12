@@ -54,7 +54,9 @@
     "client.waypoints.GameRendererMixin",
     "client.waypoints.GuiMixin",
     "client.waypoints.LocalPlayerMixin",
-    "compat.backports.LayerDefinitionsMixin"
+    "compat.backports.LayerDefinitionsMixin",
+    "client.map_rendering.MapDecorationMixin",
+    "client.map_rendering.MapItemSavedDataMixin"
   ],
   "mixins": [
     "client.access.RotationAccessor",

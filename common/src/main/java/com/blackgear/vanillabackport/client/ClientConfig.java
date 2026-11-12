@@ -34,7 +34,8 @@ public class ClientConfig {
 
     // Wilderness Bound
     public final ConfigBuilder.ConfigValue<Boolean> hasModernHayBaleTexture;
-    
+    public final ConfigBuilder.ConfigValue<Boolean> hasModernMapPlayerMarkerTextures;
+
     // Miscellaneous
     public final ConfigBuilder.ConfigValue<Boolean> hasModernJukeboxTexture;
 
@@ -95,6 +96,8 @@ public class ClientConfig {
         builder.push("Wilderness Bound");
             this.hasModernHayBaleTexture = builder.comment("enable modern hay bale texture that is aligned with the straw bed")
                 .define("has_modern_hay_bale_texture", true);
+            this.hasModernMapPlayerMarkerTextures = builder.comment("enable modern player markers on maps")
+                .define("has_modern_map_player_marker_textures", true);
         builder.pop();
 
         builder.push("Miscellaneous");
