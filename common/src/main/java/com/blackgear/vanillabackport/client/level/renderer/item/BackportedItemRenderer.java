@@ -26,14 +26,18 @@ public class BackportedItemRenderer implements ItemRendererRegistry.Renderer {
     this.items = items;
   }
 
-  private static ModelResourceLocation getModelResourceLocation(Item item) {
+  protected ModelResourceLocation getModelResourceLocation(ItemStack itemStack) {
+    return getModelResourceLocation(itemStack.getItem());
+  }
+
+  protected ModelResourceLocation getModelResourceLocation(Item item) {
     ResourceLocation originalItem = BuiltInRegistries.ITEM.getKey(item);
     ResourceLocation backportItem = VanillaBackport.resource(originalItem.getPath());
     return new ModelResourceLocation(backportItem, "inventory");
   }
 
-  private static @NotNull ResultHolder<BakedModel> getModel(ItemStack itemStack, ItemModelShaper itemModelShaper) {
-    ModelResourceLocation modelResourceLocation = getModelResourceLocation(itemStack.getItem());
+  protected @NotNull ResultHolder<BakedModel> getModel(ItemStack itemStack, ItemModelShaper itemModelShaper) {
+    ModelResourceLocation modelResourceLocation = getModelResourceLocation(itemStack);
     return ResultHolder.submit(itemModelShaper.getModelManager().getModel(modelResourceLocation));
   }
 
@@ -51,7 +55,7 @@ public class BackportedItemRenderer implements ItemRendererRegistry.Renderer {
   public Set<ModelResourceLocation> registerModels() {
     return items
         .stream()
-        .map(BackportedItemRenderer::getModelResourceLocation)
+        .map(this::getModelResourceLocation)
         .collect(Collectors.toSet());
   }
 

@@ -1,0 +1,7 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "vanillabackport:item/colored_map",
+    "layer1": "vanillabackport:item/colored_map_markings"
+  }
+}
