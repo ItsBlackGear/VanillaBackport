@@ -29,6 +29,8 @@
     "client.game_options.OptionsMixin",
     "client.game_options.SoundOptionsScreenMixin",
     "client.leash_behavior.EntityRendererMixin",
+    "client.map_rendering.MapDecorationMixin",
+    "client.map_rendering.MapItemSavedDataMixin",
     "client.music_fade.MusicManagerMixin",
     "client.music_frequency.MusicManagerMixin",
     "client.music_on_pause.MinecraftMixin",
@@ -56,7 +58,8 @@
     "client.waypoints.LocalPlayerMixin",
     "compat.backports.LayerDefinitionsMixin",
     "client.map_rendering.MapDecorationMixin",
-    "client.map_rendering.MapItemSavedDataMixin"
+    "client.map_rendering.MapItemSavedDataMixin",
+    "client.map_rendering.GameModeIconMixin"
   ],
   "mixins": [
     "client.access.RotationAccessor",

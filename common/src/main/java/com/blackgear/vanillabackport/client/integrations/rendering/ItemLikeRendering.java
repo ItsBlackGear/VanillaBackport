@@ -60,6 +60,9 @@ public class ItemLikeRendering {
         );
 
         BuiltInRegistries.ITEM.stream().filter(item -> item instanceof BannerPatternItem).forEach(item -> event.simple(BannerPatternRenderer.INSTANCE, item));
+
+        Set<Item> maps = Set.of(Items.MAP, Items.FILLED_MAP);
+        event.simple(new MapRenderer(VanillaBackport.CLIENT_CONFIG.hasModernMapTextures, maps), maps);
     }
     
     public static void blockEntityRendering(BlockEntityRendererEvent event) {
