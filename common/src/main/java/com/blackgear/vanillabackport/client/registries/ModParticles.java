@@ -22,6 +22,7 @@ import java.util.function.Supplier;
 public class ModParticles {
     public static final ParticleRegistry REGISTRIES = ParticleRegistry.create(VanillaBackport.NAMESPACE);
     
+    public static final Supplier<SimpleParticleType> WHITE_SMOKE = REGISTRIES.register("white_smoke", true);
     public static final Supplier<SimpleParticleType> GUST = REGISTRIES.register("gust", true);
     public static final Supplier<SimpleParticleType> SMALL_GUST = REGISTRIES.register("small_gust", false);
     public static final Supplier<SimpleParticleType> GUST_EMITTER_LARGE = REGISTRIES.register("gust_emitter_large", true);

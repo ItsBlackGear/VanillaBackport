@@ -11,12 +11,19 @@ import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
 public enum LevelEvents {
+    CRAFTER_CRAFT,
+    CRAFTER_FAIL,
+    PARTICLES_SHOOT_WHITE_SMOKE,
     MACE_SMASH,
     SOUND_SULFUR_SPIKE_LAND,
     SOUND_ICICLE_LAND,
     CONVERT_ZOMBIE_TO_FROSTBITE,
     CONVERT_FROSTBITE_TO_ZOMBIE,
     CONVERT_DROWNED_TO_ZOMBIE;
+    
+    public void trigger(Level level, BlockPos pos, int data) {
+        this.trigger(level, null, pos, data);
+    }
     
     public void trigger(Level level, @Nullable Player exclude, BlockPos pos, int data) {
         if (level instanceof ServerLevel server) {

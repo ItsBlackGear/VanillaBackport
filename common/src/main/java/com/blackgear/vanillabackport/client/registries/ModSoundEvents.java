@@ -11,6 +11,8 @@ public class ModSoundEvents {
     public static final SoundRegistry REGISTRIES = SoundRegistry.create(VanillaBackport.NAMESPACE);
 
     // Tricky Trials
+    public static final Supplier<SoundEvent> CRAFTER_CRAFT = REGISTRIES.register("block.crafter.craft");
+    public static final Supplier<SoundEvent> CRAFTER_FAIL = REGISTRIES.register("block.crafter.fail");
     public static final Supplier<SoundEvent> COPPER_BULB_BREAK = REGISTRIES.register("block.copper_bulb.break");
     public static final Supplier<SoundEvent> COPPER_BULB_STEP = REGISTRIES.register("block.copper_bulb.step");
     public static final Supplier<SoundEvent> COPPER_BULB_PLACE = REGISTRIES.register("block.copper_bulb.place");
@@ -121,6 +123,13 @@ public class ModSoundEvents {
     public static final Supplier<SoundEvent> SULFUR_PLACE = REGISTRIES.soundEvent("block.sulfur.place");
     public static final Supplier<SoundEvent> SULFUR_HIT = REGISTRIES.soundEvent("block.sulfur.hit");
     public static final Supplier<SoundEvent> SULFUR_FALL = REGISTRIES.soundEvent("block.sulfur.fall");
+    
+    public static final Supplier<SoundEvent> SULFUR_SPIKE_BREAK = REGISTRIES.soundEvent("block.sulfur_spike.break");
+    public static final Supplier<SoundEvent> SULFUR_SPIKE_STEP = REGISTRIES.soundEvent("block.sulfur_spike.step");
+    public static final Supplier<SoundEvent> SULFUR_SPIKE_PLACE = REGISTRIES.soundEvent("block.sulfur_spike.place");
+    public static final Supplier<SoundEvent> SULFUR_SPIKE_HIT = REGISTRIES.soundEvent("block.sulfur_spike.hit");
+    public static final Supplier<SoundEvent> SULFUR_SPIKE_FALL = REGISTRIES.soundEvent("block.sulfur_spike.fall");
+    public static final Supplier<SoundEvent> SULFUR_SPIKE_LAND = REGISTRIES.register("block.sulfur_spike.land");
 
     public static final Supplier<SoundEvent> POTENT_SULFUR_BREAK = REGISTRIES.soundEvent("block.potent_sulfur.break");
     public static final Supplier<SoundEvent> POTENT_SULFUR_STEP = REGISTRIES.soundEvent("block.potent_sulfur.step");

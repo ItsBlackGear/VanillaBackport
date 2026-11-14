@@ -32,7 +32,13 @@ import java.util.function.ToIntFunction;
 public class ModBlocks {
     public static final BlockRegistry REGISTRIES = BlockRegistry.create(VanillaBackport.NAMESPACE);
 
-    // Miscellaneous
+    // Tricky Trials
+    public static final Supplier<Block> CRAFTER = REGISTRIES.register("crafter",
+        CrafterBlock::new,
+        Properties.of()
+            .mapColor(MapColor.STONE)
+            .strength(1.5F, 3.5F));
+    
     public static final Supplier<Block> COPPER_BULB = REGISTRIES.register("copper_bulb",
         properties -> new WeatheringCopperBulbBlock(WeatherState.UNAFFECTED, properties),
         SharedBlockProperties.COPPER_BULB

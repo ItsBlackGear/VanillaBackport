@@ -187,7 +187,8 @@ public class BlockTagGenerator extends FabricTagProvider.BlockTagProvider {
                 ModBlocks.POLISHED_CALCITE_BRICK_SLAB.get(),
                 ModBlocks.POLISHED_CALCITE_BRICK_STAIRS.get(),
                 ModBlocks.POLISHED_CALCITE_BRICK_WALL.get(),
-                ModBlocks.CHISELED_SOULSHALE.get()
+                ModBlocks.CHISELED_SOULSHALE.get(),
+                ModBlocks.CRAFTER.get()
             )
             .addTag(ModBlockTags.SPELEOTHEMS)
             .addTag(ModBlockTags.COPPER_CHESTS)

@@ -1,4 +1,42 @@
 {
+  "block.crafter.craft": {
+    "sounds": [
+      {
+        "attenuation_distance": 5,
+        "name": "block/crafter/craft"
+      },
+      {
+        "attenuation_distance": 5,
+        "name": "block/crafter/craft",
+        "pitch": 0.96
+      },
+      {
+        "attenuation_distance": 5,
+        "name": "block/crafter/craft",
+        "pitch": 1.04
+      }
+    ],
+    "subtitle": "subtitles.block.crafter.craft"
+  },
+  "block.crafter.fail": {
+    "sounds": [
+      {
+        "attenuation_distance": 3,
+        "name": "block/crafter/fail"
+      },
+      {
+        "attenuation_distance": 3,
+        "name": "block/crafter/fail",
+        "pitch": 0.96
+      },
+      {
+        "attenuation_distance": 3,
+        "name": "block/crafter/fail",
+        "pitch": 1.04
+      }
+    ],
+    "subtitle": "subtitles.block.crafter.fail"
+  },
   "music_disc.flurry": {
     "sounds": [
       {
@@ -3275,6 +3313,79 @@
     "subtitle": "subtitles.block.generic.place"
   },
   "block.sulfur.step": {
+    "sounds": [
+      "block/sulfur/step1",
+      "block/sulfur/step2",
+      "block/sulfur/step3",
+      "block/sulfur/step4",
+      "block/sulfur/step5",
+      "block/sulfur/step6",
+      "block/sulfur/step7"
+    ],
+    "subtitle": "subtitles.block.generic.footsteps"
+  },
+  "block.sulfur_spike.break": {
+    "sounds": [
+      "block/sulfur/break1",
+      "block/sulfur/break2",
+      "block/sulfur/break3",
+      "block/sulfur/break4",
+      "block/sulfur/break5",
+      "block/sulfur/break6",
+      "block/sulfur/break7"
+    ],
+    "subtitle": "subtitles.block.generic.break"
+  },
+  "block.sulfur_spike.fall": {
+    "sounds": [
+      "block/sulfur/hit1",
+      "block/sulfur/hit2",
+      "block/sulfur/hit3",
+      "block/sulfur/hit4",
+      "block/sulfur/hit5",
+      "block/sulfur/hit6",
+      "block/sulfur/hit7"
+    ],
+    "subtitle": "subtitles.block.generic.fall"
+  },
+  "block.sulfur_spike.hit": {
+    "sounds": [
+      "block/sulfur/hit1",
+      "block/sulfur/hit2",
+      "block/sulfur/hit3",
+      "block/sulfur/hit4",
+      "block/sulfur/hit5",
+      "block/sulfur/hit6",
+      "block/sulfur/hit7"
+    ],
+    "subtitle": "subtitles.block.generic.hit"
+  },
+  "block.sulfur_spike.land": {
+    "sounds": [
+      "block/sulfur_spike/land1",
+      "block/sulfur_spike/land2",
+      "block/sulfur_spike/land3",
+      "block/sulfur_spike/land4",
+      "block/sulfur_spike/land5",
+      "block/sulfur_spike/land6",
+      "block/sulfur_spike/land7"
+    ],
+    "subtitle": "subtitles.block.sulfur_spike.land"
+  },
+  "block.sulfur_spike.place": {
+    "sounds": [
+      "block/sulfur/place1",
+      "block/sulfur/place2",
+      "block/sulfur/place3",
+      "block/sulfur/place4",
+      "block/sulfur/place5",
+      "block/sulfur/place6",
+      "block/sulfur/place7",
+      "block/sulfur/place8"
+    ],
+    "subtitle": "subtitles.block.generic.place"
+  },
+  "block.sulfur_spike.step": {
     "sounds": [
       "block/sulfur/step1",
       "block/sulfur/step2",

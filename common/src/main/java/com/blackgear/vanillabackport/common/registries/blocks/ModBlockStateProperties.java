@@ -9,6 +9,7 @@ import net.minecraft.world.level.block.state.properties.EnumProperty;
 import net.minecraft.world.level.block.state.properties.IntegerProperty;
 
 public class ModBlockStateProperties {
+    public static final BooleanProperty CRAFTING = BooleanProperty.create("crafting");
     public static final BooleanProperty TIP = BooleanProperty.create("tip");
     public static final BooleanProperty NATURAL = BooleanProperty.create("natural");
     public static final EnumProperty<CreakingHeartState> CREAKING_HEART_STATE = EnumProperty.create("creaking_heart_state", CreakingHeartState.class);

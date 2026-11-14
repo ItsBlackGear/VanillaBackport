@@ -24,11 +24,14 @@ import com.blackgear.vanillabackport.client.integrations.rendering.ColorRenderin
 import com.blackgear.vanillabackport.client.integrations.rendering.EntityRendering;
 import com.blackgear.vanillabackport.client.integrations.rendering.ItemLikeRendering;
 import com.blackgear.vanillabackport.client.integrations.rendering.ParticleRendering;
+import com.blackgear.vanillabackport.client.level.gui.inventory.CrafterScreen;
 import com.blackgear.vanillabackport.client.level.layer.GhastEquipmentManager;
 import com.blackgear.vanillabackport.client.registries.ModShaders;
+import com.blackgear.vanillabackport.common.registries.ModMenuTypes;
 import com.blackgear.vanillabackport.common.registries.blocks.ModWoodTypes;
 import com.blackgear.vanillabackport.core.VanillaBackport;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.resources.ResourceLocation;
 
 public class ClientSetup {
@@ -61,6 +64,8 @@ public class ClientSetup {
 
     public static void asyncSetup(ParallelDispatch dispatch) {
         dispatch.enqueueWork(() -> {
+            MenuScreens.register(ModMenuTypes.CRAFTER_3x3.get(), CrafterScreen::new);
+            
             BundledTabSelector.bootstrap();
             ItemPropertyIntegrations.bootstrap();
             LocalPlayerEvents.ON_LOGIN.register(player -> ClientWaypointManager.bootstrap());

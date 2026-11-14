@@ -1,5 +1,10 @@
 accessWidener   v2  named
 
+accessible class net/minecraft/world/inventory/MenuType$MenuSupplier
+accessible method net/minecraft/world/inventory/MenuType <init> (Lnet/minecraft/world/inventory/MenuType$MenuSupplier;Lnet/minecraft/world/flag/FeatureFlagSet;)V
+
+extendable method net/minecraft/client/gui/screens/inventory/AbstractContainerScreen renderSlot (Lnet/minecraft/client/gui/GuiGraphics;Lnet/minecraft/world/inventory/Slot;)V
+
 accessible method net/minecraft/core/HolderSet$Direct <init> (Ljava/util/List;)V
 
 accessible field net/minecraft/client/model/WolfModel head Lnet/minecraft/client/model/geom/ModelPart;

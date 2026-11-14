@@ -25,6 +25,7 @@ public class ModelGenerator extends VanillaModelGenerator {
             .forEach(family -> gen.familyBuilder(family.getBaseBlock()).generateFor(family));
 
         // Miscellaneous
+        gen.createCrafterBlock();
         gen.createCopperBulb(ModBlocks.COPPER_BULB.get());
         gen.createCopperBulb(ModBlocks.EXPOSED_COPPER_BULB.get());
         gen.createCopperBulb(ModBlocks.WEATHERED_COPPER_BULB.get());

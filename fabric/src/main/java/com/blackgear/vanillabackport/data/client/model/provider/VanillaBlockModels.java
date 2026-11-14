@@ -1,11 +1,6 @@
 package com.blackgear.vanillabackport.data.client.model.provider;
 
-import com.blackgear.vanillabackport.common.level.blocks.CreakingHeartBlock;
-import com.blackgear.vanillabackport.common.level.blocks.DriedGhastBlock;
-import com.blackgear.vanillabackport.common.level.blocks.HangingMossBlock;
-import com.blackgear.vanillabackport.common.level.blocks.MossyCarpetBlock;
-import com.blackgear.vanillabackport.common.level.blocks.CreakingHeartState;
-import com.blackgear.vanillabackport.common.level.blocks.SideChainPart;
+import com.blackgear.vanillabackport.common.level.blocks.*;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlockStateProperties;
 import com.blackgear.vanillabackport.common.registries.blocks.ModBlocks;
 import com.blackgear.vanillabackport.data.client.model.ModModelTemplates;
@@ -514,6 +509,25 @@ public class VanillaBlockModels extends BlockModelGenerators {
                     .with(
                         Condition.condition().term(BlockStateProperties.WEST, true),
                         Variant.variant().with(VariantProperties.MODEL, sideAlt).with(VariantProperties.Y_ROT, VariantProperties.Rotation.R90)
+                    )
+            );
+    }
+    
+    public void createCrafterBlock() {
+        ResourceLocation resourceLocation = ModelLocationUtils.getModelLocation(ModBlocks.CRAFTER.get());
+        ResourceLocation resourceLocation2 = ModelLocationUtils.getModelLocation(ModBlocks.CRAFTER.get(), "_triggered");
+        ResourceLocation resourceLocation3 = ModelLocationUtils.getModelLocation(ModBlocks.CRAFTER.get(), "_crafting");
+        ResourceLocation resourceLocation4 = ModelLocationUtils.getModelLocation(ModBlocks.CRAFTER.get(), "_crafting_triggered");
+        this.blockStateOutput
+            .accept(
+                MultiVariantGenerator.multiVariant(ModBlocks.CRAFTER.get())
+                    .with(PropertyDispatch.property(BlockStateProperties.ORIENTATION).generate(frontAndTop -> this.applyRotation(frontAndTop, Variant.variant())))
+                    .with(
+                        PropertyDispatch.properties(BlockStateProperties.TRIGGERED, CrafterBlock.CRAFTING)
+                            .select(false, false, Variant.variant().with(VariantProperties.MODEL, resourceLocation))
+                            .select(true, true, Variant.variant().with(VariantProperties.MODEL, resourceLocation4))
+                            .select(true, false, Variant.variant().with(VariantProperties.MODEL, resourceLocation2))
+                            .select(false, true, Variant.variant().with(VariantProperties.MODEL, resourceLocation3))
                     )
             );
     }

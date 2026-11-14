@@ -48,6 +48,7 @@ public class LangGenerator extends FabricLanguageProvider {
         
         // Tricky Trials
         
+        builder.add(ModBlocks.CRAFTER.get(), "Crafter");
         builder.add(ModBlocks.COPPER_BULB.get(), "Copper Bulb");
         builder.add(ModBlocks.EXPOSED_COPPER_BULB.get(), "Exposed Copper Bulb");
         builder.add(ModBlocks.WEATHERED_COPPER_BULB.get(), "Weathered Copper Bulb");
@@ -112,6 +113,12 @@ public class LangGenerator extends FabricLanguageProvider {
         
         builder.add(ModEntityTypes.WIND_CHARGE.get(), "Wind Charge");
         
+        builder.add("container.crafter", "Crafter");
+        builder.add("gui.togglable_slot", "Click to disable slot");
+        
+        builder.add("subtitles.block.crafter.craft", "Crafter crafts");
+        builder.add("subtitles.block.crafter.fail", "Crafter fails crafting");
+        
         builder.add("subtitles.block.copper_bulb.turn_off", "Copper Bulb turns off");
         builder.add("subtitles.block.copper_bulb.turn_on", "Copper Bulb turns on");
         builder.add("subtitles.block.copper_trapdoor.close", "Trapdoor closes");
@@ -139,6 +146,9 @@ public class LangGenerator extends FabricLanguageProvider {
         builder.add("enchantment.minecraft.density", "Density");
         builder.add("enchantment.minecraft.breach", "Breach");
         builder.add("enchantment.minecraft.wind_burst", "Wind Burst");
+        
+        builder.add("advancements.adventure.crafters_crafting_crafters.title", "Crafters Crafting Crafters");
+        builder.add("advancements.adventure.crafters_crafting_crafters.description", "Be near a Crafter when it crafts a Crafter");
         
         // THE GARDEN AWAKENS
 

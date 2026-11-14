@@ -17,5 +17,6 @@ public class NetworkHandler {
         DEFAULT_CHANNEL.registerPacket(NetworkDirection.SERVERBOUND, ServerboundSelectBundleItemPacket.ID, ServerboundSelectBundleItemPacket.HANDLER, ServerboundSelectBundleItemPacket.class);
         DEFAULT_CHANNEL.registerPacket(NetworkDirection.SERVERBOUND, ServerboundClientTickEndPacket.ID, ServerboundClientTickEndPacket.HANDLER, ServerboundClientTickEndPacket.class);
         DEFAULT_CHANNEL.registerPacket(NetworkDirection.SERVERBOUND, ServerboundUpdateSpearSwingPacket.ID, ServerboundUpdateSpearSwingPacket.HANDLER, ServerboundUpdateSpearSwingPacket.class);
+        DEFAULT_CHANNEL.registerPacket(NetworkDirection.SERVERBOUND, ServerboundContainerSlotStateChangedPacket.ID, ServerboundContainerSlotStateChangedPacket.HANDLER, ServerboundContainerSlotStateChangedPacket.class);
     }
 }

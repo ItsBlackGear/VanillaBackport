@@ -36,6 +36,7 @@ public class BlockLootGenerator extends FabricBlockLootTableProvider {
     @Override
     public void generate() {
         // Miscellaneous
+        this.dropSelf(ModBlocks.CRAFTER.get());
         this.dropSelf(ModBlocks.COPPER_BULB.get());
         this.dropSelf(ModBlocks.EXPOSED_COPPER_BULB.get());
         this.dropSelf(ModBlocks.WEATHERED_COPPER_BULB.get());

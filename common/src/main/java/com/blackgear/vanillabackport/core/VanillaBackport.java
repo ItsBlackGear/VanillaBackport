@@ -102,6 +102,7 @@ public final class VanillaBackport {
         ModFoliagePlacers.REGISTRIES.register();
         ModRuleTestTypes.REGISTRY.register();
         
+        ModMenuTypes.REGISTRIES.register();
         ModBoatTypes.bootstrap();
         
         ModEntityDataSerializers.SERIALIZERS.register();

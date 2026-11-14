@@ -50,6 +50,18 @@ public class RecipeGenerator extends VanillaRecipeProvider {
             .filter(family -> family.shouldGenerateRecipe(FeatureFlagSet.of(FeatureFlags.VANILLA)))
             .forEach(family -> generateRecipes(output, family));
 
+        // Tricky Trials
+        ShapedRecipeBuilder.shaped(RecipeCategory.REDSTONE, ModBlocks.CRAFTER.get())
+            .define('#', Items.IRON_INGOT)
+            .define('C', Items.CRAFTING_TABLE)
+            .define('R', Items.REDSTONE)
+            .define('D', Items.DROPPER)
+            .pattern("###")
+            .pattern("#C#")
+            .pattern("RDR")
+            .unlockedBy("has_dropper", has(Items.DROPPER))
+            .save(output);
+        
         // The Garden Awakens
         
         planksFromLog(output, ModBlocks.PALE_OAK_PLANKS.get(), ModItemTags.PALE_OAK_LOGS, 4);

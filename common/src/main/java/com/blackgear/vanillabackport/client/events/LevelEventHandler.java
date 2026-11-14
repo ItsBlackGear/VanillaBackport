@@ -7,7 +7,9 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
 import net.minecraft.core.particles.BlockParticleOption;
+import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.RandomSource;
@@ -24,8 +26,11 @@ public class LevelEventHandler {
             RandomSource random = level.getRandom();
             
             switch (event) {
+                case CRAFTER_CRAFT -> level.playLocalSound(pos, ModSoundEvents.CRAFTER_CRAFT.get(), SoundSource.BLOCKS, 1.0F, 1.0F, false);
+                case CRAFTER_FAIL -> level.playLocalSound(pos, ModSoundEvents.CRAFTER_FAIL.get(), SoundSource.BLOCKS, 1.0F, 1.0F, false);
+                case PARTICLES_SHOOT_WHITE_SMOKE -> this.shootParticles(level, data, pos, random, ModParticles.WHITE_SMOKE.get());
                 case MACE_SMASH -> this.spawnSmashAttackParticles(level, pos, data);
-                case SOUND_SULFUR_SPIKE_LAND -> level.playLocalSound(pos, SoundEvents.POINTED_DRIPSTONE_LAND, SoundSource.BLOCKS, 2.0F, random.nextFloat() * 0.1F + 0.9F, false);
+                case SOUND_SULFUR_SPIKE_LAND -> level.playLocalSound(pos, ModSoundEvents.SULFUR_SPIKE_LAND.get(), SoundSource.BLOCKS, 2.0F, random.nextFloat() * 0.1F + 0.9F, false);
                 case SOUND_ICICLE_LAND -> level.playLocalSound(pos, ModSoundEvents.ICICLE_LAND.get(), SoundSource.BLOCKS, 2.0F, random.nextFloat() * 0.1F + 0.9F, false);
                 case CONVERT_ZOMBIE_TO_FROSTBITE -> level.playLocalSound(pos, ModSoundEvents.ZOMBIE_CONVERTED_TO_FROSTBITE.get(), SoundSource.HOSTILE, 2.0F, random.nextFloat() * 0.1F + 0.9F, false);
                 case CONVERT_FROSTBITE_TO_ZOMBIE -> level.playLocalSound(pos, ModSoundEvents.FROSTBITE_CONVERTED_TO_ZOMBIE.get(), SoundSource.HOSTILE, 2.0F, random.nextFloat() * 0.1F + 0.9F, false);
@@ -57,6 +62,27 @@ public class LevelEventHandler {
             double yd = level.getRandom().nextGaussian() * 0.05F;
             double zd = level.getRandom().nextGaussian() * 0.05F;
             level.addParticle(particle, x, y, z, xd, yd, zd);
+        }
+    }
+    
+    private void shootParticles(Level level, int direction, BlockPos pos, RandomSource random, SimpleParticleType particleType) {
+        Direction directionx = Direction.from3DDataValue(direction);
+        int i = directionx.getStepX();
+        int j = directionx.getStepY();
+        int k = directionx.getStepZ();
+        double d0 = pos.getX() + i * 0.6 + 0.5;
+        double d1 = pos.getY() + j * 0.6 + 0.5;
+        double d2 = pos.getZ() + k * 0.6 + 0.5;
+        
+        for (int l = 0; l < 10; l++) {
+            double d3 = random.nextDouble() * 0.2 + 0.01;
+            double d4 = d0 + i * 0.01 + (random.nextDouble() - 0.5) * k * 0.5;
+            double d5 = d1 + j * 0.01 + (random.nextDouble() - 0.5) * j * 0.5;
+            double d6 = d2 + k * 0.01 + (random.nextDouble() - 0.5) * i * 0.5;
+            double d7 = i * d3 + random.nextGaussian() * 0.01;
+            double d8 = j * d3 + random.nextGaussian() * 0.01;
+            double d9 = k * d3 + random.nextGaussian() * 0.01;
+            level.addParticle(particleType, d4, d5, d6, d7, d8, d9);
         }
     }
 }

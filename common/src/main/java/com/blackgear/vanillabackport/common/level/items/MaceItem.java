@@ -135,7 +135,7 @@ public class MaceItem extends Item {
     }
     
     private static void knockback(Level level, Entity attacker, Entity entity) {
-        LevelEvents.MACE_SMASH.trigger(level, null, entity.getOnPos(), 750);
+        LevelEvents.MACE_SMASH.trigger(level, entity.getOnPos(), 750);
         
         level.getEntitiesOfClass(LivingEntity.class, entity.getBoundingBox().inflate(3.5), knockbackPredicate(attacker, entity)).forEach(nearby -> {
             Vec3 direction = nearby.position().subtract(entity.position());

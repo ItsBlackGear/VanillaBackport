@@ -1,6 +1,5 @@
 package com.blackgear.vanillabackport.core.mixin.common.controllable_mounts;
 
-import com.blackgear.vanillabackport.common.api.extensions.access.entity.MobBehaviorAccess;
 import com.blackgear.vanillabackport.common.level.entities.mob.animal.nautilus.ZombieNautilus;
 import com.blackgear.vanillabackport.common.registries.entities.ModEntityTypes;
 import com.blackgear.vanillabackport.core.VanillaBackport;
@@ -16,14 +15,18 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Drowned.class)
-public class DrownedMixin extends Zombie implements MobBehaviorAccess {
+public class DrownedMixin extends Zombie {
     public DrownedMixin(EntityType<? extends Zombie> entityType, Level level) {
         super(entityType, level);
     }
     
-    public SpawnGroupData vb$finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, SpawnGroupData spawnData, CompoundTag dataTag) {
+    @Inject(method = "finalizeSpawn", at = @At("RETURN"))
+    public void vb$finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficulty, MobSpawnType reason, SpawnGroupData spawnData, CompoundTag dataTag, CallbackInfoReturnable<SpawnGroupData> cir) {
         if (VanillaBackport.COMMON_CONFIG.hasNautilus.get() && level.getRandom().nextFloat() < VanillaBackport.COMMON_CONFIG.zombieNautilusSpawnChance.get()) {
             if ((reason == MobSpawnType.NATURAL || reason == MobSpawnType.STRUCTURE)
                 && this.getMainHandItem().is(Items.TRIDENT)
@@ -40,7 +43,5 @@ public class DrownedMixin extends Zombie implements MobBehaviorAccess {
                 }
             }
         }
-        
-        return spawnData;
     }
 }

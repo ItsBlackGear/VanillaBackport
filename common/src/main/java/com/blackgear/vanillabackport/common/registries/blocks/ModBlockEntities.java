@@ -11,6 +11,13 @@ import java.util.function.Supplier;
 public class ModBlockEntities {
     public static final BlockEntityRegistry REGISTRIES = BlockEntityRegistry.create(VanillaBackport.NAMESPACE);
 
+    // Tricky Trials
+    
+    public static final Supplier<BlockEntityType<CrafterBlockEntity>> CRAFTER = REGISTRIES.register("crafter",
+        BlockEntityTypeBuilder.create(
+            CrafterBlockEntity::new,
+            ModBlocks.CRAFTER));
+    
     // The Garden Awakens
     
     public static final Supplier<BlockEntityType<CreakingHeartBlockEntity>> CREAKING_HEART = REGISTRIES.register("creaking_heart",

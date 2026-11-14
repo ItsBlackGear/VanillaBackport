@@ -69,26 +69,27 @@ public class ItemLikeRendering {
     }
 
     public static void blockRendering(BlockRendererEvent event) {
-        Set<Block> redstoneTorchBlocks = Set.of(Blocks.REDSTONE_TORCH, Blocks.REDSTONE_WALL_TORCH, Blocks.REPEATER, Blocks.COMPARATOR);
-        event.registerRenderer(
-            new BackportedBlockRenderer(VanillaBackport.CLIENT_CONFIG.hasModernRedstoneTorchModels, redstoneTorchBlocks),
-            redstoneTorchBlocks
-        );
-        DynamicBlockRenderingHandler.register(VanillaBackport.CLIENT_CONFIG.hasModernRedstoneTorchModels);
-
-        Set<Block> hayBlocks = Set.of(Blocks.HAY_BLOCK);
-        event.registerRenderer(
-            new BackportedBlockRenderer(VanillaBackport.CLIENT_CONFIG.hasModernHayBaleTexture, hayBlocks),
-            hayBlocks
-        );
-        DynamicBlockRenderingHandler.register(VanillaBackport.CLIENT_CONFIG.hasModernHayBaleTexture);
-        
-        Set<Block> jukeboxBlocks = Set.of(Blocks.JUKEBOX);
-        event.registerRenderer(
-            new BackportedBlockRenderer(VanillaBackport.CLIENT_CONFIG.hasModernJukeboxTexture, jukeboxBlocks),
-            jukeboxBlocks
-        );
-        DynamicBlockRenderingHandler.register(VanillaBackport.CLIENT_CONFIG.hasModernJukeboxTexture);
+        //TODO: rework
+//        Set<Block> redstoneTorchBlocks = Set.of(Blocks.REDSTONE_TORCH, Blocks.REDSTONE_WALL_TORCH, Blocks.REPEATER, Blocks.COMPARATOR);
+//        event.registerRenderer(
+//            new BackportedBlockRenderer(VanillaBackport.CLIENT_CONFIG.hasModernRedstoneTorchModels, redstoneTorchBlocks),
+//            redstoneTorchBlocks
+//        );
+//        DynamicBlockRenderingHandler.register(VanillaBackport.CLIENT_CONFIG.hasModernRedstoneTorchModels);
+//
+//        Set<Block> hayBlocks = Set.of(Blocks.HAY_BLOCK);
+//        event.registerRenderer(
+//            new BackportedBlockRenderer(VanillaBackport.CLIENT_CONFIG.hasModernHayBaleTexture, hayBlocks),
+//            hayBlocks
+//        );
+//        DynamicBlockRenderingHandler.register(VanillaBackport.CLIENT_CONFIG.hasModernHayBaleTexture);
+//
+//        Set<Block> jukeboxBlocks = Set.of(Blocks.JUKEBOX);
+//        event.registerRenderer(
+//            new BackportedBlockRenderer(VanillaBackport.CLIENT_CONFIG.hasModernJukeboxTexture, jukeboxBlocks),
+//            jukeboxBlocks
+//        );
+//        DynamicBlockRenderingHandler.register(VanillaBackport.CLIENT_CONFIG.hasModernJukeboxTexture);
     }
 
     public static void renderTypes(BlockRendererEvent event) {

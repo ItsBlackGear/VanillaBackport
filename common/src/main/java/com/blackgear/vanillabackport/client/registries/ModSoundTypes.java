@@ -92,6 +92,13 @@ public class ModSoundTypes {
         ModSoundEvents.SULFUR_HIT,
         ModSoundEvents.SULFUR_FALL
     );
+    public static final SoundType SULFUR_SPIKE = REGISTRIES.soundType(
+        ModSoundEvents.SULFUR_SPIKE_BREAK,
+        ModSoundEvents.SULFUR_SPIKE_STEP,
+        ModSoundEvents.SULFUR_SPIKE_PLACE,
+        ModSoundEvents.SULFUR_SPIKE_HIT,
+        ModSoundEvents.SULFUR_SPIKE_FALL
+    );
     public static final SoundType POTENT_SULFUR = REGISTRIES.soundType(
         ModSoundEvents.POTENT_SULFUR_BREAK,
         ModSoundEvents.POTENT_SULFUR_STEP,

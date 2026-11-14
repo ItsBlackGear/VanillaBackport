@@ -41,6 +41,8 @@ public class ModBundledTabs {
             .title(Component.translatable("bundled_tab.tricky_trials.title"))
             .icon(new ItemStack(ModItems.MACE.get()))
             .displayItems((provider, output) -> {
+                output.accept(ModBlocks.CRAFTER.get());
+                
                 if (VanillaBackport.COMMON_CONFIG.hasCopperBlockSet.get()) {
                     output.accept(ModBlocks.COPPER_BULB.get());
                     output.accept(ModBlocks.EXPOSED_COPPER_BULB.get());

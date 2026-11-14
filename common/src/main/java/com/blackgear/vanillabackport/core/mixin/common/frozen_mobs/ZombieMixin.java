@@ -57,12 +57,12 @@ public abstract class ZombieMixin extends Monster implements FrostbiteConversion
         if (this.getType() == EntityType.ZOMBIE) {
             this.convertToZombieType(ModEntityTypes.FROSTBITE.get());
             if (!this.isSilent()) {
-                LevelEvents.CONVERT_ZOMBIE_TO_FROSTBITE.trigger(this.level(), null, this.blockPosition(), 0);
+                LevelEvents.CONVERT_ZOMBIE_TO_FROSTBITE.trigger(this.level(), this.blockPosition(), 0);
             }
         } else if (this.getType() == EntityType.DROWNED) {
             this.convertToZombieType(EntityType.ZOMBIE);
             if (!this.isSilent()) {
-                LevelEvents.CONVERT_DROWNED_TO_ZOMBIE.trigger(this.level(), null, this.blockPosition(), 0);
+                LevelEvents.CONVERT_DROWNED_TO_ZOMBIE.trigger(this.level(), this.blockPosition(), 0);
             }
         } else {
             this.doUnderWaterConversion();
