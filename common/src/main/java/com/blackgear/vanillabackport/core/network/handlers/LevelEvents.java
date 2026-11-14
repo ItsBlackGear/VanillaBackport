@@ -17,6 +17,10 @@ public enum LevelEvents {
     CONVERT_FROSTBITE_TO_ZOMBIE,
     CONVERT_DROWNED_TO_ZOMBIE;
     
+    public void trigger(Level level, BlockPos pos, int data) {
+        this.trigger(level, null, pos, data);
+    }
+    
     public void trigger(Level level, @Nullable Player exclude, BlockPos pos, int data) {
         if (level instanceof ServerLevel server) {
             PlayerList list = server.getServer().getPlayerList();

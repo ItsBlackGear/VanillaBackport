@@ -226,7 +226,7 @@ public abstract class SpeleothemBlock extends Block implements Fallable, SimpleW
     @Override
     public void onBrokenAfterFall(Level level, BlockPos pos, FallingBlockEntity fallingBlock) {
         if (!fallingBlock.isSilent()) {
-            this.getStalactiteLandingSound().trigger(level, null, pos, 0);
+            this.getStalactiteLandingSound().trigger(level, pos, 0);
         }
     }
     

@@ -143,7 +143,7 @@ public class Frostbite extends RangedZombie {
     protected void doUnderWaterConversion() {
         this.convertToZombieType(EntityType.ZOMBIE);
         if (!this.isSilent()) {
-            LevelEvents.CONVERT_FROSTBITE_TO_ZOMBIE.trigger(this.level(), null, this.blockPosition(), 0);
+            LevelEvents.CONVERT_FROSTBITE_TO_ZOMBIE.trigger(this.level(), this.blockPosition(), 0);
         }
     }
 }

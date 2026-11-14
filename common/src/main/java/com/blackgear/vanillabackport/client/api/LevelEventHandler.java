@@ -21,7 +21,7 @@ public class LevelEventHandler {
             RandomSource random = level.getRandom();
     
             switch (event) {
-                case SOUND_SULFUR_SPIKE_LAND -> level.playLocalSound(pos, SoundEvents.POINTED_DRIPSTONE_LAND, SoundSource.BLOCKS, 2.0F, random.nextFloat() * 0.1F + 0.9F, false);
+                case SOUND_SULFUR_SPIKE_LAND -> level.playLocalSound(pos, ModSoundEvents.SULFUR_SPIKE_LAND.get(), SoundSource.BLOCKS, 2.0F, random.nextFloat() * 0.1F + 0.9F, false);
                 case SOUND_ICICLE_LAND -> level.playLocalSound(pos, ModSoundEvents.ICICLE_LAND.get(), SoundSource.BLOCKS, 2.0F, random.nextFloat() * 0.1F + 0.9F, false);
                 case CONVERT_ZOMBIE_TO_FROSTBITE -> level.playLocalSound(pos, ModSoundEvents.ZOMBIE_CONVERTED_TO_FROSTBITE.get(), SoundSource.HOSTILE, 2.0F, random.nextFloat() * 0.1F + 0.9F, false);
                 case CONVERT_FROSTBITE_TO_ZOMBIE -> level.playLocalSound(pos, ModSoundEvents.FROSTBITE_CONVERTED_TO_ZOMBIE.get(), SoundSource.HOSTILE, 2.0F, random.nextFloat() * 0.1F + 0.9F, false);

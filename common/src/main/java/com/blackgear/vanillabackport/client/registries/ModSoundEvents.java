@@ -67,6 +67,13 @@ public class ModSoundEvents {
     public static final Supplier<SoundEvent> SULFUR_PLACE = REGISTRIES.soundEvent("block.sulfur.place");
     public static final Supplier<SoundEvent> SULFUR_HIT = REGISTRIES.soundEvent("block.sulfur.hit");
     public static final Supplier<SoundEvent> SULFUR_FALL = REGISTRIES.soundEvent("block.sulfur.fall");
+    
+    public static final Supplier<SoundEvent> SULFUR_SPIKE_BREAK = REGISTRIES.soundEvent("block.sulfur_spike.break");
+    public static final Supplier<SoundEvent> SULFUR_SPIKE_STEP = REGISTRIES.soundEvent("block.sulfur_spike.step");
+    public static final Supplier<SoundEvent> SULFUR_SPIKE_PLACE = REGISTRIES.soundEvent("block.sulfur_spike.place");
+    public static final Supplier<SoundEvent> SULFUR_SPIKE_HIT = REGISTRIES.soundEvent("block.sulfur_spike.hit");
+    public static final Supplier<SoundEvent> SULFUR_SPIKE_FALL = REGISTRIES.soundEvent("block.sulfur_spike.fall");
+    public static final Supplier<SoundEvent> SULFUR_SPIKE_LAND = REGISTRIES.register("block.sulfur_spike.land");
 
     public static final Supplier<SoundEvent> POTENT_SULFUR_BREAK = REGISTRIES.soundEvent("block.potent_sulfur.break");
     public static final Supplier<SoundEvent> POTENT_SULFUR_STEP = REGISTRIES.soundEvent("block.potent_sulfur.step");
@@ -348,6 +355,7 @@ public class ModSoundEvents {
     public static final Holder<SoundEvent> MUSIC_DISC_TEARS = REGISTRIES.holder("music_disc.tears");
     public static final Holder<SoundEvent> MUSIC_DISC_LAVA_CHICKEN = REGISTRIES.holder("music_disc.lava_chicken");
     public static final Holder<SoundEvent> MUSIC_DISC_BOUNCE = REGISTRIES.holder("music_disc.bounce");
+    public static final Holder<SoundEvent> MUSIC_DISC_FLURRY = REGISTRIES.holder("music_disc.flurry");
     
     // Wilderness Bound
     
@@ -434,5 +442,4 @@ public class ModSoundEvents {
     public static final Supplier<SoundEvent> ZOMBIE_CONVERTED_TO_FROSTBITE = REGISTRIES.register("entity.zombie.converted_to_frostbite");
     
     public static final Supplier<SoundEvent> APPLY_EFFECT_FREEZING = REGISTRIES.register("event.mob_effect.freezing");
-    public static final Holder<SoundEvent> MUSIC_DISC_FLURRY = REGISTRIES.holder("music_disc.flurry");
 }
